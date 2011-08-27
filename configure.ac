@@ -450,8 +450,6 @@ AC_CONFIG_FILES([rivendell.spec \
     docs/Makefile \
     docs/tables/Makefile \
     docs/examples/Makefile \
-    debian/Makefile \
-    debian/patches/Makefile \
     xdg/Makefile \
     rdadmin/Makefile \
     scripts/Makefile \
