@@ -54,7 +54,7 @@ install:	all
 	cp *.c $(DESTDIR)$(prefix)/src/rlm/
 	cp Makefile-example $(DESTDIR)$(prefix)/src/rlm/Makefile
 
-headerdir = $(includedir)/rlm
+headerdir = $(DESTDIR)$(includedir)/rlm
 header_HEADERS = rlm.h
 
 EXTRA_DIST = Makefile-example\
