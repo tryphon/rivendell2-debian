@@ -1,0 +1,5 @@
+# Run mode
+# init.d : enable init.d script 
+# none (default) or pam_rd : disable init.d script 
+#
+#RUN_MODE=init.d

@@ -1,0 +1,24 @@
+From: Alban Peignier <alban@tryphon.eu>
+Date: Sun, 28 Aug 2011 11:08:56 +0200
+Subject: Fix install-exec-hook paths in rdxport makefile
+
+---
+ web/rdxport/Makefile.am |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/web/rdxport/Makefile.am b/web/rdxport/Makefile.am
+index ad85f47..c392dec 100644
+--- a/web/rdxport/Makefile.am
++++ b/web/rdxport/Makefile.am
+@@ -29,8 +29,8 @@ MOC = @QT_MOC@
+ libexec_PROGRAMS = rdxport.cgi
+ 
+ install-exec-hook:	
+-	chown root $(libexecdir)/rdxport.cgi
+-	chmod 4755 $(libexecdir)/rdxport.cgi
++	chown root $(DESTDIR)$(libexecdir)/rdxport.cgi
++	chmod 4755 $(DESTDIR)$(libexecdir)/rdxport.cgi
+ 
+ dist_rdxport_cgi_SOURCES = audioinfo.cpp\
+                            carts.cpp\
+-- 

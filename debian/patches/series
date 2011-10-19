@@ -1,0 +1,6 @@
+0001-Remove-debian-directories-from-Makefile-list.patch
+0003-Remove-debian-directory-from-Makefile.am.patch
+0004-Fix-headerdir-in-rlm-makefile.patch
+0005-Fix-install-exec-hook-paths-in-rdxport-makefile.patch
+0006-No-lib64-for-rd_lib_path.patch
+0008-Replace-cdda2wav-by-icedax.patch

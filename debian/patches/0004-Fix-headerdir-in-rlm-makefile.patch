@@ -1,0 +1,22 @@
+From: Alban Peignier <alban@tryphon.eu>
+Date: Sun, 28 Aug 2011 10:49:48 +0200
+Subject: Fix headerdir in rlm makefile
+
+---
+ rlm/Makefile.am |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/rlm/Makefile.am b/rlm/Makefile.am
+index f6979d3..59acb05 100644
+--- a/rlm/Makefile.am
++++ b/rlm/Makefile.am
+@@ -38,7 +38,7 @@ install:	all
+ 	mkdir -p $(headerdir)
+ 	cp rlm.h $(headerdir)
+ 
+-headerdir = $(includedir)/rlm
++headerdir = $(DESTDIR)$(includedir)/rlm
+ header_HEADERS = rlm.h
+ 
+ EXTRA_DIST = rlm.h rlm_test.c rlm_serial.c rlm_xmpad.c rlm_udp.c\
+-- 

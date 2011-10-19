@@ -1,0 +1,9 @@
+usr/lib/rivendell/*.cgi usr/lib/cgi-bin/rivendell
+usr/lib/rivendell/*.gif usr/lib/cgi-bin/rivendell
+usr/lib/rivendell/*.html usr/lib/cgi-bin/rivendell
+usr/lib/rivendell/*.js usr/lib/cgi-bin/rivendell
+usr/lib/rivendell/*.mp3 usr/lib/cgi-bin/rivendell
+usr/lib/rivendell/*.png usr/lib/cgi-bin/rivendell
+usr/lib/rivendell/*.xml usr/lib/cgi-bin/rivendell
+
+debian/apache.conf etc/rivendell

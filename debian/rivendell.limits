@@ -1,0 +1,3 @@
+@rivendell - rtprio 99
+@rivendell - memlock 250000
+@rivendell - nice -10
