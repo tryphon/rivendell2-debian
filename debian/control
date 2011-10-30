@@ -2,7 +2,7 @@ Source: rivendell
 Section: sound
 Priority: optional
 Maintainer: Alban Peignier <alban@tryphon.eu>
-Build-Depends: debhelper (>= 8.0.0), autotools-dev, autoconf, automake1.9, libtool, libqt3-mt-dev, libsamplerate0-dev, libcdparanoia-dev, libsoundtouch-dev, libflac++-dev, libpam0g-dev, libasound2-dev, libjack-jackd2-dev | libjack-dev, libvorbis-dev, libsndfile1-dev, libid3-dev, libcurl4-openssl-dev, libhpi-dev, libmp3lame-dev, libmad0-dev
+Build-Depends: debhelper (>= 8.0.0), autotools-dev, autoconf, automake1.9, libtool, libqt3-mt-dev, libsamplerate0-dev, libcdparanoia-dev, libsoundtouch-dev, libflac++-dev, libpam0g-dev, libasound2-dev, libjack-jackd2-dev | libjack-dev, libvorbis-dev, libsndfile1-dev, libid3-dev, libcurl4-openssl-dev, libhpi-dev, libmp3lame-dev, libmad0-dev, libtwolame-dev
 Standards-Version: 3.9.2
 Homepage: http://www.rivendellaudio.org
 Vcs-Git: git://projects.tryphon.eu/rivendell2-debian
@@ -11,7 +11,7 @@ Vcs-Browser: http://projects.tryphon.org/rivendell2-debian/browser
 Package: rivendell
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libqt3-mt-mysql
-Recommends: jackd, logrotate
+Recommends: jackd, logrotate, libmp3lame0, libtwolame0, libmad0
 Description: contains a set of functionality needed to operate a radio automation system
  It consisting of the following components:
  .
@@ -35,6 +35,7 @@ Description: contains a set of functionality needed to operate a radio automatio
 Package: rivendell-server
 Architecture: any
 Depends: apache2 | httpd, ${shlibs:Depends}, ${misc:Depends}, libqt3-mt-mysql
+Recommends: logrotate, libmp3lame0, libtwolame0, libmad0
 Suggests: mysql-server
 Description: Rivendell server part
  Contains components needed on Rivendell server : cgi
