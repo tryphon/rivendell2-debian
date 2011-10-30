@@ -20,7 +20,20 @@ set -e
 
 
 case "$1" in
-    purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+    purge)
+        # Remove init.d configuration file
+        rm -f /etc/default/rivendell
+
+        rm -f /etc/rd.conf
+        
+        AUDIOGROUP="rivendell"
+        groupdel $AUDIOGROUP 2> /dev/null || true
+
+        [ -d /var/run/rivendell ] && rm -rf /var/run/rivendell || true
+        [ -d /var/log/rivendell ] && rm -rf /var/log/rivendell || true
+    ;;
+
+    remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
     ;;
 
     *)

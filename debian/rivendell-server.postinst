@@ -23,8 +23,8 @@ case "$1" in
         # TODO Manage other webservers than apache (like roundcube does)
 	      if [ -d /etc/apache2/conf.d ] && [ ! -e /etc/apache2/conf.d/rivendell ]; then
             ln -s /etc/rivendell/apache.conf /etc/apache2/conf.d/rivendell
+            invoke-rc.d apache2 reload 3>/dev/null || true
 	      fi
-        invoke-rc.d apache2 reload 3>/dev/null || true
 
         # FIXME This CGI must be run as root :"(
         chmod 4755 /usr/lib/cgi-bin/rivendell/rdxport.cgi
