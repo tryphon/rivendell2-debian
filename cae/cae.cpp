@@ -2040,7 +2040,7 @@ void QApplication::saveState(QSessionManager &sm) {
 bool MainObject::CheckLame()
 {
 #ifdef HAVE_LAME
-  return dlopen("libmp3lame.so",RTLD_LAZY)!=NULL;
+  return dlopen("libmp3lame.so.0",RTLD_LAZY)!=NULL;
 #else
   return false;
 #endif  // HAVE_LAME
@@ -2050,7 +2050,7 @@ bool MainObject::CheckLame()
 bool MainObject::LoadTwoLame()
 {
 #ifdef HAVE_TWOLAME
-  if((twolame_handle=dlopen("libtwolame.so",RTLD_NOW))==NULL) {
+  if((twolame_handle=dlopen("libtwolame.so.0",RTLD_NOW))==NULL) {
     LogLine(RDConfig::LogInfo,
 	 "TwoLAME encoder library not found, MPEG L2 encoding not supported");
     return false;
@@ -2137,7 +2137,7 @@ void MainObject::FreeTwoLameEncoder(int card,int stream)
 bool MainObject::LoadMad()
 {
 #ifdef HAVE_MAD
-  if((mad_handle=dlopen("libmad.so",RTLD_NOW))==NULL) {
+  if((mad_handle=dlopen("libmad.so.0",RTLD_NOW))==NULL) {
     LogLine(RDConfig::LogInfo,
 	 "MAD decoder library not found, MPEG L2 decoding not supported");
     return false;
