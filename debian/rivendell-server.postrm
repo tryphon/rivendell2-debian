@@ -22,7 +22,7 @@ set -e
 case "$1" in
     purge)
         # Remove default apache configuration
-	      if [ `readlink /etc/apache2/conf.d/rivendell` == "/etc/rivendell/apache.conf" ]; then
+	      if [ `readlink /etc/apache2/conf.d/rivendell` = "/etc/rivendell/apache.conf" ]; then
             unlink /etc/apache2/conf.d/rivendell
             invoke-rc.d apache2 reload 3>/dev/null || true
 	      fi
