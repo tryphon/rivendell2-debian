@@ -4,3 +4,4 @@
 0005-Fix-install-exec-hook-paths-in-rdxport-makefile.patch
 0006-No-lib64-for-rd_lib_path.patch
 0008-Replace-cdda2wav-by-icedax.patch
+0012-Add-version-for-dlopened-libraries.patch

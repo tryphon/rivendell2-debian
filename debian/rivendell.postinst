@@ -36,10 +36,10 @@ case "$1" in
 
         # TODO use debconf to confirm/change user
 
-        if [ -z "$AUDIOUSER" ]; then
+        if [ -n "$AUDIOUSER" ]; then
             if ! getent group "$AUDIOGROUP" | grep -q "$AUDIOUSER"; then
                 # Add the user to the group
-                adduser $AUDIOUSER $AUDIOGROUP
+                adduser $AUDIOUSER $AUDIOGROUP 2> /dev/null || true
             fi
         fi
 

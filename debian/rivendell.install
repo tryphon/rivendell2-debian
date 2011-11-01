@@ -2,3 +2,4 @@ usr/bin
 usr/sbin
 
 debian/rivendell.limits etc/security/limits.d/rivendell
+debian/rivendell-daemons /usr/bin/

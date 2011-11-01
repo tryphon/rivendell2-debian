@@ -36,10 +36,10 @@ case "$1" in
         # create Rivendell user and group
         if ! getent group "$AUDIOGROUP" >/dev/null; then
             # Adding system group
-            addgroup --system "$AUDIOGROUP" 2> /dev/null || true
+            addgroup --system "$AUDIOGROUP" > /dev/null 2>&1 || true
         fi
 
-        if ! getent passwd "$AUDIOUSER" >/dev/null; then
+        if ! getent passwd "$AUDIOUSER" > /dev/null; then
             # Adding system user
             adduser \
               --system \
@@ -47,7 +47,7 @@ case "$1" in
               --home $AUDIOROOT \
               --no-create-home \
               --gecos "Rivendell system account" \
-              $AUDIOUSER  >/dev/null
+              $AUDIOUSER  > /dev/null 2>&1
         fi
 
         # Create audio store directory and set permissions.

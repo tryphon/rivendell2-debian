@@ -1,0 +1,49 @@
+#!/bin/bash
+
+function kill_daemon() {
+    if [ `test_daemon $1` = "running" ]; then
+	      echo -n "Stop Rivendell $1 daemon : "
+
+        pkill -x $1 2> /dev/null && sleep 1
+        if [ `test_daemon $1` = "stopped" ]; then
+            echo "done"
+        else
+            echo "failed"
+        fi
+    else
+	      echo "Rivendell $1 already stopped"
+    fi
+}
+
+function stop() {
+    kill_daemon caed
+    kill_daemon ripcd
+    kill_daemon rdcatchd
+}
+
+function test_daemon() {
+    if pgrep -x $1 > /dev/null; then
+	      echo "running"
+    else
+	      echo "stopped"
+    fi
+}
+
+function usage() {
+    cat <<EOF
+Tool to manage Rivendell caed, ripcd, rdcatchd processes.
+
+Usage: rivendell-daemons <command>
+
+  stop: stop daemons (if the user is authorized)
+EOF
+}
+
+case $1 in
+    stop)
+	      stop
+        ;;
+    *)
+        usage
+        ;;
+esac

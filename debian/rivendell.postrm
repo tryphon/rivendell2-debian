@@ -21,19 +21,34 @@ set -e
 
 case "$1" in
     purge)
+        pkill -x caed || true
+        pkill -x ripcd || true
+        pkill -x rdcatchd || true
+
         # Remove init.d configuration file
         rm -f /etc/default/rivendell
 
         rm -f /etc/rd.conf
+
+        # Remove default asound.conf
+        if [ -f "/etc/asound.conf" ]; then
+            asound_md5sum=`md5sum /etc/asound.conf | cut -f1 -d' '`
+            if [ "$asound_md5sum" = "3cff4df0e438377a63d1caf419b6f347" ]; then
+                rm -f /etc/asound.conf
+            fi
+        fi
         
         AUDIOGROUP="rivendell"
-        groupdel $AUDIOGROUP 2> /dev/null || true
+        groupdel $AUDIOGROUP > /dev/null 2>&1 || true
 
         [ -d /var/run/rivendell ] && rm -rf /var/run/rivendell || true
         [ -d /var/log/rivendell ] && rm -rf /var/log/rivendell || true
     ;;
 
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
+        pkill -x caed || true
+        pkill -x ripcd || true
+        pkill -x rdcatchd || true
     ;;
 
     *)

@@ -22,26 +22,36 @@ set -e
 case "$1" in
     purge)
         # Remove default apache configuration
-	      if [ `readlink /etc/apache2/conf.d/rivendell` = "/etc/rivendell/apache.conf" ]; then
+	      if [ "`readlink /etc/apache2/conf.d/rivendell`" = "/etc/rivendell/apache.conf" ]; then
             unlink /etc/apache2/conf.d/rivendell
             invoke-rc.d apache2 reload 3>/dev/null || true
 	      fi
 
         # Remove default rd.conf
-        conf_md5sum=`md5sum /etc/rd.conf | cut -f1 -d' '`
-        if [ $conf_md5sum = "6851608316784cb6b373633dd061435d" ]; then
-            rm -f /etc/rd.conf
+        if [ -f "/etc/rd.conf" ]; then
+            conf_md5sum=`md5sum /etc/rd.conf | cut -f1 -d' '`
+            if [ "$conf_md5sum" = "6851608316784cb6b373633dd061435d" ]; then
+                rm -f /etc/rd.conf
+            fi
         fi
         
         # Remove user and group
         AUDIOUSER="rduser"
-        AUDIOGROUP="rivendell"
+        deluser $AUDIOUSER $AUDIOGROUP > /dev/null 2>&1 || true
+        deluser $AUDIOUSER > /dev/null 2>&1 || true
 
-        deluser $AUDIOUSER $AUDIOGROUP 2> /dev/null || true
-        deluser $AUDIOUSER 2> /dev/null || true
-        groupdel $AUDIOGROUP 2> /dev/null || true
+        # TODO Use a rivendell-common package to manage shared resources
+        if dpkg -l rivendell | grep -q "^ii"; then
+            /bin/true
+            # rivendell applications are present
+            # we don't delete group and directories
+        else
+            # Remove group and directories if rivendell isn't installed
+            AUDIOGROUP="rivendell"
+            groupdel $AUDIOGROUP > /dev/null 2>&1 || true
 
-        [ -d /var/log/rivendell ] && rm -rf /var/log/rivendell || true
+            [ -d /var/log/rivendell ] && rm -rf /var/log/rivendell || true
+        fi
     ;;
 
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
