@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.cpp,v 1.99 2011/01/04 17:21:12 cvs Exp $
+//      $Id: rdlog_event.cpp,v 1.101 2011/09/02 15:04:48 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -682,10 +682,9 @@ void RDLogEvent::insert(int line,int num_lines,bool preserve_trans)
     }
   }
   if(line<size()) {
-    std::vector<RDLogLine *>::iterator it=log_line.begin()+line;
-    log_line.insert(it,num_lines,new RDLogLine());
-    for(int i=line;i<(line+num_lines);i++) {
-      log_line[i]->setId(++log_max_id);
+    for(int i=0;i<num_lines;i++) {
+      log_line.insert(log_line.begin()+line+i,1,new RDLogLine());
+      log_line[line+i]->setId(++log_max_id);
     }
     return;
   }

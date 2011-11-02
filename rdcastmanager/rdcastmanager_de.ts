@@ -55,7 +55,7 @@
     </message>
     <message>
         <source>Expires At:</source>
-        <translation>Läuft ab am/um:</translation>
+        <translation type="obsolete">Läuft ab am/um:</translation>
     </message>
     <message>
         <source>&amp;Select</source>
@@ -94,6 +94,10 @@
     <message>
         <source>Media Link:</source>
         <translation>Medienlink:</translation>
+    </message>
+    <message>
+        <source>Expires On:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

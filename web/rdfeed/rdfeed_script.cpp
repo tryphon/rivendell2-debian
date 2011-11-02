@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdfeed_script.cpp,v 1.2 2010/07/29 19:32:40 cvs Exp $
+//      $Id: rdfeed_script.cpp,v 1.5 2011/09/09 20:23:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,8 +39,11 @@
 #include <rdfeedlog.h>
 #include <rdformpost.h>
 #include <rdfeed.h>
+#include <dbversion.h>
 
 #include <rdfeed_script.h>
+
+char server_name[PATH_MAX];
 
 MainObject::MainObject(QObject *parent,const char *name)
   :QObject(parent,name)
@@ -70,6 +73,16 @@ MainObject::MainObject(QObject *parent,const char *name)
   }
   keyname[arg]=0;
   RDGetPostInt(getenv("QUERY_STRING")+arg+1,"cast_id",&cast_id);
+
+  //
+  // Get the Server Name
+  //
+  if(getenv("SERVER_NAME")==NULL) {
+    printf("Content-type: text/html\n\n");
+    printf("rdfeed: missing SERVER_NAME\n");
+    exit(0);
+  }
+  strncpy(server_name,getenv("SERVER_NAME"),PATH_MAX);
 
   //
   // Read Configuration
@@ -106,6 +119,23 @@ MainObject::MainObject(QObject *parent,const char *name)
     db->removeDatabase(config->mysqlDbname());
     exit(0);
   }
+  RDSqlQuery *q=new RDSqlQuery("select DB from VERSION");
+  if(!q->first()) {
+    printf("Content-type: text/html\n");
+    printf("Status: 500\n\n");
+    printf("rdfeed: missing/invalid database version!\n");
+    db->removeDatabase(config->mysqlDbname());
+    exit(0);
+  }
+  if(q->value(0).toUInt()!=RD_VERSION_DATABASE) {
+    printf("Content-type: text/html\n");
+    printf("Status: 500\n\n");
+    printf("rdfeed: skewed database version!\n");
+    db->removeDatabase(config->mysqlDbname());
+    exit(0);
+  }
+  delete q;
+
   if(cast_id<0) {
     ServeRss(keyname,count);
   }
@@ -239,11 +269,9 @@ QString MainObject::ResolveChannelWildcards(RDSqlQuery *chan_q)
   ret.replace("%WEBMASTER%",RDEscapeWebString(chan_q->value(5).toString()));
   ret.replace("%LANGUAGE%",RDEscapeWebString(chan_q->value(6).toString()));
   ret.replace("%BUILD_DATE%",chan_q->value(7).toDateTime().
-	      toString("ddd, d MMM yyyy hh:mm:ss ")+
-	      RDTimeZoneName(chan_q->value(7).toDateTime()));
+	      toString("ddd, d MMM yyyy hh:mm:ss ")+"GMT");
   ret.replace("%PUBLISH_DATE%",chan_q->value(8).toDateTime().
-	      toString("ddd, d MMM yyyy hh:mm:ss ")+
-	      RDTimeZoneName(chan_q->value(8).toDateTime()));
+	      toString("ddd, d MMM yyyy hh:mm:ss ")+"GMT");
   ret.replace("%GENERATOR%",QString().sprintf("Rivendell %s",VERSION));
 
   return ret;
@@ -270,13 +298,13 @@ QString MainObject::ResolveItemWildcards(const QString &keyname,
 	      RDEscapeWebString(item_q->value(7).toString()));
   ret.replace("%ITEM_AUDIO_URL%",
 	      (const char *)RDEscapeWebString(feed->
-	       audioUrl(RDFeed::LinkCounted,item_q->value(12).toUInt())));
+	        audioUrl(RDFeed::LinkCounted,server_name,
+			 item_q->value(12).toUInt())));
   ret.replace("%ITEM_AUDIO_LENGTH%",item_q->value(9).toString());
   ret.replace("%ITEM_AUDIO_TIME%",
 	      RDGetTimeLength(item_q->value(10).toInt(),false,false));
   ret.replace("%ITEM_PUBLISH_DATE%",item_q->value(11).toDateTime().
-	      toString("ddd, d MMM yyyy hh:mm:ss ")+
-	      RDTimeZoneName(item_q->value(10).toDateTime()));
+	      toString("ddd, d MMM yyyy hh:mm:ss ")+"GMT");
   ret.replace("%ITEM_GUID%",RDPodcast::guid(chan_q->value(12).toString(),
 					    item_q->value(8).toString(),
 					    chan_q->value(11).toUInt(),

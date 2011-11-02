@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioconvert.cpp,v 1.9 2011/01/10 18:48:20 cvs Exp $
+//      $Id: rdaudioconvert.cpp,v 1.11 2011/08/30 15:45:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <dlfcn.h>
+#include <errno.h>
 
 #include <sndfile.h>
 #include <samplerate.h>
@@ -254,6 +255,10 @@ QString RDAudioConvert::errorText(RDAudioConvert::ErrorCode err)
 
   case RDAudioConvert::ErrorInvalidSpeed:
     ret=tr("Invalid speed ratio");
+    break;
+
+  case RDAudioConvert::ErrorFormatError:
+    ret=tr("Source format error");
     break;
   }
   return ret;
@@ -568,13 +573,16 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage1Mpeg(const QString &dstfile,
   }
   while((n=wave->readWave(buffer+left_over,fsize))>0) {
     if((buffer[left_over]==0xff)&&(buffer[2+left_over]&0x02)!=0) {
-      n+=wave->readWave(buffer+left_over+n,1);  // Padding slot
+       n+=wave->readWave(buffer+left_over+n,1);  // Padding slot
     }
     mad_stream_buffer(&mad_stream,buffer,n+left_over);
-    if(mad_stream.error==MAD_ERROR_LOSTSYNC) {  // FIXME: try to recover!!!
+    //printf("mad err: %d\n",mad_stream.error);
+   if(mad_stream.error==MAD_ERROR_LOSTSYNC) {  // FIXME: try to recover!!!
+    return RDAudioConvert::ErrorFormatError;
       break;
     }
     while(mad_frame_decode(&mad_frame,&mad_stream)==0) {
+      //printf("decoding...\n");
       mad_synth_frame(&mad_synth,&mad_frame);
       for(int i=0;i<mad_synth.pcm.length;i++) {
 	for(int j=0;j<mad_synth.pcm.channels;j++) {

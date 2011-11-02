@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_playout.cpp,v 1.22 2010/07/29 19:32:36 cvs Exp $
+//      $Id: edit_playout.cpp,v 1.23 2011/08/30 23:35:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -332,7 +332,8 @@ void EditPlayout::activateStationData(int id,bool use_temp)
 void EditPlayout::selectCutData()
 {
   RDCutDialog *cut=new RDCutDialog(&edit_cutname,rdstation_conf,catch_system,
-				   edit_filter,NULL,"",false,false,false,this);
+				   edit_filter,NULL,NULL,"",false,false,false,
+				   this);
   switch(cut->exec()) {
       case 0:
 	edit_destination_edit->setText(edit_cutname);

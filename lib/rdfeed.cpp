@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdfeed.cpp,v 1.12 2010/09/08 20:37:58 cvs Exp $
+//      $Id: rdfeed.cpp,v 1.14 2011/09/09 20:23:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -496,7 +496,8 @@ void RDFeed::setMediaLinkMode(RDFeed::MediaLinkMode mode) const
 }
 
 
-QString RDFeed::audioUrl(RDFeed::MediaLinkMode mode,unsigned cast_id)
+QString RDFeed::audioUrl(RDFeed::MediaLinkMode mode,
+			 const QString &cgi_hostname,unsigned cast_id)
 {
   QUrl url(baseUrl());
   QString ret;
@@ -518,7 +519,7 @@ QString RDFeed::audioUrl(RDFeed::MediaLinkMode mode,unsigned cast_id)
     case RDFeed::LinkCounted:
       ret=QString().sprintf("http://%s%s/rd-bin/rdfeed.%s?%s&cast_id=%d",
 			    (const char *)basePreamble(),
-			    (const char *)url.host(),
+			    (const char *)cgi_hostname,
 			    (const char *)uploadExtension(),
 			    (const char *)keyName(),
 			    cast_id);
@@ -536,7 +537,6 @@ unsigned RDFeed::postCut(RDUser *user,RDStation *station,
   QString sql;
   RDSqlQuery *q;
   RDPodcast *cast=NULL;
-  RDAudioExport::ErrorCode conv_err;
   RDUpload *upload=NULL;
   RDUpload::ErrorCode upload_err;
 
@@ -684,6 +684,10 @@ unsigned RDFeed::postFile(RDStation *station,const QString &srcfile,Error *err,
   case RDAudioConvert::ErrorNoDestination:
   case RDAudioConvert::ErrorInternal:
   case RDAudioConvert::ErrorInvalidSource:
+  case RDAudioConvert::ErrorNoDisc:
+  case RDAudioConvert::ErrorNoTrack:
+  case RDAudioConvert::ErrorInvalidSpeed:
+  case RDAudioConvert::ErrorFormatError:
     emit postProgressChanged(totalPostSteps());
     delete settings;
     delete conv;
@@ -807,29 +811,21 @@ unsigned RDFeed::CreateCast(QString *filename,int bytes,int msecs) const
                          ITEM_CATEGORY=\"%s\",\
                          ITEM_LINK=\"%s\",\
                          SHELF_LIFE=%d,\
-                         EFFECTIVE_DATETIME=\"%s\",\
-                         ORIGIN_DATETIME=\"%s\"",
+                         EFFECTIVE_DATETIME=UTC_TIMESTAMP(),\
+                         ORIGIN_DATETIME=UTC_TIMESTAMP()",
 			feed_id,
 			(const char *)RDEscapeString(q->value(0).toString()),
 			(const char *)RDEscapeString(q->value(1).toString()),
 			(const char *)RDEscapeString(q->value(2).toString()),
 			(const char *)RDEscapeString(q->value(3).toString()),
-			q->value(4).toInt(),
-			(const char *)current_datetime.
-			toString("yyyy-MM-dd hh:mm:ss"),
-			(const char *)current_datetime.
-			toString("yyyy-MM-dd hh:mm:ss"));
+			q->value(4).toInt());
   q1=new RDSqlQuery(sql);
   delete q1;
 
   //
-  // Get the ID
+  // Get The Cast ID
   //
-  sql=QString().sprintf("select ID from PODCASTS \
-                         where (FEED_ID=%u)&&(ORIGIN_DATETIME=\"%s\")",
-			feed_id,
-			(const char *)current_datetime.
-			toString("yyyy-MM-dd hh:mm:ss"));
+  sql="select LAST_INSERT_ID() from PODCASTS";
   q1=new RDSqlQuery(sql);
   if(q1->first()) {
     cast_id=q1->value(0).toUInt();

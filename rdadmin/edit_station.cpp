@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_station.cpp,v 1.56 2010/10/04 18:11:46 cvs Exp $
+//      $Id: edit_station.cpp,v 1.57 2011/10/31 11:38:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -51,6 +51,7 @@
 #include <view_adapters.h>
 #include <list_dropboxes.h>
 #include <list_encoders.h>
+#include <edit_jack.h>
 #include <globals.h>
 
 EditStation::EditStation(QString sname,QWidget *parent,const char *name)
@@ -320,11 +321,40 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   station_cae_station_label->setFont(font);
   station_cae_station_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
+  /*
+  //
+  // JACK Settings Section
+  //
+  label=new QLabel(tr("JACK Settings"),this);
+  label->setGeometry(30,320,95,20);
+  label->setFont(font);
+  label->setAlignment(AlignCenter|ShowPrefix);
+
+  //
+  // Start JACK Server
+  //
+  station_start_jack_box=new QCheckBox(this);
+  station_start_jack_box->setGeometry(30,343,15,15);
+  label=new QLabel(station_maint_box,tr("Start JACK Server"),this);
+  label->setGeometry(50,341,sizeHint().width()-70,20);
+  label->setFont(font);
+  label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
+
+  //
+  // HTTP Service Host
+  //
+  station_jack_client_name_edit=new QLineEdit(this);
+  station_jack_client_name_edit->setGeometry(145,362,200,19);
+  label=new QLabel(station_jack_client_name_edit,tr("JACK Client Name:"),this);
+  label->setGeometry(11,362,130,19);
+  label->setFont(font);
+  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  */
   //
   //  RDLibrary Configuration Button
   //
   QPushButton *button=new QPushButton(this,"library_button");
-  button->setGeometry(10,322,80,50);
+  button->setGeometry(10,397,80,50);
   button->setFont(font);
   button->setText(tr("RD&Library"));
   connect(button,SIGNAL(clicked()),this,SLOT(editLibraryData()));
@@ -333,7 +363,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   //  RDCatch Configuration Button
   //
   button=new QPushButton(this,"tty_button");
-  button->setGeometry(100,322,80,50);
+  button->setGeometry(100,397,80,50);
   button->setFont(font);
   button->setText(tr("RDCatch"));
   connect(button,SIGNAL(clicked()),this,SLOT(editDeckData()));
@@ -342,7 +372,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   //  RDAirPlay Configuration Button
   //
   button=new QPushButton(this,"airplay_button");
-  button->setGeometry(190,322,80,50);
+  button->setGeometry(190,397,80,50);
   button->setFont(font);
   button->setText(tr("RDAirPlay"));
   connect(button,SIGNAL(clicked()),this,SLOT(editAirPlayData()));
@@ -351,7 +381,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   //  RDPanel Configuration Button
   //
   button=new QPushButton(this,"rdpanel_button");
-  button->setGeometry(280,322,80,50);
+  button->setGeometry(280,397,80,50);
   button->setFont(font);
   button->setText(tr("RDPanel"));
   connect(button,SIGNAL(clicked()),this,SLOT(editPanelData()));
@@ -360,7 +390,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   //  RDLogEdit Configuration Button
   //
   button=new QPushButton(this,"logedit_button");
-  button->setGeometry(10,382,80,50);
+  button->setGeometry(10,457,80,50);
   button->setFont(font);
   button->setText(tr("RDLogEdit"));
   connect(button,SIGNAL(clicked()),this,SLOT(editLogEditData()));
@@ -369,7 +399,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   // Dropboxes Configuration Button
   //
   button=new QPushButton(this,"dropboxes_button");
-  button->setGeometry(100,382,80,50);
+  button->setGeometry(100,457,80,50);
   button->setFont(font);
   button->setText(tr("Dropboxes"));
   connect(button,SIGNAL(clicked()),this,SLOT(editDropboxesData()));
@@ -378,7 +408,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   //  Switcher Configuration Button
   //
   button=new QPushButton(this,"switcher_button");
-  button->setGeometry(190,382,80,50);
+  button->setGeometry(190,457,80,50);
   button->setFont(font);
   button->setText(tr("Switchers\nGPIO"));
   connect(button,SIGNAL(clicked()),this,SLOT(editSwitcherData()));
@@ -387,7 +417,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   //  Host Variables Configuration Button
   //
   button=new QPushButton(this,"hostvars_button");
-  button->setGeometry(280,382,80,50);
+  button->setGeometry(280,457,80,50);
   button->setFont(font);
   button->setText(tr("Host\nVariables"));
   connect(button,SIGNAL(clicked()),this,SLOT(editHostvarsData()));
@@ -396,7 +426,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   //  Audio Ports Configuration Button
   //
   button=new QPushButton(this,"audio_ports_button");
-  button->setGeometry(10,442,80,50);
+  button->setGeometry(10,517,80,50);
   button->setFont(font);
   button->setText(tr("Audio\nPorts"));
   connect(button,SIGNAL(clicked()),this,SLOT(editAudioData()));
@@ -405,7 +435,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   //  TTY Configuration Button
   //
   button=new QPushButton(this,"tty_button");
-  button->setGeometry(100,442,80,50);
+  button->setGeometry(100,517,80,50);
   button->setFont(font);
   button->setText(tr("Serial\nPorts"));
   connect(button,SIGNAL(clicked()),this,SLOT(editTtyData()));
@@ -414,7 +444,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   //  View Adapters (Audio Resources) Configuration Button
   //
   button=new QPushButton(this,"view_adapters_button");
-  button->setGeometry(190,442,80,50);
+  button->setGeometry(190,517,80,50);
   button->setFont(font);
   button->setText(tr("Audio\nResources"));
   connect(button,SIGNAL(clicked()),this,SLOT(viewAdaptersData()));
@@ -423,16 +453,25 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   // Encoders Configuration Button
   //
   button=new QPushButton(this,"encoders_button");
-  button->setGeometry(280,442,80,50);
+  button->setGeometry(280,517,80,50);
   button->setFont(font);
   button->setText(tr("Custom\nEncoders"));
   connect(button,SIGNAL(clicked()),this,SLOT(editEncodersData()));
 
   //
+  // JACK Settings Button
+  //
+  button=new QPushButton(this,"backup_button");
+  button->setGeometry(100,577,80,50);
+  button->setFont(font);
+  button->setText(tr("JACK\nSettings"));
+  connect(button,SIGNAL(clicked()),this,SLOT(jackSettingsData()));
+
+  //
   // Backups Configuration Button
   //
   button=new QPushButton(this,"backup_button");
-  button->setGeometry(145,502,80,50);
+  button->setGeometry(190,577,80,50);
   button->setFont(font);
   button->setText(tr("Backups"));
   connect(button,SIGNAL(clicked()),this,SLOT(editBackupsData()));
@@ -580,7 +619,7 @@ void EditStation::caeStationActivatedData(const QString &station_name)
 
 QSize EditStation::sizeHint() const
 {
-  return QSize(375,632);
+  return QSize(375,707);
 } 
 
 
@@ -595,11 +634,25 @@ void EditStation::paintEvent(QPaintEvent *e)
   QPainter *p=new QPainter(this);
   p->setPen(black);
   p->setBrush(black);
+
+  //
+  // System Services
+  //
   p->moveTo(10,257);
   p->lineTo(sizeHint().width()-20,257);
   p->lineTo(sizeHint().width()-20,315);
   p->lineTo(10,315);
   p->lineTo(10,257);
+
+  //
+  // JACK Settings
+  //
+  p->moveTo(10,330);
+  p->lineTo(sizeHint().width()-20,330);
+  p->lineTo(sizeHint().width()-20,390);
+  p->lineTo(10,390);
+  p->lineTo(10,330);
+
   delete p;
 }
 
@@ -800,6 +853,14 @@ void EditStation::editEncodersData()
   ListEncoders *list_conf=new ListEncoders(station_station->name(),this);
   list_conf->exec();
   delete list_conf;
+}
+
+
+void EditStation::jackSettingsData()
+{
+  EditJack *d=new EditJack(station_station,this);
+  d->exec();
+  delete d;
 }
 
 

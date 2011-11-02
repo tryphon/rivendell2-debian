@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdrepld.cpp,v 1.3 2010/08/03 17:52:18 cvs Exp $
+//      $Id: rdrepld.cpp,v 1.4 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,7 @@
 #include <rdcmd_switch.h>
 #include <rdescape_string.h>
 #include <rdcart.h>
+#include <dbversion.h>
 
 #include <globals.h>
 #include <citadelxds.h>
@@ -65,6 +66,9 @@ void SigHandler(int signum)
 MainObject::MainObject(QObject *parent,const char *name)
   :QObject(parent,name)
 {
+  bool skip_db_check=false;
+  unsigned schema=0;
+
   //
   // Load the config
   //
@@ -77,6 +81,9 @@ MainObject::MainObject(QObject *parent,const char *name)
   RDCmdSwitch *cmd=
     new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdrepld",RDREPLD_USAGE);
   for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
   }
 
   //
@@ -102,10 +109,15 @@ MainObject::MainObject(QObject *parent,const char *name)
   //
   QString err (tr("ERROR rdrepld aborting - "));
 
-  repl_db=RDInitDb (&err);
+  repl_db=RDInitDb(&schema,&err);
   if(!repl_db) {
     printf(err.ascii());
     exit(1);
+  }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,"rdrepld: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
   }
   connect (RDDbStatus(),SIGNAL(logText(RDConfig::LogPriority,const QString &)),
 	   this,SLOT(log(RDConfig::LogPriority,const QString &)));

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.cpp,v 1.46 2010/10/11 19:45:35 cvs Exp $
+//      $Id: rdcart_dialog.cpp,v 1.47 2011/08/30 23:35:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -43,7 +43,7 @@
 #include "../icons/play.xpm"
 #include "../icons/rml5.xpm"
 
-RDCartDialog::RDCartDialog(QString *filter,QString *group,
+RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
 			   int audition_card,int audition_port,
 			   unsigned start_cart,unsigned end_cart,RDCae *cae,
 			   RDRipc *ripc,RDStation *station,
@@ -60,6 +60,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,
   cart_cartnum=NULL;
   cart_type=RDCart::All;
   cart_group=group;
+  cart_schedcode=schedcode;
   cart_edit_cmd=edit_cmd;
 #ifdef WIN32
   cart_filter_mode=RDStation::FilterSynchronous;
@@ -141,7 +142,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,
   connect(cart_clear_button,SIGNAL(clicked()),this,SLOT(filterClearedData()));
 
   //
-  // Group Selector
+  // Group Code Selector
   //
   cart_group_box=new RDComboBox(this,"cart_group_box");
   cart_group_label=new QLabel(cart_group_box,tr("Group:"),
@@ -150,6 +151,17 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,
   cart_group_label->setFont(button_font);
   connect(cart_group_box,SIGNAL(activated(const QString &)),
 	  this,SLOT(groupActivatedData(const QString &)));
+
+  //
+  // Scheduler Code Selector
+  //
+  cart_schedcode_box=new RDComboBox(this,"cart_schedcode_box");
+  cart_schedcode_label=new QLabel(cart_schedcode_box,tr("Scheduler Code:"),
+			   this,"cart_schedcode_label");
+  cart_schedcode_label->setAlignment(AlignRight|AlignVCenter);
+  cart_schedcode_label->setFont(button_font);
+  connect(cart_schedcode_box,SIGNAL(activated(const QString &)),
+	  this,SLOT(schedcodeActivatedData(const QString &)));
 
   //
   // Search Limit Checkbox
@@ -264,7 +276,7 @@ RDCartDialog::~RDCartDialog()
 
 QSize RDCartDialog::sizeHint() const
 {
-  return QSize(550,370);
+  return QSize(550,400);
 }
 
 
@@ -376,6 +388,21 @@ void RDCartDialog::groupActivatedData(const QString &group)
   filterChangedData("");
   if(cart_group!=NULL) {
     *cart_group=group;
+  }
+  if(cart_group!=NULL) {
+    *cart_group=group;
+  }
+}
+
+
+void RDCartDialog::schedcodeActivatedData(const QString &schedcode)
+{
+  filterChangedData("");
+  if(cart_schedcode!=NULL) {
+    *cart_schedcode=schedcode;
+  }
+  if(cart_schedcode!=NULL) {
+    *cart_schedcode=schedcode;
   }
 }
 
@@ -499,12 +526,14 @@ void RDCartDialog::resizeEvent(QResizeEvent *e)
 
   cart_search_button->setGeometry(size().width()-160,5,70,30);
   cart_clear_button->setGeometry(size().width()-80,5,70,30);
-  cart_group_box->setGeometry(100,35,150,20);
-  cart_group_label->setGeometry(10,35,85,20);
-  cart_limit_box->setGeometry(270,37,15,15);
-  cart_limit_label->setGeometry(290,35,300,20);
-  cart_cart_label->setGeometry(15,60,100,20);
-  cart_cart_list->setGeometry(10,80,size().width()-20,size().height()-150);
+  cart_group_box->setGeometry(100,40,150,20);
+  cart_group_label->setGeometry(10,40,85,20);
+  cart_schedcode_box->setGeometry(390,40,150,20);
+  cart_schedcode_label->setGeometry(280,40,105,20);
+  cart_limit_box->setGeometry(100,72,15,15);
+  cart_limit_label->setGeometry(120,70,300,20);
+  cart_cart_label->setGeometry(15,90,100,20);
+  cart_cart_list->setGeometry(10,110,size().width()-20,size().height()-180);
   cart_editor_button->setGeometry(235,size().height()-60,80,50);
   cart_ok_button->setGeometry(size().width()-180,size().height()-60,80,50);
   cart_cancel_button->setGeometry(size().width()-90,size().height()-60,80,50);
@@ -549,6 +578,10 @@ void RDCartDialog::RefreshCarts()
   if(group==QString(tr("ALL"))) {
     group="";
   }
+  QString schedcode=cart_schedcode_box->currentText();
+  if(group==QString(tr("ALL"))) {
+    schedcode="";
+  }
   if(cart_type==RDCart::All) {
     sql=QString().sprintf("select CART.NUMBER,CART.TITLE,CART.ARTIST,\
                            CART.CLIENT,CART.AGENCY,CART.USER_DEFINED,\
@@ -557,7 +590,7 @@ void RDCartDialog::RefreshCarts()
                            from CART left join GROUPS \
                            on CART.GROUP_NAME=GROUPS.NAME where %s",
 		 (const char *)GetSearchFilter(cart_filter_edit->text(),
-						group));
+					       group,schedcode));
   }
   else {
     sql=QString().sprintf("select CART.NUMBER,CART.TITLE,CART.ARTIST,\
@@ -567,7 +600,8 @@ void RDCartDialog::RefreshCarts()
                            from CART left join GROUPS \
                            on CART.GROUP_NAME=GROUPS.NAME \
                            where (%s)&&(TYPE=%d)",
-		(const char *)GetSearchFilter(cart_filter_edit->text(),group),
+			(const char *)GetSearchFilter(cart_filter_edit->text(),
+						      group,schedcode),
 			  cart_type);
   }
   if(cart_limit_box->isChecked()) {
@@ -631,6 +665,9 @@ void RDCartDialog::BuildGroupList()
   QString sql;
   RDSqlQuery *q;
   
+  //
+  // Groups
+  //
   cart_group_box->clear();
   cart_group_box->insertItem(tr("ALL"));
   sql="select GROUP_NAME from AUDIO_PERMS";
@@ -662,15 +699,41 @@ void RDCartDialog::BuildGroupList()
       }
     }
   }
+
+  //
+  // Scheduler Codes
+  //
+  cart_schedcode_box->clear();
+  cart_schedcode_box->insertItem(tr("ALL"));
+  sql="select CODE from SCHED_CODES";
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    cart_schedcode_box->insertItem(q->value(0).toString());
+  }
+  delete q;
+
+  //
+  // Preselect Scheduler Code
+  //
+  if(cart_schedcode!=NULL) {
+    for(int i=0;i<cart_schedcode_box->count();i++) {
+      if(*cart_schedcode==cart_schedcode_box->text(i)) {
+	cart_schedcode_box->setCurrentItem(i);
+	return;
+      }
+    }
+  }
 }
 
 
-QString RDCartDialog::GetSearchFilter(QString filter,QString group)
+QString RDCartDialog::GetSearchFilter(const QString &filter,
+				      const QString &group,
+				      const QString &schedcode)
 {
   QString sql;
   RDSqlQuery *q;
 
-  QString search=RDCartSearchText(filter,group).utf8();
+  QString search=RDCartSearchText(filter,group,schedcode).utf8();
 
   //
   // Excluded Groups

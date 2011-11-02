@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: citadelxds.cpp,v 1.4 2011/05/26 20:38:25 cvs Exp $
+//      $Id: citadelxds.cpp,v 1.5 2011/10/17 18:48:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <errno.h>
 
 #include <qfileinfo.h>
 #include <qdatetime.h>
@@ -35,6 +36,7 @@
 #include <rdcart.h>
 #include <rdescape_string.h>
 #include <rdstringlist.h>
+#include <rddelete.h>
 
 #include <citadelxds.h>
 
@@ -93,14 +95,7 @@ void CitadelXds::CheckIsciXreference()
 	q=new RDSqlQuery(sql);
 	delete q;
 	xds_isci_datetime=QDateTime(QDate::currentDate(),QTime::currentTime());
-	rdconfig->log("rdrepld",RDConfig::LogNotice,
-		 QString().sprintf("loaded ISCI cross reference file \"%s\"",
-			    (const char *)rdsystem->isciXreferencePath()));
-      }
-      else {
-	rdconfig->log("rdrepld",RDConfig::LogErr,
-	  QString().sprintf("unable to load ISCI cross reference file \"%s\"",
-			    (const char *)rdsystem->isciXreferencePath()));
+	PurgeCuts();
       }
     }
   }
@@ -127,6 +122,10 @@ bool CitadelXds::LoadIsciXreference(const QString &filename)
   unsigned linenum=3;
 
   if((f=fopen(filename,"r"))==NULL) {
+    rdconfig->log("rdrepld",RDConfig::LogErr,
+      QString().sprintf("unable to load ISCI cross reference file \"%s\" [%s]",
+			(const char *)rdsystem->isciXreferencePath(),
+			strerror(errno)));
     return false;
   }
 
@@ -208,6 +207,9 @@ bool CitadelXds::LoadIsciXreference(const QString &filename)
   //
   // Clean Up
   //
+  rdconfig->log("rdrepld",RDConfig::LogInfo,
+		QString().sprintf("loaded ISCI cross reference file \"%s\"",
+			      (const char *)rdsystem->isciXreferencePath()));
   fclose(f);
   return true;
 }
@@ -226,7 +228,6 @@ bool CitadelXds::ValidateFilename(const QString &filename)
   ret=ret&&(filename.find("%")<0);
   ret=ret&&(filename.find("*")<0);
   ret=ret&&(filename.find("+")<0);
-  //ret=ret&&(filename.find(",")<0);
   ret=ret&&(filename.find("/")<0);
   ret=ret&&(filename.find(":")<0);
   ret=ret&&(filename.find(";")<0);
@@ -263,12 +264,18 @@ void CitadelXds::CheckCarts()
        where (LATEST_DATE>=now())&&((TYPE=\"R\")||(TYPE=\"B\"))";
   q=new RDSqlQuery(sql);
   while(q->next()) {
-    sql=QString().sprintf("select ID from REPL_CART_STATE \
-                           where (REPLICATOR_NAME=\"%s\")&&\
-                           (CART_NUMBER=%u)&&\
-                           (ITEM_DATETIME>\"%s\")",
+    sql=QString().sprintf("select REPL_CART_STATE.ID from \
+                           REPL_CART_STATE left join CUTS \
+                           on REPL_CART_STATE.CART_NUMBER=CUTS.CART_NUMBER \
+                           where (CUTS.ORIGIN_DATETIME<REPL_CART_STATE.ITEM_DATETIME)&&\
+                           (REPL_CART_STATE.REPLICATOR_NAME=\"%s\")&&\
+                           (REPL_CART_STATE.CART_NUMBER=%u)&&\
+                           (REPL_CART_STATE.POSTED_FILENAME=\"%s\")&&\
+                           (REPL_CART_STATE.ITEM_DATETIME>\"%s\")&&\
+                           (REPL_CART_STATE.REPOST=\"N\")",
 			  (const char *)RDEscapeString(config()->name()),
 			  q->value(0).toUInt(),
+			  (const char *)RDEscapeString(q->value(1).toString()),
 			  (const char *)now);
     q1=new RDSqlQuery(sql);
     if(!q1->first()) {
@@ -276,25 +283,36 @@ void CitadelXds::CheckCarts()
 		 q->value(1).toString())) {
 	sql=QString().sprintf("select ID from REPL_CART_STATE where \
                                (REPLICATOR_NAME=\"%s\")&&\
-                               (CART_NUMBER=%u)",
+                               (CART_NUMBER=%u)&&\
+                               (POSTED_FILENAME=\"%s\")",
 			      (const char *)RDEscapeString(config()->name()),
-			      q->value(0).toUInt());
+			      q->value(0).toUInt(),
+			      (const char *)RDEscapeString(q->value(1).
+							   toString()));
 	q2=new RDSqlQuery(sql);
 	if(q2->first()) {
 	  sql=QString().sprintf("update REPL_CART_STATE set\
-                                 ITEM_DATETIME=now() where \
+                                 ITEM_DATETIME=now(),\
+                                 REPOST=\"N\" where \
                                  (REPLICATOR_NAME=\"%s\")&&\
-                                 (CART_NUMBER=%u)",
+                                 (CART_NUMBER=%u)&&\
+                                 (POSTED_FILENAME=\"%s\")",
 				(const char *)RDEscapeString(config()->name()),
-				q->value(0).toUInt());
+				q->value(0).toUInt(),
+				(const char *)RDEscapeString(q->value(1).
+							     toString()));
 	}
 	else {
 	  sql=QString().sprintf("insert into REPL_CART_STATE set \
                                  ITEM_DATETIME=now(),\
+                                 REPOST=\"N\",\
                                  REPLICATOR_NAME=\"%s\",\
-                                 CART_NUMBER=%u",
+                                 CART_NUMBER=%u,\
+                                 POSTED_FILENAME=\"%s\"",
 				(const char *)RDEscapeString(config()->name()),
-				q->value(0).toUInt());
+				q->value(0).toUInt(),
+				(const char *)RDEscapeString(q->value(1).
+							     toString()));
 	}
 	delete q2;
 	q2=new RDSqlQuery(sql);
@@ -382,11 +400,65 @@ bool CitadelXds::PostCut(const QString &cutname,const QString &filename)
   }
   unlink(tempfile);
   delete upload;
-  rdconfig->log("rdrepld",RDConfig::LogNotice,
+  rdconfig->log("rdrepld",RDConfig::LogInfo,
 		QString().sprintf("CitadelXds: uploaded cut %s to %s/%s",
 				  (const char *)cutname,
 				  (const char *)config()->url(),
 				  (const char *)filename));
 
   return true;
+}
+
+
+void CitadelXds::PurgeCuts()
+{
+  QString sql;
+  RDSqlQuery *q;
+  RDSqlQuery *q1;
+  RDSqlQuery *q2;
+  RDDelete *conv;
+  RDDelete::ErrorCode conv_err;
+
+  sql=QString().sprintf("select ID,POSTED_FILENAME from REPL_CART_STATE \
+                         where REPLICATOR_NAME=\"%s\"",
+			(const char *)RDEscapeString(config()->name()));
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    sql=QString().
+      sprintf("select ID from ISCI_XREFERENCE where FILENAME=\"%s\"",
+	      (const char *)RDEscapeString(q->value(1).toString()));
+    q1=new RDSqlQuery(sql);
+    if(!q1->first()) {
+      QString path=config()->url();
+      if(path.right(1)!="/") {
+	path+="/";
+      }
+      QUrl url(path+q->value(1).toString());
+      conv=new RDDelete();
+      conv->setTargetUrl(url);
+      if((conv_err=conv->runDelete(config()->urlUsername(),
+				   config()->urlPassword(),
+				   rdconfig->logXloadDebugData()))==
+	 RDDelete::ErrorOk) {
+	sql=QString().sprintf("delete from REPL_CART_STATE where ID=%d",
+			      q->value(0).toInt());
+	q2=new RDSqlQuery(sql);
+	delete q2;
+	rdconfig->log("rdrepld",RDConfig::LogInfo,
+		      QString().sprintf("purged \"%s\" for replicator \"%s\"",
+					(const char *)url.toString(),
+					(const char *)config()->name()));
+      }
+      else {
+	rdconfig->log("rdrepld",RDConfig::LogErr,
+	 QString().sprintf("unable to delete \"%s\" for replicator \"%s\" [%s]",
+			       (const char *)url.toString(),
+			       (const char *)config()->name(),
+			       (const char *)RDDelete::errorText(conv_err)));
+      }
+      delete conv;
+    }
+    delete q1;
+  }
+  delete q;
 }

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcatch.h,v 1.50 2010/07/29 19:32:36 cvs Exp $
+//      $Id: rdcatch.h,v 1.51 2011/08/30 23:35:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -155,6 +155,7 @@ class MainWidget : public QWidget
   bool tail_playing;
   QString catch_filter;
   QString catch_group;
+  QString catch_schedcode;
   QPixmap *catch_record_map;
   QPixmap *catch_playout_map;
   QPixmap *catch_macro_map;

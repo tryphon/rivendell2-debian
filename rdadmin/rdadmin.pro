@@ -4,7 +4,7 @@
 //
 // (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadmin.pro,v 1.9 2010/08/04 23:07:01 cvs Exp $
+//      $Id: rdadmin.pro,v 1.10 2011/10/17 18:48:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -59,6 +59,7 @@ x11 {
   SOURCES += list_hostvars.cpp
   SOURCES += list_matrices.cpp
   SOURCES += list_reports.cpp
+  SOURCES += list_replicator_carts.cpp
   SOURCES += list_stations.cpp
   SOURCES += list_svcs.cpp
   SOURCES += list_users.cpp
@@ -111,6 +112,7 @@ x11 {
   HEADERS += list_hostvars.h
   HEADERS += list_matrices.h
   HEADERS += list_reports.h
+  HEADERS += list_replicator_carts.h
   HEADERS += list_stations.h
   HEADERS += list_svcs.h
   HEADERS += list_users.h

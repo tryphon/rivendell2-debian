@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_recording.cpp,v 1.51 2010/09/16 19:52:07 cvs Exp $
+//      $Id: edit_recording.cpp,v 1.52 2011/08/30 23:35:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -730,7 +730,7 @@ void EditRecording::selectCutData()
   QString str;
 
   RDCutDialog *cut=new RDCutDialog(&edit_cutname,rdstation_conf,catch_system,
-				   edit_filter,NULL,catch_user->name(),
+				   edit_filter,NULL,NULL,catch_user->name(),
 				   false,true);
   switch(cut->exec()) {
       case 0:

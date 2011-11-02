@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.h,v 1.88 2010/10/21 18:26:10 cvs Exp $
+//      $Id: rdairplay.h,v 1.89 2011/08/30 23:35:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -167,6 +167,7 @@ class MainWidget : public QWidget
   int air_copy_line;
   QString air_add_filter;
   QString air_add_group;
+  QString air_add_schedcode;
   RDLabel *air_message_label;
   int air_source_id;
   int air_meter_card[3];

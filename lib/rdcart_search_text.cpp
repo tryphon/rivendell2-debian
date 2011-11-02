@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_search_text.cpp,v 1.18 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdcart_search_text.cpp,v 1.20 2011/10/27 15:23:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -99,21 +99,26 @@ else {
 }
 
 
-QString RDCartSearchText(QString filter,QString group)
+QString RDCartSearchText(QString filter,const QString &group,
+			 const QString &schedcode)
 {
-  //
-  // Basic Filter
-  //
-  if(group.isEmpty()) {
-    return QString().sprintf(" %s",(const char *)RDBaseSearchText(filter).utf8());
+  QString ret=QString(" ")+RDBaseSearchText(filter);
+  if(!group.isEmpty()) {
+    ret+=QString("&&(CART.GROUP_NAME=\"")+RDEscapeString(group)+"\")";
   }
-  return QString().sprintf(" %s&&(CART.GROUP_NAME=\"%s\")",
-			   (const char *)RDBaseSearchText(filter).utf8(),
-			   (const char *)group);
+
+  if(schedcode!=QT_TR_NOOP("ALL")) {
+    QString code=schedcode+"          ";
+    code=code.left(11);
+    ret+=QString().sprintf("&&(SCHED_CODES like \"%%%s%%\")",
+			   (const char *)code);
+  }
+  return ret.utf8();
 }
 
 
-QString RDAllCartSearchText(QString filter,QString user)
+QString RDAllCartSearchText(const QString &filter,const QString &schedcode,
+			    const QString &user)
 {
   QString sql;
   RDSqlQuery *q;
@@ -130,5 +135,13 @@ QString RDAllCartSearchText(QString filter,QString user)
   delete q;
   search=search.left(search.length()-2)+QString(")");
   search+=QString("&&")+RDBaseSearchText(filter);
+
+  if(schedcode!=QT_TR_NOOP("ALL")) {
+    QString code=schedcode+"          ";
+    code=code.left(11);
+    search+=QString().sprintf("&&(SCHED_CODES like \"%%%s%%\")",
+			      (const char *)code);
+  }
+
   return search;
 }

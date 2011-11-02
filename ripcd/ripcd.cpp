@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: ripcd.cpp,v 1.76 2011/03/01 20:35:52 cvs Exp $
+//      $Id: ripcd.cpp,v 1.77 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -46,6 +46,7 @@
 #include <rdcheck_daemons.h>
 #include <rdcmd_switch.h>
 #include <rddb.h>
+#include <dbversion.h>
 
 #include <globals.h>
 #include <ripcd_socket.h>
@@ -92,11 +93,18 @@ void SigHandler(int signo)
 MainObject::MainObject(QObject *parent,const char *name)
   :QObject(parent,name)
 {
+  bool skip_db_check=false;
+
   //
   // Read Command Options
   //
   RDCmdSwitch *cmd=
     new RDCmdSwitch(qApp->argc(),qApp->argv(),"ripcd",RIPCD_USAGE);
+  for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
+  }
   delete cmd;
 
   //
@@ -148,12 +156,17 @@ MainObject::MainObject(QObject *parent,const char *name)
   //
   // Open Database
   //
-
+  unsigned schema=0;
   QString err (tr("ripcd: "));
-  ripcd_db = RDInitDb (&err);
+  ripcd_db = RDInitDb (&schema,&err);
   if(!ripcd_db) {
     printf ("%s\n",err.ascii());
     exit (1);
+  }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,"database version mismatch, should be %u, is %u",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
   }
   connect (RDDbStatus(),SIGNAL(logText(RDConfig::LogPriority,const QString &)),
 	   this,SLOT(log(RDConfig::LogPriority,const QString &)));

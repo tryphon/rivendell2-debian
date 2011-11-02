@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: disk_ripper.cpp,v 1.28 2010/09/08 20:38:00 cvs Exp $
+//      $Id: disk_ripper.cpp,v 1.29 2011/08/30 23:35:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -49,12 +49,13 @@
 #include <globals.h>
 
 
-DiskRipper::DiskRipper(QString *filter,QString *group,
+DiskRipper::DiskRipper(QString *filter,QString *group,QString *schedcode,
 		       QWidget *parent,const char *name) 
   : QDialog(parent,name)
 {
   rip_filter_text=filter;
   rip_group_text=group;
+  rip_schedcode_text=schedcode;
   rip_aborting=false;
 
   //
@@ -455,7 +456,8 @@ void DiskRipper::setCutButtonData()
   QString cutname=rip_cutnames[item->text(0).toUInt()-1];
   RDCutDialog *dialog=new RDCutDialog(&cutname,rdstation_conf,lib_system,
 				      rip_filter_text,
-				      rip_group_text,lib_user->name(),true,
+				      rip_group_text,rip_schedcode_text,
+				      lib_user->name(),true,
 				      true,true,this,"cut_dialog");
   if(dialog->exec()==0) {
     if(cutname.isEmpty()) {

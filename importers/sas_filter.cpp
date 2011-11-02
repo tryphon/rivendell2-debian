@@ -4,8 +4,8 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: sas_filter.cpp,v 1.10 2010/07/29 19:32:32 cvs Exp $
-//      $Date: 2010/07/29 19:32:32 $
+//      $Id: sas_filter.cpp,v 1.11 2011/06/21 22:20:43 cvs Exp $
+//      $Date: 2011/06/21 22:20:43 $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -33,8 +33,9 @@
 #include <rddb.h>
 #include <rd.h>
 #include <rdcmd_switch.h>
-#include <sas_filter.h>
+#include <dbversion.h>
 
+#include <sas_filter.h>
 
 //
 // Global Variables
@@ -44,11 +45,19 @@
 MainObject::MainObject(QObject *parent,const char *name)
   : QObject(parent,name)
 {
+  bool skip_db_check=false;
+  unsigned schema=0;
+
   //
   // Read Command Options
   //
   RDCmdSwitch *cmd=
     new RDCmdSwitch(qApp->argc(),qApp->argv(),"sas_filter",SAS_FILTER_USAGE);
+  for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
+  }
   delete cmd;
 
   rd_config=new RDConfig(RD_CONF_FILE);
@@ -60,10 +69,16 @@ MainObject::MainObject(QObject *parent,const char *name)
   // Open Database
   //
   QString err(tr("sas_filter: "));
-  filter_db=RDInitDb (&err);
+  filter_db=RDInitDb(&schema,&err);
   if(!filter_db) {
     fprintf(stderr,"%s\n",err.ascii());
     exit(1);
+  }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,
+	    "sas_filter: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
   }
 
   //

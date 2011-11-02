@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdtrimaudio.cpp,v 1.4 2011/05/13 21:38:30 cvs Exp $
+//      $Id: rdtrimaudio.cpp,v 1.5 2011/10/17 21:01:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -145,7 +145,7 @@ RDTrimAudio::ErrorCode RDTrimAudio::runTrim(const QString &username,
   case CURLE_URL_MALFORMAT:
   case CURLE_COULDNT_RESOLVE_HOST:
   case CURLE_COULDNT_CONNECT:
-    //case CURLE_REMOTE_ACCESS_DENIED:
+  case 9:   // CURLE_REMOTE_ACCESS_DENIED
     curl_easy_cleanup(curl);
     return RDTrimAudio::ErrorUrlInvalid;
   }

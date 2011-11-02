@@ -1,6 +1,49 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.1.0 -- 11/02/2011
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   Database Skew Detection.  All Rivendell modules will now check that the
+   correct database schema is in use when starting up; a mismatched schema
+   will cause the module to abort with a 'database version mismatch' error.
+   While, for code debugging purposes, this check can be bypassed by adding
+   the '--skip-db-check' flag to the command line, its use is *strongly*
+   discouraged in production settings as operating with a skewed database
+   schema can cause severe database corruption!
+
+   Library Filtering by Scheduler Code.  It is now possible to filter
+   carts by scheduler code in both RDLibrary and the system-wide cart
+   selector dialog.
+
+   Traffic Light Support.  A preset for 'The Traffic Light' traffic system
+   has been added to list of available scheduler systems in
+   RDAdmin->ManageServices.
+
+   Enhanced JACK Support.  A 'JACK Settings' dialog has been added in
+   RDAdmin->ManageHosts, making it possible to specify the startup behavior
+   and name of the JACK server instance for Rivendell to use.  Accordingly,
+   the old syscontrol-based method for specifying JACK startup behavior
+   should be considered deprecated and will be removed in a future version.
+
+   New RMLs.  Two new RMLs, 'Connect JACK Ports' ['JC'] and 'Disconnect
+   JACK Ports' ['JD'] have been added.  Accordingly, use of the [JackSession]
+   section of rd.conf(5) should be considered deprecated; support for it
+   will be removed in a future version.
+
+   Miscelaneous Bugfixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 205, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.0.2 -- 06/01/2011
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

@@ -84,7 +84,8 @@ dist_rdadmin_OBJECTS = rdadmin.$(OBJEXT) login.$(OBJEXT) \
 	edit_nownextplugin.$(OBJEXT) edit_settings.$(OBJEXT) \
 	list_replicators.$(OBJEXT) add_replicator.$(OBJEXT) \
 	edit_replicator.$(OBJEXT) list_sas_resources.$(OBJEXT) \
-	edit_sas_resource.$(OBJEXT)
+	edit_sas_resource.$(OBJEXT) list_replicator_carts.$(OBJEXT) \
+	edit_jack.$(OBJEXT)
 nodist_rdadmin_OBJECTS = moc_rdadmin.$(OBJEXT) moc_login.$(OBJEXT) \
 	moc_list_users.$(OBJEXT) moc_edit_user.$(OBJEXT) \
 	moc_add_user.$(OBJEXT) moc_list_groups.$(OBJEXT) \
@@ -122,7 +123,8 @@ nodist_rdadmin_OBJECTS = moc_rdadmin.$(OBJEXT) moc_login.$(OBJEXT) \
 	moc_edit_nownextplugin.$(OBJEXT) moc_edit_settings.$(OBJEXT) \
 	moc_list_replicators.$(OBJEXT) moc_add_replicator.$(OBJEXT) \
 	moc_edit_replicator.$(OBJEXT) moc_list_sas_resources.$(OBJEXT) \
-	moc_edit_sas_resource.$(OBJEXT)
+	moc_edit_sas_resource.$(OBJEXT) \
+	moc_list_replicator_carts.$(OBJEXT) moc_edit_jack.$(OBJEXT)
 rdadmin_OBJECTS = $(dist_rdadmin_OBJECTS) $(nodist_rdadmin_OBJECTS)
 rdadmin_DEPENDENCIES =
 DEFAULT_INCLUDES = -I. -I$(srcdir)
@@ -365,6 +367,8 @@ dist_rdadmin_SOURCES = rdadmin.cpp rdadmin.h\
                        edit_replicator.cpp edit_replicator.h\
                        list_sas_resources.cpp list_sas_resources.h\
                        edit_sas_resource.cpp edit_sas_resource.h\
+                       list_replicator_carts.cpp list_replicator_carts.h\
+                       edit_jack.cpp edit_jack.h\
                        globals.h
 
 nodist_rdadmin_SOURCES = moc_rdadmin.cpp moc_login.cpp moc_list_users.cpp\
@@ -404,7 +408,8 @@ nodist_rdadmin_SOURCES = moc_rdadmin.cpp moc_login.cpp moc_list_users.cpp\
                          moc_add_encoder.cpp moc_edit_nownextplugin.cpp\
                          moc_edit_settings.cpp moc_list_replicators.cpp\
                          moc_add_replicator.cpp moc_edit_replicator.cpp\
-                         moc_list_sas_resources.cpp moc_edit_sas_resource.cpp
+                         moc_list_sas_resources.cpp moc_edit_sas_resource.cpp\
+                         moc_list_replicator_carts.cpp moc_edit_jack.cpp
 
 rdadmin_LDADD = @LIB_RDLIBS@ -lsamplerate @LIBVORBIS@
 EXTRA_DIST = info_banner1.xpm info_banner2.xpm rdadmin.pro\
@@ -512,6 +517,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_group.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_hostvar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_hotkeys.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_jack.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_matrix.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_node.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_now_next.Po@am__quote@
@@ -545,6 +551,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_hostvars.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_matrices.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_nodes.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_replicator_carts.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_replicators.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_reports.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_sas_resources.Po@am__quote@
@@ -580,6 +587,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_group.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_hostvar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_hotkeys.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_jack.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_matrix.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_node.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_now_next.Po@am__quote@
@@ -613,6 +621,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_hostvars.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_matrices.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_nodes.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_replicator_carts.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_replicators.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_reports.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_sas_resources.Po@am__quote@

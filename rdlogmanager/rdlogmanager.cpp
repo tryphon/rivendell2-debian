@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogmanager.cpp,v 1.42 2011/05/03 19:46:30 cvs Exp $
+//      $Id: rdlogmanager.cpp,v 1.43 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -53,6 +53,7 @@
 #include <rddatedecode.h>
 #include <rdlog.h>
 #include <rdlog_event.h>
+#include <dbversion.h>
 
 #include <rdlogmanager.h>
 #include <globals.h>
@@ -77,6 +78,7 @@ RDRipc *rdripc;
 RDCae *rdcae;
 QString *event_filter;
 QString *clock_filter;
+bool skip_db_check=false;
 
 
 #ifndef WIN32
@@ -100,6 +102,8 @@ void SigHandler(int signo)
 MainWidget::MainWidget(QWidget *parent,const char *name)
   :QWidget(parent,name)
 {
+  unsigned schema=0;
+
   //
   // Fix the Window Size
   //
@@ -126,10 +130,21 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Open Database
   //
   QString err;
-  log_db=RDInitDb(&err);
+  log_db=RDInitDb(&schema,&err);
   if(!log_db) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
+  }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+#ifdef WIN32
+	    QMessageBox::warning(this,tr("RDLogEdit -- Database Skew"),
+				 tr("This version of RDLogManager is incompatible with the version installed on the server.\nSee your system administrator for an update!"));
+#else
+    fprintf(stderr,
+	    "rdlogmanager: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+#endif  // WIN32
+    exit(256);
   }
   new RDDbHeartbeat(log_config->mysqlHeartbeatInterval(),this);
 
@@ -399,6 +414,7 @@ int cmdline_main(int argc,char *argv[],const QString &svcname,
   QApplication a(argc,argv,false);
   QString svcname_table=svcname;
   svcname_table.replace(" ","_");
+  unsigned schema=0;
 
   //
   // Load Local Configs
@@ -410,10 +426,16 @@ int cmdline_main(int argc,char *argv[],const QString &svcname,
   // Open Database
   //
   QString err;
-  QSqlDatabase *db=RDInitDb(&err);
+  QSqlDatabase *db=RDInitDb(&schema,&err);
   if(!db) {
     fprintf(stderr,"rdlogmanager: unable to connect to database\n");
     return 256;
+  }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,
+	    "rdlogmanager: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
   }
 
   //
@@ -528,6 +550,10 @@ int main(int argc,char *argv[])
     }
     if (cmd->key(i)=="-t") {
       cmd_merge_traffic = true;
+      cmd->setProcessed(i,true);
+    }
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
       cmd->setProcessed(i,true);
     }
     if (cmd->key(i)=="-s") {

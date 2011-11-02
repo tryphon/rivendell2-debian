@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmaint.cpp,v 1.8 2010/09/08 20:38:01 cvs Exp $
+//      $Id: rdmaint.cpp,v 1.9 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -49,6 +49,7 @@ MainObject::MainObject(QObject *parent,const char *name)
 {
   QString sql;
   RDSqlQuery *q;
+  unsigned schema=0;
 
   //
   // Initialize Data Structures
@@ -87,7 +88,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   // Open Database
   //
   QString err (tr("rdmaint: "));
-  QSqlDatabase *db=RDInitDb(&err);
+  QSqlDatabase *db=RDInitDb(&schema,&err);
   if(!db) {
     fprintf(stderr,err.ascii());
     delete maint_cmd;

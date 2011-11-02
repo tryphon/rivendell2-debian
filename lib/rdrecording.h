@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdrecording.h,v 1.28 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdrecording.h,v 1.29 2011/06/21 18:31:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -97,6 +97,8 @@ class RDRecording
   void setFormat(RDSettings::Format fmt) const;
   int channels() const;
   void setChannels(int chan) const;
+  int sampleRate() const;
+  void setSampleRate(int rate);
   int bitrate() const;
   void setBitrate(int rate) const;
   int quality() const;

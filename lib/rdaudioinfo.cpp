@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2011 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioinfo.cpp,v 1.2 2011/03/03 21:59:47 cvs Exp $
+//      $Id: rdaudioinfo.cpp,v 1.3 2011/10/17 21:01:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -158,7 +158,7 @@ RDAudioInfo::ErrorCode RDAudioInfo::runInfo(const QString &username,
   case CURLE_URL_MALFORMAT:
   case CURLE_COULDNT_RESOLVE_HOST:
   case CURLE_COULDNT_CONNECT:
-    //case CURLE_REMOTE_ACCESS_DENIED:
+  case 9:   // CURLE_REMOTE_ACCESS_DENIED
     curl_easy_cleanup(curl);
     return RDAudioInfo::ErrorUrlInvalid;
 

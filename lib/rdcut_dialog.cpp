@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut_dialog.cpp,v 1.29 2010/10/11 19:45:35 cvs Exp $
+//      $Id: rdcut_dialog.cpp,v 1.30 2011/08/30 23:35:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,14 +44,15 @@
 
 
 RDCutDialog::RDCutDialog(QString *cutname,RDStation *station,RDSystem *system,
-			 QString *filter,QString *group,QString username,
-			 bool show_clear,bool allow_add,bool exclude_tracks,
-			 QWidget *parent,const char *name)
+			 QString *filter,QString *group,QString *schedcode,
+			 QString username,bool show_clear,bool allow_add,
+			 bool exclude_tracks,QWidget *parent,const char *name)
   : QDialog(parent,name,true)
 {
   cut_cutname=cutname;
   cut_exclude_tracks=exclude_tracks;
   cut_group=group;
+  cut_schedcode=schedcode;
   cut_username=username;
   cut_allow_clear=show_clear;
   cut_filter_mode=station->filterMode();
@@ -138,25 +139,38 @@ RDCutDialog::RDCutDialog(QString *cutname,RDStation *station,RDSystem *system,
   // Group Selector
   //
   cut_group_box=new QComboBox(this,"cut_clear_box");
-  cut_group_box->setGeometry(100,35,140,20);
+  cut_group_box->setGeometry(100,40,140,20);
   label=new QLabel(cut_filter_edit,tr("Group:"),this,"cut_group_label");
-  label->setGeometry(10,35,85,20);
+  label->setGeometry(10,40,85,20);
   label->setAlignment(AlignRight|AlignVCenter);
   label->setFont(label_font);
   connect(cut_group_box,SIGNAL(activated(const QString &)),
 	  this,SLOT(groupActivatedData(const QString &)));
 
   //
+  // Scheduler Code Selector
+  //
+  cut_schedcode_box=new QComboBox(this,"cut_schedcode_box");
+  cut_schedcode_box->setGeometry(380,40,sizeHint().width()-390,20);
+  cut_schedcode_label=new QLabel(cut_schedcode_box,tr("Scheduler Code:"),
+			   this,"cut_schedcode_label");
+  cut_schedcode_label->setGeometry(260,40,115,20);
+  cut_schedcode_label->setAlignment(AlignRight|AlignVCenter);
+  cut_schedcode_label->setFont(label_font);
+  connect(cut_schedcode_box,SIGNAL(activated(const QString &)),
+	  this,SLOT(groupActivatedData(const QString &)));
+
+  //
   // Search Limit Checkbox
   //
   cart_limit_box=new QCheckBox(this,"cart_limit_box");
-  cart_limit_box->setGeometry(270,37,15,15);
+  cart_limit_box->setGeometry(100,72,15,15);
   cart_limit_box->setChecked(true);
   label=new QLabel(cart_limit_box,tr("Show Only First")+
 		   QString().sprintf(" %d ",
 		   RD_LIMITED_CART_SEARCH_QUANTITY)+tr("Matches"),
 		   this,"cart_limit_label");
-  label->setGeometry(290,35,300,20);
+  label->setGeometry(120,70,300,20);
   label->setAlignment(AlignLeft|AlignVCenter);
   label->setFont(label_font);
   connect(cart_limit_box,SIGNAL(stateChanged(int)),
@@ -166,7 +180,7 @@ RDCutDialog::RDCutDialog(QString *cutname,RDStation *station,RDSystem *system,
   // Cart List
   //
   cut_cart_list=new RDListView(this,"cut_cart_list");
-  cut_cart_list->setGeometry(10,90,300,200);
+  cut_cart_list->setGeometry(10,120,300,200);
   cut_cart_list->setAllColumnsShowFocus(true);
   cut_cart_list->setItemMargin(5);
   connect(cut_cart_list,SIGNAL(selectionChanged()),
@@ -174,7 +188,7 @@ RDCutDialog::RDCutDialog(QString *cutname,RDStation *station,RDSystem *system,
   connect(cut_cart_list,SIGNAL(clicked(QListViewItem *)),
 	  this,SLOT(cartClickedData(QListViewItem *)));
   label=new QLabel(cut_cart_list,tr("Carts"),this,"cut_cart_label");
-  label->setGeometry(15,70,100,20);
+  label->setGeometry(15,100,100,20);
   label->setFont(label_font);
   cut_cart_list->addColumn("");
   cut_cart_list->setColumnAlignment(0,Qt::AlignHCenter);
@@ -189,11 +203,11 @@ RDCutDialog::RDCutDialog(QString *cutname,RDStation *station,RDSystem *system,
   // Cut List
   //
   cut_cut_list=new QListView(this,"cut_cut_list");
-  cut_cut_list->setGeometry(320,90,sizeHint().width()-330,200);
+  cut_cut_list->setGeometry(320,120,sizeHint().width()-330,200);
   cut_cut_list->setAllColumnsShowFocus(true);
   cut_cut_list->setItemMargin(5);
   label=new QLabel(cut_cut_list,tr("Cuts"),this,"cut_cut_label");
-  label->setGeometry(325,70,100,20);
+  label->setGeometry(325,100,100,20);
   label->setFont(label_font);
   cut_cut_list->addColumn(tr("DESCRIPTION"));
   cut_cut_list->setColumnAlignment(0,Qt::AlignLeft);
@@ -284,7 +298,7 @@ RDCutDialog::~RDCutDialog()
 
 QSize RDCutDialog::sizeHint() const
 {
-  return QSize(550,370);
+  return QSize(550,400);
 }
 
 
@@ -425,6 +439,9 @@ void RDCutDialog::okData()
       if(cut_group!=NULL) {
 	*cut_group=cut_group_box->currentText();
       }
+      if(cut_schedcode!=NULL) {
+	*cut_schedcode=cut_schedcode_box->currentText();
+      }
       SaveState();
       done(0);
     }
@@ -474,7 +491,8 @@ void RDCutDialog::RefreshCarts()
                          on CART.GROUP_NAME=GROUPS.NAME \
                          where (%s)&&((CART.TYPE=%u))",
 			(const char *)RDCartSearchText(cut_filter_edit->text(),
-						       group).utf8(),
+						       group,
+			       cut_schedcode_box->currentText()).utf8(),
 			RDCart::Audio);
   if(cut_exclude_tracks) {
     sql+="&&(CART.OWNER is null)";
@@ -586,6 +604,30 @@ void RDCutDialog::BuildGroupList()
     for(int i=0;i<cut_group_box->count();i++) {
       if(*cut_group==cut_group_box->text(i)) {
 	cut_group_box->setCurrentItem(i);
+	return;
+      }
+    }
+  }
+
+  //
+  // Scheduler Codes
+  //
+  cut_schedcode_box->clear();
+  cut_schedcode_box->insertItem(tr("ALL"));
+  sql="select CODE from SCHED_CODES";
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    cut_schedcode_box->insertItem(q->value(0).toString());
+  }
+  delete q;
+
+  //
+  // Preselect Scheduler Code
+  //
+  if(cut_schedcode!=NULL) {
+    for(int i=0;i<cut_schedcode_box->count();i++) {
+      if(*cut_schedcode==cut_schedcode_box->text(i)) {
+	cut_schedcode_box->setCurrentItem(i);
 	return;
       }
     }

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcatch.cpp,v 1.125 2010/09/10 23:59:35 cvs Exp $
+//      $Id: rdcatch.cpp,v 1.127 2011/08/30 23:35:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -54,6 +54,7 @@
 #include <rdsettings.h>
 #include <rdcmd_switch.h>
 #include <rdedit_audio.h>
+#include <dbversion.h>
 
 #include <add_recording.h>
 #include <edit_recording.h>
@@ -101,6 +102,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   QString str;
   catch_host_warnings=false;
   catch_audition_stream=-1;
+  bool skip_db_check=false;
+  unsigned schema=0;
 
   catch_scroll=false;
 
@@ -112,11 +115,9 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   for(unsigned i=0;i<cmd->keys();i++) {
     if(cmd->key(i)=="--offline-host-warnings") {
       catch_host_warnings=RDBool(cmd->value(i));
-      /*
-      if(!RDBool(cmd->value(i))) {
-	catch_host_warnings=false;
-      }
-      */
+    }
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
     }
   }
   delete cmd;
@@ -192,11 +193,17 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Open Database
   //
   QString err (tr("rdcatch : "));
-  catch_db=RDInitDb (&err);
+  catch_db=RDInitDb(&schema,&err);
   if(!catch_db) {
     log(RDConfig::LogErr,err);
     exit(0);
   }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,"rdcatch: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
+  }
+
   connect(RDDbStatus(),SIGNAL(logText(RDConfig::LogPriority,const QString &)),
 	  this,SLOT(log(RDConfig::LogPriority,const QString &)));
   //
@@ -383,6 +390,7 @@ order by CHANNEL",(const char *)q->value(0).toString().lower());
   // Cart Picker
   //
   catch_cart_dialog=new RDCartDialog(&catch_filter,&catch_group,
+				     &catch_schedcode,
 				     catch_audition_card,catch_audition_port,
 				     0,0,catch_cae,catch_ripc,rdstation_conf,
 				     "",this,"catch_cart_dialog");

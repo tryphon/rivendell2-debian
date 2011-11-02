@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: opendb.cpp,v 1.36 2011/02/21 15:31:58 cvs Exp $
+//      $Id: opendb.cpp,v 1.37 2011/06/23 22:30:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -163,6 +163,8 @@ bool OpenDb(QString dbname,QString login,QString pwd,QString host,
   QString msg;
   MySqlLogin *mysql_login;
   QString str;
+  int err=0;
+  QString err_str="";
 
   //
   // Open Database
@@ -399,16 +401,34 @@ on this machine for a few seconds.  Continue?"),
 	}      
       }
       RDKillDaemons();
-      if(!UpdateDb(db_ver)) {
-	PrintError(QT_TR_NOOP("Unable to update Rivendell Database!"),
-		   interactive);
+      if((err=UpdateDb(db_ver))!=UPDATEDB_SUCCESS) {
+	err_str=QT_TR_NOOP("Unable to update Rivendell Database:");
+	switch(err) {
+	case UPDATEDB_BACKUP_FAILED:
+	  err_str+=QT_TR_NOOP("\nDatabase backup failed!");
+	  break;
+
+	case UPDATEDB_QUERY_FAILED:
+	  err_str+=QT_TR_NOOP("\nSchema modification failed!");
+	  break;
+
+	default:
+	  err_str+=QT_TR_NOOP("\nUnknown/unspecified error!");
+	  break;
+	}
+	PrintError(err_str,interactive);
 	db->removeDatabase(dbname);
 	return false;
       }
       str=QString(
-        QT_TR_NOOP("The Rivendell Database has\nbeen updated to Version"));
+        QT_TR_NOOP("The Rivendell Database has been updated to version"));
       msg=QString().
 	sprintf("%s %d",(const char *)str,RD_VERSION_DATABASE);
+      if(!admin_skip_backup) {
+	msg+=QT_TR_NOOP("\nand a backup of the original database saved in ");
+	msg+=admin_backup_filename;
+      }
+      msg+=".";
       if(interactive) {
 	QMessageBox::information(NULL,QT_TR_NOOP("Database Updated"),msg);
       }

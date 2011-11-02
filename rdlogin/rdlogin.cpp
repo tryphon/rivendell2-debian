@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogin.cpp,v 1.34 2010/07/29 19:32:37 cvs Exp $
+//      $Id: rdlogin.cpp,v 1.35 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,6 +39,8 @@
 #include <rdtextvalidator.h>
 #include <rddbheartbeat.h>
 #include <rddb.h>
+#include <dbversion.h>
+
 #include <rdlogin.h>
 
 
@@ -56,11 +58,18 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   QString str;
   QString sql;
   RDSqlQuery *q;
+  bool skip_db_check=false;
+  unsigned schema=0;
 
   //
   // Read Command Options
   //
   RDCmdSwitch *cmd=new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdlogin","\n");
+  for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
+  }
   delete cmd;
 
   //
@@ -115,11 +124,17 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Open Database
   //
   QString err(tr("rdlogin : "));
-  login_db = RDInitDb (&err);
+  login_db = RDInitDb(&schema,&err);
   if(!login_db) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
   }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,"rdlogin: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
+  }
+
   //
   // RIPC Connection
   //

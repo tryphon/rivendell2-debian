@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut_dialog.h,v 1.13 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdcut_dialog.h,v 1.14 2011/08/30 23:35:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -42,8 +42,8 @@ class RDCutDialog : public QDialog
  Q_OBJECT
  public:
   RDCutDialog(QString *cutname,RDStation *station,RDSystem *system,
-	      QString *filter=0,QString *group=0,QString username="",
-	      bool show_clear=false,bool allow_add=false,
+	      QString *filter=0,QString *group=0,QString *schedcode=NULL,
+	      QString username="",bool show_clear=false,bool allow_add=false,
 	      bool exclude_tracks=false,
 	      QWidget *parent=0,const char *name=0);
   ~RDCutDialog();
@@ -85,9 +85,12 @@ class RDCutDialog : public QDialog
   QPushButton *cut_ok_button;
   QPushButton *cut_cancel_button;
   QComboBox *cut_group_box;
+  QLabel *cut_schedcode_label;
+  QComboBox *cut_schedcode_box;
   QString *cut_cutname;
   QString *cut_filter;
   QString *cut_group;
+  QString *cut_schedcode;
   bool local_filter;
   QPixmap *cut_playout_map;
   QPixmap *cut_macro_map;

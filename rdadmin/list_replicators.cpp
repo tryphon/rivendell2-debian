@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_replicators.cpp,v 1.2 2010/07/29 19:32:35 cvs Exp $
+//      $Id: list_replicators.cpp,v 1.3 2011/10/17 18:48:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,6 +40,7 @@
 #include <rdreplicator.h>
 
 #include <list_replicators.h>
+#include <list_replicator_carts.h>
 #include <edit_replicator.h>
 #include <add_replicator.h>
 
@@ -87,6 +88,14 @@ ListReplicators::ListReplicators(QWidget *parent,const char *name)
   list_delete_button->setFont(font);
   list_delete_button->setText(tr("&Delete"));
   connect(list_delete_button,SIGNAL(clicked()),this,SLOT(deleteData()));
+
+  //
+  //  List Carts Button
+  //
+  list_list_button=new QPushButton(this,"list_list_button");
+  list_list_button->setFont(font);
+  list_list_button->setText(tr("&List\nCarts"));
+  connect(list_list_button,SIGNAL(clicked()),this,SLOT(listData()));
 
   //
   //  Close Button
@@ -232,6 +241,18 @@ void ListReplicators::deleteData()
 }
 
 
+void ListReplicators::listData()
+{
+  RDListViewItem *item=(RDListViewItem *)list_replicators_view->selectedItem();
+  if(item==NULL) {
+    return;
+  }
+  ListReplicatorCarts *d=new ListReplicatorCarts(this);
+  d->exec(item->text(0));
+  delete d;
+}
+
+
 void ListReplicators::doubleClickedData(QListViewItem *item,const QPoint &pt,
 				   int col)
 {
@@ -250,6 +271,7 @@ void ListReplicators::resizeEvent(QResizeEvent *e)
   list_add_button->setGeometry(size().width()-90,30,80,50);
   list_edit_button->setGeometry(size().width()-90,90,80,50);
   list_delete_button->setGeometry(size().width()-90,150,80,50);
+  list_list_button->setGeometry(size().width()-90,250,80,50);
   list_close_button->setGeometry(size().width()-90,size().height()-60,80,50);
   list_replicators_view->setGeometry(10,30,size().width()-120,size().height()-40);
 }

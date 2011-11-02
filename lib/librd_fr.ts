@@ -7,6 +7,13 @@
     </message>
 </context>
 <context>
+    <name>@default</name>
+    <message>
+        <source>ALL</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <source>Couldn&apos;t initialize QSql driver!</source>
@@ -364,6 +371,10 @@ Color</source>
         <source>Matches</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scheduler Code:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDCutDialog</name>
@@ -442,6 +453,10 @@ Cart</source>
     </message>
     <message>
         <source>Matches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scheduler Code:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

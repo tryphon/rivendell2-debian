@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdstation.cpp,v 1.29 2010/09/10 23:59:34 cvs Exp $
+//      $Id: rdstation.cpp,v 1.30 2011/10/31 11:38:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -271,6 +271,32 @@ RDStation::FilterMode RDStation::filterMode() const
 void RDStation::setFilterMode(RDStation::FilterMode mode) const
 {
   SetRow("FILTER_MODE",(int)mode);
+}
+
+
+bool RDStation::startJack() const
+{
+  return RDBool(RDGetSqlValue("STATIONS","NAME",station_name,"START_JACK").
+		toString());
+}
+
+
+void RDStation::setStartJack(bool state) const
+{
+  SetRow("START_JACK",RDYesNo(state));
+}
+
+
+QString RDStation::jackServerName() const
+{
+  return RDGetSqlValue("STATIONS","NAME",station_name,"JACK_SERVER_NAME").
+    toString();
+}
+
+
+void RDStation::setJackServerName(const QString &str) const
+{
+  SetRow("JACK_SERVER_NAME",str);
 }
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpeaksexport.cpp,v 1.4 2011/02/17 00:40:59 cvs Exp $
+//      $Id: rdpeaksexport.cpp,v 1.5 2011/10/17 21:01:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -149,9 +149,7 @@ RDPeaksExport::ErrorCode RDPeaksExport::runExport(const QString &username,
   case CURLE_URL_MALFORMAT:
   case CURLE_COULDNT_RESOLVE_HOST:
   case CURLE_COULDNT_CONNECT:
-#ifdef CURLE_REMOTE_ACCESS_DENIED
-  case CURLE_REMOTE_ACCESS_DENIED:
-#endif  // CURLE_REMOTE_ACCESS_DENIED
+  case 9:  // CURLE_REMOTE_ACCESS_DENIED
     curl_easy_cleanup(curl);
     return RDPeaksExport::ErrorUrlInvalid;
   }

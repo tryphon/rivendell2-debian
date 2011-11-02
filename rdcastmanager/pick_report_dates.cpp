@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: pick_report_dates.cpp,v 1.4 2010/07/29 19:32:36 cvs Exp $
+//      $Id: pick_report_dates.cpp,v 1.5 2011/09/07 13:44:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -76,11 +76,11 @@ PickReportDates::PickReportDates(unsigned feed_id,unsigned cast_id,
   // Start Date
   //
   edit_startdate_edit=new QDateEdit(this,"edit_startdate_edit");
-  edit_startdate_edit->setGeometry(150,10,100,19);
+  edit_startdate_edit->setGeometry(150,10,100,20);
   edit_startdate_edit->setDate(yesterday_date.addMonths(-1));
   QLabel *label=new QLabel(edit_startdate_edit,tr("&Start Date:"),
 			   this,"edit_startdate_label");
-  label->setGeometry(75,10,70,19);
+  label->setGeometry(75,10,70,20);
   label->setFont(bold_font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
   QPushButton *button=new QPushButton(this,"startdate_button");
@@ -93,11 +93,11 @@ PickReportDates::PickReportDates(unsigned feed_id,unsigned cast_id,
   // End Date
   //
   edit_enddate_edit=new QDateEdit(this,"edit_enddate_edit");
-  edit_enddate_edit->setGeometry(150,40,100,19);
+  edit_enddate_edit->setGeometry(150,40,100,20);
   edit_enddate_edit->setDate(yesterday_date);
   label=new QLabel(edit_enddate_edit,tr("&End Date:"),
 				      this,"edit_enddate_label");
-  label->setGeometry(75,40,70,19);
+  label->setGeometry(75,40,70,20);
   label->setFont(bold_font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
   button=new QPushButton(this,"enddate_button");

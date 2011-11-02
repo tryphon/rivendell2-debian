@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_station.h,v 1.35 2010/10/04 18:11:46 cvs Exp $
+//      $Id: edit_station.h,v 1.36 2011/10/31 11:38:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -73,6 +73,7 @@ class EditStation : public QDialog
    void editBackupsData();
    void editDropboxesData();
    void editEncodersData();
+   void jackSettingsData();
 
   private:
    QString DisplayPart(QString);

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2007 Dan Mills <dmills@exponent.myzen.co.uk>
 //
-//      $Id: rddb.cpp,v 1.12 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rddb.cpp,v 1.13 2011/06/21 22:20:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,10 +35,11 @@
 static QSqlDatabase *db = NULL;
 static RDSqlDatabaseStatus * dbStatus = NULL;
 
-QSqlDatabase * RDInitDb (QString *error)
+QSqlDatabase *RDInitDb (unsigned *schema,QString *error)
 {
   static bool firsttime = true;
 
+  *schema=0;
   RDConfig *cf = RDConfiguration();
   cf->load();
   assert (cf);
@@ -67,6 +68,12 @@ QSqlDatabase * RDInitDb (QString *error)
     new RDDbHeartbeat(cf->mysqlHeartbeatInterval());
     firsttime = false;
   }
+  QSqlQuery *q=new QSqlQuery("select DB from VERSION");
+  if(q->first()) {
+    *schema=q->value(0).toUInt();
+  }
+  delete q;
+
   return db;
 }
 
@@ -74,13 +81,14 @@ RDSqlQuery::RDSqlQuery (const QString &query, QSqlDatabase *dbase):
   QSqlQuery (query,dbase)
 {
   // With any luck, by the time we get here, we have already done the biz...
+  unsigned schema;
   if (!isActive()){ //DB Offline?
     QSqlDatabase *ldb = QSqlDatabase::database();
     // Something went wrong with the DB, trying a reconnect
     ldb->removeDatabase(RDConfiguration()->mysqlDbname());
     ldb->close();
     db = NULL;
-    RDInitDb ();
+    RDInitDb (&schema);
     QSqlQuery::prepare (query);
     QSqlQuery::exec ();
     if (RDDbStatus()){

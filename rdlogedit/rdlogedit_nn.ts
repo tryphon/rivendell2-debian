@@ -859,5 +859,14 @@ Vil du halda fram?</translation>
         <source>Unable to delete log, audio deletion error!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>RDLogEdit -- Database Skew</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This version of RDLogEdit is incompatible with the version installed on the server.
+See your system administrator for an update!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

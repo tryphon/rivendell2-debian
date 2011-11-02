@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdupload.cpp,v 1.4 2011/01/10 13:32:43 cvs Exp $
+//      $Id: rdupload.cpp,v 1.5 2011/10/17 21:01:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -180,11 +180,9 @@ RDUpload::ErrorCode RDUpload::runUpload(const QString &username,
     ret=RDUpload::ErrorRemoteConnection;
     break;
 
-#ifdef CURLE_REMOTE_ACCESS_DENIED
-  case CURLE_REMOTE_ACCESS_DENIED:
+  case 9:   // CURLE_REMOTE_ACCESS_DENIED
     ret=RDUpload::ErrorRemoteAccess;
     break;
-#endif  // CURLE_REMOTE_ACCESS_DENIED
 
   default:
     syslog(LOG_ERR,"Unknown CURL Error [%d]: %s",

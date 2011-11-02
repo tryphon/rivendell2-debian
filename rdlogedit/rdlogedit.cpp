@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit.cpp,v 1.74 2010/09/10 23:59:36 cvs Exp $
+//      $Id: rdlogedit.cpp,v 1.77 2011/10/17 20:08:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -52,8 +52,7 @@
 #include <rddb.h>
 #include <rdtextfile.h>
 #include <rdmixer.h>
-
-
+#include <dbversion.h>
 
 #include <rdlogedit.h>
 #include <edit_log.h>
@@ -111,11 +110,18 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   QString str1;
   QString str2;
   log_log_list=NULL;
+  bool skip_db_check=false;
+  unsigned schema=0;
 
   //
   // Read Command Options
   //
   RDCmdSwitch *cmd=new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdlogedit","\n");
+  for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
+  }
   delete cmd;
 
   //
@@ -147,10 +153,21 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   // Open Database
   //
   QString err;
-  log_db=RDInitDb(&err);
+  log_db=RDInitDb(&schema,&err);
   if(!log_db) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
+  }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+#ifdef WIN32
+	    QMessageBox::warning(this,tr("RDLogEdit -- Database Skew"),
+				 tr("This version of RDLogEdit is incompatible with the version installed on the server.\nSee your system administrator for an update!"));
+#else
+    fprintf(stderr,
+	    "rdlogedit: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+#endif  // WIN32
+    exit(256);
   }
 
   //
@@ -192,11 +209,15 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   // Cart Picker
   //
 #ifdef WIN32
-  log_cart_dialog=new RDCartDialog(&log_filter,&log_group,-1,-1,0,0,
-				   NULL,NULL,NULL,"",
+  log_cart_dialog=new RDCartDialog(&log_filter,&log_group,&log_schedcode,
+				   rdlogedit_conf->outputCard(),
+				   rdlogedit_conf->outputPort(),
+				   rdlogedit_conf->startCart(),
+				   rdlogedit_conf->endCart(),
+				   NULL,NULL,rdstation_conf,"",
 				   this,"log_cart_dialog");
 #else
-  log_cart_dialog=new RDCartDialog(&log_filter,&log_group,
+  log_cart_dialog=new RDCartDialog(&log_filter,&log_group,&log_schedcode,
 				   rdlogedit_conf->outputCard(),
 				   rdlogedit_conf->outputPort(),
 				   rdlogedit_conf->startCart(),

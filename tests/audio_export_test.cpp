@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_export_test.cpp,v 1.3 2010/09/08 20:38:01 cvs Exp $
+//      $Id: audio_export_test.cpp,v 1.4 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -41,6 +41,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   end_point=-1;
   bool ok=false;
   RDAudioExport::ErrorCode conv_err;
+  unsigned schema=0;
 
   //
   // Read Command Options
@@ -190,7 +191,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   // Open Database
   //
   QString err (tr("audio_export_test: "));
-  QSqlDatabase *db=RDInitDb (&err);
+  QSqlDatabase *db=RDInitDb(&schema,&err);
   if(!db) {
     fprintf(stderr,err.ascii());
     delete cmd;

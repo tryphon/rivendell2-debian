@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.h,v 1.7 2010/07/29 19:32:34 cvs Exp $
+//      $Id: createdb.h,v 1.8 2011/06/23 22:30:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,10 +25,16 @@
 
 #include <qstring.h>
 
+//
+// UpdateDB return codes
+//
+#define UPDATEDB_SUCCESS 0
+#define UPDATEDB_BACKUP_FAILED -1
+#define UPDATEDB_QUERY_FAILED -2
 
 bool CreateDb(QString name,QString pwd);
 bool InitDb(QString name,QString pwd,QString stationname);
-bool UpdateDb(int ver);
+int UpdateDb(int ver);
 
 
 #endif

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_upload.cpp,v 1.21 2010/07/29 19:32:36 cvs Exp $
+//      $Id: edit_upload.cpp,v 1.22 2011/06/21 18:31:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -436,6 +436,7 @@ EditUpload::EditUpload(int id,std::vector<int> *adds,QString *filter,
   edit_oneshot_box->setChecked(edit_recording->oneShot());
   edit_settings.setFormat(edit_recording->format());
   edit_settings.setChannels(edit_recording->channels());
+  edit_settings.setSampleRate(edit_recording->sampleRate());
   edit_settings.setBitRate(edit_recording->bitrate());
   edit_settings.setQuality(edit_recording->quality());
   edit_format_edit->setText(edit_settings.description());
@@ -709,6 +710,7 @@ void EditUpload::Save()
   edit_recording->setOneShot(edit_oneshot_box->isChecked());
   edit_recording->setFormat(edit_settings.format());
   edit_recording->setChannels(edit_settings.channels());
+  edit_recording->setSampleRate(edit_settings.sampleRate());
   edit_recording->setBitrate(edit_settings.bitRate());
   edit_recording->setQuality(edit_settings.quality());
   if(edit_normalize_box->isChecked()) {

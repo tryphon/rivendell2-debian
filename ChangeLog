@@ -57,10 +57,10 @@
 	needs work for other orientations.
 2002-7-9        Fred Gleason <fredg@wava.com>
 	* Added 'Down' mode for 'RSlider'.
-	* Added 'Left' and 'Right' modes for 'RSlider', which is now 
+	* Added 'Left' and 'Right' modes for 'RSlider', which is now
 	substantially complete.
 	* Modified 'RTransportButton' so as to use a proper color palette.
-	* Added proper disable/enable support to 'RTransportButton' -i.e. 
+	* Added proper disable/enable support to 'RTransportButton' -i.e.
 	the widget now greys out properly when disabled.
 	* Deleted 'wavhdr.c'.  Ancient history!
 2002-7-10       Fred Gleason <fredg@wava.com>
@@ -83,9 +83,9 @@
 	* Added the feature to 'qwav' where the name of the loaded WAV
 	file will appear on the title bar.  If the WAV file contains a
 	cart chunk, the title from the cart chunk will appear instead.
-	* Fixed a bug whereby exiting (using an HPI device) 'qwav' while 
-	audio was playing would cause audio to continue to play out for 
-	up to several seconds after temination, and result in incorrect 
+	* Fixed a bug whereby exiting (using an HPI device) 'qwav' while
+	audio was playing would cause audio to continue to play out for
+	up to several seconds after temination, and result in incorrect
 	level meter reading upon next program startup.
 2002-7-21        Fred Gleason <fredg@wava.com>
 	* Added Mext chunk support to 'qwav'.
@@ -12197,3 +12197,155 @@
 	* Updated 'NEWS'.
 	* Updated 'INSTALL'.
 	* Updated the package version to 2.0.2.
+2011-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'web/rdfeed/rdfeed_scripts.cpp' that caused the
+	incorrect URL to be generated for %ITEM_AUDIO_URL% when the media
+	archive was located on a separate system from the script.
+2011-06-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDRecording::sampleRate()' and 'RDRecording::setSampleRate()'
+	methods in 'lib/rdrecording.cpp' and 'lib/rdrecording.cpp'.
+	* Fixed a bug in 'rdcatch/edit_upload.cpp' that caused the selected
+	sample rate to fail to be saved to the recording record.
+2011-06-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added code to check for valid database schema in 'lib/rddb.cpp'.
+	* Added '--skip-db-check' flag to ripcd(8) in 'ripcd/ripcd.cpp'.
+	* Added '--skip-db-check' flag to rdlogin(1) in 'rdlogin/rdlogin.cpp'.
+	* Added '--skip-db-check' flag to rdlibrary(1) in 
+	'rdlibrary/rdlibrary.cpp'.
+	* Added '--skip-db-check' flag to rdcatch(1) in 'rdcatch/rdcatch.cpp'.
+	* Added '--skip-db-check' flag to rdcatchd(8) in 
+	'rdcatchd/rdcatchd.cpp'.
+	* Added '--skip-db-check' flag to rdlogedit(1) in 
+	'rdlogedit/rdlogedit.cpp'.
+	* Added '--skip-db-check' flag to rdlogmanager(1) in 
+	'rdlogmanager/rdlogmanager.cpp'.
+	* Added '--skip-db-check' flag to rdpanel(1) in 'rdpanel/rdpanel.cpp'.
+	* Added '--skip-db-check' flag to rdairplay(1) in 
+	'rdairplay/rdairplay.cpp'.
+	* Added '--skip-db-check' flag to rdcastmanager(1) in 
+	'rdcastmanager/rdcastmanager.cpp'.
+	* Added '--skip-db-check' flag to rdrepld(8) in 'rdrepld/rdrepld.cpp'.
+	* Added '--skip-db-check' flag to rddbcheck(8) in 
+	'rddbcheck/rddbcheck.cpp'.
+	* Implemented database version skew check for 'rdcastmanager.cgi'
+	in 'web/rdcastmanager/rdcastmanager.cpp'.
+	* Implemented database version skew check for 'rdfeed.xml'
+	in 'web/rdfeed/rdfeed_script.cpp'.
+	* Implemented database version skew check for 'rdxport.cgi'
+	in 'web/rdxport/rdxport.cpp'.
+2011-06-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'TimeOut 1200' entry to 'conf/rd-bin.conf.in'.
+2011-06-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added '--skip-backup' and '--backup-filename=<file-path>' switches
+	to RDAdmin(1).
+2011-08-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDAudioConvert::ErrorFormatErro' in 'lib/rdaudioconvert.h'
+	and 'lib/rdaudioconvert.cpp'.
+	* Fixed a bug in 'web/rdxport/import.cpp' that caused imports with
+	format errors to not return an error.
+2011-08-30 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdlog_event.cpp' that caused inserted events to
+	be corrupted in being added to the middle of a log 
+	[Mantis bug #0000017].
+2011-08-30 Fred Gleason <fredg@paravelsystems.com>
+	* Tweaked the layout of the Edit Schedule Code dialog in
+	'rdadmin/edit_schedcodes.cpp' to render properly under CentOS/RedHat 5.
+	* Changed the label of the first item in the 'Scheduler Code' control
+	in 'rdlibrary/rdlibrary.cpp' to 'ALL'.
+	* Added a 'Scheduler Code' selector to the Select Cart and Select Cut
+	dialogs in 'lib/rdcart_dialog.cpp', 'lib/rdcart_dialog.h',
+	'lib/rdcut_dialog.cpp' and 'lib/rdcut_dialog.h' [Mantis feature
+	request #0000022].
+2011-09-02 Fred Gleason <fredg@paravelsystems.com>
+	* Reformulated code in 'lib/rdlog_event.cpp' that caused the build to
+	break under some version of gcc(1).
+2011-09-06 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rivendell-suse.in' that would cause a silent
+	failure when attempting to start the daemons when '/var/run/rivendell'
+	didn't exist [Mantis bug #0000025].
+2011-09-06 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdlistview.cpp' that allowed non-contiguous
+	items to be selected [Mantis bug #0000024].
+2011-09-07 Fred Gleason <fredg@paravelsystems.com>
+	* Adjusted control sizes in 'rdcastmanager/edit_post.cpp' and
+	'rdcastmanager/pick_report_dates.cpp' to render
+	correctly on RedHat/CentOS 5.
+2011-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'web/rdfeed/rdfeed_script.cpp' to use GMT for processing
+	date/times [Mantis bug #0000020].
+	* Modified 'lib/rdfeed.cpp' to process pocast datetimes in GMT
+	[Mantis bug #0000020].
+	* Modified 'web/rdcastmanager/rdcastmanager.cpp' to process pocast
+	datetimes in GMT [Mantis bug #0000020].
+	* Modified '/rdcastmanager/list_casts.cpp' to process pocast
+	datetimes in GMT [Mantis bug #0000020].
+	* Modified '/rdcastmanager/edit_cast.cpp' to process pocast
+	datetimes in GMT [Mantis bug #0000020].
+	* Fixed a bug in 'web/rdcastmanager/rdcastmanager.cpp' that caused
+	the last build date value in an RSS feed to fail to be updated
+	when making a change to a child cast.
+2011-09-16 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdadmin/createdb.cpp' that caused schema updates
+	to be incorrectly applied to _SRT tables for services whose names
+	contained reserved SQL characters.
+2011-10-17 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the 'REPLICATORS.NORMALIZATION_LEVEL' field data type to
+	'int'.
+	* Added a 'REPL_CART_STATE.REPOST' and
+	'REPL_CART_STATE.POSTED_FILENAME' field to the database.
+	* Incremented the database version to 203.
+	* Added a 'List Replicator Carts' dialog in
+	'rdadmin/list_replicator_carts.cpp' and
+	'rdadmin/list_replicator_carts.h'.
+	* Added an 'RDDelete' class in 'lib/rddelete.cpp' and
+	'lib/rddelete.h'.
+	* Added logic in 'rdrepld/citadelxds.cpp' to automatically purge
+	remote files.
+	* Fixed a bug in 'rdrepld/citadelxds.cpp' that failed to process
+	carts properly when multiple mappings from a single cart were
+	present in the ISCI cross reference data.
+2011-10-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdconf.cpp' that broke the build under
+	Windows.
+	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that broke the build
+	under Windows.
+2011-10-17 Fred Gleason <fredg@paravelsystems.com>
+	* Reformulated CURL error processing in 'lib/rdaudioexport.cpp',
+	'lib/rdaudioimport.cpp', 'lib/rdaudioinfo.cpp', 'lib/rdcopyaudio.cpp',
+	'lib/rddelete.cpp', 'lib/rddownload.cpp', 'lib/rdpeaksexport.cpp',
+	'lib/rdtrimaudio.cpp' and 'lib/rdupload.cpp' so as to build properly
+	against libcurl-7.19.7.
+2011-10-27 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rd_cart_search_text.cpp' and
+	'rdlibrary/rdlibrary.cpp' that caused cart searches to be broken
+	when searching for a specific group with no scheduler code
+	selected.
+2011-10-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added an import setting for 'The Traffic Light' in
+	'rdadmin/createdb.cpp'.
+	* Incremented the database version to 204.
+2011-10-31 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'STATIONS.START_JACK' and 'STATIONS.JACK_SERVER_NAME' fields
+	to the database.
+	* Incremented the database version to 205.
+	* Added 'RDStation::startJack()', 'RDStation::setStartJack()',
+	'RDStation::jackServerName()' and 'RDStation::setJackServerName()'
+	methods in 'lib/rdstation.cpp' and 'lib/rdstation.h'.
+	* Added an 'Edit Jack' dialog in 'rdadmin/edit_jack.cpp' and
+	'rdadmin/edit_jack.h'.
+2011-10-31 Fred Gleason <fredg@paravelsystems.com>
+	* Documented 'Connect JACK Ports' and 'Disconnect JACK Ports' commands
+	in 'docs/cae.sxw'.
+	* Implemented 'Connect JACK Ports' and 'Disconnect JACK Ports' commands
+	in 'cae/cae_jack.cpp' and 'cae/cae.h'.
+	* Added 'RDCae::connectJackPorts()' and 'RDCae::disconnectJackPorts()'
+	methods in 'lib/rdcae.cpp' and 'lib/rdcae.h'.
+	* Added 'Connect Jack Ports' ['JC'] and 'Disconnect Jack Ports' ['JD']
+	RMLs in 'lib/rdmacro.cpp' and 'lib/rdmacro.h'.
+	* Implemented 'Connect Jack Ports' ['JC'] and 'Disconnect Jack Ports'
+	['JD'] RMLs in 'ripcd/local_macros.cpp'.
+2011-01-01 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the '[JackSession]' section from 'conf/rd.conf-sample',
+	'conf/rd.conf-slax' and 'conf/rd-sample.ini'.
+	* Updated the NEWS file.
+	* Incremented the package version to 2.1.0.

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: import.cpp,v 1.7 2011/04/01 21:40:59 cvs Exp $
+//      $Id: import.cpp,v 1.8 2011/08/30 15:45:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -188,6 +188,13 @@ void Xport::Import()
     printf("Status: %d\n",500);
     printf("\n");
     printf("Internal Server Error\n");
+    break;
+
+  case RDAudioConvert::ErrorFormatError:
+    printf("Content-type: text/html\n");
+    printf("Status: %d\n",400);
+    printf("\n");
+    printf("Malformatted Source File Error\n");
     break;
   }
   delete conv;

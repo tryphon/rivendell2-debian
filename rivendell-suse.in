@@ -4,7 +4,7 @@
 ##
 ##    (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: rivendell-suse.in,v 1.15 2011/04/01 21:57:17 cvs Exp $
+##      $Id: rivendell-suse.in,v 1.16 2011/09/06 16:13:59 cvs Exp $
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of version 2 of the GNU General Public License as
@@ -158,6 +158,14 @@ if [ ! -r /etc/rd.conf ] ; then
   exit 6
 fi
 
+# Check for existence of PID file directory and create it if necessary.
+if [ ! -d /var/run/rivendell ] ; then
+    mkdir -p /var/run/rivendell
+fi
+if [ ! -d /var/run/rivendell ] ; then
+    echo "Missing /var/run/rivendell directory"
+    exit 6
+fi
 
 case "$1" in
     start)

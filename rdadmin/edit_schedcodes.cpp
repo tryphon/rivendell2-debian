@@ -65,11 +65,11 @@ EditSchedCode::EditSchedCode(QString schedCode,QString description,QWidget *pare
   // Code Name
   //
   schedCode_name_edit=new QLineEdit(this,"schedCode_name_edit");
-  schedCode_name_edit->setGeometry(115,11,100,19);
+  schedCode_name_edit->setGeometry(125,11,100,19);
   schedCode_name_edit->setMaxLength(10);
   schedCode_name_edit->setReadOnly(true);
   QLabel *schedCode_name_label=new QLabel(schedCode_name_edit,tr("Scheduler Code:"),this,"schedCode_name_label");
-  schedCode_name_label->setGeometry(10,11,100,19);
+  schedCode_name_label->setGeometry(10,11,110,19);
   schedCode_name_label->setFont(font);
   schedCode_name_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
@@ -77,13 +77,13 @@ EditSchedCode::EditSchedCode(QString schedCode,QString description,QWidget *pare
   // Code Description
   //
   schedCode_description_edit=new QLineEdit(this,"schedCode_description_edit");
-  schedCode_description_edit->setGeometry(115,32,sizeHint().width()-175,19);
+  schedCode_description_edit->setGeometry(125,32,sizeHint().width()-135,19);
   schedCode_description_edit->setMaxLength(255);
   schedCode_description_edit->setValidator(validator);
   QLabel *schedCode_description_label=new QLabel(schedCode_description_edit,
 					     tr("Code Description:"),this,
 					     "schedCode_description_label");
-  schedCode_description_label->setGeometry(10,32,100,19);
+  schedCode_description_label->setGeometry(10,32,110,19);
   schedCode_description_label->setFont(font);
   schedCode_description_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcastmanager.cpp,v 1.13 2010/07/29 19:32:36 cvs Exp $
+//      $Id: rdcastmanager.cpp,v 1.15 2011/08/30 23:35:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,6 +44,7 @@
 #include <rdcmd_switch.h>
 #include <rddb.h>
 #include <rdpodcast.h>
+#include <dbversion.h>
 
 #include <list_casts.h>
 #include <globals.h>
@@ -60,6 +61,7 @@
 //
 QString cast_filter;
 QString cast_group;
+QString cast_schedcode;
 RDUser *cast_user;
 RDRipc *cast_ripc;
 RDStation *rdstation_conf;
@@ -71,11 +73,19 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
 {
   QString str1;
   QString str2;
+  bool skip_db_check=false;
+  unsigned schema=0;
 
   //
   // Read Command Options
   //
-  RDCmdSwitch *cmd=new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdcastmanager","\n");
+  RDCmdSwitch *cmd=
+    new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdcastmanager","\n");
+  for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
+  }
   delete cmd;
 
   //
@@ -99,10 +109,16 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   // Open Database
   //
   QString err;
-  QSqlDatabase *db=RDInitDb (&err);
+  QSqlDatabase *db=RDInitDb(&schema,&err);
   if(!db) {
     QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
+  }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,
+	    "rdcastmanager: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
   }
 
   //

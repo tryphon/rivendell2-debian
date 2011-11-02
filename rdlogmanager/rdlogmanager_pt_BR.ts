@@ -1153,6 +1153,15 @@ Dados</translation>
         <source>RDLogManager - User: </source>
         <translation>RDControle - Usuario: </translation>
     </message>
+    <message>
+        <source>RDLogEdit -- Database Skew</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This version of RDLogManager is incompatible with the version installed on the server.
+See your system administrator for an update!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PickReportDates</name>

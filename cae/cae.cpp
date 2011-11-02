@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae.cpp,v 1.114 2011/05/18 15:25:32 cvs Exp $
+//      $Id: cae.cpp,v 1.115 2011/10/31 19:18:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -639,6 +639,8 @@ void MainObject::DispatchCommand(int ch)
   QString wavename;
   char temp[256];
   int handle;
+  QString in_jport;
+  QString out_jport;
 
 #ifdef PRINT_COMMANDS
   printf("CAE: connection %d receiving ",ch);
@@ -1698,6 +1700,52 @@ void MainObject::DispatchCommand(int ch)
     SendMeterOutputStatusUpdate(card,port,stream);
     EchoArgs(ch,'+');
     return;
+  }
+
+  if(!strcmp(args[ch][0],"JC")) {  // Connect JACK Ports
+    pos=-1;
+    for(int i=0;i<argnum[ch];i++) {
+      if(args[ch][i][0]=='|') {
+	pos=i;
+      }
+    }
+    if(pos<0) {
+      return;
+    }
+    for(int i=1;i<pos;i++) {
+      out_jport+=args[ch][i];
+      out_jport+=" ";
+    }
+    out_jport=out_jport.left(out_jport.length()-1);
+    for(int i=pos+1;i<argnum[ch];i++) {
+      in_jport+=args[ch][i];
+      in_jport+=" ";
+    }
+    in_jport=in_jport.left(in_jport.length()-1);
+    jackConnectPorts(out_jport,in_jport);
+  }
+
+  if(!strcmp(args[ch][0],"JD")) {  // Disconnect JACK Ports
+    pos=-1;
+    for(int i=0;i<argnum[ch];i++) {
+      if(args[ch][i][0]=='|') {
+	pos=i;
+      }
+    }
+    if(pos<0) {
+      return;
+    }
+    for(int i=1;i<pos;i++) {
+      out_jport+=args[ch][i];
+      out_jport+=" ";
+    }
+    out_jport=out_jport.left(out_jport.length()-1);
+    for(int i=pos+1;i<argnum[ch];i++) {
+      in_jport+=args[ch][i];
+      in_jport+=" ";
+    }
+    in_jport=in_jport.left(in_jport.length()-1);
+    jackDisconnectPorts(out_jport,in_jport);
   }
 }
 
