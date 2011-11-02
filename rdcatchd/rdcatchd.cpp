@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcatchd.cpp,v 1.141 2011/05/02 21:37:35 cvs Exp $
+//      $Id: rdcatchd.cpp,v 1.142 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -61,6 +61,7 @@
 #include <rdsettings.h>
 #include <rdlibrary_conf.h>
 #include <rdpaths.h>
+#include <dbversion.h>
 
 RDConfig *catch_config;
 
@@ -125,6 +126,8 @@ MainObject::MainObject(QObject *parent,const char *name)
 {
   QString sql;
   RDSqlQuery *q;
+  bool skip_db_check=false;
+  unsigned schema=0;
 
   //
   // Load the config
@@ -141,6 +144,9 @@ MainObject::MainObject(QObject *parent,const char *name)
     if(cmd->key(i)=="--event-id") {
       RunBatch(cmd);
       return;
+    }
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
     }
   }
 
@@ -213,13 +219,20 @@ MainObject::MainObject(QObject *parent,const char *name)
   //
   QString err (tr("ERROR rdcatchd aborting - "));
 
-  catch_db=RDInitDb (&err);
+  catch_db=RDInitDb(&schema,&err);
   if(!catch_db) {
     printf(err.ascii());
     exit(1);
   }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,
+	    "rdcatchd: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
+  }
   connect (RDDbStatus(),SIGNAL(logText(RDConfig::LogPriority,const QString &)),
 	   this,SLOT(log(RDConfig::LogPriority,const QString &)));
+
   //
   // Create RDCatchConf
   //

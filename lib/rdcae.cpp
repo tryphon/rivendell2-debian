@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcae.cpp,v 1.58 2010/10/04 13:22:13 cvs Exp $
+//      $Id: rdcae.cpp,v 1.59 2011/10/31 19:18:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -345,6 +345,18 @@ void RDCae::setPlayPortActive(int card,int port,int stream)
 }
 
 
+void RDCae::connectJackPorts(const QString &out,const QString &in)
+{
+  SendCommand(QString("JC ")+out+" | "+in+"!");
+}
+
+
+void RDCae::disconnectJackPorts(const QString &out,const QString &in)
+{
+  SendCommand(QString("JD ")+out+" | "+in+"!");
+}
+
+
 void RDCae::readyData()
 {
   readyData(0,0,"");
@@ -446,7 +458,7 @@ void RDCae::clockData()
 
 void RDCae::SendCommand(QString cmd)
 {
-  // printf("RDCae: SendCommand(%s)\n",(const char *)cmd);
+  //printf("RDCae: SendCommand(%s)\n",(const char *)cmd);
   cae_socket->writeBlock((const char *)cmd,cmd.length());
 }
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cast.h,v 1.7 2010/07/29 19:32:36 cvs Exp $
+//      $Id: edit_cast.h,v 1.8 2011/09/09 20:23:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -73,7 +73,7 @@ class EditCast : public QDialog
   QComboBox *cast_item_expiration_box;
   QLabel *cast_item_expiration_label;
   QPushButton *cast_item_expiration_button;
-  QDateTimeEdit *cast_item_expiration_edit;
+  QDateEdit *cast_item_expiration_edit;
   QDateTimeEdit *cast_item_effective_edit;
   QButtonGroup *cast_item_status_group;
   std::vector<QString> cast_aux_varnames;

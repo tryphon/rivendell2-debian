@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadmin.cpp,v 1.69 2011/05/03 19:46:29 cvs Exp $
+//      $Id: rdadmin.cpp,v 1.71 2011/08/30 23:35:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -81,7 +81,8 @@ QString admin_admin_username;
 QString admin_admin_password;
 QString admin_admin_hostname;
 QString admin_admin_dbname;
-
+bool admin_skip_backup=false;
+QString admin_backup_filename="";
 
 void SigHandler(int signo)
 {
@@ -201,7 +202,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Cart Dialog
   //
-  admin_cart_dialog=new RDCartDialog(&admin_filter,&admin_group,-1,-1,0,0,NULL,
+  admin_cart_dialog=new RDCartDialog(&admin_filter,&admin_group,
+				     &admin_schedcode,-1,-1,0,0,NULL,
 				     rdripc,admin_station,"",
 				     this,"admin_cart_dialog");
 
@@ -477,6 +479,7 @@ void MainWidget::restoreData()
     ver=q->value(0).toInt();
   }
   delete q;
+  admin_skip_backup=true;
   UpdateDb(ver);
   QMessageBox::information(this,tr("Restore Complete"),
 			   tr("Restore completed successfully."));
@@ -627,6 +630,14 @@ int main(int argc,char *argv[])
     }
     if(cmd->key(i)=="--mysql-admin-dbname") {
       admin_admin_dbname=cmd->value(i);
+      cmd->setProcessed(i,true);
+    }
+    if(cmd->key(i)=="--backup-filename") {
+      admin_backup_filename=cmd->value(i);
+      cmd->setProcessed(i,true);
+    }
+    if(cmd->key(i)=="--skip-backup") {
+      admin_skip_backup=true;
       cmd->setProcessed(i,true);
     }
   }

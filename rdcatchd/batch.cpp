@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007, 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: batch.cpp,v 1.4 2010/09/16 19:52:08 cvs Exp $
+//      $Id: batch.cpp,v 1.5 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -99,6 +99,7 @@ void MainObject::RunBatch(RDCmdSwitch *cmd)
 {
   bool ok=false;
   int id=-1;
+  unsigned schema=0;
 
   //
   // Set Process Priority
@@ -138,7 +139,7 @@ void MainObject::RunBatch(RDCmdSwitch *cmd)
   //
   QString err (tr("ERROR rdcatchd aborting - "));
 
-  catch_db=RDInitDb (&err);
+  catch_db=RDInitDb (&schema,&err);
   if(!catch_db) {
     printf(err.ascii());
     exit(1);

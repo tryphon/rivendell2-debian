@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae.h,v 1.78 2011/05/18 15:25:32 cvs Exp $
+//      $Id: cae.h,v 1.79 2011/10/31 19:18:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -239,6 +239,8 @@ class MainObject : public QObject
   bool jackGetOutputMeters(int card,int port,short levels[2]);
   bool jackSetPassthroughLevel(int card,int in_port,int out_port,int level);
   void jackGetOutputPosition(int card,unsigned *pos);
+  void jackConnectPorts(const QString &out,const QString &in);
+  void jackDisconnectPorts(const QString &out,const QString &in);
   int GetJackOutputStream();
   void FreeJackOutputStream(int stream);
   void EmptyJackInputStream(int stream,bool done);
@@ -257,7 +259,6 @@ class MainObject : public QObject
   RDWaveFile *jack_play_wave[RD_MAX_STREAMS];
   short *jack_wave_buffer;
   jack_default_audio_sample_t *jack_sample_buffer;
-  //  jack_default_audio_sample_t *jack_resample_buffer;
   short jack_input_volume_db[RD_MAX_STREAMS];
   short jack_output_volume_db[RD_MAX_PORTS][RD_MAX_STREAMS];
   short jack_passthrough_volume_db[RD_MAX_PORTS][RD_MAX_PORTS];

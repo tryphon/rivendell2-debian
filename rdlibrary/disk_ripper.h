@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: disk_ripper.h,v 1.7 2010/07/29 19:32:36 cvs Exp $
+//      $Id: disk_ripper.h,v 1.8 2011/08/30 23:35:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -51,7 +51,7 @@ class DiskRipper : public QDialog
 {
   Q_OBJECT
  public:
-  DiskRipper(QString *filter,QString *group,
+  DiskRipper(QString *filter,QString *group,QString *schedcode,
 	     QWidget *parent=0,const char *name=0);
   ~DiskRipper();
   QSize sizeHint() const;
@@ -120,6 +120,7 @@ class DiskRipper : public QDialog
   bool rip_done;
   QString *rip_filter_text;
   QString *rip_group_text;
+  QString *rip_schedcode_text;
   std::vector<QString> rip_cutnames;
   bool rip_aborting;
 };

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: upload_test.cpp,v 1.2 2010/07/29 19:32:39 cvs Exp $
+//      $Id: upload_test.cpp,v 1.3 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -34,6 +34,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   username="";
   password="";
   RDUpload::ErrorCode conv_err;
+  unsigned schema=0;
 
   //
   // Read Command Options
@@ -78,7 +79,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   // Open Database
   //
   QString err (tr("upload_test: "));
-  QSqlDatabase *db=RDInitDb (&err);
+  QSqlDatabase *db=RDInitDb(&schema,&err);
   if(!db) {
     fprintf(stderr,err.ascii());
     delete cmd;

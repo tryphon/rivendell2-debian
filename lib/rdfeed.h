@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdfeed.h,v 1.8 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdfeed.h,v 1.9 2011/06/02 20:41:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -106,7 +106,8 @@ class RDFeed : public QObject
   void setRedirectPath(const QString &str);
   RDFeed::MediaLinkMode mediaLinkMode() const;
   void setMediaLinkMode(RDFeed::MediaLinkMode mode) const;
-  QString audioUrl(RDFeed::MediaLinkMode mode,unsigned cast_id);
+  QString audioUrl(RDFeed::MediaLinkMode mode,const QString &cgi_hostname,
+		   unsigned cast_id);
   unsigned postCut(RDUser *user,RDStation *station,
 		   const QString &cutname,Error *err,bool log_debug);
   unsigned postFile(RDStation *station,const QString &srcfile,Error *err,

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.cpp,v 1.186 2010/10/21 18:25:22 cvs Exp $
+//      $Id: rdairplay.cpp,v 1.188 2011/08/30 23:35:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -59,6 +59,7 @@
 #include <rddatedecode.h>
 #include <rddb.h>
 #include <rdescape_string.h>
+#include <dbversion.h>
 
 #include <wall_clock.h>
 #include <globals.h>
@@ -112,6 +113,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   QPainter *pd=NULL;
   air_refresh_pixmap=NULL;
   air_panel=NULL;
+  bool skip_db_check=false;
+  unsigned schema=0;
 
   //
   // Ensure Single Instance
@@ -144,6 +147,11 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   QString lineno;
   RDCmdSwitch *cmd=new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdairplay",
 				   RDAIRPLAY_USAGE);
+  for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
+  }
   for(unsigned i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
     air_start_line[i]=0;
     air_start_start[i]=false;
@@ -228,12 +236,17 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Open Database
   //
   QString err;
-  QSqlDatabase *db = RDInitDb (&err);
+  QSqlDatabase *db=RDInitDb(&schema,&err);
   if(!db) {
     QMessageBox::warning(this,tr("Database Error"),
 			 //tr("Can't Connect","Unable to connect to mySQL Server!"));
 			 err);
     exit(0);
+  }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,"rdlogin: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
   }
   connect (RDDbStatus(),SIGNAL(logText(RDConfig::LogPriority,const QString &)),
 	   this,SLOT(logLine(RDConfig::LogPriority,const QString &))); 
@@ -364,6 +377,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Cart Picker
   //
   rdcart_dialog=new RDCartDialog(&air_add_filter,&air_add_group,
+				 &air_add_schedcode,
 				 air_cue_card,air_cue_port,0,0,
 				 rdcae,rdripc,rdstation_conf,
 				 rdstation_conf->editorPath(),

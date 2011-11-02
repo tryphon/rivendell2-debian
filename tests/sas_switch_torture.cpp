@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: sas_switch_torture.cpp,v 1.8 2010/07/29 19:32:39 cvs Exp $
+//      $Id: sas_switch_torture.cpp,v 1.9 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,6 +36,8 @@
 MainWidget::MainWidget(QWidget *parent,const char *name)
   :QWidget(parent,name)
 {
+  unsigned schema=0;
+
   //
   // Fix the Window Size
   //
@@ -57,7 +59,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   rd_config->load();
 
   QString err;
-  test_db=RDInitDb (&err);
+  test_db=RDInitDb(&schema,&err);
   if(!test_db) {
     QMessageBox::warning(this,"Can't Connect",
 			 err,0,1,1);

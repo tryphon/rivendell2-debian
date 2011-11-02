@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcopyaudio.cpp,v 1.1 2011/01/25 19:28:48 cvs Exp $
+//      $Id: rdcopyaudio.cpp,v 1.2 2011/10/17 21:01:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -123,7 +123,7 @@ RDCopyAudio::ErrorCode RDCopyAudio::runCopy(const QString &username,
   case CURLE_URL_MALFORMAT:
   case CURLE_COULDNT_RESOLVE_HOST:
   case CURLE_COULDNT_CONNECT:
-    //case CURLE_REMOTE_ACCESS_DENIED:
+  case 9:   // CURLE_REMOTE_ACCESS_DENIED:
     curl_easy_cleanup(curl);
     return RDCopyAudio::ErrorUrlInvalid;
   }

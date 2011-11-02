@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_reports.cpp,v 1.9 2010/07/29 19:32:36 cvs Exp $
+//      $Id: list_reports.cpp,v 1.11 2011/10/27 15:23:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,12 +35,14 @@
 
 
 ListReports::ListReports(const QString &filter,const QString &type_filter,
-			 const QString &group,QWidget *parent,const char *name)
+			 const QString &group,const QString &schedcode,
+			 QWidget *parent,const char *name)
   : QDialog(parent,name,true)
 {
   list_filter=filter;
   list_type_filter=type_filter;
   list_group=group;
+  list_schedcode=schedcode;
 
   //
   // Fix the Window Size
@@ -175,13 +177,15 @@ void ListReports::GenerateCartReport(QString *report)
   if(list_group==QString("ALL")) {
     sql+=QString().
       sprintf(" where %s && %s order by NUMBER",
-	      (const char *)RDAllCartSearchText(list_filter,lib_user->name()),
+	      (const char *)RDAllCartSearchText(list_filter,list_schedcode,
+						lib_user->name()),
 	      (const char *)list_type_filter);
   }
   else {
     sql+=QString().
       sprintf(" where %s && %s order by NUMBER",
-	      (const char *)RDCartSearchText(list_filter,list_group).utf8(),
+	      (const char *)RDCartSearchText(list_filter,list_group,
+					     list_schedcode).utf8(),
 	      (const char *)list_type_filter);
   }
   q=new RDSqlQuery(sql);
@@ -327,13 +331,15 @@ void ListReports::GenerateCutReport(QString *report)
   if(list_group==QString("ALL")) {
     sql+=QString().
       sprintf(" where %s && %s order by CART.NUMBER",
-	      (const char *)RDAllCartSearchText(list_filter,lib_user->name()).utf8(),
+	      (const char *)RDAllCartSearchText(list_filter,list_schedcode,
+						lib_user->name()).utf8(),
 	      (const char *)list_type_filter);
   }
   else {
     sql+=QString().
       sprintf(" where %s && %s order by CART.NUMBER",
-	      (const char *)RDCartSearchText(list_filter,list_group).utf8(),
+	      (const char *)RDCartSearchText(list_filter,list_group,
+					     list_schedcode).utf8(),
 	      (const char *)list_type_filter);
   }
   q=new RDSqlQuery(sql);
@@ -524,13 +530,15 @@ void ListReports::GenerateCartDump(QString *report)
   if(list_group==QString("ALL")) {
     sql+=QString().
       sprintf(" where %s && %s order by CUTS.CUT_NAME",
-	      (const char *)RDAllCartSearchText(list_filter,lib_user->name()).utf8(),
+	      (const char *)RDAllCartSearchText(list_filter,list_schedcode,
+						lib_user->name()).utf8(),
 	      (const char *)list_type_filter);
   }
   else {
     sql+=QString().
       sprintf(" where %s && %s order by CUTS.CUT_NAME",
-	      (const char *)RDCartSearchText(list_filter,list_group).utf8(),
+	      (const char *)RDCartSearchText(list_filter,list_group,
+					     list_schedcode).utf8(),
 	      (const char *)list_type_filter);
   }
   q=new RDSqlQuery(sql);

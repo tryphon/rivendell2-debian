@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel.h,v 1.15 2010/07/29 19:32:37 cvs Exp $
+//      $Id: rdpanel.h,v 1.16 2011/08/30 23:35:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -76,6 +76,7 @@ class MainWidget : public QWidget
   QPixmap *lib_rivendell_map;
   QString panel_filter;
   QString panel_group;
+  QString panel_schedcode;
   QPixmap *panel_skin_pixmap;
 };
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: globals.h,v 1.4 2010/07/29 19:32:36 cvs Exp $
+//      $Id: globals.h,v 1.5 2011/08/30 23:35:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,6 +35,7 @@
 //
 extern QString cast_filter;
 extern QString cast_group;
+extern QString cast_schedcode;
 extern RDUser *cast_user;
 extern RDRipc *cast_ripc;
 extern RDConfig *config;

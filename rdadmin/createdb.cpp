@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.cpp,v 1.189 2011/04/06 11:31:10 cvs Exp $
+//      $Id: createdb.cpp,v 1.194 2011/10/31 11:38:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,8 @@
 #include <netdb.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include <qapplication.h>
 
@@ -42,6 +44,7 @@
 #include <rdfeedlog.h>
 #include "rdconfig.h"
 #include <createdb.h>
+#include <globals.h>
 
 //
 // NOTE TO MAINTAINERS:
@@ -541,6 +544,8 @@ bool CreateDb(QString name,QString pwd)
       STARTUP_CART int unsigned default 0,\
       EDITOR_PATH char(255) default \"\",\
       FILTER_MODE int default 0,\
+      START_JACK enum('N','Y') default 'N',\
+      JACK_SERVER_NAME char(64),\
       SYSTEM_MAINT enum('N','Y') default 'Y',\
       STATION_SCANNED enum('N','Y') default 'N',\
       HAVE_OGGENC enum('N','Y') default 'N',\
@@ -2004,7 +2009,7 @@ bool CreateDb(QString name,QString pwd)
                          URL_USERNAME char(64),\
                          URL_PASSWORD char(64),\
                          ENABLE_METADATA enum('N','Y') default 'N',\
-                         NORMALIZATION_LEVEL int unsigned default 0,\
+                         NORMALIZATION_LEVEL int default 0,\
                          index TYPE_ID_IDX (TYPE_ID))",
 			RD_DEFAULT_SAMPLE_RATE);
   if(!RunQuery(sql)) {
@@ -2031,8 +2036,10 @@ bool CreateDb(QString name,QString pwd)
        ID int unsigned not null auto_increment primary key,	\
        REPLICATOR_NAME char(32) not null,\
        CART_NUMBER int unsigned not null,\
+       POSTED_FILENAME char(255),\
        ITEM_DATETIME datetime not null,\
-       unique REPLICATOR_NAME_IDX(REPLICATOR_NAME,CART_NUMBER))";
+       REPOST enum('N','Y') default 'N',\
+       unique REPLICATOR_NAME_IDX(REPLICATOR_NAME,CART_NUMBER,POSTED_FILENAME))";
   if(!RunQuery(sql)) {
     return false;
   }
@@ -2419,8 +2426,9 @@ void UpdateLogTable(const QString &table)
 //
 // Main Schema Update Routine
 //
-bool UpdateDb(int ver)
+int UpdateDb(int ver)
 {
+  QString cmd;
   QString sql;
   QSqlQuery *q;
   QSqlQuery *q1;
@@ -2429,6 +2437,33 @@ bool UpdateDb(int ver)
   RDCart *cart;
   unsigned dev;
   QString tablename;
+
+  //
+  // Create backup
+  //
+  if(!admin_skip_backup) {
+    if(admin_backup_filename.isEmpty()) {
+      if(getenv("HOME")==NULL) {
+	admin_backup_filename="/tmp";
+      }
+      else {
+	admin_backup_filename=getenv("HOME");
+      }
+      admin_backup_filename+=
+	QString().sprintf("/rdbackup-%s-%d.sql.gz",
+       				       (const char *)QDate::currentDate().
+			  toString("yyyyMMdd"),ver);
+    }
+    cmd=QString().sprintf("mysqldump -h %s -u %s -p%s %s | gzip -q -c - > %s",
+			  (const char *)admin_config->mysqlHostname(),
+			  (const char *)admin_config->mysqlUsername(),
+			  (const char *)admin_config->mysqlPassword(),
+			  (const char *)admin_config->mysqlDbname(),
+			  (const char *)admin_backup_filename);
+    if(system(cmd)!=0) {
+      return UPDATEDB_BACKUP_FAILED;
+    }
+  }
 
   // **** Start of version updates ****
 
@@ -2454,7 +2489,7 @@ bool UpdateDb(int ver)
       PANEL_PORT1 int default -1,\
       index STATION_IDX (STATION,INSTANCE))"; 
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     //
@@ -2463,14 +2498,14 @@ bool UpdateDb(int ver)
     sql="insert into RDAIRPLAY (STATION,INSTANCE) \
       values (\"DEFAULT\",0)";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   }
 
   if(ver<4) {
     if(!RunQuery(
 	 "alter table RDAIRPLAY modify ID int not null auto_increment")) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   }
 
@@ -2697,7 +2732,7 @@ bool UpdateDb(int ver)
       GPOS int not null,\
       index MATRIX_IDX (STATION_NAME,MATRIX))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
     
     //
@@ -2712,7 +2747,7 @@ bool UpdateDb(int ver)
       FEED_NAME char(8),\
       index MATRIX_IDX (STATION_NAME,MATRIX,NUMBER))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
     
     //
@@ -2726,7 +2761,7 @@ bool UpdateDb(int ver)
       NAME char(64),\
       index MATRIX_IDX (STATION_NAME,MATRIX,NUMBER))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   }
   
@@ -3577,7 +3612,7 @@ bool UpdateDb(int ver)
       index SERVICE_IDX (SERVICE_NAME))");
     printf("SQL: %s\n",(const char *)sql);
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
     sql="select NAME from CLOCKS";
     q=new QSqlQuery(sql);
@@ -3606,7 +3641,7 @@ bool UpdateDb(int ver)
       index EVENT_IDX (EVENT_NAME),\
       index SERVICE_IDX (SERVICE_NAME))");
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
     sql="select NAME from EVENTS";
     q=new QSqlQuery(sql);
@@ -3649,7 +3684,7 @@ bool UpdateDb(int ver)
       index USER_IDX (USER_NAME),\
       index GROUP_IDX (GROUP_NAME))");
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
     sql=QString("select LOGIN_NAME from USERS");
     q=new QSqlQuery(sql);
@@ -5735,7 +5770,7 @@ bool UpdateDb(int ver)
       NAME char(64),\
       index LOAD_IDX (TYPE,OWNER,PANEL_NO))"; 
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     //
@@ -5749,7 +5784,7 @@ bool UpdateDb(int ver)
       NAME char(64),\
       index LOAD_IDX (TYPE,OWNER,PANEL_NO))"; 
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   } 
 
@@ -5757,7 +5792,7 @@ bool UpdateDb(int ver)
     sql="alter table CART add column AVERAGE_HOOK_LENGTH int unsigned \
          default 0 after AVERAGE_SEGUE_LENGTH";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     sql="select NUMBER from CART";
@@ -6238,16 +6273,16 @@ bool UpdateDb(int ver)
          DEFAULT_EXTENSION char(16),\
          index NAME_IDX(NAME,STATION_NAME))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
     // Ensure that dynamic format IDs start after 100
     sql="insert into ENCODERS set ID=100,NAME=\"dummy\"";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
     sql="delete from ENCODERS where ID=100";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     //
@@ -6259,7 +6294,7 @@ bool UpdateDb(int ver)
          BITRATES int not null,\
          index ENCODER_ID_IDX(ENCODER_ID))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
     
     //
@@ -6271,7 +6306,7 @@ bool UpdateDb(int ver)
          CHANNELS int not null,\
          index ENCODER_ID_IDX(ENCODER_ID))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     //
@@ -6283,7 +6318,7 @@ bool UpdateDb(int ver)
          SAMPLERATES int not null,\
          index ENCODER_ID_IDX(ENCODER_ID))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   }
 
@@ -6291,7 +6326,7 @@ bool UpdateDb(int ver)
     sql="alter table FEEDS add column UPLOAD_EXTENSION char(16) default \"mp3\"\
          after UPLOAD_QUALITY";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   }
 
@@ -6782,7 +6817,7 @@ bool UpdateDb(int ver)
     while(q->next()) {
       tablename=q->value(0).toString();
       tablename.replace(" ","_");
-      sql=QString().sprintf("alter table %s_SRT add column ISCI char(32)\
+      sql=QString().sprintf("alter table `%s_SRT` add column ISCI char(32)\
                              after ISRC",(const char *)tablename);
       q1=new QSqlQuery(sql);
       delete q1;
@@ -6912,7 +6947,7 @@ bool UpdateDb(int ver)
          ITEM_DATETIME datetime not null,\
          unique REPLICATOR_NAME_IDX(REPLICATOR_NAME,CART_NUMBER))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     //
@@ -6926,7 +6961,7 @@ bool UpdateDb(int ver)
          index REPLICATOR_NAME_IDX(REPLICATOR_NAME),\
          index CUT_NAME_IDX(CUT_NAME))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   }
 
@@ -6944,31 +6979,31 @@ bool UpdateDb(int ver)
          REGION_NAME char(80),\
          index CART_NUMBER_IDX(CART_NUMBER))";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     sql="alter table VERSION add column LAST_ISCI_XREFERENCE datetime \
          default \"1970-01-01 00:00:00\" after LAST_MAINT_DATETIME";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     sql="alter table SYSTEM add column ISCI_XREFERENCE_PATH char(255) \
          after MAX_POST_LENGTH";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   }
 
   if(ver<199) {
     sql="create index TYPE_IDX on ISCI_XREFERENCE (TYPE,LATEST_DATE)";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     sql="create index LATEST_DATE_IDX on ISCI_XREFERENCE (LATEST_DATE)";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   }
 
@@ -6979,13 +7014,13 @@ bool UpdateDb(int ver)
     sql="alter table STATIONS add column HTTP_STATION char(64) \
          default \"localhost\" after IPV4_ADDRESS";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
 
     sql="alter table STATIONS add column CAE_STATION char(64) \
          default \"localhost\" after HTTP_STATION";
     if(!RunQuery(sql)) {
-      return false;
+      return UPDATEDB_QUERY_FAILED;
     }
   }
 
@@ -7004,9 +7039,81 @@ bool UpdateDb(int ver)
     q=new QSqlQuery(sql);
     while(q->next()) {
       if (!UpdateRDAirplayHotkeys((const char *)q->value(0).toString())) {
-	return false;
+	return UPDATEDB_QUERY_FAILED;
       }
     }
+    delete q;
+  }
+
+  if(ver<203) {
+    sql=
+      "alter table REPLICATORS drop column NORMALIZATION_LEVEL";
+    q=new QSqlQuery(sql);
+    delete q;
+    sql=
+      "alter table REPLICATORS add column NORMALIZATION_LEVEL int default 0 \
+       after ENABLE_METADATA";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="alter table REPL_CART_STATE add column REPOST enum('N','Y') \
+         default 'N' after ITEM_DATETIME";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="alter table REPL_CART_STATE add column POSTED_FILENAME char(255) \
+         after CART_NUMBER";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="drop index REPLICATOR_NAME_IDX on REPL_CART_STATE";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="create unique index REPLICATOR_NAME_IDX on REPL_CART_STATE \
+         (REPLICATOR_NAME,CART_NUMBER,POSTED_FILENAME)";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="delete from REPL_CART_STATE where POSTED_FILENAME is null";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<204) {
+    sql="insert into IMPORT_TEMPLATES set\
+         NAME=\"The Traffic Light\",\
+         CART_OFFSET=10,\
+         CART_LENGTH=6,\
+         TITLE_OFFSET=25,\
+         TITLE_LENGTH=34,\
+         HOURS_OFFSET=0,\
+         HOURS_LENGTH=2,\
+         MINUTES_OFFSET=3,\
+         MINUTES_LENGTH=2,\
+         SECONDS_OFFSET=6,\
+         SECONDS_LENGTH=2,\
+         LEN_HOURS_OFFSET=60,\
+         LEN_HOURS_LENGTH=2,\
+         LEN_MINUTES_OFFSET=63,\
+         LEN_MINUTES_LENGTH=2,\
+         LEN_SECONDS_OFFSET=66,\
+         LEN_SECONDS_LENGTH=2,\
+         DATA_OFFSET=69,\
+         DATA_LENGTH=32";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<205) {
+    sql="alter table STATIONS add column START_JACK enum('N','Y') default 'N' \
+         after FILTER_MODE";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="alter table STATIONS add column JACK_SERVER_NAME char(64) \
+         after START_JACK";
+    q=new QSqlQuery(sql);
     delete q;
   }
 
@@ -7019,5 +7126,5 @@ bool UpdateDb(int ver)
   q=new QSqlQuery(QString().sprintf("update VERSION set DB=%d",
 				    RD_VERSION_DATABASE));
   delete q;
-  return true;
+  return UPDATEDB_SUCCESS;
 }

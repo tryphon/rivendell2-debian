@@ -34,10 +34,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Expires At:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Select</source>
         <translation type="unfinished"></translation>
     </message>
@@ -92,6 +88,10 @@
     </message>
     <message>
         <source>Media Link:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Expires On:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.cpp,v 1.113 2010/10/11 19:45:35 cvs Exp $
+//      $Id: rdlibrary.cpp,v 1.116 2011/10/27 15:23:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -53,6 +53,7 @@
 #include <rdcheck_daemons.h>
 #include <rdtextvalidator.h>
 #include <rdcmd_switch.cpp>
+#include <dbversion.h>
 
 #include <filter.h>
 #include <edit_cart.h>
@@ -96,10 +97,18 @@ void SigHandler(int signo);
 MainWidget::MainWidget(QWidget *parent,const char *name)
   :QWidget(parent,name)
 {
+  unsigned schema=0;
+  bool skip_db_check=false;
+
   //
   // Read Command Options
   //
   RDCmdSwitch *cmd=new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdlibrary","\n");
+  for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
+  }
   delete cmd;
 
   //
@@ -165,12 +174,18 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Open Database
   //
-  QString err (tr("rdlibrary : "));
-  QSqlDatabase *db=RDInitDb (&err);
+  QString err(tr("rdlibrary : "));
+  QSqlDatabase *db=RDInitDb(&schema,&err);
   if(!db) {
     QMessageBox::warning(this,
 			 tr("Can't Connect"),err);
     exit(0);
+  }
+  if((RD_VERSION_DATABASE!=schema)&&(!skip_db_check)) {
+    fprintf(stderr,
+	    "rdlibrary: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
   }
 
   //
@@ -499,7 +514,7 @@ void MainWidget::userData()
   }
 
   lib_codes_box->clear();
-  lib_codes_box->insertItem(tr(""));
+  lib_codes_box->insertItem(tr("ALL"));
   sql=QString().sprintf("select CODE from SCHED_CODES");
   q=new RDSqlQuery(sql);
   while(q->next()) {
@@ -745,7 +760,8 @@ Do you still want to delete it?"),item->text(1).toUInt());
 void MainWidget::ripData()
 {
   QString group=lib_group_box->currentText();
-  DiskRipper *dialog=new DiskRipper(&lib_filter_text,&group,
+  QString schedcode=lib_codes_box->currentText();
+  DiskRipper *dialog=new DiskRipper(&lib_filter_text,&group,&schedcode,
 				    this,"disk_ripper");
   if(dialog->exec()==0) {
     for(int i=0;i<lib_group_box->count();i++) {
@@ -765,7 +781,8 @@ void MainWidget::reportsData()
 {
   ListReports *lr=
     new ListReports(lib_filter_edit->text(),GetTypeFilter(),
-		    lib_group_box->currentText(),this,"lr");
+		    lib_group_box->currentText(),lib_codes_box->currentText(),
+		    this,"lr");
   lr->exec();
   delete lr;
 }
@@ -866,8 +883,8 @@ void MainWidget::resizeEvent(QResizeEvent *e)
   lib_filter_label->setGeometry(10,10,55,20);
   lib_group_box->setGeometry(70,40,120,20);
   lib_group_label->setGeometry(10,40,55,20);
-  lib_codes_box->setGeometry(300,40,120,20);
-  lib_codes_label->setGeometry(195,40,100,20);
+  lib_codes_box->setGeometry(330,40,120,20);
+  lib_codes_label->setGeometry(195,40,130,20);
   lib_showaudio_box->setGeometry(70,67,15,15);
   lib_showaudio_label->setGeometry(90,65,130,20);
   lib_showmacro_box->setGeometry(230,67,15,15);
@@ -927,22 +944,18 @@ void MainWidget::RefreshList()
     sql+=QString().
       sprintf(" where %s && %s",
 	      (const char *)RDAllCartSearchText(lib_filter_edit->text(),
+						lib_codes_box->currentText(),
 						lib_user->name()).utf8(),
 	      (const char *)type_filter);
   }
   else {
     sql+=QString().
       sprintf(" where %s && %s",
-	      (const char *)RDCartSearchText(lib_filter_edit->text(),group).utf8(),
+	      (const char *)RDCartSearchText(lib_filter_edit->text(),group,
+					     lib_codes_box->currentText()).
+	      utf8(),
 	      (const char *)type_filter);
   }
-  QString code=lib_codes_box->currentText();
-  if(code!=QString("")) {
-  	code+="          ";
-    code=code.left(11);
-  	sql+=QString().sprintf(" && SCHED_CODES like \"%%%s%%\"",(const char *)code);
-    }  
-  
   sql+=" order by CART.NUMBER";
   if(lib_showmatches_box->isChecked()) {
     sql+=QString().sprintf(" limit %d",RD_LIMITED_CART_SEARCH_QUANTITY);

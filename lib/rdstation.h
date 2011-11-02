@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdstation.h,v 1.23 2010/09/10 23:59:34 cvs Exp $
+//      $Id: rdstation.h,v 1.24 2011/10/31 11:38:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -90,6 +90,10 @@ class RDStation
   void setEditorPath(const QString &cmd);
   RDStation::FilterMode filterMode() const;
   void setFilterMode(RDStation::FilterMode mode) const;
+  bool startJack() const;
+  void setStartJack(bool state) const;
+  QString jackServerName() const;
+  void setJackServerName(const QString &str) const;
   bool systemMaint() const;
   void setSystemMaint(bool state) const;
   bool scanned() const;

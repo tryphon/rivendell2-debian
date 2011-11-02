@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: globals.h,v 1.10 2010/12/08 01:51:15 cvs Exp $
+//      $Id: globals.h,v 1.11 2011/06/23 22:30:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -43,6 +43,8 @@ extern QString admin_admin_username;
 extern QString admin_admin_password;
 extern QString admin_admin_hostname;
 extern QString admin_admin_dbname;
+extern bool admin_skip_backup;
+extern QString admin_backup_filename;
 extern void PrintError(const QString &str,bool interactive);
 
 #endif  // GLOBALS_H

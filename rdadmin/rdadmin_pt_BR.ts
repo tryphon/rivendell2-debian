@@ -104,12 +104,12 @@ esta ação PARARÁ por alguns segundos qualquer
     </message>
     <message>
         <source>Unable to update Rivendell Database!</source>
-        <translation>Não foi possível atualizar a Base de Dados do Rivendell!</translation>
+        <translation type="obsolete">Não foi possível atualizar a Base de Dados do Rivendell!</translation>
     </message>
     <message>
         <source>The Rivendell Database has
 been updated to Version</source>
-        <translation>A Base de Dados do Rivendell foi
+        <translation type="obsolete">A Base de Dados do Rivendell foi
 atualizada para a Versão</translation>
     </message>
     <message>
@@ -126,6 +126,34 @@ atualizada para a Versão</translation>
     </message>
     <message>
         <source>RDAdmin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+Database backup failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+Schema modification failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to update Rivendell Database:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+Unknown/unspecified error!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+and a backup of the original database saved in </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Rivendell Database has been updated to version</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2167,6 +2195,11 @@ Segurança</translation>
         <source>System Services</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>JACK
+Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditSvc</name>
@@ -3167,6 +3200,46 @@ Você ainda quer Deletar?</translation>
     </message>
     <message>
         <source>BroadcastTools SRC-16</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ListReplicatorCarts</name>
+    <message>
+        <source>&amp;Repost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repost
+&amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Fechar</translation>
+    </message>
+    <message>
+        <source>CART</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TITLE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LAST POSTED</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Active Carts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> Replicator Carts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>POSTED FILENAME</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

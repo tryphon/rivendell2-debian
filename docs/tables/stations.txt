@@ -21,6 +21,8 @@ HEARTBEAT_INTERVAL   int(10) unsigned
 STARTUP_CART         int(10) unsigned
 EDITOR_PATH          char(255)
 FILTER_MODE          int(11)            0=Synchronous, 1=Asynchronous
+START_JACK           enum('Y','N')
+JACK_SERVER_NAME     char(64)
 SYSTEM_MAINT         enum('N','Y')
 STATION_SCANNED      enum('N','Y')
 HAVE_OGGENC          enum('N','Y')

@@ -98,26 +98,46 @@ int rlm_icecast2_EncodeString(char *sString,int dMaxSize)
   char sAccum[4];          /* General String Buffer */
 
   i=0;
+  fprintf(stderr,"1: i=%d\n",i);
   while(sString[i]!=0) {
+    fprintf(stderr,"2: i=%d\n",i);
     if(((sString[i]!=' ') && (sString[i]!='*') && (sString[i]!='-') &&
 	(sString[i]!='_') && (sString[i]!='.')) && 
        ((sString[i]<'0') ||
        ((sString[i]>'9') && (sString[i]<'A')) ||
        ((sString[i]>'Z') && (sString[i]<'a')) ||
        (sString[i]>'z'))) {
+      fprintf(stderr,"3: i=%d\n",i);
       if(rlm_icecast2_BufferDiff(sString,i,2,dMaxSize)<0) {
+	fprintf(stderr,"4: i=%d\n",i);
+	fprintf(stderr,"rlm_icecast2: BufferDiff() failed, maxsize: %d\n",
+		dMaxSize);
 	return -1;
       }
       sprintf(sAccum,"%%%2x",sString[i]);
+      fprintf(stderr,"5: i=%d\n",i);
       sString[i++]=sAccum[0];
+      fprintf(stderr,"6: i=%d\n",i);
       sString[i++]=sAccum[1];
+      fprintf(stderr,"7: i=%d\n",i);
       sString[i]=sAccum[2];
     }
+    fprintf(stderr,"8: i=%d\n",i);
     if(sString[i]==' ') {
-      sString[i]='+';
+      fprintf(stderr,"9: i=%d\n",i);
+     sString[i]='+';
     }
+    fprintf(stderr,"10: i=%d\n",i);
     i++;
+    fprintf(stderr,"11: i=%d\n",i);
+    if(i>=dMaxSize) {
+      fprintf(stderr,"12: i=%d\n",i);
+      fprintf(stderr,"rlm_icecast2: offset exceeded limit, maxsize: %d\n",
+	      dMaxSize);
+      return -1;
+    }
   }
+  fprintf(stderr,"13: i=%d\n",i);
   return strlen(sString);
 }
 

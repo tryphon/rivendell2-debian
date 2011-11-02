@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.h,v 1.20 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdcart_dialog.h,v 1.21 2011/08/30 23:35:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,23 +44,24 @@ class RDCartDialog : public QDialog
 {
  Q_OBJECT
  public:
- RDCartDialog(QString *filter,QString *group,
-	      int audition_card,int audition_port,
-	      unsigned start_cart,unsigned end_cart,
-	      RDCae *cae,RDRipc *ripc,RDStation *station,
-	      const QString &edit_cmd,QWidget *parent=0,const char *name=0);
- ~RDCartDialog();
- QSize sizeHint() const;
- QSizePolicy sizePolicy() const;
+  RDCartDialog(QString *filter,QString *group,QString *schedcode,
+	       int audition_card,int audition_port,
+	       unsigned start_cart,unsigned end_cart,
+	       RDCae *cae,RDRipc *ripc,RDStation *station,
+	       const QString &edit_cmd,QWidget *parent=0,const char *name=0);
+  ~RDCartDialog();
+  QSize sizeHint() const;
+  QSizePolicy sizePolicy() const;
 
  public slots:
- int exec(int *cartnum,RDCart::Type type,QString *svcname,int svc_quan);
+  int exec(int *cartnum,RDCart::Type type,QString *svcname,int svc_quan);
 
  private slots:
   void filterChangedData(const QString &);
   void filterSearchedData();
   void filterClearedData();
-  void groupActivatedData(const QString &);
+  void groupActivatedData(const QString &group);
+  void schedcodeActivatedData(const QString &schedcode);
   void limitChangedData(int state);
   void clickedData(QListViewItem *item);
   void doubleClickedData(QListViewItem *,const QPoint &,int);
@@ -75,7 +76,8 @@ class RDCartDialog : public QDialog
  private:
   void RefreshCarts();
   void BuildGroupList();
-  QString GetSearchFilter(QString filter,QString group);
+  QString GetSearchFilter(const QString &filter,const QString &group,
+			  const QString &schedcode);
   void LoadState();
   void SaveState();
   int *cart_cartnum;
@@ -92,8 +94,11 @@ class RDCartDialog : public QDialog
   QPushButton *cart_editor_button;
   QLabel *cart_group_label;
   RDComboBox *cart_group_box;
+  QLabel *cart_schedcode_label;
+  RDComboBox *cart_schedcode_box;
   QString *cart_filter;
   QString *cart_group;
+  QString *cart_schedcode;
   bool local_filter;
   RDCart::Type cart_type;
   QPixmap *cart_playout_map;

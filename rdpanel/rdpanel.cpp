@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel.cpp,v 1.25 2010/09/10 23:59:36 cvs Exp $
+//      $Id: rdpanel.cpp,v 1.27 2011/08/30 23:35:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,6 +36,7 @@
 #include <rd.h>
 #include <rdcheck_daemons.h>
 #include <rddbheartbeat.h>
+#include <dbversion.h>
 
 #include <globals.h>
 
@@ -78,6 +79,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   QPixmap *pm;
   QPainter *pd;
   QPixmap *mainmap;
+  bool skip_db_check=false;
+  unsigned schema=0;
 
   //
   // Fix the Window Size
@@ -94,6 +97,11 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   RDCmdSwitch *cmd=new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdpanel",
 				   RDPANEL_USAGE);
+  for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
+  }
 
   //
   // Generate Fonts
@@ -121,21 +129,16 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Open Database
   //
-  panel_db=QSqlDatabase::addDatabase("QMYSQL3");
-  if(!panel_db) {
-    QMessageBox::warning(this,
-	   "Can't Connect","Unable to connect to mySQL Server!",0,1,1);
+  QString err(tr("rdpanel : "));
+  QSqlDatabase *login_db=RDInitDb(&schema,&err);
+  if(!login_db) {
+    QMessageBox::warning(this,tr("Can't Connect"),err);
     exit(0);
   }
-  panel_db->setDatabaseName(panel_config->mysqlDbname());
-  panel_db->setUserName(panel_config->mysqlUsername());
-  panel_db->setPassword(panel_config->mysqlPassword());
-  panel_db->setHostName(panel_config->mysqlHostname());
-  if(!panel_db->open()) {
-    QMessageBox::warning(this,
-			 "Can't Connect","Unable to connect to mySQL Server!");
-    panel_db->removeDatabase(panel_config->mysqlDbname());
-    exit(0);
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,"rdlogin: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
+    exit(256);
   }
   new RDDbHeartbeat(panel_config->mysqlHeartbeatInterval(),this);
 
@@ -197,6 +200,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Cart Picker
   //
   panel_cart_dialog=new RDCartDialog(&panel_filter,&panel_group,
+				     &panel_schedcode,
 				     rdairplay_conf->card(3),
 				     rdairplay_conf->port(3),
 				     0,0,panel_cae,rdripc,rdstation_conf,

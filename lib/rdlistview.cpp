@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlistview.cpp,v 1.11 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdlistview.cpp,v 1.12 2011/09/06 17:35:07 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -21,6 +21,8 @@
 //
 //
 
+#include <vector>
+
 #include <rdlistview.h>
 #include <rdlistviewitem.h>
 
@@ -29,6 +31,10 @@ RDListView::RDListView(QWidget *parent,const char *name)
   : QListView(parent,name)
 {
   list_hard_sort_column=-1;
+  connect(this,
+	  SIGNAL(mouseButtonClicked(int,QListViewItem *,const QPoint &,int)),
+	  this,
+	 SLOT(mouseButtonClickedData(int,QListViewItem *,const QPoint &,int)));
 }
 
 
@@ -84,23 +90,37 @@ void RDListView::selectLine(int line)
 }
 
 
-void RDListView::keyPressEvent(QKeyEvent *e)
+void RDListView::mouseButtonClickedData(int button,QListViewItem *item,
+					const QPoint &pt,int col)
 {
- // e->ignore();
-}
+  QListViewItem *l;
+  bool contiguous;
 
+  if((selectionMode()!=QListView::Extended)||(item==NULL)||(button!=1)) {
+    return;
+  }
 
-void RDListView::contentsMousePressEvent(QMouseEvent *e)
-{
- // if((e->state()&ControlButton)==0) {
-    QListView::contentsMousePressEvent(e);
- // }
-}
-
-
-void RDListView::contentsMouseReleaseEvent(QMouseEvent *e)
-{
- // if((e->state()&ControlButton)==0) {
-    QListView::contentsMouseReleaseEvent(e);
- // }
+  //
+  // Get Selected Range
+  //
+  l=item;
+  contiguous=true;
+  while((l=l->itemAbove())!=NULL) {
+    if(!l->isSelected()) {
+      contiguous=false;
+    }
+    if(!contiguous) {
+      setSelected(l,false);
+    }
+  }
+  l=item;
+  contiguous=true;
+  while((l=l->itemBelow())!=NULL) {
+    if(!l->isSelected()) {
+      contiguous=false;
+    }
+    if(!contiguous) {
+      setSelected(l,false);
+    }
+  }
 }

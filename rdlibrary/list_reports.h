@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_reports.h,v 1.5 2010/07/29 19:32:36 cvs Exp $
+//      $Id: list_reports.h,v 1.6 2011/10/27 15:23:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,7 +35,8 @@ class ListReports : public QDialog
  Q_OBJECT
  public:
  ListReports(const QString &filter,const QString &type_filter,
-	     const QString &group,QWidget *parent=0,const char *name=0);
+	     const QString &group,const QString &schedcode,
+	     QWidget *parent=0,const char *name=0);
  ~ListReports();
  QSize sizeHint() const;
  QSizePolicy sizePolicy() const;
@@ -52,6 +53,7 @@ class ListReports : public QDialog
   QString list_filter;
   QString list_type_filter;
   QString list_group;
+  QString list_schedcode;
 };
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_search_text.h,v 1.8 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdcart_search_text.h,v 1.10 2011/10/27 15:23:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -28,8 +28,10 @@
 #include <rdstation.h>
 
 
-QString RDCartSearchText(QString filter,QString group);
-QString RDAllCartSearchText(QString filter,QString user);
+QString RDCartSearchText(QString filter,const QString &group,
+			 const QString &schedcode);
+QString RDAllCartSearchText(const QString &filter,const QString &schedcode,
+			    const QString &user);
 
 
 #endif 

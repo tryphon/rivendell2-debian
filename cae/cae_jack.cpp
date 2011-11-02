@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae_jack.cpp,v 1.57 2010/10/04 13:22:13 cvs Exp $
+//      $Id: cae_jack.cpp,v 1.59 2011/10/31 19:18:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -395,6 +395,10 @@ void MainObject::jackRecordTimerData(int stream)
 void MainObject::jackInit(RDStation *station)
 {
 #ifdef JACK
+  jack_options_t jackopts=JackNullOption;
+  jack_status_t jackstat=JackFailure;
+  RDConfig::LogPriority prio=RDConfig::LogDebug;
+
   jack_connected=false;
   jack_activated=false;
 
@@ -415,16 +419,88 @@ void MainObject::jackInit(RDStation *station)
   //
   // Attempt to Connect to Jack Server
   //
+  if(station->startJack()) {
+    prio=RDConfig::LogWarning;
+  }
+  else {
+    jackopts=JackNoStartServer;
+  }
+  if(station->jackServerName().isEmpty()) {
+    jack_client=jack_client_open((const char *)name,jackopts,&jackstat);
+  }
+  else {
+    jack_client=jack_client_open((const char *)name,jackopts,&jackstat,
+				 (const char *)station->jackServerName());
+  }
+  if(jack_client==NULL) {
+    if((jackstat&JackInvalidOption)!=0) {
+      fprintf (stderr, "invalid or unsupported JACK option\n");
+      LogLine(prio,"invalid or unsupported JACK option");
+    }
 
-  if((jack_client=jack_client_new((const char *)name))==0) {
+    if((jackstat&JackServerError)!=0) {
+      fprintf (stderr, "communication error with the JACK server\n");
+      LogLine(prio,"communication error with the JACK server");
+    }
+
+    if((jackstat&JackNoSuchClient)!=0) {
+      fprintf (stderr, "requested JACK client does not exist\n");
+      LogLine(prio,"requested JACK client does not exist");
+    }
+
+    if((jackstat&JackLoadFailure)!=0) {
+      fprintf (stderr, "unable to load internal JACK client\n");
+      LogLine(prio,"unable to load internal JACK client");
+    }
+
+    if((jackstat&JackInitFailure)!=0) {
+      fprintf (stderr, "unable to initialize JACK client\n");
+      LogLine(prio,"unable to initialize JACK client");
+    }
+
+    if((jackstat&JackShmFailure)!=0) {
+      fprintf (stderr, "unable to access JACK shared memory\n");
+      LogLine(prio,"unable to access JACK shared memory");
+    }
+
+    if((jackstat&JackVersionError)!=0) {
+      fprintf (stderr, "JACK protocol version mismatch\n");
+      LogLine(prio,"JACK protocol version mismatch");
+    }
+
+    if((jackstat&JackServerStarted)!=0) {
+      fprintf (stderr, "JACK server started\n");
+      LogLine(prio,"JACK server started");
+    }
+
+    if((jackstat&JackServerFailed)!=0) {
+      fprintf (stderr, "unable to communication with JACK server\n");
+      LogLine(prio,"unable to communicate with JACK server");
+    }
+
+    if((jackstat&JackNameNotUnique)!=0) {
+      fprintf (stderr, "JACK client name not unique\n");
+      LogLine(prio,"JACK client name not unique");
+    }
+
+    if((jackstat&JackFailure)!=0) {
+      fprintf (stderr, "JACK general failure\n");
+      LogLine(prio,"JACK general failure");
+    }
+    jack_card=-1;
     fprintf (stderr, "no connection to JACK server\n");
-    LogLine(RDConfig::LogNotice,"no connection to JACK server");
+    LogLine(prio,"no connection to JACK server");
     return;
+  }
+  if((jackstat&JackServerStarted)!=0) {
+    LogLine(RDConfig::LogDebug,"JACK server started");
   }
   jack_connected=true;
   jack_set_process_callback(jack_client,JackProcess,0);
   jack_set_sample_rate_callback(jack_client,JackSampleRate,0);
+  //jack_set_port_connect_callback(jack_client,JackPortConnectCB,this);
   jack_on_shutdown(jack_client,JackShutdown,0);
+  LogLine(RDConfig::LogDebug,"connected to JACK server");
 
   //
   // Tell the database about us
@@ -522,6 +598,10 @@ void MainObject::jackInit(RDStation *station)
     return;
   }
   jack_sample_rate=jack_get_sample_rate(jack_client);
+  if(jack_sample_rate!=system_sample_rate) {
+    fprintf (stderr,"JACK sample rate mismatch!\n");
+    LogLine(RDConfig::LogWarning,"JACK sample rate mismatch!");
+  }
   jack_activated=true;
   cae_driver[jack_card]=RDStation::Jack;
   JackSessionSetup();
@@ -1132,6 +1212,28 @@ bool MainObject::jackSetPassthroughLevel(int card,int in_port,int out_port,
   return true;
 #else
   return false;
+#endif  // JACK
+}
+
+
+void MainObject::jackConnectPorts(const QString &out,const QString &in)
+{
+#ifdef JACK
+  if(jack_card<0) {
+    return;
+  }
+  jack_connect(jack_client,(const char *)in,(const char *)out);  
+#endif  // JACK
+}
+
+
+void MainObject::jackDisconnectPorts(const QString &out,const QString &in)
+{
+#ifdef JACK
+  if(jack_card<0) {
+    return;
+  }
+  jack_disconnect(jack_client,(const char *)in,(const char *)out);  
 #endif  // JACK
 }
 

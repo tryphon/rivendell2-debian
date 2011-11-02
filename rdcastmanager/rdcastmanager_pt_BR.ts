@@ -67,7 +67,7 @@
     </message>
     <message>
         <source>Expires At:</source>
-        <translation>Expira em:</translation>
+        <translation type="obsolete">Expira em:</translation>
     </message>
     <message>
         <source>Hold</source>
@@ -94,6 +94,10 @@ Episódio</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Expires On:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

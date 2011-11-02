@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2007 Dan Mills <dmills@exponent.myzen.co.uk>
 //
-//      $Id: rddb.h,v 1.8 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rddb.h,v 1.9 2011/06/21 22:20:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -56,7 +56,7 @@ class RDSqlQuery : public QSqlQuery
 // Setup the default database, returns true on success.
 // if error is non NULL, an error string will be appended to it
 // if there is a problem.
-QSqlDatabase * RDInitDb (QString *error=NULL);
+QSqlDatabase * RDInitDb(unsigned *schema,QString *error=NULL);
 
 // Return a handle to the database status object.
 RDSqlDatabaseStatus * RDDbStatus();

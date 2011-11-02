@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdxport.cpp,v 1.6 2011/02/17 20:58:00 cvs Exp $
+//      $Id: rdxport.cpp,v 1.7 2011/06/21 22:20:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -37,6 +37,7 @@
 #include <rdweb.h>
 #include <rdformpost.h>
 #include <rdxport_interface.h>
+#include <dbversion.h>
 
 #include <rdxport.h>
 
@@ -83,6 +84,22 @@ Xport::Xport(QObject *parent,const char *name)
     db->removeDatabase(xport_config->mysqlDbname());
     Exit(0);
   }
+  RDSqlQuery *q=new RDSqlQuery("select DB from VERSION");
+  if(!q->first()) {
+    printf("Content-type: text/html\n");
+    printf("Status: 500\n\n");
+    printf("rdxport: missing/invalid database version!\n");
+    db->removeDatabase(xport_config->mysqlDbname());
+    Exit(0);
+  }
+  if(q->value(0).toUInt()!=RD_VERSION_DATABASE) {
+    printf("Content-type: text/html\n");
+    printf("Status: 500\n\n");
+    printf("rdxport: skewed database version!\n");
+    db->removeDatabase(xport_config->mysqlDbname());
+    Exit(0);
+  }
+  delete q;
 
   //
   // Determine Connection Type

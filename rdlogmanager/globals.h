@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: globals.h,v 1.6 2007/02/14 21:57:04 fredg Exp $
+//      $Id: globals.h,v 1.7 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -37,6 +37,6 @@ extern RDRipc *rdripc;
 extern RDCae *rdcae;
 extern QString *event_filter;
 extern QString *clock_filter;
-
+extern bool skip_db_check;
 
 #endif  // GLOBALS_H

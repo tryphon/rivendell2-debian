@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit.h,v 1.27 2010/07/29 19:32:37 cvs Exp $
+//      $Id: rdlogedit.h,v 1.28 2011/08/30 23:35:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -90,6 +90,7 @@ class MainWidget : public QMainWindow
   QPixmap *log_redball_map;
   QString log_filter;
   QString log_group;
+  QString log_schedcode;
 };
 
 

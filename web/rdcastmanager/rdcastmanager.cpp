@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcastmanager.cpp,v 1.11 2011/02/15 15:13:24 cvs Exp $
+//      $Id: rdcastmanager.cpp,v 1.14 2011/09/09 20:23:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,9 +40,11 @@
 #include <rdcastsearch.h>
 #include <rdsystem.h>
 #include <rdstation.h>
+#include <dbversion.h>
 
 #include <rdcastmanager.h>
 
+char server_name[PATH_MAX];
 
 MainObject::MainObject(QObject *parent,const char *name)
   :QObject(parent,name)
@@ -83,6 +85,22 @@ MainObject::MainObject(QObject *parent,const char *name)
     db->removeDatabase(cast_config->mysqlDbname());
     Exit(0);
   }
+  RDSqlQuery *q=new RDSqlQuery("select DB from VERSION");
+  if(!q->first()) {
+    printf("Content-type: text/html\n");
+    printf("Status: 500\n\n");
+    printf("rdcastmanager: missing/invalid database version!\n");
+    db->removeDatabase(cast_config->mysqlDbname());
+    Exit(0);
+  }
+  if(q->value(0).toUInt()!=RD_VERSION_DATABASE) {
+    printf("Content-type: text/html\n");
+    printf("Status: 500\n\n");
+    printf("rdcastmanager: skewed database version!\n");
+    db->removeDatabase(cast_config->mysqlDbname());
+    Exit(0);
+  }
+  delete q;
 
   //
   // Determine Connection Type
@@ -97,6 +115,16 @@ MainObject::MainObject(QObject *parent,const char *name)
     ServeLogin();
     Exit(0);
   }
+
+  //
+  // Get the Server Name
+  //
+  if(getenv("SERVER_NAME")==NULL) {
+    printf("Content-type: text/html\n\n");
+    printf("rdfeed: missing SERVER_NAME\n");
+    exit(0);
+  }
+  strncpy(server_name,getenv("SERVER_NAME"),PATH_MAX);
 
   //
   // Read Post Variables and Dispatch 
@@ -565,21 +593,21 @@ void MainObject::ServeListCasts()
     printf("<td bgcolor=\"%s\">%s</td>\n",
 	   (const char *)line_colors[current_color],
 	   (const char *)q->value(2).toString());
-    printf("<td aling=\"center\" bgcolor=\"%s\">%s</td>\n",
+    printf("<td align=\"center\" bgcolor=\"%s\">%s</td>\n",
 	   (const char *)line_colors[current_color],
-	   (const char *)q->value(3).toDateTime().
+	   (const char *)RDUtcToLocal(q->value(3).toDateTime()).
 	   toString("hh:mm:ss MM/dd/yyyy"));
     if(q->value(4).toInt()>0) {
       printf("<td align=\"center\" bgcolor=\"%s\">%s</td>\n",
 	     (const char *)line_colors[current_color],
-	     (const char *)q->value(3).toDateTime().
+	     (const char *)RDUtcToLocal(q->value(3).toDateTime()).
 	     addDays(q->value(4).toInt()).toString("hh:mm:ss MM/dd/yyyy"));
     }
     else {
       printf("<td align=\"center\" bgcolor=\"%s\">Never</td>\n",
 	     (const char *)line_colors[current_color]);
     }
-    printf("<td align=\"center\" bgcolor=\"%s\">%s</td>\n",
+    printf("<td align=\"right\" bgcolor=\"%s\">%s</td>\n",
 	   (const char *)line_colors[current_color],
 	   (const char *)RDGetTimeLength(q->value(6).toInt(),false,false));
     printf("<td align=\"center\" bgcolor=\"%s\">%s</td>\n",
@@ -774,6 +802,9 @@ void MainObject::ServeEditCast(int cast_id)
     RDCgiError("Unable to fetch cast record!");
     Exit(0);
   }
+  QDateTime origin_datetime=RDUtcToLocal(q->value(10).toDateTime());
+  QDateTime effective_datetime=RDUtcToLocal(q->value(12).toDateTime());
+
   RDFeed *feed=new RDFeed(cast_feed_id);
 
   printf("Content-type: text/html\n\n");
@@ -801,7 +832,7 @@ void MainObject::ServeEditCast(int cast_id)
     printf("<td bgcolor=\"%s\" align=\"left\" colspan=\"2\">\n",
 	   RD_WEB_LINE_COLOR1);
     printf("%s\n",(const char *)feed->audioUrl(feed->mediaLinkMode(),
-					       cast_cast_id));
+					       server_name,cast_cast_id));
     printf("</td>\n");
     printf("</tr>\n");
     
@@ -922,8 +953,8 @@ void MainObject::ServeEditCast(int cast_id)
 	 RD_WEB_LINE_COLOR1);
   printf("<td bgcolor=\"%s\" align=\"left\" colspan=\"2\">\n",
 	 RD_WEB_LINE_COLOR1);
-  printf("<input type=\"text\" name=\"ORIGIN_DATETIME\" value=\"%s\" size=\"25\" maxlength=\"255\" readonly>\n",(const char *)q->value(10).toDateTime().
-	 toString("MM/dd/yyyy - hh:mm:ss"));
+  printf("<input type=\"text\" name=\"ORIGIN_DATETIME\" value=\"%s\" size=\"25\" maxlength=\"255\" readonly>\n",
+	 (const char *)origin_datetime.toString("MM/dd/yyyy - hh:mm:ss"));
   printf("</td>\n");
   printf("</tr>\n");
 
@@ -935,16 +966,16 @@ void MainObject::ServeEditCast(int cast_id)
 	 RD_WEB_LINE_COLOR1);
   printf("<td bgcolor=\"%s\" align=\"left\" colspan=\"2\">\n",
 	 RD_WEB_LINE_COLOR1);
-  printf("<input type=\"text\" name=\"EFFECTIVE_MONTH\" value=\"%02d\" size=\"2\" maxlength=\"2\">/\n",q->value(12).toDateTime().date().month());
-  printf("<input type=\"text\" name=\"EFFECTIVE_DAY\" value=\"%02d\" size=\"2\" maxlength=\"2\">/\n",q->value(12).toDateTime().date().day());
-  printf("<input type=\"text\" name=\"EFFECTIVE_YEAR\" value=\"%04d\" size=\"4\" maxlength=\"4\"> -- \n",q->value(12).toDateTime().date().year());
-  printf("<input type=\"text\" name=\"EFFECTIVE_HOUR\" value=\"%02d\" size=\"2\" maxlength=\"2\">:\n",q->value(12).toDateTime().time().hour());
-  printf("<input type=\"text\" name=\"EFFECTIVE_MINUTE\" value=\"%02d\" size=\"2\" maxlength=\"2\">:\n",q->value(12).toDateTime().time().minute());
-  printf("<input type=\"text\" name=\"EFFECTIVE_SECOND\" value=\"%02d\" size=\"2\" maxlength=\"2\">\n",q->value(12).toDateTime().time().second());
+  printf("<input type=\"text\" name=\"EFFECTIVE_MONTH\" value=\"%02d\" size=\"2\" maxlength=\"2\">/\n",effective_datetime.date().month());
+  printf("<input type=\"text\" name=\"EFFECTIVE_DAY\" value=\"%02d\" size=\"2\" maxlength=\"2\">/\n",effective_datetime.date().day());
+  printf("<input type=\"text\" name=\"EFFECTIVE_YEAR\" value=\"%04d\" size=\"4\" maxlength=\"4\"> -- \n",effective_datetime.date().year());
+  printf("<input type=\"text\" name=\"EFFECTIVE_HOUR\" value=\"%02d\" size=\"2\" maxlength=\"2\">:\n",effective_datetime.time().hour());
+  printf("<input type=\"text\" name=\"EFFECTIVE_MINUTE\" value=\"%02d\" size=\"2\" maxlength=\"2\">:\n",effective_datetime.time().minute());
+  printf("<input type=\"text\" name=\"EFFECTIVE_SECOND\" value=\"%02d\" size=\"2\" maxlength=\"2\">\n",effective_datetime.time().second());
   printf("</td>\n");
   printf("</tr>\n");
 
-  QDateTime exp=q->value(10).toDateTime().addDays(q->value(9).toInt());
+  QDateTime exp=origin_datetime.addDays(q->value(9).toInt());
   if(q->value(11).toInt()==RDPodcast::StatusExpired) {
     printf("<input type=\"hidden\" name=\"STATUS\" value=\"%u\">\n",
 	   RDPodcast::StatusExpired);
@@ -1267,7 +1298,9 @@ void MainObject::CommitCast()
     RDCgiError("Missing STATUS");
     Exit(0);
   }
-
+  QDateTime 
+    effective_datetime(QDate(effective_year,effective_month,effective_day),
+		      QTime(effective_hour,effective_minute,effective_second));
   sql=QString().sprintf("update PODCASTS set \
                          STATUS=%d,\
                          ITEM_TITLE=\"%s\",\
@@ -1279,7 +1312,7 @@ void MainObject::CommitCast()
                          ITEM_SOURCE_TEXT=\"%s\",\
                          ITEM_SOURCE_URL=\"%s\",\
                          SHELF_LIFE=%d,\
-                         EFFECTIVE_DATETIME=\"%04d-%02d-%02d %02d:%02d:%02d\" \
+                         EFFECTIVE_DATETIME=\"%s\" \
                          where ID=%d",
 			status,
 			(const char *)RDEscapeString(item_title),
@@ -1291,13 +1324,14 @@ void MainObject::CommitCast()
 			(const char *)RDEscapeString(item_source_text),
 			(const char *)RDEscapeString(item_source_url),
 			shelf_life,
-			effective_year,
-			effective_month,
-			effective_day,
-			effective_hour,
-			effective_minute,
-			effective_second,
+			(const char *)RDLocalToUtc(effective_datetime).
+			toString("yyyy-MM-dd hh:mm:ss"),
 			cast_cast_id);
+  q=new RDSqlQuery(sql);
+  delete q;
+
+  sql=QString().sprintf("update FEEDS set LAST_BUILD_DATETIME=UTC_TIMESTAMP()\
+                         where ID=%d",cast_feed_id);
   q=new RDSqlQuery(sql);
   delete q;
 

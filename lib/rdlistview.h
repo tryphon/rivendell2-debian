@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlistview.h,v 1.11 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdlistview.h,v 1.12 2011/09/06 17:35:07 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -45,10 +45,9 @@ class RDListView : public QListView
   int addColumn(const QIconSet &iconset,const QString &label,int width=-1);
   void selectLine(int line);
 
- protected:
-  void keyPressEvent(QKeyEvent *e);
-  void contentsMousePressEvent(QMouseEvent *e);
-  void contentsMouseReleaseEvent(QMouseEvent *e);
+ private slots:
+  void mouseButtonClickedData(int button,QListViewItem *item,const QPoint &pt,
+			      int col);
 
  private:
   int list_hard_sort_column;

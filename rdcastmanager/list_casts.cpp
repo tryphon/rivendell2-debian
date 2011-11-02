@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_casts.cpp,v 1.16 2010/07/29 19:32:36 cvs Exp $
+//      $Id: list_casts.cpp,v 1.18 2011/09/09 20:23:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -252,7 +252,8 @@ void ListCasts::addCartData()
 {
   QString cutname;
   RDCutDialog *cd=new RDCutDialog(&cutname,rdstation_conf,cast_system,
-				  &cast_filter,&cast_group,cast_ripc->user());
+				  &cast_filter,&cast_group,&cast_schedcode,
+				  cast_ripc->user());
   if(cd->exec()!=0) {
     delete cd;
     return;
@@ -493,13 +494,14 @@ void ListCasts::RefreshItem(RDListViewItem *item)
 	break;
     }
     item->setText(1,q->value(1).toString());
-    item->setText(2,q->value(2).toDateTime().toString("MM/dd/yyyy hh:mm:ss"));
+    item->setText(2,RDUtcToLocal(q->value(2).toDateTime()).
+		  toString("MM/dd/yyyy hh:mm:ss"));
     if(q->value(3).toInt()==0) {
       item->setText(3,tr("Never"));
     }
     else {
-      item->setText(3,q->value(2).toDateTime().addDays(q->value(3).toInt()).
-		    toString("MM/dd/yyyy"));
+      item->setText(3,RDUtcToLocal(q->value(2).toDateTime()).
+		    addDays(q->value(3).toInt()).toString("MM/dd/yyyy"));
     }
     item->setText(4,RDGetTimeLength(q->value(4).toInt(),false,false));
     item->setText(5,q->value(5).toString());

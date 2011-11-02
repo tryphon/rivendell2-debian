@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 1996-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdconf.cpp,v 1.13 2011/01/05 20:15:26 cvs Exp $
+//    $Id: rdconf.cpp,v 1.15 2011/10/17 20:08:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -1093,8 +1093,13 @@ int RDTimeZoneOffset()
 #ifdef WIN32
   return 0;
 #else
-  tzset();
-  return timezone;
+  time_t t=time(&t);
+  struct tm *tm=localtime(&t);
+  time_t local_time=3600*tm->tm_hour+60*tm->tm_min+tm->tm_sec;
+  tm=gmtime(&t);
+  time_t gmt_time=3600*tm->tm_hour+60*tm->tm_min+tm->tm_sec;
+
+  return gmt_time-local_time;
 #endif  // WIN32
 }
 

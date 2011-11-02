@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.70 2011/05/07 00:32:29 cvs Exp $
+##      $Id: Makefile.am,v 1.72 2011/10/31 11:38:33 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -122,6 +122,8 @@ dist_rdadmin_SOURCES = rdadmin.cpp rdadmin.h\
                        edit_replicator.cpp edit_replicator.h\
                        list_sas_resources.cpp list_sas_resources.h\
                        edit_sas_resource.cpp edit_sas_resource.h\
+                       list_replicator_carts.cpp list_replicator_carts.h\
+                       edit_jack.cpp edit_jack.h\
                        globals.h
 
 nodist_rdadmin_SOURCES = moc_rdadmin.cpp moc_login.cpp moc_list_users.cpp\
@@ -161,7 +163,8 @@ nodist_rdadmin_SOURCES = moc_rdadmin.cpp moc_login.cpp moc_list_users.cpp\
                          moc_add_encoder.cpp moc_edit_nownextplugin.cpp\
                          moc_edit_settings.cpp moc_list_replicators.cpp\
                          moc_add_replicator.cpp moc_edit_replicator.cpp\
-                         moc_list_sas_resources.cpp moc_edit_sas_resource.cpp
+                         moc_list_sas_resources.cpp moc_edit_sas_resource.cpp\
+                         moc_list_replicator_carts.cpp moc_edit_jack.cpp
 
 rdadmin_LDADD = @LIB_RDLIBS@ -lsamplerate @LIBVORBIS@
 

@@ -55,7 +55,7 @@
     </message>
     <message>
         <source>Expires At:</source>
-        <translation>Går ut:</translation>
+        <translation type="obsolete">Går ut:</translation>
     </message>
     <message>
         <source>&amp;Select</source>
@@ -93,6 +93,10 @@
     </message>
     <message>
         <source>Air Date/Time:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Expires On:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcae.h,v 1.31 2010/09/16 19:52:07 cvs Exp $
+//      $Id: rdcae.h,v 1.32 2011/10/31 19:18:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -76,6 +76,8 @@ class RDCae : public QObject
   void requestTimescale(int card);
   bool playPortActive(int card,int port,int except_stream=-1);
   void setPlayPortActive(int card,int port,int stream);
+  void connectJackPorts(const QString &out,const QString &in);
+  void disconnectJackPorts(const QString &out,const QString &in);
 
  signals:
   void isConnected(bool state);

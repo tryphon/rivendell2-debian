@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: citadelxds.h,v 1.2 2010/07/29 19:32:37 cvs Exp $
+//      $Id: citadelxds.h,v 1.3 2011/10/17 18:48:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,6 +38,7 @@ class CitadelXds : public ReplFactory
   bool ValidateFilename(const QString &filename);
   void CheckCarts();
   bool PostCut(const QString &cutname,const QString &filename);
+  void PurgeCuts();
   QDateTime xds_isci_datetime;
 };
 

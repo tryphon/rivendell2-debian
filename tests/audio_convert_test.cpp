@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_convert_test.cpp,v 1.2 2010/07/29 19:32:38 cvs Exp $
+//      $Id: audio_convert_test.cpp,v 1.3 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,8 @@
 MainObject::MainObject(QObject *parent,const char *name)
   :QObject(parent,name)
 {
+  unsigned schema=0;
+
   destination_settings=new RDSettings();
   start_point=-1;
   end_point=-1;
@@ -170,7 +172,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   // Open Database
   //
   QString err (tr("audio_convert_test: "));
-  QSqlDatabase *db=RDInitDb (&err);
+  QSqlDatabase *db=RDInitDb(&schema,&err);
   if(!db) {
     fprintf(stderr,err.ascii());
     delete cmd;

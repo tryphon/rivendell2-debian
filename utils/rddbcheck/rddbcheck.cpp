@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddbcheck.cpp,v 1.16 2011/01/06 02:48:35 cvs Exp $
+//      $Id: rddbcheck.cpp,v 1.17 2011/06/21 22:20:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,6 +40,7 @@
 #include <rdcreate_log.h>
 #include <rdescape_string.h>
 #include <rdwavefile.h>
+#include <dbversion.h>
 
 //
 // MAINTAINER'S NOTE
@@ -50,6 +51,9 @@
 MainObject::MainObject(QObject *parent,const char *name)
   :QObject(parent,name)
 {
+  bool skip_db_check=false;
+  unsigned schema=0;
+
   check_yes=false;
   check_no=false;
   QString username="admin";
@@ -60,6 +64,9 @@ MainObject::MainObject(QObject *parent,const char *name)
   RDCmdSwitch *cmd=
     new RDCmdSwitch(qApp->argc(),qApp->argv(),"rddbcheck",RDDBCHECK_USAGE);
   for(unsigned i=0;i<cmd->keys();i++) {
+    if(cmd->key(i)=="--skip-db-check") {
+      skip_db_check=true;
+    }
     if(cmd->key(i)=="--user") {
       username=cmd->value(i);
     }
@@ -121,10 +128,16 @@ MainObject::MainObject(QObject *parent,const char *name)
   // Open Database
   //
   QString err (tr("rddbcheck: "));
-  QSqlDatabase *db=RDInitDb (&err);
+  QSqlDatabase *db=RDInitDb(&schema,&err);
   if(!db) {
     fprintf(stderr,err.ascii());
     delete cmd;
+    exit(256);
+  }
+  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
+    fprintf(stderr,
+	    "rddbcheck: database version mismatch, should be %u, is %u\n",
+	    RD_VERSION_DATABASE,schema);
     exit(256);
   }
 

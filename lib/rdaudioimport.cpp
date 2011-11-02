@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioimport.cpp,v 1.9 2011/04/01 21:40:58 cvs Exp $
+//      $Id: rdaudioimport.cpp,v 1.10 2011/10/17 21:01:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -193,9 +193,7 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
   case CURLE_URL_MALFORMAT:
   case CURLE_COULDNT_RESOLVE_HOST:
   case CURLE_COULDNT_CONNECT:
-#ifdef CURLE_REMOTE_ACCESS_DENIED
-  case CURLE_REMOTE_ACCESS_DENIED:
-#endif  // CURLE_REMOTE_ACCESS_DENIED
+  case 9:   // CURLE_REMOTE_ACCESS_DENIED:
     curl_easy_cleanup(curl);
     return RDAudioImport::ErrorUrlInvalid;
   }
