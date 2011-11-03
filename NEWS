@@ -1,6 +1,20 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.1.1 -- 11/03/2011
+
+Changes:
+   Fixed a regression that broke display of the Library in the Edit Event
+   dialog in RDLogManager.
+
+Database Update:
+   This version of Rivendell uses database schema version 205, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.1.0 -- 11/02/2011
 
 If upgrading from a v1.x version of Rivendell, be sure to read the
