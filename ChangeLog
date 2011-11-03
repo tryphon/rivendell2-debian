@@ -12344,8 +12344,13 @@
 	RMLs in 'lib/rdmacro.cpp' and 'lib/rdmacro.h'.
 	* Implemented 'Connect Jack Ports' ['JC'] and 'Disconnect Jack Ports'
 	['JD'] RMLs in 'ripcd/local_macros.cpp'.
-2011-01-01 Fred Gleason <fredg@paravelsystems.com>
+2011-01-02 Fred Gleason <fredg@paravelsystems.com>
 	* Removed the '[JackSession]' section from 'conf/rd.conf-sample',
 	'conf/rd.conf-slax' and 'conf/rd-sample.ini'.
 	* Updated the NEWS file.
 	* Incremented the package version to 2.1.0.
+2011-01-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdlogmanager/edit_event.cpp' that broke
+	cart display in the Library window of the Edit Event dialog.
+2011-01-03 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 2.1.1.
