@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdfeed.cpp,v 1.14 2011/09/09 20:23:28 cvs Exp $
+//      $Id: rdfeed.cpp,v 1.16 2011/12/23 22:04:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -539,6 +539,7 @@ unsigned RDFeed::postCut(RDUser *user,RDStation *station,
   RDPodcast *cast=NULL;
   RDUpload *upload=NULL;
   RDUpload::ErrorCode upload_err;
+  RDAudioConvert::ErrorCode audio_conv_err;
 
   emit postProgressChanged(0);
   emit postProgressChanged(1);
@@ -565,7 +566,7 @@ unsigned RDFeed::postCut(RDUser *user,RDStation *station,
   settings->setBitRate(uploadBitRate());
   settings->setNormalizationLevel(normalizeLevel()/100);
   conv->setDestinationSettings(settings);
-  switch(conv->runExport(user->name(),user->password())) {
+  switch(conv->runExport(user->name(),user->password(),&audio_conv_err)) {
   case RDAudioExport::ErrorOk:
     break;
 
@@ -639,7 +640,7 @@ unsigned RDFeed::postFile(RDStation *station,const QString &srcfile,Error *err,
   QString tmpfile;
   QString tmpfile2;
   QString destfile;
-  int time_length;
+  int time_length=0;
   RDUpload *upload=NULL;
   RDUpload::ErrorCode upload_err;
   RDWaveFile *wave=NULL;
@@ -688,6 +689,7 @@ unsigned RDFeed::postFile(RDStation *station,const QString &srcfile,Error *err,
   case RDAudioConvert::ErrorNoTrack:
   case RDAudioConvert::ErrorInvalidSpeed:
   case RDAudioConvert::ErrorFormatError:
+  case RDAudioConvert::ErrorNoSpace:
     emit postProgressChanged(totalPostSteps());
     delete settings;
     delete conv;

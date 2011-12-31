@@ -12344,13 +12344,84 @@
 	RMLs in 'lib/rdmacro.cpp' and 'lib/rdmacro.h'.
 	* Implemented 'Connect Jack Ports' ['JC'] and 'Disconnect Jack Ports'
 	['JD'] RMLs in 'ripcd/local_macros.cpp'.
-2011-01-02 Fred Gleason <fredg@paravelsystems.com>
+2011-12-02 Fred Gleason <fredg@paravelsystems.com>
 	* Removed the '[JackSession]' section from 'conf/rd.conf-sample',
 	'conf/rd.conf-slax' and 'conf/rd-sample.ini'.
 	* Updated the NEWS file.
 	* Incremented the package version to 2.1.0.
-2011-01-03 Fred Gleason <fredg@paravelsystems.com>
+2011-12-03 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a regression in 'rdlogmanager/edit_event.cpp' that broke
 	cart display in the Library window of the Edit Event dialog.
-2011-01-03 Fred Gleason <fredg@paravelsystems.com>
+2011-12-03 Fred Gleason <fredg@paravelsystems.com>
 	* Incremented the package version to 2.1.1.
+2011-12-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added a plug-in for Shoutcast 1.x in 'rlm/rlm_shoutcast1.c'.
+2011-12-21 Fred Gleason <fredg@paravelsystems.com>
+	* Removed debugging printfs from 'rlm/rlm_icecast2.c'.
+2011-12-22 Fred Gleason <fredg@paravelsystems.com>
+	* Updated notes on the SAS USI switcher driver in 
+	'docs/SWITCHERS.txt'.
+2011-12-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rlm/rlm_icecast2.c' that caused configuration of
+	second and subsequent plug-in instances to be ignored.
+	* Modified 'rlm/rlm_icecast2.c' to log full mountpoint path upon
+	plug-in initialization.
+	* Modified 'rlm/rlm_icecast2.c' to properly URL escape space
+	characters.
+2011-12-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rlm/rlm_shoutcast1.c' that caused configuration of
+	second and subsequent plug-in instances to be ignored.
+2011-12-22 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the default Rivendell user in RDDbCheck from 'admin' to
+	'user'.
+	* Fixed a bug in 'utils/rddbadmin/rddbadmin.cpp' that threw a
+	database error when purging an orphaned voicetrack when the parent
+	log had been deleted.
+2011-12-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdlog.cpp' that caused the 
+	'RDLog::updateTracks()' method to set incorrect counts of completed
+	tracks [Mantis bug #0000035].
+	* Fixed a bug in 'lib/rdlog.cpp' that caused the 
+	'RDLog::removeTracks()' method to set fail to delete tracks
+	[Mantis bug #0000035].
+2011-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDAudioConvert::ErroNoSpace' in 'lib/rdaudioconvert.h'.
+	* Implemented checks for an out of storage space condition when
+	writing files in 'lib/rdaudioconvert.cpp' [Mantis bug #0000034].
+2011-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDWebError' class in 'lib/rdweberror.cpp' and
+	'lib/rdweberror.h'.
+	* Added an 'RDXMLCgiError()' function in 'lib/rdweb.cpp' and
+	'lib/rdweb.h'.
+	* Modfied the RDXport service in 'web/rdxport/' to use RDXMLCgiError()
+	for error reporting.
+	* Modified the RDAudioImport class in 'lib/rdaudioimport.cpp' and
+	'lib/rdaudioimport.h' to process and report converter errors.
+	* Modified the RDAudioExport class in 'lib/rdaudioexport.cpp' and
+	'lib/rdaudioexport.h' to process and report converter errors.
+2011-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed the 'RDWebError' class in 'lib/rdweberror.cpp' and
+	'lib/rdweberror.h' to 'RDWebResult' in 'lib/rdwebresult.cpp' and
+	'lib/rdwebresult.h'.
+	* Renamed the 'RDXMLCgiError()' function to 'RDXMLResult()' in
+	'lib/rdweb.cpp' and 'lib/rdweb.h'.
+	* Added CURL write callbacks in 'lib/rddelete.cpp' and
+	'lib/rdcart.cpp'.
+	* Updated 'docs/web_api.odt' to describe the web service result
+	code format.
+2011-12-28 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a buffer overflow bug in 'ripcd/sasusi.cpp'.
+2011-12-28 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'utils/rdimport/rdimport.cpp' that caused an
+	already existing cart to be deleted upon an importation error
+	when using the '--to-cart' switch [Mantis bug #0000037].
+2011-12-28 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdweb.h' that broke the build under Windows.
+2011-12-28 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rlm/Makefile.am' that broke the 'make rpm' target.
+2011-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Applied updated Spanish [es] translation from Luigino Bracci
+	<lbracci@gmail.com>.
+2011-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'
+	* Incremented the database version 2.1.2.

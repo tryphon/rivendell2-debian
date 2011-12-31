@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: exportpeaks.cpp,v 1.1 2010/09/13 23:14:28 cvs Exp $
+//      $Id: exportpeaks.cpp,v 1.3 2011/12/23 23:07:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -42,18 +42,18 @@ void Xport::ExportPeaks()
   //
   int cartnum=0;
   if(!xport_post->getValue("CART_NUMBER",&cartnum)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
   int cutnum=0;
   if(!xport_post->getValue("CUT_NUMBER",&cutnum)) {
-    RDCgiError("Missing CUT_NUMBER",400);
+    RDXMLResult("Missing CUT_NUMBER",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cartnum)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
 
   //
@@ -61,10 +61,10 @@ void Xport::ExportPeaks()
   //
   RDWaveFile *wave=new RDWaveFile(RDCut::pathName(cartnum,cutnum));
   if(!wave->openWave()) {
-    RDCgiError("No such audio",404);
+    RDXMLResult("No such audio",404);
   }
   if(!wave->hasEnergy()) {
-    RDCgiError("No peak data available",400);
+    RDXMLResult("No peak data available",400);
   }
 
   //

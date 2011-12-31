@@ -1,6 +1,31 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.1.2 -- 12/30/2011
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   Shoutcast RLM.  Added an RLM plug-in for ShoutCast D.N.A.S. v1.x.
+
+   Import/Export Error Handling.  Reworked error handling for audio
+   import and export so as to provide more informative and useful
+   error messages.
+
+   Spanish Translation.  Updated Spanish (es) translation, provided
+   by Luigino Bracci.
+
+   Various Bugfixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 205, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.1.1 -- 11/03/2011
 
 Changes:

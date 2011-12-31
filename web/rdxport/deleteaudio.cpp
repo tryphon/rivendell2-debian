@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: deleteaudio.cpp,v 1.3 2010/08/26 11:11:48 cvs Exp $
+//      $Id: deleteaudio.cpp,v 1.5 2011/12/23 23:07:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,30 +40,27 @@ void Xport::DeleteAudio()
   //
   int cartnum=0;
   if(!xport_post->getValue("CART_NUMBER",&cartnum)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
   int cutnum=0;
   if(!xport_post->getValue("CUT_NUMBER",&cutnum)) {
-    RDCgiError("Missing CUT_NUMBER",400);
+    RDXMLResult("Missing CUT_NUMBER",400);
   }
 
   //
   // Process Request
   //
   if(!xport_user->deleteCarts()) {
-    RDCgiError("User not authorized",401);
+    RDXMLResult("User not authorized",401);
   }
   RDCut *cut=new RDCut(cartnum,cutnum);
   if(!cut->exists()) {
     delete cut;
-    RDCgiError("No such cut",404);
+    RDXMLResult("No such cut",404);
   }
   unlink(RDCut::pathName(cartnum,cutnum));
   unlink(RDCut::pathName(cartnum,cutnum)+".energy");
   syslog(LOG_NOTICE,"unlink(%s): %s",(const char *)RDCut::pathName(cartnum,cutnum),strerror(errno));
   delete cut;
-  printf("Content-type: text/html\n");
-  printf("Status: 200\n\n");
-  printf("OK\n");
-  Exit(0);
+  RDXMLResult("OK",200);
 }

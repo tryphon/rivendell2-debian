@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003, 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cdripper.cpp,v 1.40 2010/09/08 20:38:00 cvs Exp $
+//      $Id: cdripper.cpp,v 1.41 2011/12/23 22:04:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -403,6 +403,7 @@ void CdRipper::ripTrackButtonData()
   // Rip from disc
   //
   RDAudioImport::ErrorCode conv_err;
+  RDAudioConvert::ErrorCode audio_conv_err;
   RDCdRipper::ErrorCode ripper_err;
   QString tmpdir=RDTempDir();
   QString tmpfile=tmpdir+"/"+RIPPER_TEMP_WAV;
@@ -441,14 +442,14 @@ void CdRipper::ripTrackButtonData()
     }
     conv->setDestinationSettings(settings);
     switch((conv_err=conv->
-	    runImport(lib_user->name(),lib_user->password()))) {
+	  runImport(lib_user->name(),lib_user->password(),&audio_conv_err))) {
     case RDAudioImport::ErrorOk:
       QMessageBox::information(this,tr("Rip Complete"),tr("Rip complete!"));
       break;
 
     default:
       QMessageBox::warning(this,tr("RDLibrary - Importer Error"),
-			   RDAudioImport::errorText(conv_err));
+			   RDAudioImport::errorText(conv_err,audio_conv_err));
       break;
     }
     delete settings;

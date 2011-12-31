@@ -10,7 +10,7 @@
     <name>@default</name>
     <message>
         <source>ALL</source>
-        <translation type="unfinished"></translation>
+        <translation>TODO</translation>
     </message>
 </context>
 <context>
@@ -32,7 +32,7 @@
     </message>
     <message>
         <source>&amp;New Cart Number:</source>
-        <translation>&amp;Número de cartucho:</translation>
+        <translation>&amp;Nro. de cartucho:</translation>
     </message>
     <message>
         <source>&amp;New Cart Type:</source>
@@ -84,11 +84,11 @@
     </message>
     <message>
         <source>You must enter a cart title!</source>
-        <translation>¡Usted debe suministrar un título para el cartucho!</translation>
+        <translation>¡Debe suministrar un título para el cartucho!</translation>
     </message>
     <message>
         <source>The cart number is outside of the permitted range for this group!</source>
-        <translation>¡Usted ha colocado un número del cartucho fuera del rango permitido para este grupo!</translation>
+        <translation>¡Ha colocado un número del cartucho fuera del rango permitido para este grupo!</translation>
     </message>
     <message>
         <source>Cart Exists</source>
@@ -182,11 +182,11 @@
     </message>
     <message>
         <source>MPEG Layer 2</source>
-        <translation>MPEG Layer 2</translation>
+        <translation>MPEG Capa 2</translation>
     </message>
     <message>
         <source>MPEG Layer 3</source>
-        <translation>MPEG Layer 3</translation>
+        <translation>MPEG Capa 3</translation>
     </message>
 </context>
 <context>
@@ -368,15 +368,15 @@ Color</translation>
     </message>
     <message>
         <source>Show Only First</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar los primeros</translation>
     </message>
     <message>
         <source>Matches</source>
-        <translation type="unfinished"></translation>
+        <translation>resultados</translation>
     </message>
     <message>
         <source>Scheduler Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cód. Musicaliz.:</translation>
     </message>
 </context>
 <context>
@@ -453,15 +453,15 @@ Cartucho</translation>
     </message>
     <message>
         <source>Show Only First</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar los primeros</translation>
     </message>
     <message>
         <source>Matches</source>
-        <translation type="unfinished"></translation>
+        <translation>resultados</translation>
     </message>
     <message>
         <source>Scheduler Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cód. Musicaliz.:</translation>
     </message>
 </context>
 <context>
@@ -622,7 +622,7 @@ Hook</translation>
     </message>
     <message>
         <source>Threshold</source>
-        <translation></translation>
+        <translation>Nivel</translation>
     </message>
     <message>
         <source>Trim
@@ -721,16 +721,17 @@ marcador</translation>
     </message>
     <message>
         <source>Rivendell Web Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Servicio web Rivendell</translation>
     </message>
     <message>
         <source>Unable to download peak data, error was:
 &quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>No fue posible descargar datos de picos, el error fue:
+&quot;</translation>
     </message>
     <message>
         <source>Edit Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Audio</translation>
     </message>
 </context>
 <context>
@@ -815,7 +816,7 @@ Overwrite?</source>
     </message>
     <message>
         <source>&amp;Sample Rate:</source>
-        <translation>Tasa de &amp;sampleo:</translation>
+        <translation>Tasa de &amp;Muestreo:</translation>
     </message>
     <message>
         <source>&amp;Bitrate:</source>
@@ -843,11 +844,11 @@ Overwrite?</source>
     </message>
     <message>
         <source>MPEG Layer 2</source>
-        <translation>MPEG Layer 2</translation>
+        <translation>MPEG Capa 2</translation>
     </message>
     <message>
         <source>MPEG Layer 3</source>
-        <translation>MPEG Layer 3</translation>
+        <translation>MPEG Capa 3</translation>
     </message>
     <message>
         <source>OggVorbis</source>
@@ -1209,15 +1210,15 @@ Do you still want to proceed?</source>
     </message>
     <message>
         <source>Export Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error exportando</translation>
     </message>
     <message>
         <source>Import Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error importando</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="unfinished"></translation>
+        <translation>Abortar</translation>
     </message>
 </context>
 <context>
@@ -1390,15 +1391,15 @@ Do you still want to proceed?</source>
     </message>
     <message>
         <source>Open Bracket</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir llave</translation>
     </message>
     <message>
         <source>Close Bracket</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerrar llave</translation>
     </message>
     <message>
         <source>ChainTo</source>
-        <translation></translation>
+        <translation>ChainTo</translation>
     </message>
     <message>
         <source>Track</source>
@@ -1478,7 +1479,7 @@ please try again!</source>
     </message>
     <message>
         <source>Playout</source>
-        <translation></translation>
+        <translation>Reproducción</translation>
     </message>
     <message>
         <source>Download</source>
@@ -1490,59 +1491,59 @@ please try again!</source>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Aceptar</translation>
     </message>
     <message>
         <source>Short Length</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar longitud</translation>
     </message>
     <message>
         <source>Low Level</source>
-        <translation type="unfinished"></translation>
+        <translation>Bajo nivel</translation>
     </message>
     <message>
         <source>High Level</source>
-        <translation type="unfinished"></translation>
+        <translation>Alto nivel</translation>
     </message>
     <message>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Descargando</translation>
     </message>
     <message>
         <source>Uploading</source>
-        <translation type="unfinished"></translation>
+        <translation>Subiendo</translation>
     </message>
     <message>
         <source>Server Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de servidor</translation>
     </message>
     <message>
         <source>Internal Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error interno</translation>
     </message>
     <message>
         <source>Interrupted</source>
-        <translation type="unfinished"></translation>
+        <translation>Interrumpido</translation>
     </message>
     <message>
         <source>Playing</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonando</translation>
     </message>
     <message>
         <source>Waiting</source>
-        <translation type="unfinished"></translation>
+        <translation>Esperando</translation>
     </message>
     <message>
         <source>Device Busy</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposit. ocupado</translation>
     </message>
     <message>
         <source>No Such Cart/Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>El audio no existe</translation>
     </message>
     <message>
         <source>Unknown Audio Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Formado desconocido</translation>
     </message>
 </context>
 <context>
@@ -1601,15 +1602,15 @@ please try again!</source>
     </message>
     <message>
         <source>VisualTraffic Reconciliation</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconciliación VisualTraffic</translation>
     </message>
     <message>
         <source>CounterPoint Traffic Reconciliation</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconciliación de tráfico CounterPoint</translation>
     </message>
     <message>
         <source>Music1 Reconciliation</source>
-        <translation type="unfinished"></translation>
+        <translation>Reconciliación Music1</translation>
     </message>
 </context>
 <context>

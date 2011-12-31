@@ -19,7 +19,7 @@
     </message>
     <message>
         <source>Make Next</source>
-        <translation>Convertirlo en el siguiente</translation>
+        <translation>Convertir en siguiente</translation>
     </message>
     <message>
         <source>Wait up to</source>
@@ -35,7 +35,7 @@
     </message>
     <message>
         <source>Stop</source>
-        <translation>Detener</translation>
+        <translation>Parar</translation>
     </message>
     <message>
         <source>&amp;Audition</source>
@@ -47,7 +47,7 @@
     </message>
     <message>
         <source>&amp;Stop</source>
-        <translation>D&amp;etener</translation>
+        <translation>&amp;Parar</translation>
     </message>
     <message>
         <source>Start</source>
@@ -83,7 +83,7 @@
     </message>
     <message>
         <source>No Fade at Segue Out</source>
-        <translation>Evitar &quot;Fade&quot; en un Segue de salida</translation>
+        <translation>No desvanecer al terminar</translation>
     </message>
     <message>
         <source>End</source>
@@ -91,11 +91,11 @@
     </message>
     <message>
         <source>Duplicate Start Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo de inicio duplicado</translation>
     </message>
     <message>
         <source>An event is already scheduled with this start time!</source>
-        <translation type="unfinished"></translation>
+        <translation>Un evento ha sido programado con esa misma hora de inicio!</translation>
     </message>
 </context>
 <context>
@@ -154,7 +154,7 @@
     </message>
     <message>
         <source>Stop</source>
-        <translation>Detener</translation>
+        <translation>Parar</translation>
     </message>
     <message>
         <source>Make
@@ -174,27 +174,27 @@ Siguiente</translation>
         <source>Select
 Log</source>
         <translation>Elegir
-PlayList</translation>
+Lista</translation>
     </message>
     <message>
         <source>Log Exists</source>
-        <translation>PlayList ya existe</translation>
+        <translation>La lista ya existe</translation>
     </message>
     <message>
         <source>Log Already Exists!</source>
-        <translation>¡El PlayList ya existe!</translation>
+        <translation>¡La lista de reproducción ya existe!</translation>
     </message>
     <message>
         <source>--- end of log ---</source>
-        <translation>--- fin del playlist ---</translation>
+        <translation>--- fin de la lista ---</translation>
     </message>
     <message>
         <source>PLAY</source>
-        <translation>REPRODUCIR</translation>
+        <translation>REPRO</translation>
     </message>
     <message>
         <source>STOP</source>
-        <translation>DETENER</translation>
+        <translation>PARAR</translation>
     </message>
     <message>
         <source>SEGUE</source>
@@ -218,7 +218,7 @@ PlayList</translation>
     </message>
     <message>
         <source>T</source>
-        <translation></translation>
+        <translation>T</translation>
     </message>
     <message>
         <source>[NO AUDIO AVAILABLE]</source>
@@ -256,7 +256,7 @@ PlayList</translation>
         <source>Refresh
 Log</source>
         <translation>Actualizar
-PlayList</translation>
+Lista</translation>
     </message>
     <message>
         <source>Start</source>
@@ -295,7 +295,7 @@ Final</translation>
     <name>ListLogs</name>
     <message>
         <source>Select a Log</source>
-        <translation>Seleccione un PlayList</translation>
+        <translation>Seleccione una lista</translation>
     </message>
     <message>
         <source>NAME</source>
@@ -331,18 +331,18 @@ Final</translation>
     </message>
     <message>
         <source>Rename Log</source>
-        <translation>Cambiar nombre del PlayList</translation>
+        <translation>Cambiar nombre de la lista</translation>
     </message>
 </context>
 <context>
     <name>LogLineBox</name>
     <message>
         <source>STOP</source>
-        <translation>DETENER</translation>
+        <translation>PARAR</translation>
     </message>
     <message>
         <source>PLAY</source>
-        <translation>REPRODUCIR</translation>
+        <translation>REPRO</translation>
     </message>
     <message>
         <source>SEGUE</source>
@@ -366,7 +366,7 @@ Final</translation>
     </message>
     <message>
         <source>T</source>
-        <translation></translation>
+        <translation>T</translation>
     </message>
     <message>
         <source>TRACK</source>
@@ -393,15 +393,15 @@ Final</translation>
     <name>MainWidget</name>
     <message>
         <source>Main Log</source>
-        <translation>PlayList ppal</translation>
+        <translation>Lista ppal</translation>
     </message>
     <message>
         <source>Aux 1 Log</source>
-        <translation>PlayList aux. 1</translation>
+        <translation>Lista aux. 1</translation>
     </message>
     <message>
         <source>Aux 2 Log</source>
-        <translation>PlayList aux. 2</translation>
+        <translation>Lista aux. 2</translation>
     </message>
     <message>
         <source>Exit RDAirPlay?</source>
@@ -434,19 +434,19 @@ Final</translation>
     <message>
         <source>Main Log
 [--]</source>
-        <translation>PlayList ppal.
+        <translation>Lista ppal.
 [--]</translation>
     </message>
     <message>
         <source>Aux 1 Log
 [--]</source>
-        <translation>PlayList aux. 1
+        <translation>Lista aux. 1
 [--]</translation>
     </message>
     <message>
         <source>Aux 2 Log
 [--]</source>
-        <translation>PlayList aux. 2
+        <translation>Lista aux. 2
 [--]</translation>
     </message>
     <message>
@@ -461,13 +461,13 @@ sonidos</translation>
     </message>
     <message>
         <source>Multiple instances not allowed!</source>
-        <translation>¡No se pueden ejecutar múltiples instancias!</translation>
+        <translation>¡No se permiten múltiples instancias!</translation>
     </message>
     <message>
         <source>LOG
 REFRESHING</source>
         <translation>LEYENDO
-PLAYLIST</translation>
+LISTA</translation>
     </message>
 </context>
 <context>
@@ -482,7 +482,7 @@ PLAYLIST</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation>Automático</translation>
+        <translation>Automatico</translation>
     </message>
     <message>
         <source>Manual</source>
@@ -508,11 +508,11 @@ PLAYLIST</translation>
     <name>StopCounter</name>
     <message>
         <source>Next Stop [none]</source>
-        <translation>Próxima parada [ninguna]</translation>
+        <translation>Prox parada [ninguna]</translation>
     </message>
     <message>
         <source>Next Stop</source>
-        <translation>Próxima parada</translation>
+        <translation>Prox parada</translation>
     </message>
     <message>
         <source>Stopped</source>

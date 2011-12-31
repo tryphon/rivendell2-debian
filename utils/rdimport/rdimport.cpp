@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.cpp,v 1.32 2011/04/05 12:03:55 cvs Exp $
+//      $Id: rdimport.cpp,v 1.34 2011/12/28 21:09:46 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -641,6 +641,8 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
   bool found_cart=false;
   QDateTime dt;
   bool ok=false;
+  RDAudioImport::ErrorCode conv_err;
+  RDAudioConvert::ErrorCode audio_conv_err;
   RDGroup *effective_group=new RDGroup(import_group->name());
   RDWaveData *wavedata=new RDWaveData();
   RDWaveFile *wavefile=new RDWaveFile(filename);
@@ -808,16 +810,26 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
     fflush(stdout);
   }
 
-  switch(conv->runImport(import_user->name(),import_user->password())) {
+  switch(conv_err=conv->runImport(import_user->name(),import_user->password(),
+				  &audio_conv_err)) {
   case RDAudioImport::ErrorOk:
+    if(import_verbose) {
+      printf("done.\n");
+    }
     break;
 
   default:
     PrintLogDateTime(stderr);
-    fprintf(stderr," Unable to import \"%s\", skipping...\n",
+    fprintf(stderr," %s, skipping %s...\n",
+	    (const char *)RDAudioImport::errorText(conv_err,audio_conv_err),
 	    (const char *)filename.utf8());
     fflush(stderr);
-    cart->remove(import_station,import_user);
+    if(cart_created) {
+      cart->remove(import_station,import_user);
+    }
+    else {
+      cart->removeCut(import_station,import_user,cut->cutName());
+    }
     delete cut;
     delete cart;
     wavefile->closeWave();

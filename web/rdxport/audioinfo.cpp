@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2011 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audioinfo.cpp,v 1.1 2011/02/17 20:58:00 cvs Exp $
+//      $Id: audioinfo.cpp,v 1.3 2011/12/23 23:07:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -43,18 +43,18 @@ void Xport::AudioInfo()
   //
   int cartnum=0;
   if(!xport_post->getValue("CART_NUMBER",&cartnum)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
   int cutnum=0;
   if(!xport_post->getValue("CUT_NUMBER",&cutnum)) {
-    RDCgiError("Missing CUT_NUMBER",400);
+    RDXMLResult("Missing CUT_NUMBER",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cartnum)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
 
   //
@@ -62,7 +62,7 @@ void Xport::AudioInfo()
   //
   RDWaveFile *wave=new RDWaveFile(RDCut::pathName(cartnum,cutnum));
   if(!wave->openWave()) {
-    RDCgiError("No such audio",404);
+    RDXMLResult("No such audio",404);
   }
 
   //
@@ -96,7 +96,7 @@ void Xport::AudioInfo()
     break;
 
   default:
-    RDCgiError("Unknown audio format",400);
+    RDXMLResult("Unknown audio format",400);
     break;
   }
   printf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");

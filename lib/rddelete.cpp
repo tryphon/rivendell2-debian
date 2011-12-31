@@ -1,10 +1,10 @@
 // rddelete.cpp
 //
-// Upload a File
+// Delete a file from the audio store via the Rivendell Web Service
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddelete.cpp,v 1.2 2011/10/17 21:01:03 cvs Exp $
+//      $Id: rddelete.cpp,v 1.3 2011/12/23 23:07:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,8 +39,18 @@
 #include <rddelete.h>
 
 //
-// CURL Progress Callback
+// CURL Callbackd
 //
+size_t DeleteWriteCallback(void *ptr,size_t size,size_t nmemb,void *userdata)
+{
+  QString *xml=(QString *)userdata;
+  for(unsigned i=0;i<(size*nmemb);i++) {
+    *xml+=((const char *)ptr)[i];
+  }
+  return size*nmemb;
+}
+
+
 int DeleteErrorCallback(CURL *curl,curl_infotype type,char *msg,size_t size,
 			void *clientp)
 {
@@ -82,6 +92,7 @@ RDDelete::ErrorCode RDDelete::runDelete(const QString &username,
   QString currentdir;
   char urlstr[1024];
   char userpwd[256];
+  QString xml="";
 
   if((curl=curl_easy_init())==NULL) {
     syslog(LOG_ERR,"unable to initialize curl library\n");
@@ -95,6 +106,9 @@ RDDelete::ErrorCode RDDelete::runDelete(const QString &username,
 			   (const char *)password),256);
   curl_easy_setopt(curl,CURLOPT_USERPWD,userpwd);
   curl_easy_setopt(curl,CURLOPT_HTTPAUTH,CURLAUTH_ANY);
+  printf("HERE\n");
+  curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,DeleteWriteCallback);
+  curl_easy_setopt(curl,CURLOPT_WRITEDATA,&xml);
   if(log_debug) {
     curl_easy_setopt(curl,CURLOPT_VERBOSE,1);
     curl_easy_setopt(curl,CURLOPT_DEBUGFUNCTION,DeleteErrorCallback);

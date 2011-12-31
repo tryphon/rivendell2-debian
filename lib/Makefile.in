@@ -100,7 +100,7 @@ dist_librd_la_OBJECTS = rduser.lo rdsvc.lo rdcart.lo \
 	rdaudioimport.lo rdbusybar.lo rdcdripper.lo rdupload.lo \
 	rddownload.lo rdsystemuser.lo rdpam.lo rdreplicator.lo \
 	rdstringlist.lo rdpeaksexport.lo rdtrimaudio.lo rdcopyaudio.lo \
-	rdaudioinfo.lo rddelete.lo
+	rdaudioinfo.lo rddelete.lo rdwebresult.lo
 nodist_librd_la_OBJECTS = moc_rdpasswd.lo moc_rdripc.lo moc_rdcae.lo \
 	moc_rdcardselector.lo moc_rdgpioselector.lo \
 	moc_rdcart_dialog.lo moc_rdadd_cart.lo moc_rdcut_dialog.lo \
@@ -449,7 +449,8 @@ dist_librd_la_SOURCES = rduser.cpp rduser.h\
                    rdtrimaudio.cpp rdtrimaudio.h\
                    rdcopyaudio.cpp rdcopyaudio.h\
                    rdaudioinfo.cpp rdaudioinfo.h\
-                   rddelete.cpp rddelete.h
+                   rddelete.cpp rddelete.h\
+                   rdwebresult.cpp rdwebresult.h
 
 nodist_librd_la_SOURCES = moc_rdpasswd.cpp moc_rdripc.cpp moc_rdcae.cpp\
                           moc_rdcardselector.cpp moc_rdgpioselector.cpp\
@@ -799,6 +800,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdwavefile.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdwavepainter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdweb.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdwebresult.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/schedcartlist.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/schedruleslist.Plo@am__quote@
 

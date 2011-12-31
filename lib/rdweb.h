@@ -29,6 +29,10 @@
 #include <qhostaddress.h>
 #include <qstringlist.h>
 
+#ifndef WIN32
+#include <rdaudioconvert.h>
+#endif  // WIN32
+
 //
 // Data Structure Sizes
 //
@@ -51,6 +55,10 @@ extern int RDDecodeString(char *);
 extern int RDPutPlaintext(char *,int);
 extern int RDPurgePlaintext(char *,int);
 extern void RDCgiError(const char *str,int resp_code=200);
+#ifndef WIN32
+extern void RDXMLResult(const char *str,int resp_code,
+			RDAudioConvert::ErrorCode err=RDAudioConvert::ErrorOk);
+#endif  // WIN32
 extern int RDBufferDiff(char *,int,int,int);
 extern void RDPruneAmp(char *);
 extern int RDEscapeQuotes(const char *src,char *dest,int maxlen);

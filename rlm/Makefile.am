@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.5 2010/08/06 19:01:00 cvs Exp $
+##      $Id: Makefile.am,v 1.7 2011/12/28 23:02:14 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -23,9 +23,18 @@
 
 AM_CFLAGS = -fPIC -Wall
 
-RLM_MODULES=rlm_test.rlm rlm_serial.rlm rlm_xmpad.rlm rlm_udp.rlm\
-            rlm_twitter.rlm rlm_facebook.rlm rlm_ando.rlm rlm_inno713.rlm\
-            rlm_liqcomp.rlm rlm_xds.rlm rlm_icecast2.rlm
+RLM_MODULES=rlm_ando.rlm\
+            rlm_facebook.rlm\
+            rlm_icecast2.rlm\
+            rlm_inno713.rlm\
+            rlm_liqcomp.rlm\
+            rlm_serial.rlm\
+            rlm_shoutcast1.rlm\
+            rlm_test.rlm\
+            rlm_twitter.rlm\
+            rlm_udp.rlm\
+            rlm_xds.rlm\
+            rlm_xmpad.rlm
 
 all:	$(RLM_MODULES)
 
@@ -41,9 +50,20 @@ install:	all
 headerdir = $(includedir)/rlm
 header_HEADERS = rlm.h
 
-EXTRA_DIST = rlm.h rlm_test.c rlm_serial.c rlm_xmpad.c rlm_udp.c\
-             rlm_twitter.c rlm_facebook.c rlm_ando.c rlm_inno713.c\
-             rlm_liqcomp.c rlm_xds.c rlm_icecast2.c Makefile-example
+EXTRA_DIST = Makefile-example\
+             rlm.h\
+             rlm_ando.c\
+             rlm_facebook.c\
+             rlm_icecast2.c\
+             rlm_inno713.c\
+             rlm_liqcomp.c\
+             rlm_serial.c\
+             rlm_shoutcast1.c\
+             rlm_test.c\
+             rlm_twitter.c\
+             rlm_udp.c\
+             rlm_xds.c\
+             rlm_xmpad.c
 
 CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk *.rlm
 MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*

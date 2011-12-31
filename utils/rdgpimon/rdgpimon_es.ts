@@ -3,52 +3,52 @@
     <name>MainWidget</name>
     <message>
         <source>Database Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de base de datos</translation>
     </message>
     <message>
         <source>Can&apos;t Connect</source>
         <comment>Unable to connect to mySQL Server!</comment>
-        <translation type="unfinished"></translation>
+        <translation>No puedo conectarme</translation>
     </message>
     <message>
         <source>Can&apos;t Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>No puedo conectarme</translation>
     </message>
     <message>
         <source>Unable to connect to mySQL Server!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No puedo conectarme al servidor MySQL!</translation>
     </message>
     <message>
         <source>Matrix:</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>RDGpiMon - User:</source>
-        <translation type="unfinished"></translation>
+        <translation>RDGpiMon - Usuario:</translation>
     </message>
     <message>
         <source>Show:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar:</translation>
     </message>
     <message>
         <source>GPI (Inputs)</source>
-        <translation type="unfinished"></translation>
+        <translation>GPI (Entradas)</translation>
     </message>
     <message>
         <source>GPO (Outputs)</source>
-        <translation type="unfinished"></translation>
+        <translation>GPO (Salidas)</translation>
     </message>
     <message>
         <source>Green = ON Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Verde = Cartucho ENCENDIDO</translation>
     </message>
     <message>
         <source>Red = OFF Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Rojo = Cartucho APAGADO</translation>
     </message>
 </context>
 </TS>

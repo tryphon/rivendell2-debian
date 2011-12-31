@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_import_test.cpp,v 1.4 2011/06/21 22:20:44 cvs Exp $
+//      $Id: audio_import_test.cpp,v 1.5 2011/12/23 22:04:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,6 +38,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   cut_number=0;
   use_metadata=false;
   bool ok=false;
+  RDAudioConvert::ErrorCode audio_conv_err;
   RDAudioImport::ErrorCode conv_err;
   unsigned schema=0;
 
@@ -146,8 +147,9 @@ MainObject::MainObject(QObject *parent,const char *name)
   conv->setDestinationSettings(destination_settings);
   conv->setUseMetadata(use_metadata);
   printf("Importing...\n");
-  conv_err=conv->runImport(username,password);
-  printf("Result: %s\n",(const char *)RDAudioImport::errorText(conv_err));
+  conv_err=conv->runImport(username,password,&audio_conv_err);
+  printf("Result: %s\n",
+	 (const char *)RDAudioImport::errorText(conv_err,audio_conv_err));
   delete conv;
 
   exit(0);

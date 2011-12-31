@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddbcheck.cpp,v 1.17 2011/06/21 22:20:44 cvs Exp $
+//      $Id: rddbcheck.cpp,v 1.18 2011/12/22 23:22:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -56,7 +56,7 @@ MainObject::MainObject(QObject *parent,const char *name)
 
   check_yes=false;
   check_no=false;
-  QString username="admin";
+  QString username="user";
 
   //
   // Read Command Options
@@ -243,7 +243,7 @@ void MainObject::CheckOrphanedTracks()
   QSqlQuery *q1;
 
   while(q->next()) {
-    logname=q->value(2).toString();
+    logname=q->value(2).toString()+"_LOG";
     logname.replace(" ","_");
     sql=QString().sprintf("select ID from %s where CART_NUMBER=%u",
 			  (const char *)logname,q->value(0).toUInt());
@@ -257,7 +257,9 @@ void MainObject::CheckOrphanedTracks()
 	cart->remove(check_station,check_user);
 	delete cart;
 	RDLog *log=new RDLog(q->value(2).toString());
-	log->updateTracks();
+	if(log->exists()) {
+	  log->updateTracks();
+	}
 	delete log;
       }
     }
@@ -645,7 +647,7 @@ void MainObject::ValidateAudioLengths()
     if(q->value(2).toInt()>0) {
       wave=new RDWaveFile(RDCut::pathName(q->value(0).toString()));
       if(wave->openWave()) {
-	if(wave->getExtTimeLength()<q->value(2).toInt()) {
+	if((int)wave->getExtTimeLength()<(q->value(2).toInt()-100)) {
 	  SetCutLength(q->value(0).toString(),wave->getExtTimeLength());
 	}
       }

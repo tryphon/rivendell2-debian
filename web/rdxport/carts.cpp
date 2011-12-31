@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: carts.cpp,v 1.5 2011/10/27 15:23:26 cvs Exp $
+//      $Id: carts.cpp,v 1.7 2011/12/23 23:07:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -49,10 +49,10 @@ void Xport::AddCart()
   // Verify Post
   //
   if(!xport_post->getValue("GROUP_NAME",&group_name)) {
-    RDCgiError("Missing GROUP_NAME",400);
+    RDXMLResult("Missing GROUP_NAME",400);
   }
   if(!xport_post->getValue("TYPE",&type)) {
-    RDCgiError("Missing TYPE",400);
+    RDXMLResult("Missing TYPE",400);
   }
   if(type.lower()=="audio") {
     cart_type=RDCart::Audio;
@@ -62,7 +62,7 @@ void Xport::AddCart()
       cart_type=RDCart::Macro;
     }
     else {
-      RDCgiError("Invalid TYPE",400);
+      RDXMLResult("Invalid TYPE",400);
     }
   }
   xport_post->getValue("CART_NUMBER",&cart_number);
@@ -71,22 +71,22 @@ void Xport::AddCart()
   // Verify User Perms
   //
   if(!xport_user->groupAuthorized(group_name)) {
-    RDCgiError("No such group",404);
+    RDXMLResult("No such group",404);
   }
   group=new RDGroup(group_name,this);
   if(cart_number==0) {
     if((cart_number=group->nextFreeCart())==0) {
       delete group;
-      RDCgiError("No free carts in group",500);
+      RDXMLResult("No free carts in group",500);
     }
   }
   if(!group->cartNumberValid(cart_number)) {
     delete group;
-    RDCgiError("Cart number out of range for group",401);
+    RDXMLResult("Cart number out of range for group",401);
   }
   delete group;
   if(!xport_user->createCarts()) {
-    RDCgiError("Unauthorized",401);
+    RDXMLResult("Unauthorized",401);
   }
 
   //
@@ -95,11 +95,11 @@ void Xport::AddCart()
   cart=new RDCart(cart_number);
   if(cart->exists()) {
     delete cart;
-    RDCgiError("Cart already exists",403);
+    RDXMLResult("Cart already exists",403);
   }
   if(!cart->create(group_name,cart_type)) {
     delete cart;
-    RDCgiError("Unable to create cart",500);
+    RDXMLResult("Unable to create cart",500);
   }
   printf("Content-type: application/xml\n");
   printf("Status: 200\n\n");
@@ -156,7 +156,7 @@ void Xport::ListCarts()
     q=new RDSqlQuery(sql);
     if(!q->first()) {
       delete q;
-      RDCgiError("No such group",404);
+      RDXMLResult("No such group",404);
     }
     where=RDCartSearchText(filter,group_name,"");
   }
@@ -198,7 +198,7 @@ void Xport::ListCart()
   // Verify Post
   //
   if(!xport_post->getValue("CART_NUMBER",&cart_number)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
   xport_post->getValue("INCLUDE_CUTS",&include_cuts);
 
@@ -206,7 +206,7 @@ void Xport::ListCart()
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cart_number)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
 
   //
@@ -243,7 +243,7 @@ void Xport::EditCart()
   // Verify Post
   //
   if(!xport_post->getValue("CART_NUMBER",&cart_number)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
   xport_post->getValue("INCLUDE_CUTS",&include_cuts);
 
@@ -251,14 +251,14 @@ void Xport::EditCart()
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cart_number)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
   if(!xport_user->modifyCarts()) {
-    RDCgiError("Unauthorized",401);
+    RDXMLResult("Unauthorized",401);
   }
   if(xport_post->getValue("GROUP_NAME",&group_name)) {
     if(!xport_user->groupAuthorized(group_name)) {
-      RDCgiError("No such group",404);
+      RDXMLResult("No such group",404);
     }
   }
 
@@ -268,17 +268,17 @@ void Xport::EditCart()
   cart=new RDCart(cart_number);
   if(!cart->exists()) {
     delete cart;
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
   if(xport_post->getValue("FORCED_LENGTH",&value)) {
     number=RDSetTimeLength(value);
     if(cart->type()==RDCart::Macro) {
       delete cart;
-      RDCgiError("Unsupported operation for cart type",403);
+      RDXMLResult("Unsupported operation for cart type",403);
     }
     if(!cart->validateLengths(number)) {
       delete cart;
-      RDCgiError("Forced length out of range",403);
+      RDXMLResult("Forced length out of range",403);
     }
   }
   switch(cart->type()) {
@@ -291,7 +291,7 @@ void Xport::EditCart()
       value.stripWhiteSpace();
       if(value.right(1)!="!") {
 	delete cart;
-	RDCgiError("Invalid macro data",400);
+	RDXMLResult("Invalid macro data",400);
       }
       macro+=value;
     }
@@ -395,17 +395,17 @@ void Xport::RemoveCart()
   // Verify Post
   //
   if(!xport_post->getValue("CART_NUMBER",&cart_number)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cart_number)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
   if(!xport_user->deleteCarts()) {
-    RDCgiError("Unauthorized",401);
+    RDXMLResult("Unauthorized",401);
   }
 
   //
@@ -414,18 +414,14 @@ void Xport::RemoveCart()
   cart=new RDCart(cart_number);
   if(!cart->exists()) {
     delete cart;
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
   if(!cart->remove(NULL,NULL)) {
     delete cart;
-    RDCgiError("Unable to delete cart",500);
+    RDXMLResult("Unable to delete cart",500);
   }
-  printf("Content-type: text/html\n");
-  printf("Status: 200\n\n");
-  printf("OK\n");
   delete cart;
-
-  Exit(0);
+  RDXMLResult("OK",200);
 }
 
 
@@ -440,17 +436,17 @@ void Xport::AddCut()
   // Verify Post
   //
   if(!xport_post->getValue("CART_NUMBER",&cart_number)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cart_number)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
   if(!xport_user->editAudio()) {
-    RDCgiError("Unauthorized",401);
+    RDXMLResult("Unauthorized",401);
   }
 
   //
@@ -459,11 +455,11 @@ void Xport::AddCut()
   cart=new RDCart(cart_number);
   if(!cart->exists()) {
     delete cart;
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
   if((cut_number=cart->addCut(0,0,2))<0) {
     delete cart;
-    RDCgiError("No new cuts available",500);
+    RDXMLResult("No new cuts available",500);
   }
   printf("Content-type: application/xml\n");
   printf("Status: 200\n\n");
@@ -492,14 +488,14 @@ void Xport::ListCuts()
   // Verify Post
   //
   if(!xport_post->getValue("CART_NUMBER",&cart_number)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cart_number)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
 
   //
@@ -537,17 +533,17 @@ void Xport::ListCut()
   // Verify Post
   //
   if(!xport_post->getValue("CART_NUMBER",&cart_number)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
   if(!xport_post->getValue("CUT_NUMBER",&cut_number)) {
-    RDCgiError("Missing CUT_NUMBER",400);
+    RDXMLResult("Missing CUT_NUMBER",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cart_number)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
 
   //
@@ -556,7 +552,7 @@ void Xport::ListCut()
   cut=new RDCut(cart_number,cut_number);
   if(!cut->exists()) {
     delete cut;
-    RDCgiError("No such cut",404);
+    RDXMLResult("No such cut",404);
   }
   printf("Content-type: application/xml\n");
   printf("Status: 200\n\n");
@@ -586,20 +582,20 @@ void Xport::EditCut()
   // Verify Post
   //
   if(!xport_post->getValue("CART_NUMBER",&cart_number)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
   if(!xport_post->getValue("CUT_NUMBER",&cut_number)) {
-    RDCgiError("Missing CUT_NUMBER",400);
+    RDXMLResult("Missing CUT_NUMBER",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cart_number)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
   if(!xport_user->editAudio()) {
-    RDCgiError("Unauthorized",401);
+    RDXMLResult("Unauthorized",401);
   }
 
   //
@@ -608,7 +604,7 @@ void Xport::EditCut()
   cut=new RDCut(cart_number,cut_number);
   if(!cut->exists()) {
     delete cut;
-    RDCgiError("No such cut",404);
+    RDXMLResult("No such cut",404);
   }
   if(xport_post->getValue("EVERGREEN",&num)) {
     cut->setEvergreen(num);
@@ -726,13 +722,8 @@ void Xport::EditCut()
     }
     delete cart;
   }
-
-  printf("Content-type: text/html\n");
-  printf("Status: 200\n\n");
-  printf("OK\n");
   delete cut;
-
-  Exit(0);
+  RDXMLResult("OK",200);
 }
 
 
@@ -746,20 +737,20 @@ void Xport::RemoveCut()
   // Verify Post
   //
   if(!xport_post->getValue("CART_NUMBER",&cart_number)) {
-    RDCgiError("Missing CART_NUMBER",400);
+    RDXMLResult("Missing CART_NUMBER",400);
   }
   if(!xport_post->getValue("CUT_NUMBER",&cut_number)) {
-    RDCgiError("Missing CUT_NUMBER",400);
+    RDXMLResult("Missing CUT_NUMBER",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cart_number)) {
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
   if(!xport_user->editAudio()) {
-    RDCgiError("Unauthorized",401);
+    RDXMLResult("Unauthorized",401);
   }
 
   //
@@ -768,16 +759,12 @@ void Xport::RemoveCut()
   cart=new RDCart(cart_number);
   if(!cart->exists()) {
     delete cart;
-    RDCgiError("No such cart",404);
+    RDXMLResult("No such cart",404);
   }
   if(!cart->removeCut(NULL,NULL,RDCut::cutName(cart_number,cut_number))) {
     delete cart;
-    RDCgiError("No such cut",404);
+    RDXMLResult("No such cut",404);
   }
-  printf("Content-type: text/html\n");
-  printf("Status: 200\n\n");
-  printf("OK\n");
   delete cart;
-
-  Exit(0);
+  RDXMLResult("OK",200);
 }

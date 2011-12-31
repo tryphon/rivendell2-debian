@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport_audio.cpp,v 1.26 2010/09/08 20:37:58 cvs Exp $
+//      $Id: rdimport_audio.cpp,v 1.27 2011/12/23 22:04:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -535,10 +535,9 @@ void RDImportAudio::closeEvent(QCloseEvent *e)
 
 void RDImportAudio::Import()
 {
-  int format_in=0;
   RDSettings settings;
   RDAudioImport::ErrorCode conv_err;
-  RDCart *cart=NULL;
+  RDAudioConvert::ErrorCode audio_conv_err;
 
   if(*import_running) {
     return;
@@ -571,7 +570,7 @@ void RDImportAudio::Import()
   import_import_conv->setUseMetadata(false);
   *import_running=true;
   import_import_aborted=false;
-  conv_err=import_import_conv->runImport(import_user->name(),import_user->password());
+  conv_err=import_import_conv->runImport(import_user->name(),import_user->password(),&audio_conv_err);
   *import_running=false;
   StopBar();
   switch(conv_err) {
@@ -588,7 +587,7 @@ void RDImportAudio::Import()
 
   default:
     QMessageBox::warning(this,tr("Import Error"),
-			 RDAudioImport::errorText(conv_err));
+			 RDAudioImport::errorText(conv_err,audio_conv_err));
   }
   delete import_import_conv;
   import_import_conv=NULL;
@@ -600,9 +599,9 @@ void RDImportAudio::Import()
 
 void RDImportAudio::Export()
 {
-  int format_in=0;
   QString custom_cmd;
   RDAudioExport::ErrorCode conv_err;
+  RDAudioConvert::ErrorCode audio_conv_err;
 
   if(*import_running) {
     return;
@@ -635,7 +634,9 @@ void RDImportAudio::Export()
   import_export_conv->setEnableMetadata(import_out_metadata_box->isChecked());
   *import_running=true;
   import_import_aborted=false;
-  conv_err=import_export_conv->runExport(import_user->name(),import_user->password());
+  conv_err=import_export_conv->runExport(import_user->name(),
+					 import_user->password(),
+					 &audio_conv_err);
   *import_running=false;
   StopBar();
   switch(conv_err) {
@@ -646,7 +647,7 @@ void RDImportAudio::Export()
 
   default:
     QMessageBox::warning(this,tr("Export Error"),
-			 RDAudioExport::errorText(conv_err));
+			 RDAudioExport::errorText(conv_err,audio_conv_err));
   }
   delete import_export_conv;
   import_export_conv=NULL;

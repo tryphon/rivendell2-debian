@@ -3,179 +3,179 @@
     <name>MainWidget</name>
     <message>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar</translation>
     </message>
     <message>
         <source>RHPIPlay</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Format:  PCM</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato:  PCM</translation>
     </message>
     <message>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineal</translation>
     </message>
     <message>
         <source>Format:  MPEG Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato:  MPEG Capa</translation>
     </message>
     <message>
         <source>Format:  OggVorbis</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato:  OGGVorbis</translation>
     </message>
     <message>
         <source>Format:  Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato:  Desconocido</translation>
     </message>
     <message>
         <source>Channels:</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales:</translation>
     </message>
     <message>
         <source>Sample Rate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasa de muestreo:</translation>
     </message>
     <message>
         <source>samples/sec</source>
-        <translation type="unfinished"></translation>
+        <translation>muestras/seg</translation>
     </message>
     <message>
         <source>Average Data Rate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasa promedio de datos:</translation>
     </message>
     <message>
         <source>bytes/sec</source>
-        <translation type="unfinished"></translation>
+        <translation>bytes/seg</translation>
     </message>
     <message>
         <source>Frame Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de marco:</translation>
     </message>
     <message>
         <source>byte3s</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Sample Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de muestra:</translation>
     </message>
     <message>
         <source>bits/chan/sample</source>
-        <translation type="unfinished"></translation>
+        <translation>bits/canal/muestra</translation>
     </message>
     <message>
         <source>Bit Rate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasa de Bit:</translation>
     </message>
     <message>
         <source>bits/sec</source>
-        <translation type="unfinished"></translation>
+        <translation>bits/seg</translation>
     </message>
     <message>
         <source>Codec Mode(s): </source>
-        <translation type="unfinished"></translation>
+        <translation>Modo(s) de Codec: </translation>
     </message>
     <message>
         <source>Stereo </source>
-        <translation type="unfinished"></translation>
+        <translation>Estéreo </translation>
     </message>
     <message>
         <source>JointStereo </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>DualChannel </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>SingleChannel </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <source>50/15 ms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Reserved</source>
-        <translation type="unfinished"></translation>
+        <translation>Reservado</translation>
     </message>
     <message>
         <source>CCITT J.17</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconocido</translation>
     </message>
     <message>
         <source>Flags: </source>
-        <translation type="unfinished"></translation>
+        <translation>Banderas: </translation>
     </message>
     <message>
         <source>Private </source>
-        <translation type="unfinished"></translation>
+        <translation>Privado</translation>
     </message>
     <message>
         <source>Copyright </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Home </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>MPEG </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>FMT Chunk</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Data Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de datos:</translation>
     </message>
     <message>
         <source>bytes</source>
-        <translation type="unfinished"></translation>
+        <translation>bytes</translation>
     </message>
     <message>
         <source>DATA Chunk</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>samples</source>
-        <translation type="unfinished"></translation>
+        <translation>muestras</translation>
     </message>
     <message>
         <source>TITLE: </source>
-        <translation type="unfinished"></translation>
+        <translation>TÍTULO: </translation>
     </message>
     <message>
         <source>ARTIST: </source>
-        <translation type="unfinished"></translation>
+        <translation>ARTISTA: </translation>
     </message>
     <message>
         <source>CUT ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID AUDIO: </translation>
     </message>
     <message>
         <source>CLIENT ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID CLIENTE: </translation>
     </message>
     <message>
         <source>CATEGORY: </source>
-        <translation type="unfinished"></translation>
+        <translation>CATEGORÍA: </translation>
     </message>
     <message>
         <source>CLASSIFICATION: </source>
-        <translation type="unfinished"></translation>
+        <translation>CLASIFICACIÓN: </translation>
     </message>
     <message>
         <source>OUT CUE: </source>
@@ -183,47 +183,47 @@
     </message>
     <message>
         <source>START DATE: </source>
-        <translation type="unfinished"></translation>
+        <translation>FECHA INICIO:</translation>
     </message>
     <message>
         <source>START TIME: </source>
-        <translation type="unfinished"></translation>
+        <translation>HORA INICIO: </translation>
     </message>
     <message>
         <source>END DATE: </source>
-        <translation type="unfinished"></translation>
+        <translation>FECHA FIN: </translation>
     </message>
     <message>
         <source>END TIME: </source>
-        <translation type="unfinished"></translation>
+        <translation>HORA FIN: </translation>
     </message>
     <message>
         <source>PRODUCER ID: </source>
-        <translation type="unfinished"></translation>
+        <translation>ID PRODUCTOR: </translation>
     </message>
     <message>
         <source>PRODUCER VERSION: </source>
-        <translation type="unfinished"></translation>
+        <translation>VERSIÓN DEL PRODUCTOR: </translation>
     </message>
     <message>
         <source>USER DEFINED: </source>
-        <translation type="unfinished"></translation>
+        <translation>DEFINIDO POR USUARIO: </translation>
     </message>
     <message>
         <source>LEVEL REFERENCE:</source>
-        <translation type="unfinished"></translation>
+        <translation>NIVEL DE REFERENCIA: </translation>
     </message>
     <message>
         <source>dB</source>
-        <translation type="unfinished"></translation>
+        <translation>dB</translation>
     </message>
     <message>
         <source>Undefined</source>
-        <translation type="unfinished"></translation>
+        <translation>Indefinido</translation>
     </message>
     <message>
         <source>URL: </source>
-        <translation type="unfinished"></translation>
+        <translation>URL: </translation>
     </message>
     <message>
         <source>CART TIMER(S): </source>
@@ -231,7 +231,7 @@
     </message>
     <message>
         <source>TAG TEXT: </source>
-        <translation type="unfinished"></translation>
+        <translation>TEXTO ETIQ: </translation>
     </message>
     <message>
         <source>CART Chunk</source>
@@ -239,27 +239,27 @@
     </message>
     <message>
         <source>DESCRIPTION: </source>
-        <translation type="unfinished"></translation>
+        <translation>DESCRIPCIÓN: </translation>
     </message>
     <message>
         <source>ORIGINATOR: </source>
-        <translation type="unfinished"></translation>
+        <translation>ORIGEN: </translation>
     </message>
     <message>
         <source>ORIGINATOR REFERENCE: </source>
-        <translation type="unfinished"></translation>
+        <translation>REFERENCIA DEL ORIGEN: </translation>
     </message>
     <message>
         <source>ORIGINATION DATE: </source>
-        <translation type="unfinished"></translation>
+        <translation>FECHA DE ORIGEN: </translation>
     </message>
     <message>
         <source>ORIGINATION TIME: </source>
-        <translation type="unfinished"></translation>
+        <translation>HORA DE ORIGEN: </translation>
     </message>
     <message>
         <source>VERSION:</source>
-        <translation type="unfinished"></translation>
+        <translation>VERSION: </translation>
     </message>
     <message>
         <source>CODING HISTORY: </source>
@@ -271,11 +271,11 @@
     </message>
     <message>
         <source>MPEG Data Composition: </source>
-        <translation type="unfinished"></translation>
+        <translation>Composición de datos MPEG: </translation>
     </message>
     <message>
         <source>Homogenous</source>
-        <translation type="unfinished"></translation>
+        <translation>Homogéneo</translation>
     </message>
     <message>
         <source>The padding bit is active.</source>
@@ -287,23 +287,23 @@
     </message>
     <message>
         <source>The bit rate is non-standard.</source>
-        <translation type="unfinished"></translation>
+        <translation>La tasa de bits no es estándar.</translation>
     </message>
     <message>
         <source>Non-homogenous</source>
-        <translation type="unfinished"></translation>
+        <translation>No homogéneo</translation>
     </message>
     <message>
         <source>MPEG Format: Free Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato MPEG: formato libre</translation>
     </message>
     <message>
         <source>MPEG Format: Constant Bit Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato MPEG: Tasa de bit constante</translation>
     </message>
     <message>
         <source>MPEG Frame Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño frame MPEG:</translation>
     </message>
     <message>
         <source>Ancillary Bytes:</source>
@@ -331,15 +331,15 @@
     </message>
     <message>
         <source>Version: </source>
-        <translation type="unfinished"></translation>
+        <translation>Versión: </translation>
     </message>
     <message>
         <source>Samples per Peak: </source>
-        <translation type="unfinished"></translation>
+        <translation>Muestras por pico: </translation>
     </message>
     <message>
         <source>Sample Channels: </source>
-        <translation type="unfinished"></translation>
+        <translation>Canales de muestra: </translation>
     </message>
     <message>
         <source>Overall Peak: </source>
@@ -347,7 +347,7 @@
     </message>
     <message>
         <source>dBFS</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Timestamp: </source>
@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Unable to open file!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">¡No pude abrir el archivo!</translation>
     </message>
 </context>
 </TS>

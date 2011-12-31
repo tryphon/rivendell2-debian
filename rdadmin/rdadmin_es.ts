@@ -118,43 +118,47 @@ sido actualizada a la versión </translation>
     </message>
     <message>
         <source>RDAdmin Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de RDAdmin</translation>
     </message>
     <message>
         <source>Unable to upgrade database</source>
-        <translation type="unfinished"></translation>
+        <translation>No fue posible actualizar la base de datos</translation>
     </message>
     <message>
         <source>RDAdmin</source>
-        <translation type="unfinished"></translation>
+        <translation>RDAdmin</translation>
+    </message>
+    <message>
+        <source>Unable to update Rivendell Database:</source>
+        <translation>No fue posible actualizar la base de datos:</translation>
     </message>
     <message>
         <source>
 Database backup failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>
+¡No se pudo respaldar la base de datos!</translation>
     </message>
     <message>
         <source>
 Schema modification failed!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to update Rivendell Database:</source>
-        <translation type="unfinished"></translation>
+        <translation>
+¡Falló la modificación del esquema!</translation>
     </message>
     <message>
         <source>
 Unknown/unspecified error!</source>
-        <translation type="unfinished"></translation>
+        <translation>
+¡Error desconocido/no especificado!</translation>
+    </message>
+    <message>
+        <source>The Rivendell Database has been updated to version</source>
+        <translation>La base de datos de Rivendell ha sido actualizada a la versión </translation>
     </message>
     <message>
         <source>
 and a backup of the original database saved in </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The Rivendell Database has been updated to version</source>
-        <translation type="unfinished"></translation>
+        <translation>
+y un respaldo de la base de datos se guardó en </translation>
     </message>
 </context>
 <context>
@@ -173,7 +177,7 @@ and a backup of the original database saved in </source>
     </message>
     <message>
         <source>Enable Group for All Services</source>
-        <translation>Activar grup para todos los servicios</translation>
+        <translation>Activar grupo para todos los servicios</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -231,439 +235,439 @@ and a backup of the original database saved in </source>
     <name>AddMatrix</name>
     <message>
         <source>Add Switcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Agregar Suichera</translation>
     </message>
     <message>
         <source>&amp;New Matrix Number:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Número de la nueva Matriz:</translation>
     </message>
     <message>
         <source>Local GPIO</source>
-        <translation type="unfinished"></translation>
+        <translation>GPIO Local</translation>
     </message>
     <message>
         <source>Generic GPO</source>
-        <translation type="unfinished"></translation>
+        <translation>GPO Genérico</translation>
     </message>
     <message>
         <source>Generic Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial Genérico</translation>
     </message>
     <message>
         <source>Local Audio Adapter</source>
-        <translation type="unfinished"></translation>
+        <translation>Adaptador de Audio Local</translation>
     </message>
     <message>
         <source>Logitek vGuest</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SS16.4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>StarGuide III</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SS4.2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&amp;Switcher Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de &amp;Suichera:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Invalid Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz inválida</translation>
     </message>
     <message>
         <source>Matrix already exists!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La matriz ya existe!</translation>
     </message>
     <message>
         <source>Axia LiveWire</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Quartz Type 1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SS4.4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SRC-8 III</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SRC-16</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>AddReport</name>
     <message>
         <source>Add Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir Reporte</translation>
     </message>
     <message>
         <source>&amp;Report Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del &amp;Reporte:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Invalid Name</source>
-        <translation type="unfinished">Nombre inválido</translation>
+        <translation>Nombre inválido</translation>
     </message>
     <message>
         <source>You must provide a report name!</source>
-        <translation type="unfinished"></translation>
+        <translation>Usted debe indicar el nombre del reporte!</translation>
     </message>
     <message>
         <source>Report Exists</source>
-        <translation type="unfinished"></translation>
+        <translation>El reporte ya existe</translation>
     </message>
     <message>
         <source>A report with that name already exists!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Ya existe un reporte con ese nombre!</translation>
     </message>
 </context>
 <context>
     <name>AddStation</name>
     <message>
         <source>Add Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir nuevo computador</translation>
     </message>
     <message>
         <source>New &amp;Host Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del &amp;Equipo:</translation>
     </message>
     <message>
         <source>Base Host On:</source>
-        <translation type="unfinished"></translation>
+        <translation>Basado en:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Empty Host Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaciar configuración</translation>
     </message>
     <message>
         <source>Invalid Name</source>
-        <translation type="unfinished">Nombre inválido</translation>
+        <translation>Nombre inválido</translation>
     </message>
     <message>
         <source>You must give the host a name!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Debe asignar un nombre al equipo!</translation>
     </message>
     <message>
         <source>Host Exists</source>
-        <translation type="unfinished"></translation>
+        <translation>El equipo ya existe</translation>
     </message>
     <message>
         <source>Host Already Exists!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El equipo ya existe!</translation>
     </message>
 </context>
 <context>
     <name>AddSvc</name>
     <message>
         <source>Add Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir Servicio</translation>
     </message>
     <message>
         <source>&amp;New Service Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nombre del Servicio:</translation>
     </message>
     <message>
         <source>Base Service On:</source>
-        <translation type="unfinished"></translation>
+        <translation>Basar servicio en:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Empty Host Config</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaciar configuración del equipo</translation>
     </message>
     <message>
         <source>Invalid Name</source>
-        <translation type="unfinished">Nombre inválido</translation>
+        <translation>Nombre inválido</translation>
     </message>
     <message>
         <source>You must give the service a name!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Debe darle un nombre al servicio!</translation>
     </message>
     <message>
         <source>Service Exists</source>
-        <translation type="unfinished"></translation>
+        <translation>El servicio ya existe</translation>
     </message>
     <message>
         <source>Service Already Exists!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El servicio ya existe!</translation>
     </message>
 </context>
 <context>
     <name>AddUser</name>
     <message>
         <source>Add User</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir usuario</translation>
     </message>
     <message>
         <source>&amp;New User Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nombre del usuario:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Invalid Name</source>
-        <translation type="unfinished">Nombre inválido</translation>
+        <translation>Nombre inválido</translation>
     </message>
     <message>
         <source>You must give the user a name!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Debe darle un nombre e este usuario!</translation>
     </message>
     <message>
         <source>User Exists</source>
-        <translation type="unfinished"></translation>
+        <translation>El usuario ya existe</translation>
     </message>
     <message>
         <source>User Already Exists!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El usuario ya existe!</translation>
     </message>
 </context>
 <context>
     <name>AutofillCarts</name>
     <message>
         <source>Autofill Carts - Service:</source>
-        <translation type="unfinished"></translation>
+        <translation>Autollenado de cartuchos - Servicio:</translation>
     </message>
     <message>
         <source>Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Cartucho</translation>
     </message>
     <message>
         <source>Length</source>
-        <translation type="unfinished"></translation>
+        <translation>Duración</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Título</translation>
     </message>
     <message>
         <source>Artist</source>
-        <translation type="unfinished"></translation>
+        <translation>Artista</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Añadir</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;liminar</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
 </context>
 <context>
     <name>EditAudioPorts</name>
     <message>
         <source>Edit Audio Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Puertos de Audio</translation>
     </message>
     <message>
         <source>Clock Source:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuente del Clock:</translation>
     </message>
     <message>
         <source>Input Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto de Entrada</translation>
     </message>
     <message>
         <source>Analog</source>
-        <translation type="unfinished"></translation>
+        <translation>Análogo</translation>
     </message>
     <message>
         <source>AES/EBU</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>SP/DIFF</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo:</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Swap</source>
-        <translation type="unfinished"></translation>
+        <translation>Invertir</translation>
     </message>
     <message>
         <source>Left only</source>
-        <translation type="unfinished"></translation>
+        <translation>Sólo Izquierdo</translation>
     </message>
     <message>
         <source>Right only</source>
-        <translation type="unfinished"></translation>
+        <translation>Sólo Derecho</translation>
     </message>
     <message>
         <source>Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo:</translation>
     </message>
     <message>
         <source> dB</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel:</translation>
     </message>
     <message>
         <source>Output Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto de Salida</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;yuda</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>Internal</source>
-        <translation type="unfinished"></translation>
+        <translation>Intern</translation>
     </message>
     <message>
         <source>AES/EBU Signal</source>
-        <translation type="unfinished"></translation>
+        <translation>Señal AES/EBU</translation>
     </message>
     <message>
         <source>SP/DIFF Signal</source>
-        <translation type="unfinished"></translation>
+        <translation>Señal SP/DIFF</translation>
     </message>
     <message>
         <source>Word Clock</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>EditBackup</name>
     <message>
         <source>Backup config for </source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de respaldo para </translation>
     </message>
     <message>
         <source>Keep Backups For:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mantener respaldos para: </translation>
     </message>
     <message>
         <source>days</source>
-        <translation type="unfinished">días</translation>
+        <translation>días</translation>
     </message>
     <message>
         <source>Backup Directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Directorio de Respaldos:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Path Missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Directorio no encontrado</translation>
     </message>
     <message>
         <source>You must supply a backup path!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Debe indicar un directorio para el respaldo!</translation>
     </message>
 </context>
 <context>
     <name>EditDecks</name>
     <message>
         <source>Configure RDCatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar RDCatch</translation>
     </message>
     <message>
         <source>Record Deck</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <source>Monitor Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto Monitor:</translation>
     </message>
     <message>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Apagado</translation>
     </message>
     <message>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>Encendido</translation>
     </message>
     <message>
         <source>Monitor defaults to</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitor por omisión</translation>
     </message>
     <message>
         <source>Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato:</translation>
     </message>
     <message>
         <source>Bit Rate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasa de bits:</translation>
     </message>
     <message>
         <source>Switcher Host:</source>
@@ -683,242 +687,244 @@ and a backup of the original database saved in </source>
     </message>
     <message>
         <source>1/10 sec</source>
-        <translation type="unfinished"></translation>
+        <translation>1/10 seg</translation>
     </message>
     <message>
         <source>Channels:</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales:</translation>
     </message>
     <message>
         <source>Trim Threshold:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel para recortar:</translation>
     </message>
     <message>
         <source>Error RML:</source>
-        <translation type="unfinished"></translation>
+        <translation>RML de Error:</translation>
     </message>
     <message>
         <source>Play Deck</source>
-        <translation type="unfinished"></translation>
+        <translation>Deck Repro</translation>
     </message>
     <message>
         <source>Audition Deck</source>
-        <translation type="unfinished"></translation>
+        <translation>Deck Escucha</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>PCM16</source>
-        <translation type="unfinished"></translation>
+        <translation>PCM16</translation>
     </message>
     <message>
         <source>MPEG Layer 2</source>
-        <translation type="unfinished"></translation>
+        <translation>MPEG Capa 2</translation>
     </message>
     <message>
         <source>32 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>32 kbps/canal</translation>
     </message>
     <message>
         <source>48 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>48 kbps/canal</translation>
     </message>
     <message>
         <source>56 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>56 kbps/canal</translation>
     </message>
     <message>
         <source>64 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>64 kbps/canal</translation>
     </message>
     <message>
         <source>80 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>80 kbps/canal</translation>
     </message>
     <message>
         <source>96 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>96 kbps/canal</translation>
     </message>
     <message>
         <source>112 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>112 kbps/canal</translation>
     </message>
     <message>
         <source>128 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>128 kbps/canal</translation>
     </message>
     <message>
         <source>160 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>160 kbps/canal</translation>
     </message>
     <message>
         <source>192 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>192 kbps/canal</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ninguno]</translation>
     </message>
     <message>
         <source>No Audio Configuration Data</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay datos de configuración de datos</translation>
     </message>
     <message>
         <source>Channel assignments will not be available for this host as audio resource data
 has not yet been generated.  Please start the Rivendell daemons on the host
 configured to run the CAE service in order to populate the audio resources database.</source>
-        <translation type="unfinished"></translation>
+        <translation>Las asignaciones de canales no estarán disponibles para este computador,
+debido a que no se han generado datos. Inicie los servicios de Rivendell en el 
+computador para obtener los recursos de audio de dicho equipo.</translation>
     </message>
 </context>
 <context>
     <name>EditEncoder</name>
     <message>
         <source>RDAdmin - Edit Encoder</source>
-        <translation type="unfinished"></translation>
+        <translation>RDAdmin - Editar Codificador</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre:</translation>
     </message>
     <message>
         <source>Allow Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales permitidos</translation>
     </message>
     <message>
         <source>Allow Sample Rates</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasas sampleo permitidas</translation>
     </message>
     <message>
         <source>Allow Bit Rates</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasas bit permitidas</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
 </context>
 <context>
     <name>EditEndpoint</name>
     <message>
         <source>Edit Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Entrada</translation>
     </message>
     <message>
         <source>Edit Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Salida</translation>
     </message>
     <message>
         <source>Name: </source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre: </translation>
     </message>
     <message>
         <source>Feed: </source>
-        <translation type="unfinished"></translation>
+        <translation>Feed: </translation>
     </message>
     <message>
         <source>Mode: </source>
-        <translation type="unfinished"></translation>
+        <translation>Modo: </translation>
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>Estéreo</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Izquierda</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Derecha</translation>
     </message>
     <message>
         <source>Engine (Hex): </source>
-        <translation type="unfinished"></translation>
+        <translation>Motor (Hex): </translation>
     </message>
     <message>
         <source>Provider ID:</source>
-        <translation type="unfinished"></translation>
+        <translation>ID Proveedor:</translation>
     </message>
     <message>
         <source>Device (Hex): </source>
-        <translation type="unfinished"></translation>
+        <translation>Disposit (Hex): </translation>
     </message>
     <message>
         <source>Service ID:</source>
-        <translation type="unfinished"></translation>
+        <translation>ID del Servicio:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Invalid Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Número inválido</translation>
     </message>
     <message>
         <source>The Engine Number is Invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El número del motor es inválido!</translation>
     </message>
     <message>
         <source>The Provider ID is Invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El ID del proveedor es inválido!</translation>
     </message>
     <message>
         <source>The Device Number is Invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El número del dispositivo es inválido!</translation>
     </message>
     <message>
         <source>The Service ID is Invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El ID del servicio es inválido!</translation>
     </message>
 </context>
 <context>
     <name>EditGpi</name>
     <message>
         <source>Edit GPI</source>
-        <translation type="unfinished"></translation>
+        <translation>Edtar GPI</translation>
     </message>
     <message>
         <source>Description: </source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción: </translation>
     </message>
     <message>
         <source>Cart Number: </source>
-        <translation type="unfinished"></translation>
+        <translation>Nro Cartucho: </translation>
     </message>
     <message>
         <source>&amp;Select</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seleccionar</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Limpiar</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Invalid Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Cartucho inválido</translation>
     </message>
     <message>
         <source>Invalid Cart Number!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Número de cartucho inválido!</translation>
     </message>
 </context>
 <context>
@@ -945,7 +951,7 @@ configured to run the CAE service in order to populate the audio resources datab
     </message>
     <message>
         <source>Default Cart &amp;Type:</source>
-        <translation>&amp;Tipo de Cartucho por omisión:</translation>
+        <translation>&amp;Tipo de Cart. inicial:</translation>
     </message>
     <message>
         <source>None</source>
@@ -953,7 +959,7 @@ configured to run the CAE service in order to populate the audio resources datab
     </message>
     <message>
         <source>Default Cart Number:</source>
-        <translation>Nro. cartucho por omisión:</translation>
+        <translation>Nro de cartucho inicial:</translation>
     </message>
     <message>
         <source>to</source>
@@ -1002,11 +1008,11 @@ Do you still want to save?</source>
     </message>
     <message>
         <source>Default Import &amp;Title:</source>
-        <translation>&amp;Título por omisión al importar:</translation>
+        <translation>&amp;Título inicial al importar:</translation>
     </message>
     <message>
         <source>Purge expired cuts after</source>
-        <translation>Borrar audios expirados luego de </translation>
+        <translation>Borrar audios vencid tras</translation>
     </message>
     <message>
         <source>days</source>
@@ -1017,1527 +1023,1551 @@ Do you still want to save?</source>
     <name>EditHostvar</name>
     <message>
         <source>Edit Host Variable</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Variable</translation>
     </message>
     <message>
         <source>Variable Name:</source>
-        <translation type="unfinished">Nombre de la variable:</translation>
+        <translation>Nombre de la variable:</translation>
     </message>
     <message>
         <source>Variable Value:</source>
-        <translation type="unfinished">Valor:</translation>
+        <translation>Valor:</translation>
     </message>
     <message>
         <source>Remark:</source>
-        <translation type="unfinished">Comentario:</translation>
+        <translation>Comentario:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
 </context>
 <context>
     <name>EditMatrix</name>
     <message>
         <source>Edit Switcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Suichera</translation>
     </message>
     <message>
         <source>Matrix Number:</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de Matriz:</translation>
     </message>
     <message>
         <source>Switcher Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de Suichera:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción: </translation>
     </message>
     <message>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>TCP/IP</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Card:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tarjeta:</translation>
     </message>
     <message>
         <source>IP Address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección IP:</translation>
     </message>
     <message>
         <source>IP Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto IP:</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuario:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Clave:</translation>
     </message>
     <message>
         <source>Inputs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Entradas:</translation>
     </message>
     <message>
         <source>Outputs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Salidas:</translation>
     </message>
     <message>
         <source>Device:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispos:</translation>
     </message>
     <message>
         <source>GPIs:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>GPOs:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Displays:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Configure
 &amp;Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar
+&amp;Entradas</translation>
     </message>
     <message>
         <source>Configure
 &amp;Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar
+&amp;Salidas</translation>
     </message>
     <message>
         <source>Configure
 &amp;Xpoints</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar
+&amp;Xpoints</translation>
     </message>
     <message>
         <source>vGuest
 Switches</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>vGuest
 Displays</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Invalid Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección inválida</translation>
     </message>
     <message>
         <source>LiveWire
 Nodes</source>
-        <translation type="unfinished"></translation>
+        <translation>Nodos LiveWire</translation>
     </message>
     <message>
         <source>Primary Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexión Primaria</translation>
     </message>
     <message>
         <source>Backup Connection</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexión Respaldo</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo:</translation>
     </message>
     <message>
         <source>Serial Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto Serial:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <source>The primary IP address is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La dirección IP primaria es inválida!</translation>
     </message>
     <message>
         <source>The backup IP address is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La dirección IP de respaldo es inválida!</translation>
     </message>
     <message>
         <source>Duplicate Connections</source>
-        <translation type="unfinished"></translation>
+        <translation>Conexiones duplicadas</translation>
     </message>
     <message>
         <source>The primary and backup connections must be different!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Las conexión primaria debe ser distinta que la de respaldo!</translation>
     </message>
     <message>
         <source>Layer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Capa:</translation>
     </message>
     <message>
         <source>Configure
 &amp;GPIs</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar
+&amp;GPIs</translation>
     </message>
     <message>
         <source>Configure
 G&amp;POs</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar
+G&amp;POs</translation>
     </message>
     <message>
         <source>Startup Cart:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cart. Inicio:</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir</translation>
     </message>
     <message>
         <source>Shutdown Cart:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cart. Cierre:</translation>
     </message>
     <message>
         <source>SAS
 Switches</source>
-        <translation type="unfinished"></translation>
+        <translation>Switches
+SAS</translation>
     </message>
 </context>
 <context>
     <name>EditNowNext</name>
     <message>
         <source>Edit Now &amp; Next Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar datos Now &amp; Next</translation>
     </message>
     <message>
         <source>Master Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista Maestra</translation>
     </message>
     <message>
         <source>IP Address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección IP:</translation>
     </message>
     <message>
         <source>UDP Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto UDP:</translation>
     </message>
     <message>
         <source>UDP String:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadena UDP:</translation>
     </message>
     <message>
         <source>RML:</source>
-        <translation type="unfinished"></translation>
+        <translation>RML:</translation>
     </message>
     <message>
         <source>Aux Log 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista aux. 1</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>The IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La dirección IP </translation>
     </message>
     <message>
         <source>is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>es inválida!</translation>
     </message>
     <message>
         <source>Invalid Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección inválida</translation>
     </message>
     <message>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar</translation>
     </message>
     <message>
         <source>Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Carpeta</translation>
     </message>
     <message>
         <source>Argument</source>
-        <translation type="unfinished"></translation>
+        <translation>Argumento</translation>
     </message>
     <message>
         <source>Loadable Modules:</source>
-        <translation type="unfinished"></translation>
+        <translation>Módulos Cargables:</translation>
     </message>
     <message>
         <source>Default Now Cart:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cartucho &quot;Now&quot; por omisión:</translation>
     </message>
     <message>
         <source>Default Next Cart:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cartucho &quot;Next&quot; por omisión:</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir</translation>
     </message>
 </context>
 <context>
     <name>EditNowNextPlugin</name>
     <message>
         <source>Edit Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Plugin</translation>
     </message>
     <message>
         <source>Plugin Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Carpeta de Plugines:</translation>
     </message>
     <message>
         <source>Argument:</source>
-        <translation type="unfinished"></translation>
+        <translation>Argumento:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir</translation>
     </message>
     <message>
         <source>Select plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir plugin</translation>
     </message>
 </context>
 <context>
     <name>EditRDAirPlay</name>
     <message>
         <source>RDAirPlay config for </source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de RDAirplay para </translation>
     </message>
     <message>
         <source>Channel Assignments</source>
-        <translation type="unfinished"></translation>
+        <translation>Asignación de Canales</translation>
     </message>
     <message>
         <source>Main Log Output 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida PlayList Ppal 1</translation>
     </message>
     <message>
         <source>Start RML:</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicio RML:</translation>
     </message>
     <message>
         <source>Stop RML:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fin RML:</translation>
     </message>
     <message>
         <source>Main Log Output 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida PlayList Ppal 2</translation>
     </message>
     <message>
         <source>Aux Log 1 Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida PlayList Aux 1</translation>
     </message>
     <message>
         <source>Aux Log 2 Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida PlayList Aux 2</translation>
     </message>
     <message>
         <source>Audition/Cue Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida para &quot;Cue&quot;</translation>
     </message>
     <message>
         <source>SoundPanel First Play Output</source>
-        <translation type="unfinished"></translation>
+        <translation>1era salida del Panel de Sonido</translation>
     </message>
     <message>
         <source>SoundPanel Second Play Output</source>
-        <translation type="unfinished"></translation>
+        <translation>2da salida del Panel de Sonido</translation>
     </message>
     <message>
         <source>SoundPanel Third Play Output</source>
-        <translation type="unfinished"></translation>
+        <translation>3era salida del Panel de Sonido</translation>
     </message>
     <message>
         <source>SoundPanel Fourth Play Output</source>
-        <translation type="unfinished"></translation>
+        <translation>4ta salida del Panel de Sonido</translation>
     </message>
     <message>
         <source>SoundPanel Fifth and Later Play Output</source>
-        <translation type="unfinished"></translation>
+        <translation>5ta salida del Panel de Sonido</translation>
     </message>
     <message>
         <source>Configure Now &amp;&amp; Next
 Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetros Now &amp;&amp; Next</translation>
     </message>
     <message>
         <source>Manual Segue:</source>
-        <translation type="unfinished"></translation>
+        <translation>Segue Manual:</translation>
     </message>
     <message>
         <source>msecs</source>
-        <translation type="unfinished"></translation>
+        <translation>msegs</translation>
     </message>
     <message>
         <source>Forced Segue:</source>
-        <translation type="unfinished"></translation>
+        <translation>Segue forzado:</translation>
     </message>
     <message>
         <source>Pie Counts Last:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rueda contará:</translation>
     </message>
     <message>
         <source>secs</source>
-        <translation type="unfinished"></translation>
+        <translation>segs</translation>
     </message>
     <message>
         <source>Pie Counts To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rueda cuenta a:</translation>
     </message>
     <message>
         <source>Cart End</source>
-        <translation type="unfinished"></translation>
+        <translation>Fin Cartucho</translation>
     </message>
     <message>
         <source>Transition</source>
-        <translation type="unfinished"></translation>
+        <translation>Transición</translation>
     </message>
     <message>
         <source>Default Trans. Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo Trans. Pedeterm:</translation>
     </message>
     <message>
         <source>Play</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproducir</translation>
     </message>
     <message>
         <source>Segue</source>
-        <translation type="unfinished"></translation>
+        <translation>Segue</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Detener</translation>
     </message>
     <message>
         <source>Default Service:</source>
-        <translation type="unfinished"></translation>
+        <translation>Servicio Predeterminado:</translation>
     </message>
     <message>
         <source>Sound Panel Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Config. Panel de Sonido</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <source>Host Panels:</source>
-        <translation type="unfinished"></translation>
+        <translation>Paneles/Equipo:</translation>
     </message>
     <message>
         <source>User Panels:</source>
-        <translation type="unfinished"></translation>
+        <translation>Paneles/Usuario:</translation>
     </message>
     <message>
         <source>Flash Active Buttons</source>
-        <translation type="unfinished"></translation>
+        <translation>Parpad. botón activo</translation>
     </message>
     <message>
         <source>Enable Button Pausing</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir pausar reproducción</translation>
     </message>
     <message>
         <source>Miscellaneous Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetros misceláneos</translation>
     </message>
     <message>
         <source>Startup Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de inicio:</translation>
     </message>
     <message>
         <source>Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Previo</translation>
     </message>
     <message>
         <source>LiveAssist</source>
-        <translation type="unfinished"></translation>
+        <translation>AsistEnVivo</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Automático</translation>
     </message>
     <message>
         <source>Manual</source>
-        <translation type="unfinished"></translation>
+        <translation>Manual</translation>
     </message>
     <message>
         <source>Check TimeSync</source>
-        <translation type="unfinished"></translation>
+        <translation>Chequear TimeSync</translation>
     </message>
     <message>
         <source>Show Auxlog 1 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar botón Auxlog 1</translation>
     </message>
     <message>
         <source>Show Auxlog 2 Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar botón Auxlog 2</translation>
     </message>
     <message>
         <source>Clear Cart Search Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpiar filtro busq. cart</translation>
     </message>
     <message>
         <source>Enable Paused Events</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar eventos pausados</translation>
     </message>
     <message>
         <source>Space Bar Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra espaciadora</translation>
     </message>
     <message>
         <source>Start Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Iniciar Sig</translation>
     </message>
     <message>
         <source>Start/Stop Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetros Inicio/Fin</translation>
     </message>
     <message>
         <source>Exit Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Clave para salir:</translation>
     </message>
     <message>
         <source>Main Log</source>
-        <translation type="unfinished"></translation>
+        <translation>PlayList Ppal</translation>
     </message>
     <message>
         <source>start with empty log</source>
-        <translation type="unfinished"></translation>
+        <translation>comenzar con PlayList vacío</translation>
     </message>
     <message>
         <source>load previous log</source>
-        <translation type="unfinished"></translation>
+        <translation>cargar PlayList anterior</translation>
     </message>
     <message>
         <source>load specified log</source>
-        <translation type="unfinished"></translation>
+        <translation>cargar PlayList específico</translation>
     </message>
     <message>
         <source>At Startup:</source>
-        <translation type="unfinished"></translation>
+        <translation>Al inicio:</translation>
     </message>
     <message>
         <source>Restart Log After Unclean Shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar PlayList si apagan el equipo</translation>
     </message>
     <message>
         <source>Log:</source>
-        <translation type="unfinished"></translation>
+        <translation>PlayList:</translation>
     </message>
     <message>
         <source>&amp;Select</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seleccionar</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ninguno]</translation>
     </message>
     <message>
         <source>No Audio Configuration Data</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay datos para config. audio</translation>
     </message>
     <message>
         <source>Data Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de datos</translation>
     </message>
     <message>
         <source>Invalid Segue Length!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Duración de segue inválida!</translation>
     </message>
     <message>
         <source>Invalid Forced Segue Length!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Duración de segue forzado inválida!</translation>
     </message>
     <message>
         <source>Label Template:</source>
-        <translation type="unfinished"></translation>
+        <translation>Plantilla etiqueta:</translation>
     </message>
     <message>
         <source>Display Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Config. de Pantalla</translation>
     </message>
     <message>
         <source>Background Image:</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen de Fondo:</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar</translation>
     </message>
     <message>
         <source>Select Image File</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione una imagen</translation>
     </message>
     <message>
         <source>Show Extra Buttons/Counters</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar botones/contad extra</translation>
     </message>
     <message>
         <source>Audition Preroll:</source>
-        <translation type="unfinished"></translation>
+        <translation>Escucha previa:</translation>
     </message>
     <message>
         <source>Channel assignments will not be available for this host as audio resource data
 has not yet been generated.  Please start the Rivendell daemons on the host
 configured to run the CAE service in order to populate the audio resources database.</source>
-        <translation type="unfinished"></translation>
+        <translation>La configuración de canales no estará disponible en este equipo debido a que
+no se ha generado información sobre los recursos de audio. Por favor, inicie los 
+servicios de Rivendell en el equipo configurado para ejecutar el servicio CAE. </translation>
     </message>
     <message>
         <source>Configure Hot Keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar atajos de teclado</translation>
     </message>
 </context>
 <context>
     <name>EditRDLibrary</name>
     <message>
         <source>RDLibrary config for </source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de RDLibrary para </translation>
     </message>
     <message>
         <source>INPUT</source>
-        <translation type="unfinished"></translation>
+        <translation>ENTRADA</translation>
     </message>
     <message>
         <source>OUTPUT</source>
-        <translation type="unfinished"></translation>
+        <translation>SALIDA</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetros</translation>
     </message>
     <message>
         <source>&amp;Max Record Time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo &amp;Máx Grab:</translation>
     </message>
     <message>
         <source>&amp;VOX Threshold:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de &amp;VOX:</translation>
     </message>
     <message>
         <source>dbFS</source>
-        <translation type="unfinished"></translation>
+        <translation>dbFS</translation>
     </message>
     <message>
         <source>&amp;AutoTrim Threshold:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de &amp;autorecorte:</translation>
     </message>
     <message>
         <source>&amp;Tail Preroll:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tiempo al final:</translation>
     </message>
     <message>
         <source>milliseconds</source>
-        <translation type="unfinished"></translation>
+        <translation>milisegundos</translation>
     </message>
     <message>
         <source>&amp;Ripper Device:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo de &amp;lectura:</translation>
     </message>
     <message>
         <source>&amp;Paranoia Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel en &amp;Paranoia:</translation>
     </message>
     <message>
         <source>Ripper Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de Ripper:</translation>
     </message>
     <message>
         <source>&amp;FreeDB Server:</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor &amp;FreeDB:</translation>
     </message>
     <message>
         <source>&amp;Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Formato:</translation>
     </message>
     <message>
         <source>&amp;Bitrate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasa de &amp;bits:</translation>
     </message>
     <message>
         <source>Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Por omisión</translation>
     </message>
     <message>
         <source>&amp;Channels:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Canales:</translation>
     </message>
     <message>
         <source>Record Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de Grabación:</translation>
     </message>
     <message>
         <source>AutoTrim:</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto Recortar:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Bajo</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <source>PCM16</source>
-        <translation type="unfinished"></translation>
+        <translation>PCM16</translation>
     </message>
     <message>
         <source>MPEG Layer 2</source>
-        <translation type="unfinished"></translation>
+        <translation>MPEG Capa 2</translation>
     </message>
     <message>
         <source>Manual</source>
-        <translation type="unfinished"></translation>
+        <translation>Manual</translation>
     </message>
     <message>
         <source>VOX</source>
-        <translation type="unfinished"></translation>
+        <translation>VOX</translation>
     </message>
     <message>
         <source>No Audio Configuration Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio sin datos de configuración</translation>
     </message>
     <message>
         <source>32 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>32 kbps/canal</translation>
     </message>
     <message>
         <source>48 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>48 kbps/canal</translation>
     </message>
     <message>
         <source>56 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>56 kbps/canal</translation>
     </message>
     <message>
         <source>64 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>64 kbps/canal</translation>
     </message>
     <message>
         <source>80 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>80 kbps/canal</translation>
     </message>
     <message>
         <source>96 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>96 kbps/canal</translation>
     </message>
     <message>
         <source>112 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>112 kbps/canal</translation>
     </message>
     <message>
         <source>128 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>128 kbps/canal</translation>
     </message>
     <message>
         <source>160 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>160 kbps/canal</translation>
     </message>
     <message>
         <source>192 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>192 kbps/canal</translation>
     </message>
     <message>
         <source>40 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>40 kbps/canal</translation>
     </message>
     <message>
         <source>224 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>224 kbps/canal</translation>
     </message>
     <message>
         <source>256 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>256 kbps/canal</translation>
     </message>
     <message>
         <source>320 kbps/chan</source>
-        <translation type="unfinished"></translation>
+        <translation>320 kbps/canal</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>No</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sí</translation>
     </message>
     <message>
         <source>Allow E&amp;xternal Editing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir edición e&amp;xterna:</translation>
     </message>
     <message>
         <source>Sample Rate Converter:</source>
-        <translation type="unfinished"></translation>
+        <translation>Convertid. Frec. Muestreo:</translation>
     </message>
     <message>
         <source>Channel assignments will not be available for this host as audio resource data
 has not yet been generated.  Please start the Rivendell daemons on the host
 configured to run the CAE service in order to populate the audio resources database.</source>
-        <translation type="unfinished"></translation>
+        <translation>No podrá ver la asignación de canales en este equipo debido a que no se ha 
+generado información de audio.  Por favor, inicie los servicios de Rivendell en el 
+equipo configurado para ejecutar CAE para obtener la información de audio.</translation>
     </message>
 </context>
 <context>
     <name>EditReport</name>
     <message>
         <source>Edit Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Reportes</translation>
     </message>
     <message>
         <source>&amp;Report Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción del &amp;Reporte:</translation>
     </message>
     <message>
         <source>Export &amp;Filter:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Filtro Exportación:</translation>
     </message>
     <message>
         <source>Station ID:</source>
-        <translation type="unfinished"></translation>
+        <translation>ID de la estación:</translation>
     </message>
     <message>
         <source>Cart Number Parameters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Config. Números del Cart:</translation>
     </message>
     <message>
         <source>Use Leading Zeros</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar ceros a la izq</translation>
     </message>
     <message>
         <source>Digits:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dígitos:</translation>
     </message>
     <message>
         <source>Station Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de emisora:</translation>
     </message>
     <message>
         <source>Lines per Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Líneas por página:</translation>
     </message>
     <message>
         <source>Ser&amp;vice Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del Ser&amp;vicio:</translation>
     </message>
     <message>
         <source>Station &amp;Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Formato de Estación:</translation>
     </message>
     <message>
         <source>Linux Export Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar en (Linux):</translation>
     </message>
     <message>
         <source>Windows Export Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar en (Windows):</translation>
     </message>
     <message>
         <source>Export Event Types:</source>
-        <translation type="unfinished"></translation>
+        <translation>Eventos a exportar:</translation>
     </message>
     <message>
         <source>Traffic</source>
-        <translation type="unfinished"></translation>
+        <translation>Tráfico</translation>
     </message>
     <message>
         <source>Music</source>
-        <translation type="unfinished"></translation>
+        <translation>Música</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos</translation>
     </message>
     <message>
         <source>Export Events From:</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar eventos desde:</translation>
     </message>
     <message>
         <source>Traffic Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Lst. Tráfico</translation>
     </message>
     <message>
         <source>Music Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Lst. Música</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sí</translation>
     </message>
     <message>
         <source>Include Only OnAir Events:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sólo eventos Al-Aire:</translation>
     </message>
     <message>
         <source>Available Services</source>
-        <translation type="unfinished"></translation>
+        <translation>Serv. Disponibles</translation>
     </message>
     <message>
         <source>Source Services</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuentes</translation>
     </message>
     <message>
         <source>Available Hosts</source>
-        <translation type="unfinished"></translation>
+        <translation>Equipos dispon.:</translation>
     </message>
     <message>
         <source>Source Hosts</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuentes</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
 </context>
 <context>
     <name>EditStation</name>
     <message>
         <source>Host: </source>
-        <translation type="unfinished"></translation>
+        <translation>Computador: </translation>
     </message>
     <message>
         <source>Ho&amp;st Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nombre:</translation>
     </message>
     <message>
         <source>&amp;Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Descripción:</translation>
     </message>
     <message>
         <source>Default &amp;User:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Usuario Predet.:</translation>
     </message>
     <message>
         <source>&amp;IP Address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección &amp;IP:</translation>
     </message>
     <message>
         <source> mS</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>&amp;Time Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Offset &amp;tiempo:</translation>
     </message>
     <message>
         <source>&amp;Startup Cart:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cartucho &amp;Inicial:</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Elegir</translation>
     </message>
     <message>
         <source>Enable Heartbeat</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar &quot;Heartbeat&quot;</translation>
     </message>
     <message>
         <source>Cart:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cartucho:</translation>
     </message>
     <message>
         <source>Interval:</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalo:</translation>
     </message>
     <message>
         <source>secs</source>
-        <translation type="unfinished"></translation>
+        <translation>segs</translation>
     </message>
     <message>
         <source>RD&amp;Library</source>
-        <translation type="unfinished"></translation>
+        <translation>RD&amp;Library</translation>
     </message>
     <message>
         <source>RDCatch</source>
-        <translation type="unfinished"></translation>
+        <translation>RDCatch</translation>
     </message>
     <message>
         <source>RDAirPlay</source>
-        <translation type="unfinished"></translation>
+        <translation>RDAirPlay</translation>
     </message>
     <message>
         <source>RDPanel</source>
-        <translation type="unfinished"></translation>
+        <translation>RDPanel</translation>
     </message>
     <message>
         <source>RDLogEdit</source>
-        <translation type="unfinished"></translation>
+        <translation>RDLogEdit</translation>
     </message>
     <message>
         <source>Dropboxes</source>
-        <translation type="unfinished"></translation>
+        <translation>Dropboxes</translation>
     </message>
     <message>
         <source>Audio
 Resources</source>
-        <translation type="unfinished"></translation>
+        <translation>Recursos
+de audio</translation>
     </message>
     <message>
         <source>Audio
 Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>Puertos
+de audio</translation>
     </message>
     <message>
         <source>Serial
 Ports</source>
-        <translation type="unfinished"></translation>
+        <translation>Puertos
+Seriales</translation>
     </message>
     <message>
         <source>Switchers
 GPIO</source>
-        <translation type="unfinished"></translation>
+        <translation>Suicheras
+GPIO</translation>
     </message>
     <message>
         <source>Host
 Variables</source>
-        <translation type="unfinished"></translation>
+        <translation>Variables
+del Equipo</translation>
     </message>
     <message>
         <source>Backups</source>
-        <translation type="unfinished"></translation>
+        <translation>Respaldos</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Invalid Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección inválida</translation>
     </message>
     <message>
         <source>The specified IP address is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La IP especificada es inválida!</translation>
     </message>
     <message>
         <source>Invalid Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Cartucho inválido</translation>
     </message>
     <message>
         <source>The Heartbeat Cart number is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>El número de cartucho para &quot;heartbeat&quot; es inválido!</translation>
     </message>
     <message>
         <source>Editor &amp;Command:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Comando editor:</translation>
     </message>
     <message>
         <source>Use Realtime Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>Búsqueda tiempo real</translation>
     </message>
     <message>
         <source>Security Model:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelo segurid:</translation>
     </message>
     <message>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Equipo</translation>
     </message>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuario</translation>
     </message>
     <message>
         <source>Custom
 Encoders</source>
-        <translation type="unfinished"></translation>
+        <translation>Codificad.
+personalizds</translation>
     </message>
     <message>
         <source>Include in System Maintenance Pool</source>
-        <translation type="unfinished"></translation>
+        <translation>Incluir en Mantenimiento del Sistema</translation>
     </message>
     <message>
         <source>System Maintenance</source>
-        <translation type="unfinished"></translation>
+        <translation>Mantenimiento del Sistema</translation>
     </message>
     <message>
         <source>At least one host must belong to the system maintenance pool!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Al menos un equipo debe pertenecer al mantenimiento del sistema!</translation>
     </message>
     <message>
         <source>HTTP Xport:</source>
-        <translation type="unfinished"></translation>
+        <translation>HTTP Xport:</translation>
     </message>
     <message>
         <source>Core Audio Engine:</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor de Audio:</translation>
     </message>
     <message>
         <source>System Services</source>
-        <translation type="unfinished"></translation>
+        <translation>Servicios del Sistema</translation>
     </message>
     <message>
         <source>JACK
 Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetros
+de JACK</translation>
     </message>
 </context>
 <context>
     <name>EditSvc</name>
     <message>
         <source>Edit Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Servicio</translation>
     </message>
     <message>
         <source>&amp;Service Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>NOmbre del &amp;Servicio:</translation>
     </message>
     <message>
         <source>Service &amp;Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Descripción:</translation>
     </message>
     <message>
         <source>Log &amp;Template Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Plantilla Nmbr de Lista:</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ninguno]</translation>
     </message>
     <message>
         <source>Voicetrack Group:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupo para Pistas Voz:</translation>
     </message>
     <message>
         <source>Insert CHAIN TO at log end</source>
-        <translation type="unfinished"></translation>
+        <translation>CHAIN TO al fin de la Lista</translation>
     </message>
     <message>
         <source>Enable AutoRefresh By Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar AutoRefrescar prederm.</translation>
     </message>
     <message>
         <source>Configure 
 &amp;Autofill Carts</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar
+&amp;Cartuchos Autofill</translation>
     </message>
     <message>
         <source>Enable &amp;Hosts</source>
-        <translation type="unfinished"></translation>
+        <translation>Activar &amp;Equipos</translation>
     </message>
     <message>
         <source>Traffic Data Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Importación de Datos de Tráfico</translation>
     </message>
     <message>
         <source>Linux Import Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar desde (Linux):</translation>
     </message>
     <message>
         <source>Windows Import Path:</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar desde (Windows):</translation>
     </message>
     <message>
         <source>Note Cart String:</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Test 
 &amp;Traffic</source>
-        <translation type="unfinished"></translation>
+        <translation>Probar
+&amp;Tráfico</translation>
     </message>
     <message>
         <source>Music Data Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Importación de Datos de Música</translation>
     </message>
     <message>
         <source>Insert Traffic Break String:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto para romper tráfico:</translation>
     </message>
     <message>
         <source>Insert Voice Track String:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto para dividir pista de voz:</translation>
     </message>
     <message>
         <source>Test 
 &amp;Music</source>
-        <translation type="unfinished"></translation>
+        <translation>Probar
+&amp;Música</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Save Import Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar datos importados</translation>
     </message>
     <message>
         <source>Before testing, the import configuration
 must be saved.  Save now?</source>
-        <translation type="unfinished"></translation>
+        <translation>Antes de iniciar pruebas, la configuración
+debe guardarse.  ¿Hacerlo ahora?</translation>
     </message>
     <message>
         <source>Purge ELR Data after</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar datos ELR tras</translation>
     </message>
     <message>
         <source>days</source>
-        <translation type="unfinished">días</translation>
+        <translation>días</translation>
     </message>
     <message>
         <source>Purge Logs after</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar Listas tras </translation>
     </message>
     <message>
         <source>Import Template:</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar Plantilla:</translation>
     </message>
     <message>
         <source>[custom]</source>
-        <translation type="unfinished"></translation>
+        <translation>[personalizado]</translation>
     </message>
     <message>
         <source>Linux Preimport Command:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cmd antes de importar (Linux):</translation>
     </message>
     <message>
         <source>Windows Preimport Command:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cmd antes de importar (Win):</translation>
     </message>
     <message>
         <source>&amp;Program Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Código &amp;Progr.:</translation>
     </message>
 </context>
 <context>
     <name>EditSvcPerms</name>
     <message>
         <source>Service: </source>
-        <translation type="unfinished"></translation>
+        <translation>Servicio: </translation>
     </message>
     <message>
         <source>Available Hosts</source>
-        <translation type="unfinished"></translation>
+        <translation>Equipos disponibles</translation>
     </message>
     <message>
         <source>Enabled Hosts</source>
-        <translation type="unfinished"></translation>
+        <translation>Equipos activos</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
 </context>
 <context>
     <name>EditTtys</name>
     <message>
         <source>Edit TTYs</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar TTYs</translation>
     </message>
     <message>
         <source>Port ID:</source>
-        <translation type="unfinished"></translation>
+        <translation>ID del puerto:</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Activo</translation>
     </message>
     <message>
         <source>TTY Device:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo TTY:</translation>
     </message>
     <message>
         <source>Baud Rate:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasa de baudios:</translation>
     </message>
     <message>
         <source>Parity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Paridad:</translation>
     </message>
     <message>
         <source>Data Bits:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bits de datos:</translation>
     </message>
     <message>
         <source>Stop Bits:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bits de parada:</translation>
     </message>
     <message>
         <source>Terminator:</source>
-        <translation type="unfinished"></translation>
+        <translation>Terminador:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <source>Even</source>
-        <translation type="unfinished"></translation>
+        <translation>Par</translation>
     </message>
     <message>
         <source>Odd</source>
-        <translation type="unfinished"></translation>
+        <translation>Impar</translation>
     </message>
     <message>
         <source>CR</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>LF</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>CR/LF</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>EditUser</name>
     <message>
         <source>User: </source>
-        <translation type="unfinished"></translation>
+        <translation>Usuario:</translation>
     </message>
     <message>
         <source>&amp;User Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del &amp;Usuario:</translation>
     </message>
     <message>
         <source>&amp;Full Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nombre Completo:</translation>
     </message>
     <message>
         <source>&amp;Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Descripción:</translation>
     </message>
     <message>
         <source>&amp;Phone:</source>
-        <translation type="unfinished"></translation>
+        <translation>Telé&amp;fono:</translation>
     </message>
     <message>
         <source>Change
 &amp;Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar
+&amp;Contraseña</translation>
     </message>
     <message>
         <source>Administrative Rights</source>
-        <translation type="unfinished"></translation>
+        <translation>Permisos administrativos</translation>
     </message>
     <message>
         <source>Administer S&amp;ystem</source>
-        <translation type="unfinished"></translation>
+        <translation>Administrador del S&amp;istema</translation>
     </message>
     <message>
         <source>Production Rights</source>
-        <translation type="unfinished"></translation>
+        <translation>Permisos de Producción</translation>
     </message>
     <message>
         <source>&amp;Create Carts</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;rear Cartuchos</translation>
     </message>
     <message>
         <source>&amp;Delete Carts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Borrar Cartuchos</translation>
     </message>
     <message>
         <source>&amp;Modify Carts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Modificar Cartuchos</translation>
     </message>
     <message>
         <source>&amp;Edit Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar Audio</translation>
     </message>
     <message>
         <source>&amp;Edit Netcatch Schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar programación &amp;Netcatch</translation>
     </message>
     <message>
         <source>&amp;Voicetrack Logs</source>
-        <translation type="unfinished"></translation>
+        <translation>Listas de &amp;VoiceTrack</translation>
     </message>
     <message>
         <source>Traffic Rights</source>
-        <translation type="unfinished"></translation>
+        <translation>Permisos de Tráfico</translation>
     </message>
     <message>
         <source>Create &amp;Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear &amp;Listas</translation>
     </message>
     <message>
         <source>De&amp;lete Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar Li&amp;stas</translation>
     </message>
     <message>
         <source>Delete &amp;Report Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar datos de &amp;Reportes</translation>
     </message>
     <message>
         <source>&amp;Modify Template</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Modificar Plantillas</translation>
     </message>
     <message>
         <source>OnAir Rights</source>
-        <translation type="unfinished"></translation>
+        <translation>Permisos al aire</translation>
     </message>
     <message>
         <source>&amp;Playout Logs</source>
-        <translation type="unfinished"></translation>
+        <translation>Re&amp;producir Listas</translation>
     </message>
     <message>
         <source>&amp;Rearrange Log Items</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Reordenar ítem en Listas</translation>
     </message>
     <message>
         <source>Add Log &amp;Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Aña&amp;dir ítems a Listas</translation>
     </message>
     <message>
         <source>Delete Lo&amp;g Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar ítems &amp;de Listas</translation>
     </message>
     <message>
         <source>Configure System Panels</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurar Paneles del Sistema</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Podcasting Rights</source>
-        <translation type="unfinished"></translation>
+        <translation>Permisos de Podcasts</translation>
     </message>
     <message>
         <source>Cre&amp;ate Podcast</source>
-        <translation type="unfinished"></translation>
+        <translation>Crear &amp;Podcasts</translation>
     </message>
     <message>
         <source>E&amp;dit Podcast</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Po&amp;dcast</translation>
     </message>
     <message>
         <source>Dele&amp;te Podcast</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar P&amp;odcast</translation>
     </message>
     <message>
         <source>Assign Group
 Permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Asignar Permisos
+de Grupo</translation>
     </message>
     <message>
         <source>Assign Podcast Feed
 Permissions</source>
-        <translation type="unfinished"></translation>
+        <translation>Asignar permisos de
+Feeds para Podcasts</translation>
     </message>
     <message>
         <source>Allow Web Logins</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir ingreso vía Web</translation>
     </message>
 </context>
 <context>
     <name>EditVguestResource</name>
     <message>
         <source>Engine (Hex): </source>
-        <translation type="unfinished"></translation>
+        <translation>Motor (Hex): </translation>
     </message>
     <message>
         <source>Device (Hex): </source>
-        <translation type="unfinished"></translation>
+        <translation>Disposit (Hex): </translation>
     </message>
     <message>
         <source>Surface (Hex): </source>
-        <translation type="unfinished"></translation>
+        <translation>Superficie (Hex): </translation>
     </message>
     <message>
         <source>Bus/Relay (Hex): </source>
-        <translation type="unfinished"></translation>
+        <translation>Bus/Relay (Hex): </translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Edit vGuest Switch</source>
@@ -2549,274 +2579,281 @@ Permissions</source>
     </message>
     <message>
         <source>Invalid Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Número inválido</translation>
     </message>
     <message>
         <source>The Engine Number is Invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El número de motor es inválido!</translation>
     </message>
     <message>
         <source>The Device Number is Invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El número de dispositivo es inválido!</translation>
     </message>
     <message>
         <source>The Surface Number is Invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El número de superficie es inválido!</translation>
     </message>
     <message>
         <source>The Bus/Relay Number is Invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El número Bus/Relay es inválido!</translation>
     </message>
 </context>
 <context>
     <name>InfoDialog</name>
     <message>
         <source>System Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información del Sistema</translation>
     </message>
     <message>
         <source>Rivendell</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>A Radio Automation System</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de Automatización de Emisoras</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Versión</translation>
     </message>
     <message>
         <source>Database Schema</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquema de Base de Datos</translation>
     </message>
     <message>
         <source>This program is free software, and comes with ABSOLUTELY NO WARRANTY,
 not even the implied warranties of MERCHANTIBILITY or FITNESS FOR A
 PARTICULAR PURPOSE.  Touch the &quot;View License&quot; button for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Este programa es Software Libre, y se proporciona SIN GARANTÍAS DE NINGÚN 
+TIPO, ni siquiera las garantías MERCANTILES implícitas o LA CONVENIENCIA
+PARA UN PROPÓSITO PARTICULAR.  Oprima el botón &quot;Ver licencia&quot; para detalles.</translation>
     </message>
     <message>
         <source>View
 &amp;License</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver
+&amp;Licencia</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>Copyright 2002-2010</source>
-        <translation type="unfinished"></translation>
+        <translation>Copyright 2002-2010</translation>
     </message>
 </context>
 <context>
     <name>ListEncoders</name>
     <message>
         <source>RDAdmin - List Encoders</source>
-        <translation type="unfinished"></translation>
+        <translation>RDAdmin - Lista de codificadores</translation>
     </message>
     <message>
         <source>Format Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del formato</translation>
     </message>
     <message>
         <source>Valid Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canales válidos</translation>
     </message>
     <message>
         <source>Valid Sample Rates</source>
-        <translation type="unfinished"></translation>
+        <translation>Frec. muestreo válidas</translation>
     </message>
     <message>
         <source>Valid Bit Rates</source>
-        <translation type="unfinished"></translation>
+        <translation>Tasas de bit válidas</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ninguna]</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Agregar</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;liminar</translation>
     </message>
     <message>
         <source>RDAdmin - Delete Encoder</source>
-        <translation type="unfinished"></translation>
+        <translation>RDAdmin - Eliminar codificador</translation>
     </message>
     <message>
         <source>Are you sure you want to delete this encoder?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de querer eliminar este codificador?</translation>
     </message>
     <message>
         <source>Extension</source>
-        <translation type="unfinished"></translation>
+        <translation>Extensión</translation>
     </message>
     <message>
         <source>This encoder is in use by the following RSS feeds:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Este codificador está siendo usado por las fuentes RSS:
+
+</translation>
     </message>
     <message>
         <source>
 
 Do you still want to delete it?</source>
-        <translation type="unfinished"></translation>
+        <translation>
+
+¿Aún desea eliminarlo?</translation>
     </message>
 </context>
 <context>
     <name>ListEndpoints</name>
     <message>
         <source>List Inputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Listar Entradas</translation>
     </message>
     <message>
         <source>List Outputs</source>
-        <translation type="unfinished"></translation>
+        <translation>Listar Salidas</translation>
     </message>
     <message>
         <source>INPUT</source>
-        <translation type="unfinished"></translation>
+        <translation>ENTRADA</translation>
     </message>
     <message>
         <source>OUTPUT</source>
-        <translation type="unfinished"></translation>
+        <translation>SALIDA</translation>
     </message>
     <message>
         <source>LABEL</source>
-        <translation type="unfinished"></translation>
+        <translation>ETIQ</translation>
     </message>
     <message>
         <source>SOURCE</source>
-        <translation type="unfinished"></translation>
+        <translation>FUENTE</translation>
     </message>
     <message>
         <source>MODE</source>
-        <translation type="unfinished"></translation>
+        <translation>MODO</translation>
     </message>
     <message>
         <source>ENGINE (Hex)</source>
-        <translation type="unfinished"></translation>
+        <translation>MOTOR (Hex)</translation>
     </message>
     <message>
         <source>DEVICE (Hex)</source>
-        <translation type="unfinished"></translation>
+        <translation>DISPOSIT (Hex)</translation>
     </message>
     <message>
         <source>PROVIDER ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID PROVEEDOR</translation>
     </message>
     <message>
         <source>SERVICE ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID SERVICIO</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>Estéreo</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Izquierda</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Derecha</translation>
     </message>
     <message>
         <source>Input</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada</translation>
     </message>
     <message>
         <source>Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida</translation>
     </message>
     <message>
         <source>stereo</source>
-        <translation type="unfinished"></translation>
+        <translation>estéreo</translation>
     </message>
     <message>
         <source>left</source>
-        <translation type="unfinished"></translation>
+        <translation>izq</translation>
     </message>
     <message>
         <source>right</source>
-        <translation type="unfinished"></translation>
+        <translation>der</translation>
     </message>
     <message>
         <source>NODE</source>
-        <translation type="unfinished"></translation>
+        <translation>NODO</translation>
     </message>
     <message>
         <source>#</source>
-        <translation type="unfinished"></translation>
+        <translation>#</translation>
     </message>
 </context>
 <context>
     <name>ListGpis</name>
     <message>
         <source>List GPIs</source>
-        <translation type="unfinished"></translation>
+        <translation>Listar GPIs</translation>
     </message>
     <message>
         <source>GPI Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Líneas GPI</translation>
     </message>
     <message>
         <source>GPI</source>
-        <translation type="unfinished"></translation>
+        <translation>GPI</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>[unassigned]</source>
-        <translation type="unfinished"></translation>
+        <translation>[no asignado]</translation>
     </message>
     <message>
         <source>GPO</source>
-        <translation type="unfinished"></translation>
+        <translation>GPO</translation>
     </message>
     <message>
         <source>List GPOs</source>
-        <translation type="unfinished"></translation>
+        <translation>Listar GPOs</translation>
     </message>
     <message>
         <source>GPO Lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Líneas GPO</translation>
     </message>
     <message>
         <source>ON MACRO CART</source>
@@ -2839,238 +2876,239 @@ Do you still want to delete it?</source>
     <name>ListGroups</name>
     <message>
         <source>Rivendell Group List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de Grupos de Rivendell</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Añadir</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Renombrar</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;liminar</translation>
     </message>
     <message>
         <source>Generate
 &amp;Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Generar
+&amp;Reporte</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>NAME</source>
-        <translation type="unfinished"></translation>
+        <translation>NOMBRE</translation>
     </message>
     <message>
         <source>DESCRIPTION</source>
-        <translation type="unfinished"></translation>
+        <translation>DESCRIPCIÓN</translation>
     </message>
     <message>
         <source>START CART</source>
-        <translation type="unfinished"></translation>
+        <translation>CART INICIO</translation>
     </message>
     <message>
         <source>END CART</source>
-        <translation type="unfinished"></translation>
+        <translation>CART FIN</translation>
     </message>
     <message>
         <source>ENFORCE RANGE</source>
-        <translation type="unfinished"></translation>
+        <translation>OBLIGAR RANGO</translation>
     </message>
     <message>
         <source>DEFAULT TYPE</source>
-        <translation type="unfinished"></translation>
+        <translation>TIPO INICIAL</translation>
     </message>
     <message>
         <source>TRAFFIC REPORT</source>
-        <translation type="unfinished"></translation>
+        <translation>REPORTE TRÁFICO</translation>
     </message>
     <message>
         <source>MUSIC REPORT</source>
-        <translation type="unfinished"></translation>
+        <translation>REPORTE MÚSICA</translation>
     </message>
     <message>
         <source>NOW &amp; NEXT</source>
-        <translation type="unfinished"></translation>
+        <translation>NOW &amp; NEXT</translation>
     </message>
     <message>
         <source>&amp;Groups:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Grupos:</translation>
     </message>
     <message>
         <source>member carts will be deleted along with group</source>
-        <translation type="unfinished"></translation>
+        <translation>cartuchos serán borrados junto con el grupo</translation>
     </message>
     <message>
         <source>Are you sure you want to delete group</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de borrar este grupo</translation>
     </message>
     <message>
         <source>Delete Group</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar grupo</translation>
     </message>
 </context>
 <context>
     <name>ListHostvars</name>
     <message>
         <source>Host Variables for</source>
-        <translation type="unfinished"></translation>
+        <translation>Variables de equipo para</translation>
     </message>
     <message>
         <source>Host Variables</source>
-        <translation type="unfinished"></translation>
+        <translation>Variables de equipo</translation>
     </message>
     <message>
         <source>NAME</source>
-        <translation type="unfinished"></translation>
+        <translation>NOMBRE</translation>
     </message>
     <message>
         <source>VALUE</source>
-        <translation type="unfinished"></translation>
+        <translation>VALOR</translation>
     </message>
     <message>
         <source>REMARK</source>
-        <translation type="unfinished"></translation>
+        <translation>COMENTARIO</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Añadir</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;liminar</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Aceptar</translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancelar</translation>
+        <translation>&amp;Cancelar</translation>
     </message>
 </context>
 <context>
     <name>ListMatrices</name>
     <message>
         <source>Rivendell Switcher List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de Suicheras en Rivendell</translation>
     </message>
     <message>
         <source>Switchers:</source>
-        <translation type="unfinished"></translation>
+        <translation>Suicheras:</translation>
     </message>
     <message>
         <source>MATRIX</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>DESCRIPTION</source>
-        <translation type="unfinished"></translation>
+        <translation>DESCRIPCIÓN</translation>
     </message>
     <message>
         <source>TYPE</source>
-        <translation type="unfinished"></translation>
+        <translation>TIPO</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Añadir</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;liminar</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>Are you sure you want to delete switcher</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de borrar la suichera</translation>
     </message>
     <message>
         <source>on</source>
-        <translation type="unfinished"></translation>
+        <translation>en</translation>
     </message>
     <message>
         <source>ALL references to this switcher will be deleted!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡TODAS las referencias a esta suichera serán borradas!</translation>
     </message>
     <message>
         <source>Deleting Switcher</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrando suichera</translation>
     </message>
     <message>
         <source>Local GPIO</source>
-        <translation type="unfinished"></translation>
+        <translation>GPIO Local</translation>
     </message>
     <message>
         <source>Generic GPO</source>
-        <translation type="unfinished"></translation>
+        <translation>GPO Genérico</translation>
     </message>
     <message>
         <source>Generic Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>Serial Genérico</translation>
     </message>
     <message>
         <source>Local Audio Adapter</source>
-        <translation type="unfinished"></translation>
+        <translation>Adaptador de Audio Local</translation>
     </message>
     <message>
         <source>Logitek vGuest</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SS16.4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>StarGuide III</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SS4.2</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Axia LiveWire</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Quartz Type 1</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SS4.4</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SRC-8 III</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>BroadcastTools SRC-16</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -3086,210 +3124,213 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>CART</source>
-        <translation type="unfinished"></translation>
+        <translation>CARTUCHO</translation>
     </message>
     <message>
         <source>TITLE</source>
-        <translation type="unfinished"></translation>
+        <translation>TÍTULO</translation>
     </message>
     <message>
         <source>LAST POSTED</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Active Carts:</source>
+        <source>POSTED FILENAME</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Active Carts:</source>
+        <translation>Cart. &amp;Activos:</translation>
     </message>
     <message>
         <source> Replicator Carts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>POSTED FILENAME</source>
-        <translation type="unfinished"></translation>
+        <translation> Cartuchos Replicadores</translation>
     </message>
 </context>
 <context>
     <name>ListReports</name>
     <message>
         <source>Rivendell Report List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de Reportes de Rivendell</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Añadir</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;liminar</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>R&amp;eports:</source>
-        <translation type="unfinished"></translation>
+        <translation>R&amp;eportes:</translation>
     </message>
     <message>
         <source>Are you sure you want to delete report</source>
-        <translation type="unfinished"></translation>
+        <translation>Está seguro de querer eliminar este reporte</translation>
     </message>
     <message>
         <source>Delete Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar reporte</translation>
     </message>
 </context>
 <context>
     <name>ListStations</name>
     <message>
         <source>Rivendell Workstation List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de computadores usando Rivendell</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Añadir</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;liminar</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>Ho&amp;sts:</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;omputadores:</translation>
     </message>
     <message>
         <source>Are you sure you want to delete host</source>
-        <translation type="unfinished"></translation>
+        <translation>Está seguro de querer eliminar este equipo</translation>
     </message>
     <message>
         <source>Delete Station</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar equipo</translation>
     </message>
 </context>
 <context>
     <name>ListSvcs</name>
     <message>
         <source>Services</source>
-        <translation type="unfinished"></translation>
+        <translation>Servicios</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Añadir</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;liminar</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>&amp;Services:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Servicios:</translation>
     </message>
     <message>
         <source>Are you sure you want to delete service</source>
-        <translation type="unfinished"></translation>
+        <translation>Está seguro de querer eliminar este servicio</translation>
     </message>
     <message>
         <source>Delete Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar un servicio</translation>
     </message>
     <message>
         <source>There are</source>
-        <translation type="unfinished"></translation>
+        <translation>Hay </translation>
     </message>
     <message>
         <source>logs owned by this service that will also be deleted.
 Do you still want to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>PlayLists pertenecientes a este servicio que serán eliminados.
+¿Desea continuar y eliminarlos?</translation>
     </message>
     <message>
         <source>Logs Exist</source>
-        <translation type="unfinished"></translation>
+        <translation>El PlayList ya existe</translation>
     </message>
 </context>
 <context>
     <name>ListUsers</name>
     <message>
         <source>Rivendell User List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de usuarios de Rivendell</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Añadir</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;liminar</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>&amp;Users:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Usuarios:</translation>
     </message>
     <message>
         <source>DESCRIPTION</source>
-        <translation type="unfinished"></translation>
+        <translation>DESCRIPCIÓN</translation>
     </message>
     <message>
         <source>USER NAME</source>
-        <translation type="unfinished"></translation>
+        <translation>NMBRE USUAR</translation>
     </message>
     <message>
         <source>FULL NAME</source>
-        <translation type="unfinished"></translation>
+        <translation>NMBRE COMPLETO</translation>
     </message>
     <message>
         <source>Are you sure you want to delete user</source>
-        <translation type="unfinished"></translation>
+        <translation>Está seguro de querer eliminar el usuario</translation>
     </message>
     <message>
         <source>Delete User</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar usuario</translation>
     </message>
     <message>
         <source>You must change this before deleting the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Usted debe cambiar esto antes de eliminar el usuario.</translation>
     </message>
     <message>
         <source>This user is set as the default user for the following hosts:
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Este usuario es el predeterminado en los siguientes equipos:
+
+</translation>
     </message>
     <message>
         <source>You cannot delete yourself!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Ud. no puede borrarse a sí mismo!</translation>
     </message>
 </context>
 <context>
@@ -3359,7 +3400,7 @@ Do you still want to proceed?</source>
         <source>Manage
 Ho&amp;sts</source>
         <translation>Administrar
-&amp;Computadoras</translation>
+&amp;Equipos</translation>
     </message>
     <message>
         <source>Manage
@@ -3377,19 +3418,19 @@ del Sistema</translation>
         <source>Scheduler
 Codes</source>
         <translation>Códigos de
-programación</translation>
+musicalizac</translation>
     </message>
     <message>
         <source>&amp;Backup
 Database</source>
         <translation>&amp;Respaldar
-Base de datos</translation>
+Base datos</translation>
     </message>
     <message>
         <source>&amp;Restore
 Database</source>
         <translation>&amp;Restaurar
-base de datos</translation>
+base datos</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
@@ -3458,7 +3499,8 @@ Sistema</translation>
     <message>
         <source>Manage
 Replicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Administrar
+Replicadores</translation>
     </message>
 </context>
 <context>
@@ -3533,187 +3575,197 @@ Do you want to combine the two?</source>
     <name>TestImport</name>
     <message>
         <source>Test Traffic Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Probar importación de Tráfico</translation>
     </message>
     <message>
         <source>Test Music Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Probar importación de Música</translation>
     </message>
     <message>
         <source>Test Date:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fecha de prueba:</translation>
     </message>
     <message>
         <source>&amp;Select</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seleccionar</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importar</translation>
     </message>
     <message>
         <source>Using source file:</source>
-        <translation type="unfinished"></translation>
+        <translation>Usando archivo fuente:</translation>
     </message>
     <message>
         <source>Start Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Hora de inicio</translation>
     </message>
     <message>
         <source>Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Cartucho</translation>
     </message>
     <message>
         <source>Len</source>
-        <translation type="unfinished"></translation>
+        <translation>Lon</translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Título</translation>
     </message>
     <message>
         <source>Contract #</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrato #</translation>
     </message>
     <message>
         <source>Event ID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID de evento</translation>
     </message>
     <message>
         <source>Announcement Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de Anuncio</translation>
     </message>
     <message>
         <source>Imported Events</source>
-        <translation type="unfinished"></translation>
+        <translation>Eventos importados</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>Import Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de importación</translation>
     </message>
     <message>
         <source>There was an error during import
 please check your settings and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ha habido un error durante la importación
+Revise los parámetros e intente de nuevo.</translation>
     </message>
     <message>
         <source>[spot break]</source>
-        <translation type="unfinished"></translation>
+        <translation>[parada del spot]</translation>
     </message>
 </context>
 <context>
     <name>ViewAdapters</name>
     <message>
         <source>Audio Resource Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información de recursos de audio</translation>
     </message>
     <message>
         <source>Audio Resources on</source>
-        <translation type="unfinished"></translation>
+        <translation>Recursos de audio en</translation>
     </message>
     <message>
         <source>SUPPORTED AUDIO DRIVERS
 </source>
-        <translation type="unfinished"></translation>
+        <translation>DRIVERS DE AUDIO SOPORTADOS</translation>
     </message>
     <message>
         <source>SUPPORTED IMPORT FORMATS
 </source>
-        <translation type="unfinished"></translation>
+        <translation>FORMATOS DE IMPORTACIÓN SOPORTADOS
+</translation>
     </message>
     <message>
         <source>    PCM16 Linear
 </source>
-        <translation type="unfinished"></translation>
+        <translation>PCM16 lineal</translation>
     </message>
     <message>
         <source>    MPEG Layer 1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>    MPEG Capa 1
+</translation>
     </message>
     <message>
         <source>    MPEG Layer 2
 </source>
-        <translation type="unfinished"></translation>
+        <translation>    MPEG Capa 2
+</translation>
     </message>
     <message>
         <source>    MPEG Layer 3
 </source>
-        <translation type="unfinished"></translation>
+        <translation>    MPEG Capa 3
+</translation>
     </message>
     <message>
         <source>    OggVorbis
 </source>
-        <translation type="unfinished"></translation>
+        <translation>    OGGVorbis</translation>
     </message>
     <message>
         <source>SUPPORTED EXPORT FORMATS
 </source>
-        <translation type="unfinished"></translation>
+        <translation>FORMATOS DE EXPORTACIÓN SOPORTADOS</translation>
     </message>
     <message>
         <source>    Free Lossless Audio Codec (FLAC)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>    FLAC (Free Lossless Audio Codec)
+</translation>
     </message>
     <message>
         <source>AUDIO ADAPTERS
 </source>
-        <translation type="unfinished"></translation>
+        <translation>ADAPTADORES DE AUDIO
+</translation>
     </message>
     <message>
         <source>Card</source>
-        <translation type="unfinished"></translation>
+        <translation>Tarjeta</translation>
     </message>
     <message>
         <source>Not present</source>
-        <translation type="unfinished"></translation>
+        <translation>No presente</translation>
     </message>
     <message>
         <source>      Driver: AudioScience HPI
 </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>      Driver: JACK Audio Connection Kit
 </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>      Driver: Advanced Linux Sound Architecture (ALSA)
 </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>      Driver: UNKNOWN
 </source>
-        <translation type="unfinished"></translation>
+        <translation>      Driver: DESCONOCIDO
+</translation>
     </message>
     <message>
         <source>Inputs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Entradas:</translation>
     </message>
     <message>
         <source>Outputs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Salidas:</translation>
     </message>
     <message>
         <source>NO DATA AVAILABLE
 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>NO HAY DATOS DISPONIBLES
+
+</translation>
     </message>
     <message>
         <source>Please start the Rivendell daemons on this host (by executing, as user &apos;root&apos;, the command &quot;/etc/init.d/rivendell start&quot;) in order to populate the audio resources database.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inicie los servicios Rivendell en este equipo (ejecutando, como &apos;root&apos;, el comando &quot;/etc/init.d/rivendell start&quot;) para iniciar la base de datos de recursos de audio.</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
 </context>
 </TS>

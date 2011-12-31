@@ -3,267 +3,272 @@
     <name>EditCast</name>
     <message>
         <source>Editing PodCast</source>
-        <translation type="unfinished"></translation>
+        <translation>Editando PodCast</translation>
     </message>
     <message>
         <source>Title:</source>
-        <translation type="unfinished"></translation>
+        <translation>Título:</translation>
     </message>
     <message>
         <source>Category:</source>
-        <translation type="unfinished"></translation>
+        <translation>Categoría:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción:</translation>
     </message>
     <message>
         <source>Posted At:</source>
-        <translation type="unfinished"></translation>
+        <translation>Colocado el:</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
+        <translation>No</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished"></translation>
+        <translation>Sí</translation>
     </message>
     <message>
         <source>Cast Expires:</source>
-        <translation type="unfinished"></translation>
+        <translation>Expira:</translation>
     </message>
     <message>
         <source>&amp;Select</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Elegir</translation>
     </message>
     <message>
         <source>Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Mantener</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Activo</translation>
     </message>
     <message>
         <source>Posting Status:</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado del Post:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Author E-Mail:</source>
-        <translation type="unfinished"></translation>
+        <translation>E-Mail del autor:</translation>
     </message>
     <message>
         <source>Link URL:</source>
-        <translation type="unfinished"></translation>
+        <translation>URL del artículo:</translation>
     </message>
     <message>
         <source>Comments URL:</source>
-        <translation type="unfinished"></translation>
+        <translation>URL comentarios:</translation>
     </message>
     <message>
         <source>Source Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto fuente:</translation>
     </message>
     <message>
         <source>Source URL:</source>
-        <translation type="unfinished"></translation>
+        <translation>URL fuente:</translation>
     </message>
     <message>
         <source>Episode
 &amp;Report</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Reporte de
+Episodios</translation>
     </message>
     <message>
         <source>Air Date/Time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fecha/Ho al aire:</translation>
     </message>
     <message>
         <source>Media Link:</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlace al medio:</translation>
     </message>
     <message>
         <source>Expires On:</source>
-        <translation type="unfinished"></translation>
+        <translation>Expira el:</translation>
     </message>
 </context>
 <context>
     <name>ListCasts</name>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Editar</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Título</translation>
     </message>
     <message>
         <source>Origin</source>
-        <translation type="unfinished"></translation>
+        <translation>Origen</translation>
     </message>
     <message>
         <source>Expires</source>
-        <translation type="unfinished"></translation>
+        <translation>Expira</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished"></translation>
+        <translation>Categoría</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation type="unfinished"></translation>
+        <translation>Enlace</translation>
     </message>
     <message>
         <source>Never</source>
-        <translation type="unfinished"></translation>
+        <translation>Nunca</translation>
     </message>
     <message>
         <source>Podcast List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de PodCasts</translation>
     </message>
     <message>
         <source>Post From
 Car&amp;t/Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>Colocar desde
+Car&amp;tucho</translation>
     </message>
     <message>
         <source>Post From
 &amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>Colocar desde
+&amp;Archivo</translation>
     </message>
     <message>
         <source>Uploading Audio...</source>
-        <translation type="unfinished"></translation>
+        <translation>Subiendo Audio...</translation>
     </message>
     <message>
         <source>Progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Progreso</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Borrar</translation>
     </message>
     <message>
         <source>Length</source>
-        <translation type="unfinished"></translation>
+        <translation>Longitud</translation>
     </message>
     <message>
         <source>Subscription
 &amp;Report</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Reporte de
+Suscripción</translation>
     </message>
     <message>
         <source> </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Filter:</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtro:</translation>
     </message>
     <message>
         <source>Only Show Unexpired Casts</source>
-        <translation type="unfinished"></translation>
+        <translation>Sólo Mostrar sin Expirar</translation>
     </message>
     <message>
         <source>Only Show Active Casts</source>
-        <translation type="unfinished"></translation>
+        <translation>Sólo mostrar activos</translation>
     </message>
     <message>
         <source>Posting Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de Post</translation>
     </message>
     <message>
         <source>Delete Podcast</source>
-        <translation type="unfinished"></translation>
+        <translation>Borrar Podcast</translation>
     </message>
     <message>
         <source>Are you sure you want to delete this podcast?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de borrar este podcast?</translation>
     </message>
     <message>
         <source>Deleting Podcast...</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminando Podcast...</translation>
     </message>
     <message>
         <source>Remote Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error remoto</translation>
     </message>
     <message>
         <source>Unable to delete remote audio!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>¡No fue posible eliminar audio remoto!
+</translation>
     </message>
     <message>
         <source>The server said: &quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>El servidor dio el error: &quot;</translation>
     </message>
     <message>
         <source>Continue deleting cast?</source>
-        <translation type="unfinished"></translation>
+        <translation> ¿Continuar eliminando podcasts?</translation>
     </message>
 </context>
 <context>
     <name>MainWidget</name>
     <message>
         <source>RDCastManager - Host</source>
-        <translation type="unfinished"></translation>
+        <translation>RDCastManager - Equipo </translation>
     </message>
     <message>
         <source>User: [Unknown]</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuario: [Desconocido]</translation>
     </message>
     <message>
         <source>Can&apos;t Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>No puedo conectarme</translation>
     </message>
     <message>
         <source>Key Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre Clave</translation>
     </message>
     <message>
         <source>Feed Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre del Feed</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción</translation>
     </message>
     <message>
         <source>Casts</source>
-        <translation type="unfinished"></translation>
+        <translation>Podcasts</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cerrar</translation>
     </message>
     <message>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuario</translation>
     </message>
     <message>
         <source>&amp;View
 Feed</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ver Feed</translation>
     </message>
 </context>
 </TS>
