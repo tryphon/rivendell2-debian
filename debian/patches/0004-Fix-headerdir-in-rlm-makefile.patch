@@ -7,10 +7,10 @@ Subject: Fix headerdir in rlm makefile
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/rlm/Makefile.am b/rlm/Makefile.am
-index f6979d3..59acb05 100644
+index d580444..35a2fff 100644
 --- a/rlm/Makefile.am
 +++ b/rlm/Makefile.am
-@@ -38,7 +38,7 @@ install:	all
+@@ -47,7 +47,7 @@ install:	all
  	mkdir -p $(headerdir)
  	cp rlm.h $(headerdir)
  
@@ -18,5 +18,5 @@ index f6979d3..59acb05 100644
 +headerdir = $(DESTDIR)$(includedir)/rlm
  header_HEADERS = rlm.h
  
- EXTRA_DIST = rlm.h rlm_test.c rlm_serial.c rlm_xmpad.c rlm_udp.c\
+ EXTRA_DIST = Makefile-example\
 -- 
