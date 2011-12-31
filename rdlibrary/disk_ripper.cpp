@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: disk_ripper.cpp,v 1.29 2011/08/30 23:35:44 cvs Exp $
+//      $Id: disk_ripper.cpp,v 1.30 2011/12/23 22:04:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -758,6 +758,7 @@ void DiskRipper::RipTrack(int track,QString cutname,QString title)
   // Rip from disc
   //
   RDAudioImport::ErrorCode conv_err;
+  RDAudioConvert::ErrorCode audio_conv_err;
   RDCdRipper::ErrorCode ripper_err;
   QString tmpdir=RDTempDir();
   QString tmpfile=tmpdir+"/"+RIPPER_TEMP_WAV;
@@ -795,7 +796,8 @@ void DiskRipper::RipTrack(int track,QString cutname,QString title)
     }
     conv->setDestinationSettings(settings);
     switch((conv_err=conv->
-	    runImport(lib_user->name(),lib_user->password()))) {
+	    runImport(lib_user->name(),lib_user->password(),
+		      &audio_conv_err))) {
     case RDAudioImport::ErrorOk:
       if(rip_apply_box->isChecked()&&(!rip_title.isEmpty())) {
 	cart->setTitle(rip_title);
@@ -808,7 +810,7 @@ void DiskRipper::RipTrack(int track,QString cutname,QString title)
 
     default:
       QMessageBox::warning(this,tr("RDLibrary - Importer Error"),
-			   RDAudioImport::errorText(conv_err));
+			   RDAudioImport::errorText(conv_err,audio_conv_err));
       break;
     }
     delete settings;

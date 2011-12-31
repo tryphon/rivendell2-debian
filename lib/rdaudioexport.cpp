@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioexport.cpp,v 1.6 2011/10/17 21:01:03 cvs Exp $
+//      $Id: rdaudioexport.cpp,v 1.8 2011/12/23 23:07:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,6 +36,7 @@
 #include <rdxport_interface.h>
 #include <rdformpost.h>
 #include <rdaudioexport.h>
+#include <rdwebresult.h>
 
 //
 // CURL Progress Callback
@@ -105,12 +106,15 @@ void RDAudioExport::setEnableMetadata(bool state)
 
 
 RDAudioExport::ErrorCode RDAudioExport::runExport(const QString &username,
-						  const QString &password)
+						  const QString &password,
+					 RDAudioConvert::ErrorCode *conv_err)
 {
   long response_code;
   CURL *curl=NULL;
   FILE *f=NULL;
   char url[1024];
+  RDAudioExport::ErrorCode ret;
+  RDWebResult web_result;
 
   //
   // Generate POST Data
@@ -185,26 +189,30 @@ RDAudioExport::ErrorCode RDAudioExport::runExport(const QString &username,
   curl_easy_cleanup(curl);
   fclose(f);
 
+  if(response_code==200) {
+    *conv_err=RDAudioConvert::ErrorOk;
+    return RDAudioExport::ErrorOk;
+  }
+
+  if(web_result.readXmlFromFile(conv_dst_filename)) {
+    *conv_err=web_result.converterErrorCode();
+  }
   switch(response_code) {
-  case 200:
-    break;
+  case 400:
+    ret=RDAudioExport::ErrorService;
 
-  case 403:
-    unlink(conv_dst_filename);
-    return RDAudioExport::ErrorInvalidUser;
+  case 401:
+    ret=RDAudioExport::ErrorInvalidUser;
 
-  case 415:
-    unlink(conv_dst_filename);
-    return RDAudioExport::ErrorInvalidSettings;
-
-  case 500:
-    unlink(conv_dst_filename);
-    return RDAudioExport::ErrorInvalidSettings;
+  case 404:
+    ret=RDAudioExport::ErrorNoSource;
 
   default:
-    return RDAudioExport::ErrorService;
+    ret=RDAudioExport::ErrorConverter;
   }
-  return RDAudioExport::ErrorOk;
+  unlink(conv_dst_filename);
+
+  return ret;
 }
 
 
@@ -214,7 +222,8 @@ bool RDAudioExport::aborting() const
 }
 
 
-QString RDAudioExport::errorText(RDAudioExport::ErrorCode err)
+QString RDAudioExport::errorText(RDAudioExport::ErrorCode err,
+				 RDAudioConvert::ErrorCode conv_err)
 {
   QString ret=QString().sprintf("Uknown Error [%u]",err);
 
@@ -253,6 +262,10 @@ QString RDAudioExport::errorText(RDAudioExport::ErrorCode err)
 
   case RDAudioExport::ErrorAborted:
     ret=tr("Aborted");
+    break;
+
+  case RDAudioExport::ErrorConverter:
+    ret=tr("Audio Converter Error: ")+RDAudioConvert::errorText(conv_err);
     break;
   }
   return ret;

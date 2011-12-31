@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdtrimaudio.cpp,v 1.5 2011/10/17 21:01:03 cvs Exp $
+//      $Id: rdtrimaudio.cpp,v 1.6 2011/12/23 22:04:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -203,20 +203,13 @@ bool RDTrimAudio::ParseXml(const QString &xml)
   //
   QStringList list=list.split("\n",xml);
   for(int i=0;i<list.size();i++) {
-    printf("%d: %s\n",i,(const char *)list[i]);
     if(list[i].contains("startTrimPoint")) {
       QStringList list2=list.split("<",list[i]);
       if(list2.size()>=2) {
 	list2=list2.split(">",list2[1]);
 	if(list2.size()>=2) {
 	  conv_start_point=list2[1].toInt();
-	  printf("start: %d\n",conv_start_point);
 	}
-	/*
-	for(int j=0;j<list2.size();j++) {
-	  printf("  %d: %s\n",j,(const char *)list2[j]);
-	}
-	*/
       }
     }
   }

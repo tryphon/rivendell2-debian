@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddbcheck.h,v 1.9 2010/12/13 16:48:01 cvs Exp $
+//      $Id: rddbcheck.h,v 1.10 2011/12/22 23:22:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -34,7 +34,7 @@
 #include <rdcmd_switch.cpp>
 #include <rdstation.h>
 
-#define RDDBCHECK_USAGE "[options]\n\nCheck the Rivendell database and audio store for consistency\nand correctness.\n\n--yes\n     Answer all questions with 'yes'\n\n--no\n     Answer all questions with 'no'\n\n--orphan-group=<group-name>\n     Move carts with missing/invalid GROUP information to the <group-name>\n     group.\n\n--dump-cuts-dir=<dir-name>\n     Move orphaned cut audio to the <dir-name> directory.\n"
+#define RDDBCHECK_USAGE "[options]\n\nCheck the Rivendell database and audio store for consistency\nand correctness.\n\n--yes\n     Answer all questions with 'yes'\n\n--no\n     Answer all questions with 'no'\n\n--user=<username>\n     Connect using the Rivendell user <username> (default is \"user\").\n\n--orphan-group=<group-name>\n     Move carts with missing/invalid GROUP information to the <group-name>\n     group.\n\n--dump-cuts-dir=<dir-name>\n     Move orphaned cut audio to the <dir-name> directory.\n"
 
 //
 // Global Variables

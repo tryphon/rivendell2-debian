@@ -169,15 +169,15 @@ Audio</translation>
     </message>
     <message>
         <source>RDLibrary</source>
-        <translation type="unfinished"></translation>
+        <translation>RDLibrary</translation>
     </message>
     <message>
         <source>Unable to delete audio!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No se pudo eliminar el audio!</translation>
     </message>
     <message>
         <source>No audio is present in the cut!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No hay audios en este cut!</translation>
     </message>
 </context>
 <context>
@@ -280,11 +280,11 @@ Do you still want to proceed?</source>
     </message>
     <message>
         <source>Rip Complete</source>
-        <translation type="unfinished">Lectura completada</translation>
+        <translation>Lectura completada</translation>
     </message>
     <message>
         <source>Rip complete!</source>
-        <translation type="unfinished">¡Lectura completada!</translation>
+        <translation>¡Lectura completada!</translation>
     </message>
     <message>
         <source>Rip Aborted</source>
@@ -316,20 +316,21 @@ Do you want to proceed?</source>
     </message>
     <message>
         <source>RDLibrary - Importer Error</source>
-        <translation type="unfinished"></translation>
+        <translation>RDLibrary - Error al importar</translation>
     </message>
     <message>
         <source>RDLibrary - Ripper Error</source>
-        <translation type="unfinished"></translation>
+        <translation>RDLibrary - Error al leer</translation>
     </message>
     <message>
         <source>Abort
 Rip</source>
-        <translation type="unfinished"></translation>
+        <translation>Abortar
+Lectura</translation>
     </message>
     <message>
         <source>Rip Track</source>
-        <translation type="unfinished"></translation>
+        <translation>Leyendo pista</translation>
     </message>
 </context>
 <context>
@@ -480,7 +481,7 @@ Por favor, chequee la configuración e intente de nuevo.</translation>
     </message>
     <message>
         <source>Total Progress</source>
-        <translation type="unfinished">Progreso total</translation>
+        <translation>Progreso total</translation>
     </message>
     <message>
         <source>No Access</source>
@@ -520,25 +521,28 @@ disco</translation>
     </message>
     <message>
         <source>RDLibrary - Importer Error</source>
-        <translation type="unfinished"></translation>
+        <translation>RDLIbrary - Error al importar</translation>
     </message>
     <message>
         <source>RDLibrary - Ripper Error</source>
-        <translation type="unfinished"></translation>
+        <translation>RDLibrary - Error de lectura</translation>
     </message>
     <message>
         <source>Abort
 Rip</source>
-        <translation type="unfinished"></translation>
+        <translation>Abortar
+Lectura</translation>
     </message>
     <message>
         <source>Rip
 Disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Leer
+Disco</translation>
     </message>
     <message>
         <source>Rip aborted!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Lectura
+Abortada!</translation>
     </message>
 </context>
 <context>
@@ -601,7 +605,7 @@ Disk</source>
     </message>
     <message>
         <source>Schedule Cuts:</source>
-        <translation>Audios programados:</translation>
+        <translation>Audios programad.:</translation>
     </message>
     <message>
         <source>&amp;Edit
@@ -689,7 +693,7 @@ los límites del sistema.  ¿Desea continuar?</translation>
     </message>
     <message>
         <source>Scheduler Codes</source>
-        <translation>Códigos del programador</translation>
+        <translation>Códigos musicalizador</translation>
     </message>
     <message>
         <source></source>
@@ -907,7 +911,7 @@ Cartucho</translation>
     </message>
     <message>
         <source>ALL</source>
-        <translation></translation>
+        <translation>TODAS</translation>
     </message>
     <message>
         <source>Empty Clipboard</source>
@@ -953,7 +957,7 @@ CD</translation>
     </message>
     <message>
         <source>Scheduler Code:</source>
-        <translation>Códs. Program.:</translation>
+        <translation>Códs. Musicaliz.:</translation>
     </message>
     <message>
         <source></source>
@@ -981,7 +985,7 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>rdlibrary : </source>
-        <translation></translation>
+        <translation>rdlibrary : </translation>
     </message>
     <message>
         <source>&amp;Search</source>
@@ -993,23 +997,23 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>Show Note Bubbles</source>
-        <translation>Mostrar Notas Flotantes</translation>
+        <translation>Most. notas flotantes</translation>
     </message>
     <message>
         <source>RDLibrary</source>
-        <translation type="unfinished"></translation>
+        <translation>RDLibrary</translation>
     </message>
     <message>
         <source>Unable to delete audio!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No puedo eliminar el audio!</translation>
     </message>
     <message>
         <source>Show Only First </source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar sólo primeros </translation>
     </message>
     <message>
         <source> Matches</source>
-        <translation type="unfinished"></translation>
+        <translation> hallazgos</translation>
     </message>
 </context>
 <context>
@@ -1068,7 +1072,7 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>Daypart</source>
-        <translation></translation>
+        <translation>Daypart</translation>
     </message>
     <message>
         <source>&amp;Start Time</source>
@@ -1242,7 +1246,7 @@ Do you still want to save?</source>
     </message>
     <message>
         <source>&amp;ISCI Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Código &amp;ISCI</translation>
     </message>
 </context>
 </TS>

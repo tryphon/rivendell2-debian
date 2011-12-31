@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdxport.cpp,v 1.7 2011/06/21 22:20:45 cvs Exp $
+//      $Id: rdxport.cpp,v 1.9 2011/12/23 23:07:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -56,13 +56,13 @@ Xport::Xport(QObject *parent,const char *name)
   // Drop Root Perms
   //
   if(setgid(xport_config->gid())<0) {
-    RDCgiError("Unable to set Rivendell group",500);
+    RDXMLResult("Unable to set Rivendell group",500);
   }
   if(setuid(xport_config->uid())<0) {
-    RDCgiError("Unable to set Rivendell user",500);
+    RDXMLResult("Unable to set Rivendell user",500);
   }
   if(getuid()==0) {
-    RDCgiError("Rivendell user should never be \"root\"!",500);
+    RDXMLResult("Rivendell user should never be \"root\"!",500);
   }
 
   //
@@ -127,7 +127,7 @@ Xport::Xport(QObject *parent,const char *name)
   //
   xport_post=new RDFormPost(RDFormPost::AutoEncoded,0);
   if(xport_post->error()!=RDFormPost::ErrorOk) {
-    RDCgiError(xport_post->errorString(xport_post->error()));
+    RDXMLResult(xport_post->errorString(xport_post->error()),400);
     Exit(0);
   }
 
@@ -135,7 +135,7 @@ Xport::Xport(QObject *parent,const char *name)
   // Authenticate Connection
   //
   if(!Authenticate()) {
-    RDCgiError("Invalid User",403);
+    RDXMLResult("Invalid User",403);
   }
 
   //

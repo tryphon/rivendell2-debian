@@ -11,7 +11,7 @@
     </message>
     <message>
         <source>Log C&amp;hain</source>
-        <translation>Enca&amp;denar a playlist</translation>
+        <translation>Enca&amp;denar a Lista</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -58,7 +58,7 @@
     </message>
     <message>
         <source>Stop</source>
-        <translation>Detener</translation>
+        <translation>Parar</translation>
     </message>
     <message>
         <source>Transition Type:</source>
@@ -66,7 +66,7 @@
     </message>
     <message>
         <source>Log Name</source>
-        <translation>Nombre del playlist</translation>
+        <translation>Nombre de la Lista</translation>
     </message>
     <message>
         <source>Select</source>
@@ -93,7 +93,7 @@
     <name>EditLog</name>
     <message>
         <source>Edit Log</source>
-        <translation>Editar playlist</translation>
+        <translation>Editar Lista</translation>
     </message>
     <message>
         <source>Log Name:</source>
@@ -205,7 +205,7 @@ Meta</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation></translation>
+        <translation>Pegar</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -232,26 +232,26 @@ Meta</translation>
     <message>
         <source>This log contains one or more carts
 that are invalid for the selected service!</source>
-        <translation>¡Este playlist contiene uno o más cartuchos
+        <translation>¡Esta Lista contiene uno o más cartuchos
 que son inválidos para el dispositivo elegido!</translation>
     </message>
     <message>
         <source>The log contains carts that are disabled
 for the selected service!</source>
-        <translation>¡El playlist contiene cartuchos que están
+        <translation>¡La Lista contiene cartuchos que están
 desactivados para el dispositivo seleccionado!</translation>
     </message>
     <message>
         <source>Add Log</source>
-        <translation>Agregar playlist</translation>
+        <translation>Agregar Lista</translation>
     </message>
     <message>
         <source>Log Exists</source>
-        <translation>El playlist existe</translation>
+        <translation>La Lista ya existe</translation>
     </message>
     <message>
         <source>Log Already Exists!</source>
-        <translation>¡El playlist ya existe!</translation>
+        <translation>¡El playlist o Lista ya existe!</translation>
     </message>
     <message>
         <source>RDLogEdit</source>
@@ -260,7 +260,7 @@ desactivados para el dispositivo seleccionado!</translation>
     <message>
         <source>The log has been modified.
 Do you want to save your changes?</source>
-        <translation>El playlist ha sido modificado.
+        <translation>La Lista ha sido modificada.
 ¿Desea guardar los cambios?</translation>
     </message>
     <message>
@@ -269,7 +269,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>STOP</source>
-        <translation>DETENER</translation>
+        <translation>PARAR</translation>
     </message>
     <message>
         <source>SEGUE</source>
@@ -285,11 +285,11 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>LOG CHAIN</source>
-        <translation>ENCADENAR A PLAYLIST</translation>
+        <translation>ENCADENAR A LISTA</translation>
     </message>
     <message>
         <source>--- end of log ---</source>
-        <translation>--- fin de playlist ---</translation>
+        <translation>--- fin de lista ---</translation>
     </message>
     <message>
         <source>SOURCE</source>
@@ -317,7 +317,7 @@ Do you want to save your changes?</source>
     </message>
     <message>
         <source>Voice Tracker</source>
-        <translation></translation>
+        <translation>Pista de voz</translation>
     </message>
     <message>
         <source>Tracks:</source>
@@ -344,7 +344,7 @@ Do you want to save your changes?</source>
 for the selected service!
 
 Do you still want to save?</source>
-        <translation>¡El playlist contiene cartuchos que están 
+        <translation>¡La Lista contiene cartuchos que están 
 desactivados para el servicio actual!
 
 ¿Aún así desea guardarlo?</translation>
@@ -371,15 +371,15 @@ desactivados para el servicio actual!
     </message>
     <message>
         <source>Next Stop:</source>
-        <translation>Próxima parada:</translation>
+        <translation>Próx.parad:</translation>
     </message>
     <message>
         <source>Log End:</source>
-        <translation>Fin del playlist:</translation>
+        <translation>Fin Lista:</translation>
     </message>
     <message>
         <source>Run Length</source>
-        <translation>Duración total</translation>
+        <translation>Durac. total</translation>
     </message>
     <message>
         <source>Selected:</source>
@@ -395,7 +395,7 @@ desactivados para el servicio actual!
     </message>
     <message>
         <source>Unable to save log, audio deletion error!</source>
-        <translation type="unfinished"></translation>
+        <translation>No es posible guardar la Lista, ¡error por eliminación de audio!</translation>
     </message>
 </context>
 <context>
@@ -434,7 +434,7 @@ desactivados para el servicio actual!
     </message>
     <message>
         <source>Stop</source>
-        <translation>Detener</translation>
+        <translation>Parar</translation>
     </message>
     <message>
         <source>Transition Type:</source>
@@ -494,11 +494,11 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Duplicate Start Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo de inicio duplicado</translation>
     </message>
     <message>
         <source>An event is already scheduled with this start time!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Se programó un evento para esta misma hora de inicio!</translation>
     </message>
 </context>
 <context>
@@ -537,7 +537,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation>Detener</translation>
+        <translation>Parar</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -600,7 +600,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation>Detener</translation>
+        <translation>Parar</translation>
     </message>
     <message>
         <source>Comment</source>
@@ -627,7 +627,7 @@ desactivado para el servicio especificado!</translation>
     <name>ListLogs</name>
     <message>
         <source>Select a Log</source>
-        <translation>Seleccione un playlist</translation>
+        <translation>Seleccione una Lista</translation>
     </message>
     <message>
         <source>NAME</source>
@@ -658,7 +658,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Log Listing</source>
-        <translation>Lista de Playlists</translation>
+        <translation>Listas de reproducción</translation>
     </message>
     <message>
         <source>Log Exception Report</source>
@@ -678,7 +678,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Log Check</source>
-        <translation>Chequear playlist</translation>
+        <translation>Chequear Listas</translation>
     </message>
     <message>
         <source>No exceptions found.</source>
@@ -713,7 +713,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>LOG NAME</source>
-        <translation>NOMBRE DEL PLAYLIST</translation>
+        <translation>NOMBRE DE LA LISTA</translation>
     </message>
     <message>
         <source>DESCRIPTION</source>
@@ -757,15 +757,15 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Add Log</source>
-        <translation>Agregar playlist</translation>
+        <translation>Agregar lista</translation>
     </message>
     <message>
         <source>Log Exists</source>
-        <translation>El playlist existe</translation>
+        <translation>La Lista ya existe</translation>
     </message>
     <message>
         <source>Log Already Exists!</source>
-        <translation>¡El playlist ya existe!</translation>
+        <translation>¡La lista de reproducción ya existe!</translation>
     </message>
     <message>
         <source>Always</source>
@@ -796,12 +796,12 @@ Continue?</source>
     <message>
         <source>Voice
 &amp;Tracker</source>
-        <translation>Voice
-&amp;Tracker</translation>
+        <translation>Pistas
+de &amp;Voz</translation>
     </message>
     <message>
         <source>Delete Log</source>
-        <translation>Eliminar playlist</translation>
+        <translation>Eliminar Lista</translation>
     </message>
     <message>
         <source>MUSIC</source>
@@ -827,24 +827,25 @@ Continue?</source>
         <source>Log
 Report</source>
         <translation>Reporte
-de PlayList</translation>
+de Lista</translation>
     </message>
     <message>
         <source>RDLogEdit</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Unable to delete log, audio deletion error!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No es posible eliminar la lista, error de eliminación de audios!</translation>
     </message>
     <message>
         <source>RDLogEdit -- Database Skew</source>
-        <translation type="unfinished"></translation>
+        <translation>RDLogEdit -- Asimetría en la Base de Datos</translation>
     </message>
     <message>
         <source>This version of RDLogEdit is incompatible with the version installed on the server.
 See your system administrator for an update!</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta versión de RDLogEdit es incompatible con la versión instalada en el servidor.
+¡Solicite una actualización al administrador!</translation>
     </message>
 </context>
 </TS>

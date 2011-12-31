@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioconvert.h,v 1.3 2011/08/30 15:45:35 cvs Exp $
+//      $Id: rdaudioconvert.h,v 1.4 2011/12/23 17:44:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -46,7 +46,7 @@ class RDAudioConvert : public QObject
   enum ErrorCode {ErrorOk=0,ErrorInvalidSettings=1,ErrorNoSource=2,
 		  ErrorNoDestination=3,ErrorInvalidSource=4,ErrorInternal=5,
 		  ErrorFormatNotSupported=6,ErrorNoDisc=7,ErrorNoTrack=8,
-		  ErrorInvalidSpeed=9,ErrorFormatError=10};
+		  ErrorInvalidSpeed=9,ErrorFormatError=10,ErrorNoSpace=11};
   RDAudioConvert(const QString &station_name,
 		 QObject *parent=0,const char *name=0);
   ~RDAudioConvert();

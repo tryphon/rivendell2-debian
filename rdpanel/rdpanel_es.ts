@@ -3,11 +3,11 @@
     <name>MainWidget</name>
     <message>
         <source>rdpanel : </source>
-        <translation type="unfinished"></translation>
+        <translation>rdpanel : </translation>
     </message>
     <message>
         <source>Can&apos;t Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>No puedo conectarme</translation>
     </message>
 </context>
 </TS>

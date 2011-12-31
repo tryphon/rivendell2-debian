@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: sasusi.cpp,v 1.23 2011/05/26 21:20:37 cvs Exp $
+//      $Id: sasusi.cpp,v 1.24 2011/12/28 18:59:19 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -136,7 +136,7 @@ bool SasUsi::secondaryTtyActive()
 
 void SasUsi::processCommand(RDMacro *cmd)
 {
-  char str[9];
+  char str[256];
   char cmd_byte;
   QString label;
 
@@ -159,7 +159,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	for(int i=label.length();i<8;i++) {
 	  label+=" ";
 	}
-	sprintf(str,"%c21%03d%04d%s\x0D\x0A",26,
+	snprintf(str,256,"%c21%03d%04d%s\x0D\x0A",26,
 		cmd->arg(1).toInt(),cmd->arg(2).toInt(),(const char *)label);
 	SendCommand(str);
 	cmd->acknowledge(true);
@@ -173,7 +173,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	  emit rmlEcho(cmd);
 	  return;
 	}
-	sprintf(str,"%c1%03d\x0D\x0A",0x13,cmd->arg(1).toInt());
+	snprintf(str,256,"%c1%03d\x0D\x0A",0x13,cmd->arg(1).toInt());
 	SendCommand(str);
 	cmd->acknowledge(true);
 	emit rmlEcho(cmd);
@@ -187,7 +187,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	  emit rmlEcho(cmd);
 	  return;
 	}
-	sprintf(str,"%c00%04d%04d%04d00548\x0D\x0A",26,
+	snprintf(str,256,"%c00%04d%04d%04d00548\x0D\x0A",26,
 		cmd->arg(1).toInt(),cmd->arg(2).toInt(),
 		cmd->arg(3).toInt()+1024);
 	SendCommand(str);
@@ -203,7 +203,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	  emit rmlEcho(cmd);
 	  return;
 	}
-	sprintf(str,"%c10%04d%04d%04d0010\x0D\x0A",26,
+	snprintf(str,256,"%c10%04d%04d%04d0010\x0D\x0A",26,
 		cmd->arg(1).toInt(),cmd->arg(2).toInt(),
 		cmd->arg(3).toInt()+1024);
 	SendCommand(str);
@@ -218,7 +218,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	  emit rmlEcho(cmd);
 	  return;
 	}
-	sprintf(str,"%c10%04d0000%04d0001\x0D\x0A",26,
+	snprintf(str,256,"%c10%04d0000%04d0001\x0D\x0A",26,
 		cmd->arg(1).toInt(),cmd->arg(2).toInt()+1024);
 	SendCommand(str);
 	cmd->acknowledge(true);
@@ -232,7 +232,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	  emit rmlEcho(cmd);
 	  return;
 	}
-	sprintf(str,"%c00%04d%04d102400036\x0D\x0A",26,
+	snprintf(str,256,"%c00%04d%04d102400036\x0D\x0A",26,
 		cmd->arg(1).toInt(),cmd->arg(2).toInt());
 	SendCommand(str);
 	cmd->acknowledge(true);
@@ -246,7 +246,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	  emit rmlEcho(cmd);
 	  return;
 	}
-	sprintf(str,"%c00%04d%04d102400032\x0D\x0A",26,
+	snprintf(str,256,"%c00%04d%04d102400032\x0D\x0A",26,
 		cmd->arg(1).toInt(),cmd->arg(2).toInt());
 	SendCommand(str);
 	cmd->acknowledge(true);
@@ -260,7 +260,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	  emit rmlEcho(cmd);
 	  return;
 	}
-	sprintf(str,"%c%03d%03d\x0D\x0A",20,
+	snprintf(str,256,"%c%03d%03d\x0D\x0A",20,
 		cmd->arg(1).toInt(),cmd->arg(2).toInt());
 	SendCommand(str);
 	cmd->acknowledge(true);
@@ -292,7 +292,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	}
 	if(cmd->arg(2).toUInt()<sas_relay_numbers.size()) {
 	  if(sas_relay_numbers[cmd->arg(2).toUInt()-1]>=0) {
-	    sprintf(str,"\x05R%d%04d\x0D\x0A",cmd_byte,
+	    snprintf(str,256,"\x05R%d%04d\x0D\x0A",cmd_byte,
 		    sas_relay_numbers[cmd->arg(2).toUInt()-1]);
 	    SendCommand(str);
 	    cmd->acknowledge(true);
@@ -307,7 +307,7 @@ void SasUsi::processCommand(RDMacro *cmd)
 	      else {
 		cmd_byte=1;
 	      }
-	      sprintf(str,"\x1A%s%d%03d%04d\x0D\x0A","20",cmd_byte,
+	      snprintf(str,256,"\x1A%s%d%03d%04d\x0D\x0A","20",cmd_byte,
 		      sas_console_numbers[cmd->arg(2).toUInt()-1],
 		      sas_source_numbers[cmd->arg(2).toUInt()-1]);
 	      SendCommand(str);

@@ -33,6 +33,7 @@
 #include <rduser.h>
 #include <rddb.h>
 #include <rdconf.h>
+#include <rdwebresult.h>
 
 #include <rdweb.h>
 
@@ -547,9 +548,25 @@ void RDCgiError(const char *str,int resp_code)
 
   /* The html footer */
   printf("</body>\n");
-  exit(1);
+  exit(0);
 }
 
+
+#ifndef WIN32
+extern void RDXMLResult(const char *str,int resp_code,
+			  RDAudioConvert::ErrorCode err)
+{
+  RDWebResult *we=new RDWebResult(str,resp_code,err);
+
+  printf("Content-type: application/xml\n");
+  printf("Status: %d\n",resp_code);
+  printf("\n");
+  printf("%s",(const char *)we->xml());
+  delete we;
+
+  exit(0);
+}
+#endif  // WIN32
 
 
 /*
@@ -763,11 +780,6 @@ QString RDEscapeWebString(const QString &str)
   ret.replace("<","&lt;");
   ret.replace("\"","&quot;");
   return ret;
-}
-
-
-QString RDCreateTempDir()
-{
 }
 
 

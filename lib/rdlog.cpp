@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog.cpp,v 1.22 2010/09/08 20:37:58 cvs Exp $
+//      $Id: rdlog.cpp,v 1.23 2011/12/22 23:58:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -395,7 +395,7 @@ void RDLog::updateTracks()
   QString name=log_name;
   
   name.replace(" ","_");
-  sql=QString().sprintf("select NUMBER from CART where OWNER=\"%s_LOG\"",
+  sql=QString().sprintf("select NUMBER from CART where OWNER=\"%s\"",
 			(const char *)log_name);
   q=new RDSqlQuery(sql);
   completed=q->size();
@@ -426,7 +426,7 @@ int RDLog::removeTracks(RDStation *station,RDUser *user) const
 
   QString owner=log_name;
   owner.replace(" ","_");
-  sql=QString().sprintf("select NUMBER from CART where OWNER=\"%s_LOG\"",
+  sql=QString().sprintf("select NUMBER from CART where OWNER=\"%s\"",
 			(const char *)owner);
   q=new RDSqlQuery(sql);
   while(q->next()) {

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioconvert.cpp,v 1.11 2011/08/30 15:45:35 cvs Exp $
+//      $Id: rdaudioconvert.cpp,v 1.12 2011/12/23 17:44:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -259,6 +259,10 @@ QString RDAudioConvert::errorText(RDAudioConvert::ErrorCode err)
 
   case RDAudioConvert::ErrorFormatError:
     ret=tr("Source format error");
+    break;
+
+  case RDAudioConvert::ErrorNoSpace:
+    ret=tr("No space left on device");
     break;
   }
   return ret;
@@ -869,7 +873,19 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage2Convert(const QString &srcfile,
     //
     // Write Output
     //
-    sf_writef_float(dst_sf,pcm[2],n);
+    if(sf_writef_float(dst_sf,pcm[2],n)!=n) {
+      for(unsigned i=0;i<3;i++) {
+	if(free_pcm[i]) {
+	  delete pcm[i];
+	}
+      }
+      if(src_state!=NULL) {
+	delete src_state;
+      }
+      sf_close(src_sf);
+      sf_close(dst_sf);
+      return RDAudioConvert::ErrorNoSpace;
+    }
   }
 
   //
@@ -879,7 +895,19 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage2Convert(const QString &srcfile,
     st_conv->flush();
     while((n=st_conv->
 	   receiveSamples(pcm[2],STAGE2_BUFFER_SIZE/dst_info.channels))>0) {
-      sf_writef_float(dst_sf,pcm[2],n);
+      if(sf_writef_float(dst_sf,pcm[2],n)!=n) {
+	for(unsigned i=0;i<3;i++) {
+	  if(free_pcm[i]) {
+	    delete pcm[i];
+	  }
+	}
+	if(src_state!=NULL) {
+	  delete src_state;
+	}
+	sf_close(src_sf);
+	sf_close(dst_sf);
+	return RDAudioConvert::ErrorNoSpace;
+      }
     }
     delete st_conv;
   }
@@ -1109,16 +1137,46 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Vorbis(SNDFILE *src_sf,
       vorbis_analysis(&vorbis_block,&ogg_packet);
       ogg_stream_packetin(&ogg_stream,&ogg_packet);
       while(ogg_stream_pageout(&ogg_stream,&ogg_page)!=0) {
-	write(dst_fd,ogg_page.header,ogg_page.header_len);
-	write(dst_fd,ogg_page.body,ogg_page.body_len);
+	if(write(dst_fd,ogg_page.header,ogg_page.header_len)!=
+	   ogg_page.header_len) {
+	  ::close(dst_fd);
+	  delete pcm;
+	  ogg_stream_clear(&ogg_stream);
+	  vorbis_comment_clear(&vorbis_comment);
+	  vorbis_info_clear(&vorbis_info);
+	  return RDAudioConvert::ErrorNoSpace; 
+	}
+	if(write(dst_fd,ogg_page.body,ogg_page.body_len)!=
+	   ogg_page.body_len) {
+	  ::close(dst_fd);
+	  delete pcm;
+	  ogg_stream_clear(&ogg_stream);
+	  vorbis_comment_clear(&vorbis_comment);
+	  vorbis_info_clear(&vorbis_info);
+	  return RDAudioConvert::ErrorNoSpace; 
+	}
       }
     }
     while(ogg_stream_flush(&ogg_stream,&ogg_page)!=0) {
-      write(dst_fd,ogg_page.header,ogg_page.header_len);
-      write(dst_fd,ogg_page.body,ogg_page.body_len);
+      if(write(dst_fd,ogg_page.header,ogg_page.header_len)!=
+	 ogg_page.header_len) {
+	  ::close(dst_fd);
+	  delete pcm;
+	  ogg_stream_clear(&ogg_stream);
+	  vorbis_comment_clear(&vorbis_comment);
+	  vorbis_info_clear(&vorbis_info);
+	  return RDAudioConvert::ErrorNoSpace; 
+	}
+      }
+    if(write(dst_fd,ogg_page.body,ogg_page.body_len)!=
+       ogg_page.body_len) {
+      ::close(dst_fd);
+      delete pcm;
+      ogg_stream_clear(&ogg_stream);
+      vorbis_comment_clear(&vorbis_comment);
+      vorbis_info_clear(&vorbis_info);
+      return RDAudioConvert::ErrorNoSpace; 
     }
-
-
   }
   vorbis=vorbis_analysis_buffer(&vorbis_dsp,0);
   vorbis_analysis_wrote(&vorbis_dsp,0);
@@ -1126,13 +1184,45 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Vorbis(SNDFILE *src_sf,
     vorbis_analysis(&vorbis_block,&ogg_packet);
     ogg_stream_packetin(&ogg_stream,&ogg_packet);
     while(ogg_stream_pageout(&ogg_stream,&ogg_page)!=0) {
-      write(dst_fd,ogg_page.header,ogg_page.header_len);
-      write(dst_fd,ogg_page.body,ogg_page.body_len);
+      if(write(dst_fd,ogg_page.header,ogg_page.header_len)!=
+	 ogg_page.header_len) {
+	::close(dst_fd);
+	delete pcm;
+	ogg_stream_clear(&ogg_stream);
+	vorbis_comment_clear(&vorbis_comment);
+	vorbis_info_clear(&vorbis_info);
+	return RDAudioConvert::ErrorNoSpace; 
+      }
+      if(write(dst_fd,ogg_page.body,ogg_page.body_len)!=
+	 ogg_page.body_len) {
+	::close(dst_fd);
+	delete pcm;
+	ogg_stream_clear(&ogg_stream);
+	vorbis_comment_clear(&vorbis_comment);
+	vorbis_info_clear(&vorbis_info);
+	return RDAudioConvert::ErrorNoSpace; 
+      }
     }
   }
   while(ogg_stream_flush(&ogg_stream,&ogg_page)!=0) {
-    write(dst_fd,ogg_page.header,ogg_page.header_len);
-    write(dst_fd,ogg_page.body,ogg_page.body_len);
+    if(write(dst_fd,ogg_page.header,ogg_page.header_len)!=
+       ogg_page.header_len) {
+      ::close(dst_fd);
+      delete pcm;
+      ogg_stream_clear(&ogg_stream);
+      vorbis_comment_clear(&vorbis_comment);
+      vorbis_info_clear(&vorbis_info);
+      return RDAudioConvert::ErrorNoSpace; 
+    }
+    if(write(dst_fd,ogg_page.body,ogg_page.body_len)!=
+       ogg_page.body_len) {
+      ::close(dst_fd);
+      delete pcm;
+      ogg_stream_clear(&ogg_stream);
+      vorbis_comment_clear(&vorbis_comment);
+      vorbis_info_clear(&vorbis_info);
+      return RDAudioConvert::ErrorNoSpace; 
+    }
   }
 
   //
@@ -1221,19 +1311,31 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Layer3(SNDFILE *src_sf,
   if(src_sf_info->channels==2) {
     while((n=sf_readf_short(src_sf,pcm,1152))>0) {
       if((s=lame_encode_buffer_interleaved(lameopts,pcm,n,mpeg,2048))>=0) {
-	write(dst_fd,mpeg,s);
+	if(write(dst_fd,mpeg,s)!=s) {
+	  lame_close(lameopts);
+	  ::close(dst_fd);
+	  return RDAudioConvert::ErrorNoSpace;
+	}
       }
     }
   }
   else {
     while((n=sf_readf_short(src_sf,pcm,1152))>0) {
       if((s=lame_encode_buffer(lameopts,pcm,NULL,n,mpeg,2048))>=0) {
-	write(dst_fd,mpeg,s);
+	if(write(dst_fd,mpeg,s)!=s) {
+	  lame_close(lameopts);
+	  ::close(dst_fd);
+	  return RDAudioConvert::ErrorNoSpace;
+	}
       }
     }
   }
   if((s=lame_encode_flush(lameopts,mpeg,2048))>=0) {
-      write(dst_fd,mpeg,s);
+    if(write(dst_fd,mpeg,s)!=s) {
+      lame_close(lameopts);
+      ::close(dst_fd);
+      return RDAudioConvert::ErrorNoSpace;
+    }
   }
 
   //
@@ -1346,14 +1448,22 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Layer2Wav(SNDFILE *src_sf,
   while((n=sf_readf_float(src_sf,pcm,1152))>0) {
     if((s=twolame_encode_buffer_float32_interleaved(lameopts,
 						    pcm,n,mpeg,2048))>=0) {
-      wave->writeWave(mpeg,s);
+      if(wave->writeWave(mpeg,s)!=s) {
+	twolame_close(&lameopts);
+	wave->closeWave(src_sf_info->frames);
+	return RDAudioConvert::ErrorNoSpace;
+      }
     }
     else {
       fprintf(stderr,"TwoLAME encode error\n");
     }
   }
   if((s=twolame_encode_flush(lameopts,mpeg,2048))>=0) {
-    wave->writeWave(mpeg,s);
+    if(wave->writeWave(mpeg,s)!=s) {
+      twolame_close(&lameopts);
+      wave->closeWave(src_sf_info->frames);
+      return RDAudioConvert::ErrorNoSpace;
+    }
   }
   else {
     fprintf(stderr,"TwoLAME encode error\n");
@@ -1441,14 +1551,22 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Layer2(SNDFILE *src_sf,
   while((n=sf_readf_float(src_sf,pcm,1152))>0) {
     if((s=twolame_encode_buffer_float32_interleaved(lameopts,
 						    pcm,n,mpeg,2048))>=0) {
-      write(dst_fd,mpeg,s);
+      if(write(dst_fd,mpeg,s)!=s) {
+	twolame_close(&lameopts);
+	::close(dst_fd);
+	return RDAudioConvert::ErrorNoSpace;
+      }
     }
     else {
       fprintf(stderr,"TwoLAME encode error\n");
     }
   }
   if((s=twolame_encode_flush(lameopts,mpeg,2048))>=0) {
-      write(dst_fd,mpeg,s);
+    if(write(dst_fd,mpeg,s)!=s) {
+      twolame_close(&lameopts);
+      ::close(dst_fd);
+      return RDAudioConvert::ErrorNoSpace;
+    }
   }
   else {
     fprintf(stderr,"TwoLAME encode error\n");
@@ -1500,7 +1618,13 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Pcm16(SNDFILE *src_sf,
     return RDAudioConvert::ErrorNoDestination;
   }
   while((n=sf_readf_short(src_sf,sf_buffer,2048))>0) {
-    wave->writeWave(sf_buffer,n*sizeof(short)*src_sf_info->channels);
+    if(wave->writeWave(sf_buffer,n*sizeof(short)*src_sf_info->channels)!=
+       (n*sizeof(short)*src_sf_info->channels)) {
+      delete sf_buffer;
+      wave->closeWave();
+      delete wave;
+      return RDAudioConvert::ErrorNoSpace;
+    }
   }
   delete sf_buffer;
   wave->closeWave();

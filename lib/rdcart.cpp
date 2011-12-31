@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.cpp,v 1.70 2011/01/10 13:32:43 cvs Exp $
+//      $Id: rdcart.cpp,v 1.71 2011/12/23 23:07:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -41,6 +41,19 @@
 #include <rdformpost.h>
 #include <rdweb.h>
 #include <rdstation.h>
+
+//
+// CURL Callbacks
+//
+size_t CartWriteCallback(void *ptr,size_t size,size_t nmemb,void *userdata)
+{
+  QString *xml=(QString *)userdata;
+  for(unsigned i=0;i<(size*nmemb);i++) {
+    *xml+=((const char *)ptr)[i];
+  }
+  return size*nmemb;
+}
+
 
 RDCart::RDCart(unsigned number)
 {
@@ -1144,6 +1157,7 @@ bool RDCart::removeCutAudio(RDStation *station,RDUser *user,
   CURL *curl=NULL;
   long response_code=0;
   char url[1024];
+  QString xml="";
 
   if(user==NULL) { 
     unlink(RDCut::pathName(cutname));
@@ -1173,6 +1187,8 @@ bool RDCart::removeCutAudio(RDStation *station,RDUser *user,
     curl_easy_setopt(curl,CURLOPT_POST,1);
     curl_easy_setopt(curl,CURLOPT_POSTFIELDS,(const char *)post);
     curl_easy_setopt(curl,CURLOPT_TIMEOUT,RD_CURL_TIMEOUT);
+    curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,CartWriteCallback);
+    curl_easy_setopt(curl,CURLOPT_WRITEDATA,&xml);
     ret&=curl_easy_perform(curl)==0;
     curl_easy_getinfo(curl,CURLINFO_RESPONSE_CODE,&response_code);
     ret&=response_code==200;

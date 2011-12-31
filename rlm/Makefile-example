@@ -20,7 +20,7 @@
 
 OBJS = rlm_test.rlm rlm_serial.rlm rlm_xmpad.rlm rlm_udp.rlm \
        rlm_twitter.rlm rlm_facebook.rlm rlm_ando.rlm rlm_inno713.rlm \
-       rlm_liqcomp.rlm rlm_icecast2.rlm
+       rlm_liqcomp.rlm rlm_icecast2.rlm rlm_shoutcast1.rlm
 
 %.rlm:	%.c
 	$(CC) $(CFLAGS) -fPIC -shared $< -o $@

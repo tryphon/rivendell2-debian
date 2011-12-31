@@ -3,51 +3,51 @@
     <name>MainWidget</name>
     <message>
         <source>RMLSend - Macro Command Utility</source>
-        <translation type="unfinished"></translation>
+        <translation>RMLSend - Utilidad para comandos macro</translation>
     </message>
     <message>
         <source>RML</source>
-        <translation type="unfinished"></translation>
+        <translation>RML</translation>
     </message>
     <message>
         <source>RML (no echo)</source>
-        <translation type="unfinished"></translation>
+        <translation>RML (sin eco)</translation>
     </message>
     <message>
         <source>Set Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Asig. puerto</translation>
     </message>
     <message>
         <source>UDP Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto UDP:</translation>
     </message>
     <message>
         <source>Command:</source>
-        <translation type="unfinished"></translation>
+        <translation>Comando:</translation>
     </message>
     <message>
         <source>Response:</source>
-        <translation type="unfinished"></translation>
+        <translation>Respuesta:</translation>
     </message>
     <message>
         <source>&amp;Send Command</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Enviar Comando</translation>
     </message>
     <message>
         <source>RMLSend</source>
-        <translation type="unfinished"></translation>
+        <translation>RMLSend</translation>
     </message>
     <message>
         <source>Invalid Port Number!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Número de puerto inválido!</translation>
     </message>
     <message>
         <source>Connection Failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Conexión fallida!</translation>
     </message>
     <message>
         <source>no response</source>
-        <translation type="unfinished"></translation>
+        <translation>sin respuesta</translation>
     </message>
 </context>
 </TS>

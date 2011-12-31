@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioexport.h,v 1.3 2010/09/08 20:37:58 cvs Exp $
+//      $Id: rdaudioexport.h,v 1.4 2011/12/23 22:04:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,6 +27,7 @@
 
 #include <rdstation.h>
 #include <rdsettings.h>
+#include <rdaudioconvert.h>
 
 class RDAudioExport : public QObject
 {
@@ -34,7 +35,8 @@ class RDAudioExport : public QObject
  public:
   enum ErrorCode {ErrorOk=0,ErrorInvalidSettings=1,ErrorNoSource=2,
 		  ErrorNoDestination=3,ErrorInternal=5,ErrorUrlInvalid=7,
-		  ErrorService=8,ErrorInvalidUser=9,ErrorAborted=10};
+		  ErrorService=8,ErrorInvalidUser=9,ErrorAborted=10,
+		  ErrorConverter=11};
   RDAudioExport(RDStation *station,QObject *parent=0,const char *name=0);
   void setCartNumber(unsigned cartnum);
   void setCutNumber(unsigned cutnum);
@@ -43,9 +45,11 @@ class RDAudioExport : public QObject
   void setRange(int start_pt,int end_pt);
   void setEnableMetadata(bool state);
   RDAudioExport::ErrorCode runExport(const QString &username,
-				     const QString &password);
+				     const QString &password,
+				     RDAudioConvert::ErrorCode *conv_err);
   bool aborting() const;
-  static QString errorText(RDAudioExport::ErrorCode err);
+  static QString errorText(RDAudioExport::ErrorCode err,
+			   RDAudioConvert::ErrorCode conv_err);
 
  public slots:
   void abort();

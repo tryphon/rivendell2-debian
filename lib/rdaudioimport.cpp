@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioimport.cpp,v 1.10 2011/10/17 21:01:03 cvs Exp $
+//      $Id: rdaudioimport.cpp,v 1.12 2011/12/23 23:07:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,10 +36,21 @@
 #include <rdxport_interface.h>
 #include <rdformpost.h>
 #include <rdaudioimport.h>
+#include <rdwebresult.h>
 
 //
-// CURL Progress Callback
+// CURL Callbacks
 //
+size_t ImportReadCallback(void *ptr,size_t size,size_t nmemb,void *userdata)
+{
+  QString *xml=(QString *)userdata;
+  for(unsigned i=0;i<(size*nmemb);i++) {
+    *xml+=((const char *)ptr)[i];
+  }
+  return size*nmemb;
+}
+
+
 int ImportProgressCallback(void *clientp,double dltotal,double dlnow,
 			  double ultotal,double ulnow)
 {
@@ -96,7 +107,8 @@ void RDAudioImport::setDestinationSettings(RDSettings *settings)
 
 
 RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
-						  const QString &password)
+						  const QString &password,
+					  RDAudioConvert::ErrorCode *conv_err)
 {
   long response_code;
   CURL *curl=NULL;
@@ -104,6 +116,8 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
   struct curl_httppost *last=NULL;
   char url[1024];
   char str[1024];
+  QString xml;
+  RDWebResult web_result;
 
   //
   // Generate POST Data
@@ -159,6 +173,8 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
   curl_easy_setopt(curl,CURLOPT_PROGRESSFUNCTION,ImportProgressCallback);
   curl_easy_setopt(curl,CURLOPT_PROGRESSDATA,this);
   curl_easy_setopt(curl,CURLOPT_NOPROGRESS,0);
+  curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,ImportReadCallback);
+  curl_easy_setopt(curl,CURLOPT_WRITEDATA,&xml);
   //
   // Write out URL as a C string before passing to curl_easy_setopt(), 
   // otherwise some versions of LibCurl will throw a 'bad/illegal format' 
@@ -199,26 +215,36 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
   }
 
   //
-  // Process the results
+  // Clean up
   //
   curl_easy_getinfo(curl,CURLINFO_RESPONSE_CODE,&response_code);
   curl_easy_cleanup(curl);
   curl_formfree(first);
+
+  //
+  // Process the results
+  //
+  if(web_result.readXml(xml)) {
+    *conv_err=web_result.converterErrorCode();
+  }
+  else {
+    *conv_err=RDAudioConvert::ErrorOk;
+  }
   switch(response_code) {
   case 200:
     break;
-
-  case 403:
+    
+  case 400:
+    return RDAudioImport::ErrorService;
+    
+  case 401:
     return RDAudioImport::ErrorInvalidUser;
 
-  case 415:
-    return RDAudioImport::ErrorInvalidSettings;
-
-  case 500:
-    return RDAudioImport::ErrorInvalidSettings;
+  case 404:
+    return RDAudioImport::ErrorNoDestination;
 
   default:
-    return RDAudioImport::ErrorService;
+    return RDAudioImport::ErrorConverter;
   }
   return RDAudioImport::ErrorOk;
 }
@@ -230,7 +256,8 @@ bool RDAudioImport::aborting() const
 }
 
 
-QString RDAudioImport::errorText(RDAudioImport::ErrorCode err)
+QString RDAudioImport::errorText(RDAudioImport::ErrorCode err,
+				 RDAudioConvert::ErrorCode conv_err)
 {
   QString ret=QString().sprintf("Uknown Error [%u]",err);
 
@@ -269,6 +296,10 @@ QString RDAudioImport::errorText(RDAudioImport::ErrorCode err)
 
   case RDAudioImport::ErrorAborted:
     ret=tr("Aborted");
+    break;
+
+  case RDAudioImport::ErrorConverter:
+    ret=tr("Audio Converter Error: ")+RDAudioConvert::errorText(conv_err);
     break;
   }
   return ret;

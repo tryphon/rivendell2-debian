@@ -98,46 +98,33 @@ int rlm_icecast2_EncodeString(char *sString,int dMaxSize)
   char sAccum[4];          /* General String Buffer */
 
   i=0;
-  fprintf(stderr,"1: i=%d\n",i);
   while(sString[i]!=0) {
-    fprintf(stderr,"2: i=%d\n",i);
-    if(((sString[i]!=' ') && (sString[i]!='*') && (sString[i]!='-') &&
+    if(((sString[i]!='*') && (sString[i]!='-') &&
 	(sString[i]!='_') && (sString[i]!='.')) && 
        ((sString[i]<'0') ||
        ((sString[i]>'9') && (sString[i]<'A')) ||
        ((sString[i]>'Z') && (sString[i]<'a')) ||
        (sString[i]>'z'))) {
-      fprintf(stderr,"3: i=%d\n",i);
       if(rlm_icecast2_BufferDiff(sString,i,2,dMaxSize)<0) {
-	fprintf(stderr,"4: i=%d\n",i);
 	fprintf(stderr,"rlm_icecast2: BufferDiff() failed, maxsize: %d\n",
 		dMaxSize);
 	return -1;
       }
       sprintf(sAccum,"%%%2x",sString[i]);
-      fprintf(stderr,"5: i=%d\n",i);
       sString[i++]=sAccum[0];
-      fprintf(stderr,"6: i=%d\n",i);
       sString[i++]=sAccum[1];
-      fprintf(stderr,"7: i=%d\n",i);
       sString[i]=sAccum[2];
     }
-    fprintf(stderr,"8: i=%d\n",i);
     if(sString[i]==' ') {
-      fprintf(stderr,"9: i=%d\n",i);
      sString[i]='+';
     }
-    fprintf(stderr,"10: i=%d\n",i);
     i++;
-    fprintf(stderr,"11: i=%d\n",i);
     if(i>=dMaxSize) {
-      fprintf(stderr,"12: i=%d\n",i);
       fprintf(stderr,"rlm_icecast2: offset exceeded limit, maxsize: %d\n",
 	      dMaxSize);
       return -1;
     }
   }
-  fprintf(stderr,"13: i=%d\n",i);
   return strlen(sString);
 }
 
@@ -229,10 +216,13 @@ void rlm_icecast2_RLMStart(void *ptr,const char *arg)
 			  (rlm_icecast2_devs+1)*sizeof(int));
     rlm_icecast2_aux2s[rlm_icecast2_devs]=
       rlm_icecast2_GetLogStatus(ptr,arg,section,"Aux2Log");
-    sprintf(errtext,"rlm_icecast2: configured mountpoint \"%s\"",username);
+    sprintf(errtext,"rlm_icecast2: configured mountpoint \"http://%s:%u%s\"",
+	    rlm_icecast2_hostnames+256*rlm_icecast2_devs,
+	    rlm_icecast2_tcpports[rlm_icecast2_devs],
+	    rlm_icecast2_mountpoints+256*rlm_icecast2_devs);
     rlm_icecast2_devs++;
     RLMLog(ptr,LOG_INFO,errtext);
-    sprintf(section,"Icecast2%d",i++);
+    sprintf(section,"Icecast%d",i++);
     strncpy(username,RLMGetStringValue(ptr,arg,section,"Username",""),255);
     username[255]=0;
   }
