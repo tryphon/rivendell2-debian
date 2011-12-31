@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=RDLibrary
+Comment=Rivendell Library
+Exec=rdlibrary
+Terminal=false
+Type=Application
+Icon=rdlibrary
+Categories=Application;AudioVideo;

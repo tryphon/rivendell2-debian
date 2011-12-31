@@ -1,3 +1,15 @@
+rivendell (2.1.1-2) unstable; urgency=low
+
+  * Include icons and menu entries
+
+ -- Alban Peignier <alban@tryphon.eu>  Fri, 11 Nov 2011 13:50:16 +0100
+
+rivendell (2.1.1-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Alban Peignier <alban@tryphon.eu>  Thu, 03 Nov 2011 21:11:00 +0100
+
 rivendell (2.1.0-1) unstable; urgency=low
 
   * New upstream release

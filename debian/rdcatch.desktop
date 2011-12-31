@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=RDCatch
+Comment=Rivendell Catch
+Exec=rdcatch
+Terminal=false
+Type=Application
+Icon=rdcatch
+Categories=Application;AudioVideo;

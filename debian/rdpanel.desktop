@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=RdPanel
+Comment=Rivendell Standalone Soundpanel
+Exec=rdpanel
+Terminal=false
+Type=Application
+Icon=rivendell
+Categories=Application;AudioVideo;

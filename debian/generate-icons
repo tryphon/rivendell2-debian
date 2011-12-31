@@ -1,0 +1,37 @@
+#!/bin/bash
+
+open_icon_library_home=$1
+shift
+
+function compose() {
+    name=$1
+    element=$2
+
+    for size in 128 64 48 32; do
+        half_size=$[ $size / 2 ]
+        background_icon="$open_icon_library_home/icons/png/${size}x${size}/devices/network-wireless-3.png"
+        element_icon="$open_icon_library_home/icons/png/${half_size}x${half_size}/$element.png"
+
+        output_icon="debian/icons/$size/$name.png"
+        mkdir -p "debian/icons/$size"
+        icon_list="$icon_list $output_icon" # used to create montage
+        composite -geometry "+${half_size}+${half_size}" $element_icon $background_icon $output_icon
+    done
+}
+
+
+# /home/alban/share/images/icons/open_icon_library-standard/icons/png/48x48/apps/decibel.png
+
+# /home/alban/share/images/icons/open_icon_library-standard/icons/png/48x48/devices/network-wireless-3.png
+# /home/alban/share/images/icons/open_icon_library-standard/icons/png/48x48/devices/audio-input-microphone-2.png
+# /home/alban/share/images/icons/open_icon_library-standard/icons/png/48x48/devices/media-tape.png
+
+compose "rdairplay" "devices/audio-input-microphone-2"
+compose "rdlibrary" "devices/media-tape"
+compose "rdlogedit" "actions/format-list-ordered" # devices/multimedia-player-mp3player"
+compose "rdcatch" "actions/player-time-2"
+compose "rdadmin" "actions/system-settings"
+compose "rdlogmanager" "actions/view-pim-calendar"
+compose "rdlogin" "actions/im-user"
+
+montage -label '%f' $icon_list debian/rivendell-icons.png

@@ -3,3 +3,10 @@ usr/sbin
 
 debian/rivendell.limits etc/security/limits.d/rivendell
 debian/rivendell-daemons /usr/bin/
+
+debian/icons/32/*.png /usr/share/icons/hicolor/32x32/apps/
+debian/icons/48/*.png /usr/share/icons/hicolor/48x48/apps/
+debian/icons/64/*.png /usr/share/icons/hicolor/64x64/apps/
+debian/icons/128/*.png /usr/share/icons/hicolor/128x128/apps/
+
+debian/*.desktop /usr/share/applications/

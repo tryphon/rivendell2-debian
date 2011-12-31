@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=RDLogEdit
+Comment=Rivendell Logedit
+Exec=rdlogedit
+Terminal=false
+Type=Application
+Icon=rdlogedit
+Categories=Application;AudioVideo;

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=RDAdmin
+Comment=Rivendell Admin
+Exec=rdadmin
+Terminal=false
+Type=Application
+Icon=rdadmin
+Categories=Application;AudioVideo;

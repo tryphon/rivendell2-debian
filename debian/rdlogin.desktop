@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=RDLogin
+Comment=Rivendell Login Utility
+Exec=rdlogin
+Terminal=false
+Type=Application
+Icon=rdlogin
+Categories=Application;AudioVideo;
