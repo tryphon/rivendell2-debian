@@ -19,4 +19,3 @@ index d580444..35a2fff 100644
  header_HEADERS = rlm.h
  
  EXTRA_DIST = Makefile-example\
--- 

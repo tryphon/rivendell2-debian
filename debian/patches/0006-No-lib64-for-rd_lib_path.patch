@@ -24,4 +24,3 @@ index ac562e1..4c79499 100644
  
  AC_CONFIG_FILES([rivendell.spec \
      Makefile \
--- 

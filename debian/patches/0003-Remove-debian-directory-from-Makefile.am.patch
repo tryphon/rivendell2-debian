@@ -19,4 +19,3 @@ index 581282a..4d6976a 100644
            rdlogedit rdlogmanager rdpanel rdairplay rdcastmanager rdrepld \
            utils web tests importers ios $(PAM_RD_OPT)
  
--- 
