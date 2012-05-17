@@ -9,28 +9,6 @@ Subject: Remove debian directories from Makefile list
 
 diff --git a/configure b/configure
 index 419d02f..72f8010 100755
---- a/configure
-+++ b/configure
-@@ -23773,7 +23773,7 @@ else
- 
- fi
- 
--                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ac_config_files="$ac_config_files rivendell.spec Makefile make_slack slack-desc rivendell-suse rdrepld-suse conf/rd-bin.conf icons/Makefile helpers/Makefile lib/rdpaths.h lib/Makefile rdhpi/Makefile rlm/Makefile cae/Makefile utils/Makefile utils/rdgen/Makefile utils/rmlsend/Makefile utils/rdgpimon/Makefile utils/rdimport/Makefile utils/sas_shim/Makefile utils/rdsoftkeys/Makefile utils/rddbcheck/Makefile utils/rdalsaconfig/Makefile utils/rdhpiinfo/Makefile utils/rdpurgecasts/Makefile utils/rdchunk/Makefile utils/rdmaint/Makefile utils/rdpopup/Makefile utils/rdcollect/Makefile web/Makefile web/rdfeed/Makefile web/rdcastmanager/Makefile web/rdxport/Makefile web/tests/Makefile conf/Makefile docs/Makefile docs/tables/Makefile docs/examples/Makefile debian/Makefile debian/patches/Makefile xdg/Makefile rdadmin/Makefile scripts/Makefile ripcd/Makefile rdlogin/Makefile rdlibrary/Makefile rdcatch/Makefile rdcatchd/Makefile rdlogedit/Makefile rdlogmanager/Makefile rdairplay/Makefile rdpanel/Makefile rdcastmanager/Makefile rdrepld/Makefile tests/Makefile importers/Makefile ios/Makefile ios/rmlsend/Makefile ios/rmlsend/Classes/Makefile ios/rmlsend/RMLSend.xcodeproj/Makefile pam_rd/Makefile"
-+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ac_config_files="$ac_config_files rivendell.spec Makefile make_slack slack-desc rivendell-suse rdrepld-suse conf/rd-bin.conf icons/Makefile helpers/Makefile lib/rdpaths.h lib/Makefile rdhpi/Makefile rlm/Makefile cae/Makefile utils/Makefile utils/rdgen/Makefile utils/rmlsend/Makefile utils/rdgpimon/Makefile utils/rdimport/Makefile utils/sas_shim/Makefile utils/rdsoftkeys/Makefile utils/rddbcheck/Makefile utils/rdalsaconfig/Makefile utils/rdhpiinfo/Makefile utils/rdpurgecasts/Makefile utils/rdchunk/Makefile utils/rdmaint/Makefile utils/rdpopup/Makefile utils/rdcollect/Makefile web/Makefile web/rdfeed/Makefile web/rdcastmanager/Makefile web/rdxport/Makefile web/tests/Makefile conf/Makefile docs/Makefile docs/tables/Makefile docs/examples/Makefile xdg/Makefile rdadmin/Makefile scripts/Makefile ripcd/Makefile rdlogin/Makefile rdlibrary/Makefile rdcatch/Makefile rdcatchd/Makefile rdlogedit/Makefile rdlogmanager/Makefile rdairplay/Makefile rdpanel/Makefile rdcastmanager/Makefile rdrepld/Makefile tests/Makefile importers/Makefile ios/Makefile ios/rmlsend/Makefile ios/rmlsend/Classes/Makefile ios/rmlsend/RMLSend.xcodeproj/Makefile pam_rd/Makefile"
- 
- cat >confcache <<\_ACEOF
- # This file is a shell script that caches the results of configure
-@@ -24416,8 +24416,6 @@ do
-   "docs/Makefile" ) CONFIG_FILES="$CONFIG_FILES docs/Makefile" ;;
-   "docs/tables/Makefile" ) CONFIG_FILES="$CONFIG_FILES docs/tables/Makefile" ;;
-   "docs/examples/Makefile" ) CONFIG_FILES="$CONFIG_FILES docs/examples/Makefile" ;;
--  "debian/Makefile" ) CONFIG_FILES="$CONFIG_FILES debian/Makefile" ;;
--  "debian/patches/Makefile" ) CONFIG_FILES="$CONFIG_FILES debian/patches/Makefile" ;;
-   "xdg/Makefile" ) CONFIG_FILES="$CONFIG_FILES xdg/Makefile" ;;
-   "rdadmin/Makefile" ) CONFIG_FILES="$CONFIG_FILES rdadmin/Makefile" ;;
-   "scripts/Makefile" ) CONFIG_FILES="$CONFIG_FILES scripts/Makefile" ;;
-diff --git a/configure.in b/configure.in
-index 71f761d..ac562e1 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -385,8 +385,6 @@ AC_CONFIG_FILES([rivendell.spec \
