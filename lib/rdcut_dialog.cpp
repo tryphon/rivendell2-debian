@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut_dialog.cpp,v 1.30 2011/08/30 23:35:43 cvs Exp $
+//      $Id: rdcut_dialog.cpp,v 1.31 2012/01/12 15:33:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -486,13 +486,16 @@ void RDCutDialog::RefreshCarts()
   if(group==QString(tr("ALL"))) {
     group="";
   }
+  QString schedcode="";
+  if(cut_schedcode_box->currentText()!=tr("ALL")) {
+    schedcode=cut_schedcode_box->currentText();
+  }
   sql=QString().sprintf("select CART.NUMBER,CART.TITLE,CART.GROUP_NAME,\
                          GROUPS.COLOR,CART.TYPE from CART left join GROUPS \
                          on CART.GROUP_NAME=GROUPS.NAME \
                          where (%s)&&((CART.TYPE=%u))",
 			(const char *)RDCartSearchText(cut_filter_edit->text(),
-						       group,
-			       cut_schedcode_box->currentText()).utf8(),
+						       group,schedcode.utf8()),
 			RDCart::Audio);
   if(cut_exclude_tracks) {
     sql+="&&(CART.OWNER is null)";

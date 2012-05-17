@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae_jack.cpp,v 1.59 2011/10/31 19:18:21 cvs Exp $
+//      $Id: cae_jack.cpp,v 1.59.4.1 2012/04/23 16:18:55 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1362,7 +1362,7 @@ void MainObject::FillJackOutputStream(int stream)
     break;
 
   case WAVE_FORMAT_MPEG:
-#ifdef HAVE_TWOLAME
+#ifdef HAVE_MAD
     mpeg_frames=free/(1152*jack_output_channels[stream]);
     free=mpeg_frames*1152*jack_output_channels[stream];
     for(unsigned i=0;i<mpeg_frames;i++) {
@@ -1424,7 +1424,7 @@ void MainObject::FillJackOutputStream(int stream)
 	      mad_stream[jack_card][stream].next_frame,
 	      mad_left_over[jack_card][stream]);
     }
-#endif  // HAVE_TWOLAME
+#endif  // HAVE_MAD
     break;
   }
   jack_play_ring[stream]->

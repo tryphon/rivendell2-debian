@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2004 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlogedit.pro,v 1.16 2010/08/04 23:07:01 cvs Exp $
+#      $Id: rdlogedit.pro,v 1.17 2012/02/13 19:26:17 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -42,6 +42,9 @@ SOURCES += list_logs.cpp
 SOURCES += edit_track.cpp
 SOURCES += list_listviewitem.cpp
 SOURCES += list_reports.cpp
+x11 {
+  SOURCES += voice_tracker.cpp
+}
 
 HEADERS += rdlogedit.h
 HEADERS += edit_log.h
@@ -54,6 +57,9 @@ HEADERS += edit_track.h
 HEADERS += globals.h
 HEADERS += list_listviewitem.h
 HEADERS += list_reports.h
+x11 {
+  HEADERS += voice_tracker.h
+}
 
 RES_FILE += ..\icons\rivendell.res
 

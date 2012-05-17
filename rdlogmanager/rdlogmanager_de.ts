@@ -508,6 +508,14 @@ Wollen Sie es überschreiben?</translation>
         <source>Len:</source>
         <translation>Länge:</translation>
     </message>
+    <message>
+        <source>PRE-IMPORT CARTS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IMPORT</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEventLine</name>
@@ -674,6 +682,18 @@ einem bereits existierendem Event.</translation>
 Do you want to save?</source>
         <translation>Die Regeln wurden geändert.
 Wollen Sie sie speichern?</translation>
+    </message>
+    <message>
+        <source>Scheduler Rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist Separation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Rules from Clock</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1324,6 +1344,10 @@ Data</source>
     <message>
         <source>Or after:</source>
         <translation>oder nach:</translation>
+    </message>
+    <message>
+        <source>Edit Rules for Code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

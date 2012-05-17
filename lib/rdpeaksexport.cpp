@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpeaksexport.cpp,v 1.5 2011/10/17 21:01:03 cvs Exp $
+//      $Id: rdpeaksexport.cpp,v 1.6 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -32,6 +32,7 @@
 #include <curl/curl.h>
 
 #include <qapplication.h>
+#include <qobject.h>
 
 #include <rd.h>
 #include <rdxport_interface.h>
@@ -176,31 +177,31 @@ QString RDPeaksExport::errorText(RDPeaksExport::ErrorCode err)
 
   switch(err) {
   case RDPeaksExport::ErrorOk:
-    ret=QT_TR_NOOP("OK");
+    ret=QObject::tr("OK");
     break;
 
   case RDPeaksExport::ErrorNoSource:
-    ret=QT_TR_NOOP("No such cart/cut");
+    ret=QObject::tr("No such cart/cut");
     break;
 
   case RDPeaksExport::ErrorInternal:
-    ret=QT_TR_NOOP("Internal Error");
+    ret=QObject::tr("Internal Error");
     break;
 
   case RDPeaksExport::ErrorUrlInvalid:
-    ret=QT_TR_NOOP("Invalid URL");
+    ret=QObject::tr("Invalid URL");
     break;
 
   case RDPeaksExport::ErrorService:
-    ret=QT_TR_NOOP("RDXport service returned an error");
+    ret=QObject::tr("RDXport service returned an error");
     break;
 
   case RDPeaksExport::ErrorInvalidUser:
-    ret=QT_TR_NOOP("Invalid user or password");
+    ret=QObject::tr("Invalid user or password");
     break;
 
   case RDPeaksExport::ErrorAborted:
-    ret=QT_TR_NOOP("Aborted");
+    ret=QObject::tr("Aborted");
     break;
   }
   return ret;

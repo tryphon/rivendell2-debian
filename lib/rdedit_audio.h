@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdedit_audio.h,v 1.9 2010/10/05 12:20:08 cvs Exp $
+//      $Id: rdedit_audio.h,v 1.9.6.1 2012/05/07 23:31:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -141,7 +141,7 @@ class RDEditAudio : public QDialog
   void PreRoll(int cursor,RDEditAudio::CuePoints);
   bool PositionCursor(int cursor=0,bool relative=false);
   void ValidateMarkers();
-  void SaveMarkers();
+  bool SaveMarkers();
   void LoopRegion(int cursor0,int cursor1);
   void UpdateCounters();
   void DrawMaps();

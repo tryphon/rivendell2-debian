@@ -140,18 +140,18 @@ Episodios</translation>
     </message>
     <message>
         <source>Podcast List</source>
-        <translation>Lista de PodCasts</translation>
+        <translation>Lista de Podcasts</translation>
     </message>
     <message>
         <source>Post From
 Car&amp;t/Cut</source>
-        <translation>Colocar desde
-Car&amp;tucho</translation>
+        <translation>Publicar de
+Car&amp;t./Audio</translation>
     </message>
     <message>
         <source>Post From
 &amp;File</source>
-        <translation>Colocar desde
+        <translation>Publicar de
 &amp;Archivo</translation>
     </message>
     <message>
@@ -202,7 +202,7 @@ Suscripción</translation>
     </message>
     <message>
         <source>Are you sure you want to delete this podcast?</source>
-        <translation>¿Está seguro de borrar este podcast?</translation>
+        <translation>¿Está seguro de borrar este Podcast?</translation>
     </message>
     <message>
         <source>Deleting Podcast...</source>
@@ -269,6 +269,35 @@ Suscripción</translation>
         <source>&amp;View
 Feed</source>
         <translation>&amp;Ver Feed</translation>
+    </message>
+</context>
+<context>
+    <name>PickReportDates</name>
+    <message>
+        <source>Select Report Dates</source>
+        <translation>Elegir Fechas del Reporte</translation>
+    </message>
+    <message>
+        <source>&amp;Start Date:</source>
+        <translation>Fech. &amp;Inicio:</translation>
+    </message>
+    <message>
+        <source>&amp;Select</source>
+        <translation>&amp;Elegir</translation>
+    </message>
+    <message>
+        <source>&amp;End Date:</source>
+        <translation>Fech. &amp;Fin:</translation>
+    </message>
+    <message>
+        <source>&amp;Generate
+Report</source>
+        <translation>&amp;Generar
+Reporte</translation>
+    </message>
+    <message>
+        <source>C&amp;lose</source>
+        <translation>&amp;Cerrar</translation>
     </message>
 </context>
 </TS>

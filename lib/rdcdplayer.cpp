@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdcdplayer.cpp,v 1.4 2010/07/29 19:32:33 cvs Exp $
+//    $Id: rdcdplayer.cpp,v 1.5 2012/02/13 18:05:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -195,7 +195,7 @@ int RDCdPlayer::rightVolume()
 
 
 void RDCdPlayer::setCddbRecord(RDCddbRecord *rec)
-{
+{  
   rec->setTracks(cdrom_track_count);
   rec->setDiscId(cdrom_disc_id);
   rec->setDiscLength(75*(60*cdrom_track_start[cdrom_track_count].msf.minute+

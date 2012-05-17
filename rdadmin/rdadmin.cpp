@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadmin.cpp,v 1.71 2011/08/30 23:35:43 cvs Exp $
+//      $Id: rdadmin.cpp,v 1.72 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -103,7 +103,7 @@ void SigHandler(int signo)
 void PrintError(const QString &str,bool interactive)
 {
   if(interactive) {
-    QMessageBox::warning(NULL,QT_TR_NOOP("RDAdmin Error"),str);
+    QMessageBox::warning(NULL,QObject::tr("RDAdmin Error"),str);
   }
   else {
     fprintf(stderr,QString().sprintf("rdadmin: %s\n",(const char *)str));

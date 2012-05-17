@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdhpirecordstream.h,v 1.6 2011/05/19 22:16:54 cvs Exp $
+//    $Id: rdhpirecordstream.h,v 1.6.6.1 2012/05/04 14:56:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,6 +40,9 @@
 #define XRUN_VAR "_RSOUND_XRUN"
 
 #include <asihpi/hpi.h>
+#ifndef HPI_VER
+#include <asihpi/hpi_version.h>
+#endif
 #define AUDIO_SIZE 32768
 #define RDHPIRECORDSTREAM_CLOCK_INTERVAL 100
 
@@ -119,7 +122,7 @@ class RDHPIRecordStream : public QObject,public RDWaveFile
   uint32_t fragment_size;
   int fragment_time;
   uint8_t *pdata;
-#if HPI_VER < HPI_VERSION_CONSTRUCTOR(3L,10,0)
+#if HPI_VER < 0x030a00
   HPI_FORMAT format;
 #else
   struct hpi_format format;

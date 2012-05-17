@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdwavepainter.cpp,v 1.12 2011/05/03 17:54:13 cvs Exp $
+//      $Id: rdwavepainter.cpp,v 1.13 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -26,6 +26,7 @@
 #include <qpixmap.h>
 #include <qfile.h>
 #include <qmessagebox.h>
+#include <qobject.h>
 
 #include <rdwavepainter.h>
 
@@ -242,12 +243,9 @@ void RDWavePainter::LoadWave()
   wave_peaks->setCutNumber(wave_cut->cutNumber());
   if((peaks_err=wave_peaks->runExport(wave_user->name(),
 		  wave_user->password()))!=RDPeaksExport::ErrorOk) {
-    /*
-      QMessageBox::warning(NULL,QT_TR_NOOP("Rivendell Web Service"),
-		  QT_TR_NOOP("Unable to download peak data, error was:\n\"")+
+      QMessageBox::warning(NULL,QObject::tr("Rivendell Web Service"),
+		  QObject::tr("Unable to download peak data, error was:\n\"")+
 			   RDPeaksExport::errorText(peaks_err)+"\".");
     return;
-    */
   }
-
 }

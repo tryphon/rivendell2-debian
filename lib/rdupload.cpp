@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdupload.cpp,v 1.5 2011/10/17 21:01:03 cvs Exp $
+//      $Id: rdupload.cpp,v 1.5.4.2 2012/05/10 23:12:42 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -136,7 +136,8 @@ RDUpload::ErrorCode RDUpload::runUpload(const QString &username,
   // otherwise some versions of LibCurl will throw a 'bad/illegal format' 
   // error.
   //
-  strncpy(url,conv_dst_url.toString(),1024);
+  strncpy(url,conv_dst_url.toString(conv_dst_url.protocol().lower()=="http"),
+	  1024);
   curl_easy_setopt(curl,CURLOPT_URL,url);
   curl_easy_setopt(curl,CURLOPT_UPLOAD,1);
   curl_easy_setopt(curl,CURLOPT_READDATA,f);
@@ -188,6 +189,7 @@ RDUpload::ErrorCode RDUpload::runUpload(const QString &username,
     syslog(LOG_ERR,"Unknown CURL Error [%d]: %s",
 	   curl_err,curl_easy_strerror(curl_err));
     ret=RDUpload::ErrorUnspecified;
+    break;
   }
   if(user!=NULL) {
     seteuid(getuid());

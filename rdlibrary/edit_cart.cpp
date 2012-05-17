@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cart.cpp,v 1.73 2011/05/02 18:35:07 cvs Exp $
+//      $Id: edit_cart.cpp,v 1.74 2012/02/13 20:54:27 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -445,23 +445,6 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
   rdcart_user_defined_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
  
   //
-  // Cut Scheduling Policy
-  //
-  rdcart_cut_sched_box=new QComboBox(this,"rdcart_cut_sched_box");
-  rdcart_cut_sched_box->setGeometry(135,306,140,21);
-  rdcart_cut_sched_box->setFont(line_edit_font);
-  rdcart_cut_sched_edit=new QLineEdit(this,"rdcart_cut_sched_edit");
-  rdcart_cut_sched_edit->setGeometry(135,305,140,21);
-  rdcart_cut_sched_edit->setFont(line_edit_font);
-  rdcart_cut_sched_edit->setReadOnly(true);
-  QLabel *rdcart_cut_sched_label=new QLabel(rdcart_cut_sched_box,
-					    tr("Schedule Cuts:"),this,
-					    "rdcart_cut_sched_label");
-  rdcart_cut_sched_label->setGeometry(10,308,120,19);
-  rdcart_cut_sched_label->setFont(button_font);
-  rdcart_cut_sched_label->setAlignment(AlignRight|ShowPrefix);
-
-  //
   // Synchronous Scheduling Policy
   //
   rdcart_syncronous_box=new QCheckBox(this,"rdcart_syncronous_box");
@@ -500,9 +483,6 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
     //
     // Cut Widget
     //
-    rdcart_cut_sched_box->hide();
-    rdcart_cut_sched_edit->hide();
-    rdcart_cut_sched_label->hide();
     switch(rdcart_cart->type()) {
       case RDCart::Audio:
 	rdcart_audio_cart=new AudioCart(&rdcart_controls,rdcart_cart,
@@ -650,18 +630,6 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
     rdcart_usage_edit->
       setText(RDCart::usageText((RDCart::UsageCode)rdcart_usage_box->
 				currentItem()));
-    if(rdcart_cut_sched_box->count() == 0)
-    {
-      rdcart_cut_sched_box->insertItem(tr("Sequentially"));
-      rdcart_cut_sched_box->insertItem(tr("Randomly"));
-      rdcart_cut_sched_box->setCurrentItem(rdcart_cart->playOrder());
-    }
-    if(rdcart_cart->playOrder()==0) {
-      rdcart_cut_sched_edit->setText(tr("Sequentially"));
-    }
-    else {
-      rdcart_cut_sched_edit->setText(tr("Randomly"));
-    }
     rdcart_syncronous_box->setChecked(rdcart_cart->asyncronous());
   }
   else {//multi edit
@@ -678,10 +646,6 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
       rdcart_group_box->setCurrentItem(0);
     }
     rdcart_usage_box->setCurrentItem(0);
-    rdcart_cut_sched_box->insertItem(tr(""));
-    rdcart_cut_sched_box->insertItem(tr("Sequentially"));
-    rdcart_cut_sched_box->insertItem(tr("Randomly"));
-    rdcart_cut_sched_box->setCurrentItem(0);
     rdcart_notes_button->hide();
   }
 
@@ -690,12 +654,10 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
   //
   if(modification_allowed) {
     rdcart_group_edit->hide();
-    rdcart_cut_sched_edit->hide();
     rdcart_usage_edit->hide();
   }
   else {
     rdcart_group_box->hide(); 
-    rdcart_cut_sched_box->hide();
     rdcart_usage_box->hide();
   }
   rdcart_syncronous_box->setEnabled(modification_allowed);
@@ -855,9 +817,6 @@ void EditCart::okData()
     rdcart_cart->setUserDefined(rdcart_controls.user_defined_edit->text());
     rdcart_cart->
       setUsageCode((RDCart::UsageCode)rdcart_usage_box->currentItem());
-    rdcart_cart->
-      setPlayOrder((RDCart::PlayOrder)rdcart_cut_sched_box->currentItem());
-    
     if(rdcart_cart->type()==RDCart::Macro) {
       rdcart_macro_cart->save();
       rdcart_cart->setAsyncronous(rdcart_syncronous_box->isChecked());
@@ -909,10 +868,6 @@ void EditCart::okData()
           if(!rdcart_usage_box->currentText().stripWhiteSpace().isEmpty())
             rdcart_cart_medit->
 	      setUsageCode((RDCart::UsageCode)(rdcart_usage_box->currentItem()-1));
-          if(!rdcart_cut_sched_box->currentText().stripWhiteSpace().
-	     isEmpty())          
-            rdcart_cart_medit->
-	      setPlayOrder((RDCart::PlayOrder)(rdcart_cut_sched_box->currentItem()-1));
           rdcart_cart_medit->updateSchedCodes(add_codes,remove_codes);
 	  delete rdcart_cart_medit; 
         }

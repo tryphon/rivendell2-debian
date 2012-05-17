@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.14 2010/07/29 19:32:38 cvs Exp $
+##      $Id: Makefile.am,v 1.14.8.1 2012/05/10 23:12:43 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -32,7 +32,8 @@ moc_%.cpp:	%.h
 	$(MOC) $< -o $@
 
 noinst_PROGRAMS = sas_torture sas_switch_torture audio_convert_test \
-                  audio_export_test audio_import_test upload_test test_pam
+                  audio_export_test audio_import_test upload_test test_pam\
+                  datedecode_test
 
 dist_sas_torture_SOURCES = sas_torture.cpp sas_torture.h
 nodist_sas_torture_SOURCES = moc_sas_torture.cpp
@@ -50,6 +51,9 @@ audio_export_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 dist_audio_import_test_SOURCES = audio_import_test.cpp audio_import_test.h
 audio_import_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+
+dist_datedecode_test_SOURCES = datedecode_test.cpp datedecode_test.h
+datedecode_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 dist_upload_test_SOURCES = upload_test.cpp upload_test.h
 upload_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@

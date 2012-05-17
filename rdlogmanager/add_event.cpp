@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_event.cpp,v 1.13 2010/07/29 19:32:37 cvs Exp $
+//      $Id: add_event.cpp,v 1.13.8.1 2012/04/23 17:22:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -165,4 +165,10 @@ void AddEvent::okData()
 void AddEvent::cancelData()
 {
   done(-1);
+}
+
+
+void AddEvent::closeEvent(QCloseEvent *e)
+{
+  cancelData();
 }

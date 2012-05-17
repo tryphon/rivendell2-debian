@@ -503,6 +503,14 @@ Do you want to overwrite it?</source>
         <source>Len:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>PRE-IMPORT CARTS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IMPORT</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEventLine</name>
@@ -666,6 +674,18 @@ already existing event.</source>
     <message>
         <source>The rules have been modified.
 Do you want to save?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scheduler Rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist Separation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Rules from Clock</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1306,6 +1326,10 @@ Data</source>
     </message>
     <message>
         <source>Or after:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Rules for Code</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

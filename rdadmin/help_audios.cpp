@@ -4,7 +4,7 @@
 //
 // (C) Copyright 2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: help_audios.cpp,v 1.6 2010/07/29 19:32:34 cvs Exp $
+//      $Id: help_audios.cpp,v 1.7 2012/02/13 19:26:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -52,7 +52,7 @@ HelpAudioPorts::HelpAudioPorts(QWidget *parent,const char *name)
   help_edit->setTextFormat(RichText);
   help_edit->setReadOnly(true);
 // FIXME: add context sensitive help for other options on the Audio Port screen.
-  help_edit->setText("Mode - short for Channel Mode, configures the Left and Right behaviour when recording.<BR>\
+  help_edit->setText(tr("Mode - short for Channel Mode, configures the Left and Right behaviour when recording.<BR>\
   Behaviour varies depending on the number of channels to record as summarized in the table below:<BR>\
 <TABLE>\
 <TR> <TH>Channels</TH>  <TH>Mode</TH>   <TH>Effect</TH> </TR>\
@@ -64,7 +64,7 @@ HelpAudioPorts::HelpAudioPorts(QWidget *parent,const char *name)
 <TR> <TD>Stereo</TD>    <TD>Swap</TD>   <TD>Swapped stereo</TD> </TR>\
 <TR> <TD>Stereo</TD>    <TD>Left only</TD> <TD>L -> to L channel only, R channel is silent</TD> </TR>\
 <TR> <TD>Stereo</TD>    <TD>Right only</TD> <TD>R -> to R channel only, L channel is silent</TD> </TR>\
-</TABLE>");
+</TABLE>"));
 
   //
   // Close Button

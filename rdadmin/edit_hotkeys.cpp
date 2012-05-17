@@ -46,10 +46,8 @@ EditHotkeys::EditHotkeys(const QString &station,const QString &module,QWidget *p
     //
     // Hot Key Configuration Label
     //
-    setCaption(QString().sprintf(" %s Hot Key Configuration for %s",
-			          (const char *)hotkey_module.upper(),
-				  (const char *)hotkey_conf));
-    //setCaption(tr(" Hot Key Configuration for ")+hotkey_conf);
+    setCaption(hotkey_module.upper()+" "+tr("Hot Key Configuration for")+" "+
+	       hotkey_conf);
 
     list_view=new QListView(this,"list_view");
     list_view->setGeometry(10,24,320,220);

@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlibrary.pro,v 1.10 2010/08/04 23:07:01 cvs Exp $
+#      $Id: rdlibrary.pro,v 1.11 2012/01/16 11:16:36 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -29,7 +29,10 @@ x11 {
   SOURCES += disk_ripper.cpp
   SOURCES += edit_cart.cpp
   SOURCES += edit_macro.cpp
+  SOURCES += edit_notes.cpp
+  SOURCES += edit_schedulercodes.cpp
   SOURCES += filter.cpp
+  SOURCES += list_reports.cpp
   SOURCES += macro_cart.cpp
   SOURCES += rdlibrary.cpp
   SOURCES += record_cut.cpp
@@ -44,7 +47,10 @@ x11 {
   HEADERS += disk_ripper.h
   HEADERS += edit_cart.h
   HEADERS += edit_macro.h
+  HEADERS += edit_notes.h
+  HEADERS += edit_schedulercodes.h
   HEADERS += filter.h
+  HEADERS += list_reports.h
   HEADERS += macro_cart.h
   HEADERS += rdlibrary.h
   HEADERS += record_cut.h

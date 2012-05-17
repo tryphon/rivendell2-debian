@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_note.h,v 1.5 2010/07/29 19:32:37 cvs Exp $
+//      $Id: edit_note.h,v 1.5.8.1 2012/04/23 17:22:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,6 +35,9 @@ class EditNote : public QDialog
   EditNote(QString *text,QWidget *parent=0,const char *name=0);
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
+
+ protected:
+  void closeEvent(QCloseEvent *e);
 
  private slots:
   void okData();

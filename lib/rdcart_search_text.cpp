@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_search_text.cpp,v 1.20 2011/10/27 15:23:25 cvs Exp $
+//      $Id: rdcart_search_text.cpp,v 1.21 2012/01/12 15:33:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -107,7 +107,7 @@ QString RDCartSearchText(QString filter,const QString &group,
     ret+=QString("&&(CART.GROUP_NAME=\"")+RDEscapeString(group)+"\")";
   }
 
-  if(schedcode!=QT_TR_NOOP("ALL")) {
+  if(!schedcode.isEmpty()) {
     QString code=schedcode+"          ";
     code=code.left(11);
     ret+=QString().sprintf("&&(SCHED_CODES like \"%%%s%%\")",
@@ -136,7 +136,7 @@ QString RDAllCartSearchText(const QString &filter,const QString &schedcode,
   search=search.left(search.length()-2)+QString(")");
   search+=QString("&&")+RDBaseSearchText(filter);
 
-  if(schedcode!=QT_TR_NOOP("ALL")) {
+  if(!schedcode.isEmpty()) {
     QString code=schedcode+"          ";
     code=code.left(11);
     search+=QString().sprintf("&&(SCHED_CODES like \"%%%s%%\")",

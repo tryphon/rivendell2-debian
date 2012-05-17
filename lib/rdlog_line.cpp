@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.cpp,v 1.112 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdlog_line.cpp,v 1.113 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -23,6 +23,8 @@
 #ifndef WIN32
 #include <syslog.h>
 #endif  // WIN32
+
+#include <qobject.h>
 
 #include <rddb.h>
 #include <rdconf.h>
@@ -1746,27 +1748,27 @@ QString RDLogLine::startSourceText(RDLogLine::StartSource src)
 {
   switch(src) {
       case RDLogLine::StartUnknown:
-	return QT_TR_NOOP("Unknown");
+	return QObject::tr("Unknown");
 
       case RDLogLine::StartManual:
-	return QT_TR_NOOP("Manual");
+	return QObject::tr("Manual");
 
       case RDLogLine::StartPlay:
-	return QT_TR_NOOP("Play");
+	return QObject::tr("Play");
 
       case RDLogLine::StartSegue:
-	return QT_TR_NOOP("Segue");
+	return QObject::tr("Segue");
 
       case RDLogLine::StartTime:
-	return QT_TR_NOOP("Time");
+	return QObject::tr("Time");
 
       case RDLogLine::StartPanel:
-	return QT_TR_NOOP("Panel");
+	return QObject::tr("Panel");
 
       case RDLogLine::StartMacro:
-	return QT_TR_NOOP("Macro");
+	return QObject::tr("Macro");
   }
-  return QT_TR_NOOP("Unknown");
+  return QObject::tr("Unknown");
 }
 
 
@@ -1774,18 +1776,18 @@ QString RDLogLine::transText(RDLogLine::TransType trans)
 {
   switch(trans) {
       case RDLogLine::Play:
-	return QT_TR_NOOP("PLAY");
+	return QObject::tr("PLAY");
 
       case RDLogLine::Segue:
-	return QT_TR_NOOP("SEGUE");
+	return QObject::tr("SEGUE");
 
       case RDLogLine::Stop:
-	return QT_TR_NOOP("STOP");
+	return QObject::tr("STOP");
 
       case RDLogLine::NoTrans:
-	return QT_TR_NOOP("UNKNOWN");
+	return QObject::tr("UNKNOWN");
   }
-  return QT_TR_NOOP("UNKNOWN");
+  return QObject::tr("UNKNOWN");
 }
 
 
@@ -1793,34 +1795,34 @@ QString RDLogLine::typeText(RDLogLine::Type type)
 {
   switch(type) {
       case RDLogLine::Cart:
-	return QT_TR_NOOP("Audio");
+	return QObject::tr("Audio");
 
       case RDLogLine::Marker:
-	return QT_TR_NOOP("Marker");
+	return QObject::tr("Marker");
 
       case RDLogLine::Macro:
-	return QT_TR_NOOP("Macro");
+	return QObject::tr("Macro");
 
       case RDLogLine::OpenBracket:
-	return QT_TR_NOOP("Open Bracket");
+	return QObject::tr("Open Bracket");
 
       case RDLogLine::CloseBracket:
-	return QT_TR_NOOP("Close Bracket");
+	return QObject::tr("Close Bracket");
 
       case RDLogLine::Chain:
-	return QT_TR_NOOP("ChainTo");
+	return QObject::tr("ChainTo");
 
       case RDLogLine::Track:
-	return QT_TR_NOOP("Track");
+	return QObject::tr("Track");
 
       case RDLogLine::MusicLink:
       case RDLogLine::TrafficLink:
-	return QT_TR_NOOP("Link");
+	return QObject::tr("Link");
 
       case RDLogLine::UnknownType:
-	return QT_TR_NOOP("Unknown");
+	return QObject::tr("Unknown");
   }
-  return QT_TR_NOOP("Unknown");
+  return QObject::tr("Unknown");
 }
 
 
@@ -1828,19 +1830,19 @@ QString RDLogLine::sourceText(RDLogLine::Source src)
 {
   switch(src) {
       case RDLogLine::Manual:
-	return QT_TR_NOOP("Manual");
+	return QObject::tr("Manual");
 
       case RDLogLine::Traffic:
-	return QT_TR_NOOP("Traffic");
+	return QObject::tr("Traffic");
 
       case RDLogLine::Music:
-	return QT_TR_NOOP("Music");
+	return QObject::tr("Music");
 
       case RDLogLine::Template:
-	return QT_TR_NOOP("RDLogManager");
+	return QObject::tr("RDLogManager");
 
       case RDLogLine::Tracker:
-	return QT_TR_NOOP("Tracker");
+	return QObject::tr("Tracker");
   }
-  return QT_TR_NOOP("Unknown");
+  return QObject::tr("Unknown");
 }

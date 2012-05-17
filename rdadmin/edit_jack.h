@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2011 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_jack.h,v 1.1 2011/10/31 11:38:33 cvs Exp $
+//      $Id: edit_jack.h,v 1.2 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,7 +38,7 @@
 
 #include <rdstation.h>
 
-#define EDITJACK_DEFAULT_SERVERNAME QT_TR_NOOP("(default)")
+#define EDITJACK_DEFAULT_SERVERNAME QObject::tr("(default)")
 
 class EditJack : public QDialog
 {

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: citadelxds.cpp,v 1.5 2011/10/17 18:48:41 cvs Exp $
+//      $Id: citadelxds.cpp,v 1.6 2012/03/02 22:33:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -358,7 +358,7 @@ bool CitadelXds::PostCut(const QString &cutname,const QString &filename)
   settings->setSampleRate(config()->sampleRate());
   settings->setBitRate(config()->bitRate());
   settings->setQuality(config()->quality());
-  settings->setNormalizationLevel(config()->normalizeLevel());
+  settings->setNormalizationLevel(config()->normalizeLevel()/1000);
   conv->setDestinationSettings(settings);
   delete cart;
   delete cut;

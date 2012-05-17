@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_notes.cpp,v 1.2 2010/07/29 19:32:36 cvs Exp $
+//      $Id: edit_notes.cpp,v 1.3 2012/01/16 11:16:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -29,7 +29,8 @@ EditNotes::EditNotes(RDCart *cart,QWidget *parent,const char *name)
   : QDialog(parent,name,true)
 {
   notes_cart=cart;
-  setCaption(QString().sprintf("Notes for cart %06u - %s",cart->number(),
+  setCaption(tr("Notes for cart")+
+	     QString().sprintf(" %06u - %s",cart->number(),
 			       (const char *)cart->title()));
 
   //

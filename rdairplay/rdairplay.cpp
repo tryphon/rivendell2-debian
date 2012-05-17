@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.cpp,v 1.188 2011/08/30 23:35:43 cvs Exp $
+//      $Id: rdairplay.cpp,v 1.189 2012/02/13 19:26:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1818,12 +1818,10 @@ void MainWidget::SetCaption()
   if(log.isEmpty()) {
     log="--    ";
   }
-  setCaption(QString().
-	     sprintf("RDAirPlay - Host: %s  User: %s  Log: %s  Service: %s",
-		     (const char *)air_config->stationName(),
-		     (const char *)rdripc->user(),
-		     (const char *)log.left(log.length()-4),
-		     (const char *)air_log[0]->serviceName()));
+  setCaption(QString("RDAirPlay - Host:")+" "+air_config->stationName()+" "+
+	     tr("User:")+" "+rdripc->user()+" "+
+	     tr("Log:")+" "+log.left(log.length()-4)+" "+
+	     tr("Service:")+" "+air_log[0]->serviceName());
 }
 
 

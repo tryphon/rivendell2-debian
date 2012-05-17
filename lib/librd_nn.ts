@@ -3,14 +3,14 @@
     <name></name>
     <message>
         <source>UNKNOWN CUT</source>
-        <translation>UKJENT KLYPP</translation>
+        <translation type="obsolete">UKJENT KLYPP</translation>
     </message>
 </context>
 <context>
     <name>@default</name>
     <message>
         <source>ALL</source>
-        <translation type="unfinished">ALLE</translation>
+        <translation type="obsolete">ALLE</translation>
     </message>
 </context>
 <context>
@@ -22,6 +22,270 @@
     <message>
         <source>Couldn&apos;t open mySQL connection!</source>
         <translation>Greidde ikkje kopla til mySQL-databasen!</translation>
+    </message>
+    <message>
+        <source>Sequentially</source>
+        <translation type="unfinished">I rekkjefylgje</translation>
+    </message>
+    <message>
+        <source>Randomly</source>
+        <translation type="unfinished">Tilfeldig</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Ukjent</translation>
+    </message>
+    <message>
+        <source>Feature</source>
+        <translation type="unfinished">Eigenskap</translation>
+    </message>
+    <message>
+        <source>Theme Open</source>
+        <translation type="unfinished">Opningsvignett</translation>
+    </message>
+    <message>
+        <source>Theme Close</source>
+        <translation type="unfinished">Sluttvignett</translation>
+    </message>
+    <message>
+        <source>Theme Open/Close</source>
+        <translation type="unfinished">Opnings/sluttvignett</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Bakgrunnen</translation>
+    </message>
+    <message>
+        <source>Commercial/Jingle/Promo</source>
+        <translation type="unfinished">Reklame/vignett/promo</translation>
+    </message>
+    <message>
+        <source>UNKNOWN CUT</source>
+        <translation type="unfinished">UKJENT KLYPP</translation>
+    </message>
+    <message>
+        <source>Manual</source>
+        <translation type="unfinished">Manuell</translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished">Spel</translation>
+    </message>
+    <message>
+        <source>Segue</source>
+        <translation type="unfinished">Overgang</translation>
+    </message>
+    <message>
+        <source>Time</source>
+        <translation type="unfinished">Tid</translation>
+    </message>
+    <message>
+        <source>Panel</source>
+        <translation type="unfinished">Rute</translation>
+    </message>
+    <message>
+        <source>Macro</source>
+        <translation type="unfinished">Makro</translation>
+    </message>
+    <message>
+        <source>PLAY</source>
+        <translation type="unfinished">SPEL</translation>
+    </message>
+    <message>
+        <source>SEGUE</source>
+        <translation type="unfinished">OVERGANG</translation>
+    </message>
+    <message>
+        <source>STOP</source>
+        <translation type="unfinished">STOPP</translation>
+    </message>
+    <message>
+        <source>UNKNOWN</source>
+        <translation type="unfinished">UKJENT</translation>
+    </message>
+    <message>
+        <source>Audio</source>
+        <translation type="unfinished">Lyd</translation>
+    </message>
+    <message>
+        <source>Marker</source>
+        <translation type="unfinished">Markør</translation>
+    </message>
+    <message>
+        <source>Open Bracket</source>
+        <translation type="unfinished">Startklamme</translation>
+    </message>
+    <message>
+        <source>Close Bracket</source>
+        <translation type="unfinished">Sluttklamme</translation>
+    </message>
+    <message>
+        <source>ChainTo</source>
+        <translation type="unfinished">LenkTil</translation>
+    </message>
+    <message>
+        <source>Track</source>
+        <translation type="unfinished">Spor</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Lenkje</translation>
+    </message>
+    <message>
+        <source>Traffic</source>
+        <translation type="unfinished">Trafikk</translation>
+    </message>
+    <message>
+        <source>Music</source>
+        <translation type="unfinished">Musikk</translation>
+    </message>
+    <message>
+        <source>RDLogManager</source>
+        <translation type="unfinished">RDLoggredigering</translation>
+    </message>
+    <message>
+        <source>Tracker</source>
+        <translation type="unfinished">Sporleggjar</translation>
+    </message>
+    <message>
+        <source>Recording</source>
+        <translation type="unfinished">Opptak</translation>
+    </message>
+    <message>
+        <source>Macro Event</source>
+        <translation type="unfinished">Makro-hending</translation>
+    </message>
+    <message>
+        <source>Switch Event</source>
+        <translation type="unfinished">Byte-hending</translation>
+    </message>
+    <message>
+        <source>Playout</source>
+        <translation type="unfinished">Spel ut</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Last ned</translation>
+    </message>
+    <message>
+        <source>Upload</source>
+        <translation type="unfinished">Last opp</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Interrupted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Busy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Such Cart/Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown Audio Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CBSI DeltaFlex Traffic Reconciliation v2.01</source>
+        <translation type="unfinished">CBSI DeltaFlex Traffic Reconciliation v2.01</translation>
+    </message>
+    <message>
+        <source>Text Log</source>
+        <translation type="unfinished">Tekstlogg</translation>
+    </message>
+    <message>
+        <source>ASCAP/BMI Electronic Music Report</source>
+        <translation type="unfinished">ASCAP/BMI elektronisk musikkrapport</translation>
+    </message>
+    <message>
+        <source>Technical Playout Report</source>
+        <translation type="unfinished">Teknisk utspelingsrapport</translation>
+    </message>
+    <message>
+        <source>SoundExchange Statutory License Report</source>
+        <translation type="unfinished">SoundExchange Statutory License-rapport</translation>
+    </message>
+    <message>
+        <source>RadioTraffic.com Traffic Reconciliation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>VisualTraffic Reconciliation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CounterPoint Traffic Reconciliation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Music1 Reconciliation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation type="unfinished">Annan</translation>
+    </message>
+    <message>
+        <source>AM</source>
+        <translation type="unfinished">AM</translation>
+    </message>
+    <message>
+        <source>FM</source>
+        <translation type="unfinished">FM</translation>
+    </message>
+    <message>
+        <source>Report complete!</source>
+        <translation type="unfinished">Rapport ferdig!</translation>
+    </message>
+    <message>
+        <source>Report canceled!</source>
+        <translation type="unfinished">Rapport avbroten!</translation>
+    </message>
+    <message>
+        <source>Unable to open report file!</source>
+        <translation type="unfinished">Greidde ikkje opna rapportfil!</translation>
     </message>
 </context>
 <context>
@@ -247,39 +511,39 @@ farge</translation>
     <name>RDCart</name>
     <message>
         <source>Sequentially</source>
-        <translation>I rekkjefylgje</translation>
+        <translation type="obsolete">I rekkjefylgje</translation>
     </message>
     <message>
         <source>Randomly</source>
-        <translation>Tilfeldig</translation>
+        <translation type="obsolete">Tilfeldig</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>Ukjent</translation>
+        <translation type="obsolete">Ukjent</translation>
     </message>
     <message>
         <source>Feature</source>
-        <translation>Eigenskap</translation>
+        <translation type="obsolete">Eigenskap</translation>
     </message>
     <message>
         <source>Theme Open</source>
-        <translation>Opningsvignett</translation>
+        <translation type="obsolete">Opningsvignett</translation>
     </message>
     <message>
         <source>Theme Close</source>
-        <translation>Sluttvignett</translation>
+        <translation type="obsolete">Sluttvignett</translation>
     </message>
     <message>
         <source>Theme Open/Close</source>
-        <translation>Opnings/sluttvignett</translation>
+        <translation type="obsolete">Opnings/sluttvignett</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation>Bakgrunnen</translation>
+        <translation type="obsolete">Bakgrunnen</translation>
     </message>
     <message>
         <source>Commercial/Jingle/Promo</source>
-        <translation>Reklame/vignett/promo</translation>
+        <translation type="obsolete">Reklame/vignett/promo</translation>
     </message>
 </context>
 <context>
@@ -727,6 +991,20 @@ markør</translation>
     </message>
     <message>
         <source>Edit Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Marker Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Less than half of the audio is playable with these marker settings.
+Are you sure you want to save?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More than half of the audio will be faded with these marker settings.
+Are you sure you want to save?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1335,43 +1613,43 @@ Sjekk eksportoppsettet ditt og prøv att.</translation>
     <name>RDLogLine</name>
     <message>
         <source>Unknown</source>
-        <translation>Ukjent</translation>
+        <translation type="obsolete">Ukjent</translation>
     </message>
     <message>
         <source>Manual</source>
-        <translation>Manuell</translation>
+        <translation type="obsolete">Manuell</translation>
     </message>
     <message>
         <source>Play</source>
-        <translation>Spel</translation>
+        <translation type="obsolete">Spel</translation>
     </message>
     <message>
         <source>Segue</source>
-        <translation>Overgang</translation>
+        <translation type="obsolete">Overgang</translation>
     </message>
     <message>
         <source>Time</source>
-        <translation>Tid</translation>
+        <translation type="obsolete">Tid</translation>
     </message>
     <message>
         <source>Panel</source>
-        <translation>Rute</translation>
+        <translation type="obsolete">Rute</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation>Makro</translation>
+        <translation type="obsolete">Makro</translation>
     </message>
     <message>
         <source>PLAY</source>
-        <translation>SPEL</translation>
+        <translation type="obsolete">SPEL</translation>
     </message>
     <message>
         <source>SEGUE</source>
-        <translation>OVERGANG</translation>
+        <translation type="obsolete">OVERGANG</translation>
     </message>
     <message>
         <source>STOP</source>
-        <translation>STOPP</translation>
+        <translation type="obsolete">STOPP</translation>
     </message>
     <message>
         <source>OVERLAP</source>
@@ -1379,51 +1657,51 @@ Sjekk eksportoppsettet ditt og prøv att.</translation>
     </message>
     <message>
         <source>UNKNOWN</source>
-        <translation>UKJENT</translation>
+        <translation type="obsolete">UKJENT</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation>Lyd</translation>
+        <translation type="obsolete">Lyd</translation>
     </message>
     <message>
         <source>Marker</source>
-        <translation>Markør</translation>
+        <translation type="obsolete">Markør</translation>
     </message>
     <message>
         <source>Open Bracket</source>
-        <translation>Startklamme</translation>
+        <translation type="obsolete">Startklamme</translation>
     </message>
     <message>
         <source>Close Bracket</source>
-        <translation>Sluttklamme</translation>
+        <translation type="obsolete">Sluttklamme</translation>
     </message>
     <message>
         <source>ChainTo</source>
-        <translation>LenkTil</translation>
+        <translation type="obsolete">LenkTil</translation>
     </message>
     <message>
         <source>Track</source>
-        <translation>Spor</translation>
+        <translation type="obsolete">Spor</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation>Lenkje</translation>
+        <translation type="obsolete">Lenkje</translation>
     </message>
     <message>
         <source>Traffic</source>
-        <translation>Trafikk</translation>
+        <translation type="obsolete">Trafikk</translation>
     </message>
     <message>
         <source>Music</source>
-        <translation>Musikk</translation>
+        <translation type="obsolete">Musikk</translation>
     </message>
     <message>
         <source>RDLogManager</source>
-        <translation>RDLoggredigering</translation>
+        <translation type="obsolete">RDLoggredigering</translation>
     </message>
     <message>
         <source>Tracker</source>
-        <translation>Sporleggjar</translation>
+        <translation type="obsolete">Sporleggjar</translation>
     </message>
 </context>
 <context>
@@ -1467,150 +1745,78 @@ prøv ein gong til!</translation>
     <name>RDRecording</name>
     <message>
         <source>Recording</source>
-        <translation>Opptak</translation>
+        <translation type="obsolete">Opptak</translation>
     </message>
     <message>
         <source>Macro Event</source>
-        <translation>Makro-hending</translation>
+        <translation type="obsolete">Makro-hending</translation>
     </message>
     <message>
         <source>Switch Event</source>
-        <translation>Byte-hending</translation>
+        <translation type="obsolete">Byte-hending</translation>
     </message>
     <message>
         <source>Playout</source>
-        <translation>Spel ut</translation>
+        <translation type="obsolete">Spel ut</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation>Last ned</translation>
+        <translation type="obsolete">Last ned</translation>
     </message>
     <message>
         <source>Upload</source>
-        <translation>Last opp</translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Short Length</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Low Level</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>High Level</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Uploading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Server Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Internal Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Interrupted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Playing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Waiting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Device Busy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No Such Cart/Cut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown Audio Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Last opp</translation>
     </message>
 </context>
 <context>
     <name>RDReport</name>
     <message>
         <source>CBSI DeltaFlex Traffic Reconciliation v2.01</source>
-        <translation>CBSI DeltaFlex Traffic Reconciliation v2.01</translation>
+        <translation type="obsolete">CBSI DeltaFlex Traffic Reconciliation v2.01</translation>
     </message>
     <message>
         <source>Text Log</source>
-        <translation>Tekstlogg</translation>
+        <translation type="obsolete">Tekstlogg</translation>
     </message>
     <message>
         <source>ASCAP/BMI Electronic Music Report</source>
-        <translation>ASCAP/BMI elektronisk musikkrapport</translation>
+        <translation type="obsolete">ASCAP/BMI elektronisk musikkrapport</translation>
     </message>
     <message>
         <source>Technical Playout Report</source>
-        <translation>Teknisk utspelingsrapport</translation>
+        <translation type="obsolete">Teknisk utspelingsrapport</translation>
     </message>
     <message>
         <source>SoundExchange Statutory License Report</source>
-        <translation>SoundExchange Statutory License-rapport</translation>
+        <translation type="obsolete">SoundExchange Statutory License-rapport</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>Ukjent</translation>
+        <translation type="obsolete">Ukjent</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation>Annan</translation>
+        <translation type="obsolete">Annan</translation>
     </message>
     <message>
         <source>AM</source>
-        <translation>AM</translation>
+        <translation type="obsolete">AM</translation>
     </message>
     <message>
         <source>FM</source>
-        <translation>FM</translation>
+        <translation type="obsolete">FM</translation>
     </message>
     <message>
         <source>Report complete!</source>
-        <translation>Rapport ferdig!</translation>
+        <translation type="obsolete">Rapport ferdig!</translation>
     </message>
     <message>
         <source>Report canceled!</source>
-        <translation>Rapport avbroten!</translation>
+        <translation type="obsolete">Rapport avbroten!</translation>
     </message>
     <message>
         <source>Unable to open report file!</source>
-        <translation>Greidde ikkje opna rapportfil!</translation>
-    </message>
-    <message>
-        <source>RadioTraffic.com Traffic Reconciliation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>VisualTraffic Reconciliation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>CounterPoint Traffic Reconciliation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Music1 Reconciliation</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Greidde ikkje opna rapportfil!</translation>
     </message>
 </context>
 <context>

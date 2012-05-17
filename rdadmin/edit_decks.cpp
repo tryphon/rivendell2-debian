@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_decks.cpp,v 1.34 2010/09/13 15:37:12 cvs Exp $
+//      $Id: edit_decks.cpp,v 1.35 2012/02/13 19:26:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -80,7 +80,7 @@ EditDecks::EditDecks(RDStation *station,RDStation *cae_station,
   //
   // Settings Label
   //
-  label=new QLabel("Settings",this,"settings_label");
+  label=new QLabel(tr("Settings"),this,"settings_label");
   label->setGeometry(10,40,100,24);
   label->setFont(big_font);
 
@@ -205,7 +205,7 @@ EditDecks::EditDecks(RDStation *station,RDStation *cae_station,
   //
   // Defaults Label
   //
-  label=new QLabel("Defaults",this,"settings_label");
+  label=new QLabel(tr("Defaults"),this,"settings_label");
   label->setGeometry(10,276,100,24);
   label->setFont(big_font);
 
@@ -235,7 +235,7 @@ EditDecks::EditDecks(RDStation *station,RDStation *cae_station,
   //
   // Host-Wide Settings Label
   //
-  label=new QLabel("Host-Wide Settings",this,"settings_label");
+  label=new QLabel(tr("Host-Wide Settings"),this,"settings_label");
   label->setGeometry(10,369,200,24);
   label->setFont(big_font);
 

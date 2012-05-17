@@ -634,7 +634,7 @@ Disk</source>
     </message>
     <message>
         <source>Schedule Cuts:</source>
-        <translation>Agendar Conteúdos:</translation>
+        <translation type="obsolete">Agendar Conteúdos:</translation>
     </message>
     <message>
         <source>Execute Asynchronously</source>
@@ -678,11 +678,11 @@ Script</translation>
     </message>
     <message>
         <source>Sequentially</source>
-        <translation>Sequencialmente</translation>
+        <translation type="obsolete">Sequencialmente</translation>
     </message>
     <message>
         <source>Randomly</source>
-        <translation>Randomicamente</translation>
+        <translation type="obsolete">Randomicamente</translation>
     </message>
     <message>
         <source></source>
@@ -731,6 +731,52 @@ limite do sistema!   Você ainda quer salvar?</translation>
     </message>
 </context>
 <context>
+    <name>EditNotes</name>
+    <message>
+        <source>Notes for cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
+    <name>EditSchedulerCodes</name>
+    <message>
+        <source>Select Scheduler Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Assigned Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ASSIGN to Carts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REMOVE from Carts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
     <name>Filter</name>
     <message>
         <source>Library Filter</source>
@@ -751,6 +797,41 @@ limite do sistema!   Você ainda quer salvar?</translation>
     <message>
         <source>&amp;Filter:</source>
         <translation>&amp;Filtrar:</translation>
+    </message>
+</context>
+<context>
+    <name>ListReports</name>
+    <message>
+        <source>RDLibrary Reports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart Data Dump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Tipo:</translation>
+    </message>
+    <message>
+        <source>&amp;Generate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Fechar</translation>
+    </message>
+    <message>
+        <source>ALL</source>
+        <translation type="unfinished">TODOS</translation>
     </message>
 </context>
 <context>

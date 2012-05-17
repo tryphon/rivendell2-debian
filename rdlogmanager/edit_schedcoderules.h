@@ -69,6 +69,8 @@ private:
   void okData();
   void cancelData();
 
+ protected:
+  void closeEvent(QCloseEvent *e);
 };
 
 #endif

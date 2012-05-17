@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdreport.cpp,v 1.26 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdreport.cpp,v 1.27 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -19,6 +19,8 @@
 //   License along with this program; if not, write to the Free Software
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
+
+#include <qobject.h>
 
 #include <rdconf.h>
 #include <rdreport.h>
@@ -485,36 +487,36 @@ QString RDReport::filterText(RDReport::ExportFilter filter)
 {
   switch(filter) {
       case RDReport::CbsiDeltaFlex:
-	return QT_TR_NOOP("CBSI DeltaFlex Traffic Reconciliation v2.01");
+	return QObject::tr("CBSI DeltaFlex Traffic Reconciliation v2.01");
 
       case RDReport::TextLog:
-	return QT_TR_NOOP("Text Log");
+	return QObject::tr("Text Log");
 
       case RDReport::BmiEmr:
-	return QT_TR_NOOP("ASCAP/BMI Electronic Music Report");
+	return QObject::tr("ASCAP/BMI Electronic Music Report");
 
       case RDReport::Technical:
-	return QT_TR_NOOP("Technical Playout Report");
+	return QObject::tr("Technical Playout Report");
 
       case RDReport::SoundExchange:
-	return QT_TR_NOOP("SoundExchange Statutory License Report");
+	return QObject::tr("SoundExchange Statutory License Report");
 
       case RDReport::RadioTraffic:
-	return QT_TR_NOOP("RadioTraffic.com Traffic Reconciliation");
+	return QObject::tr("RadioTraffic.com Traffic Reconciliation");
 
       case RDReport::VisualTraffic:
-	return QT_TR_NOOP("VisualTraffic Reconciliation");
+	return QObject::tr("VisualTraffic Reconciliation");
 
       case RDReport::CounterPoint:
-	return QT_TR_NOOP("CounterPoint Traffic Reconciliation");
+	return QObject::tr("CounterPoint Traffic Reconciliation");
 
       case RDReport::Music1:
-	return QT_TR_NOOP("Music1 Reconciliation");
+	return QObject::tr("Music1 Reconciliation");
 
       default:
-	return QT_TR_NOOP("Unknown");
+	return QObject::tr("Unknown");
   }
-  return QT_TR_NOOP("Unknown");
+  return QObject::tr("Unknown");
 }
 
 
@@ -522,18 +524,18 @@ QString RDReport::stationTypeText(RDReport::StationType type)
 {
   switch(type) {
       case RDReport::TypeOther:
-	return QT_TR_NOOP("Other");
+	return QObject::tr("Other");
 
       case RDReport::TypeAm:
-	return QT_TR_NOOP("AM");
+	return QObject::tr("AM");
 
       case RDReport::TypeFm:
-	return QT_TR_NOOP("FM");
+	return QObject::tr("FM");
 
       default:
 	break;
   }
-  return QT_TR_NOOP("Unknown");
+  return QObject::tr("Unknown");
 }
 
 
@@ -546,6 +548,7 @@ bool RDReport::multipleDaysAllowed(RDReport::ExportFilter filter)
   case RDReport::VisualTraffic:
   case RDReport::CounterPoint:
   case RDReport::LastFilter:
+  case RDReport::Music1:
     return false;
 
   case RDReport::BmiEmr:
@@ -567,6 +570,7 @@ bool RDReport::multipleMonthsAllowed(RDReport::ExportFilter filter)
   case RDReport::VisualTraffic:
   case RDReport::CounterPoint:
   case RDReport::LastFilter:
+  case RDReport::Music1:
     return false;
     
   case RDReport::SoundExchange:
@@ -582,15 +586,15 @@ QString RDReport::errorText(RDReport::ErrorCode code)
   QString ret;
   switch(code) {
       case RDReport::ErrorOk:
-	ret=QT_TR_NOOP("Report complete!");
+	ret=QObject::tr("Report complete!");
 	break;
 
       case RDReport::ErrorCanceled:
-	ret=QT_TR_NOOP("Report canceled!");
+	ret=QObject::tr("Report canceled!");
 	break;
 
       case RDReport::ErrorCantOpen:
-	ret=QT_TR_NOOP("Unable to open report file!");
+	ret=QObject::tr("Unable to open report file!");
 	break;
   }
   return ret;

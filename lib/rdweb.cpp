@@ -554,7 +554,7 @@ void RDCgiError(const char *str,int resp_code)
 
 #ifndef WIN32
 extern void RDXMLResult(const char *str,int resp_code,
-			  RDAudioConvert::ErrorCode err)
+			RDAudioConvert::ErrorCode err)
 {
   RDWebResult *we=new RDWebResult(str,resp_code,err);
 

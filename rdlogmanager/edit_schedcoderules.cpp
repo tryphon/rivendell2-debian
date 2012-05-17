@@ -53,7 +53,7 @@ editSchedCodeRules::editSchedCodeRules(QListViewItem *item,SchedRulesList *sched
     setMinimumHeight(sizeHint().height());
     setMaximumHeight(sizeHint().height());
     
-    setCaption("Edit Rules for Code");
+    setCaption(tr("Edit Rules for Code"));
 
 
     // Create Font
@@ -192,3 +192,8 @@ void editSchedCodeRules::cancelData()
   done(-1);
 }
 
+
+void editSchedCodeRules::closeEvent(QCloseEvent *e)
+{
+  cancelData();
+}

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_recording.cpp,v 1.52 2011/08/30 23:35:44 cvs Exp $
+//      $Id: edit_recording.cpp,v 1.53 2012/02/13 19:26:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -442,7 +442,7 @@ EditRecording::EditRecording(int id,std::vector<int> *adds,QString *filter,
   edit_startoffset_box=new QSpinBox(this,"edit_startoffset_box");
   edit_startoffset_box->setGeometry(140,516,55,24);
   edit_startoffset_box->setRange(0,355);
-  edit_startoffset_box->setSpecialValueText("None");
+  edit_startoffset_box->setSpecialValueText(tr("None"));
   label=new QLabel(edit_startoffset_box,
 		   tr("Start Date Offset:"),this,"edit_startoffset_label");
   label->setGeometry(10,516,125,24);

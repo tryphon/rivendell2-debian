@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_encoder.cpp,v 1.3 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_encoder.cpp,v 1.4 2012/02/13 19:26:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -69,7 +69,7 @@ EditEncoder::EditEncoder(int encoder_id,QWidget *parent,const char *name)
   //
   edit_extension_edit=new QLineEdit(this);
   edit_extension_edit->setGeometry(130,32,80,20);
-  label=new QLabel(edit_extension_edit,"Default Extension:",this);
+  label=new QLabel(edit_extension_edit,tr("Default Extension:"),this);
   label->setGeometry(10,32,115,20);
   label->setAlignment(AlignRight|AlignVCenter);
   label->setFont(bold_font);
@@ -79,7 +79,7 @@ EditEncoder::EditEncoder(int encoder_id,QWidget *parent,const char *name)
   //
   edit_commandline_edit=new QLineEdit(this);
   edit_commandline_edit->setGeometry(130,54,sizeHint().width()-140,20);
-  label=new QLabel(edit_commandline_edit,"Command Line:",this);
+  label=new QLabel(edit_commandline_edit,tr("Command Line:"),this);
   label->setGeometry(10,54,115,20);
   label->setAlignment(AlignRight|AlignVCenter);
   label->setFont(bold_font);

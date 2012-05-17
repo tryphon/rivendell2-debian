@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdedit_audio.cpp,v 1.26 2011/05/02 21:18:13 cvs Exp $
+//      $Id: rdedit_audio.cpp,v 1.26.6.1 2012/05/07 23:31:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -951,7 +951,9 @@ void RDEditAudio::saveData()
 {
   edit_cae->stopPlay(edit_handle);
   edit_cae->unloadPlay(edit_handle);
-  SaveMarkers();
+  if(!SaveMarkers()) {
+    return;
+  }
   done(0);
 }
 
@@ -2196,8 +2198,40 @@ void RDEditAudio::ValidateMarkers()
 }
 
 
-void RDEditAudio::SaveMarkers()
+bool RDEditAudio::SaveMarkers()
 {
+  //
+  // Sanity Checks
+  //
+  int start_point=(int)((double)(edit_cursors[RDEditAudio::Start])*
+			1152000.0/(double)edit_sample_rate);
+  int end_point=(int)((double)(edit_cursors[RDEditAudio::End])*
+		      1152000.0/(double)edit_sample_rate)+26;
+  int len=(int)(1000.0*(double)edit_sample_length/(double)edit_sample_rate);
+  if((2*(end_point-start_point))<len) {
+    if(QMessageBox::question(this,tr("Marker Warning"),
+			     tr("Less than half of the audio is playable with these marker settings.\nAre you sure you want to save?"),QMessageBox::Yes,QMessageBox::No)!=QMessageBox::Yes) {
+      return false;
+    }
+  }
+
+  if(edit_cursors[RDEditAudio::SegueStart]!=-1) {
+    len=end_point-start_point;
+    start_point=(int)((double)(edit_cursors[RDEditAudio::SegueStart])*
+		      1152000.0/(double)edit_sample_rate);
+    end_point=(int)((double)(edit_cursors[RDEditAudio::SegueEnd])*
+		    1152000.0/(double)edit_sample_rate);
+    if((2*(end_point-start_point))>len) {
+      if(QMessageBox::question(this,tr("Marker Warning"),
+			       tr("More than half of the audio will be faded with these marker settings.\nAre you sure you want to save?"),QMessageBox::Yes,QMessageBox::No)!=QMessageBox::Yes) {
+	return false;
+      }
+    }
+  }
+
+  //
+  // Save Settings
+  //
   edit_cut->setPlayGain(10*edit_gain_control->value());
   edit_cut->setStartPoint((int)((double)(edit_cursors[RDEditAudio::Start])*
 				1152000.0/
@@ -2275,6 +2309,7 @@ void RDEditAudio::SaveMarkers()
   else {
     edit_cut->setSegueGain(RD_FADE_DEPTH);
   }
+  return true;
 }
 
 

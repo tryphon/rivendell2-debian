@@ -320,4 +320,32 @@ straum</translation>
         <translation>Brukar</translation>
     </message>
 </context>
+<context>
+    <name>PickReportDates</name>
+    <message>
+        <source>Select Report Dates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Start Date:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Select</source>
+        <translation type="unfinished">&amp;Vel</translation>
+    </message>
+    <message>
+        <source>&amp;End Date:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Generate
+Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lose</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: colors.h,v 1.36 2010/07/29 19:32:35 cvs Exp $
+//      $Id: colors.h,v 1.37 2012/01/12 16:24:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,18 +27,18 @@
 //
 // Mode Titles
 //
-#define STOP_MODE_TITLE QT_TR_NOOP("START")
-#define PLAY0_MODE_TITLE QT_TR_NOOP("STOP")
-#define PLAY1_MODE_TITLE QT_TR_NOOP("PAUSE")
-#define PAUSE_MODE_TITLE QT_TR_NOOP("RESUME")
-#define ADD_TO_MODE_TITLE QT_TR_NOOP("WHERE?")
-#define DELETE_FROM_MODE_TITLE QT_TR_NOOP("DELETE?")
-#define MOVE_FROM_MODE_TITLE QT_TR_NOOP("MOVE?")
-#define MOVE_TO_MODE_TITLE QT_TR_NOOP("TO?")
-#define COPY_FROM_MODE_TITLE QT_TR_NOOP("COPY?")
-#define COPY_TO_MODE_TITLE QT_TR_NOOP("TO?")
+#define STOP_MODE_TITLE QObject::tr("START")
+#define PLAY0_MODE_TITLE QObject::tr("STOP")
+#define PLAY1_MODE_TITLE QObject::tr("PAUSE")
+#define PAUSE_MODE_TITLE QObject::tr("RESUME")
+#define ADD_TO_MODE_TITLE QObject::tr("WHERE?")
+#define DELETE_FROM_MODE_TITLE QObject::tr("DELETE?")
+#define MOVE_FROM_MODE_TITLE QObject::tr("MOVE?")
+#define MOVE_TO_MODE_TITLE QObject::tr("TO?")
+#define COPY_FROM_MODE_TITLE QObject::tr("COPY?")
+#define COPY_TO_MODE_TITLE QObject::tr("TO?")
 #define DISABLED_MODE_TITLE ""
-#define ERROR_MODE_TITLE QT_TR_NOOP("ERROR")
+#define ERROR_MODE_TITLE QObject::tr("ERROR")
 
 //
 // Progress Bars

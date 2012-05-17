@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_clocks.cpp,v 1.28 2010/07/29 19:32:37 cvs Exp $
+//      $Id: list_clocks.cpp,v 1.28.8.1 2012/04/23 17:22:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -487,6 +487,12 @@ void ListClocks::okData()
 void ListClocks::cancelData()
 {
   done(-1);
+}
+
+
+void ListClocks::closeEvent(QCloseEvent *e)
+{
+  cancelData();
 }
 
 

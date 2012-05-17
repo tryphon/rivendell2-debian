@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_matrix.cpp,v 1.27 2010/07/29 19:32:34 cvs Exp $
+//      $Id: add_matrix.cpp,v 1.28 2012/02/13 19:26:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -300,7 +300,7 @@ void AddMatrix::okData()
   }
   sql=QString().sprintf("insert into MATRICES set \
                          STATION_NAME=\"%s\",\
-                         NAME=\"New Switcher\",\
+                         NAME=\"%s\",\
                          MATRIX=%d,\
                          PORT=0,\
                          GPIO_DEVICE=\"%s\",\
@@ -310,6 +310,7 @@ void AddMatrix::okData()
                          GPIS=%d,\
                          GPOS=%d",
 			(const char *)add_station,
+			(const char *)tr("New Switcher"),
 			add_matrix_box->value(),
 			RD_DEFAULT_GPIO_DEVICE,
 			add_type_box->currentItem(),

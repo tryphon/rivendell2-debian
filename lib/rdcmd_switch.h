@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcmd_switch.h,v 1.8 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdcmd_switch.h,v 1.8.8.1 2012/05/10 23:12:42 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -30,7 +30,7 @@
 class RDCmdSwitch
 {
  public:
-  RDCmdSwitch(int argc,char *argv[],char *modname,char *usage);
+  RDCmdSwitch(int argc,char *argv[],const char *modname,const char *usage);
   unsigned keys() const;
   QString key(unsigned n) const;
   QString value(unsigned n) const;

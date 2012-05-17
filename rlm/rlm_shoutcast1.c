@@ -168,6 +168,7 @@ void rlm_shoutcast1_RLMStart(void *ptr,const char *arg)
 
   sprintf(section,"Shoutcast%d",i++);
   strncpy(password,RLMGetStringValue(ptr,arg,section,"Password",""),255);
+  printf("password: %s\n",password);
   password[255]=0;
   if(strlen(password)==0) {
     RLMLog(ptr,LOG_WARNING,"rlm_shoutcast1: no shoutcast servers specified");

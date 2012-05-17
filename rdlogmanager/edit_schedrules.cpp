@@ -55,7 +55,7 @@ EditSchedRules::EditSchedRules(QString clock,unsigned *artistsep,SchedRulesList 
   setMinimumHeight(sizeHint().height());
   setMaximumHeight(sizeHint().height());
 
-  setCaption(QString().sprintf("Scheduler Rules"));
+  setCaption(tr("Scheduler Rules"));
 
   //
   // Create Fonts
@@ -66,7 +66,7 @@ EditSchedRules::EditSchedRules(QString clock,unsigned *artistsep,SchedRulesList 
   artistSepLabel = new QLabel( this, "artistSepLabel" );
   artistSepLabel->setGeometry( QRect( 10, 10, 130, 20 ) );
   artistSepLabel->setFont(font);
-  artistSepLabel->setText("Artist Separation: ");
+  artistSepLabel->setText(tr("Artist Separation:"));
 
   artistSepSpinBox = new QSpinBox( this, "artistSepSpinBox" );
   artistSepSpinBox->setGeometry( QRect( 160, 10, 70, 20 ) );
@@ -218,7 +218,7 @@ void EditSchedRules::importData()
   RDSqlQuery *q;
 
   ListClocks *listclocks=new ListClocks(&clockname,this,"listclocks");
-  listclocks->setCaption("Import Rules from Clock");
+  listclocks->setCaption(tr("Import Rules from Clock"));
   if(listclocks->exec()<0) {
     delete listclocks;
     return;
@@ -293,3 +293,7 @@ void EditSchedRules::cancelData()
 }
 
 
+void EditSchedRules::closeEvent(QCloseEvent *e)
+{
+  cancelData();
+}

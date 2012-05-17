@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: groups.cpp,v 1.4 2011/12/23 23:07:00 cvs Exp $
+//      $Id: groups.cpp,v 1.5 2012/02/13 23:01:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -79,7 +79,7 @@ void Xport::ListGroup()
   //
   QString group_name;
   if(!xport_post->getValue("GROUP_NAME",&group_name)) {
-    RDXMLResult("Missing GROUP_NAME",400);
+    XmlExit("Missing GROUP_NAME",400);
   }
 
   //
@@ -92,7 +92,7 @@ void Xport::ListGroup()
   q=new RDSqlQuery(sql);
   if(!q->first()) {
     delete q;
-    RDXMLResult("No such group",404);
+    XmlExit("No such group",404);
   }
 
   //

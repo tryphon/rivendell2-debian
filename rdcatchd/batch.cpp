@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007, 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: batch.cpp,v 1.5 2011/06/21 22:20:44 cvs Exp $
+//      $Id: batch.cpp,v 1.6.2.1 2012/05/10 16:00:53 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -191,7 +191,7 @@ void MainObject::RunDownload(CatchEvent *evt)
   evt->resolveUrl(station->timeOffset());
   delete station;
 
-    //
+  //
   // Execute Download
   //
   LogLine(RDConfig::LogInfo,QString().
@@ -203,7 +203,14 @@ void MainObject::RunDownload(CatchEvent *evt)
   RDDownload *conv=new RDDownload(catch_config->stationName(),this);
   conv->setSourceUrl(evt->resolvedUrl());
   conv->setDestinationFile(evt->tempName());
-  switch((conv_err=conv->runDownload(evt->urlUsername(),evt->urlPassword(),
+  QString url_username=evt->urlUsername();
+  QString url_password=evt->urlPassword();
+  if(url_username.isEmpty()&&
+     (QUrl(evt->resolvedUrl()).protocol().lower()=="ftp")) {
+    url_username=RD_ANON_FTP_USERNAME;
+    url_password=QString(RD_ANON_FTP_PASSWORD)+"-"+VERSION;
+  }
+  switch((conv_err=conv->runDownload(url_username,url_password,
 				     catch_config->logXloadDebugData()))) {
   case RDDownload::ErrorOk:
     LogLine(RDConfig::LogInfo,QString().
@@ -269,6 +276,7 @@ void MainObject::RunUpload(CatchEvent *evt)
   // Execute Export
   //
   evt->setTempName(BuildTempName(evt,"upload"));
+  evt->setDeleteTempFile(true);
   LogLine(RDConfig::LogInfo,QString().
 	  sprintf("started export of cut %s to %s, id=%d",
 		  (const char *)evt->cutName(),
@@ -316,7 +324,14 @@ void MainObject::RunUpload(CatchEvent *evt)
   RDUpload *conv=new RDUpload(catch_config->stationName(),this);
   conv->setSourceFile(evt->tempName());
   conv->setDestinationUrl(evt->resolvedUrl());
-  switch((conv_err=conv->runUpload(evt->urlUsername(),evt->urlPassword(),
+  QString url_username=evt->urlUsername();
+  QString url_password=evt->urlPassword();
+  if(url_username.isEmpty()&&
+     (QUrl(evt->resolvedUrl()).protocol().lower()=="ftp")) {
+    url_username=RD_ANON_FTP_USERNAME;
+    url_password=QString(RD_ANON_FTP_PASSWORD)+"-"+VERSION;
+  }
+  switch((conv_err=conv->runUpload(url_username,url_password,
 				   catch_config->logXloadDebugData()))) {
   case RDUpload::ErrorOk:
     catch_connect->setExitCode(evt->id(),RDRecording::Ok,tr("Ok"));

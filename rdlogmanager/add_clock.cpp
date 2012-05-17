@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_clock.cpp,v 1.13 2010/07/29 19:32:37 cvs Exp $
+//      $Id: add_clock.cpp,v 1.13.8.1 2012/04/23 17:22:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -163,4 +163,10 @@ void AddClock::okData()
 void AddClock::cancelData()
 {
   done(-1);
+}
+
+
+void AddClock::closeEvent(QCloseEvent *e)
+{
+  cancelData();
 }

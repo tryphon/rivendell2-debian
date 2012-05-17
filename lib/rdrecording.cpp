@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdrecording.cpp,v 1.29 2011/06/21 18:31:33 cvs Exp $
+//      $Id: rdrecording.cpp,v 1.30 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -21,6 +21,8 @@
 //
 
 #include <unistd.h>
+
+#include <qobject.h>
 
 #include <rd.h>
 #include <rdconf.h>
@@ -675,27 +677,27 @@ QString RDRecording::typeString(RDRecording::Type type)
 
   switch(type) {
       case RDRecording::Recording:
-	str=QT_TR_NOOP("Recording");
+	str=QObject::tr("Recording");
 	break;
 
       case RDRecording::MacroEvent:
-	str=QT_TR_NOOP("Macro Event");
+	str=QObject::tr("Macro Event");
 	break;
 
       case RDRecording::SwitchEvent:
-	str=QT_TR_NOOP("Switch Event");
+	str=QObject::tr("Switch Event");
 	break;
 
       case RDRecording::Playout:
-	str=QT_TR_NOOP("Playout");
+	str=QObject::tr("Playout");
 	break;
 
       case RDRecording::Download:
-	str=QT_TR_NOOP("Download");
+	str=QObject::tr("Download");
 	break;
 
       case RDRecording::Upload:
-	str=QT_TR_NOOP("Upload");
+	str=QObject::tr("Upload");
 	break;
   }
 
@@ -709,63 +711,63 @@ QString RDRecording::exitString(RDRecording::ExitCode code)
 
   switch(code) {
       case RDRecording::Ok:
-	ret=QT_TR_NOOP("Ok");
+	ret=QObject::tr("Ok");
 	break;
 
       case RDRecording::Short:
-	ret=QT_TR_NOOP("Short Length");
+	ret=QObject::tr("Short Length");
 	break;
 
       case RDRecording::LowLevel:
-	ret=QT_TR_NOOP("Low Level");
+	ret=QObject::tr("Low Level");
 	break;
 
       case RDRecording::HighLevel:
-	ret=QT_TR_NOOP("High Level");
+	ret=QObject::tr("High Level");
 	break;
 
       case RDRecording::Downloading:
-	ret=QT_TR_NOOP("Downloading");
+	ret=QObject::tr("Downloading");
 	break;
 
       case RDRecording::Uploading:
-	ret=QT_TR_NOOP("Uploading");
+	ret=QObject::tr("Uploading");
 	break;
 
       case RDRecording::ServerError:
-	ret=QT_TR_NOOP("Server Error");
+	ret=QObject::tr("Server Error");
 	break;
 
       case RDRecording::InternalError:
-	ret=QT_TR_NOOP("Internal Error");
+	ret=QObject::tr("Internal Error");
 	break;
 
       case RDRecording::Interrupted:
-	ret=QT_TR_NOOP("Interrupted");
+	ret=QObject::tr("Interrupted");
 	break;
 
       case RDRecording::RecordActive:
-	ret=QT_TR_NOOP("Recording");
+	ret=QObject::tr("Recording");
 	break;
 
       case RDRecording::PlayActive:
-	ret=QT_TR_NOOP("Playing");
+	ret=QObject::tr("Playing");
 	break;
 
       case RDRecording::Waiting:
-	ret=QT_TR_NOOP("Waiting");
+	ret=QObject::tr("Waiting");
 	break;
 
       case RDRecording::DeviceBusy:
-	ret=QT_TR_NOOP("Device Busy");
+	ret=QObject::tr("Device Busy");
 	break;
 
       case RDRecording::NoCut:
-	ret=QT_TR_NOOP("No Such Cart/Cut");
+	ret=QObject::tr("No Such Cart/Cut");
 	break;
 
       case RDRecording::UnknownFormat:
-	ret=QT_TR_NOOP("Unknown Audio Format");
+	ret=QObject::tr("Unknown Audio Format");
 	break;
   }
   return ret;

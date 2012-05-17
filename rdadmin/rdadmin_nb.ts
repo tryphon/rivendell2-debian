@@ -6,7 +6,7 @@
 Please enter a login for an account with
 administrative rights on the mySQL server,
 and we will try to get this straightened out.</source>
-        <translation>Greier ikkje kopla til Rivendell-databasen!
+        <translation type="obsolete">Greier ikkje kopla til Rivendell-databasen!
 Skriv inn eit brukarnamn til ein konto som har
 rettar til å administrera mySQL-tenaren,
 så prøver me å ordna opp i dette.</translation>
@@ -17,11 +17,11 @@ så prøver me å ordna opp i dette.</translation>
     </message>
     <message>
         <source>Wrong access permissions for accessing mySQL!</source>
-        <translation>Feil tilgangsrettar for å kopla til mySQL!</translation>
+        <translation type="obsolete">Feil tilgangsrettar for å kopla til mySQL!</translation>
     </message>
     <message>
         <source>Unable to connect to mySQL!</source>
-        <translation>Greier ikkje kopla til mySQL!</translation>
+        <translation type="obsolete">Greier ikkje kopla til mySQL!</translation>
     </message>
     <message>
         <source>Can&apos;t Create DB</source>
@@ -29,11 +29,11 @@ så prøver me å ordna opp i dette.</translation>
     </message>
     <message>
         <source>Unable to create a Rivendell Database!</source>
-        <translation>Greier ikkje laga ein Rivendell-database!</translation>
+        <translation type="obsolete">Greier ikkje laga ein Rivendell-database!</translation>
     </message>
     <message>
         <source>Unable to connect to new Rivendell Database!</source>
-        <translation>Greier ikkje kopla til den nye Rivendell-databasen!</translation>
+        <translation type="obsolete">Greier ikkje kopla til den nye Rivendell-databasen!</translation>
     </message>
     <message>
         <source>Can&apos;t Create</source>
@@ -41,11 +41,11 @@ så prøver me å ordna opp i dette.</translation>
     </message>
     <message>
         <source>Unable to create Rivendell Database!</source>
-        <translation>Greier ikkje laga ein Rivendell-database!</translation>
+        <translation type="obsolete">Greier ikkje laga ein Rivendell-database!</translation>
     </message>
     <message>
         <source>Unable to connect to Rivendell Database!</source>
-        <translation>Greier ikkje kopla til Rivendell-databasen!</translation>
+        <translation type="obsolete">Greier ikkje kopla til Rivendell-databasen!</translation>
     </message>
     <message>
         <source>Can&apos;t Initialize</source>
@@ -53,7 +53,7 @@ så prøver me å ordna opp i dette.</translation>
     </message>
     <message>
         <source>Unable to initialize Rivendell Database!</source>
-        <translation>Greier ikkje setja opp Rivendell-databasen!</translation>
+        <translation type="obsolete">Greier ikkje setja opp Rivendell-databasen!</translation>
     </message>
     <message>
         <source>Created Database</source>
@@ -61,7 +61,7 @@ så prøver me å ordna opp i dette.</translation>
     </message>
     <message>
         <source>New Rivendell Database Created!</source>
-        <translation>Du har laga ein ny Rivendell-database.</translation>
+        <translation type="obsolete">Du har laga ein ny Rivendell-database.</translation>
     </message>
     <message>
         <source>The Rivendell Database is too old to be upgraded,
@@ -69,7 +69,7 @@ and so must be replaced.  This will DESTROY any
 existing audio and data!  If you want to do this,
 enter a username and password for a mySQL account
 with administrative privledges, otherwise hit cancel.</source>
-        <translation>Rivendell-databasen er for gamal til å oppgradera,
+        <translation type="obsolete">Rivendell-databasen er for gamal til å oppgradera,
 så han må bytast ut. Dette VIL ØYDELEGGJA alle
 lyd- og datafiler! Viss du vil gjera dette, skriv du inn
 eit brukarnamn og passord med administrasjons-
@@ -77,22 +77,22 @@ rettar for mySQL-kontoen. Viss ikkje, trykk avbryt.</translation>
     </message>
     <message>
         <source>Unable to log into Administrator account!</source>
-        <translation>Greier ikkje logga på Administrator-kontoen!</translation>
+        <translation type="obsolete">Greier ikkje logga på Administrator-kontoen!</translation>
     </message>
     <message>
         <source>Unable to authorize a Rivendell Database!</source>
-        <translation>Greier ikkje godkjenna Rivendell-databasen!</translation>
+        <translation type="obsolete">Greier ikkje godkjenna Rivendell-databasen!</translation>
     </message>
     <message>
         <source>Update Needed</source>
-        <translation>Treng oppdatering</translation>
+        <translation type="obsolete">Treng oppdatering</translation>
     </message>
     <message>
         <source>The Rivendell Database needs to be updated.
 All audio and settings will be preserved, but
 this will STOP any audio playout or recording
 on this machine for a few seconds.  Continue?</source>
-        <translation>Rivendell-databasen treng ei oppdatering.
+        <translation type="obsolete">Rivendell-databasen treng ei oppdatering.
 Alle lydfiler og innstillingar blir tekne vare på,
 men dette VIL STOPPA alt opptak eller avspeling
 på denne maskina i nokre sekund. Halda fram?</translation>
@@ -113,46 +113,103 @@ oppdatert til versjon </translation>
     </message>
     <message>
         <source>Database Updated</source>
-        <translation>Databasen oppdatert</translation>
+        <translation type="obsolete">Databasen oppdatert</translation>
     </message>
+</context>
+<context>
+    <name>AddAuxField</name>
     <message>
-        <source>RDAdmin Error</source>
+        <source>Add Aux Field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to upgrade database</source>
+        <source>Variable Name: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>RDAdmin</source>
+        <source>%AUX_</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-Database backup failed!</source>
+        <source>%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-Schema modification failed!</source>
+        <source>Caption: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to update Rivendell Database:</source>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Name Exists</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-Unknown/unspecified error!</source>
+        <source>That variable name already exists!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AddEncoder</name>
+    <message>
+        <source>Add Encoder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>
-and a backup of the original database saved in </source>
+        <source>&amp;New Encoder Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The Rivendell Database has been updated to version</source>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Add Encoder Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A encoder with that name already exists!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AddFeed</name>
+    <message>
+        <source>Add Feed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Feed for All Users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New Feed Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Add Feed Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A feed with that key name already exists!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -224,6 +281,14 @@ and a backup of the original database saved in </source>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Invalid Name</source>
+        <translation type="unfinished">Ugyldig namn</translation>
+    </message>
+    <message>
+        <source>The variable name is invalid.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -306,6 +371,45 @@ and a backup of the original database saved in </source>
     </message>
     <message>
         <source>BroadcastTools SRC-16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AddReplicator</name>
+    <message>
+        <source>Add Replicator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New Replicator Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Invalid Name</source>
+        <translation type="unfinished">Ugyldig namn</translation>
+    </message>
+    <message>
+        <source>You must give the replicator a name!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replicator Exists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A replicator with that name already exists!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -590,6 +694,37 @@ and a backup of the original database saved in </source>
         <source>Word Clock</source>
         <translation>Ordklokke</translation>
     </message>
+    <message>
+        <source>Card:</source>
+        <translation type="unfinished">Kort:</translation>
+    </message>
+    <message>
+        <source>Card Driver:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditAuxField</name>
+    <message>
+        <source>Edit Auxiliary Metadata Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable Name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Caption: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
 </context>
 <context>
     <name>EditBackup</name>
@@ -784,6 +919,129 @@ has not yet been generated.  Please start the Rivendell daemons on the host
 configured to run the CAE service in order to populate the audio resources database.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Innstillingar</translation>
+    </message>
+    <message>
+        <source>Defaults</source>
+        <translation type="unfinished">Standard</translation>
+    </message>
+    <message>
+        <source>Host-Wide Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditDropbox</name>
+    <message>
+        <source>Dropbox Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default Group:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Path Spec:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished">Vel</translation>
+    </message>
+    <message>
+        <source>To &amp;Cart:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete cuts before importing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Metadata Pattern:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Log File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete source files after import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normalize Levels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level:</source>
+        <translation type="unfinished">Nivå:</translation>
+    </message>
+    <message>
+        <source>dBFS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autotrim Cuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get cart number from CartChunk CutID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get cart title from CartChunk CutID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attempt to work around malformatted input files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset start date by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>days</source>
+        <translation type="unfinished">dagar</translation>
+    </message>
+    <message>
+        <source>Offset end date by</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create Dates when no Dates Exist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create start date offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create end date offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Invalid Offsets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Create EndDate Offset is less than the Create Start Date Offset!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The EndDate Offset is less than the Start Date Offset!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEncoder</name>
@@ -814,6 +1072,14 @@ configured to run the CAE service in order to populate the audio resources datab
     <message>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Default Extension:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Command Line:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -893,6 +1159,205 @@ configured to run the CAE service in order to populate the audio resources datab
     <message>
         <source>The Service ID is Invalid!</source>
         <translation>Tenest-ID-en er ugyldig!</translation>
+    </message>
+</context>
+<context>
+    <name>EditFeed</name>
+    <message>
+        <source>Feed: </source>
+        <translation type="unfinished">Straum:</translation>
+    </message>
+    <message>
+        <source>Key Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CHANNEL VALUES</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Title:</source>
+        <translation type="unfinished">Tittel:</translation>
+    </message>
+    <message>
+        <source>Category:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Webmaster:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Skildring:</translation>
+    </message>
+    <message>
+        <source>Audio Upload URL:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished">Brukarnamn:</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished">Passord:</translation>
+    </message>
+    <message>
+        <source>Upload Format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;et</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normalize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level:</source>
+        <translation type="unfinished">Nivå:</translation>
+    </message>
+    <message>
+        <source>dBFS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio Download URL:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep Expired Metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable AutoPost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enclosure Preamble:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio Extension:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Maximum Shelf Life:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>days</source>
+        <translation type="unfinished">dagar</translation>
+    </message>
+    <message>
+        <source>Descending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ascending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Episode Sort Order:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Direct</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Counted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Media Link Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Feed Redirection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URL:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Header XML:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel XML:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item XML:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Define Auxiliary
+Metadata Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Edit Feed - Redirect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabling feed redirection will cause clients subscribed to
+this feed to be PERMANENTLY redirected to the
+specified URL.
+
+Do you still want to enable redireciton?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditFeedPerms</name>
+    <message>
+        <source>User: </source>
+        <translation type="unfinished">Brukar:</translation>
+    </message>
+    <message>
+        <source>Available Feeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabled Feeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
     </message>
 </context>
 <context>
@@ -1056,6 +1521,92 @@ Vil du framleis lagra?</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Avbryt</translation>
+    </message>
+</context>
+<context>
+    <name>EditHotkeys</name>
+    <message>
+        <source>Host Hot Key Configurations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Button / Function </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>KeyStroke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear All Hotkeys</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set From Host:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate Entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hotkeys Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hotkeys Updated</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Items Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please Select an Item From the List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hot Key Configuration for</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditJack</name>
+    <message>
+        <source>JACK Configuration for </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start JACK Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JACK Server Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
     </message>
 </context>
 <context>
@@ -1335,6 +1886,10 @@ Switches</source>
     <message>
         <source>Delete</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux Log 2</source>
+        <translation type="unfinished">Hjelpelogg 2</translation>
     </message>
 </context>
 <context>
@@ -1897,6 +2452,371 @@ configured to run the CAE service in order to populate the audio resources datab
     </message>
 </context>
 <context>
+    <name>EditRDLogedit</name>
+    <message>
+        <source>RDLogedit config for </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>INPUT</source>
+        <translation type="unfinished">INNGANG</translation>
+    </message>
+    <message>
+        <source>OUTPUT</source>
+        <translation type="unfinished">UTGANG</translation>
+    </message>
+    <message>
+        <source>Voice Tracker Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Max Record Time:</source>
+        <translation type="unfinished">&amp;Maks opptakstid:</translation>
+    </message>
+    <message>
+        <source>&amp;AutoTrim Threshold:</source>
+        <translation type="unfinished">&amp;Autotrim-terskel:</translation>
+    </message>
+    <message>
+        <source>dbFS</source>
+        <translation type="unfinished">dBum</translation>
+    </message>
+    <message>
+        <source>&amp;Normalization Level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Audio Margin:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>milliseconds</source>
+        <translation type="unfinished">millisekund</translation>
+    </message>
+    <message>
+        <source>&amp;Format:</source>
+        <translation type="unfinished">&amp;Format:</translation>
+    </message>
+    <message>
+        <source>&amp;Bitrate:</source>
+        <translation type="unfinished">&amp;Bitrate:</translation>
+    </message>
+    <message>
+        <source>Play &amp;Start Cart:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished">Vel</translation>
+    </message>
+    <message>
+        <source>Play &amp;End Cart:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Record Start Cart:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re&amp;cord End Cart:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Channels:</source>
+        <translation type="unfinished">&amp;Kanalar:</translation>
+    </message>
+    <message>
+        <source>Default Transition:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished">Spel</translation>
+    </message>
+    <message>
+        <source>Segue</source>
+        <translation type="unfinished">Overgang</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished">Stopp</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>No Audio Configuration Data</source>
+        <translation type="unfinished">Ingen data for lydoppsett</translation>
+    </message>
+    <message>
+        <source>Channel assignments will not be available for this host as audio resource data
+has not yet been generated.  Please start the Rivendell daemons on the host
+configured to run the CAE service in order to populate the audio resources database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PCM16</source>
+        <translation type="unfinished">PCM16</translation>
+    </message>
+    <message>
+        <source>MPEG Layer 2</source>
+        <translation type="unfinished">MPEG lag 2</translation>
+    </message>
+    <message>
+        <source>32 kbps/chan</source>
+        <translation type="unfinished">32 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>48 kbps/chan</source>
+        <translation type="unfinished">48 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>56 kbps/chan</source>
+        <translation type="unfinished">56 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>64 kbps/chan</source>
+        <translation type="unfinished">64 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>80 kbps/chan</source>
+        <translation type="unfinished">80 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>96 kbps/chan</source>
+        <translation type="unfinished">96 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>112 kbps/chan</source>
+        <translation type="unfinished">112 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>128 kbps/chan</source>
+        <translation type="unfinished">128 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>160 kbps/chan</source>
+        <translation type="unfinished">160 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>192 kbps/chan</source>
+        <translation type="unfinished">192 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>40 kbps/chan</source>
+        <translation type="unfinished">40 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>224 kbps/chan</source>
+        <translation type="unfinished">224 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>256 kbps/chan</source>
+        <translation type="unfinished">256 kbps/kanal</translation>
+    </message>
+    <message>
+        <source>320 kbps/chan</source>
+        <translation type="unfinished">320 kbps/kanal</translation>
+    </message>
+</context>
+<context>
+    <name>EditRDPanel</name>
+    <message>
+        <source>RDPanel config for </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Assignments</source>
+        <translation type="unfinished">Kanaltilkoplingar</translation>
+    </message>
+    <message>
+        <source>SoundPanel First Play Output</source>
+        <translation type="unfinished">Fyrste spelutgang for Lydpanel</translation>
+    </message>
+    <message>
+        <source>Start RML:</source>
+        <translation type="unfinished">Start RML:</translation>
+    </message>
+    <message>
+        <source>Stop RML:</source>
+        <translation type="unfinished">Slutt-RML:</translation>
+    </message>
+    <message>
+        <source>SoundPanel Second Play Output</source>
+        <translation type="unfinished">Andre speleutgang for lydpanelet</translation>
+    </message>
+    <message>
+        <source>SoundPanel Third Play Output</source>
+        <translation type="unfinished">Tredje speleutgang for lydpanelet</translation>
+    </message>
+    <message>
+        <source>SoundPanel Fourth Play Output</source>
+        <translation type="unfinished">Fjerde speleutgang for lydpanelet</translation>
+    </message>
+    <message>
+        <source>SoundPanel Fifth and Later Play Output</source>
+        <translation type="unfinished">Femte og høgare speleutgangar for lydpanelet</translation>
+    </message>
+    <message>
+        <source>SoundPanel Cue Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background Image:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished">Vel</translation>
+    </message>
+    <message>
+        <source>Sound Panel Settings</source>
+        <translation type="unfinished">Lydpaneloppsett</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Host Panels:</source>
+        <translation type="unfinished">Vertspanel:</translation>
+    </message>
+    <message>
+        <source>User Panels:</source>
+        <translation type="unfinished">Brukarpanel:</translation>
+    </message>
+    <message>
+        <source>Flash Active Buttons</source>
+        <translation type="unfinished">Aktive knappar blinkar</translation>
+    </message>
+    <message>
+        <source>Enable Button Pausing</source>
+        <translation type="unfinished">Skru på pause med knapp</translation>
+    </message>
+    <message>
+        <source>Clear Cart Search Filter</source>
+        <translation type="unfinished">Tøm korgsøkjefilteret</translation>
+    </message>
+    <message>
+        <source>Default Service:</source>
+        <translation type="unfinished">Standardtenest:</translation>
+    </message>
+    <message>
+        <source>Label Template:</source>
+        <translation type="unfinished">Merkemal:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>No Audio Configuration Data</source>
+        <translation type="unfinished">Ingen data for lydoppsett</translation>
+    </message>
+    <message>
+        <source>Channel assignments will not be available for this host, as audio resource data
+has not yet been generated.  Please start the Rivendell daemons on this host
+(by executing, as user &apos;root&apos;,  the command &quot;/etc/init.d/rivendell start&quot;)
+in order to populate the audio resources database.</source>
+        <translation type="unfinished">Det vil ikkje vera tilgjengelege kanalar for denne verten, fordi det ikkje har vorte laga
+data for lydressursar enno. Start Rivendell-programma på denne verten ved å køyra
+kommandoen &quot;/etc/init.d/rivendell-start&quot; som root-brukaren for å fylla ut databasen
+for lydressursar.</translation>
+    </message>
+    <message>
+        <source>[none]</source>
+        <translation type="unfinished">[ingen]</translation>
+    </message>
+    <message>
+        <source>Select Image File</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditReplicator</name>
+    <message>
+        <source>Replicator: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Skildring:</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Host System:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio Upload URL:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation type="unfinished">Brukarnamn:</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation type="unfinished">Passord:</translation>
+    </message>
+    <message>
+        <source>Upload Format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;et</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normalize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level:</source>
+        <translation type="unfinished">Nivå:</translation>
+    </message>
+    <message>
+        <source>dBFS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Active Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+</context>
+<context>
     <name>EditReport</name>
     <message>
         <source>Edit Report</source>
@@ -2013,6 +2933,83 @@ configured to run the CAE service in order to populate the audio resources datab
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Avbryt</translation>
+    </message>
+</context>
+<context>
+    <name>EditSettings</name>
+    <message>
+        <source>System-Wide Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System Sample Rate:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>samples/second</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Duplicate Cart Titles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ISCI Cross Reference Path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum Remote Post Length:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mbytes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The following duplicate titles must be corrected before &quot;Allow Duplicate Values&quot; can be turned off.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CART</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TITLE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Save List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>File Exists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The file &quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot; exists.
+
+Overwrite?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Checking the Library for duplicates.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2634,6 +3631,29 @@ tilgangsrettar</translation>
     </message>
 </context>
 <context>
+    <name>EditUserPerms</name>
+    <message>
+        <source>User: </source>
+        <translation type="unfinished">Brukar:</translation>
+    </message>
+    <message>
+        <source>Available Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enabled Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+</context>
+<context>
     <name>EditVguestResource</name>
     <message>
         <source>Engine (Hex): </source>
@@ -2742,6 +3762,113 @@ Klikk på &quot;Lisens&quot;-knappen for fleire opplysningar.</translation>
     </message>
 </context>
 <context>
+    <name>ListAuxFields</name>
+    <message>
+        <source>Auxiliary Metadata Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Var Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Caption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Legg til</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">R&amp;ediger</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Slett</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Lukk</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This will delete all data associated with this field!
+Are you sure you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ListDropboxes</name>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Legg til</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">R&amp;ediger</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Slett</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Lukk</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normalization Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Autotrim Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use CartChunk ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Cuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Metadata Pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fix Broken Formats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[off]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[auto]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[none]</source>
+        <translation type="unfinished">[ingen]</translation>
+    </message>
+</context>
+<context>
     <name>ListEncoders</name>
     <message>
         <source>RDAdmin - List Encoders</source>
@@ -2806,6 +3933,10 @@ Do you still want to delete it?</source>
     <message>
         <source>[none]</source>
         <translation type="unfinished">[ingen]</translation>
+    </message>
+    <message>
+        <source>Encoders on</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2905,6 +4036,73 @@ Do you still want to delete it?</source>
     <message>
         <source>right</source>
         <translation>høgre</translation>
+    </message>
+</context>
+<context>
+    <name>ListFeeds</name>
+    <message>
+        <source>Rivendell Feed List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Legg til</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">R&amp;ediger</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Slett</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Lukk</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <translation type="unfinished">Tittel</translation>
+    </message>
+    <message>
+        <source>AutoPost</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep Metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Creation Date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Feeds:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete feed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Feed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting Audio...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleting</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3250,6 +4448,62 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>POSTED FILENAME</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ListReplicators</name>
+    <message>
+        <source>Rivendell Replicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Legg til</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">R&amp;ediger</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Slett</translation>
+    </message>
+    <message>
+        <source>&amp;List
+Carts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Lukk</translation>
+    </message>
+    <message>
+        <source>NAME</source>
+        <translation type="unfinished">NAMN</translation>
+    </message>
+    <message>
+        <source>TYPE</source>
+        <translation type="unfinished">TYPE</translation>
+    </message>
+    <message>
+        <source>DESCRIPTION</source>
+        <translation type="unfinished">SKILDRING</translation>
+    </message>
+    <message>
+        <source>HOST</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Replicators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete replicator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Replicator</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3625,6 +4879,249 @@ Replicators</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Avbryt</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Unable to access the Rivendell Database!
+Please enter a login for an account with
+administrative rights on the mySQL server,
+and we will try to get this straightened out.</source>
+        <translation type="unfinished">Greier ikkje kopla til Rivendell-databasen!
+Skriv inn eit brukarnamn til ein konto som har
+rettar til å administrera mySQL-tenaren,
+så prøver me å ordna opp i dette.</translation>
+    </message>
+    <message>
+        <source>Wrong access permissions for accessing mySQL!</source>
+        <translation type="unfinished">Feil tilgangsrettar for å kopla til mySQL!</translation>
+    </message>
+    <message>
+        <source>Unable to connect to mySQL!</source>
+        <translation type="unfinished">Greier ikkje kopla til mySQL!</translation>
+    </message>
+    <message>
+        <source>Unable to create a Rivendell Database!</source>
+        <translation type="unfinished">Greier ikkje laga ein Rivendell-database!</translation>
+    </message>
+    <message>
+        <source>Unable to connect to new Rivendell Database!</source>
+        <translation type="unfinished">Greier ikkje kopla til den nye Rivendell-databasen!</translation>
+    </message>
+    <message>
+        <source>Unable to create Rivendell Database!</source>
+        <translation type="unfinished">Greier ikkje laga ein Rivendell-database!</translation>
+    </message>
+    <message>
+        <source>Unable to connect to Rivendell Database!</source>
+        <translation type="unfinished">Greier ikkje kopla til Rivendell-databasen!</translation>
+    </message>
+    <message>
+        <source>Unable to initialize Rivendell Database!</source>
+        <translation type="unfinished">Greier ikkje setja opp Rivendell-databasen!</translation>
+    </message>
+    <message>
+        <source>RDAdmin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Rivendell Database Created!</source>
+        <translation type="unfinished">Du har laga ein ny Rivendell-database.</translation>
+    </message>
+    <message>
+        <source>Unable to upgrade database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Rivendell Database is too old to be upgraded,
+and so must be replaced.  This will DESTROY any
+existing audio and data!  If you want to do this,
+enter a username and password for a mySQL account
+with administrative privledges, otherwise hit cancel.</source>
+        <translation type="unfinished">Rivendell-databasen er for gamal til å oppgradera,
+så han må bytast ut. Dette VIL ØYDELEGGJA alle
+lyd- og datafiler! Viss du vil gjera dette, skriv du inn
+eit brukarnamn og passord med administrasjons-
+rettar for mySQL-kontoen. Viss ikkje, trykk avbryt.</translation>
+    </message>
+    <message>
+        <source>Unable to log into Administrator account!</source>
+        <translation type="unfinished">Greier ikkje logga på Administrator-kontoen!</translation>
+    </message>
+    <message>
+        <source>Unable to authorize a Rivendell Database!</source>
+        <translation type="unfinished">Greier ikkje godkjenna Rivendell-databasen!</translation>
+    </message>
+    <message>
+        <source>Update Needed</source>
+        <translation type="unfinished">Treng oppdatering</translation>
+    </message>
+    <message>
+        <source>The Rivendell Database needs to be updated.
+All audio and settings will be preserved, but
+this will STOP any audio playout or recording
+on this machine for a few seconds.  Continue?</source>
+        <translation type="unfinished">Rivendell-databasen treng ei oppdatering.
+Alle lydfiler og innstillingar blir tekne vare på,
+men dette VIL STOPPA alt opptak eller avspeling
+på denne maskina i nokre sekund. Halda fram?</translation>
+    </message>
+    <message>
+        <source>Unable to update Rivendell Database:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+Database backup failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+Schema modification failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+Unknown/unspecified error!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Rivendell Database has been updated to version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+and a backup of the original database saved in </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Database Updated</source>
+        <translation type="unfinished">Databasen oppdatert</translation>
+    </message>
+    <message>
+        <source>RDAdmin Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(default)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Line 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop Line 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause Line 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Line 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop Line 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause Line 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Line 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop Line 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause Line 3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Line 4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop Line 4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause Line 4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Line 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop Line 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause Line 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Line 6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop Line 6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause Line 6</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Line 7</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop Line 7</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause Line 7</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound Panel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main Log</source>
+        <translation type="unfinished">Hovudlogg</translation>
+    </message>
+    <message>
+        <source>Aux Log 1</source>
+        <translation type="unfinished">Hjelpelogg 1</translation>
+    </message>
+    <message>
+        <source>Aux Log 2</source>
+        <translation type="unfinished">Hjelpelogg 2</translation>
     </message>
 </context>
 <context>

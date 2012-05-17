@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdhpisoundcard.h,v 1.5 2011/05/18 15:25:33 cvs Exp $
+//    $Id: rdhpisoundcard.h,v 1.5.6.1 2012/05/04 14:56:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -33,7 +33,11 @@
 #include <rdhpiinformation.h>
 
 #include <asihpi/hpi.h>
-#if HPI_VER < HPI_VERSION_CONSTRUCTOR(4L,6,0)
+#ifndef HPI_VER
+#include <asihpi/hpi_version.h>
+#endif
+
+#if HPI_VER < 0x40411
 typedef uint16_t hpi_err_t;
 typedef uint32_t hpi_handle_t;
 #endif
