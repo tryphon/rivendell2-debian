@@ -51,7 +51,7 @@ case "$1" in
         fi
 
         # Create audio store directory and set permissions.
-        if [ ! -d "$AUDIOROOT" ]; then
+        if [ ! -d "$AUDIOROOT" -a ! -L "$AUDIOROOT" ]; then
             install --directory --mode 02775 --owner=root --group="$AUDIOGROUP" "$AUDIOROOT"
         fi
 
