@@ -12424,4 +12424,162 @@
 	<lbracci@gmail.com>.
 2011-12-30 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'
-	* Incremented the database version 2.1.2.
+	* Incremented the project version to 2.1.2.
+2012-01-12 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'lib/rdcart_search_text.cpp', 'lib/rdcart_dialog.cpp'.
+	'lib/rdcut_dialog.cpp' and 'rdlibrary/rdlibrary.cpp' that caused the
+	cart list to be empty when running with a non-english langauge
+	[Mantis bug #0000040].
+2012-01-12 Fred Gleason <fredg@paravelsystems.com>
+	* Replaced 'QT_NR_NOOP()' with 'QObject::tr()' in 'lib/rdcart.cpp',
+	'lib/rdcopyaudio.cpp', 'lib/rdcut_path.cpp', 'lib/rdlog_line.cpp',
+	'lib/rdpeaksexport.cpp', 'lib/rdreport.cpp', 'rdadmin/opendb.cpp',
+	and 'rdadmin/rdadmin.cpp'. [Mantis bug #0000040].
+	* Added 'rdadmin/edit_hotkeys.cpp', 'rdadmin/edit_hotkeys.h',
+	'rdadmin/edit_replicator.cpp', 'rdadmin/edit_replicator.h',
+	'rdadmin/edit_user_perms.cpp' and 'rdadmin/edit_user_perms.h'
+	to 'rdadmin/rdadmin.pro'.
+2012-01-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'rdairplay/colors.h' to 'rdairplay/rdairplay.pro'.
+2012-01-16 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'add_feed.cpp', 'add_feed.h', 'edit_feed.cpp', 'edit_feed.h',
+	'list_feeds.cpp', 'list_feeds.h', 'list_aux_fields.cpp',
+	'list_aux_fields.h', 'edit_aux_fields.cpp', 'edit_aux_fields.h',
+	'add_aux_field.cpp' and 'add_aux_fields.h' to 'rdadmin/rdadmin.pro'
+	[Mantis bug #0000043].
+	* Added 'edit_notes.cpp', 'edit_notes'h', 'edit_schedulercodes.cpp',
+	'edit_schedulercodes.h', 'list_reports.cpp' and 'list_reports.h'
+	to 'rdlibrary/rdlibrary.pro' [Mantis bug #0000043].
+	* Added 'edit_schedrules.cpp' and 'edit_schedrules.h' to
+	'rdlogmanager/rdlogmanager.pro' [Mantis bug #0000043].
+	* Fixed a bug in 'rdlibrary/edit_notes.cpp' that made it impossible
+	to translate the 'Edit Notes' dialog caption [Mantis bug #0000043].
+	* Fixed a bug in 'rdadmin/edit_feeds.cpp' that made it
+	impossible to translate the 'CHANNEL VALUES' phrase
+	[Mantis bug #0000043].
+2012-01-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added rules in 'xdg/Makefile.am' and 'icons/Makefile.am' to install
+	desktop elements.
+2012-01-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a typo in 'rdadmin/rdadin.pro' that caused the
+	'Edit Aux Field' dialog to fail to be included in translations.
+2012-02-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdevent_line.cpp' that caused incorrect
+	hard start parameters to be applied to events from the music
+	scheduler.
+2012-02-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added missing entries to 'rdadmin/rdadmin.pro',
+	'rdlogedit/rdlogedit.pro', and 'rdcastmanager/rdcastmanager.pro'
+	[Mantis bug #0000046].
+	* Fixed missing tr() call for strings in 'rdadmin/add_matrix.cpp',
+	'/rdadmin/add_hostvar.cpp', 'rdadmin/edit_audios.cpp',
+	'rdadmin/edit_encoder.cpp', 'rdadmin/edit_decks.cpp',
+	'rdadmin/createdb.cpp', 'rdadmin/edit_now_next.cpp',
+	'rdadmin/list_encoders.cpp', 'rdadmin/help_audios.cpp',
+	'rdlogmanager/edit_schedcoderules.cpp',
+	'rdlogmanager/edit_schedrules.cpp', 'rdcatch/edit_recording.cpp',
+	and 'rdairplay/rdairplay.cpp' [Mantis bug #0000046].
+2012-02-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogedit/voice_tracker.cpp' that caused a
+	segfault when selecting the end-of-log marker on an empty log
+	[Mantis bug #0000047].
+2012-02-13 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the 'Schedule Cuts' control from the Edit Cart dialog
+	in 'rdlibrary/edit_cart.cpp' and 'rdlibrary/edit_cart.h'
+	[Mantis bug #0000045].
+2012-02-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in rdxport(8) that caused temporary files to be
+	left behind after processing.
+2012-02-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdcatchd/batch.cpp' that failed to delete
+	temp files after upload events.
+	* Fixed a bug in 'lib/rdfeed.cpp' that failed to delete temp
+	files after uploading a podcast.
+2012-02-16 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a fix from Chris Smowton <cs448@cam.ac.uk> in
+	'lib/rdaudioconvert.cpp' for a bug that caused audio distortion
+	when processing audio containing full-scale samples with
+	normalization disabled.
+2012-02-20 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogmanager/edit_event.cpp' that broke display
+	of the library in the 'Edit Event' dialog.
+2012-02-20 Fred Gleason <fredg@paravelsystems.com>
+	* Updaed 'NEWS'.
+	* Incremented the package version to 2.1.3.
+2012-03-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdrepld/citadelxds.cpp' that caused
+	incorrect normalization levels to be applied when exporting
+	audio.
+2012-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Moved to 'v2_branch' in CVS.
+2012-03-30 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'ripcd/bt_src16.cpp' that caused the TTY port to
+	fail to be tagged as in use.
+2012-04-02 Fred Gleason <fredg@paravelsystems.com>
+	* Backported the 'rlm_spottrap' RLM from CVS-Head.
+2012-04-09 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlibrary/list_reports.cpp' that broke report
+	generation when no scheduler code was selected.
+2012-04-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'cae/cae_jack.cpp' that broke the build when
+	compiled with no MPEG decoding support.
+	* Fixed a bug in 'cae/cae_alsa.cpp' that broke the build when
+	compiled with no MPEG decoding support.
+2012-04-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdadmin/rdadmin.pro' that made
+	'rdadmin/add_encoder.cpp' untranslatable [Mantis bug #0000050].
+2012-04-23 Fred Gleason <fredg@paravelsystems.com>
+	* Applied updated Spanish [es] translation from Luigino Bracci
+	<lbracci@gmail.com>.
+2012-04-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogmanager/add_clock.cpp',
+	rdlogmanager/add_clock.h', 'rdlogmanager/add_event.cpp',
+	'rdlogmanager/add_event.h', 'rdlogmanager/edit_note.cpp',
+	'rdlogmanager/edit_note.h', 'rdlogmanager/edit_perms.cpp',
+	'rdlogmanager/edit_perms.h' 'rdlogmanager/editschedcoderules.cpp',
+	'rdlogmanager/editschedcoderules.h', 'rdlogmanager/editschedrules.cpp',
+	'rdlogmanager/editschedrules.h', 'rdlogmanager/edit_track.cpp',
+	'rdlogmanager/edit_track.h', 'rdlogmanager/list_clocks.cpp',
+	'rdlogmanager/list_clocks.h', 'rdlogmanager/list_events.cpp',
+	'rdlogmanager/list_events.h' that caused cleanup processing to
+	fail to be performed when the dialog was closed by the window
+	manager [Mantis bug #0000051].
+2012-04-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/list_log.cpp' that caused non-cart
+	log events to be marked red after editing their transition type.
+2012-04-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcut.cpp' that caused pasted carts to fail
+	to have their play and origin values reset.
+2012-05-04 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a patch from Eliot Blennerhassett
+	<eliot@blennerhassett.gen.nz> to support building against
+	hpklinux-4.10.x.
+2012-05-07 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'docs/datetime_wildcards.txt'.
+	* Implemented the '^' and '$' metacharacters in
+	'lib/rddatedecode.cpp'.
+	* Implemented 'e', 'E' and 'p' format characters in
+	'lib/rddatedecode.cpp'.
+2012-05-07 Fred Gleason <fredg@paravelsystems.com>
+	* Added sanity checks to verify marker placement in
+	'lib/rdedit_audio.cpp'.
+2012-05-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdairplay/list_log.cpp' that broke
+	background color status indications.
+2012-05-10 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'rdcatchd/batch.cpp' to assume anonymous FTP when
+	processing FTP xloads with a blank username.
+2012-05-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdairplay/list_log.cpp' that broke
+	background color status indications of played meta events.
+2012-05-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rddownload.cpp' that broke downloads
+	from URLs with uuencoded characters.
+	* Fixed a bug in 'lib/rdupload.cpp' that broke downloads
+	from URLs with uuencoded characters.
+2012-05-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rddatedecode.cpp' that broke the build
+	under Windows.
+2012-05-11 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.1.4.

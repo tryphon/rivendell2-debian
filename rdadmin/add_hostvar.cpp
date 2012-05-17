@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_hostvar.cpp,v 1.8 2010/07/29 19:32:34 cvs Exp $
+//      $Id: add_hostvar.cpp,v 1.9 2012/02/13 19:26:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -147,7 +147,8 @@ void AddHostvar::okData()
   if((add_name_edit->text().left(1)!=QString("%"))||
      (add_name_edit->text().right(1)!=QString("%"))||
      (add_name_edit->text().length()<3)) {
-    QMessageBox::warning(this,"Invalid Name","The variable name is invalid.");
+    QMessageBox::warning(this,tr("Invalid Name"),
+			 tr("The variable name is invalid."));
     return;
   }
   *add_name=add_name_edit->text();

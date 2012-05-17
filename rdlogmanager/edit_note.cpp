@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_note.cpp,v 1.7 2010/07/29 19:32:37 cvs Exp $
+//      $Id: edit_note.cpp,v 1.7.8.1 2012/04/23 17:22:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -106,4 +106,10 @@ void EditNote::okData()
 void EditNote::cancelData()
 {
   done(-1);
+}
+
+
+void EditNote::closeEvent(QCloseEvent *e)
+{
+  cancelData();
 }

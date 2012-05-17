@@ -7,11 +7,11 @@
     </message>
     <message>
         <source>&amp;Recording</source>
-        <translation>&amp;Grabando</translation>
+        <translation>&amp;Grabación</translation>
     </message>
     <message>
         <source>&amp;Playout</source>
-        <translation>&amp;Reprod</translation>
+        <translation>&amp;Reproducción</translation>
     </message>
     <message>
         <source>&amp;Macro Cart</source>
@@ -19,7 +19,7 @@
     </message>
     <message>
         <source>&amp;Switch Event</source>
-        <translation>&amp;Suichear evento</translation>
+        <translation>&amp;Evento con la Suichera</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -27,11 +27,11 @@
     </message>
     <message>
         <source>&amp;Download</source>
-        <translation>&amp;Descargar</translation>
+        <translation>&amp;Descarga</translation>
     </message>
     <message>
         <source>&amp;Upload</source>
-        <translation>&amp;Subir</translation>
+        <translation>&amp;Subida</translation>
     </message>
 </context>
 <context>
@@ -160,7 +160,7 @@
     </message>
     <message>
         <source>Make OneShot</source>
-        <translation>Hacer OneShot</translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -189,8 +189,8 @@
     <message>
         <source>&amp;Save As
 New</source>
-        <translation>&amp;Guardar como
-nuevo</translation>
+        <translation>&amp;Guardar
+como nuevo</translation>
     </message>
 </context>
 <context>
@@ -269,7 +269,7 @@ nuevo</translation>
     </message>
     <message>
         <source>Make OneShot</source>
-        <translation></translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -306,8 +306,8 @@ nuevo</translation>
     <message>
         <source>&amp;Save As
 New</source>
-        <translation>&amp;Guardar como
-Nuevo</translation>
+        <translation>&amp;Guardar
+como Nuevo</translation>
     </message>
     <message>
         <source>Autotrim</source>
@@ -331,7 +331,7 @@ Nuevo</translation>
     </message>
     <message>
         <source>Event Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Desplaz.Evento:</translation>
     </message>
     <message>
         <source>days</source>
@@ -354,7 +354,7 @@ Nuevo</translation>
     <name>EditPlayout</name>
     <message>
         <source>Edit Playout</source>
-        <translation>Editar Playout</translation>
+        <translation>Editar Reproducción</translation>
     </message>
     <message>
         <source>Event Active</source>
@@ -414,7 +414,7 @@ Nuevo</translation>
     </message>
     <message>
         <source>Make OneShot</source>
-        <translation>Hacer OneShot</translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -435,8 +435,8 @@ Nuevo</translation>
     <message>
         <source>&amp;Save As
 New</source>
-        <translation>&amp;Guardar como
-Nuevo</translation>
+        <translation>&amp;Guardar 
+como Nuevo</translation>
     </message>
 </context>
 <context>
@@ -459,7 +459,7 @@ Nuevo</translation>
     </message>
     <message>
         <source>Use Hard Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Hora estricta</translation>
     </message>
     <message>
         <source>Record Start Time:</source>
@@ -471,23 +471,23 @@ Nuevo</translation>
     </message>
     <message>
         <source>Window Start Time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Margen de inicio:</translation>
     </message>
     <message>
         <source>GPI Matrix:</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz GPI:</translation>
     </message>
     <message>
         <source>GPI Line:</source>
-        <translation type="unfinished"></translation>
+        <translation>Línea GPI:</translation>
     </message>
     <message>
         <source>Start Delay:</source>
-        <translation type="unfinished"></translation>
+        <translation>Demora en Inicio:</translation>
     </message>
     <message>
         <source>End Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetros de Fin</translation>
     </message>
     <message>
         <source>Use Length</source>
@@ -503,7 +503,7 @@ Nuevo</translation>
     </message>
     <message>
         <source>Window End Time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Margen de fin:</translation>
     </message>
     <message>
         <source>Description:</source>
@@ -555,15 +555,15 @@ Nuevo</translation>
     </message>
     <message>
         <source>Start Date Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Desplaz. Fecha Inicio:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Ninguno</translation>
+        <translation>Nada</translation>
     </message>
     <message>
         <source>End Date Offset:</source>
-        <translation type="unfinished"><byte value="x9"/></translation>
+        <translation>Desplaz. Fecha Fin:</translation>
     </message>
     <message>
         <source>Channels:</source>
@@ -571,7 +571,7 @@ Nuevo</translation>
     </message>
     <message>
         <source>Make OneShot</source>
-        <translation>Crear OneShot</translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -599,37 +599,37 @@ Nuevo</translation>
     </message>
     <message>
         <source>The start GPI window cannot end before it begins!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La ventana GPI inicial no puede terminar antes de que empiece!</translation>
     </message>
     <message>
         <source>The recording cannot end before it begins!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La grabación no puede terminar antes de que empiece!</translation>
     </message>
     <message>
         <source>The end GPI window cannot end before it begins!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La ventana GPI final no puede terminar antes de que empiece!</translation>
     </message>
     <message>
         <source>The start GPI matrix doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La matriz GPI de inicio no existe!</translation>
     </message>
     <message>
         <source>The start GPI line doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La línea GPI de inicio no existe!</translation>
     </message>
     <message>
         <source>The end GPI matrix doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La matriz GPI final no existe!</translation>
     </message>
     <message>
         <source>The end GPI line doesn&apos;t exist!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡La línea GPi final no existe!</translation>
     </message>
     <message>
         <source>&amp;Save As
 New</source>
-        <translation>&amp;Guardar como
-Nuevo</translation>
+        <translation>&amp;Guardar
+como Nuevo</translation>
     </message>
     <message>
         <source>Duplicate Event</source>
@@ -668,272 +668,274 @@ Nuevo</translation>
     <name>EditSwitchEvent</name>
     <message>
         <source>Edit Switcher Event</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Eventos de Suichera</translation>
     </message>
     <message>
         <source>Event Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Evento Activo</translation>
     </message>
     <message>
         <source>Location:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ubicación:</translation>
     </message>
     <message>
         <source>Start Time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo Inicio:</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción:</translation>
     </message>
     <message>
         <source>Switch Matrix:</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz de Suich.:</translation>
     </message>
     <message>
         <source>Switch Input:</source>
-        <translation type="unfinished"></translation>
+        <translation>Entrada de Suich.:</translation>
     </message>
     <message>
         <source>Switch Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida de Suich.:</translation>
     </message>
     <message>
         <source>Active Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Días Activo</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation>Lunes</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Martes</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Miércoles</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>Jueves</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation>Viernes</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation>Sábado</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation>Domingo</translation>
     </message>
     <message>
         <source>Make OneShot</source>
-        <translation type="unfinished"></translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Duplicate Event</source>
-        <translation type="unfinished"></translation>
+        <translation>Evento duplicado</translation>
     </message>
     <message>
         <source>An event with these parameters already exists!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Un evento con esos parámetros ya existe!</translation>
     </message>
     <message>
         <source>&amp;Save As
 New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Guardar
+como Nuevo</translation>
     </message>
     <message>
         <source>--OFF--</source>
-        <translation type="unfinished"></translation>
+        <translation>--APAGADO--</translation>
     </message>
 </context>
 <context>
     <name>EditUpload</name>
     <message>
         <source>Edit Upload</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Subida</translation>
     </message>
     <message>
         <source>Event Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Evento Activo</translation>
     </message>
     <message>
         <source>Location:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ubicación:</translation>
     </message>
     <message>
         <source>Start Time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo de Inicio:</translation>
     </message>
     <message>
         <source>Source:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuente:</translation>
     </message>
     <message>
         <source>&amp;Select</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seleccionar</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>Descripción:</translation>
     </message>
     <message>
         <source>Url:</source>
-        <translation type="unfinished"></translation>
+        <translation>Url:</translation>
     </message>
     <message>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Usuario:</translation>
     </message>
     <message>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraseña:</translation>
     </message>
     <message>
         <source>S&amp;et</source>
-        <translation type="unfinished"></translation>
+        <translation>Po&amp;ner</translation>
     </message>
     <message>
         <source>Active Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Días activos</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation>Lunes</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Martes</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Miércoles</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>Jueves</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation>Viernes</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation>Sábado</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Make OneShot</source>
-        <translation type="unfinished"></translation>
+        <translation>Una sola vez</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aceptar</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cancelar</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>Invalid URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL inválido</translation>
     </message>
     <message>
         <source>The URL is invalid!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El URL es inválido!</translation>
     </message>
     <message>
         <source>Unsupported URL protocol!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Protocolo de URL no soportado!</translation>
     </message>
     <message>
         <source>Export Format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato Exportac.:</translation>
     </message>
     <message>
         <source>Unsupported Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato no soportado</translation>
     </message>
     <message>
         <source>The currently selected export format is unsupported on this host!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡El formato seleccionado no está soportado por este equipo!</translation>
     </message>
     <message>
         <source>The currently selected export format is unsupported on host </source>
-        <translation type="unfinished"></translation>
+        <translation>El formato de exportación seleccionado no está soportado en el equipo </translation>
     </message>
     <message>
         <source>Normalize</source>
-        <translation type="unfinished"></translation>
+        <translation>Normalizar</translation>
     </message>
     <message>
         <source>Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel:</translation>
     </message>
     <message>
         <source>dBFS</source>
-        <translation type="unfinished"></translation>
+        <translation>dBFS</translation>
     </message>
     <message>
         <source>&amp;Save As
 New</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Guardar
+como Nuevo</translation>
     </message>
     <message>
         <source>Duplicate Event</source>
-        <translation type="unfinished"></translation>
+        <translation>Evento duplicado</translation>
     </message>
     <message>
         <source>An event with these parameters already exists!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Un evento con esos parámetros ya existe!</translation>
     </message>
     <message>
         <source>RSS Feed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Flujo RSS:</translation>
     </message>
     <message>
         <source>[none]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ninguno]</translation>
     </message>
     <message>
         <source>Event Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Desplaz. Evento:</translation>
     </message>
     <message>
         <source>days</source>
-        <translation type="unfinished"></translation>
+        <translation>días</translation>
     </message>
     <message>
         <source>Missing Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Falta el usuario</translation>
     </message>
     <message>
         <source>You must specify a username!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Debe especificar un nombre de usuario!</translation>
     </message>
     <message>
         <source>Export Library Metadata</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar Bibliot. Metadatos</translation>
     </message>
 </context>
 <context>
@@ -1047,7 +1049,7 @@ New</source>
     </message>
     <message>
         <source>ONE SHOT</source>
-        <translation type="unfinished"></translation>
+        <translation>UNA VEZ</translation>
     </message>
     <message>
         <source>TRIM THRESHOLD</source>
@@ -1055,11 +1057,11 @@ New</source>
     </message>
     <message>
         <source>STARTDATE OFFSET</source>
-        <translation type="unfinished"></translation>
+        <translation>DESPLAZ. FECHA INICIO</translation>
     </message>
     <message>
         <source>ENDDATE OFFSET</source>
-        <translation type="unfinished"></translation>
+        <translation>DESPLAZ. FECHA FIN</translation>
     </message>
     <message>
         <source>FORMAT</source>
@@ -1123,7 +1125,7 @@ New</source>
     </message>
     <message>
         <source>Are you sure you want to delete event</source>
-        <translation>Está seguro de borrar el evento</translation>
+        <translation>Desea borrar el evento</translation>
     </message>
     <message>
         <source>Delete Event</source>
@@ -1167,23 +1169,23 @@ New</source>
     </message>
     <message>
         <source>Hard</source>
-        <translation type="unfinished"></translation>
+        <translation>Estricto</translation>
     </message>
     <message>
         <source>Gpi</source>
-        <translation type="unfinished"></translation>
+        <translation>Gpi</translation>
     </message>
     <message>
         <source>Len</source>
-        <translation type="unfinished"></translation>
+        <translation>Lon</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>Cart</source>
-        <translation type="unfinished"></translation>
+        <translation>Cartucho</translation>
     </message>
     <message>
         <source>ORIGIN</source>

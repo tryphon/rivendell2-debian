@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: export.cpp,v 1.5 2011/12/23 23:07:00 cvs Exp $
+//      $Id: export.cpp,v 1.6 2012/02/13 23:01:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -45,60 +45,60 @@ void Xport::Export()
   //
   int cartnum=0;
   if(!xport_post->getValue("CART_NUMBER",&cartnum)) {
-    RDXMLResult("Missing CART_NUMBER",400);
+    XmlExit("Missing CART_NUMBER",400);
   }
   int cutnum=0;
   if(!xport_post->getValue("CUT_NUMBER",&cutnum)) {
-    RDXMLResult("Missing CUT_NUMBER",400);
+    XmlExit("Missing CUT_NUMBER",400);
   }
   int format=0;
   if(!xport_post->getValue("FORMAT",&format)) {
-    RDXMLResult("Missing FORMAT",400);
+    XmlExit("Missing FORMAT",400);
   }
   int channels=0;
   if(!xport_post->getValue("CHANNELS",&channels)) {
-    RDXMLResult("Missing CHANNELS",400);
+    XmlExit("Missing CHANNELS",400);
   }
   int sample_rate=0;
   if(!xport_post->getValue("SAMPLE_RATE",&sample_rate)) {
-    RDXMLResult("Missing SAMPLE_RATE",400);
+    XmlExit("Missing SAMPLE_RATE",400);
   }
   int bit_rate=0;
   if(!xport_post->getValue("BIT_RATE",&bit_rate)) {
-    RDXMLResult("Missing BIT_RATE",400);
+    XmlExit("Missing BIT_RATE",400);
   }
   int quality=0;
   if(!xport_post->getValue("QUALITY",&quality)) {
-    RDXMLResult("Missing QUALITY",400);
+    XmlExit("Missing QUALITY",400);
   }
   int start_point=-1;
   if(!xport_post->getValue("START_POINT",&start_point)) {
-    RDXMLResult("Missing START_POINT",400);
+    XmlExit("Missing START_POINT",400);
   }
   int end_point=-1;
   if(!xport_post->getValue("END_POINT",&end_point)) {
-    RDXMLResult("Missing END_POINT",400);
+    XmlExit("Missing END_POINT",400);
   }
   int normalization_level=0;
   if(!xport_post->getValue("NORMALIZATION_LEVEL",&normalization_level)) {
-    RDXMLResult("Missing NORMALIZATION_LEVEL",400);
+    XmlExit("Missing NORMALIZATION_LEVEL",400);
   }
   int enable_metadata=false;
   if(!xport_post->getValue("ENABLE_METADATA",&enable_metadata)) {
-    RDXMLResult("Missing ENABLE_METADATA",400);
+    XmlExit("Missing ENABLE_METADATA",400);
   }
   if(!RDCart::exists(cartnum)) {
-    RDXMLResult("No such cart",404);
+    XmlExit("No such cart",404);
   }
   if(!RDCut::exists(cartnum,cutnum)) {
-    RDXMLResult("No such cut",404);
+    XmlExit("No such cut",404);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cartnum)) {
-    RDXMLResult("No such cart",404);
+    XmlExit("No such cart",404);
   }
 
   //
@@ -198,5 +198,5 @@ void Xport::Export()
   }
   unlink(tmpfile);
   rmdir(tmpdir);
-  RDXMLResult(RDAudioConvert::errorText(conv_err),resp_code,conv_err);
+  XmlExit(RDAudioConvert::errorText(conv_err),resp_code,conv_err);
 }

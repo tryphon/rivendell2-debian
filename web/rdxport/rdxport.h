@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdxport.h,v 1.6 2011/02/17 20:58:00 cvs Exp $
+//      $Id: rdxport.h,v 1.7 2012/02/13 23:01:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -57,6 +57,8 @@ class Xport : public QObject
   void CopyAudio();
   void AudioInfo();
   void Exit(int code);
+  void XmlExit(const QString &str,int code,
+	       RDAudioConvert::ErrorCode err=RDAudioConvert::ErrorOk);
   RDFormPost *xport_post;
   RDUser *xport_user;
   RDConfig *xport_config;

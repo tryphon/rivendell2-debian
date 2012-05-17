@@ -555,10 +555,6 @@ Disk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Schedule Cuts:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Execute Asynchronously</source>
         <translation type="unfinished"></translation>
     </message>
@@ -589,14 +585,6 @@ Script</source>
     </message>
     <message>
         <source>TFN</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sequentially</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Randomly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -650,6 +638,52 @@ Notes</source>
     </message>
 </context>
 <context>
+    <name>EditNotes</name>
+    <message>
+        <source>Notes for cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditSchedulerCodes</name>
+    <message>
+        <source>Select Scheduler Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Assigned Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ASSIGN to Carts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REMOVE from Carts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Filter</name>
     <message>
         <source>Library Filter</source>
@@ -669,6 +703,41 @@ Notes</source>
     </message>
     <message>
         <source>&amp;Filter:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ListReports</name>
+    <message>
+        <source>RDLibrary Reports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart Data Dump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Generate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ALL</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

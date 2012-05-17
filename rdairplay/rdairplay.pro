@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdairplay.pro,v 1.7 2010/08/04 23:07:01 cvs Exp $
+#      $Id: rdairplay.pro,v 1.8 2012/01/12 16:33:42 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -42,6 +42,7 @@ x11 {
 
 x11 {
   HEADERS += button_log.h
+  HEADERS += colors.h
   HEADERS += edit_event.h
   HEADERS += list_log.h
   HEADERS += list_logs.h

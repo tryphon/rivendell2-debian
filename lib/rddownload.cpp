@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddownload.cpp,v 1.5 2011/10/17 21:01:03 cvs Exp $
+//      $Id: rddownload.cpp,v 1.5.4.1 2012/05/10 23:12:42 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -127,14 +127,15 @@ RDDownload::ErrorCode RDDownload::runDownload(const QString &username,
   }
   if((f=fopen(conv_dst_filename,"w"))==NULL) {
     curl_easy_cleanup(curl);
-    return RDDownload::ErrorNoSource;
+    return RDDownload::ErrorNoDestination;
   }
   //
   // Write out URL as a C string before passing to curl_easy_setopt(), 
   // otherwise some versions of LibCurl will throw a 'bad/illegal format' 
   // error.
   //
-  strncpy(url,conv_src_url.toString(),1024);
+  strncpy(url,conv_src_url.toString(conv_src_url.protocol().lower()=="http"),
+	  1024);
   curl_easy_setopt(curl,CURLOPT_URL,url);
   curl_easy_setopt(curl,CURLOPT_WRITEDATA,f);
   strncpy(userpwd,username+":"+password,256);

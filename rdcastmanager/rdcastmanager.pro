@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2004 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdcastmanager.pro,v 1.4 2010/08/04 23:07:01 cvs Exp $
+#      $Id: rdcastmanager.pro,v 1.5 2012/02/13 19:26:16 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -35,10 +35,12 @@ win32 {
 SOURCES += rdcastmanager.cpp
 SOURCES += edit_cast.cpp
 SOURCES += list_casts.cpp
+SOURCES += pick_report_dates.cpp
 
 HEADERS += rdcastmanager.h
 HEADERS += edit_cast.h
 HEADERS += list_casts.h
+HEADERS += pick_report_dates.h
 
 RES_FILE += ..\icons\rivendell.res
 

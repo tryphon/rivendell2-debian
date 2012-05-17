@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: trimaudio.cpp,v 1.3 2011/12/23 23:07:00 cvs Exp $
+//      $Id: trimaudio.cpp,v 1.4 2012/02/13 23:01:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,23 +44,23 @@ void Xport::TrimAudio()
   //
   int cartnum=0;
   if(!xport_post->getValue("CART_NUMBER",&cartnum)) {
-    RDXMLResult("Missing CART_NUMBER",400);
+    XmlExit("Missing CART_NUMBER",400);
   }
   int cutnum=0;
   if(!xport_post->getValue("CUT_NUMBER",&cutnum)) {
-    RDXMLResult("Missing CUT_NUMBER",400);
+    XmlExit("Missing CUT_NUMBER",400);
   }
 
   int trim_level=0;
   if(!xport_post->getValue("TRIM_LEVEL",&trim_level)) {
-    RDXMLResult("Missing TRIM_LEVEL",400);
+    XmlExit("Missing TRIM_LEVEL",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cartnum)) {
-    RDXMLResult("No such cart",404);
+    XmlExit("No such cart",404);
   }
 
   //
@@ -68,10 +68,10 @@ void Xport::TrimAudio()
   //
   RDWaveFile *wave=new RDWaveFile(RDCut::pathName(cartnum,cutnum));
   if(!wave->openWave()) {
-    RDXMLResult("No such audio",404);
+    XmlExit("No such audio",404);
   }
   if(!wave->hasEnergy()) {
-    RDXMLResult("No peak data available",400);
+    XmlExit("No peak data available",400);
   }
 
   //
@@ -94,4 +94,5 @@ void Xport::TrimAudio()
   }
   printf("  <endTrimPoint>%d</endTrimPoint>\n",point);
   printf("</trimPoint>\n");
+  Exit(0);
 }

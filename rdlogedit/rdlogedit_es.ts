@@ -30,7 +30,7 @@
     </message>
     <message>
         <source>Start at:</source>
-        <translation>Iniciar en:</translation>
+        <translation>Inicia en:</translation>
     </message>
     <message>
         <source>Action If Previous Event Still Playing</source>
@@ -46,7 +46,7 @@
     </message>
     <message>
         <source>Wait up to</source>
-        <translation>Esperar hasta</translation>
+        <translation>Espe. hasta</translation>
     </message>
     <message>
         <source>Play</source>
@@ -86,7 +86,7 @@
     </message>
     <message>
         <source>Transition If Previous Cart Ends Before</source>
-        <translation>Transición si el cartucho previo termina antes</translation>
+        <translation>Transic. si cart. previo termina antes de</translation>
     </message>
 </context>
 <context>
@@ -101,7 +101,7 @@
     </message>
     <message>
         <source>Origin:</source>
-        <translation>Origen:</translation>
+        <translation>Por:</translation>
     </message>
     <message>
         <source>Description:</source>
@@ -406,7 +406,7 @@ desactivados para el servicio actual!
     </message>
     <message>
         <source>Start at:</source>
-        <translation>Iniciar en:</translation>
+        <translation>Inicia en:</translation>
     </message>
     <message>
         <source>Action If Previous Event Still Playing</source>
@@ -422,7 +422,7 @@ desactivados para el servicio actual!
     </message>
     <message>
         <source>Wait up to</source>
-        <translation>Esperar hasta</translation>
+        <translation>Esp. hasta</translation>
     </message>
     <message>
         <source>Play</source>
@@ -468,7 +468,7 @@ cartucho</translation>
     </message>
     <message>
         <source>Transition If Previous Cart Ends Before</source>
-        <translation>Transición si el cartucho previo termina antes</translation>
+        <translation>Transic. si cart. previo termina antes de</translation>
     </message>
     <message>
         <source>Missing Cart</source>
@@ -509,7 +509,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Start at:</source>
-        <translation>Iniciar en:</translation>
+        <translation>Inicia en:</translation>
     </message>
     <message>
         <source>Action If Previous Event Still Playing</source>
@@ -525,7 +525,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Wait up to</source>
-        <translation>Esperar hasta</translation>
+        <translation>Esp. hasta</translation>
     </message>
     <message>
         <source>Play</source>
@@ -557,7 +557,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Transition If Previous Cart Ends Before</source>
-        <translation>Transición si el cartucho previo termina antes</translation>
+        <translation>Transic. si cart. previo termina antes de</translation>
     </message>
     <message>
         <source>Transition Type:</source>
@@ -572,7 +572,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Start at:</source>
-        <translation>Iniciar en:</translation>
+        <translation>Inicia en:</translation>
     </message>
     <message>
         <source>Action If Previous Event Still Playing</source>
@@ -588,7 +588,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Wait up to</source>
-        <translation>Esperar hasta</translation>
+        <translation>Esp. hasta</translation>
     </message>
     <message>
         <source>Play</source>
@@ -616,7 +616,7 @@ desactivado para el servicio especificado!</translation>
     </message>
     <message>
         <source>Transition If Previous Cart Ends Before</source>
-        <translation>Transición si el cartucho previo termina antes</translation>
+        <translation>Transic. si cart. previo termina antes de</translation>
     </message>
     <message>
         <source>Transition Type:</source>
@@ -827,7 +827,7 @@ de &amp;Voz</translation>
         <source>Log
 Report</source>
         <translation>Reporte
-de Lista</translation>
+de Listas</translation>
     </message>
     <message>
         <source>RDLogEdit</source>
@@ -846,6 +846,224 @@ de Lista</translation>
 See your system administrator for an update!</source>
         <translation>Esta versión de RDLogEdit es incompatible con la versión instalada en el servidor.
 ¡Solicite una actualización al administrador!</translation>
+    </message>
+</context>
+<context>
+    <name>VoiceTracker</name>
+    <message>
+        <source>Voice Tracker</source>
+        <translation>Pista de voz</translation>
+    </message>
+    <message>
+        <source>Edit Cue Markers</source>
+        <translation>Editar marcadores</translation>
+    </message>
+    <message>
+        <source>Undo Segue Changes</source>
+        <translation>Deshacer cambios en Segue</translation>
+    </message>
+    <message>
+        <source>Set Start Point Here</source>
+        <translation>Colocar punto de inicio aquí</translation>
+    </message>
+    <message>
+        <source>Set End Point Here</source>
+        <translation>Colocar punto de fin aquí</translation>
+    </message>
+    <message>
+        <source>Set to Hook Markers</source>
+        <translation>Colocar en los marcadores &quot;Hook&quot;</translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation>Inicio</translation>
+    </message>
+    <message>
+        <source>Record</source>
+        <translation>Grabar</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Guardar</translation>
+    </message>
+    <message>
+        <source>&amp;Previous
+Track</source>
+        <translation>Pista 
+&amp;Anterior</translation>
+    </message>
+    <message>
+        <source>&amp;Next
+Track</source>
+        <translation>Pista
+&amp;Siguiente</translation>
+    </message>
+    <message>
+        <source>Remaining</source>
+        <translation>Restan</translation>
+    </message>
+    <message>
+        <source>Tracks</source>
+        <translation>Pistas</translation>
+    </message>
+    <message>
+        <source>Time</source>
+        <translation>Tiempo</translation>
+    </message>
+    <message>
+        <source> </source>
+        <translation> </translation>
+    </message>
+    <message>
+        <source>TIME</source>
+        <translation>TIEMPO</translation>
+    </message>
+    <message>
+        <source>TRANS</source>
+        <translation>TRANS</translation>
+    </message>
+    <message>
+        <source>CART</source>
+        <translation>CARTUCHO</translation>
+    </message>
+    <message>
+        <source>GROUP</source>
+        <translation>GRUPO</translation>
+    </message>
+    <message>
+        <source>LENGTH</source>
+        <translation>DURACIÓN</translation>
+    </message>
+    <message>
+        <source>TITLE</source>
+        <translation>TÍTULO</translation>
+    </message>
+    <message>
+        <source>ARTIST</source>
+        <translation>ARTISTA</translation>
+    </message>
+    <message>
+        <source>Do Over</source>
+        <translation>Sobre-
+escribir</translation>
+    </message>
+    <message>
+        <source>Hit Post</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Insert
+Track</source>
+        <translation>Insertar
+Pista</translation>
+    </message>
+    <message>
+        <source>Delete
+Track</source>
+        <translation>Borrar
+Pista</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Cerrar</translation>
+    </message>
+    <message>
+        <source>No VoiceTrack Group</source>
+        <translation>No hay grupos para las pistas de voz</translation>
+    </message>
+    <message>
+        <source>No voicetracking group has been defined for this service,
+therefore only existing transitions will be editable.</source>
+        <translation>No se ha definido un grupo para las pistas de voz, por ende
+sólo podrás editar transiciones ya existentes.</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importar</translation>
+    </message>
+    <message>
+        <source>Cart Creation Failure</source>
+        <translation>Falló la creación de cartuchos</translation>
+    </message>
+    <message>
+        <source>Unable to create new cart for voice track!</source>
+        <translation>¡No fue posible crear un nuevo cartucho para la pista de voz!</translation>
+    </message>
+    <message>
+        <source>RDLogEdit</source>
+        <translation>RDLogEdit</translation>
+    </message>
+    <message>
+        <source>Audio Deletion Error!</source>
+        <translation>¡Error eliminando audio!</translation>
+    </message>
+    <message>
+        <source>TRACK</source>
+        <translation>PISTA</translation>
+    </message>
+    <message>
+        <source>Voice Track</source>
+        <translation>Pista de voz</translation>
+    </message>
+    <message>
+        <source>Track List</source>
+        <translation>Listado de pistas</translation>
+    </message>
+    <message>
+        <source>No more tracks!</source>
+        <translation>¡No hay más pistas!</translation>
+    </message>
+    <message>
+        <source>[end of log]</source>
+        <translation>[fin de la lista]</translation>
+    </message>
+    <message>
+        <source>[cart not found]</source>
+        <translation>[cartucho no encontrado]</translation>
+    </message>
+    <message>
+        <source>MARKER</source>
+        <translation>MARCADOR</translation>
+    </message>
+    <message>
+        <source>LOG CHAIN</source>
+        <translation>ENCADENAR A LISTA</translation>
+    </message>
+    <message>
+        <source>LINK</source>
+        <translation>ENLACE</translation>
+    </message>
+    <message>
+        <source>[music import]</source>
+        <translation>[importar música]</translation>
+    </message>
+    <message>
+        <source>[traffic import]</source>
+        <translation>[importar tráfico]</translation>
+    </message>
+    <message>
+        <source>PLAY</source>
+        <translation>REPROD</translation>
+    </message>
+    <message>
+        <source>SEGUE</source>
+        <translation>SEGUE</translation>
+    </message>
+    <message>
+        <source>STOP</source>
+        <translation>PARAR</translation>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation>Abortar</translation>
+    </message>
+    <message>
+        <source>Segue Changed</source>
+        <translation>Segue modificado</translation>
+    </message>
+    <message>
+        <source>Save segue changes?</source>
+        <translation>¿Guardar cambios en Segue?</translation>
     </message>
 </context>
 </TS>

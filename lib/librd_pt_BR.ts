@@ -3,14 +3,14 @@
     <name></name>
     <message>
         <source>UNKNOWN CUT</source>
-        <translation>CONTEÚDO DESCONHECIDO</translation>
+        <translation type="obsolete">CONTEÚDO DESCONHECIDO</translation>
     </message>
 </context>
 <context>
     <name>@default</name>
     <message>
         <source>ALL</source>
-        <translation type="unfinished">TODOS</translation>
+        <translation type="obsolete">TODOS</translation>
     </message>
 </context>
 <context>
@@ -22,6 +22,270 @@
     <message>
         <source>Couldn&apos;t open mySQL connection!</source>
         <translation>Não foi possível conetar ao mySQL !</translation>
+    </message>
+    <message>
+        <source>Sequentially</source>
+        <translation type="unfinished">Sequencialmente</translation>
+    </message>
+    <message>
+        <source>Randomly</source>
+        <translation type="unfinished">Randomicamente</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Desconhecido</translation>
+    </message>
+    <message>
+        <source>Feature</source>
+        <translation type="unfinished">Vários</translation>
+    </message>
+    <message>
+        <source>Theme Open</source>
+        <translation type="unfinished">Tema de Abertura</translation>
+    </message>
+    <message>
+        <source>Theme Close</source>
+        <translation type="unfinished">Tema de Fechamento</translation>
+    </message>
+    <message>
+        <source>Theme Open/Close</source>
+        <translation type="unfinished">Tema de Abertura/Fechamento</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">BG</translation>
+    </message>
+    <message>
+        <source>Commercial/Jingle/Promo</source>
+        <translation type="unfinished">Comercial/Vinheta/Promo</translation>
+    </message>
+    <message>
+        <source>UNKNOWN CUT</source>
+        <translation type="unfinished">CONTEÚDO DESCONHECIDO</translation>
+    </message>
+    <message>
+        <source>Manual</source>
+        <translation type="unfinished">Manual</translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished">Simples</translation>
+    </message>
+    <message>
+        <source>Segue</source>
+        <translation type="unfinished">Sobre</translation>
+    </message>
+    <message>
+        <source>Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Panel</source>
+        <translation type="unfinished">Painel</translation>
+    </message>
+    <message>
+        <source>Macro</source>
+        <translation type="unfinished">Macro</translation>
+    </message>
+    <message>
+        <source>PLAY</source>
+        <translation type="unfinished">SIMPLES<byte value="x9"/></translation>
+    </message>
+    <message>
+        <source>SEGUE</source>
+        <translation type="unfinished">SOBRE</translation>
+    </message>
+    <message>
+        <source>STOP</source>
+        <translation type="unfinished">PARE</translation>
+    </message>
+    <message>
+        <source>UNKNOWN</source>
+        <translation type="unfinished">DESCONHECIDO</translation>
+    </message>
+    <message>
+        <source>Audio</source>
+        <translation type="unfinished">Áudio</translation>
+    </message>
+    <message>
+        <source>Marker</source>
+        <translation type="unfinished">Marcador</translation>
+    </message>
+    <message>
+        <source>Open Bracket</source>
+        <translation type="unfinished">Abrir Colchetes</translation>
+    </message>
+    <message>
+        <source>Close Bracket</source>
+        <translation type="unfinished">FEchar Colchetes</translation>
+    </message>
+    <message>
+        <source>ChainTo</source>
+        <translation type="unfinished">Corrente para</translation>
+    </message>
+    <message>
+        <source>Track</source>
+        <translation type="unfinished">Pista</translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Link</translation>
+    </message>
+    <message>
+        <source>Traffic</source>
+        <translation type="unfinished">Tráfego</translation>
+    </message>
+    <message>
+        <source>Music</source>
+        <translation type="unfinished">Música</translation>
+    </message>
+    <message>
+        <source>RDLogManager</source>
+        <translation type="unfinished">RDControle</translation>
+    </message>
+    <message>
+        <source>Tracker</source>
+        <translation type="unfinished">Busca</translation>
+    </message>
+    <message>
+        <source>Recording</source>
+        <translation type="unfinished">Gravação</translation>
+    </message>
+    <message>
+        <source>Macro Event</source>
+        <translation type="unfinished">Eventp Macro</translation>
+    </message>
+    <message>
+        <source>Switch Event</source>
+        <translation type="unfinished">Evento de Switch</translation>
+    </message>
+    <message>
+        <source>Playout</source>
+        <translation type="unfinished">Execução</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished">Download</translation>
+    </message>
+    <message>
+        <source>Upload</source>
+        <translation type="unfinished">Upload</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Short Length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Server Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Internal Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Interrupted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Busy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Such Cart/Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown Audio Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CBSI DeltaFlex Traffic Reconciliation v2.01</source>
+        <translation type="unfinished">CBSI DeltaFlex Traffic Reconciliation v2.01</translation>
+    </message>
+    <message>
+        <source>Text Log</source>
+        <translation type="unfinished">Texto</translation>
+    </message>
+    <message>
+        <source>ASCAP/BMI Electronic Music Report</source>
+        <translation type="unfinished">ASCAP/BMI Electronic Music Report</translation>
+    </message>
+    <message>
+        <source>Technical Playout Report</source>
+        <translation type="unfinished">Relatório Técnico de Execução</translation>
+    </message>
+    <message>
+        <source>SoundExchange Statutory License Report</source>
+        <translation type="unfinished">SoundExchange Statutory License Report</translation>
+    </message>
+    <message>
+        <source>RadioTraffic.com Traffic Reconciliation</source>
+        <translation type="unfinished">RadioTraffic.com Traffic Reconciliation</translation>
+    </message>
+    <message>
+        <source>VisualTraffic Reconciliation</source>
+        <translation type="unfinished">VisualTraffic Reconciliation</translation>
+    </message>
+    <message>
+        <source>CounterPoint Traffic Reconciliation</source>
+        <translation type="unfinished">CounterPoint Traffic Reconciliation</translation>
+    </message>
+    <message>
+        <source>Music1 Reconciliation</source>
+        <translation type="unfinished">Music1 Reconciliation</translation>
+    </message>
+    <message>
+        <source>Other</source>
+        <translation type="unfinished">Outros</translation>
+    </message>
+    <message>
+        <source>AM</source>
+        <translation type="unfinished">AM</translation>
+    </message>
+    <message>
+        <source>FM</source>
+        <translation type="unfinished">FM</translation>
+    </message>
+    <message>
+        <source>Report complete!</source>
+        <translation type="unfinished">Relatório Completo</translation>
+    </message>
+    <message>
+        <source>Report canceled!</source>
+        <translation type="unfinished">Relatório Cancelado</translation>
+    </message>
+    <message>
+        <source>Unable to open report file!</source>
+        <translation type="unfinished">Não foi possível abrir o Relatório!</translation>
     </message>
 </context>
 <context>
@@ -247,39 +511,39 @@ Cor</translation>
     <name>RDCart</name>
     <message>
         <source>Sequentially</source>
-        <translation>Sequencialmente</translation>
+        <translation type="obsolete">Sequencialmente</translation>
     </message>
     <message>
         <source>Randomly</source>
-        <translation>Randomicamente</translation>
+        <translation type="obsolete">Randomicamente</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>Desconhecido</translation>
+        <translation type="obsolete">Desconhecido</translation>
     </message>
     <message>
         <source>Feature</source>
-        <translation>Vários</translation>
+        <translation type="obsolete">Vários</translation>
     </message>
     <message>
         <source>Theme Open</source>
-        <translation>Tema de Abertura</translation>
+        <translation type="obsolete">Tema de Abertura</translation>
     </message>
     <message>
         <source>Theme Close</source>
-        <translation>Tema de Fechamento</translation>
+        <translation type="obsolete">Tema de Fechamento</translation>
     </message>
     <message>
         <source>Theme Open/Close</source>
-        <translation>Tema de Abertura/Fechamento</translation>
+        <translation type="obsolete">Tema de Abertura/Fechamento</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation>BG</translation>
+        <translation type="obsolete">BG</translation>
     </message>
     <message>
         <source>Commercial/Jingle/Promo</source>
-        <translation>Comercial/Vinheta/Promo</translation>
+        <translation type="obsolete">Comercial/Vinheta/Promo</translation>
     </message>
 </context>
 <context>
@@ -728,6 +992,20 @@ Marcador</translation>
     </message>
     <message>
         <source>Edit Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Marker Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Less than half of the audio is playable with these marker settings.
+Are you sure you want to save?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More than half of the audio will be faded with these marker settings.
+Are you sure you want to save?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1338,91 +1616,91 @@ Por Favor, cheque suas configurações e tenbte outra vez.</translation>
     <name>RDLogLine</name>
     <message>
         <source>Unknown</source>
-        <translation>Desconhecido</translation>
+        <translation type="obsolete">Desconhecido</translation>
     </message>
     <message>
         <source>Manual</source>
-        <translation>Manual</translation>
+        <translation type="obsolete">Manual</translation>
     </message>
     <message>
         <source>Play</source>
-        <translation>Simples</translation>
+        <translation type="obsolete">Simples</translation>
     </message>
     <message>
         <source>Segue</source>
-        <translation>Sobre</translation>
+        <translation type="obsolete">Sobre</translation>
     </message>
     <message>
         <source>Time</source>
-        <translation>Hora</translation>
+        <translation type="obsolete">Hora</translation>
     </message>
     <message>
         <source>Panel</source>
-        <translation>Painel</translation>
+        <translation type="obsolete">Painel</translation>
     </message>
     <message>
         <source>Macro</source>
-        <translation>Macro</translation>
+        <translation type="obsolete">Macro</translation>
     </message>
     <message>
         <source>PLAY</source>
-        <translation>SIMPLES<byte value="x9"/></translation>
+        <translation type="obsolete">SIMPLES<byte value="x9"/></translation>
     </message>
     <message>
         <source>SEGUE</source>
-        <translation>SOBRE</translation>
+        <translation type="obsolete">SOBRE</translation>
     </message>
     <message>
         <source>STOP</source>
-        <translation>PARE</translation>
+        <translation type="obsolete">PARE</translation>
     </message>
     <message>
         <source>UNKNOWN</source>
-        <translation>DESCONHECIDO</translation>
+        <translation type="obsolete">DESCONHECIDO</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation>Áudio</translation>
+        <translation type="obsolete">Áudio</translation>
     </message>
     <message>
         <source>Marker</source>
-        <translation>Marcador</translation>
+        <translation type="obsolete">Marcador</translation>
     </message>
     <message>
         <source>Open Bracket</source>
-        <translation>Abrir Colchetes</translation>
+        <translation type="obsolete">Abrir Colchetes</translation>
     </message>
     <message>
         <source>Close Bracket</source>
-        <translation>FEchar Colchetes</translation>
+        <translation type="obsolete">FEchar Colchetes</translation>
     </message>
     <message>
         <source>ChainTo</source>
-        <translation>Corrente para</translation>
+        <translation type="obsolete">Corrente para</translation>
     </message>
     <message>
         <source>Track</source>
-        <translation>Pista</translation>
+        <translation type="obsolete">Pista</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation>Link</translation>
+        <translation type="obsolete">Link</translation>
     </message>
     <message>
         <source>Traffic</source>
-        <translation>Tráfego</translation>
+        <translation type="obsolete">Tráfego</translation>
     </message>
     <message>
         <source>Music</source>
-        <translation>Música</translation>
+        <translation type="obsolete">Música</translation>
     </message>
     <message>
         <source>RDLogManager</source>
-        <translation>RDControle</translation>
+        <translation type="obsolete">RDControle</translation>
     </message>
     <message>
         <source>Tracker</source>
-        <translation>Busca</translation>
+        <translation type="obsolete">Busca</translation>
     </message>
 </context>
 <context>
@@ -1466,150 +1744,94 @@ por favor, tente novamente!</translation>
     <name>RDRecording</name>
     <message>
         <source>Recording</source>
-        <translation>Gravação</translation>
+        <translation type="obsolete">Gravação</translation>
     </message>
     <message>
         <source>Macro Event</source>
-        <translation>Eventp Macro</translation>
+        <translation type="obsolete">Eventp Macro</translation>
     </message>
     <message>
         <source>Switch Event</source>
-        <translation>Evento de Switch</translation>
+        <translation type="obsolete">Evento de Switch</translation>
     </message>
     <message>
         <source>Playout</source>
-        <translation>Execução</translation>
+        <translation type="obsolete">Execução</translation>
     </message>
     <message>
         <source>Download</source>
-        <translation>Download</translation>
+        <translation type="obsolete">Download</translation>
     </message>
     <message>
         <source>Upload</source>
-        <translation>Upload</translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Short Length</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Low Level</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>High Level</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Downloading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Uploading</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Server Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Internal Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Interrupted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Playing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Waiting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Device Busy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No Such Cart/Cut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown Audio Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Upload</translation>
     </message>
 </context>
 <context>
     <name>RDReport</name>
     <message>
         <source>CBSI DeltaFlex Traffic Reconciliation v2.01</source>
-        <translation>CBSI DeltaFlex Traffic Reconciliation v2.01</translation>
+        <translation type="obsolete">CBSI DeltaFlex Traffic Reconciliation v2.01</translation>
     </message>
     <message>
         <source>Text Log</source>
-        <translation>Texto</translation>
+        <translation type="obsolete">Texto</translation>
     </message>
     <message>
         <source>ASCAP/BMI Electronic Music Report</source>
-        <translation>ASCAP/BMI Electronic Music Report</translation>
+        <translation type="obsolete">ASCAP/BMI Electronic Music Report</translation>
     </message>
     <message>
         <source>Technical Playout Report</source>
-        <translation>Relatório Técnico de Execução</translation>
+        <translation type="obsolete">Relatório Técnico de Execução</translation>
     </message>
     <message>
         <source>SoundExchange Statutory License Report</source>
-        <translation>SoundExchange Statutory License Report</translation>
+        <translation type="obsolete">SoundExchange Statutory License Report</translation>
     </message>
     <message>
         <source>RadioTraffic.com Traffic Reconciliation</source>
-        <translation>RadioTraffic.com Traffic Reconciliation</translation>
+        <translation type="obsolete">RadioTraffic.com Traffic Reconciliation</translation>
     </message>
     <message>
         <source>VisualTraffic Reconciliation</source>
-        <translation>VisualTraffic Reconciliation</translation>
+        <translation type="obsolete">VisualTraffic Reconciliation</translation>
     </message>
     <message>
         <source>CounterPoint Traffic Reconciliation</source>
-        <translation>CounterPoint Traffic Reconciliation</translation>
+        <translation type="obsolete">CounterPoint Traffic Reconciliation</translation>
     </message>
     <message>
         <source>Music1 Reconciliation</source>
-        <translation>Music1 Reconciliation</translation>
+        <translation type="obsolete">Music1 Reconciliation</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>Desconhecido</translation>
+        <translation type="obsolete">Desconhecido</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation>Outros</translation>
+        <translation type="obsolete">Outros</translation>
     </message>
     <message>
         <source>AM</source>
-        <translation>AM</translation>
+        <translation type="obsolete">AM</translation>
     </message>
     <message>
         <source>FM</source>
-        <translation>FM</translation>
+        <translation type="obsolete">FM</translation>
     </message>
     <message>
         <source>Report complete!</source>
-        <translation>Relatório Completo</translation>
+        <translation type="obsolete">Relatório Completo</translation>
     </message>
     <message>
         <source>Report canceled!</source>
-        <translation>Relatório Cancelado</translation>
+        <translation type="obsolete">Relatório Cancelado</translation>
     </message>
     <message>
         <source>Unable to open report file!</source>
-        <translation>Não foi possível abrir o Relatório!</translation>
+        <translation type="obsolete">Não foi possível abrir o Relatório!</translation>
     </message>
 </context>
 <context>

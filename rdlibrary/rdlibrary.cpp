@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.cpp,v 1.116 2011/10/27 15:23:26 cvs Exp $
+//      $Id: rdlibrary.cpp,v 1.117 2012/01/12 15:33:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -939,20 +939,24 @@ void MainWidget::RefreshList()
        CUTS.WED,CUTS.THU,CUTS.FRI,CUTS.SAT,CUTS.SUN from CART \
        left join GROUPS on CART.GROUP_NAME=GROUPS.NAME \
        left join CUTS on CART.NUMBER=CUTS.CART_NUMBER";
-  QString group=lib_group_box->currentText();
-  if(group==QString(tr("ALL"))) {
+  QString schedcode="";
+  if(lib_codes_box->currentText()!=tr("ALL")) {
+    schedcode=lib_codes_box->currentText();
+  }
+  if(lib_group_box->currentText()==QString(tr("ALL"))) {
     sql+=QString().
       sprintf(" where %s && %s",
 	      (const char *)RDAllCartSearchText(lib_filter_edit->text(),
-						lib_codes_box->currentText(),
+						schedcode,
 						lib_user->name()).utf8(),
 	      (const char *)type_filter);
   }
   else {
     sql+=QString().
       sprintf(" where %s && %s",
-	      (const char *)RDCartSearchText(lib_filter_edit->text(),group,
-					     lib_codes_box->currentText()).
+	      (const char *)RDCartSearchText(lib_filter_edit->text(),
+					     lib_group_box->currentText(),
+					     schedcode).
 	      utf8(),
 	      (const char *)type_filter);
   }

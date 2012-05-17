@@ -852,207 +852,219 @@ See your system administrator for an update!</source>
     <name>VoiceTracker</name>
     <message>
         <source>Voice Tracker</source>
-        <translation type="obsolete">Faixas de Voz</translation>
+        <translation type="unfinished">Faixas de Voz</translation>
     </message>
     <message>
         <source>Edit Cue Markers</source>
-        <translation type="obsolete">Editar Marcador de Escuta</translation>
+        <translation type="unfinished">Editar Marcador de Escuta</translation>
     </message>
     <message>
         <source>Undo Segue Changes</source>
-        <translation type="obsolete">Desfazer Mudanças de Sobre</translation>
+        <translation type="unfinished">Desfazer Mudanças de Sobre</translation>
     </message>
     <message>
         <source>Set Start Point Here</source>
-        <translation type="obsolete">Marcar Início aqui</translation>
+        <translation type="unfinished">Marcar Início aqui</translation>
     </message>
     <message>
         <source>Set End Point Here</source>
-        <translation type="obsolete">Marcar Término aqui</translation>
+        <translation type="unfinished">Marcar Término aqui</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation type="obsolete">Comece</translation>
+        <translation type="unfinished">Comece</translation>
     </message>
     <message>
         <source>Record</source>
-        <translation type="obsolete">Gravar</translation>
+        <translation type="unfinished">Gravar</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="obsolete">Salvar</translation>
+        <translation type="unfinished">Salvar</translation>
     </message>
     <message>
         <source>&amp;Previous
 Track</source>
-        <translation type="obsolete">&amp;Última
+        <translation type="unfinished">&amp;Última
 Faixa</translation>
     </message>
     <message>
         <source>&amp;Next
 Track</source>
-        <translation type="obsolete">&amp;Próxima
+        <translation type="unfinished">&amp;Próxima
 Faixa</translation>
     </message>
     <message>
         <source>Remaining</source>
-        <translation type="obsolete">Faltando</translation>
+        <translation type="unfinished">Faltando</translation>
     </message>
     <message>
         <source>Tracks</source>
-        <translation type="obsolete">Faixas</translation>
+        <translation type="unfinished">Faixas</translation>
     </message>
     <message>
         <source>Time</source>
-        <translation type="obsolete">Tempo</translation>
+        <translation type="unfinished">Tempo</translation>
     </message>
     <message>
         <source> </source>
-        <translation type="obsolete"> </translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <source>TIME</source>
-        <translation type="obsolete">HORA</translation>
+        <translation type="unfinished">HORA</translation>
     </message>
     <message>
         <source>TRANS</source>
-        <translation type="obsolete">TRANS</translation>
+        <translation type="unfinished">TRANS</translation>
     </message>
     <message>
         <source>CART</source>
-        <translation type="obsolete">CARTÃO</translation>
+        <translation type="unfinished">CARTÃO</translation>
     </message>
     <message>
         <source>GROUP</source>
-        <translation type="obsolete">GRUPO</translation>
+        <translation type="unfinished">GRUPO</translation>
     </message>
     <message>
         <source>LENGTH</source>
-        <translation type="obsolete">DURAÇÃO</translation>
+        <translation type="unfinished">DURAÇÃO</translation>
     </message>
     <message>
         <source>TITLE</source>
-        <translation type="obsolete">TÍTULO</translation>
+        <translation type="unfinished">TÍTULO</translation>
     </message>
     <message>
         <source>ARTIST</source>
-        <translation type="obsolete">ARTISTA</translation>
+        <translation type="unfinished">ARTISTA</translation>
     </message>
     <message>
         <source>Do Over</source>
-        <translation type="obsolete">Gravar
+        <translation type="unfinished">Gravar
 por cima</translation>
     </message>
     <message>
         <source>Hit Post</source>
-        <translation type="obsolete">Chegue no
+        <translation type="unfinished">Chegue no
 Marcador</translation>
     </message>
     <message>
         <source>Insert
 Track</source>
-        <translation type="obsolete">Inserir
+        <translation type="unfinished">Inserir
 Faixa</translation>
     </message>
     <message>
         <source>Delete
 Track</source>
-        <translation type="obsolete">Deletar
+        <translation type="unfinished">Deletar
 Faixa</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Fechar</translation>
+        <translation type="unfinished">&amp;Fechar</translation>
     </message>
     <message>
         <source>No VoiceTrack Group</source>
-        <translation type="obsolete">Não há Grupo para Faixa de Voz</translation>
+        <translation type="unfinished">Não há Grupo para Faixa de Voz</translation>
     </message>
     <message>
         <source>No voicetracking group has been defined for this service,
 therefore only existing transitions will be editable.</source>
-        <translation type="obsolete">Não foi definido um grupo para faixas de voz neste serviço,
+        <translation type="unfinished">Não foi definido um grupo para faixas de voz neste serviço,
 Assim sendo, somente transições existentes serão editáveis.</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation type="obsolete">Importar</translation>
+        <translation type="unfinished">Importar</translation>
     </message>
     <message>
         <source>Cart Creation Failure</source>
-        <translation type="obsolete">Falha na criação de Cartão</translation>
+        <translation type="unfinished">Falha na criação de Cartão</translation>
     </message>
     <message>
         <source>Unable to create new cart for voice track!</source>
-        <translation type="obsolete">Não foi possível criar um novo cartão para esta faixa de voz!</translation>
+        <translation type="unfinished">Não foi possível criar um novo cartão para esta faixa de voz!</translation>
     </message>
     <message>
         <source>TRACK</source>
-        <translation type="obsolete">FAIXA</translation>
+        <translation type="unfinished">FAIXA</translation>
     </message>
     <message>
         <source>Voice Track</source>
-        <translation type="obsolete">Faixa de Voz</translation>
+        <translation type="unfinished">Faixa de Voz</translation>
     </message>
     <message>
         <source>Track List</source>
-        <translation type="obsolete">Lista de Faixas</translation>
+        <translation type="unfinished">Lista de Faixas</translation>
     </message>
     <message>
         <source>No more tracks!</source>
-        <translation type="obsolete">Não há mais faixas!</translation>
+        <translation type="unfinished">Não há mais faixas!</translation>
     </message>
     <message>
         <source>[end of log]</source>
-        <translation type="obsolete">[Fim da Lista]</translation>
+        <translation type="unfinished">[Fim da Lista]</translation>
     </message>
     <message>
         <source>[cart not found]</source>
-        <translation type="obsolete">[cartão não encontrado]</translation>
+        <translation type="unfinished">[cartão não encontrado]</translation>
     </message>
     <message>
         <source>MARKER</source>
-        <translation type="obsolete">MARCADOR</translation>
+        <translation type="unfinished">MARCADOR</translation>
     </message>
     <message>
         <source>LOG CHAIN</source>
-        <translation type="obsolete">CORRENTE DE LISTA</translation>
+        <translation type="unfinished">CORRENTE DE LISTA</translation>
     </message>
     <message>
         <source>LINK</source>
-        <translation type="obsolete">ENLACE</translation>
+        <translation type="unfinished">ENLACE</translation>
     </message>
     <message>
         <source>[music import]</source>
-        <translation type="obsolete">[importar de música]</translation>
+        <translation type="unfinished">[importar de música]</translation>
     </message>
     <message>
         <source>[traffic import]</source>
-        <translation type="obsolete">[importar de tráfego]</translation>
+        <translation type="unfinished">[importar de tráfego]</translation>
     </message>
     <message>
         <source>PLAY</source>
-        <translation type="obsolete">SIMPLES</translation>
+        <translation type="unfinished">SIMPLES</translation>
     </message>
     <message>
         <source>SEGUE</source>
-        <translation type="obsolete">SOBRE</translation>
+        <translation type="unfinished">SOBRE</translation>
     </message>
     <message>
         <source>STOP</source>
-        <translation type="obsolete">PARE</translation>
+        <translation type="unfinished">PARE</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="obsolete">Abortar</translation>
+        <translation type="unfinished">Abortar</translation>
     </message>
     <message>
         <source>Segue Changed</source>
-        <translation type="obsolete">Sobre Modificado</translation>
+        <translation type="unfinished">Sobre Modificado</translation>
     </message>
     <message>
         <source>Save segue changes?</source>
-        <translation type="obsolete">Salvar mudanças nos &quot;Sobres&quot;?</translation>
+        <translation type="unfinished">Salvar mudanças nos &quot;Sobres&quot;?</translation>
+    </message>
+    <message>
+        <source>Set to Hook Markers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDLogEdit</source>
+        <translation type="unfinished">RDListas</translation>
+    </message>
+    <message>
+        <source>Audio Deletion Error!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

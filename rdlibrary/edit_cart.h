@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cart.h,v 1.29 2010/07/29 19:32:36 cvs Exp $
+//      $Id: edit_cart.h,v 1.30 2012/02/13 20:54:27 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -79,8 +79,8 @@ class EditCart : public QDialog
   QComboBox *rdcart_group_box;
   QLineEdit *rdcart_group_edit;
   AudioControls rdcart_controls;
-  QComboBox *rdcart_cut_sched_box;
-  QLineEdit *rdcart_cut_sched_edit;
+  //  QComboBox *rdcart_cut_sched_box;
+  //  QLineEdit *rdcart_cut_sched_edit;
   QCheckBox *rdcart_syncronous_box;
   QLabel *rdcart_syncronous_label;
   QLineEdit *rdcart_start_date_edit;

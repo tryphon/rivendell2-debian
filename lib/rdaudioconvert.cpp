@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioconvert.cpp,v 1.12 2011/12/23 17:44:45 cvs Exp $
+//      $Id: rdaudioconvert.cpp,v 1.14 2012/03/02 22:33:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -582,8 +582,8 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage1Mpeg(const QString &dstfile,
     mad_stream_buffer(&mad_stream,buffer,n+left_over);
     //printf("mad err: %d\n",mad_stream.error);
    if(mad_stream.error==MAD_ERROR_LOSTSYNC) {  // FIXME: try to recover!!!
-    return RDAudioConvert::ErrorFormatError;
-      break;
+     //    return RDAudioConvert::ErrorFormatError;
+     //break;
     }
     while(mad_frame_decode(&mad_frame,&mad_stream)==0) {
       //printf("decoding...\n");
@@ -731,6 +731,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage2Convert(const QString &srcfile,
     return RDAudioConvert::ErrorInternal;
   }
   sf_command(src_sf,SFC_SET_NORM_FLOAT,NULL,SF_FALSE);
+  sf_command(dst_sf,SFC_SET_CLIPPING,NULL,SF_TRUE);
   memset(&dst_info,0,sizeof(dst_info));
   dst_info.format=SF_FORMAT_WAV|SF_FORMAT_PCM_32;
   dst_info.channels=conv_settings->channels();

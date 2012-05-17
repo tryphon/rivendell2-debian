@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@salemradiolabs.com>
 ##
-##      $Id: Makefile.am,v 1.18 2010/07/29 19:32:32 cvs Exp $
-##      $Date: 2010/07/29 19:32:32 $
+##      $Id: Makefile.am,v 1.19 2012/01/17 18:11:35 cvs Exp $
+##      $Date: 2012/01/17 18:11:35 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,18 @@ install-exec-am:
 	cp redball.png $(DESTDIR)@libexecdir@
 	cp whiteball.png $(DESTDIR)@libexecdir@
 	cp progressbar.gif $(DESTDIR)@libexecdir@
+	mkdir -p @prefix@/share/icons/hicolor/16x16/apps
+	cp rivendell-16x16.xpm @prefix@/share/icons/hicolor/16x16/apps/rivendell.xpm
+	mkdir -p @prefix@/share/icons/hicolor/22x22/apps
+	cp rivendell-22x22.xpm @prefix@/share/icons/hicolor/22x22/apps/rivendell.xpm
+	mkdir -p @prefix@/share/icons/hicolor/32x32/apps
+	cp rivendell-32x32.xpm @prefix@/share/icons/hicolor/32x32/apps/rivendell.xpm
+	mkdir -p @prefix@/share/icons/hicolor/48x48/apps
+	cp rivendell-48x48.xpm @prefix@/share/icons/hicolor/48x48/apps/rivendell.xpm
+	mkdir -p @prefix@/share/icons/hicolor/64x64/apps
+	cp rivendell-64x64.xpm @prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
+	mkdir -p @prefix@/share/icons/hicolor/128x128/apps
+	cp rivendell-128x128.xpm @prefix@/share/icons/hicolor/128x128/apps/rivendell.xpm
 
 uninstall:	
 	rm -f $(DESTDIR)@libexecdir@/greencheckmark.png
@@ -39,6 +51,12 @@ uninstall:
 	rm -f $(DESTDIR)@libexecdir@/redball.png
 	rm -f $(DESTDIR)@libexecdir@/whiteball.png
 	rm -f $(DESTDIR)@libexecdir@/progressbar.gif
+	rm -f @prefix@/share/icons/hicolor/16x16/apps/rivendell.xpm
+	rm -f @prefix@/share/icons/hicolor/22x22/apps/rivendell.xpm
+	rm -f @prefix@/share/icons/hicolor/32x32/apps/rivendell.xpm
+	rm -f @prefix@/share/icons/hicolor/48x48/apps/rivendell.xpm
+	rm -f @prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
+	rm -f @prefix@/share/icons/hicolor/128x128/apps/rivendell-128x128.xpm
 
 EXTRA_DIST = rivendell.res play.xpm macro.xpm\
              fillstart.xpm fillstop.xpm\

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2011 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audioinfo.cpp,v 1.3 2011/12/23 23:07:00 cvs Exp $
+//      $Id: audioinfo.cpp,v 1.4 2012/02/13 23:01:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,25 +36,25 @@
 
 void Xport::AudioInfo()
 {
-  RDWaveFile::Format format;
+  RDWaveFile::Format format=RDWaveFile::Pcm16;;
 
   //
   // Verify Post
   //
   int cartnum=0;
   if(!xport_post->getValue("CART_NUMBER",&cartnum)) {
-    RDXMLResult("Missing CART_NUMBER",400);
+    XmlExit("Missing CART_NUMBER",400);
   }
   int cutnum=0;
   if(!xport_post->getValue("CUT_NUMBER",&cutnum)) {
-    RDXMLResult("Missing CUT_NUMBER",400);
+    XmlExit("Missing CUT_NUMBER",400);
   }
 
   //
   // Verify User Perms
   //
   if(!xport_user->cartAuthorized(cartnum)) {
-    RDXMLResult("No such cart",404);
+    XmlExit("No such cart",404);
   }
 
   //
@@ -62,7 +62,7 @@ void Xport::AudioInfo()
   //
   RDWaveFile *wave=new RDWaveFile(RDCut::pathName(cartnum,cutnum));
   if(!wave->openWave()) {
-    RDXMLResult("No such audio",404);
+    XmlExit("No such audio",404);
   }
 
   //
@@ -96,7 +96,7 @@ void Xport::AudioInfo()
     break;
 
   default:
-    RDXMLResult("Unknown audio format",400);
+    XmlExit("Unknown audio format",400);
     break;
   }
   printf("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n");
@@ -110,4 +110,5 @@ void Xport::AudioInfo()
   printf("  <length>%u</length>\n",wave->getExtTimeLength());
   printf("</audioInfo>\n");
   delete wave;
+  Exit(0);
 }

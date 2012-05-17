@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2004 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlogmanager.pro,v 1.20 2010/08/04 23:07:02 cvs Exp $
+#      $Id: rdlogmanager.pro,v 1.21 2012/01/16 11:16:37 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -43,6 +43,7 @@ SOURCES += edit_event.cpp
 SOURCES += edit_clock.cpp
 SOURCES += edit_eventline.cpp
 SOURCES += edit_grid.cpp
+SOURCES += edit_schedrules.cpp
 SOURCES += edit_track.cpp
 SOURCES += svc_rec.cpp
 SOURCES += svc_rec_dialog.cpp
@@ -68,6 +69,7 @@ HEADERS += edit_event.h
 HEADERS += edit_clock.h
 HEADERS += edit_eventline.h
 HEADERS += edit_grid.h
+HEADERS += edit_schedrules.h
 HEADERS += edit_track.h
 HEADERS += svc_rec.h
 HEADERS += svc_rec_dialog.h

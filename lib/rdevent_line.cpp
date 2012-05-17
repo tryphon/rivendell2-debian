@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdevent_line.cpp,v 1.59 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdevent_line.cpp,v 1.60 2012/02/13 18:05:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -791,12 +791,13 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
       
       int schedpos = rand()%schedCL->getNumberOfItems();
       sql=QString().sprintf("insert into %s_LOG set ID=%d,COUNT=%d,TYPE=%d,\
-				  SOURCE=%d,START_TIME=%d,GRACE_TIME=-1, \
+				  SOURCE=%d,START_TIME=%d,GRACE_TIME=%d, \
 				  CART_NUMBER=%u,TIME_TYPE=%d,POST_POINT=\"%s\", \
 				  TRANS_TYPE=%d,EXT_START_TIME=%d",
 			    (const char *)logname,count,count,
 			    RDLogLine::Cart,source,
 			    QTime().msecsTo(time),
+			    grace_time,
 			    schedCL->getItemCartnumber(schedpos),
 			    time_type,
 			    (const char *)RDYesNo(post_point),

@@ -459,6 +459,18 @@ REFRESHING</source>
         <source>Exit RDAirPlay?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>User:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Service:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ModeDisplay</name>
@@ -491,6 +503,49 @@ REFRESHING</source>
     </message>
     <message>
         <source>Next Timed Start [--:--:--]</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>START</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>STOP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PAUSE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RESUME</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WHERE?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DELETE?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MOVE?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TO?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>COPY?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ERROR</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

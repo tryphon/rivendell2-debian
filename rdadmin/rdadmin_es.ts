@@ -6,7 +6,7 @@
 Please enter a login for an account with
 administrative rights on the mySQL server,
 and we will try to get this straightened out.</source>
-        <translation>¡No se pudo acceder a la base de datos Rivendell!
+        <translation type="obsolete">¡No se pudo acceder a la base de datos Rivendell!
 Si desea crear una NUEVA base de datos, ingrese 
 el login y la clave de una cuenta Mysql con 
 derechos administrativos.</translation>
@@ -17,11 +17,11 @@ derechos administrativos.</translation>
     </message>
     <message>
         <source>Wrong access permissions for accessing mySQL!</source>
-        <translation>¡Permisología errónea al acceder a la base de datos MySQL!</translation>
+        <translation type="obsolete">¡Permisología errónea al acceder a la base de datos MySQL!</translation>
     </message>
     <message>
         <source>Unable to connect to mySQL!</source>
-        <translation>¡No es posible conectarse con la base de datos MySQL!</translation>
+        <translation type="obsolete">¡No es posible conectarse con la base de datos MySQL!</translation>
     </message>
     <message>
         <source>Can&apos;t Create DB</source>
@@ -29,11 +29,11 @@ derechos administrativos.</translation>
     </message>
     <message>
         <source>Unable to create a Rivendell Database!</source>
-        <translation>¡No pude crear la base de datos Rivendell!</translation>
+        <translation type="obsolete">¡No pude crear la base de datos Rivendell!</translation>
     </message>
     <message>
         <source>Unable to connect to new Rivendell Database!</source>
-        <translation>¡No pude conectarme a la nueva base de datos Rivendell!</translation>
+        <translation type="obsolete">¡No pude conectarme a la nueva base de datos Rivendell!</translation>
     </message>
     <message>
         <source>Can&apos;t Create</source>
@@ -41,11 +41,11 @@ derechos administrativos.</translation>
     </message>
     <message>
         <source>Unable to create Rivendell Database!</source>
-        <translation>¡No pude crear la base de datos Rivendell!</translation>
+        <translation type="obsolete">¡No pude crear la base de datos Rivendell!</translation>
     </message>
     <message>
         <source>Unable to connect to Rivendell Database!</source>
-        <translation>¡No pude conectarme a la base de datos Rivendell!</translation>
+        <translation type="obsolete">¡No pude conectarme a la base de datos Rivendell!</translation>
     </message>
     <message>
         <source>Can&apos;t Initialize</source>
@@ -53,7 +53,7 @@ derechos administrativos.</translation>
     </message>
     <message>
         <source>Unable to initialize Rivendell Database!</source>
-        <translation>¡No fue posible inicializar la base de datos Rivendell!</translation>
+        <translation type="obsolete">¡No fue posible inicializar la base de datos Rivendell!</translation>
     </message>
     <message>
         <source>Created Database</source>
@@ -61,7 +61,7 @@ derechos administrativos.</translation>
     </message>
     <message>
         <source>New Rivendell Database Created!</source>
-        <translation>¡Se ha creado una nueva base de datos!</translation>
+        <translation type="obsolete">¡Se ha creado una nueva base de datos!</translation>
     </message>
     <message>
         <source>The Rivendell Database is too old to be upgraded,
@@ -69,7 +69,7 @@ and so must be replaced.  This will DESTROY any
 existing audio and data!  If you want to do this,
 enter a username and password for a mySQL account
 with administrative privledges, otherwise hit cancel.</source>
-        <translation>La base de datos Rivendell es muy antigua y no
+        <translation type="obsolete">La base de datos Rivendell es muy antigua y no
 puede ser actualizada, por lo que será reemplazada.
 ¡Esto DESTRUIRÁ todo audio y datos existentes! 
 Si desea continuar, introduzca el usuario y la clave
@@ -78,22 +78,22 @@ o de lo contrario seleccione CANCELAR.</translation>
     </message>
     <message>
         <source>Unable to log into Administrator account!</source>
-        <translation>¡No pudo ingresar a una cuenta administrativa!</translation>
+        <translation type="obsolete">¡No pudo ingresar a una cuenta administrativa!</translation>
     </message>
     <message>
         <source>Unable to authorize a Rivendell Database!</source>
-        <translation>¡No puedo autorizar la base de datos Rivendell!</translation>
+        <translation type="obsolete">¡No puedo autorizar la base de datos Rivendell!</translation>
     </message>
     <message>
         <source>Update Needed</source>
-        <translation>Se necesita actualizar</translation>
+        <translation type="obsolete">Se necesita actualizar</translation>
     </message>
     <message>
         <source>The Rivendell Database needs to be updated.
 All audio and settings will be preserved, but
 this will STOP any audio playout or recording
 on this machine for a few seconds.  Continue?</source>
-        <translation>La base de datos requiere ser actualizada. Todo el audio 
+        <translation type="obsolete">La base de datos requiere ser actualizada. Todo el audio 
 y la configuración se van a preservar, pero hay  que 
 DETENER las reproducciones y grabaciones por unos
 segundos. ¿Desea continuar?</translation>
@@ -114,51 +114,148 @@ sido actualizada a la versión </translation>
     </message>
     <message>
         <source>Database Updated</source>
-        <translation>Base de datos actualizada</translation>
+        <translation type="obsolete">Base de datos actualizada</translation>
     </message>
     <message>
         <source>RDAdmin Error</source>
-        <translation>Error de RDAdmin</translation>
+        <translation type="obsolete">Error de RDAdmin</translation>
     </message>
     <message>
         <source>Unable to upgrade database</source>
-        <translation>No fue posible actualizar la base de datos</translation>
+        <translation type="obsolete">No fue posible actualizar la base de datos</translation>
     </message>
     <message>
         <source>RDAdmin</source>
-        <translation>RDAdmin</translation>
+        <translation type="obsolete">RDAdmin</translation>
     </message>
     <message>
         <source>Unable to update Rivendell Database:</source>
-        <translation>No fue posible actualizar la base de datos:</translation>
+        <translation type="obsolete">No fue posible actualizar la base de datos:</translation>
     </message>
     <message>
         <source>
 Database backup failed!</source>
-        <translation>
+        <translation type="obsolete">
 ¡No se pudo respaldar la base de datos!</translation>
     </message>
     <message>
         <source>
 Schema modification failed!</source>
-        <translation>
+        <translation type="obsolete">
 ¡Falló la modificación del esquema!</translation>
     </message>
     <message>
         <source>
 Unknown/unspecified error!</source>
-        <translation>
+        <translation type="obsolete">
 ¡Error desconocido/no especificado!</translation>
     </message>
     <message>
         <source>The Rivendell Database has been updated to version</source>
-        <translation>La base de datos de Rivendell ha sido actualizada a la versión </translation>
+        <translation type="obsolete">La base de datos de Rivendell ha sido actualizada a la versión </translation>
     </message>
     <message>
         <source>
 and a backup of the original database saved in </source>
-        <translation>
+        <translation type="obsolete">
 y un respaldo de la base de datos se guardó en </translation>
+    </message>
+</context>
+<context>
+    <name>AddAuxField</name>
+    <message>
+        <source>Add Aux Field</source>
+        <translation>Añadir Campo Aux</translation>
+    </message>
+    <message>
+        <source>Variable Name: </source>
+        <translation>Nombre:</translation>
+    </message>
+    <message>
+        <source>%AUX_</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Caption: </source>
+        <translation>Texto:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Name Exists</source>
+        <translation>El nombre existe</translation>
+    </message>
+    <message>
+        <source>That variable name already exists!</source>
+        <translation>¡Una variable con ese nombre ya existe!</translation>
+    </message>
+</context>
+<context>
+    <name>AddEncoder</name>
+    <message>
+        <source>Add Encoder</source>
+        <translation>Agregar Codificador</translation>
+    </message>
+    <message>
+        <source>&amp;New Encoder Name:</source>
+        <translation>&amp;Nombre:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Add Encoder Error</source>
+        <translation>Error añadiendo Codificador</translation>
+    </message>
+    <message>
+        <source>A encoder with that name already exists!</source>
+        <translation>¡Un codificador con ese nombre ya existe!</translation>
+    </message>
+</context>
+<context>
+    <name>AddFeed</name>
+    <message>
+        <source>Add Feed</source>
+        <translation>Añadir Feed</translation>
+    </message>
+    <message>
+        <source>Enable Feed for All Users</source>
+        <translation>Activar feed en todos los usuarios</translation>
+    </message>
+    <message>
+        <source>&amp;New Feed Name:</source>
+        <translation>&amp;Nombre del Feed:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Add Feed Error</source>
+        <translation>Error añadiendo feed</translation>
+    </message>
+    <message>
+        <source>A feed with that key name already exists!</source>
+        <translation>¡Un feed con ese nombre ya existe!</translation>
     </message>
 </context>
 <context>
@@ -169,15 +266,15 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>&amp;New Group Name:</source>
-        <translation>&amp;Nuevo nombre del grupo:</translation>
+        <translation>&amp;Nombre del grupo:</translation>
     </message>
     <message>
         <source>Enable Group for All Users</source>
-        <translation>Activar grupo para todos los usuario</translation>
+        <translation>Activar para todos los usuario</translation>
     </message>
     <message>
         <source>Enable Group for All Services</source>
-        <translation>Activar grupo para todos los servicios</translation>
+        <translation>Activar para todos los servicios</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -212,7 +309,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Variable Name:</source>
-        <translation>Nombre de la variable:</translation>
+        <translation>Nombre:</translation>
     </message>
     <message>
         <source>Variable Value:</source>
@@ -230,6 +327,14 @@ y un respaldo de la base de datos se guardó en </translation>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
     </message>
+    <message>
+        <source>Invalid Name</source>
+        <translation>Nombre inválido</translation>
+    </message>
+    <message>
+        <source>The variable name is invalid.</source>
+        <translation>El nombre de la variable es inválido.</translation>
+    </message>
 </context>
 <context>
     <name>AddMatrix</name>
@@ -239,7 +344,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>&amp;New Matrix Number:</source>
-        <translation>&amp;Número de la nueva Matriz:</translation>
+        <translation>&amp;Número de nueva Matriz:</translation>
     </message>
     <message>
         <source>Local GPIO</source>
@@ -313,6 +418,45 @@ y un respaldo de la base de datos se guardó en </translation>
         <source>BroadcastTools SRC-16</source>
         <translation></translation>
     </message>
+    <message>
+        <source>New Switcher</source>
+        <translation>Nueva Suichera</translation>
+    </message>
+</context>
+<context>
+    <name>AddReplicator</name>
+    <message>
+        <source>Add Replicator</source>
+        <translation>Añadir Replicador</translation>
+    </message>
+    <message>
+        <source>&amp;New Replicator Name:</source>
+        <translation>&amp;Nombre del Replicad.:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Invalid Name</source>
+        <translation>Nombre inválido</translation>
+    </message>
+    <message>
+        <source>You must give the replicator a name!</source>
+        <translation>¡Debe darle un nombre al replicador!</translation>
+    </message>
+    <message>
+        <source>Replicator Exists</source>
+        <translation>El replicador ya existe</translation>
+    </message>
+    <message>
+        <source>A replicator with that name already exists!</source>
+        <translation>¡Un replicador con ese nombre ya existe!</translation>
+    </message>
 </context>
 <context>
     <name>AddReport</name>
@@ -347,6 +491,41 @@ y un respaldo de la base de datos se guardó en </translation>
     <message>
         <source>A report with that name already exists!</source>
         <translation>¡Ya existe un reporte con ese nombre!</translation>
+    </message>
+</context>
+<context>
+    <name>AddSchedCode</name>
+    <message>
+        <source>Add Scheduler Code</source>
+        <translation type="obsolete">Añadir código para musicalizar</translation>
+    </message>
+    <message>
+        <source>&amp;New Code:</source>
+        <translation type="obsolete">&amp;Nuevo Código:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Invalid Name</source>
+        <translation type="obsolete">Nombre inválido</translation>
+    </message>
+    <message>
+        <source>Invalid Name!</source>
+        <translation type="obsolete">¡El nombre es inválido!</translation>
+    </message>
+    <message>
+        <source>Code Exists</source>
+        <translation type="obsolete">El código ya existe</translation>
+    </message>
+    <message>
+        <source>Code Already Exists!</source>
+        <translation type="obsolete">¡El código ya existe!</translation>
     </message>
 </context>
 <context>
@@ -416,7 +595,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Empty Host Config</source>
-        <translation>Vaciar configuración del equipo</translation>
+        <translation>Configuración en blanco</translation>
     </message>
     <message>
         <source>Invalid Name</source>
@@ -443,7 +622,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>&amp;New User Name:</source>
-        <translation>&amp;Nombre del usuario:</translation>
+        <translation>&amp;Nombre:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -541,7 +720,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Swap</source>
@@ -561,7 +740,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source> dB</source>
-        <translation></translation>
+        <translation> dB</translation>
     </message>
     <message>
         <source>Level:</source>
@@ -595,6 +774,37 @@ y un respaldo de la base de datos se guardó en </translation>
         <source>Word Clock</source>
         <translation></translation>
     </message>
+    <message>
+        <source>Card:</source>
+        <translation>Tarjeta:</translation>
+    </message>
+    <message>
+        <source>Card Driver:</source>
+        <translation>Controlador:</translation>
+    </message>
+</context>
+<context>
+    <name>EditAuxField</name>
+    <message>
+        <source>Edit Auxiliary Metadata Fields</source>
+        <translation>Editar campos de metadatos auxiliares</translation>
+    </message>
+    <message>
+        <source>Variable Name: </source>
+        <translation>Variable: </translation>
+    </message>
+    <message>
+        <source>Caption: </source>
+        <translation>Texto: </translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
 </context>
 <context>
     <name>EditBackup</name>
@@ -604,7 +814,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Keep Backups For:</source>
-        <translation>Mantener respaldos para: </translation>
+        <translation>Mantener respald. por:</translation>
     </message>
     <message>
         <source>days</source>
@@ -612,7 +822,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Backup Directory:</source>
-        <translation>Directorio de Respaldos:</translation>
+        <translation>Carpeta de Respaldos:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -639,7 +849,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Record Deck</source>
-        <translation></translation>
+        <translation>Bandeja Grabac.</translation>
     </message>
     <message>
         <source>None</source>
@@ -671,19 +881,19 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Switcher Host:</source>
-        <translation type="unfinished"></translation>
+        <translation>Suichera en equipo:</translation>
     </message>
     <message>
         <source>Switcher Matrix:</source>
-        <translation type="unfinished"></translation>
+        <translation>Matriz de Suichera:</translation>
     </message>
     <message>
         <source>Switcher Output:</source>
-        <translation type="unfinished"></translation>
+        <translation>Salida de Suichera:</translation>
     </message>
     <message>
         <source>Switcher Delay:</source>
-        <translation type="unfinished"></translation>
+        <translation>Retraso en la Suichera:</translation>
     </message>
     <message>
         <source>1/10 sec</source>
@@ -703,11 +913,11 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Play Deck</source>
-        <translation>Deck Repro</translation>
+        <translation>Band Repr</translation>
     </message>
     <message>
         <source>Audition Deck</source>
-        <translation>Deck Escucha</translation>
+        <translation>Bandeja Escucha</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -777,6 +987,129 @@ configured to run the CAE service in order to populate the audio resources datab
 debido a que no se han generado datos. Inicie los servicios de Rivendell en el 
 computador para obtener los recursos de audio de dicho equipo.</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Parámetros</translation>
+    </message>
+    <message>
+        <source>Defaults</source>
+        <translation>Por omisión</translation>
+    </message>
+    <message>
+        <source>Host-Wide Settings</source>
+        <translation>Parám. por equipo</translation>
+    </message>
+</context>
+<context>
+    <name>EditDropbox</name>
+    <message>
+        <source>Dropbox Configuration</source>
+        <translation>Configuración de Dropbox</translation>
+    </message>
+    <message>
+        <source>Default Group:</source>
+        <translation>Grupo p/omisión:</translation>
+    </message>
+    <message>
+        <source>&amp;Path Spec:</source>
+        <translation>&amp;Ruta:</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Elegir</translation>
+    </message>
+    <message>
+        <source>To &amp;Cart:</source>
+        <translation>A &amp;cartucho:</translation>
+    </message>
+    <message>
+        <source>Delete cuts before importing</source>
+        <translation>Borrar audios antes de importar</translation>
+    </message>
+    <message>
+        <source>&amp;Metadata Pattern:</source>
+        <translation>Patrón &amp;metadat.:</translation>
+    </message>
+    <message>
+        <source>&amp;Log File:</source>
+        <translation>&amp;Registro:</translation>
+    </message>
+    <message>
+        <source>Delete source files after import</source>
+        <translation>Borrar archivos después de importarlos</translation>
+    </message>
+    <message>
+        <source>Normalize Levels</source>
+        <translation>Nivel Normalizac.</translation>
+    </message>
+    <message>
+        <source>Level:</source>
+        <translation>Nivel:</translation>
+    </message>
+    <message>
+        <source>dBFS</source>
+        <translation>dBFS</translation>
+    </message>
+    <message>
+        <source>Autotrim Cuts</source>
+        <translation>AutoRecortar</translation>
+    </message>
+    <message>
+        <source>Get cart number from CartChunk CutID</source>
+        <translation>Obtener nro. de cartucho desde el CartChunk CutID</translation>
+    </message>
+    <message>
+        <source>Get cart title from CartChunk CutID</source>
+        <translation>Obtener título desde el CartChunk CutID</translation>
+    </message>
+    <message>
+        <source>Attempt to work around malformatted input files</source>
+        <translation>Intentar recuperar archivos mal formateados</translation>
+    </message>
+    <message>
+        <source>Offset start date by</source>
+        <translation>Desplaz. fecha inicio en</translation>
+    </message>
+    <message>
+        <source>days</source>
+        <translation>días</translation>
+    </message>
+    <message>
+        <source>Offset end date by</source>
+        <translation>Desplaz. fecha fin en</translation>
+    </message>
+    <message>
+        <source>Create Dates when no Dates Exist</source>
+        <translation>Crear fechas cuando no existan</translation>
+    </message>
+    <message>
+        <source>Create start date offset:</source>
+        <translation>Desplaz. fecha inicio:</translation>
+    </message>
+    <message>
+        <source>Create end date offset:</source>
+        <translation>Desplaz. fecha fin:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Invalid Offsets</source>
+        <translation>Desplazamientos inválidos</translation>
+    </message>
+    <message>
+        <source>The Create EndDate Offset is less than the Create Start Date Offset!</source>
+        <translation>¡La fecha de fin creada, al desplazarse, ocurre antes que la fecha de inicio!</translation>
+    </message>
+    <message>
+        <source>The EndDate Offset is less than the Start Date Offset!</source>
+        <translation>¡La fecha de fin, al desplazarse, ocurre antes que la fecha de inicio!</translation>
+    </message>
 </context>
 <context>
     <name>EditEncoder</name>
@@ -794,7 +1127,7 @@ computador para obtener los recursos de audio de dicho equipo.</translation>
     </message>
     <message>
         <source>Allow Sample Rates</source>
-        <translation>Tasas sampleo permitidas</translation>
+        <translation>Tasas muest permit</translation>
     </message>
     <message>
         <source>Allow Bit Rates</source>
@@ -807,6 +1140,14 @@ computador para obtener los recursos de audio de dicho equipo.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Default Extension:</source>
+        <translation>Extensión por omisión:</translation>
+    </message>
+    <message>
+        <source>Command Line:</source>
+        <translation>Línea de comandos:</translation>
     </message>
 </context>
 <context>
@@ -889,6 +1230,210 @@ computador para obtener los recursos de audio de dicho equipo.</translation>
     </message>
 </context>
 <context>
+    <name>EditFeed</name>
+    <message>
+        <source>Feed: </source>
+        <translation>Feed: </translation>
+    </message>
+    <message>
+        <source>Key Name:</source>
+        <translation>Nombre:</translation>
+    </message>
+    <message>
+        <source>Title:</source>
+        <translation>Título:</translation>
+    </message>
+    <message>
+        <source>Category:</source>
+        <translation>Categoría:</translation>
+    </message>
+    <message>
+        <source>Link:</source>
+        <translation>Enlace:</translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation>Copyright:</translation>
+    </message>
+    <message>
+        <source>Webmaster:</source>
+        <translation>Webmaster:</translation>
+    </message>
+    <message>
+        <source>Language:</source>
+        <translation>Lenguaje:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>Descripción: </translation>
+    </message>
+    <message>
+        <source>Audio Upload URL:</source>
+        <translation>URL subida audio:</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation>Usuario:</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation>Clave:</translation>
+    </message>
+    <message>
+        <source>Upload Format:</source>
+        <translation>Formato de subida:</translation>
+    </message>
+    <message>
+        <source>S&amp;et</source>
+        <translation>&amp;Asignar</translation>
+    </message>
+    <message>
+        <source>Normalize</source>
+        <translation>Normalizar</translation>
+    </message>
+    <message>
+        <source>Level:</source>
+        <translation>Nivel:</translation>
+    </message>
+    <message>
+        <source>dBFS</source>
+        <translation>dBFS</translation>
+    </message>
+    <message>
+        <source>Audio Download URL:</source>
+        <translation>URL descarga audio:</translation>
+    </message>
+    <message>
+        <source>Keep Expired Metadata</source>
+        <translation>Mantener metadatos vencidos</translation>
+    </message>
+    <message>
+        <source>Enable AutoPost</source>
+        <translation>Activar AutoPublicar</translation>
+    </message>
+    <message>
+        <source>Enclosure Preamble:</source>
+        <translation>Preámbulo de encierro:</translation>
+    </message>
+    <message>
+        <source>Audio Extension:</source>
+        <translation>Extensión de audio:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ninguno</translation>
+    </message>
+    <message>
+        <source>Maximum Shelf Life:</source>
+        <translation>Vida útil máxima:</translation>
+    </message>
+    <message>
+        <source>days</source>
+        <translation>días</translation>
+    </message>
+    <message>
+        <source>Descending</source>
+        <translation>Descendente</translation>
+    </message>
+    <message>
+        <source>Ascending</source>
+        <translation>Ascendente</translation>
+    </message>
+    <message>
+        <source>Episode Sort Order:</source>
+        <translation>Orden de Episodios:</translation>
+    </message>
+    <message>
+        <source>Direct</source>
+        <translation>Directo</translation>
+    </message>
+    <message>
+        <source>Counted</source>
+        <translation>Contado</translation>
+    </message>
+    <message>
+        <source>Media Link Mode:</source>
+        <translation>Modo de los Enlaces:</translation>
+    </message>
+    <message>
+        <source>Enable Feed Redirection</source>
+        <translation>Activar redirec. de feed</translation>
+    </message>
+    <message>
+        <source>URL:</source>
+        <translation>URL:</translation>
+    </message>
+    <message>
+        <source>Header XML:</source>
+        <translation>Cabecera XML:</translation>
+    </message>
+    <message>
+        <source>Channel XML:</source>
+        <translation>Canal XML:</translation>
+    </message>
+    <message>
+        <source>Item XML:</source>
+        <translation>Ítem XML:</translation>
+    </message>
+    <message>
+        <source>&amp;Define Auxiliary
+Metadata Fields</source>
+        <translation>&amp;Definir campos de
+metadatos auxiliares</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Edit Feed - Redirect</source>
+        <translation>Edtar feed - Redireccionar</translation>
+    </message>
+    <message>
+        <source>Enabling feed redirection will cause clients subscribed to
+this feed to be PERMANENTLY redirected to the
+specified URL.
+
+Do you still want to enable redireciton?</source>
+        <translation>Activar el redireccionamiento de feeds causará que los clientes
+suscritos a este feed sean redireccionados PERMANENTEMENTE
+al URL especificado.
+
+¿Está seguro de activar la redirección?</translation>
+    </message>
+    <message>
+        <source>CHANNEL VALUES</source>
+        <translation>VALORES DEL CANAL</translation>
+    </message>
+</context>
+<context>
+    <name>EditFeedPerms</name>
+    <message>
+        <source>User: </source>
+        <translation>Usuario: </translation>
+    </message>
+    <message>
+        <source>Available Feeds</source>
+        <translation>Feeds disponibles</translation>
+    </message>
+    <message>
+        <source>Enabled Feeds</source>
+        <translation>Feeds activados</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
     <name>EditGpi</name>
     <message>
         <source>Edit GPI</source>
@@ -904,7 +1449,7 @@ computador para obtener los recursos de audio de dicho equipo.</translation>
     </message>
     <message>
         <source>&amp;Select</source>
-        <translation>&amp;Seleccionar</translation>
+        <translation>&amp;Elegir</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
@@ -963,7 +1508,7 @@ computador para obtener los recursos de audio de dicho equipo.</translation>
     </message>
     <message>
         <source>to</source>
-        <translation>hasta</translation>
+        <translation>a</translation>
     </message>
     <message>
         <source>Enforce Cart Range</source>
@@ -1012,7 +1557,7 @@ Do you still want to save?</source>
     </message>
     <message>
         <source>Purge expired cuts after</source>
-        <translation>Borrar audios vencid tras</translation>
+        <translation>Borrar aud. vencidos tras</translation>
     </message>
     <message>
         <source>days</source>
@@ -1036,6 +1581,92 @@ Do you still want to save?</source>
     <message>
         <source>Remark:</source>
         <translation>Comentario:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
+    <name>EditHotkeys</name>
+    <message>
+        <source>Host Hot Key Configurations</source>
+        <translation>Configuración de atajos de teclado</translation>
+    </message>
+    <message>
+        <source>Button / Function </source>
+        <translation>Botón / Función </translation>
+    </message>
+    <message>
+        <source>KeyStroke</source>
+        <translation>Teclas</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation>Asignar</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Limpiar</translation>
+    </message>
+    <message>
+        <source>Clear All Hotkeys</source>
+        <translation>Borrar todo</translation>
+    </message>
+    <message>
+        <source>Set From Host:</source>
+        <translation>Copiar desde:</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Guardar</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Duplicate Entries</source>
+        <translation>Entradas duplicadas</translation>
+    </message>
+    <message>
+        <source>Hotkeys Clear</source>
+        <translation>Borrar atajos de teclado</translation>
+    </message>
+    <message>
+        <source>Hotkeys Updated</source>
+        <translation>Atajos de teclado actualizados</translation>
+    </message>
+    <message>
+        <source>No Items Selected</source>
+        <translation>No se han seleccionado ítems</translation>
+    </message>
+    <message>
+        <source>Please Select an Item From the List</source>
+        <translation>Por favor, seleccione un ítem de la lista</translation>
+    </message>
+    <message>
+        <source>Hot Key Configuration for</source>
+        <translation>Atajos de teclado para</translation>
+    </message>
+</context>
+<context>
+    <name>EditJack</name>
+    <message>
+        <source>JACK Configuration for </source>
+        <translation>Configuración JACK para </translation>
+    </message>
+    <message>
+        <source>Start JACK Server</source>
+        <translation>Iniciar servidor JACK</translation>
+    </message>
+    <message>
+        <source>JACK Server Name:</source>
+        <translation>Nombre del servidor:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1078,7 +1709,7 @@ Do you still want to save?</source>
     </message>
     <message>
         <source>IP Address:</source>
-        <translation>Dirección IP:</translation>
+        <translation>Direc. IP:</translation>
     </message>
     <message>
         <source>IP Port:</source>
@@ -1308,15 +1939,19 @@ SAS</translation>
     </message>
     <message>
         <source>Default Now Cart:</source>
-        <translation>Cartucho &quot;Now&quot; por omisión:</translation>
+        <translation>Cart.Now p/omis.:</translation>
     </message>
     <message>
         <source>Default Next Cart:</source>
-        <translation>Cartucho &quot;Next&quot; por omisión:</translation>
+        <translation>Cart.Next p/omis.:</translation>
     </message>
     <message>
         <source>Select</source>
         <translation>Elegir</translation>
+    </message>
+    <message>
+        <source>Aux Log 2</source>
+        <translation>Lista aux. 2</translation>
     </message>
 </context>
 <context>
@@ -1327,7 +1962,7 @@ SAS</translation>
     </message>
     <message>
         <source>Plugin Path:</source>
-        <translation>Carpeta de Plugines:</translation>
+        <translation>Carpeta Plugins:</translation>
     </message>
     <message>
         <source>Argument:</source>
@@ -1463,7 +2098,7 @@ Parameters</source>
     </message>
     <message>
         <source>Default Service:</source>
-        <translation>Servicio Predeterminado:</translation>
+        <translation>Servicio Predeterm.:</translation>
     </message>
     <message>
         <source>Sound Panel Settings</source>
@@ -1487,7 +2122,7 @@ Parameters</source>
     </message>
     <message>
         <source>Enable Button Pausing</source>
-        <translation>Permitir pausar reproducción</translation>
+        <translation>Permitir pausar reproduc.</translation>
     </message>
     <message>
         <source>Miscellaneous Settings</source>
@@ -1515,7 +2150,7 @@ Parameters</source>
     </message>
     <message>
         <source>Check TimeSync</source>
-        <translation>Chequear TimeSync</translation>
+        <translation>Cheq. TimeSync</translation>
     </message>
     <message>
         <source>Show Auxlog 1 Button</source>
@@ -1579,7 +2214,7 @@ Parameters</source>
     </message>
     <message>
         <source>&amp;Select</source>
-        <translation>&amp;Seleccionar</translation>
+        <translation>&amp;Elegir</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -1623,7 +2258,7 @@ Parameters</source>
     </message>
     <message>
         <source>Select</source>
-        <translation>Seleccionar</translation>
+        <translation>Elegir</translation>
     </message>
     <message>
         <source>Select Image File</source>
@@ -1842,7 +2477,7 @@ servicios de Rivendell en el equipo configurado para ejecutar el servicio CAE. <
     </message>
     <message>
         <source>Sample Rate Converter:</source>
-        <translation>Convertid. Frec. Muestreo:</translation>
+        <translation>Convertid. Tasa Muestra:</translation>
     </message>
     <message>
         <source>Channel assignments will not be available for this host as audio resource data
@@ -1851,6 +2486,373 @@ configured to run the CAE service in order to populate the audio resources datab
         <translation>No podrá ver la asignación de canales en este equipo debido a que no se ha 
 generado información de audio.  Por favor, inicie los servicios de Rivendell en el 
 equipo configurado para ejecutar CAE para obtener la información de audio.</translation>
+    </message>
+</context>
+<context>
+    <name>EditRDLogedit</name>
+    <message>
+        <source>RDLogedit config for </source>
+        <translation>Configuración de RDLogEdit para </translation>
+    </message>
+    <message>
+        <source>INPUT</source>
+        <translation>ENTRADA</translation>
+    </message>
+    <message>
+        <source>OUTPUT</source>
+        <translation>SALIDA</translation>
+    </message>
+    <message>
+        <source>Voice Tracker Settings</source>
+        <translation>Parámetros de las Pistas de Voz</translation>
+    </message>
+    <message>
+        <source>&amp;Max Record Time:</source>
+        <translation>Tiempo &amp;Máx. Grab:</translation>
+    </message>
+    <message>
+        <source>&amp;AutoTrim Threshold:</source>
+        <translation>Nivel de &amp;autorecorte:</translation>
+    </message>
+    <message>
+        <source>dbFS</source>
+        <translation>dbFS</translation>
+    </message>
+    <message>
+        <source>&amp;Normalization Level:</source>
+        <translation>Nivel de &amp;Normalización:</translation>
+    </message>
+    <message>
+        <source>&amp;Audio Margin:</source>
+        <translation>Margen de &amp;Audio:</translation>
+    </message>
+    <message>
+        <source>milliseconds</source>
+        <translation>milisegundos</translation>
+    </message>
+    <message>
+        <source>&amp;Format:</source>
+        <translation>&amp;Formato:</translation>
+    </message>
+    <message>
+        <source>&amp;Bitrate:</source>
+        <translation>Tasa de &amp;bits:</translation>
+    </message>
+    <message>
+        <source>Play &amp;Start Cart:</source>
+        <translation>Cart. &amp;Inicial en Reprod.:</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Elegir</translation>
+    </message>
+    <message>
+        <source>Play &amp;End Cart:</source>
+        <translation>Cart. &amp;Final en Reprod.:</translation>
+    </message>
+    <message>
+        <source>&amp;Record Start Cart:</source>
+        <translation>Cart. Inicial en &amp;Grabac.:</translation>
+    </message>
+    <message>
+        <source>Re&amp;cord End Cart:</source>
+        <translation>Cart. Fin en G&amp;rabac.:</translation>
+    </message>
+    <message>
+        <source>&amp;Channels:</source>
+        <translation>&amp;Canales:</translation>
+    </message>
+    <message>
+        <source>Default Transition:</source>
+        <translation>Transición por Omisión:</translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation>Reproducir</translation>
+    </message>
+    <message>
+        <source>Segue</source>
+        <translation>Segue</translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation>Parar</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>No Audio Configuration Data</source>
+        <translation>No hay datos de configuración de audio</translation>
+    </message>
+    <message>
+        <source>Channel assignments will not be available for this host as audio resource data
+has not yet been generated.  Please start the Rivendell daemons on the host
+configured to run the CAE service in order to populate the audio resources database.</source>
+        <translation>Las asignaciones de canales no estarán disponibles para este computador,
+debido a que no se han generado datos. Inicie los servicios de Rivendell en el 
+computador para obtener los recursos de audio de dicho equipo.</translation>
+    </message>
+    <message>
+        <source>PCM16</source>
+        <translation>PCM16</translation>
+    </message>
+    <message>
+        <source>MPEG Layer 2</source>
+        <translation>MPEG Capa 2</translation>
+    </message>
+    <message>
+        <source>32 kbps/chan</source>
+        <translation>32 kbps/canal</translation>
+    </message>
+    <message>
+        <source>48 kbps/chan</source>
+        <translation>48 kbps/canal</translation>
+    </message>
+    <message>
+        <source>56 kbps/chan</source>
+        <translation>56 kbps/canal</translation>
+    </message>
+    <message>
+        <source>64 kbps/chan</source>
+        <translation>64 kbps/canal</translation>
+    </message>
+    <message>
+        <source>80 kbps/chan</source>
+        <translation>80 kbps/canal</translation>
+    </message>
+    <message>
+        <source>96 kbps/chan</source>
+        <translation>96 kbps/canal</translation>
+    </message>
+    <message>
+        <source>112 kbps/chan</source>
+        <translation>112 kbps/canal</translation>
+    </message>
+    <message>
+        <source>128 kbps/chan</source>
+        <translation>128 kbps/canal</translation>
+    </message>
+    <message>
+        <source>160 kbps/chan</source>
+        <translation>160 kbps/canal</translation>
+    </message>
+    <message>
+        <source>192 kbps/chan</source>
+        <translation>192 kbps/canal</translation>
+    </message>
+    <message>
+        <source>40 kbps/chan</source>
+        <translation>40 kbps/canal</translation>
+    </message>
+    <message>
+        <source>224 kbps/chan</source>
+        <translation>224 kbps/canal</translation>
+    </message>
+    <message>
+        <source>256 kbps/chan</source>
+        <translation>256 kbps/canal</translation>
+    </message>
+    <message>
+        <source>320 kbps/chan</source>
+        <translation>320 kbps/canal</translation>
+    </message>
+</context>
+<context>
+    <name>EditRDPanel</name>
+    <message>
+        <source>RDPanel config for </source>
+        <translation>Configuración de RDPanel para </translation>
+    </message>
+    <message>
+        <source>Channel Assignments</source>
+        <translation>Asignación de Canales</translation>
+    </message>
+    <message>
+        <source>SoundPanel First Play Output</source>
+        <translation>1era salida del Panel de Sonido</translation>
+    </message>
+    <message>
+        <source>Start RML:</source>
+        <translation>Inicio RML:</translation>
+    </message>
+    <message>
+        <source>Stop RML:</source>
+        <translation>Fin RML:</translation>
+    </message>
+    <message>
+        <source>SoundPanel Second Play Output</source>
+        <translation>2da salida del Panel de Sonido</translation>
+    </message>
+    <message>
+        <source>SoundPanel Third Play Output</source>
+        <translation>3era salida del Panel de Sonido</translation>
+    </message>
+    <message>
+        <source>SoundPanel Fourth Play Output</source>
+        <translation>4ta salida del Panel de Sonido</translation>
+    </message>
+    <message>
+        <source>SoundPanel Fifth and Later Play Output</source>
+        <translation>5ta salida del Panel de Sonido</translation>
+    </message>
+    <message>
+        <source>SoundPanel Cue Output</source>
+        <translation>Salida &quot;Cue&quot; del Panel de Sonido</translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation>Config. de Pantalla</translation>
+    </message>
+    <message>
+        <source>Background Image:</source>
+        <translation>Imagen de Fondo:</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Elegir</translation>
+    </message>
+    <message>
+        <source>Sound Panel Settings</source>
+        <translation>Config. Panel de Sonido</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Ninguno</translation>
+    </message>
+    <message>
+        <source>Host Panels:</source>
+        <translation>Paneles/Equipo:</translation>
+    </message>
+    <message>
+        <source>User Panels:</source>
+        <translation>Paneles/Usuario:</translation>
+    </message>
+    <message>
+        <source>Flash Active Buttons</source>
+        <translation>Parpad. botón activo</translation>
+    </message>
+    <message>
+        <source>Enable Button Pausing</source>
+        <translation>Permitir pausar reproduc.</translation>
+    </message>
+    <message>
+        <source>Clear Cart Search Filter</source>
+        <translation>Limpiar filtro busq. cart</translation>
+    </message>
+    <message>
+        <source>Default Service:</source>
+        <translation>Serv. Predeterminado:</translation>
+    </message>
+    <message>
+        <source>Label Template:</source>
+        <translation>Plantilla etiqueta:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>No Audio Configuration Data</source>
+        <translation>No hay datos de configuración de audio</translation>
+    </message>
+    <message>
+        <source>Channel assignments will not be available for this host, as audio resource data
+has not yet been generated.  Please start the Rivendell daemons on this host
+(by executing, as user &apos;root&apos;,  the command &quot;/etc/init.d/rivendell start&quot;)
+in order to populate the audio resources database.</source>
+        <translation>La asignación de canales no estará disponible para este equipo, debido a que la
+configuración de audio aún no ha sido generada.  Inicie los servicios de Rivendell 
+en el equipo (ejecutando, como &apos;root&apos;, el comando &quot;/etc/init.d/rivendell start&quot;)
+para generar la base de datos con los recursos de audio disponibles.</translation>
+    </message>
+    <message>
+        <source>[none]</source>
+        <translation>[ninguno]</translation>
+    </message>
+    <message>
+        <source>Select Image File</source>
+        <translation>Seleccione una imagen</translation>
+    </message>
+</context>
+<context>
+    <name>EditReplicator</name>
+    <message>
+        <source>Replicator: </source>
+        <translation>Replicador: </translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nombre:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>Descripción: </translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation>Tipo:</translation>
+    </message>
+    <message>
+        <source>Host System:</source>
+        <translation>Equipo:</translation>
+    </message>
+    <message>
+        <source>Audio Upload URL:</source>
+        <translation>URL subida audio:</translation>
+    </message>
+    <message>
+        <source>Username:</source>
+        <translation>Usuario:</translation>
+    </message>
+    <message>
+        <source>Password:</source>
+        <translation>Clave:</translation>
+    </message>
+    <message>
+        <source>Upload Format:</source>
+        <translation>Formato de subida:</translation>
+    </message>
+    <message>
+        <source>S&amp;et</source>
+        <translation>&amp;Asign</translation>
+    </message>
+    <message>
+        <source>Normalize</source>
+        <translation>Normalizar</translation>
+    </message>
+    <message>
+        <source>Level:</source>
+        <translation>Nivel:</translation>
+    </message>
+    <message>
+        <source>dBFS</source>
+        <translation>dBFS</translation>
+    </message>
+    <message>
+        <source>Available Groups</source>
+        <translation>Grupos disponibles</translation>
+    </message>
+    <message>
+        <source>Active Groups</source>
+        <translation>Grupos activos</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
     </message>
 </context>
 <context>
@@ -1973,6 +2975,108 @@ equipo configurado para ejecutar CAE para obtener la información de audio.</tra
     </message>
 </context>
 <context>
+    <name>EditSchedCode</name>
+    <message>
+        <source>Scheduler Code: </source>
+        <translation type="obsolete">Código para Musicalizar: </translation>
+    </message>
+    <message>
+        <source>Scheduler Code:</source>
+        <translation type="obsolete">Código:</translation>
+    </message>
+    <message>
+        <source>Code Description:</source>
+        <translation type="obsolete">Descripción:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="obsolete">&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="obsolete">&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
+    <name>EditSettings</name>
+    <message>
+        <source>System-Wide Settings</source>
+        <translation>Parámetros de todo el Sistema</translation>
+    </message>
+    <message>
+        <source>System Sample Rate:</source>
+        <translation>Tasa de Muestreo del Sistema:</translation>
+    </message>
+    <message>
+        <source>samples/second</source>
+        <translation>muestras/segundo</translation>
+    </message>
+    <message>
+        <source>Allow Duplicate Cart Titles</source>
+        <translation>Permitir títulos duplicados de cartuchos</translation>
+    </message>
+    <message>
+        <source>ISCI Cross Reference Path:</source>
+        <translation>Ubicac. de Ref. Cruzadas ISCI:</translation>
+    </message>
+    <message>
+        <source>Maximum Remote Post Length:</source>
+        <translation>Long. máx. de posts remotos:</translation>
+    </message>
+    <message>
+        <source>Mbytes</source>
+        <translation>MBytes</translation>
+    </message>
+    <message>
+        <source>The following duplicate titles must be corrected before &quot;Allow Duplicate Values&quot; can be turned off.</source>
+        <translation>Los siguientes títulos duplicados deben ser corregidos antes de desactivar la opción respectiva.</translation>
+    </message>
+    <message>
+        <source>CART</source>
+        <translation>CARTUCHO</translation>
+    </message>
+    <message>
+        <source>TITLE</source>
+        <translation>TÍTULO</translation>
+    </message>
+    <message>
+        <source>&amp;Save List</source>
+        <translation>&amp;Guardar lista</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>File Exists</source>
+        <translation>El archivo ya existe</translation>
+    </message>
+    <message>
+        <source>The file &quot;</source>
+        <translation>El archivo &quot;</translation>
+    </message>
+    <message>
+        <source>&quot; exists.
+
+Overwrite?</source>
+        <translation>&quot; ya existe.
+
+¿Sobreescribir?</translation>
+    </message>
+    <message>
+        <source>File Error</source>
+        <translation>Error de archivo</translation>
+    </message>
+    <message>
+        <source>Checking the Library for duplicates.</source>
+        <translation>Buscando duplicados en la biblioteca.</translation>
+    </message>
+</context>
+<context>
     <name>EditStation</name>
     <message>
         <source>Host: </source>
@@ -2020,7 +3124,7 @@ equipo configurado para ejecutar CAE para obtener la información de audio.</tra
     </message>
     <message>
         <source>Interval:</source>
-        <translation>Intervalo:</translation>
+        <translation>Interval.:</translation>
     </message>
     <message>
         <source>secs</source>
@@ -2132,7 +3236,7 @@ del Equipo</translation>
         <source>Custom
 Encoders</source>
         <translation>Codificad.
-personalizds</translation>
+propios</translation>
     </message>
     <message>
         <source>Include in System Maintenance Pool</source>
@@ -2156,7 +3260,7 @@ personalizds</translation>
     </message>
     <message>
         <source>System Services</source>
-        <translation>Servicios del Sistema</translation>
+        <translation>Serv. del Sistema</translation>
     </message>
     <message>
         <source>JACK
@@ -2173,7 +3277,7 @@ de JACK</translation>
     </message>
     <message>
         <source>&amp;Service Name:</source>
-        <translation>NOmbre del &amp;Servicio:</translation>
+        <translation>Nombre del &amp;Servicio:</translation>
     </message>
     <message>
         <source>Service &amp;Description:</source>
@@ -2211,7 +3315,7 @@ de JACK</translation>
     </message>
     <message>
         <source>Traffic Data Import</source>
-        <translation>Importación de Datos de Tráfico</translation>
+        <translation>Importar Info. Tráfico</translation>
     </message>
     <message>
         <source>Linux Import Path:</source>
@@ -2233,7 +3337,7 @@ de JACK</translation>
     </message>
     <message>
         <source>Music Data Import</source>
-        <translation>Importación de Datos de Música</translation>
+        <translation>Importar Info. Música</translation>
     </message>
     <message>
         <source>Insert Traffic Break String:</source>
@@ -2331,7 +3435,7 @@ debe guardarse.  ¿Hacerlo ahora?</translation>
     </message>
     <message>
         <source>Port ID:</source>
-        <translation>ID del puerto:</translation>
+        <translation>ID:</translation>
     </message>
     <message>
         <source>Enabled</source>
@@ -2402,11 +3506,11 @@ debe guardarse.  ¿Hacerlo ahora?</translation>
     </message>
     <message>
         <source>&amp;User Name:</source>
-        <translation>Nombre del &amp;Usuario:</translation>
+        <translation>&amp;Usuario:</translation>
     </message>
     <message>
         <source>&amp;Full Name:</source>
-        <translation>&amp;Nombre Completo:</translation>
+        <translation>&amp;Nb. Completo:</translation>
     </message>
     <message>
         <source>&amp;Description:</source>
@@ -2544,6 +3648,29 @@ Feeds para Podcasts</translation>
     </message>
 </context>
 <context>
+    <name>EditUserPerms</name>
+    <message>
+        <source>User: </source>
+        <translation>Usuario:</translation>
+    </message>
+    <message>
+        <source>Available Groups</source>
+        <translation>Grupos disponibles</translation>
+    </message>
+    <message>
+        <source>Enabled Groups</source>
+        <translation>Grupos activos</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
     <name>EditVguestResource</name>
     <message>
         <source>Engine (Hex): </source>
@@ -2571,11 +3698,11 @@ Feeds para Podcasts</translation>
     </message>
     <message>
         <source>Edit vGuest Switch</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar Suiche vGuest</translation>
     </message>
     <message>
         <source>Edit vGuest Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar display vGuest</translation>
     </message>
     <message>
         <source>Invalid Number</source>
@@ -2599,6 +3726,21 @@ Feeds para Podcasts</translation>
     </message>
 </context>
 <context>
+    <name>HelpAudioPorts</name>
+    <message>
+        <source>Audio Ports Help</source>
+        <translation type="obsolete">Ayuda para puertos de audio</translation>
+    </message>
+    <message>
+        <source>Mode - short for Channel Mode, configures the Left and Right behaviour when recording.&lt;BR&gt;  Behaviour varies depending on the number of channels to record as summarized in the table below:&lt;BR&gt;&lt;TABLE&gt;&lt;TR&gt; &lt;TH&gt;Channels&lt;/TH&gt;  &lt;TH&gt;Mode&lt;/TH&gt;   &lt;TH&gt;Effect&lt;/TH&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Mono&lt;/TD&gt;      &lt;TD&gt;Normal&lt;/TD&gt; &lt;TD&gt;L+R sum to mono&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Mono&lt;/TD&gt;      &lt;TD&gt;Swap&lt;/TD&gt;   &lt;TD&gt;R+L sum to mono (same result as Normal)&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Mono&lt;/TD&gt;      &lt;TD&gt;Left only&lt;/TD&gt; &lt;TD&gt;L -&gt; mono&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Mono&lt;/TD&gt;      &lt;TD&gt;Right only&lt;/TD&gt; &lt;TD&gt;R -&gt; mono&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Stereo&lt;/TD&gt;    &lt;TD&gt;Normal&lt;/TD&gt; &lt;TD&gt;Stereo&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Stereo&lt;/TD&gt;    &lt;TD&gt;Swap&lt;/TD&gt;   &lt;TD&gt;Swapped stereo&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Stereo&lt;/TD&gt;    &lt;TD&gt;Left only&lt;/TD&gt; &lt;TD&gt;L -&gt; to L channel only, R channel is silent&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Stereo&lt;/TD&gt;    &lt;TD&gt;Right only&lt;/TD&gt; &lt;TD&gt;R -&gt; to R channel only, L channel is silent&lt;/TD&gt; &lt;/TR&gt;&lt;/TABLE&gt;</source>
+        <translation type="obsolete">Modo - abreviatura para Modo de Canal, configura el comportamiento a la Izquierda y Derecha mientra se graba.&lt;BR&gt;  El comportamiento varía dependiendo del número de canales para grabar, como se resume en la siguiente tabla:&lt;BR&gt;&lt;TABLE&gt;&lt;TR&gt; &lt;TH&gt;Canales&lt;/TH&gt;  &lt;TH&gt;Modo&lt;/TH&gt;   &lt;TH&gt;Efecto&lt;/TH&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Mono&lt;/TD&gt;      &lt;TD&gt;Normal&lt;/TD&gt; &lt;TD&gt;L+R se suman para ser mono&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Mono&lt;/TD&gt;      &lt;TD&gt;Intercambio&lt;/TD&gt;   &lt;TD&gt;R+L se suman para mono (mismo resultado que en Normal)&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Mono&lt;/TD&gt;      &lt;TD&gt;Sólo Izquierda&lt;/TD&gt; &lt;TD&gt;Izq -&gt; mono&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Mono&lt;/TD&gt;      &lt;TD&gt;Sólo derecha&lt;/TD&gt; &lt;TD&gt;Der -&gt; mono&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Estéreo&lt;/TD&gt;    &lt;TD&gt;Normal&lt;/TD&gt; &lt;TD&gt;Estéreo&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Estéreo&lt;/TD&gt;    &lt;TD&gt;Intercambio&lt;/TD&gt;   &lt;TD&gt;Estéreo con los canales intercambiados&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Estéreo&lt;/TD&gt;    &lt;TD&gt;Sólo izquierda&lt;/TD&gt; &lt;TD&gt;Izq -&gt; al canal izquierdo solamente, el canal derecho permanece en silencio&lt;/TD&gt; &lt;/TR&gt;&lt;TR&gt; &lt;TD&gt;Estéreo&lt;/TD&gt;    &lt;TD&gt;Sólo derecha&lt;/TD&gt; &lt;TD&gt;Der -&gt; al canal derecho solamente, el canal izquierdo permanece en silencio&lt;/TD&gt; &lt;/TR&gt;&lt;/TABLE&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="obsolete">&amp;Cerrar</translation>
+    </message>
+</context>
+<context>
     <name>InfoDialog</name>
     <message>
         <source>System Information</source>
@@ -2614,11 +3756,11 @@ Feeds para Podcasts</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>Versión</translation>
+        <translation>Version</translation>
     </message>
     <message>
         <source>Database Schema</source>
-        <translation>Esquema de Base de Datos</translation>
+        <translation>Esq. Base de Datos</translation>
     </message>
     <message>
         <source>This program is free software, and comes with ABSOLUTELY NO WARRANTY,
@@ -2644,6 +3786,114 @@ PARA UN PROPÓSITO PARTICULAR.  Oprima el botón &quot;Ver licencia&quot; para d
     </message>
 </context>
 <context>
+    <name>ListAuxFields</name>
+    <message>
+        <source>Auxiliary Metadata Fields</source>
+        <translation>Campos de metadatos auxiliares</translation>
+    </message>
+    <message>
+        <source>Var Name</source>
+        <translation>Nombre</translation>
+    </message>
+    <message>
+        <source>Caption</source>
+        <translation>Texto</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation>&amp;Añadir</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>E&amp;liminar</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Cerrar</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Advertencia</translation>
+    </message>
+    <message>
+        <source>This will delete all data associated with this field!
+Are you sure you want to continue?</source>
+        <translation>¡Esto eliminará todos los datos asociados con este campo!
+¿Está seguro de continuar?</translation>
+    </message>
+</context>
+<context>
+    <name>ListDropboxes</name>
+    <message>
+        <source>&amp;Add</source>
+        <translation>&amp;Añadir</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>E&amp;liminar</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Cerrar</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation>Grupo</translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation>Carpeta</translation>
+    </message>
+    <message>
+        <source>Normalization Level</source>
+        <translation>Nivel de Normalización</translation>
+    </message>
+    <message>
+        <source>Autotrim Level</source>
+        <translation>Nivel de AutoRecorte</translation>
+    </message>
+    <message>
+        <source>To Cart</source>
+        <translation>A Cartucho</translation>
+    </message>
+    <message>
+        <source>Use CartChunk ID</source>
+        <translation>Usar ID de CartChunk</translation>
+    </message>
+    <message>
+        <source>Delete Cuts</source>
+        <translation>Borrar audios</translation>
+    </message>
+    <message>
+        <source>Metadata Pattern</source>
+        <translation>Patrón de metadatos</translation>
+    </message>
+    <message>
+        <source>Fix Broken Formats</source>
+        <translation>Arreglar formatos rotos</translation>
+    </message>
+    <message>
+        <source>[off]</source>
+        <translation>[apagado]</translation>
+    </message>
+    <message>
+        <source>[auto]</source>
+        <translation>[auto]</translation>
+    </message>
+    <message>
+        <source>[none]</source>
+        <translation>[ninguno]</translation>
+    </message>
+</context>
+<context>
     <name>ListEncoders</name>
     <message>
         <source>RDAdmin - List Encoders</source>
@@ -2659,7 +3909,7 @@ PARA UN PROPÓSITO PARTICULAR.  Oprima el botón &quot;Ver licencia&quot; para d
     </message>
     <message>
         <source>Valid Sample Rates</source>
-        <translation>Frec. muestreo válidas</translation>
+        <translation>Tasas muestra válidas</translation>
     </message>
     <message>
         <source>Valid Bit Rates</source>
@@ -2712,6 +3962,10 @@ Do you still want to delete it?</source>
         <translation>
 
 ¿Aún desea eliminarlo?</translation>
+    </message>
+    <message>
+        <source>Encoders on</source>
+        <translation>Codificad. en</translation>
     </message>
 </context>
 <context>
@@ -2814,6 +4068,73 @@ Do you still want to delete it?</source>
     </message>
 </context>
 <context>
+    <name>ListFeeds</name>
+    <message>
+        <source>Rivendell Feed List</source>
+        <translation>Lista de feeds Rivendell</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation>&amp;Añadir</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>E&amp;liminar</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Cerrar</translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation>Nombre</translation>
+    </message>
+    <message>
+        <source>Title</source>
+        <translation>Título</translation>
+    </message>
+    <message>
+        <source>AutoPost</source>
+        <translation>AutoPublicar</translation>
+    </message>
+    <message>
+        <source>Keep Metadata</source>
+        <translation>Mantener metadatos</translation>
+    </message>
+    <message>
+        <source>Creation Date</source>
+        <translation>Fecha de creación</translation>
+    </message>
+    <message>
+        <source>&amp;Feeds:</source>
+        <translation>&amp;Feeds:</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete feed</source>
+        <translation>¿Está seguro de borrar el feed </translation>
+    </message>
+    <message>
+        <source>Delete Feed</source>
+        <translation>Eliminar Feed</translation>
+    </message>
+    <message>
+        <source>Deleting Audio...</source>
+        <translation>Eliminando Audio...</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <source>Deleting</source>
+        <translation>Borrando</translation>
+    </message>
+</context>
+<context>
     <name>ListGpis</name>
     <message>
         <source>List GPIs</source>
@@ -2857,19 +4178,19 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>ON MACRO CART</source>
-        <translation type="unfinished"></translation>
+        <translation>CART MACRO ON</translation>
     </message>
     <message>
         <source>ON DESCRIPTION</source>
-        <translation type="unfinished"></translation>
+        <translation>DESCRIPCIÓN ON</translation>
     </message>
     <message>
         <source>OFF MACRO CART</source>
-        <translation type="unfinished"></translation>
+        <translation>CART MACRO OFF</translation>
     </message>
     <message>
         <source>OFF DESCRIPTION</source>
-        <translation type="unfinished"></translation>
+        <translation>DESCRIPCIÓN OFF</translation>
     </message>
 </context>
 <context>
@@ -2950,7 +4271,7 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>Are you sure you want to delete group</source>
-        <translation>¿Está seguro de borrar este grupo</translation>
+        <translation>Desea eliminar el grupo</translation>
     </message>
     <message>
         <source>Delete Group</source>
@@ -3115,12 +4436,13 @@ Do you still want to delete it?</source>
     <name>ListReplicatorCarts</name>
     <message>
         <source>&amp;Repost</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Republicar</translation>
     </message>
     <message>
         <source>Repost
 &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Republicar
+&amp;Todos</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -3136,11 +4458,11 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>LAST POSTED</source>
-        <translation type="unfinished"></translation>
+        <translation>ÚLTIMO COLOCADO</translation>
     </message>
     <message>
         <source>POSTED FILENAME</source>
-        <translation type="unfinished"></translation>
+        <translation>NOMBRE DEL ARCHIVO</translation>
     </message>
     <message>
         <source>&amp;Active Carts:</source>
@@ -3149,6 +4471,63 @@ Do you still want to delete it?</source>
     <message>
         <source> Replicator Carts</source>
         <translation> Cartuchos Replicadores</translation>
+    </message>
+</context>
+<context>
+    <name>ListReplicators</name>
+    <message>
+        <source>Rivendell Replicators</source>
+        <translation>Replicadores Rivendell</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation>&amp;Añadir</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>E&amp;liminar</translation>
+    </message>
+    <message>
+        <source>&amp;List
+Carts</source>
+        <translation>&amp;Listar
+Cartuchos</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Cerrar</translation>
+    </message>
+    <message>
+        <source>NAME</source>
+        <translation>NOMBRE</translation>
+    </message>
+    <message>
+        <source>TYPE</source>
+        <translation>TIPO</translation>
+    </message>
+    <message>
+        <source>DESCRIPTION</source>
+        <translation>DESCRIPCIÓN</translation>
+    </message>
+    <message>
+        <source>HOST</source>
+        <translation>COMPUTADOR</translation>
+    </message>
+    <message>
+        <source>&amp;Replicators:</source>
+        <translation>&amp;Replicadores:</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete replicator</source>
+        <translation>Desea eliminar el replicador  </translation>
+    </message>
+    <message>
+        <source>Delete Replicator</source>
+        <translation>Eliminar Replicador</translation>
     </message>
 </context>
 <context>
@@ -3184,6 +4563,49 @@ Do you still want to delete it?</source>
     <message>
         <source>Delete Report</source>
         <translation>Eliminar reporte</translation>
+    </message>
+</context>
+<context>
+    <name>ListSchedCodes</name>
+    <message>
+        <source>Rivendell Scheduler Codes List</source>
+        <translation type="obsolete">Lista de Códigos de Musicalización</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="obsolete">&amp;Añadir</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="obsolete">&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="obsolete">E&amp;liminar</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="obsolete">&amp;Cerrar</translation>
+    </message>
+    <message>
+        <source>CODE</source>
+        <translation type="obsolete">CÓDIGO</translation>
+    </message>
+    <message>
+        <source>DESCRIPTION</source>
+        <translation type="obsolete">DESCRIPCIÓN</translation>
+    </message>
+    <message>
+        <source>Scheduler Codes:</source>
+        <translation type="obsolete">Códigos para Musicalizar:</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete scheduler code </source>
+        <translation type="obsolete">¿Está seguro de querer eliminar el código </translation>
+    </message>
+    <message>
+        <source>Delete Scheduler Code</source>
+        <translation type="obsolete">Eliminar código de musicalización</translation>
     </message>
 </context>
 <context>
@@ -3417,8 +4839,8 @@ del Sistema</translation>
     <message>
         <source>Scheduler
 Codes</source>
-        <translation>Códigos de
-musicalizac</translation>
+        <translation>Códigos para
+musicalizar</translation>
     </message>
     <message>
         <source>&amp;Backup
@@ -3465,7 +4887,7 @@ base datos</translation>
 OVERWRITE the existing Rivendell Database!
 Do you want to continue?</source>
         <translation>ADVERTENCIA: Esta operación SOBREESCRIBIRÁ
-COMPELTAMENTE la base de datos existente.
+COMPLETAMENTE la base de datos existente.
 ¿Desea continuar?</translation>
     </message>
     <message>
@@ -3527,6 +4949,254 @@ Replicadores</translation>
     </message>
 </context>
 <context>
+    <name>QObject</name>
+    <message>
+        <source>Unable to access the Rivendell Database!
+Please enter a login for an account with
+administrative rights on the mySQL server,
+and we will try to get this straightened out.</source>
+        <translation>¡No se pudo acceder a la base de datos Rivendell!
+Si desea crear una NUEVA base de datos, ingrese 
+el login y la clave de una cuenta Mysql con 
+derechos administrativos.</translation>
+    </message>
+    <message>
+        <source>Wrong access permissions for accessing mySQL!</source>
+        <translation>¡Permisología errónea al acceder a la base de datos MySQL!</translation>
+    </message>
+    <message>
+        <source>Unable to connect to mySQL!</source>
+        <translation>¡No es posible conectarse con la base de datos MySQL!</translation>
+    </message>
+    <message>
+        <source>Unable to create a Rivendell Database!</source>
+        <translation>¡No pude crear la base de datos Rivendell!</translation>
+    </message>
+    <message>
+        <source>Unable to connect to new Rivendell Database!</source>
+        <translation>¡No pude conectarme a la nueva base de datos Rivendell!</translation>
+    </message>
+    <message>
+        <source>Unable to create Rivendell Database!</source>
+        <translation>¡No pude crear la base de datos Rivendell!</translation>
+    </message>
+    <message>
+        <source>Unable to connect to Rivendell Database!</source>
+        <translation>¡No pude conectarme a la base de datos Rivendell!</translation>
+    </message>
+    <message>
+        <source>Unable to initialize Rivendell Database!</source>
+        <translation>¡No fue posible inicializar la base de datos Rivendell!</translation>
+    </message>
+    <message>
+        <source>RDAdmin</source>
+        <translation>RDAdmin</translation>
+    </message>
+    <message>
+        <source>New Rivendell Database Created!</source>
+        <translation>¡Se ha creado una nueva base de datos!</translation>
+    </message>
+    <message>
+        <source>Unable to upgrade database</source>
+        <translation>No fue posible actualizar la base de datos</translation>
+    </message>
+    <message>
+        <source>The Rivendell Database is too old to be upgraded,
+and so must be replaced.  This will DESTROY any
+existing audio and data!  If you want to do this,
+enter a username and password for a mySQL account
+with administrative privledges, otherwise hit cancel.</source>
+        <translation>La base de datos Rivendell es muy antigua y no
+puede ser actualizada, por lo que será reemplazada.
+¡Esto DESTRUIRÁ todo audio y datos existentes! 
+Si desea continuar, introduzca el usuario y la clave
+de una cuenta MySQL con privilegios administrativos,
+o de lo contrario seleccione CANCELAR.</translation>
+    </message>
+    <message>
+        <source>Unable to log into Administrator account!</source>
+        <translation>¡No pudo ingresar a una cuenta administrativa!</translation>
+    </message>
+    <message>
+        <source>Unable to authorize a Rivendell Database!</source>
+        <translation>¡No puedo autorizar la base de datos Rivendell!</translation>
+    </message>
+    <message>
+        <source>Update Needed</source>
+        <translation>Se necesita actualizar</translation>
+    </message>
+    <message>
+        <source>The Rivendell Database needs to be updated.
+All audio and settings will be preserved, but
+this will STOP any audio playout or recording
+on this machine for a few seconds.  Continue?</source>
+        <translation>La base de datos requiere ser actualizada. Todo el audio 
+y la configuración se van a preservar, pero hay  que 
+DETENER las reproducciones y grabaciones por unos
+segundos. ¿Desea continuar?</translation>
+    </message>
+    <message>
+        <source>Unable to update Rivendell Database:</source>
+        <translation>No fue posible actualizar la base de datos:</translation>
+    </message>
+    <message>
+        <source>
+Database backup failed!</source>
+        <translation>
+¡No se pudo respaldar la base de datos!</translation>
+    </message>
+    <message>
+        <source>
+Schema modification failed!</source>
+        <translation>
+¡Falló la modificación del esquema!</translation>
+    </message>
+    <message>
+        <source>
+Unknown/unspecified error!</source>
+        <translation>
+¡Error desconocido/no especificado!</translation>
+    </message>
+    <message>
+        <source>The Rivendell Database has been updated to version</source>
+        <translation>La base de datos de Rivendell ha sido actualizada a la versión </translation>
+    </message>
+    <message>
+        <source>
+and a backup of the original database saved in </source>
+        <translation>
+y un respaldo de la base de datos se guardó en </translation>
+    </message>
+    <message>
+        <source>Database Updated</source>
+        <translation>Base de datos actualizada</translation>
+    </message>
+    <message>
+        <source>RDAdmin Error</source>
+        <translation>Error de RDAdmin</translation>
+    </message>
+    <message>
+        <source>(default)</source>
+        <translation>(por omisión)</translation>
+    </message>
+    <message>
+        <source>Start Line 1</source>
+        <translation>Iniciar Línea 1</translation>
+    </message>
+    <message>
+        <source>Stop Line 1</source>
+        <translation>Detener Línea 1</translation>
+    </message>
+    <message>
+        <source>Pause Line 1</source>
+        <translation>Pausar Línea 1</translation>
+    </message>
+    <message>
+        <source>Start Line 2</source>
+        <translation>Iniciar Línea 2</translation>
+    </message>
+    <message>
+        <source>Stop Line 2</source>
+        <translation>Detener Línea 2</translation>
+    </message>
+    <message>
+        <source>Pause Line 2</source>
+        <translation>Pausar Línea 2</translation>
+    </message>
+    <message>
+        <source>Start Line 3</source>
+        <translation>Iniciar Línea 3</translation>
+    </message>
+    <message>
+        <source>Stop Line 3</source>
+        <translation>Detener Línea 3</translation>
+    </message>
+    <message>
+        <source>Pause Line 3</source>
+        <translation>Pausar Línea 3</translation>
+    </message>
+    <message>
+        <source>Start Line 4</source>
+        <translation>Iniciar Línea 4</translation>
+    </message>
+    <message>
+        <source>Stop Line 4</source>
+        <translation>Detener Línea 4</translation>
+    </message>
+    <message>
+        <source>Pause Line 4</source>
+        <translation>Pausar Línea 4</translation>
+    </message>
+    <message>
+        <source>Start Line 5</source>
+        <translation>Iniciar Línea 5</translation>
+    </message>
+    <message>
+        <source>Stop Line 5</source>
+        <translation>Detener Línea 5</translation>
+    </message>
+    <message>
+        <source>Pause Line 5</source>
+        <translation>Pausar Línea 5</translation>
+    </message>
+    <message>
+        <source>Start Line 6</source>
+        <translation>Iniciar Línea 6</translation>
+    </message>
+    <message>
+        <source>Stop Line 6</source>
+        <translation>Detener Línea 6</translation>
+    </message>
+    <message>
+        <source>Pause Line 6</source>
+        <translation>Pausar Línea 6</translation>
+    </message>
+    <message>
+        <source>Start Line 7</source>
+        <translation>Iniciar Línea 7</translation>
+    </message>
+    <message>
+        <source>Stop Line 7</source>
+        <translation>Detener Línea 7</translation>
+    </message>
+    <message>
+        <source>Pause Line 7</source>
+        <translation>Pausar Línea 7</translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <translation>Añadir</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Borrar</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Copiar</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>Mover</translation>
+    </message>
+    <message>
+        <source>Sound Panel</source>
+        <translation>Panel de sonidos</translation>
+    </message>
+    <message>
+        <source>Main Log</source>
+        <translation>Lista Ppal</translation>
+    </message>
+    <message>
+        <source>Aux Log 1</source>
+        <translation>Lista aux. 1</translation>
+    </message>
+    <message>
+        <source>Aux Log 2</source>
+        <translation>Lista aux. 2</translation>
+    </message>
+</context>
+<context>
     <name>RenameGroup</name>
     <message>
         <source>Rename Group</source>
@@ -3583,11 +5253,11 @@ Do you want to combine the two?</source>
     </message>
     <message>
         <source>Test Date:</source>
-        <translation>Fecha de prueba:</translation>
+        <translation>Fecha prueba:</translation>
     </message>
     <message>
         <source>&amp;Select</source>
-        <translation>&amp;Seleccionar</translation>
+        <translation>&amp;Elegir</translation>
     </message>
     <message>
         <source>&amp;Import</source>

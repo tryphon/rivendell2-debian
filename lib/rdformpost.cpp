@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdformpost.cpp,v 1.2 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdformpost.cpp,v 1.3 2012/02/13 23:01:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -26,6 +26,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <syslog.h>
 
 #include <rdconf.h>
 #include <rdweb.h>
@@ -76,7 +77,7 @@ RDFormPost::RDFormPost(RDFormPost::Encoding encoding,unsigned maxsize,
   else {
     strcpy(tempdir,"/tmp");
   }
-  strcat(tempdir,"/lwrouterXXXXXX");
+  strcat(tempdir,"/rivendellXXXXXX");
   post_tempdir=mkdtemp(tempdir);
   if(post_tempdir.isNull()) {
     post_error=RDFormPost::ErrorNoTempDir;

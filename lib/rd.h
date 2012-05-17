@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194 2011/02/11 18:39:49 cvs Exp $
+//      $Id: rd.h,v 1.194.6.1 2012/05/10 16:00:52 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -458,5 +458,12 @@
  * Timeout for libcurl (secs)
  */
 #define RD_CURL_TIMEOUT 1200
+
+/*
+ * Anonymous FTP Credentials
+ */
+#define RD_ANON_FTP_USERNAME "anonymous"
+#define RD_ANON_FTP_PASSWORD "rivendell"
+
 
 #endif  // RD_H

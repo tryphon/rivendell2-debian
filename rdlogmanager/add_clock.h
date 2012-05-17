@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_clock.h,v 1.5 2010/07/29 19:32:37 cvs Exp $
+//      $Id: add_clock.h,v 1.5.8.1 2012/04/23 17:22:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -37,19 +37,22 @@
 class AddClock : public QDialog
 {
   Q_OBJECT
-  public:
-   AddClock(QString *logname,QWidget *parent=0,const char *name=0);
-   ~AddClock();
-   QSize sizeHint() const;
-   QSizePolicy sizePolicy() const;
+ public:
+  AddClock(QString *logname,QWidget *parent=0,const char *name=0);
+  ~AddClock();
+  QSize sizeHint() const;
+  QSizePolicy sizePolicy() const;
 
-  private slots:
-   void okData();
-   void cancelData();
+ private slots:
+  void okData();
+  void cancelData();
 
-  private:
-   QLineEdit *clock_name_edit;
-   QString *clock_name;
+ protected:
+  void closeEvent(QCloseEvent *e);
+
+ private:
+  QLineEdit *clock_name_edit;
+  QString *clock_name;
 };
 
 

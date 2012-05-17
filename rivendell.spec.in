@@ -3,7 +3,7 @@
 ##    The Rivendell Radio Automation System
 ##    Copyright (C) 2002-2010  Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: rivendell.spec.in,v 1.98 2011/12/22 00:52:05 cvs Exp $
+##      $Id: rivendell.spec.in,v 1.98.4.2 2012/05/07 22:41:55 cvs Exp $
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of version 2 of the GNU General Public License as
@@ -256,6 +256,7 @@ cp rlm/rlm_inno713.rlm $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/
 cp rlm/rlm_xds.rlm $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/
 cp rlm/rlm_icecast2.rlm $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/
 cp rlm/rlm_shoutcast1.rlm $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/
+cp rlm/rlm_spottrap.rlm $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/
 mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/include/rlm
 cp rlm/rlm.h $RPM_BUILD_ROOT@LOCAL_PREFIX@/include/rlm/
 mkdir -p $RPM_BUILD_ROOT/@LOCAL_PREFIX@/src/rlm
@@ -272,6 +273,7 @@ cp rlm/rlm_inno713.c $RPM_BUILD_ROOT/@LOCAL_PREFIX@/src/rlm/
 cp rlm/rlm_xds.c $RPM_BUILD_ROOT/@LOCAL_PREFIX@/src/rlm/
 cp rlm/rlm_icecast2.c $RPM_BUILD_ROOT/@LOCAL_PREFIX@/src/rlm/
 cp rlm/rlm_shoutcast1.c $RPM_BUILD_ROOT/@LOCAL_PREFIX@/src/rlm/
+cp rlm/rlm_spottrap.c $RPM_BUILD_ROOT/@LOCAL_PREFIX@/src/rlm/
 mkdir -p $RPM_BUILD_ROOT/@RD_LIB_PATH@/security
 cp pam_rd/.libs/pam_rd.so $RPM_BUILD_ROOT/@RD_LIB_PATH@/security/
 if test "@WIN32_SOURCE@" ; then
@@ -295,6 +297,7 @@ if test "@STRIP_DEBUG@" = "yes" ; then
   strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_xds.rlm
   strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_icecast2.rlm
   strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_shoutcast1.rlm
+  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_spottrap.rlm
   strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/caed
   strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdadmin
   strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdairplay
@@ -413,6 +416,7 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_xds.rlm
 @LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_icecast2.rlm
 @LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_shoutcast1.rlm
+@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_spottrap.rlm
 %attr(4755,root,root) @LOCAL_PREFIX@/bin/caed
 @LOCAL_PREFIX@/bin/rdadmin
 @LOCAL_PREFIX@/bin/rdairplay
@@ -605,8 +609,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc conf/rlm_xds.conf
 %doc conf/rlm_icecast2.conf
 %doc conf/rlm_shoutcast1.conf
+%doc conf/rlm_spottrap.conf
 %doc docs/implemented_macros.txt
 %doc utils/sas_shim/rc.sas_shim
+%doc docs/datetime_wildcards.txt
 %doc docs/reports.txt
 %doc docs/NOW+NEXT.txt
 %doc docs/WIN32.txt
@@ -652,8 +658,13 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/src/rlm/rlm_xds.c
 @LOCAL_PREFIX@/src/rlm/rlm_icecast2.c
 @LOCAL_PREFIX@/src/rlm/rlm_shoutcast1.c
+@LOCAL_PREFIX@/src/rlm/rlm_spottrap.c
 
 %changelog
+* Mon May 07 2012 Fred Gleason <fredg@paravelsystems.com>
+-- Added 'doc/datetime_wildcards.txt'.
+* Mon Apr 02 2012 Fred Gleason <fredg@paravelsystems.com>
+-- Backported the 'rlm_spottrap' RLM from CVS-Head.
 * Wed Dec 21 2011 Fred Gleason <fredg@paravelsystems.com>
 -- Added Shoutcast1 RLM.
 * Fri May 20 2011 Fred Gleason <fredg@paravelsystems.com>

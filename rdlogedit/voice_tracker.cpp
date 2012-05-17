@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: voice_tracker.cpp,v 1.83 2010/09/16 19:52:08 cvs Exp $
+//      $Id: voice_tracker.cpp,v 1.84 2012/02/13 20:45:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -4041,6 +4041,9 @@ bool VoiceTracker::CanInsertTrack()
     return false;
   }
   if(item->line()==TRACKER_MAX_LINENO) {
+    if(track_log_event->size()<=0) {
+      return true;
+    }
     return track_log_event->logLine(track_log_event->size()-1)->type()
       !=RDLogLine::Track;
   }

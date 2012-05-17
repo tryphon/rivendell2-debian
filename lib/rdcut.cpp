@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.cpp,v 1.76 2011/02/14 16:43:46 cvs Exp $
+//      $Id: rdcut.cpp,v 1.76.6.1 2012/04/23 20:44:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -840,7 +840,7 @@ bool RDCut::copyTo(RDStation *station,RDUser *user,
   //
   sql=
     QString().sprintf("select DESCRIPTION,OUTCUE,LENGTH,\
-                       ORIGIN_DATETIME,ORIGIN_NAME,CODING_FORMAT,SAMPLE_RATE,\
+                       CODING_FORMAT,SAMPLE_RATE,\
                        BIT_RATE,CHANNELS,PLAY_GAIN,START_POINT,END_POINT,\
                        FADEUP_POINT,FADEDOWN_POINT,SEGUE_START_POINT,\
                        SEGUE_END_POINT,HOOK_START_POINT,HOOK_END_POINT,\
@@ -849,10 +849,11 @@ bool RDCut::copyTo(RDStation *station,RDUser *user,
   q=new RDSqlQuery(sql);
   if(q->first()) {
     sql=QString().sprintf("update CUTS set\
+                           PLAY_COUNTER=0,\
                            DESCRIPTION=\"%s\",\
                            OUTCUE=\"%s\",\
                            LENGTH=%u,\
-                           ORIGIN_DATETIME=\"%s\",\
+                           ORIGIN_DATETIME=now(),\
                            ORIGIN_NAME=\"%s\",\
                            CODING_FORMAT=%u,\
                            SAMPLE_RATE=%u,\
@@ -872,12 +873,13 @@ bool RDCut::copyTo(RDStation *station,RDUser *user,
 			  (const char *)q->value(0).toString().utf8(),
 			  (const char *)q->value(1).toString().utf8(),
 			  q->value(2).toUInt(),
-			  (const char *)q->value(3).toString().utf8(),
-			  (const char *)q->value(4).toString().utf8(),
+			  (const char *)RDEscapeString(station->name()),
+			  q->value(3).toUInt(),
+			  q->value(4).toUInt(),
 			  q->value(5).toUInt(),
 			  q->value(6).toUInt(),
-			  q->value(7).toUInt(),
-			  q->value(8).toUInt(),
+			  q->value(7).toInt(),
+			  q->value(8).toInt(),
 			  q->value(9).toInt(),
 			  q->value(10).toInt(),
 			  q->value(11).toInt(),
@@ -886,9 +888,7 @@ bool RDCut::copyTo(RDStation *station,RDUser *user,
 			  q->value(14).toInt(),
 			  q->value(15).toInt(),
 			  q->value(16).toInt(),
-			  q->value(17).toInt(),
-			  q->value(18).toInt(),
-			  q->value(19).toInt(),			  
+			  q->value(17).toInt(),			  
 			  (const char *)cutname);
   }
   delete q;
@@ -899,7 +899,6 @@ bool RDCut::copyTo(RDStation *station,RDUser *user,
   // Copy the Audio
   //
   RDCopyAudio *conv=new RDCopyAudio(station);
-  RDCopyAudio::ErrorCode conv_err;
   conv->setSourceCartNumber(cart_number);
   conv->setSourceCutNumber(cut_number);
   conv->setDestinationCartNumber(RDCut::cartNumber(cutname));

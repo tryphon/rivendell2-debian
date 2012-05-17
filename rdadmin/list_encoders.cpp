@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_encoders.cpp,v 1.4 2010/07/29 19:32:34 cvs Exp $
+//      $Id: list_encoders.cpp,v 1.5 2012/02/13 19:26:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -58,10 +58,8 @@ ListEncoders::ListEncoders(const QString &stationname,
   // Encoders List Box
   //
   list_list_view=new RDListView(this,"list_box");
-  list_list_label=
-    new QLabel(list_list_view,QString().sprintf("Encoders on %s",
-						(const char *)stationname),
-	       this,"list_list_label");
+  list_list_label=new QLabel(list_list_view,tr("Encoders on")+" "+stationname,
+			     this,"list_list_label");
   list_list_label->setFont(bold_font);
   list_list_view->setAllColumnsShowFocus(true);
   list_list_view->setItemMargin(5);

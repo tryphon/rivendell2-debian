@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_audios.cpp,v 1.15 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_audios.cpp,v 1.16 2012/02/13 19:26:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -67,7 +67,7 @@ EditAudioPorts::EditAudioPorts(QString station,QWidget *parent,const char *name)
   edit_card_box->setInsertionPolicy(QComboBox::NoInsertion);
   connect(edit_card_box,SIGNAL(activated(int)),
 	  this,SLOT(cardSelectedData(int)));
-  QLabel *label=new QLabel(edit_card_box,"Card:",this,"edit_card_label");
+  QLabel *label=new QLabel(edit_card_box,tr("Card:"),this,"edit_card_label");
   label->setGeometry(10,16,60,22);
   label->setFont(font);
   label->setAlignment(AlignRight);
@@ -76,7 +76,7 @@ EditAudioPorts::EditAudioPorts(QString station,QWidget *parent,const char *name)
   card_driver_edit=new QLineEdit(this,"card_driver_edit");
   card_driver_edit->setGeometry(225,15,170,19);//FIXME: size
   card_driver_edit->setReadOnly(true);
-  label=new QLabel(edit_card_box,"Card Driver:",this,"card_driver_label");
+  label=new QLabel(edit_card_box,tr("Card Driver:"),this,"card_driver_label");
   label->setGeometry(140,16,80,22);
   label->setFont(font);
   label->setAlignment(AlignRight);

@@ -632,7 +632,7 @@ Rippen</translation>
     </message>
     <message>
         <source>Schedule Cuts:</source>
-        <translation>Cuts einplanen:</translation>
+        <translation type="obsolete">Cuts einplanen:</translation>
     </message>
     <message>
         <source>Execute Asynchronously</source>
@@ -670,11 +670,11 @@ Script</source>
     </message>
     <message>
         <source>Sequentially</source>
-        <translation>Sequentiell</translation>
+        <translation type="obsolete">Sequentiell</translation>
     </message>
     <message>
         <source>Randomly</source>
-        <translation>Zufällig</translation>
+        <translation type="obsolete">Zufällig</translation>
     </message>
     <message>
         <source></source>
@@ -729,6 +729,52 @@ Notes</source>
     </message>
 </context>
 <context>
+    <name>EditNotes</name>
+    <message>
+        <source>Notes for cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Abbrechen</translation>
+    </message>
+</context>
+<context>
+    <name>EditSchedulerCodes</name>
+    <message>
+        <source>Select Scheduler Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Assigned Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ASSIGN to Carts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>REMOVE from Carts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Abbrechen</translation>
+    </message>
+</context>
+<context>
     <name>Filter</name>
     <message>
         <source>Library Filter</source>
@@ -749,6 +795,41 @@ Notes</source>
     <message>
         <source>&amp;Filter:</source>
         <translation>&amp;Filter:</translation>
+    </message>
+</context>
+<context>
+    <name>ListReports</name>
+    <message>
+        <source>RDLibrary Reports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart Data Dump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Typ:</translation>
+    </message>
+    <message>
+        <source>&amp;Generate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished">S&amp;chließen</translation>
+    </message>
+    <message>
+        <source>ALL</source>
+        <translation type="unfinished">ALLE</translation>
     </message>
 </context>
 <context>

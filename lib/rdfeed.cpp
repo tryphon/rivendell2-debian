@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdfeed.cpp,v 1.16 2011/12/23 22:04:11 cvs Exp $
+//      $Id: rdfeed.cpp,v 1.17 2012/02/14 16:38:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -574,6 +574,7 @@ unsigned RDFeed::postCut(RDUser *user,RDStation *station,
     delete settings;
     delete conv;
     *err=RDFeed::ErrorUnsupportedType;
+    unlink(tmpfile);
     return 0;
 
   case RDAudioExport::ErrorNoSource:
@@ -586,6 +587,7 @@ unsigned RDFeed::postCut(RDUser *user,RDStation *station,
     delete settings;
     delete conv;
     *err=RDFeed::ErrorGeneral;
+    unlink(tmpfile);
     return 0;
   }
   delete settings;
@@ -618,6 +620,7 @@ unsigned RDFeed::postCut(RDUser *user,RDStation *station,
     delete upload;
     delete cast;
     *err=RDFeed::ErrorUploadFailed;
+    unlink(tmpfile);
     return 0;
   }
   emit postProgressChanged(3);
@@ -679,6 +682,7 @@ unsigned RDFeed::postFile(RDStation *station,const QString &srcfile,Error *err,
     delete settings;
     delete conv;
     *err=RDFeed::ErrorUnsupportedType;
+    unlink(tmpfile);
     return 0;
 
   case RDAudioConvert::ErrorNoSource:
@@ -694,6 +698,7 @@ unsigned RDFeed::postFile(RDStation *station,const QString &srcfile,Error *err,
     delete settings;
     delete conv;
     *err=RDFeed::ErrorGeneral;
+    unlink(tmpfile);
     return 0;
   }
   delete settings;
@@ -732,6 +737,7 @@ unsigned RDFeed::postFile(RDStation *station,const QString &srcfile,Error *err,
     delete upload;
     delete cast;
     *err=RDFeed::ErrorUploadFailed;
+    unlink(tmpfile);
     return 0;
   }
   delete upload;

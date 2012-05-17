@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcopyaudio.cpp,v 1.2 2011/10/17 21:01:03 cvs Exp $
+//      $Id: rdcopyaudio.cpp,v 1.3 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,7 @@
 #include <curl/curl.h>
 
 #include <qstringlist.h>
+#include <qobject.h>
 
 #include <rd.h>
 #include <rdxport_interface.h>
@@ -154,27 +155,27 @@ QString RDCopyAudio::errorText(RDCopyAudio::ErrorCode err)
 
   switch(err) {
   case RDCopyAudio::ErrorOk:
-    ret=QT_TR_NOOP("OK");
+    ret=QObject::tr("OK");
     break;
 
   case RDCopyAudio::ErrorNoCart:
-    ret=QT_TR_NOOP("No such cart");
+    ret=QObject::tr("No such cart");
     break;
 
   case RDCopyAudio::ErrorInternal:
-    ret=QT_TR_NOOP("Internal Error");
+    ret=QObject::tr("Internal Error");
     break;
 
   case RDCopyAudio::ErrorUrlInvalid:
-    ret=QT_TR_NOOP("Invalid URL");
+    ret=QObject::tr("Invalid URL");
     break;
 
   case RDCopyAudio::ErrorService:
-    ret=QT_TR_NOOP("RDXport service returned an error");
+    ret=QObject::tr("RDXport service returned an error");
     break;
 
   case RDCopyAudio::ErrorInvalidUser:
-    ret=QT_TR_NOOP("Invalid user or password");
+    ret=QObject::tr("Invalid user or password");
     break;
   }
   return ret;

@@ -517,6 +517,14 @@ Vil du byta henne ut?</translation>
         <source>Len:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>PRE-IMPORT CARTS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IMPORT</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEventLine</name>
@@ -683,6 +691,18 @@ ei anna hending som finst frå før.</translation>
 Do you want to save?</source>
         <translation>Reglane er endra.
 Vil du lagra?</translation>
+    </message>
+    <message>
+        <source>Scheduler Rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist Separation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Rules from Clock</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1355,6 +1375,10 @@ data</translation>
     <message>
         <source>Or after:</source>
         <translation>Eller etter:</translation>
+    </message>
+    <message>
+        <source>Edit Rules for Code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

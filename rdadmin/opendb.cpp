@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: opendb.cpp,v 1.37 2011/06/23 22:30:44 cvs Exp $
+//      $Id: opendb.cpp,v 1.38 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,6 +39,8 @@
 #include <sys/ioctl.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+
+#include <qobject.h>
 
 /**
  * Get the netmask of an interface and return it via an in_addr struct pointer.
@@ -185,7 +187,7 @@ bool OpenDb(QString dbname,QString login,QString pwd,QString host,
     */
     RDKillDaemons();
     if(interactive) {
-      msg=QT_TR_NOOP("Unable to access the Rivendell Database!\n\
+      msg=QObject::tr("Unable to access the Rivendell Database!\n\
 Please enter a login for an account with\n\
 administrative rights on the mySQL server,\n\
 and we will try to get this straightened out.");
@@ -207,7 +209,7 @@ and we will try to get this straightened out.");
     db->setUserName(admin_name);
     db->setPassword(admin_pwd);
     if(db->open()) {      // Fixup DB Access Permsissions
-      PrintError(QT_TR_NOOP("Wrong access permissions for accessing mySQL!"),
+      PrintError(QObject::tr("Wrong access permissions for accessing mySQL!"),
 		 interactive);
       db->removeDatabase("mysql");
       return false;
@@ -215,7 +217,7 @@ and we will try to get this straightened out.");
     else {
       db->setDatabaseName("mysql");
       if(!db->open()) {   // mySQL is hosed -- scream and die.
-	PrintError(QT_TR_NOOP("Unable to connect to mySQL!"),interactive);
+	PrintError(QObject::tr("Unable to connect to mySQL!"),interactive);
 	db->removeDatabase("mysql");
 	return false;
       }
@@ -224,7 +226,7 @@ and we will try to get this straightened out.");
 	q=new QSqlQuery(sql);
 	if(!q->isActive()) {   // Can't create DB.
 	  delete q;
-	  PrintError(QT_TR_NOOP("Unable to create a Rivendell Database!"),
+	  PrintError(QObject::tr("Unable to create a Rivendell Database!"),
 		     interactive);
 	  db->removeDatabase("mysql");
 	  return false;
@@ -262,13 +264,13 @@ and we will try to get this straightened out.");
 	db->setPassword(pwd);
 	db->setHostName(host);
 	if(!db->open()) {   // Can't open new database
-	  PrintError(QT_TR_NOOP("Unable to connect to new Rivendell Database!"),
+	  PrintError(QObject::tr("Unable to connect to new Rivendell Database!"),
 		     interactive);
 	  db->removeDatabase(dbname);
 	  return false;
 	}
 	if(!CreateDb(login,pwd)) {   // Can't create tables.
-	  PrintError(QT_TR_NOOP("Unable to create Rivendell Database!"),
+	  PrintError(QObject::tr("Unable to create Rivendell Database!"),
 		     interactive);
 	  db->removeDatabase(dbname);
 	  return false;
@@ -278,20 +280,20 @@ and we will try to get this straightened out.");
 	db->setUserName(login);
 	db->setPassword(pwd);
 	if(!db->open()) {
-	  PrintError(QT_TR_NOOP("Unable to connect to Rivendell Database!"),
+	  PrintError(QObject::tr("Unable to connect to Rivendell Database!"),
 		     interactive);
 	  db->removeDatabase(dbname);
 	  return false;
 	}	  
 	if(!InitDb(login,pwd,stationname)) {  // Can't initialize tables.
-	  PrintError(QT_TR_NOOP("Unable to initialize Rivendell Database!"),
+	  PrintError(QObject::tr("Unable to initialize Rivendell Database!"),
 		     interactive);
 	  db->removeDatabase(dbname);
 	  return false;
 	}
 	if(interactive) {
-	  QMessageBox::information(NULL,QT_TR_NOOP("RDAdmin"),
-			      QT_TR_NOOP("New Rivendell Database Created!"));
+	  QMessageBox::information(NULL,QObject::tr("RDAdmin"),
+			      QObject::tr("New Rivendell Database Created!"));
 	}
 	return true;
       }
@@ -301,10 +303,10 @@ and we will try to get this straightened out.");
   if((db_ver=RDCheckVersion())<RD_VERSION_DATABASE) {
     if(db_ver==0) {    // Pre-historic database version!
       if(!interactive) {
-	PrintError(QT_TR_NOOP("Unable to upgrade database"),false);
+	PrintError(QObject::tr("Unable to upgrade database"),false);
 	return false;
       }
-      msg=QT_TR_NOOP("The Rivendell Database is too old to be upgraded,\n\
+      msg=QObject::tr("The Rivendell Database is too old to be upgraded,\n\
 and so must be replaced.  This will DESTROY any\n\
 existing audio and data!  If you want to do this,\n\
 enter a username and password for a mySQL account\n\
@@ -328,7 +330,7 @@ with administrative privledges, otherwise hit cancel.");
       db->setUserName(admin_name);
       db->setPassword(admin_pwd);
       if(!db->open()) {
-	PrintError(QT_TR_NOOP("Unable to log into Administrator account!"),
+	PrintError(QObject::tr("Unable to log into Administrator account!"),
 		   interactive);
 	db->removeDatabase(dbname);
 	return false;
@@ -338,7 +340,7 @@ with administrative privledges, otherwise hit cancel.");
       q=new QSqlQuery(QString().sprintf("create database %s",(const char *)dbname));
       if(!q->isActive()) {   // Can't create DB.
 	delete q;
-	PrintError(QT_TR_NOOP("Unable to create a Rivendell Database!"),
+	PrintError(QObject::tr("Unable to create a Rivendell Database!"),
 		   interactive);
 	db->removeDatabase("mysql");
 	return false;
@@ -349,7 +351,7 @@ with administrative privledges, otherwise hit cancel.");
 		(const char *)dbname,(const char *)login,(const char *)pwd);
       q=new QSqlQuery(sql);
       if(!q->isActive()) {  // Can't authorize DB.
-	PrintError(QT_TR_NOOP("Unable to authorize a Rivendell Database!"),
+	PrintError(QObject::tr("Unable to authorize a Rivendell Database!"),
 		   interactive);
 	db->removeDatabase("mysql");
 	return false;
@@ -359,13 +361,13 @@ with administrative privledges, otherwise hit cancel.");
       db->setUserName(login);
       db->setPassword(pwd);
       if(!db->open()) {   // Can't open new database
-	PrintError(QT_TR_NOOP("Unable to connect to new Rivendell Database!"),
+	PrintError(QObject::tr("Unable to connect to new Rivendell Database!"),
 		   interactive);
 	db->removeDatabase(dbname);
 	return false;
       }
       if(!CreateDb(login,pwd)) {   // Can't create tables.
-	PrintError(QT_TR_NOOP("Unable to create Rivendell Database!"),
+	PrintError(QObject::tr("Unable to create Rivendell Database!"),
 		   interactive);
 	db->removeDatabase(dbname);
 	return false;
@@ -375,13 +377,13 @@ with administrative privledges, otherwise hit cancel.");
       db->setUserName(login);
       db->setPassword(pwd);
       if(!db->open()) {
-	PrintError(QT_TR_NOOP("Unable to connect to Rivendell Database!"),
+	PrintError(QObject::tr("Unable to connect to Rivendell Database!"),
 		   interactive);
 	db->removeDatabase(dbname);
 	return false;
       }	  
       if(!InitDb(login,pwd,stationname)) {   // Can't initialize tables.
-	PrintError(QT_TR_NOOP("Unable to initialize Rivendell Database!"),
+	PrintError(QObject::tr("Unable to initialize Rivendell Database!"),
 		   interactive);
 	db->removeDatabase(dbname);
 	return false;
@@ -389,8 +391,8 @@ with administrative privledges, otherwise hit cancel.");
     }
     else {             // Out-of-date version
       if(interactive) {
-	if(QMessageBox::warning(NULL,QT_TR_NOOP("Update Needed"),
-		  QT_TR_NOOP("The Rivendell Database needs to be updated.\n\
+	if(QMessageBox::warning(NULL,QObject::tr("Update Needed"),
+		  QObject::tr("The Rivendell Database needs to be updated.\n\
 All audio and settings will be preserved, but\n\
 this will STOP any audio playout or recording\n\
 on this machine for a few seconds.  Continue?"),
@@ -402,18 +404,18 @@ on this machine for a few seconds.  Continue?"),
       }
       RDKillDaemons();
       if((err=UpdateDb(db_ver))!=UPDATEDB_SUCCESS) {
-	err_str=QT_TR_NOOP("Unable to update Rivendell Database:");
+	err_str=QObject::tr("Unable to update Rivendell Database:");
 	switch(err) {
 	case UPDATEDB_BACKUP_FAILED:
-	  err_str+=QT_TR_NOOP("\nDatabase backup failed!");
+	  err_str+=QObject::tr("\nDatabase backup failed!");
 	  break;
 
 	case UPDATEDB_QUERY_FAILED:
-	  err_str+=QT_TR_NOOP("\nSchema modification failed!");
+	  err_str+=QObject::tr("\nSchema modification failed!");
 	  break;
 
 	default:
-	  err_str+=QT_TR_NOOP("\nUnknown/unspecified error!");
+	  err_str+=QObject::tr("\nUnknown/unspecified error!");
 	  break;
 	}
 	PrintError(err_str,interactive);
@@ -421,16 +423,16 @@ on this machine for a few seconds.  Continue?"),
 	return false;
       }
       str=QString(
-        QT_TR_NOOP("The Rivendell Database has been updated to version"));
+        QObject::tr("The Rivendell Database has been updated to version"));
       msg=QString().
 	sprintf("%s %d",(const char *)str,RD_VERSION_DATABASE);
       if(!admin_skip_backup) {
-	msg+=QT_TR_NOOP("\nand a backup of the original database saved in ");
+	msg+=QObject::tr("\nand a backup of the original database saved in ");
 	msg+=admin_backup_filename;
       }
       msg+=".";
       if(interactive) {
-	QMessageBox::information(NULL,QT_TR_NOOP("Database Updated"),msg);
+	QMessageBox::information(NULL,QObject::tr("Database Updated"),msg);
       }
     }
   }

@@ -409,7 +409,7 @@ Final</translation>
     </message>
     <message>
         <source>RDAirPlay - Host:</source>
-        <translation>RDAirPlay - Computador:</translation>
+        <translation>RDAirPlay - Equipo:</translation>
     </message>
     <message>
         <source>Database Error</source>
@@ -469,6 +469,18 @@ REFRESHING</source>
         <translation>LEYENDO
 LISTA</translation>
     </message>
+    <message>
+        <source>User:</source>
+        <translation>Usuario:</translation>
+    </message>
+    <message>
+        <source>Log:</source>
+        <translation>Lista:</translation>
+    </message>
+    <message>
+        <source>Service:</source>
+        <translation>Servicio:</translation>
+    </message>
 </context>
 <context>
     <name>ModeDisplay</name>
@@ -502,6 +514,49 @@ LISTA</translation>
     <message>
         <source>Next Timed Start [--:--:--]</source>
         <translation>Sig. Inicio Programado [--:--:--]</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>START</source>
+        <translation>INICIAR</translation>
+    </message>
+    <message>
+        <source>STOP</source>
+        <translation>PARAR</translation>
+    </message>
+    <message>
+        <source>PAUSE</source>
+        <translation>PAUSA</translation>
+    </message>
+    <message>
+        <source>RESUME</source>
+        <translation>SEGUIR</translation>
+    </message>
+    <message>
+        <source>WHERE?</source>
+        <translation>¿DÓNDE?</translation>
+    </message>
+    <message>
+        <source>DELETE?</source>
+        <translation>¿BORRAR?</translation>
+    </message>
+    <message>
+        <source>MOVE?</source>
+        <translation>¿MOVER?</translation>
+    </message>
+    <message>
+        <source>TO?</source>
+        <translation>¿HACIA?</translation>
+    </message>
+    <message>
+        <source>COPY?</source>
+        <translation>¿COPIAR?</translation>
+    </message>
+    <message>
+        <source>ERROR</source>
+        <translation>ERROR</translation>
     </message>
 </context>
 <context>

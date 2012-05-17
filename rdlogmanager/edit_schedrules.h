@@ -50,6 +50,9 @@ class EditSchedRules : public QDialog
   void okData();
   void cancelData();
 
+ protected:
+  void closeEvent(QCloseEvent *e);
+
  private:
   void Load();
   void Close();

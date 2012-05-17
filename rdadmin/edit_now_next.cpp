@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_now_next.cpp,v 1.9 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_now_next.cpp,v 1.10 2012/02/13 19:26:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -261,7 +261,7 @@ EditNowNext::EditNowNext(RDAirPlayConf *conf,QWidget *parent,const char *name)
   //
   // Aux Log 2 Label
   //
-  label=new QLabel("Aux Log 2",this,"masterlog_label");
+  label=new QLabel(tr("Aux Log 2"),this,"masterlog_label");
   label->setGeometry(10,343,100,19);
   label->setFont(section_font);
   label->setAlignment(AlignLeft|AlignVCenter);

@@ -510,6 +510,14 @@ Você quer sobreescrêve-lo?</translation>
         <source>, Inline Traffic</source>
         <translation>, Tráfego Interno</translation>
     </message>
+    <message>
+        <source>PRE-IMPORT CARTS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IMPORT</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEventLine</name>
@@ -676,6 +684,18 @@ evento existente.</translation>
 Do you want to save?</source>
         <translation>As Regras froam modificadas.
 Você quer salvar?</translation>
+    </message>
+    <message>
+        <source>Scheduler Rules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist Separation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Rules from Clock</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1328,6 +1348,10 @@ Dados</translation>
     <message>
         <source>Or after:</source>
         <translation>Ou depois de:</translation>
+    </message>
+    <message>
+        <source>Edit Rules for Code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

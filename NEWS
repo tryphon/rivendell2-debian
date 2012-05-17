@@ -1,6 +1,70 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.1.4 -- 5/11/2012
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   This is a maintenance release of Rivendell.  Some of the issues
+   addressed include:
+
+   RDCatch XLoad Wildcards.  Several new wildcards and meta-characters
+   have been added for specifying URLs in RDCatch, including:
+     $e -- Day of the month, space padded ( 1 - 12)
+     $E -- Day of the month, unpadded (1 - 12)
+     ^ --  Convert value indicated by following format character to all
+           uppercase.
+     $ --  Convert the initial character of the value indicated by the
+           following format character to uppercase.
+   A complete list of wildcards can be found in 'docs/datetime_wildcards.txt'.
+
+   HPI Compatibility.  Updated HPI subsystem to work with the latest
+   AudioScience driver versions (v4.10.x).
+
+   RDLibrary Reports.  Fixed a problem where generated reports would
+   not accurately reflect the current cart filters.
+
+   A detailed list of all bugfixes can be found in the ChangeLog.
+
+Database Update:
+   This version of Rivendell uses database schema version 205, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
+v2.1.3 -- 2/20/2012
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   This is a maintemnance release of Rivendell.  Some of the inssues
+   addressed include:
+
+   Temporary File Cleanup.  Fixed a bug the resulted in a failure to
+   removed temporary files after processing audio imports and exports.
+
+   Audio Conversion Processing.  Fixed a bug that caused audio distoration
+   when normalizing files with levels at or near full sample resolution.
+
+   RDLogManager Hard Times.  Fixed a bug in RDLogManager that resulted in
+   incorrect hard start time parameters being inserted when using sources
+   from the internal music scheduler.
+
+   A detailed list of all bugfixes can be found in the ChangeLog.
+
+Database Update:
+   This version of Rivendell uses database schema version 205, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.1.2 -- 12/30/2011
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

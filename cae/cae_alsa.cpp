@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae_alsa.cpp,v 1.48 2010/10/04 13:22:13 cvs Exp $
+//      $Id: cae_alsa.cpp,v 1.48.6.1 2012/04/23 16:18:55 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1710,7 +1710,7 @@ void MainObject::FillAlsaOutputStream(int card,int stream)
     break;
 
   case WAVE_FORMAT_MPEG:
-#ifdef HAVE_TWOLAME
+#ifdef HAVE_MAD
     mpeg_frames=free/(2304*alsa_output_channels[card][stream]);
     free=mpeg_frames*2304*alsa_output_channels[card][stream];
     for(unsigned i=0;i<mpeg_frames;i++) {
@@ -1769,7 +1769,7 @@ void MainObject::FillAlsaOutputStream(int card,int stream)
       memmove(mad_mpeg[card][stream],mad_stream[card][stream].next_frame,
 	      mad_left_over[card][stream]);
     }
-#endif  // HAVE_TWOLAME
+#endif  // HAVE_MAD
     break;
   }
   alsa_play_ring[card][stream]->write((char *)alsa_wave_buffer,n);

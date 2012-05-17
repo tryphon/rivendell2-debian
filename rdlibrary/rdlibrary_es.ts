@@ -605,7 +605,7 @@ Abortada!</translation>
     </message>
     <message>
         <source>Schedule Cuts:</source>
-        <translation>Audios programad.:</translation>
+        <translation type="obsolete">Audios programad.:</translation>
     </message>
     <message>
         <source>&amp;Edit
@@ -639,11 +639,11 @@ Script</translation>
     </message>
     <message>
         <source>Sequentially</source>
-        <translation>Secuencial</translation>
+        <translation type="obsolete">Secuencial</translation>
     </message>
     <message>
         <source>Randomly</source>
-        <translation>Aleatorio</translation>
+        <translation type="obsolete">Aleatorio</translation>
     </message>
     <message>
         <source>Missing Title</source>
@@ -730,6 +730,52 @@ Notas</translation>
     </message>
 </context>
 <context>
+    <name>EditNotes</name>
+    <message>
+        <source>Notes for cart</source>
+        <translation>Notas para el cartucho</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>Acepta&amp;r</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
+    <name>EditSchedulerCodes</name>
+    <message>
+        <source>Select Scheduler Codes</source>
+        <translation>Elija Códigos para Musicalizar</translation>
+    </message>
+    <message>
+        <source>Available Codes</source>
+        <translation>Códigos disponibles</translation>
+    </message>
+    <message>
+        <source>Assigned Codes</source>
+        <translation>Códigos Asignados</translation>
+    </message>
+    <message>
+        <source>ASSIGN to Carts</source>
+        <translation>ASIGNAR a cartuchos</translation>
+    </message>
+    <message>
+        <source>REMOVE from Carts</source>
+        <translation>REMOVER de Cartuchos</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>Acepta&amp;r</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
     <name>Filter</name>
     <message>
         <source>Library Filter</source>
@@ -750,6 +796,41 @@ Notas</translation>
     <message>
         <source>&amp;Filter:</source>
         <translation>&amp;Filtro:</translation>
+    </message>
+</context>
+<context>
+    <name>ListReports</name>
+    <message>
+        <source>RDLibrary Reports</source>
+        <translation>Reportes de RDLibrary</translation>
+    </message>
+    <message>
+        <source>Cart Report</source>
+        <translation>Reporte de Cartuchos</translation>
+    </message>
+    <message>
+        <source>Cut Report</source>
+        <translation>Reporte de Audios</translation>
+    </message>
+    <message>
+        <source>Cart Data Dump</source>
+        <translation>Vaciado de datos de Cartuchos</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation>Tipo:</translation>
+    </message>
+    <message>
+        <source>&amp;Generate</source>
+        <translation>&amp;Generar</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Cerrar</translation>
+    </message>
+    <message>
+        <source>ALL</source>
+        <translation type="unfinished">TODAS</translation>
     </message>
 </context>
 <context>

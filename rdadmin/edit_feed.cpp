@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_feed.cpp,v 1.8 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_feed.cpp,v 1.9 2012/01/16 11:16:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -77,7 +77,7 @@ EditFeed::EditFeed(const QString &feed,QWidget *parent,const char *name)
   //
   // Channel Section
   //
-  feed_channel_section_label=new QLabel("CHANNEL VALUES",this);
+  feed_channel_section_label=new QLabel(tr("CHANNEL VALUES"),this);
   feed_channel_section_label->setGeometry(30,41,130,20);
   feed_channel_section_label->setAlignment(AlignCenter);
   feed_channel_section_label->setFont(font);

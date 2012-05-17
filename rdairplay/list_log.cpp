@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_log.cpp,v 1.105 2010/10/11 16:07:12 cvs Exp $
+//      $Id: list_log.cpp,v 1.105.6.3 2012/05/10 21:21:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1389,55 +1389,56 @@ void ListLog::UpdateColor(int line,bool next)
     return;
   }
   switch(logline->status()) {
-      case RDLogLine::Scheduled:
-      case RDLogLine::Auditioning:
-	if(logline->state()==RDLogLine::NoCart) {
-	  item->setBackgroundColor(QColor(LOG_ERROR_COLOR));
-	}
-	else {
-	  if(((logline->cutNumber()<0)&&(logline->type()==RDLogLine::Cart))||
-	     (logline->state()==RDLogLine::NoCut)) {
-	    item->setBackgroundColor(QColor(LOG_ERROR_COLOR));
-	    item->setText(6,tr("[NO VALID CUT AVAILABLE]"));
+  case RDLogLine::Scheduled:
+  case RDLogLine::Auditioning:
+    if((logline->type()==RDLogLine::Cart)&&
+       (logline->state()==RDLogLine::NoCart)) {
+      item->setBackgroundColor(QColor(LOG_ERROR_COLOR));
+    }
+    else {
+      if(((logline->cutNumber()<0)&&(logline->type()==RDLogLine::Cart))||
+	 (logline->state()==RDLogLine::NoCut)) {
+	item->setBackgroundColor(QColor(LOG_ERROR_COLOR));
+	item->setText(6,tr("[NO VALID CUT AVAILABLE]"));
+      }
+      else {
+	if(next) {
+	  if(logline->evergreen()) {
+	    item->setBackgroundColor(QColor(LOG_EVERGREEN_COLOR));
 	  }
 	  else {
-	    if(next) {
-	      if(logline->evergreen()) {
-		item->setBackgroundColor(QColor(LOG_EVERGREEN_COLOR));
-	      }
-	      else {
-		item->setBackgroundColor(QColor(LOG_NEXT_COLOR));
-	      }
-	    }
-	    else {
-	      if(logline->evergreen()) {
-		item->setBackgroundColor(QColor(LOG_EVERGREEN_COLOR));
-	      }
-	      else {
-		item->setBackgroundColor(QColor(LOG_SCHEDULED_COLOR));
-	      }
-	    }
+	    item->setBackgroundColor(QColor(LOG_NEXT_COLOR));
 	  }
 	}
-	break;
-	
-      case RDLogLine::Playing:
-      case RDLogLine::Finishing:
-	item->setBackgroundColor(QColor(LOG_PLAYING_COLOR));
-	break;
-	
-      case RDLogLine::Paused:
-	item->setBackgroundColor(QColor(LOG_PAUSED_COLOR));
-	break;
-	
-      case RDLogLine::Finished:
-	if(logline->state()==RDLogLine::Ok) {
-	  item->setBackgroundColor(QColor(LOG_FINISHED_COLOR));
-	}
 	else {
-	  item->setBackgroundColor(QColor(LOG_ERROR_COLOR));
+	  if(logline->evergreen()) {
+	    item->setBackgroundColor(QColor(LOG_EVERGREEN_COLOR));
+	  }
+	  else {
+	    item->setBackgroundColor(QColor(LOG_SCHEDULED_COLOR));
+	  }
 	}
-	break;
+      }
+    }
+    break;
+	
+  case RDLogLine::Playing:
+  case RDLogLine::Finishing:
+    item->setBackgroundColor(QColor(LOG_PLAYING_COLOR));
+    break;
+	
+  case RDLogLine::Paused:
+    item->setBackgroundColor(QColor(LOG_PAUSED_COLOR));
+    break;
+	
+  case RDLogLine::Finished:
+    if(logline->state()==RDLogLine::Ok) {
+      item->setBackgroundColor(QColor(LOG_FINISHED_COLOR));
+    }
+    else {
+      item->setBackgroundColor(QColor(LOG_ERROR_COLOR));
+    }
+      break;
   }
 }
 

@@ -108,7 +108,7 @@ unsigned BtSrc16::gpoQuantity()
 
 bool BtSrc16::primaryTtyActive()
 {
-  return false;
+  return true;
 }
 
 

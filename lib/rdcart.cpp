@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.cpp,v 1.71 2011/12/23 23:07:00 cvs Exp $
+//      $Id: rdcart.cpp,v 1.72 2012/01/12 16:24:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -29,6 +29,7 @@
 #include <vector>
 
 #include <qstringlist.h>
+#include <qobject.h>
 
 #include <rd.h>
 #include <rdconf.h>
@@ -879,7 +880,7 @@ QString RDCart::xml(bool include_cuts) const
       case RDCart::Macro:
 	mlist=mlist.split("!",macros());
 	ret+="  <macroList>\n";
-	for(int i=0;i<mlist.size();i++) {
+	for(unsigned i=0;i<mlist.size();i++) {
 	  ret+=QString().sprintf("    <macro%d>",i)+mlist[i]+
 	    QString().sprintf("!</macro%d>\n",i);
 	}
@@ -1263,12 +1264,12 @@ QString RDCart::playOrderText(RDCart::PlayOrder order)
 {
   switch(order) {
       case RDCart::Sequence:
-	return QT_TR_NOOP("Sequentially");
+	return QObject::tr("Sequentially");
 
       case RDCart::Random:
-	return QT_TR_NOOP("Randomly");
+	return QObject::tr("Randomly");
   }
-  return QString QT_TR_NOOP("Unknown");
+  return QObject::tr("Unknown");
 }
 
 
@@ -1276,28 +1277,28 @@ QString RDCart::usageText(RDCart::UsageCode usage)
 {
   switch(usage) {
       case RDCart::UsageFeature:
-	return QT_TR_NOOP("Feature");
+	return QObject::tr("Feature");
 
       case RDCart::UsageOpen:
-	return QT_TR_NOOP("Theme Open");
+	return QObject::tr("Theme Open");
 
       case RDCart::UsageClose:
-	return QT_TR_NOOP("Theme Close");
+	return QObject::tr("Theme Close");
 
       case RDCart::UsageTheme:
-	return QT_TR_NOOP("Theme Open/Close");
+	return QObject::tr("Theme Open/Close");
 
       case RDCart::UsageBackground:
-	return QT_TR_NOOP("Background");
+	return QObject::tr("Background");
 
       case RDCart::UsagePromo:
-	return QT_TR_NOOP("Commercial/Jingle/Promo");
+	return QObject::tr("Commercial/Jingle/Promo");
 
       case RDCart::UsageLast:
-	return QT_TR_NOOP("Unknown");  
+	return QObject::tr("Unknown");  
 	break;
   }
-  return QT_TR_NOOP("Unknown");  
+  return QObject::tr("Unknown");  
 }
 
 
