@@ -8,10 +8,10 @@ Subject: Add version for dlopened libraries
  2 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/cae/cae.cpp b/cae/cae.cpp
-index 5fa6a8e..0661525 100644
+index 55a4e10..0dc16b0 100644
 --- a/cae/cae.cpp
 +++ b/cae/cae.cpp
-@@ -1955,7 +1955,7 @@ void QApplication::saveState(QSessionManager &sm) {
+@@ -2003,7 +2003,7 @@ void QApplication::saveState(QSessionManager &sm) {
  bool MainObject::CheckLame()
  {
  #ifdef HAVE_LAME
@@ -20,7 +20,7 @@ index 5fa6a8e..0661525 100644
  #else
    return false;
  #endif  // HAVE_LAME
-@@ -1965,7 +1965,7 @@ bool MainObject::CheckLame()
+@@ -2013,7 +2013,7 @@ bool MainObject::CheckLame()
  bool MainObject::LoadTwoLame()
  {
  #ifdef HAVE_TWOLAME
@@ -29,7 +29,7 @@ index 5fa6a8e..0661525 100644
      LogLine(RDConfig::LogInfo,
  	 "TwoLAME encoder library not found, MPEG L2 encoding not supported");
      return false;
-@@ -2052,7 +2052,7 @@ void MainObject::FreeTwoLameEncoder(int card,int stream)
+@@ -2100,7 +2100,7 @@ void MainObject::FreeTwoLameEncoder(int card,int stream)
  bool MainObject::LoadMad()
  {
  #ifdef HAVE_MAD
@@ -39,10 +39,10 @@ index 5fa6a8e..0661525 100644
  	 "MAD decoder library not found, MPEG L2 decoding not supported");
      return false;
 diff --git a/lib/rdaudioconvert.cpp b/lib/rdaudioconvert.cpp
-index 7fb8adb..4a30b32 100644
+index 6c19d68..013207c 100644
 --- a/lib/rdaudioconvert.cpp
 +++ b/lib/rdaudioconvert.cpp
-@@ -67,9 +67,9 @@ RDAudioConvert::RDAudioConvert(const QString &station_name,
+@@ -68,9 +68,9 @@ RDAudioConvert::RDAudioConvert(const QString &station_name,
    //
    // Load MPEG Libraries
    //
@@ -55,4 +55,3 @@ index 7fb8adb..4a30b32 100644
  }
  
  
--- 

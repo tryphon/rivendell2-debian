@@ -1,0 +1,39 @@
+From: Alban Peignier <alban@tryphon.eu>
+Date: Thu, 17 May 2012 13:41:45 +0200
+Subject: Fix prefix in xdg makefile
+
+---
+ xdg/Makefile.am |   18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/xdg/Makefile.am b/xdg/Makefile.am
+index 45a4e81..ef11e1a 100644
+--- a/xdg/Makefile.am
++++ b/xdg/Makefile.am
+@@ -22,17 +22,17 @@
+ ## Use automake to process this into a Makefile.in
+ 
+ install-exec-am:	
+-	mkdir -p @prefix@/share/applications
+-	cp *.desktop @prefix@/share/applications/
+-	mkdir -p @prefix@/share/desktop-directories
+-	cp *.directory @prefix@/share/desktop-directories/
+-	mkdir -p /etc/xdg/menus/applications-merged
+-	cp *.menu /etc/xdg/menus/applications-merged/
++	mkdir -p $(DESTDIR)@prefix@/share/applications
++	cp *.desktop $(DESTDIR)@prefix@/share/applications/
++	mkdir -p $(DESTDIR)@prefix@/share/desktop-directories
++	cp *.directory $(DESTDIR)@prefix@/share/desktop-directories/
++	mkdir -p $(DESTDIR)/etc/xdg/menus/applications-merged
++	cp *.menu $(DESTDIR)/etc/xdg/menus/applications-merged/
+ 
+ uninstall:	
+-	rm -f @prefix@/share/applications/rivendell-*.desktop
+-	rm -f @prefix@/share/desktop-directories/rivendell-*.directory
+-	rm -f /etc/xdg/menus/applications-merged/rivendell-*.menu
++	rm -f $(DESTDIR)@prefix@/share/applications/rivendell-*.desktop
++	rm -f $(DESTDIR)@prefix@/share/desktop-directories/rivendell-*.directory
++	rm -f $(DESTDIR)/etc/xdg/menus/applications-merged/rivendell-*.menu
+ 
+ EXTRA_DIST = rivendell-rdlibrary.desktop \
+              rivendell-rdcatch.desktop \

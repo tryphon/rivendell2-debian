@@ -1,0 +1,62 @@
+From: Alban Peignier <alban@tryphon.eu>
+Date: Thu, 17 May 2012 13:22:18 +0200
+Subject: Fix prefix in icons makefile
+
+---
+ icons/Makefile.am |   36 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/icons/Makefile.am b/icons/Makefile.am
+index bd322b6..a7c2332 100644
+--- a/icons/Makefile.am
++++ b/icons/Makefile.am
+@@ -31,18 +31,18 @@ install-exec-am:
+ 	cp redball.png $(DESTDIR)@libexecdir@
+ 	cp whiteball.png $(DESTDIR)@libexecdir@
+ 	cp progressbar.gif $(DESTDIR)@libexecdir@
+-	mkdir -p @prefix@/share/icons/hicolor/16x16/apps
+-	cp rivendell-16x16.xpm @prefix@/share/icons/hicolor/16x16/apps/rivendell.xpm
+-	mkdir -p @prefix@/share/icons/hicolor/22x22/apps
+-	cp rivendell-22x22.xpm @prefix@/share/icons/hicolor/22x22/apps/rivendell.xpm
+-	mkdir -p @prefix@/share/icons/hicolor/32x32/apps
+-	cp rivendell-32x32.xpm @prefix@/share/icons/hicolor/32x32/apps/rivendell.xpm
+-	mkdir -p @prefix@/share/icons/hicolor/48x48/apps
+-	cp rivendell-48x48.xpm @prefix@/share/icons/hicolor/48x48/apps/rivendell.xpm
+-	mkdir -p @prefix@/share/icons/hicolor/64x64/apps
+-	cp rivendell-64x64.xpm @prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
+-	mkdir -p @prefix@/share/icons/hicolor/128x128/apps
+-	cp rivendell-128x128.xpm @prefix@/share/icons/hicolor/128x128/apps/rivendell.xpm
++	mkdir -p $(DESTDIR)@prefix@/share/icons/hicolor/16x16/apps
++	cp rivendell-16x16.xpm $(DESTDIR)@prefix@/share/icons/hicolor/16x16/apps/rivendell.xpm
++	mkdir -p $(DESTDIR)@prefix@/share/icons/hicolor/22x22/apps
++	cp rivendell-22x22.xpm $(DESTDIR)@prefix@/share/icons/hicolor/22x22/apps/rivendell.xpm
++	mkdir -p $(DESTDIR)@prefix@/share/icons/hicolor/32x32/apps
++	cp rivendell-32x32.xpm $(DESTDIR)@prefix@/share/icons/hicolor/32x32/apps/rivendell.xpm
++	mkdir -p $(DESTDIR)@prefix@/share/icons/hicolor/48x48/apps
++	cp rivendell-48x48.xpm $(DESTDIR)@prefix@/share/icons/hicolor/48x48/apps/rivendell.xpm
++	mkdir -p $(DESTDIR)@prefix@/share/icons/hicolor/64x64/apps
++	cp rivendell-64x64.xpm $(DESTDIR)@prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
++	mkdir -p $(DESTDIR)@prefix@/share/icons/hicolor/128x128/apps
++	cp rivendell-128x128.xpm $(DESTDIR)@prefix@/share/icons/hicolor/128x128/apps/rivendell.xpm
+ 
+ uninstall:	
+ 	rm -f $(DESTDIR)@libexecdir@/greencheckmark.png
+@@ -51,12 +51,12 @@ uninstall:
+ 	rm -f $(DESTDIR)@libexecdir@/redball.png
+ 	rm -f $(DESTDIR)@libexecdir@/whiteball.png
+ 	rm -f $(DESTDIR)@libexecdir@/progressbar.gif
+-	rm -f @prefix@/share/icons/hicolor/16x16/apps/rivendell.xpm
+-	rm -f @prefix@/share/icons/hicolor/22x22/apps/rivendell.xpm
+-	rm -f @prefix@/share/icons/hicolor/32x32/apps/rivendell.xpm
+-	rm -f @prefix@/share/icons/hicolor/48x48/apps/rivendell.xpm
+-	rm -f @prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
+-	rm -f @prefix@/share/icons/hicolor/128x128/apps/rivendell-128x128.xpm
++	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/16x16/apps/rivendell.xpm
++	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/22x22/apps/rivendell.xpm
++	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/32x32/apps/rivendell.xpm
++	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/48x48/apps/rivendell.xpm
++	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
++	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/128x128/apps/rivendell-128x128.xpm
+ 
+ EXTRA_DIST = rivendell.res play.xpm macro.xpm\
+              fillstart.xpm fillstop.xpm\
