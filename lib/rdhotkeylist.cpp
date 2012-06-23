@@ -53,9 +53,10 @@ void RDHotKeyList::BuildKeyList( )
     char *p = {0};
 
     if(getenv("QTDIR")==NULL) {
-        return;
+      strcpy(qtpath, QTDIR);
+    } else {
+      strcpy(qtpath, (const char *) getenv("QTDIR"));
     }
-    strcpy(qtpath, (const char *) getenv("QTDIR"));
     strcpy(keyfile,qtpath);
     strcat(keyfile,"/include/qnamespace.h");
     hkeyfile = fopen(keyfile,"r");

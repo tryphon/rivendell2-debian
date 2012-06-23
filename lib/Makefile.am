@@ -22,7 +22,7 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" @QT_CXXFLAGS@ -Wno-strict-aliasing
+AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@ -Wno-strict-aliasing
 MOC = @QT_MOC@
 CWRAP = ../helpers/cwrap
 
@@ -37,14 +37,14 @@ html_%.cpp:	%.html
 instdir = @LOCAL_PREFIX@/lib
 
 # I18N Stuff
-install-exec-local:	
+install-exec-local:
 	mkdir -p $(DESTDIR)$(prefix)/share/rivendell
 	cp librd_*.qm $(DESTDIR)$(prefix)/share/rivendell
 
 uninstall:
 	rm -f $(DESTDIR)$(prefix)/share/rivendell/librd_*.qm
 
-all:	
+all:
 	@QT_BIN@/lupdate lib.pro
 	@QT_BIN@/lrelease lib.pro
 
