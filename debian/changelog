@@ -1,8 +1,9 @@
-rivendell (2.1.4-1) UNRELEASED; urgency=low
+rivendell (2.1.4-2) unstable; urgency=low
 
-  * New upstream release
+  * Fixes rivendell-doc package contents (fixes #4)
+  * Use build QTDIR as default value in RDHotKeyList on runtime (fixes #1)
 
- -- Alban Peignier <alban@tryphon.eu>  Thu, 17 May 2012 12:14:11 +0200
+ -- Alban Peignier <alban@tryphon.eu>  Sat, 23 Jun 2012 11:44:15 +0200
 
 rivendell (2.1.2-2) unstable; urgency=low
 
