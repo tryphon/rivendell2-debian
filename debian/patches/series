@@ -8,3 +8,4 @@
 0008-Fix-prefix-in-icons-makefile.patch
 0009-Fix-prefix-in-xdg-makefile.patch
 0011-Fix-QT-bnv_try_4-in-configure-ticket-2.patch
+0014-Default-QTDIR-in-RDHotKeyList.patch
