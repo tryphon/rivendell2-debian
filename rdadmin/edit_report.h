@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_report.h,v 1.14 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_report.h,v 1.14.8.1 2012/08/13 16:50:12 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -75,6 +75,8 @@ class EditReport : public QDialog
   QComboBox *edit_onairflag_box;
   RDListSelector *edit_service_sel;
   RDListSelector *edit_station_sel;
+  QCheckBox *edit_group_box;
+  RDListSelector *edit_group_sel;
 };
 
 

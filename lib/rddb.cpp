@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2007 Dan Mills <dmills@exponent.myzen.co.uk>
 //
-//      $Id: rddb.cpp,v 1.13 2011/06/21 22:20:43 cvs Exp $
+//      $Id: rddb.cpp,v 1.13.4.1 2012/05/21 20:49:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -83,6 +83,11 @@ RDSqlQuery::RDSqlQuery (const QString &query, QSqlDatabase *dbase):
   // With any luck, by the time we get here, we have already done the biz...
   unsigned schema;
   if (!isActive()){ //DB Offline?
+    QString err=QObject::tr("invalid SQL or failed DB connection:")+" "+query;
+    fprintf(stderr,"%s\n",(const char *)err);
+#ifndef WIN32
+    syslog(LOG_ERR,(const char *)err);
+#endif  // WIN32
     QSqlDatabase *ldb = QSqlDatabase::database();
     // Something went wrong with the DB, trying a reconnect
     ldb->removeDatabase(RDConfiguration()->mysqlDbname());

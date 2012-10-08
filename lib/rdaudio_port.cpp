@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudio_port.cpp,v 1.12 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdaudio_port.cpp,v 1.12.8.1 2012/08/03 16:52:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -65,13 +65,13 @@ int RDAudioPort::card() const
 }
 
 
-RDAudioPort::ClockSource RDAudioPort::clockSource()
+RDCae::ClockSource RDAudioPort::clockSource()
 {
-  return (RDAudioPort::ClockSource)GetIntValue("CLOCK_SOURCE");
+  return (RDCae::ClockSource)GetIntValue("CLOCK_SOURCE");
 }
 
 
-void RDAudioPort::setClockSource(RDAudioPort::ClockSource src)
+void RDAudioPort::setClockSource(RDCae::ClockSource src)
 {
   SetRow("CLOCK_SOURCE",(int)src);
 }

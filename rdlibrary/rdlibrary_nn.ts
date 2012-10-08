@@ -1208,7 +1208,7 @@ Vil du sletta ho likevel?</translation>
     </message>
     <message>
         <source>NO SYNC!</source>
-        <translation>INGEN SYNK!</translation>
+        <translation type="obsolete">INGEN SYNK!</translation>
     </message>
     <message>
         <source>Channels</source>
@@ -1326,6 +1326,10 @@ Vil du lagra likevel?</translation>
     </message>
     <message>
         <source>&amp;ISCI Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AES ALARM</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

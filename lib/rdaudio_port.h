@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudio_port.h,v 1.9 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdaudio_port.h,v 1.9.8.1 2012/08/03 16:52:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -20,22 +20,21 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#include <qsqldatabase.h>
-#include <rdcae.h>
-
 #ifndef RDAUDIO_PORT_H
 #define RDAUDIO_PORT_H
+
+#include <qsqldatabase.h>
+#include <rdcae.h>
 
 class RDAudioPort
 {
   public:
    enum PortType {Analog=0,AesEbu=1,SpDiff=2};
-   enum ClockSource {InternalClock=0,AesEbuClock=1,SpDiffClock=2,WordClock=4};
    RDAudioPort(QString station,int card,bool create=false);
    QString station() const;
    int card() const;
-   RDAudioPort::ClockSource clockSource();
-   void setClockSource(RDAudioPort::ClockSource src);
+   RDCae::ClockSource clockSource();
+   void setClockSource(RDCae::ClockSource src);
    RDAudioPort::PortType inputPortType(int port);
    void setInputPortType(int port,RDAudioPort::PortType type);
    RDCae::ChannelMode inputPortMode(int port);

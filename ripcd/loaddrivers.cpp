@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loaddrivers.cpp,v 1.1 2010/08/03 23:39:26 cvs Exp $
+//      $Id: loaddrivers.cpp,v 1.1.8.1 2012/08/06 00:12:07 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -48,6 +48,7 @@
 #include <btss44.h>
 #include <btsrc8iii.h>
 #include <btsrc16.h>
+#include <harlond.h>
 
 bool MainObject::LoadSwitchDriver(int matrix_num)
 {
@@ -144,6 +145,10 @@ bool MainObject::LoadSwitchDriver(int matrix_num)
 
   case RDMatrix::LogitekVguest:
     ripcd_switcher[matrix_num]=new VGuest(matrix,this);
+    break;
+
+  case RDMatrix::Harlond:
+    ripcd_switcher[matrix_num]=new Harlond(matrix,this);
     break;
 
   default:

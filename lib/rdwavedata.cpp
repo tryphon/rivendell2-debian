@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.cpp,v 1.4 2010/07/29 19:32:34 cvs Exp $
+//    $Id: rdwavedata.cpp,v 1.4.8.1 2012/07/17 02:29:52 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -414,6 +414,54 @@ void RDWaveData::setEndPos(int msec)
 }
 
 
+int RDWaveData::hookStartPos() const
+{
+  return data_hook_start_pos;
+}
+
+
+void RDWaveData::setHookStartPos(int msec)
+{
+  data_hook_start_pos=msec;
+}
+
+
+int RDWaveData::hookEndPos() const
+{
+  return data_hook_end_pos;
+}
+
+
+void RDWaveData::setHookEndPos(int msec)
+{
+  data_hook_end_pos=msec;
+}
+
+
+int RDWaveData::fadeUpPos() const
+{
+  return data_fade_up_pos;
+}
+
+
+void RDWaveData::setFadeUpPos(int msec)
+{
+  data_fade_up_pos=msec;
+}
+
+
+int RDWaveData::fadeDownPos() const
+{
+  return data_fade_down_pos;
+}
+
+
+void RDWaveData::setFadeDownPos(int msec)
+{
+  data_fade_down_pos=msec;
+}
+
+
 int RDWaveData::beatsPerMinute() const
 {
   return data_beats_per_minute;
@@ -543,6 +591,10 @@ void RDWaveData::clear()
   data_segue_end_pos=-1;
   data_start_pos=-1;
   data_end_pos=-1;
+  data_hook_start_pos=-1;
+  data_hook_end_pos=-1;
+  data_fade_up_pos=-1;
+  data_fade_down_pos=-1;
   data_beats_per_minute=0;
   data_tmci_song_id="";
   data_origination_date=QDate();

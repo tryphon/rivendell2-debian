@@ -18,9 +18,19 @@
 ##   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ##
 
-OBJS = rlm_test.rlm rlm_serial.rlm rlm_xmpad.rlm rlm_udp.rlm \
-       rlm_twitter.rlm rlm_facebook.rlm rlm_ando.rlm rlm_inno713.rlm \
-       rlm_liqcomp.rlm rlm_icecast2.rlm rlm_shoutcast1.rlm rlm_spottrap.rlm
+OBJS = rlm_ando.rlm\
+       rlm_facebook.rlm\
+       rlm_icecast2.rlm\
+       rlm_inno713.rlm\
+       rlm_liqcomp.rlm\
+       rlm_padpoint.rlm\
+       rlm_serial.rlm\
+       rlm_shoutcast1.rlm\
+       rlm_spottrap.rlm\
+       rlm_test.rlm\
+       rlm_twitter.rlm\
+       rlm_udp.rlm \
+       rlm_xmpad.rlm
 
 %.rlm:	%.c
 	$(CC) $(CFLAGS) -fPIC -shared $< -o $@

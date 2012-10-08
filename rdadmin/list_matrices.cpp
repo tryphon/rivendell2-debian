@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_matrices.cpp,v 1.28 2011/05/23 21:53:22 cvs Exp $
+//      $Id: list_matrices.cpp,v 1.28.6.1 2012/08/06 00:12:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -413,6 +413,9 @@ QString ListMatrices::TypeString(RDMatrix::Type type)
 
       case RDMatrix::BtSrc16:
 	return QString(tr("BroadcastTools SRC-16"));
+
+      case RDMatrix::Harlond:
+	return QString(tr("Harlond Virtual Mixer"));
 
       default:
 	return QString(tr("Unknown"));

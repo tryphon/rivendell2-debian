@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_logs.cpp,v 1.22 2011/01/18 01:46:21 cvs Exp $
+//      $Id: list_logs.cpp,v 1.22.6.1 2012/08/10 19:07:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -219,8 +219,11 @@ void ListLogs::RefreshList()
   list_log_list->clear();
 
   if (rdstation_conf->broadcastSecurity() == RDStation::UserSec) {
-    services_list = rduser->services();
-  } else { // RDStation::HostSec
+    if(rduser!=NULL) {
+      services_list = rduser->services();
+    }
+  } 
+  else { // RDStation::HostSec
     sql=QString().sprintf("select SERVICE_NAME from SERVICE_PERMS \
                            where STATION_NAME=\"%s\"",
                            (const char *)rdstation_conf->name());

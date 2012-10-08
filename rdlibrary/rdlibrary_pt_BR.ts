@@ -1210,7 +1210,7 @@ Você ainda quer deletá-lo?</translation>
     </message>
     <message>
         <source>NO SYNC!</source>
-        <translation>SEM SINCRONIA!</translation>
+        <translation type="obsolete">SEM SINCRONIA!</translation>
     </message>
     <message>
         <source>Channels</source>
@@ -1328,6 +1328,10 @@ Você ainda quer salvar?</translation>
     </message>
     <message>
         <source>&amp;ISCI Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AES ALARM</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

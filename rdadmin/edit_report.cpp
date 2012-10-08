@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_report.cpp,v 1.21 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_report.cpp,v 1.21.8.1 2012/08/13 16:50:12 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -317,6 +317,29 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   edit_station_sel->destSetLabel(tr("Source Hosts"));
 
   //
+  // Group Selector
+  //
+  edit_group_sel=new RDListSelector(this,"edit_group_sel");
+  edit_group_sel->
+    setGeometry((sizeHint().width()-edit_group_sel->sizeHint().width())/2,
+		513,edit_group_sel->sizeHint().width(),
+		edit_group_sel->sizeHint().height());
+  edit_group_sel->sourceSetLabel(tr("Available Groups"));
+  edit_group_sel->destSetLabel(tr("Allowed Groups"));
+
+  edit_group_box=new QCheckBox(this);
+  edit_group_box->
+    setGeometry((sizeHint().width()-edit_group_sel->sizeHint().width())/2,489,
+		15,15);
+  label=new QLabel(edit_group_box,tr("Filter by Groups"),this);
+  label->setGeometry(edit_group_box->geometry().x()+20,488,155,19);
+  label->setFont(font);
+  label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
+  connect(edit_group_box,SIGNAL(toggled(bool)),
+	  edit_group_sel,SLOT(setEnabled(bool)));
+
+
+  //
   //  Ok Button
   //
   QPushButton *button=new QPushButton(this,"ok_button");
@@ -404,6 +427,26 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
     }
   }
   delete q;
+
+  edit_group_box->setChecked(edit_report->filterGroups());
+  edit_group_sel->setEnabled(edit_report->filterGroups());
+  sql=QString().sprintf("select GROUP_NAME from REPORT_GROUPS \
+                         where REPORT_NAME=\"%s\"",
+			(const char *)edit_report->name());
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    edit_group_sel->destInsertItem(q->value(0).toString());
+  }
+  delete q;
+
+  sql=QString().sprintf("select NAME from GROUPS");
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    if(edit_group_sel->destFindItem(q->value(0).toString())==0) {
+      edit_group_sel->sourceInsertItem(q->value(0).toString());
+    }
+  }
+  delete q;
 }
 
 
@@ -414,7 +457,7 @@ EditReport::~EditReport()
 
 QSize EditReport::sizeHint() const
 {
-  return QSize(500,559);
+  return QSize(500,669);
 } 
 
 
@@ -469,6 +512,7 @@ void EditReport::okData()
   edit_report->
     setExportTypeEnabled(RDReport::Generic,edit_generic_box->isChecked());
   edit_report->setFilterOnairFlag(edit_onairflag_box->currentItem()==1);
+  edit_report->setFilterGroups(edit_group_box->isChecked());
 
   //
   // Add New Services
@@ -503,8 +547,6 @@ where REPORT_NAME=\"%s\" && SERVICE_NAME=\"%s\"",
   q=new RDSqlQuery(sql);
   delete q;
 
-
-
   //
   // Add New Stations
   //
@@ -538,6 +580,38 @@ where REPORT_NAME=\"%s\" && STATION_NAME=\"%s\"",
   q=new RDSqlQuery(sql);
   delete q;
 
+  //
+  // Add New Groups
+  //
+  for(unsigned i=0;i<edit_group_sel->destCount();i++) {
+    sql=QString().sprintf("select GROUP_NAME from REPORT_GROUPS \
+where REPORT_NAME=\"%s\" && GROUP_NAME=\"%s\"",
+			  (const char *)edit_report->name(),
+			  (const char *)edit_group_sel->destText(i));
+    q=new RDSqlQuery(sql);
+    if(q->size()==0) {
+      delete q;
+      sql=QString().
+	sprintf("insert into REPORT_GROUPS (REPORT_NAME,GROUP_NAME) \
+                 values (\"%s\",\"%s\")",
+			    (const char *)edit_report->name(),
+			    (const char *)edit_group_sel->destText(i));
+      q=new RDSqlQuery(sql);
+    }
+    delete q;
+  }
+
+  //
+  // Delete Old Groups
+  //
+  sql=QString().sprintf("delete from REPORT_GROUPS where REPORT_NAME=\"%s\"",
+			(const char *)edit_report->name());
+  for(unsigned i=0;i<edit_group_sel->destCount();i++) {
+    sql+=QString().sprintf(" && GROUP_NAME<>\"%s\"",
+			   (const char *)edit_group_sel->destText(i));
+  }
+  q=new RDSqlQuery(sql);
+  delete q;
 
   done(0);
 }

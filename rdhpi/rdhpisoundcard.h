@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdhpisoundcard.h,v 1.5.6.1 2012/05/04 14:56:22 cvs Exp $
+//    $Id: rdhpisoundcard.h,v 1.5.6.3 2012/08/07 15:48:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -56,7 +56,10 @@ class RDHPISoundCard : public QObject
  public:
   enum FadeProfile {Linear=0,Log=1};
   enum Channel {Left=0,Right=1};
-  enum ChannelMode {Normal=0,Swap=1,LeftOnly=2,RightOnly=3};
+  enum ChannelMode {Normal=0,      // HPI_CHANNEL_MODE_NORMAL-1
+		    Swap=1,        // HPI_CHANNEL_MODE_SWAP-1
+		    LeftOnly=2,    // HPI_CHANNEL_MODE_LEFT_TO_STEREO-1
+		    RightOnly=3};  // HPI_CHANNEL_MODE_RIGHT_TO_STEREO-1
   enum DeviceClass {RecordDevice=0,PlayDevice=1};
   enum Driver {Alsa=0,Hpi=1,Jack=2};
   enum ClockSource {Internal=0,AesEbu=1,SpDiff=2,WordClock=4};
@@ -100,7 +103,7 @@ class RDHPISoundCard : public QObject
   QString getOutputStreamDescription(int card,int stream) const;
   QString getInputPortDescription(int card,int port) const;
   QString getOutputPortDescription(int card,int port) const;
-  void setClockSource(int card,RDHPISoundCard::ClockSource src);
+  bool setClockSource(int card,RDHPISoundCard::ClockSource src);
   bool haveTimescaling(int card) const;
   bool haveInputVolume(int card,int stream,int port) const;
   bool haveOutputVolume(int card,int stream,int port) const;
@@ -122,7 +125,7 @@ class RDHPISoundCard : public QObject
   bool outputStreamMeter(int card,int stream,short *level);
   bool inputPortMeter(int card,int port,short *level);
   bool outputPortMeter(int card,int port,short *level);
-  bool haveInputMode(int card,int stream) const;
+  bool haveInputMode(int card,int port) const;
   bool haveOutputMode(int card,int stream) const;
   bool haveInputStreamVOX(int card,int stream) const;
   bool haveInputPortMux(int card,int port) const;
@@ -148,7 +151,7 @@ class RDHPISoundCard : public QObject
   void leftOutputPortMeter(int card,int port,int level);
   void rightInputPortMeter(int card,int port,int level);
   void rightOutputPortMeter(int card,int port,int level);
-  void inputMode(int card,int stream,RDHPISoundCard::ChannelMode mode);
+  void inputMode(int card,int port,RDHPISoundCard::ChannelMode mode);
   void outputMode(int card,int stream,RDHPISoundCard::ChannelMode mode);
   void tunerSubcarrierChanged(RDHPISoundCard::Subcarrier car,bool state);
   
@@ -158,7 +161,7 @@ class RDHPISoundCard : public QObject
   void fadeOutputVolume(int card,int stream,int port,int level,int length);
   void setInputLevel(int card,int port,int level);
   void setOutputLevel(int card,int port,int level);
-  void setInputMode(int card,int stream,RDHPISoundCard::ChannelMode mode);
+  void setInputMode(int card,int port,RDHPISoundCard::ChannelMode mode);
   void setOutputMode(int card,int stream,RDHPISoundCard::ChannelMode mode);
   void setInputStreamVOX(int card,int stream,short gain);
   bool havePassthroughVolume(int card,int in_port,int out_port);
@@ -186,7 +189,7 @@ class RDHPISoundCard : public QObject
   bool output_stream_meter[HPI_MAX_ADAPTERS][HPI_MAX_STREAMS];
   bool input_port_meter[HPI_MAX_ADAPTERS][HPI_MAX_NODES];
   bool output_port_meter[HPI_MAX_ADAPTERS][HPI_MAX_NODES];
-  bool input_stream_mode[HPI_MAX_ADAPTERS][HPI_MAX_STREAMS];
+  bool input_port_mode[HPI_MAX_ADAPTERS][HPI_MAX_STREAMS];
   bool output_stream_mode[HPI_MAX_ADAPTERS][HPI_MAX_STREAMS];
   bool input_stream_vox[HPI_MAX_ADAPTERS][HPI_MAX_STREAMS];
   bool input_port_mux[HPI_MAX_ADAPTERS][HPI_MAX_NODES];
@@ -213,7 +216,7 @@ class RDHPISoundCard : public QObject
   hpi_handle_t output_stream_meter_control[HPI_MAX_ADAPTERS][HPI_MAX_STREAMS];
   hpi_handle_t input_port_meter_control[HPI_MAX_ADAPTERS][HPI_MAX_NODES];
   hpi_handle_t output_port_meter_control[HPI_MAX_ADAPTERS][HPI_MAX_NODES];
-  hpi_handle_t input_stream_mode_control[HPI_MAX_ADAPTERS][HPI_MAX_STREAMS];
+  hpi_handle_t input_port_mode_control[HPI_MAX_ADAPTERS][HPI_MAX_NODES];
   hpi_handle_t output_stream_mode_control[HPI_MAX_ADAPTERS][HPI_MAX_STREAMS];
   hpi_handle_t input_stream_vox_control[HPI_MAX_ADAPTERS][HPI_MAX_STREAMS];
   bool input_mux_type[HPI_MAX_ADAPTERS];

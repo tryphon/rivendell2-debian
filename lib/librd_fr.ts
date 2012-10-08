@@ -273,6 +273,18 @@
         <source>Unable to open report file!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>invalid SQL or failed DB connection:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Music Summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>WideOrbit Traffic Reconciliation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>

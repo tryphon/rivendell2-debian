@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmixer.cpp,v 1.13 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdmixer.cpp,v 1.13.8.2 2012/08/03 16:52:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -30,6 +30,7 @@ void RDSetMixerPorts(QString station,RDCae *cae)
 {
   for(int i=0;i<RD_MAX_CARDS;i++) {
     RDAudioPort *port=new RDAudioPort(station,i);
+    cae->setClockSource(i,port->clockSource());
     for(int j=0;j<RD_MAX_PORTS;j++) {
       if(port->inputPortType(j)==RDAudioPort::Analog) {
 	cae->setInputType(i,j,RDCae::Analog);
@@ -37,8 +38,8 @@ void RDSetMixerPorts(QString station,RDCae *cae)
       else {
 	cae->setInputType(i,j,RDCae::AesEbu);
       }
-      cae->setInputLevel(i,j,RD_BASE_ANALOG-port->inputPortLevel(j));
-      cae->setOutputLevel(i,j,RD_BASE_ANALOG-port->outputPortLevel(j));
+      cae->setInputLevel(i,j,RD_BASE_ANALOG+port->inputPortLevel(j));
+      cae->setOutputLevel(i,j,RD_BASE_ANALOG+port->outputPortLevel(j));
       cae->setInputMode(i,j,port->inputPortMode(j));
     }
     delete port;

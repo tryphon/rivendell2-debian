@@ -2,9 +2,9 @@
 //
 // Add a Rivendell Matrix
 //
-//   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2002-2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_matrix.cpp,v 1.28 2012/02/13 19:26:13 cvs Exp $
+//      $Id: add_matrix.cpp,v 1.28.2.1 2012/08/06 00:12:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -21,28 +21,22 @@
 //
 
 #include <qdialog.h>
-#include <qstring.h>
-#include <qpushbutton.h>
-#include <qlistbox.h>
-#include <qtextedit.h>
-#include <qlabel.h>
-#include <qpainter.h>
-#include <qevent.h>
+#include <qsqldatabase.h>
+#include <qcombobox.h>
+#include <qspinbox.h>
 #include <qmessagebox.h>
-#include <qcheckbox.h>
-#include <qbuttongroup.h>
 
 #include <rd.h>
 #include <rdmatrix.h>
 #include <rddb.h>
+#include <rdescape_string.h>
 
-#include <edit_user.h>
-#include <add_matrix.h>
-#include <rdpasswd.h>
-
+#include "edit_user.h"
+#include "add_matrix.h"
+#include "rdpasswd.h"
 
 AddMatrix::AddMatrix(QString station,QWidget *parent,const char *name)
-  : QDialog(parent,name,true)
+  : QDialog(parent,name)
 {
   add_station=station;
 
@@ -54,7 +48,7 @@ AddMatrix::AddMatrix(QString station,QWidget *parent,const char *name)
   setMinimumHeight(sizeHint().height());
   setMaximumHeight(sizeHint().height());
 
-  setCaption(tr("Add Switcher"));
+  setCaption(tr("RDAdmin - Add Switcher"));
 
   //
   // Create Fonts
@@ -72,7 +66,7 @@ AddMatrix::AddMatrix(QString station,QWidget *parent,const char *name)
 			   "matrix_label");
   label->setGeometry(10,11,150,19);
   label->setFont(font);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   // Matrix Type
@@ -104,11 +98,12 @@ AddMatrix::AddMatrix(QString station,QWidget *parent,const char *name)
   add_type_box->insertItem(tr("BroadcastTools SS4.4"));
   add_type_box->insertItem(tr("BroadcastTools SRC-8 III"));
   add_type_box->insertItem(tr("BroadcastTools SRC-16"));
+  add_type_box->insertItem(tr("Harlond Virtual Mixer"));
   label=new QLabel(add_type_box,tr("&Switcher Type:"),this,
 		   "matrix_label");
   label->setGeometry(10,36,150,19);
   label->setFont(font);
-  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
 
   //
   //  Ok Button
@@ -158,11 +153,12 @@ void AddMatrix::okData()
   int outputs;
   int gpis;
   int gpos;
+  RDMatrix::PortType port_type=RDMatrix::TtyPort;
+  RDMatrix::PortType port_type2=RDMatrix::TtyPort;
 
-  QString sql=QString().sprintf("select MATRIX from MATRICES \
-                                 where STATION_NAME=\"%s\" && MATRIX=%d",
-				(const char *)add_station,
-				add_matrix_box->value());
+  QString sql=QString("select MATRIX from MATRICES where STATION_NAME=\"")+
+    RDEscapeString(add_station)+"\" && MATRIX="+
+    QString().sprintf("%d",add_matrix_box->value());
   RDSqlQuery *q=new RDSqlQuery(sql);
   if(q->first()) {
     delete q;
@@ -291,6 +287,15 @@ void AddMatrix::okData()
 	gpos=16;
 	break;
 
+      case RDMatrix::Harlond:
+	inputs=8;
+	outputs=4;
+	gpis=8;
+	gpos=8;
+	port_type=RDMatrix::TcpPort;
+	port_type2=RDMatrix::NoPort;
+	break;
+
       default:
 	inputs=0;
 	outputs=0;
@@ -298,26 +303,27 @@ void AddMatrix::okData()
 	gpos=0;
 	break;
   }
-  sql=QString().sprintf("insert into MATRICES set \
-                         STATION_NAME=\"%s\",\
-                         NAME=\"%s\",\
-                         MATRIX=%d,\
-                         PORT=0,\
-                         GPIO_DEVICE=\"%s\",\
-                         TYPE=%d,\
-                         INPUTS=%d,\
-                         OUTPUTS=%d,\
-                         GPIS=%d,\
-                         GPOS=%d",
-			(const char *)add_station,
-			(const char *)tr("New Switcher"),
-			add_matrix_box->value(),
-			RD_DEFAULT_GPIO_DEVICE,
-			add_type_box->currentItem(),
-			inputs,
-			outputs,
-			gpis,
-			gpos);
+  sql=QString("insert into MATRICES set STATION_NAME=\"")+
+    RDEscapeString(add_station)+"\","+
+    "NAME=\""+tr("New Switcher")+"\","+
+    "GPIO_DEVICE=\""+RD_DEFAULT_GPIO_DEVICE+"\","+
+    QString().sprintf("MATRIX=%d,\
+                       PORT=0,\
+                       TYPE=%d,\
+                       INPUTS=%d,\
+                       OUTPUTS=%d,\
+                       GPIS=%d,\
+                       GPOS=%d,\
+                       PORT_TYPE=%d,\
+                       PORT_TYPE_2=%d",
+		      add_matrix_box->value(),
+		      add_type_box->currentItem(),
+		      inputs,
+		      outputs,
+		      gpis,
+		      gpos,
+		      port_type,
+		      port_type2);
   q=new RDSqlQuery(sql);
   delete q;
   done(add_matrix_box->value());
@@ -334,9 +340,8 @@ int AddMatrix::GetNextMatrix()
 {
   int n=0;
 
-  QString sql=QString().sprintf("select MATRIX from MATRICES\
-                                 where STATION_NAME=\"%s\" order by MATRIX",
-				(const char *)add_station);
+  QString sql=QString("select MATRIX from MATRICES where STATION_NAME=\"")+
+    RDEscapeString(add_station)+"\" order by MATRIX";
   RDSqlQuery *q=new RDSqlQuery(sql);
   while(q->next()) {
     if(n!=q->value(0).toInt()) {

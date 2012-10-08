@@ -1208,7 +1208,7 @@ verwendet. Trotzdem löschen?</translation>
     </message>
     <message>
         <source>NO SYNC!</source>
-        <translation>KEINE SYNCHRONISIERUNG!</translation>
+        <translation type="obsolete">KEINE SYNCHRONISIERUNG!</translation>
     </message>
     <message>
         <source>Channels</source>
@@ -1327,6 +1327,10 @@ Trotzdem speichern?</translation>
     <message>
         <source>&amp;ISCI Code</source>
         <translation>&amp;ISCI Code</translation>
+    </message>
+    <message>
+        <source>AES ALARM</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

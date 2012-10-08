@@ -340,7 +340,7 @@ y un respaldo de la base de datos se guardó en </translation>
     <name>AddMatrix</name>
     <message>
         <source>Add Switcher</source>
-        <translation>Agregar Suichera</translation>
+        <translation type="obsolete">Agregar Suichera</translation>
     </message>
     <message>
         <source>&amp;New Matrix Number:</source>
@@ -421,6 +421,14 @@ y un respaldo de la base de datos se guardó en </translation>
     <message>
         <source>New Switcher</source>
         <translation>Nueva Suichera</translation>
+    </message>
+    <message>
+        <source>RDAdmin - Add Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -744,7 +752,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Level:</source>
-        <translation>Nivel:</translation>
+        <translation type="obsolete">Nivel:</translation>
     </message>
     <message>
         <source>Output Port</source>
@@ -781,6 +789,10 @@ y un respaldo de la base de datos se guardó en </translation>
     <message>
         <source>Card Driver:</source>
         <translation>Controlador:</translation>
+    </message>
+    <message>
+        <source>Ref. Level:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1681,7 +1693,7 @@ Do you still want to save?</source>
     <name>EditMatrix</name>
     <message>
         <source>Edit Switcher</source>
-        <translation>Editar Suichera</translation>
+        <translation type="obsolete">Editar Suichera</translation>
     </message>
     <message>
         <source>Matrix Number:</source>
@@ -1861,6 +1873,10 @@ G&amp;POs</translation>
 Switches</source>
         <translation>Switches
 SAS</translation>
+    </message>
+    <message>
+        <source>RDAdmin - Edit Switcher</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2972,6 +2988,18 @@ para generar la base de datos con los recursos de audio disponibles.</translatio
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Available Groups</source>
+        <translation type="unfinished">Grupos disponibles</translation>
+    </message>
+    <message>
+        <source>Allowed Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by Groups</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4430,6 +4458,10 @@ Do you still want to delete it?</source>
     <message>
         <source>BroadcastTools SRC-16</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

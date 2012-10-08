@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdhpisoundcard.cpp,v 1.10 2011/05/18 15:25:33 cvs Exp $
+//    $Id: rdhpisoundcard.cpp,v 1.10.6.3 2012/08/07 15:48:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -63,7 +63,7 @@ RDHPISoundCard::RDHPISoundCard(QObject *parent,const char *name)
     for(int j=0;j<HPI_MAX_STREAMS;j++) {
       input_stream_meter[i][j]=false;
       output_stream_meter[i][j]=false;
-      input_stream_mode[i][j]=false;
+      input_port_mode[i][j]=false;
       output_stream_mode[i][j]=false;
       input_stream_vox[i][j]=false;
       input_stream_mux[i][j]=false;
@@ -160,9 +160,9 @@ QString RDHPISoundCard::getOutputPortDescription(int card,int port) const
 }
 
 
-void RDHPISoundCard::setClockSource(int card,RDHPISoundCard::ClockSource src)
+bool RDHPISoundCard::setClockSource(int card,RDHPISoundCard::ClockSource src)
 {
-  hpi_err_t hpi_err;
+  hpi_err_t hpi_err=0;
 
   switch(src) {
       case RDHPISoundCard::Internal:
@@ -182,6 +182,7 @@ void RDHPISoundCard::setClockSource(int card,RDHPISoundCard::ClockSource src)
 					  HPI_SAMPLECLOCK_SOURCE_WORD);
 	break;
   }
+  return hpi_err==0;
 }
 
 
@@ -427,15 +428,15 @@ bool RDHPISoundCard::outputPortMeter(int card,int port,short *level)
 }
 
 
-bool RDHPISoundCard::haveInputMode(int card,int stream) const
+bool RDHPISoundCard::haveInputMode(int card,int port) const
 {
-  return false;
+  return input_port_mode[card][port];
 }
 
 
 bool RDHPISoundCard::haveOutputMode(int card,int stream) const
 {
-  return false;
+  return output_stream_mode[card][stream];
 }
 
 
@@ -564,45 +565,55 @@ void RDHPISoundCard::fadeOutputVolume(int card,int stream,int port,
 void RDHPISoundCard::setInputLevel(int card,int port,int level)
 {
   hpi_err_t hpi_err;
+  short gain[HPI_MAX_CHANNELS];
 
   if(!haveInputLevel(card,port)) {
     return;
   }
-  short gain[2];
-  gain[0]=level;
-  gain[1]=level;
-  hpi_err=HPI_VolumeSetGain(NULL,
-		    input_port_level_control[card][port],gain);
+  for(unsigned i=0;i<HPI_MAX_CHANNELS;i++) {
+    gain[i]=level;
+  }
+  hpi_err=HPI_LevelSetGain(NULL,input_port_level_control[card][port],gain);
 }
 
 
 void RDHPISoundCard::setOutputLevel(int card,int port,int level)
 {
   hpi_err_t hpi_err;
+  short gain[HPI_MAX_CHANNELS];
 
   if(!haveOutputLevel(card,port)) {
     return;
   }
-  short gain[2];
-
-  gain[0]=level;
-  gain[1]=level;
-  hpi_err=HPI_VolumeSetGain(NULL,
-			    output_port_level_control[card][port],gain);
+  for(unsigned i=0;i<HPI_MAX_CHANNELS;i++) {
+    gain[i]=level;
+  }
+  hpi_err=HPI_LevelSetGain(NULL,output_port_level_control[card][port],gain);
 }
 
 
-void RDHPISoundCard::setInputMode(int card,int stream,
+void RDHPISoundCard::setInputMode(int card,int port,
 				 RDHPISoundCard::ChannelMode mode)
 {
+  uint16_t hpi_err;
 
+  if(!haveInputMode(card,port)) {
+    return;
+  }
+  hpi_err=HPI_ChannelModeSet(NULL,input_port_mode_control[card][port],mode+1);
 }
 
 
 void RDHPISoundCard::setOutputMode(int card,int stream,
 				  RDHPISoundCard::ChannelMode mode)
 {
+  uint16_t hpi_err;
 
+  if(!haveOutputMode(card,stream)) {
+    return;
+  }
+  hpi_err=
+    HPI_ChannelModeSet(NULL,output_stream_mode_control[card][stream],mode+1);
 }
 
 
@@ -756,6 +767,16 @@ void RDHPISoundCard::HPIProbe()
 	  QString().sprintf("%s - %s %d",(const char *)card_description[i],
 			    (const char *)str,
 			    card_input_ports[i]);
+      }
+
+      //
+      // Get Input Mode Controls
+      //
+      if(HPI_MixerGetControl(NULL,hpi_mixer[i],0,0,
+			     HPI_DESTNODE_ISTREAM,k,
+			     HPI_CONTROL_CHANNEL_MODE,
+			     &input_port_mode_control[i][k])==0) {
+	input_port_mode[i][k]=true;
       }
     }
 

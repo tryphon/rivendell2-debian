@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 1996-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdconf.cpp,v 1.15 2011/10/17 20:08:21 cvs Exp $
+//    $Id: rdconf.cpp,v 1.15.4.2 2012/07/16 23:25:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -27,6 +27,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+
 #include <qhostaddress.h>
 #include <qvariant.h>
 #include <qmessagebox.h>
@@ -1123,4 +1124,70 @@ QColor RDGetTextColor(const QColor &background_color)
   }
 
   return color;
+}
+
+
+bool RDProcessActive(const QString &cmd)
+{
+  QStringList cmds;
+
+  cmds.push_back(cmd);
+  return RDProcessActive(cmds);
+}
+
+
+bool RDProcessActive(const QStringList &cmds)
+{
+#ifndef WIN32
+  QStringList dirs;
+  QDir *proc_dir=new QDir("/proc");
+  bool ok=false;
+  FILE *f=NULL;
+  char line[1024];
+  QString cmdline;
+
+  proc_dir->setFilter(QDir::Dirs);
+  dirs=proc_dir->entryList();
+  for(unsigned i=0;i<dirs.size();i++) {
+    dirs[i].toInt(&ok);
+    if(ok) {
+      if((f=fopen(QString("/proc/")+dirs[i]+"/cmdline","r"))!=NULL) {
+	if(fgets(line,1024,f)!=NULL) {
+	  QStringList f1=f1.split(" ",QString(line));
+	  QStringList f2=f2.split("/",f1[0]);
+	  cmdline=f2[f2.size()-1];
+	  for(unsigned j=0;j<cmds.size();j++) {
+	    if(cmdline==cmds[j]) {
+	      fclose(f);
+	      return true;
+	    }
+	  }
+	}
+	fclose(f);
+      }
+    }
+  }
+
+  delete proc_dir;
+#endif  // WIN32
+  return false;
+}
+
+
+bool RDModulesActive()
+{
+  QStringList cmds;
+
+  cmds.push_back("rdadmin");
+  cmds.push_back("rdairplay");
+  cmds.push_back("rdcastmanager");
+  cmds.push_back("rdcatch");
+  cmds.push_back("rdlibrary");
+  cmds.push_back("rdlogedit");
+  cmds.push_back("rdlogin");
+  cmds.push_back("rdlogmanager");
+  cmds.push_back("rdpanel");
+  cmds.push_back("rddbcheck");
+  cmds.push_back("rdgpimon");
+  return RDProcessActive(cmds);
 }

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194.6.1 2012/05/10 16:00:52 cvs Exp $
+//      $Id: rd.h,v 1.194.6.3 2012/07/24 20:27:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -173,7 +173,7 @@
  * Reference Analog Level at 0 dBFS (1/100 dB)
  * (thus, -16 dBFS = +4 dBu)
  */
-#define RD_BASE_ANALOG 2000 
+#define RD_BASE_ANALOG 1600 
 
 /*
  * Maximum number of SoundPanels of a given type
@@ -218,6 +218,17 @@
  */
 #define RD_DEFAULT_AUDIO_OWNER "user"
 #define RD_DEFAULT_AUDIO_GROUP "users"
+#define RD_DEFAULT_LABEL "Default Configuration"
+
+/*
+ * Default Audio Store Settings
+ */
+#define RD_DEFAULT_AUDIO_STORE_MOUNT_OPTIONS "defaults"
+
+/*
+ * Default RDSelect Configuration Directory
+ */
+#define RD_DEFAULT_RDSELECT_DIR "/etc/rivendell.d"
 
 /*
  * Default Workstation

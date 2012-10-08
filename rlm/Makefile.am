@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.7.4.1 2012/04/02 19:17:46 cvs Exp $
+##      $Id: Makefile.am,v 1.7.4.3 2012/08/24 00:57:30 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -25,9 +25,11 @@ AM_CFLAGS = -fPIC -Wall
 
 RLM_MODULES=rlm_ando.rlm\
             rlm_facebook.rlm\
+            rlm_filewrite.rlm\
             rlm_icecast2.rlm\
             rlm_inno713.rlm\
             rlm_liqcomp.rlm\
+            rlm_padpoint.rlm\
             rlm_serial.rlm\
             rlm_shoutcast1.rlm\
             rlm_spottrap.rlm\
@@ -55,9 +57,11 @@ EXTRA_DIST = Makefile-example\
              rlm.h\
              rlm_ando.c\
              rlm_facebook.c\
+             rlm_filewrite.c\
              rlm_icecast2.c\
              rlm_inno713.c\
              rlm_liqcomp.c\
+             rlm_padpoint.c\
              rlm_serial.c\
              rlm_shoutcast1.c\
              rlm_spottrap.c\

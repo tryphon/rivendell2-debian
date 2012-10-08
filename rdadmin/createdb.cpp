@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.cpp,v 1.195 2012/02/13 19:26:13 cvs Exp $
+//      $Id: createdb.cpp,v 1.195.2.2 2012/08/24 18:58:31 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -440,6 +440,31 @@ void UpdateImportFormats()
 
   sql="insert into IMPORT_TEMPLATES set\
          NAME=\"CounterPoint Traffic\",\
+         CART_OFFSET=10,\
+         CART_LENGTH=6,\
+         TITLE_OFFSET=25,\
+         TITLE_LENGTH=34,\
+         HOURS_OFFSET=0,\
+         HOURS_LENGTH=2,\
+         MINUTES_OFFSET=3,\
+         MINUTES_LENGTH=2,\
+         SECONDS_OFFSET=6,\
+         SECONDS_LENGTH=2,\
+         LEN_HOURS_OFFSET=60,\
+         LEN_HOURS_LENGTH=2,\
+         LEN_MINUTES_OFFSET=63,\
+         LEN_MINUTES_LENGTH=2,\
+         LEN_SECONDS_OFFSET=66,\
+         LEN_SECONDS_LENGTH=2,\
+         EVENT_ID_OFFSET=69,\
+         EVENT_ID_LENGTH=32,\
+         DATA_OFFSET=102,\
+         DATA_LENGTH=32";
+  q=new QSqlQuery(sql);
+  delete q;
+
+  sql="insert into IMPORT_TEMPLATES set\
+         NAME=\"WideOrbit Traffic\",\
          CART_OFFSET=10,\
          CART_LENGTH=6,\
          TITLE_OFFSET=25,\
@@ -1489,6 +1514,7 @@ bool CreateDb(QString name,QString pwd)
                STATION_TYPE int default 0,\
                STATION_FORMAT char(64),\
                FILTER_ONAIR_FLAG enum('N','Y') default 'N',\
+               FILTER_GROUPS enum('N','Y') default 'N',\
                index IDX_NAME (NAME))");
   if(!RunQuery(sql)) {
     return false;
@@ -1513,6 +1539,18 @@ bool CreateDb(QString name,QString pwd)
                ID int unsigned auto_increment not null primary key,\
                REPORT_NAME char(64) not null,\
                STATION_NAME char(64),\
+               index IDX_REPORT_NAME (REPORT_NAME))");
+  if(!RunQuery(sql)) {
+    return false;
+  }
+
+  //
+  // Create REPORT_GROUPS Table
+  //
+  sql=QString("create table if not exists REPORT_GROUPS (\
+               ID int unsigned auto_increment not null primary key,\
+               REPORT_NAME char(64) not null,\
+               GROUP_NAME char(10),\
                index IDX_REPORT_NAME (REPORT_NAME))");
   if(!RunQuery(sql)) {
     return false;
@@ -7142,6 +7180,48 @@ int UpdateDb(int ver)
 
     sql="alter table STATIONS add column JACK_SERVER_NAME char(64) \
          after START_JACK";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<206) {
+    sql=QString("create table if not exists REPORT_GROUPS (\
+                 ID int unsigned auto_increment not null primary key,\
+                 REPORT_NAME char(64) not null,\
+                 GROUP_NAME char(10),\
+                 index IDX_REPORT_NAME (REPORT_NAME))");
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="alter table REPORTS add column FILTER_GROUPS enum('N','Y') \
+         default 'N' after FILTER_ONAIR_FLAG";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<207) {
+    sql="insert into IMPORT_TEMPLATES set\
+         NAME=\"WideOrbit Traffic\",\
+         CART_OFFSET=10,\
+         CART_LENGTH=6,\
+         TITLE_OFFSET=25,\
+         TITLE_LENGTH=34,\
+         HOURS_OFFSET=0,\
+         HOURS_LENGTH=2,\
+         MINUTES_OFFSET=3,\
+         MINUTES_LENGTH=2,\
+         SECONDS_OFFSET=6,\
+         SECONDS_LENGTH=2,\
+         LEN_HOURS_OFFSET=60,\
+         LEN_HOURS_LENGTH=2,\
+         LEN_MINUTES_OFFSET=63,\
+         LEN_MINUTES_LENGTH=2,\
+         LEN_SECONDS_OFFSET=66,\
+         LEN_SECONDS_LENGTH=2,\
+         EVENT_ID_OFFSET=69,\
+         EVENT_ID_LENGTH=32,\
+         DATA_OFFSET=102,\
+         DATA_LENGTH=32";
     q=new QSqlQuery(sql);
     delete q;
   }

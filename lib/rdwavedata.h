@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.h,v 1.5 2010/07/29 19:32:34 cvs Exp $
+//    $Id: rdwavedata.h,v 1.5.8.1 2012/07/17 02:29:52 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -96,6 +96,14 @@ class RDWaveData
   void setStartPos(int msec);
   int endPos() const;
   void setEndPos(int msec);
+  int hookStartPos() const;
+  void setHookStartPos(int msec);
+  int hookEndPos() const;
+  void setHookEndPos(int msec);
+  int fadeUpPos() const;
+  void setFadeUpPos(int msec);
+  int fadeDownPos() const;
+  void setFadeDownPos(int msec);
   int beatsPerMinute() const;
   void setBeatsPerMinute(int bpm);
   QString tmciSongId() const;
@@ -147,6 +155,10 @@ class RDWaveData
   int data_segue_end_pos;
   int data_start_pos;
   int data_end_pos;
+  int data_hook_start_pos;
+  int data_hook_end_pos;
+  int data_fade_up_pos;
+  int data_fade_down_pos;
 /*
   int data_intro_length;
   int data_segue_length;

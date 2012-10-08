@@ -305,7 +305,7 @@ worden. Aktuelle Version</translation>
     <name>AddMatrix</name>
     <message>
         <source>Add Switcher</source>
-        <translation>Switcher hinzufügen</translation>
+        <translation type="obsolete">Switcher hinzufügen</translation>
     </message>
     <message>
         <source>&amp;New Matrix Number:</source>
@@ -385,6 +385,14 @@ worden. Aktuelle Version</translation>
     </message>
     <message>
         <source>New Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - Add Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -674,7 +682,7 @@ worden. Aktuelle Version</translation>
     </message>
     <message>
         <source>Level:</source>
-        <translation>Level:</translation>
+        <translation type="obsolete">Level:</translation>
     </message>
     <message>
         <source>Output Port</source>
@@ -710,6 +718,10 @@ worden. Aktuelle Version</translation>
     </message>
     <message>
         <source>Card Driver:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ref. Level:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1618,7 +1630,7 @@ Do you still want to save?</source>
     <name>EditMatrix</name>
     <message>
         <source>Edit Switcher</source>
-        <translation>Switcher editieren</translation>
+        <translation type="obsolete">Switcher editieren</translation>
     </message>
     <message>
         <source>Matrix Number:</source>
@@ -1798,6 +1810,10 @@ konfigurieren</translation>
     <message>
         <source>SAS
 Switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - Edit Switcher</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2926,6 +2942,18 @@ in order to populate the audio resources database.</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>Abbre&amp;chen</translation>
+    </message>
+    <message>
+        <source>Available Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allowed Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by Groups</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4398,6 +4426,10 @@ Generieren</translation>
     <message>
         <source>BroadcastTools SRC-16</source>
         <translation>BroadcastTools SRC-16</translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

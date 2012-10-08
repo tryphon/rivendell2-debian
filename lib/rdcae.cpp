@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcae.cpp,v 1.59 2011/10/31 19:18:21 cvs Exp $
+//      $Id: rdcae.cpp,v 1.59.4.2 2012/08/03 16:52:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -73,6 +73,9 @@ RDCae::RDCae(RDStation *station,RDConfig *config,
       for(unsigned k=0;k<2;k++) {
 	cae_input_levels[i][j][k]=-10000;
 	cae_output_levels[i][j][k]=-10000;
+      }
+      for(int k=0;k<RD_MAX_STREAMS;k++) {
+	cae_output_status_flags[i][j][k]=false;
       }
     }
     for(int j=0;j<RD_MAX_STREAMS;j++) {
@@ -222,6 +225,12 @@ void RDCae::record(int card,int stream,unsigned length,int threshold)
 void RDCae::stopRecord(int card,int stream)
 {
   SendCommand(QString().sprintf("SR %d %d!",card,stream));
+}
+
+
+void RDCae::setClockSource(int card,RDCae::ClockSource src)
+{
+  SendCommand(QString().sprintf("CS %d %d!",card,src));
 }
 
 

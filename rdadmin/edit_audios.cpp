@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_audios.cpp,v 1.16 2012/02/13 19:26:14 cvs Exp $
+//      $Id: edit_audios.cpp,v 1.16.2.3 2012/08/07 15:48:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -100,13 +100,13 @@ EditAudioPorts::EditAudioPorts(QString station,QWidget *parent,const char *name)
       str=QString(tr("Input Port"));
       label=new QLabel(QString().sprintf("%s %d",(const char *)str,j*4+i),
 		       this,"input_port_label");
-      label->setGeometry(10+170*i,55+j*180,170,22);
+      label->setGeometry(50+170*i,55+j*180,170,22);
       label->setFont(font);
       label->setAlignment(AlignHCenter);  
       QSignalMapper *mapper=new QSignalMapper(this,"input_mapper");
       connect(mapper,SIGNAL(mapped(int)),this,SLOT(inputMapData(int)));
       edit_type_box[j*4+i]=new QComboBox(this,"edit_type_box");
-      edit_type_box[j*4+i]->setGeometry(55+170*i,75+j*180,110,26);
+      edit_type_box[j*4+i]->setGeometry(95+170*i,75+j*180,110,26);
       edit_type_box[j*4+i]->insertItem(tr("Analog"));
       edit_type_box[j*4+i]->insertItem(tr("AES/EBU"));
       edit_type_box[j*4+i]->insertItem(tr("SP/DIFF"));
@@ -114,10 +114,10 @@ EditAudioPorts::EditAudioPorts(QString station,QWidget *parent,const char *name)
       connect(edit_type_box[j*4+i],SIGNAL(activated(int)),mapper,SLOT(map()));
       edit_type_label[j*4+i]=new QLabel(edit_type_box[j*4+i],tr("Type:"),
 		       this,"edit_type_label");
-      edit_type_label[j*4+i]->setGeometry(10+170*i,81+j*180,40,22);
+      edit_type_label[j*4+i]->setGeometry(50+170*i,81+j*180,40,22);
       edit_type_label[j*4+i]->setAlignment(AlignRight);
       edit_mode_box[j*4+i]=new QComboBox(this,"edit_mode_box");
-      edit_mode_box[j*4+i]->setGeometry(55+170*i,105+j*180,110,26);
+      edit_mode_box[j*4+i]->setGeometry(95+170*i,105+j*180,110,26);
       // NOTE: this drop down list box is populated to match RDCae::ChannelMode
       edit_mode_box[j*4+i]->insertItem(tr("Normal"));
       edit_mode_box[j*4+i]->insertItem(tr("Swap"));
@@ -127,16 +127,16 @@ EditAudioPorts::EditAudioPorts(QString station,QWidget *parent,const char *name)
       connect(edit_mode_box[j*4+i],SIGNAL(activated(int)),mapper,SLOT(map()));
       edit_mode_label[j*4+i]=new QLabel(edit_type_box[j*4+i],tr("Mode:"),
 		       this,"edit_mode_label");
-      edit_mode_label[j*4+i]->setGeometry(10+170*i,111+j*180,40,22);
+      edit_mode_label[j*4+i]->setGeometry(50+170*i,111+j*180,40,22);
       edit_mode_label[j*4+i]->setAlignment(AlignRight);
 
       edit_input_box[j*4+i]=new QSpinBox(this,"edit_type_box");
-      edit_input_box[j*4+i]->setGeometry(55+170*i,135+j*180,60,24);
-      edit_input_box[j*4+i]->setRange(-30,2);
+      edit_input_box[j*4+i]->setGeometry(95+170*i,135+j*180,60,24);
+      edit_input_box[j*4+i]->setRange(-26,6);
       edit_input_box[j*4+i]->setSuffix(tr(" dB"));
-      edit_input_label[j*4+i]=new QLabel(edit_type_box[j*4+i],tr("Level:"),
+      edit_input_label[j*4+i]=new QLabel(edit_type_box[j*4+i],tr("Ref. Level:"),
 					 this,"edit_type_label");
-      edit_input_label[j*4+i]->setGeometry(10+170*i,140+j*180,40,22);
+      edit_input_label[j*4+i]->setGeometry(10+170*i,140+j*180,80,22);
       edit_input_label[j*4+i]->setAlignment(AlignRight);
       
       //
@@ -145,17 +145,17 @@ EditAudioPorts::EditAudioPorts(QString station,QWidget *parent,const char *name)
       str=QString(tr("Output Port"));
       label=new QLabel(QString().sprintf("%s %d",(const char *)str,j*4+i),
 		       this,"output_port_label");
-      label->setGeometry(10+170*i,170+j*180,170,22);
+      label->setGeometry(50+170*i,170+j*180,170,22);
       label->setFont(font);
       label->setAlignment(AlignHCenter);  
       
       edit_output_box[j*4+i]=new QSpinBox(this,"edit_type_box");
-      edit_output_box[j*4+i]->setGeometry(55+170*i,190+j*180,60,24);
-      edit_output_box[j*4+i]->setRange(-30,2);
+      edit_output_box[j*4+i]->setGeometry(95+170*i,190+j*180,60,24);
+      edit_output_box[j*4+i]->setRange(-26,6);
       edit_output_box[j*4+i]->setSuffix(tr(" dB"));
-      edit_output_label[j*4+i]=new QLabel(edit_type_box[j*4+i],tr("Level:"),this,
-		       "edit_type_label");
-      edit_output_label[j*4+i]->setGeometry(10+170*i,195+j*180,40,22);
+      edit_output_label[j*4+i]=
+	new QLabel(edit_type_box[j*4+i],tr("Ref. Level:"),this,"edit_type_label");
+      edit_output_label[j*4+i]->setGeometry(10+170*i,195+j*180,80,22);
       edit_output_label[j*4+i]->setAlignment(AlignRight);
     }
   }
@@ -201,7 +201,7 @@ EditAudioPorts::~EditAudioPorts()
 
 QSize EditAudioPorts::sizeHint() const
 {
-  return QSize(690,460);
+  return QSize(730,460);
 } 
 
 
@@ -272,8 +272,8 @@ void EditAudioPorts::ReadRecord(int card)
         for (int i=0;i<RD_MAX_CARDS;i++) {
           edit_type_label[i]->setEnabled(true);
           edit_type_box[i]->setEnabled(true);
-          edit_mode_label[i]->setDisabled(true);
-          edit_mode_box[i]->setDisabled(true);
+          edit_mode_label[i]->setEnabled(true);
+          edit_mode_box[i]->setEnabled(true);
           edit_input_label[i]->setEnabled(true);
           edit_input_box[i]->setEnabled(true);
           edit_output_label[i]->setEnabled(true);
@@ -350,7 +350,7 @@ void EditAudioPorts::ReadRecord(int card)
 void EditAudioPorts::WriteRecord()
 {
   edit_card->
-    setClockSource((RDAudioPort::ClockSource)edit_clock_box->currentItem());
+    setClockSource((RDCae::ClockSource)edit_clock_box->currentItem());
   for(int i=0;i<RD_MAX_PORTS;i++) {
     edit_card->setInputPortType(i,
 		 (RDAudioPort::PortType)edit_type_box[i]->currentItem());

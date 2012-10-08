@@ -57,7 +57,7 @@ dist_ripcd_OBJECTS = ripcd.$(OBJEXT) ripcd_socket.$(OBJEXT) \
 	vguest.$(OBJEXT) btss164.$(OBJEXT) starguide3.$(OBJEXT) \
 	starguide_feed.$(OBJEXT) btss42.$(OBJEXT) btss44.$(OBJEXT) \
 	livewire.$(OBJEXT) quartz1.$(OBJEXT) btsrc8iii.$(OBJEXT) \
-	btsrc16.$(OBJEXT) local_macros.$(OBJEXT) \
+	btsrc16.$(OBJEXT) harlond.$(OBJEXT) local_macros.$(OBJEXT) \
 	maint_routines.$(OBJEXT) loaddrivers.$(OBJEXT)
 nodist_ripcd_OBJECTS = moc_ripcd.$(OBJEXT) moc_ripcd_socket.$(OBJEXT) \
 	moc_local_gpio.$(OBJEXT) moc_switcher.$(OBJEXT) \
@@ -71,7 +71,7 @@ nodist_ripcd_OBJECTS = moc_ripcd.$(OBJEXT) moc_ripcd_socket.$(OBJEXT) \
 	moc_starguide3.$(OBJEXT) moc_btss42.$(OBJEXT) \
 	moc_livewire.$(OBJEXT) moc_quartz1.$(OBJEXT) \
 	moc_btss44.$(OBJEXT) moc_btsrc8iii.$(OBJEXT) \
-	moc_btsrc16.$(OBJEXT)
+	moc_btsrc16.$(OBJEXT) moc_harlond.$(OBJEXT)
 ripcd_OBJECTS = $(dist_ripcd_OBJECTS) $(nodist_ripcd_OBJECTS)
 ripcd_DEPENDENCIES =
 AM_V_lt = $(am__v_lt_$(V))
@@ -194,6 +194,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PARANOIA_INCLUDES = @PARANOIA_INCLUDES@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+QT3_DEVEL_PKG = @QT3_DEVEL_PKG@
 QT3_MYSQL_PKG = @QT3_MYSQL_PKG@
 QT_BIN = @QT_BIN@
 QT_CXXFLAGS = @QT_CXXFLAGS@
@@ -306,6 +307,7 @@ dist_ripcd_SOURCES = ripcd.cpp ripcd.h globals.h\
                      quartz1.cpp quartz1.h\
                      btsrc8iii.cpp btsrc8iii.h\
                      btsrc16.cpp btsrc16.h\
+                     harlond.cpp harlond.h\
                      local_macros.cpp maint_routines.cpp\
                      loaddrivers.cpp
 
@@ -322,7 +324,7 @@ nodist_ripcd_SOURCES = moc_ripcd.cpp moc_ripcd_socket.cpp\
                        moc_starguide3.cpp moc_btss42.cpp\
                        moc_livewire.cpp moc_quartz1.cpp\
                        moc_btss44.cpp moc_btsrc8iii.cpp\
-                       moc_btsrc16.cpp
+                       moc_btsrc16.cpp moc_harlond.cpp
 
 ripcd_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 EXTRA_DIST = ripcd.pro
@@ -427,6 +429,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btss42.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btss44.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btss82.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/harlond.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/livewire.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/loaddrivers.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/local_audio.Po@am__quote@
@@ -445,6 +448,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btss42.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btss44.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btss82.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_harlond.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_livewire.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_local_audio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_local_gpio.Po@am__quote@

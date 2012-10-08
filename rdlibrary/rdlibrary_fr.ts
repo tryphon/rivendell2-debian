@@ -1111,10 +1111,6 @@ Do you still want to delete it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>NO SYNC!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Channels</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1227,6 +1223,10 @@ Do you still want to save?</source>
     </message>
     <message>
         <source>&amp;ISCI Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AES ALARM</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

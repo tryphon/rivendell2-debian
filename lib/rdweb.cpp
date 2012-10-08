@@ -951,6 +951,18 @@ QString RDXmlEscape(const QString &str)
 }
 
 
+QString RDXmlUnescape(const QString &str)
+{
+  QString ret=str;
+  ret.replace("&amp;","&");
+  ret.replace("&lt;","<");
+  ret.replace("&gt;",">");
+  ret.replace("&apos;","'");
+  ret.replace("&quot;","\"");
+  return ret;
+}
+
+
 QString RDWebDateTime(const QDateTime &datetime)
 {
   //

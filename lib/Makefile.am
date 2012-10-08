@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.132 2011/12/23 23:07:00 cvs Exp $
+##      $Id: Makefile.am,v 1.132.4.1 2012/08/13 20:08:27 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -107,6 +107,7 @@ dist_librd_la_SOURCES = rduser.cpp rduser.h\
                    export_deltaflex.cpp export_textlog.cpp\
                    export_bmiemr.cpp export_technical.cpp\
                    export_soundex.cpp export_radiotraffic.cpp\
+                   export_musicsummary.cpp\
                    rdmarker_button.cpp rdmarker_button.h\
                    rdmarker_edit.cpp rdmarker_edit.h\
                    rdcombobox.cpp rdcombobox.h\

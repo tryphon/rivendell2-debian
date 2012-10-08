@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.h,v 1.44 2011/01/25 19:28:48 cvs Exp $
+//      $Id: rdcut.h,v 1.44.6.1 2012/08/02 20:37:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -42,7 +42,6 @@ class RDCut
   RDCut(unsigned cartnum,int cutnum,bool create=false,QSqlDatabase *db=0);
   ~RDCut();
   bool exists() const;
-  bool audioExists() const;
   bool isValid() const;
   bool isValid(const QTime &time) const;
   bool isValid(const QDateTime &datetime) const;

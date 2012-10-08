@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel_button.cpp,v 1.26 2011/01/05 20:15:26 cvs Exp $
+//      $Id: rdpanel_button.cpp,v 1.26.6.1 2012/07/23 20:56:19 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -114,6 +114,9 @@ void RDPanelButton::setDefaultColor(QColor color)
     return;
   }
   button_default_color=color;
+  if(playDeck()==NULL) {
+    setColor(color);
+  }
 }
 
 

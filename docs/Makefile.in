@@ -162,6 +162,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PARANOIA_INCLUDES = @PARANOIA_INCLUDES@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+QT3_DEVEL_PKG = @QT3_DEVEL_PKG@
 QT3_MYSQL_PKG = @QT3_MYSQL_PKG@
 QT_BIN = @QT_BIN@
 QT_CXXFLAGS = @QT_CXXFLAGS@
@@ -249,7 +250,7 @@ EXTRA_DIST = ALSA.txt GPIO.txt JACK.txt NOW+NEXT.txt SWITCHERS.txt WIN32.txt\
              ripc.txt rml.sxw PODCASTING.txt RIVENDELL_FILTER.txt\
              ENCODERS.txt MESSAGE_BOX.txt scheduler_formats.ods\
              copy_split_format.odt asound.conf-sample web_api.odt\
-             ando_interface.odt datetime_wildcards.txt
+             ando_interface.odt datetime_wildcards.txt NEXGEN_FILTER.txt
 
 CLEANFILES = *~
 MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4

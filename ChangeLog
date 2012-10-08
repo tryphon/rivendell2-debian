@@ -12583,3 +12583,121 @@
 2012-05-11 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.1.4.
+2012-05-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'lib/rddb.cpp' to log SQL errors.
+2012-06-27 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a initialization bug in 'rdcae/rdcae.cpp' found by
+	Sascha Ludwig <sascha@radio42.de>.
+2012-07-06 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'rlm_filewrite' RLM in 'rlm/rlm_filewrite.c'.
+2012-07-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added nexgen_filter(1) importer in 'importers/nexgen_filter.cpp'
+	and 'importers/nexgen_filter.h'.
+2012-07-16 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDProcessActive()' and 'RDModulesActive()' functions
+	in 'lib/rdconf.cpp' and 'lib/rdconf.h'.
+	* Added RDSelect(8) in 'rdselect/'.
+2012-07-16 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rivendell.spec.in' that broke the
+	'make rpm' target.
+2012-07-16 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDWaveData::hookStartPos()', 'RDWaveData::setHookStartPos()',
+	'RDWaveData::hookEndPos()', 'RDWaveData::setHookEndPos()',
+	'RDWaveData::fadeUpPos()', 'RDWaveData::setFadeUpPos()',
+	'RDWaveData::fadeDownPos()' and 'RDWaveData::setFadeDownPos()'
+	methods in 'lib/rdwavedata.cpp' and 'lib/rdwavedata.h'.
+	* Added logic in 'importers/nexgen_filter.cpp' to process
+	Hook, Start, End and Segue markers properly.
+2012-07-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added logic to attempt import of audio files with opposite case
+	in extension type in 'importers/nexgen_filter.cpp' and
+	'importers/nexgen_filter.h'.
+2012-07-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'web/rdxport/deleteaudio.cpp' that broke automatic
+	cut purging.
+2012-07-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDXmlUnescape()' function 'lib/rdweb.cpp' and
+	'lib/rdweb.h'.
+	* Fixed a bug in 'importers/nexgen_filter.cpp' that failed to
+	process escaped XML strings properly.
+2012-07-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDSoundPanel::setText()' and 'RDSoundPanel::setColor()'
+	methods in 'lib/rdsound_panel.cpp' and 'lib/rdsound_panel.h'.
+	* Added a 'Label Panel' ['PC'] RML in 'lib/rdmacro.cpp' and
+	'lib/rdmacro.h'.
+2012-07-24 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdmixer.cpp' that caused incorrect port
+	trim level values to be set for HPI audio devices.
+2012-07-27 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'
+	* Incremented the package version to 2.1.5.
+2012-07-30 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a patch from Alban Peignier <alban@typhone.eu> that
+	fixed a bug in 'acinclude.m4' that broke the build under
+	Ubuntu.
+2012-08-01 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'qt-devel' dependency in 'rivendell.spec.in'.
+2012-08-01 Fred Gleason <fredg@paravelsystems.com>
+	* Modified rdcollect(1) in 'utils/rdcollect/rdcollect.cpp' and
+	'utils/rdcollect/rdcollect.h' so as to allow the '--source-file='
+	option to be used multiple times in a single invocation.
+2012-08-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlibrary/record_cut.cpp' that caused the
+	overwriting audio warning to fail to be displayed when entering
+	record ready mode.
+	* Removed the 'RDCut::audioExists()' method from 'lib/rdcut.cpp'
+	and 'lib/rdcut.h'.
+2012-08-02 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a 'Set Clock Source' ['CS'] command in
+	'cae/cae.cpp', 'cae/hpi_cae.cpp' and 'cae/cae.h'.
+	* Added an 'RDCae::setClockSource()' method in 'lib/rdcae.cpp'
+	and 'lib/rdcae.h'.
+2012-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added a switcher driver for the Harlond Virtual Mixer in
+	'ripcd/harlond.cpp' and 'ripcd/harlond.h'.
+2012-08-07 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented input mode support for HPI devices in
+	'rdhpi/rdsoundcard.cpp'.
+2012-08-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added '$ar_distro_major' and '$ar_distro_minor' variables to
+	the AR_GET_DISTRO() macro in 'acinclude.m4' and 'get_distro.sh'.
+2012-08-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/list_logs.cpp' that threw a segfault
+	when starting RDAirPlay(1) in User Security mode.
+2012-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the text of the 'NO SYNC!' alarm to 'AES ALARM' in
+	'rdlibrary/record_cut.cpp'.
+2012-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'REPORTS.FILTER_GROUPS' field to the database.
+	* Added a 'REPORT_GROUPS' table to the database.
+	* Incremented the database version to 206.
+	* Added 'Filter by Groups' and 'Allowed Groups' control to
+	the Edit Report dialog in 'rdadmin/edit_report.cpp' and
+	'rdadmin/edit_report.h'.
+	* Implemented group filtering in 'lib/rdreport.cpp'.
+2012-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'rdlogmanager/commandline_ops.cpp'.
+	* Added '-e' and '-r' switches to RDLogManager(1) in
+	'rdlogmanager/rdlogmanager.cpp' and 'rdlogmanager/commandline_ops.cpp'.
+2012-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a 'Music Summary' report in 'lib/export_musicsummary.cpp'.
+2012-08-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added an RLM for the PadPoint data processor in
+	'rlm/rlm_padpoint.c'.
+2012-08-24 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'WideOrbit Traffic' record to the 'IMPORT_TEMPLATES'
+	table.
+	* Incremented the database version to 207.
+	* Added 'ExportFilter::WideOrbit' to 'lib/rdreport.cpp' and
+	'lib/rdreport.h.
+2012-08-28 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a patch from Wayne Merricks <waynemerricks@thevoiceasia.com>
+	that fixed startup focus problem in 'lib/rdsound_panel.cpp'.
+2012-08-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added an include for 'stdint.h' in 'utils/rdhpiinfo/rdhpiinfo.cpp'.
+2012-08-30 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a patch by Alban Peignier <alban@typhon.eu> to allow
+	building with gcc 4.7.
+2012-08-31 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.2.0.

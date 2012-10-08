@@ -36,6 +36,7 @@
     <Directory>rivendell-utilities.directory</Directory>
     <Include>
       <Filename>rivendell-rdgpimon.desktop</Filename>
+      <Filename>rivendell-rdselect.desktop</Filename>
       <Filename>rivendell-rdsoftkeys.desktop</Filename>
       <Filename>rivendell-rmlsend.desktop</Filename>
     </Include>

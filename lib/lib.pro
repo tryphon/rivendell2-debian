@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2007 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: lib.pro,v 1.36 2010/08/04 23:07:01 cvs Exp $
+#      $Id: lib.pro,v 1.36.8.1 2012/08/13 20:08:27 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -66,6 +66,7 @@ SOURCES += export_bmiemr.cpp
 SOURCES += export_technical.cpp
 SOURCES += export_soundex.cpp
 SOURCES += export_radiotraffic.cpp
+SOURCES += export_musicsummary.cpp
 SOURCES += rdcmd_switch.cpp
 SOURCES += rdlogedit_conf.cpp
 SOURCES += rdtextfile.cpp

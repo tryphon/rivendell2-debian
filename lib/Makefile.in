@@ -85,9 +85,10 @@ dist_librd_la_OBJECTS = rduser.lo rdsvc.lo rdcart.lo \
 	rdconfig.lo rddebug.lo rdadd_log.lo rdtextvalidator.lo \
 	rdgroup_list.lo rdreport.lo export_deltaflex.lo \
 	export_textlog.lo export_bmiemr.lo export_technical.lo \
-	export_soundex.lo export_radiotraffic.lo rdmarker_button.lo \
-	rdmarker_edit.lo rdcombobox.lo rdexception_dialog.lo \
-	rdcmd_cache.lo rdexport_settings_dialog.lo rdescape_string.lo \
+	export_soundex.lo export_radiotraffic.lo \
+	export_musicsummary.lo rdmarker_button.lo rdmarker_edit.lo \
+	rdcombobox.lo rdexception_dialog.lo rdcmd_cache.lo \
+	rdexport_settings_dialog.lo rdescape_string.lo \
 	rdlogedit_conf.lo rdwavepainter.lo rdgain_envelope.lo \
 	rdcmd_switch.lo rdadd_cart.lo rdlist_groups.lo \
 	rdevent_player.lo rdedit_audio.lo rdimport_audio.lo \
@@ -264,6 +265,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PARANOIA_INCLUDES = @PARANOIA_INCLUDES@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+QT3_DEVEL_PKG = @QT3_DEVEL_PKG@
 QT3_MYSQL_PKG = @QT3_MYSQL_PKG@
 QT_BIN = @QT_BIN@
 QT_CXXFLAGS = @QT_CXXFLAGS@
@@ -407,6 +409,7 @@ dist_librd_la_SOURCES = rduser.cpp rduser.h\
                    export_deltaflex.cpp export_textlog.cpp\
                    export_bmiemr.cpp export_technical.cpp\
                    export_soundex.cpp export_radiotraffic.cpp\
+                   export_musicsummary.cpp\
                    rdmarker_button.cpp rdmarker_button.h\
                    rdmarker_edit.cpp rdmarker_edit.h\
                    rdcombobox.cpp rdcombobox.h\
@@ -635,6 +638,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_bmiemr.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_deltaflex.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_musicsummary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_radiotraffic.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_soundex.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_technical.Plo@am__quote@

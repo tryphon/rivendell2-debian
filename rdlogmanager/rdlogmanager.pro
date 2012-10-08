@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2004 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlogmanager.pro,v 1.21 2012/01/16 11:16:37 cvs Exp $
+#      $Id: rdlogmanager.pro,v 1.21.2.1 2012/08/13 18:25:21 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -57,6 +57,7 @@ SOURCES += generate_log.cpp
 SOURCES += pick_report_dates.cpp
 SOURCES += edit_schedrules.cpp
 SOURCES += edit_schedcoderules.cpp
+SOURCES += commandline_ops.cpp
 
 HEADERS += rdlogmanager.h
 HEADERS += list_clocks.h
