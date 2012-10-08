@@ -8,7 +8,7 @@ Subject: Default QTDIR in RDHotKeyList
  2 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/lib/Makefile.am b/lib/Makefile.am
-index 4534b8c..63b3ca1 100644
+index a87bf74..ae66eef 100644
 --- a/lib/Makefile.am
 +++ b/lib/Makefile.am
 @@ -22,7 +22,7 @@

@@ -7,10 +7,10 @@ Subject: Fix headerdir in rlm makefile
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/rlm/Makefile.am b/rlm/Makefile.am
-index 68accc0..8d62bb9 100644
+index 5008d3b..3e0cb0e 100644
 --- a/rlm/Makefile.am
 +++ b/rlm/Makefile.am
-@@ -48,7 +48,7 @@ install:	all
+@@ -50,7 +50,7 @@ install:	all
  	mkdir -p $(headerdir)
  	cp rlm.h $(headerdir)
  

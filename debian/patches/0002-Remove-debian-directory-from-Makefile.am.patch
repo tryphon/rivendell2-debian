@@ -3,19 +3,22 @@ Date: Sun, 28 Aug 2011 10:16:06 +0200
 Subject: Remove debian directory from Makefile.am
 
 ---
- Makefile.am |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Makefile.am |    5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index 581282a..4d6976a 100644
+index 0109312..062ae0d 100644
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -32,7 +32,7 @@ if ALSA_RD_AM
+@@ -32,9 +32,8 @@ if ALSA_RD_AM
    ALSACONFIG_RD_OPT = rdalsaconfig
  endif
  SUBDIRS = icons helpers $(HPI_RD_OPT) lib rlm scripts cae conf docs \
 -          debian xdg rdadmin ripcd rdlogin rdlibrary rdcatch rdcatchd \
+-          rdlogedit rdlogmanager rdpanel rdairplay rdselect rdcastmanager \
+-          rdrepld utils web tests importers ios $(PAM_RD_OPT)
 +          xdg rdadmin ripcd rdlogin rdlibrary rdcatch rdcatchd \
-           rdlogedit rdlogmanager rdpanel rdairplay rdcastmanager rdrepld \
-           utils web tests importers ios $(PAM_RD_OPT)
++          rdlogedit rdlogmanager rdpanel rdairplay rdselect rdcastmanager           rdrepld utils web tests importers ios $(PAM_RD_OPT)
  
+ install-exec-local:	
+ 	./install-init.sh $(DESTDIR)$(prefix)
