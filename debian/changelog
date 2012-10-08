@@ -1,3 +1,9 @@
+rivendell (2.2.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Alban Peignier <alban@tryphon.eu>  Mon, 08 Oct 2012 17:12:03 +0200
+
 rivendell (2.1.4-2) unstable; urgency=low
 
   * Fixes rivendell-doc package contents (fixes #4)
