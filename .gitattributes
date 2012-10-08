@@ -1,0 +1,7 @@
+conf/rd-sample.ini            eol=crlf
+docs/examples/0320090805.cpi	eol=crlf
+docs/examples/0320090805.elr	eol=crlf
+docs/examples/0320090805.tfc	eol=crlf
+docs/examples/0320090805.vti	eol=crlf
+docs/examples/cart_report.asc	eol=crlf
+tests/visualtraffic.txt	      eol=crlf
