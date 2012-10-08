@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdhpiinfo.cpp,v 1.8 2011/05/19 22:16:54 cvs Exp $
+//    $Id: rdhpiinfo.cpp,v 1.8.6.1 2012/08/28 18:01:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -21,6 +21,7 @@
 //
 
 #include <stdlib.h>
+#include <stdint.h>
 
 #include <qapplication.h>
 #include <qmessagebox.h>

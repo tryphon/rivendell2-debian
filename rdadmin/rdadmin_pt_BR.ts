@@ -296,7 +296,7 @@ atualizada para a Versão</translation>
     <name>AddMatrix</name>
     <message>
         <source>Add Switcher</source>
-        <translation>Adicionar Switcher</translation>
+        <translation type="obsolete">Adicionar Switcher</translation>
     </message>
     <message>
         <source>&amp;New Matrix Number:</source>
@@ -376,6 +376,14 @@ atualizada para a Versão</translation>
     </message>
     <message>
         <source>New Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - Add Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -665,7 +673,7 @@ atualizada para a Versão</translation>
     </message>
     <message>
         <source>Level:</source>
-        <translation>Nível:</translation>
+        <translation type="obsolete">Nível:</translation>
     </message>
     <message>
         <source>Output Port</source>
@@ -701,6 +709,10 @@ atualizada para a Versão</translation>
     </message>
     <message>
         <source>Card Driver:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ref. Level:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1611,7 +1623,7 @@ Você ainda quer salvar?</translation>
     <name>EditMatrix</name>
     <message>
         <source>Edit Switcher</source>
-        <translation>Editar Switcher</translation>
+        <translation type="obsolete">Editar Switcher</translation>
     </message>
     <message>
         <source>Matrix Number:</source>
@@ -1793,6 +1805,10 @@ Displays</translation>
     <message>
         <source>SAS
 Switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - Edit Switcher</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2926,6 +2942,18 @@ Isto para popular os recursos de áudio na Base de Dados.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Available Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allowed Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by Groups</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4398,6 +4426,10 @@ Você ainda quer Deletar?</translation>
     </message>
     <message>
         <source>BroadcastTools SRC-16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

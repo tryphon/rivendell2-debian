@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdreport.h,v 1.17 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdreport.h,v 1.17.8.3 2012/08/24 18:58:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,42 +35,45 @@ class RDReport
  public:
   enum ExportFilter {CbsiDeltaFlex=0,TextLog=1,BmiEmr=2,Technical=3,
 		     SoundExchange=4,RadioTraffic=5,VisualTraffic=6,
-		     CounterPoint=7,Music1=8,LastFilter=9};
+		     CounterPoint=7,Music1=8,MusicSummary=9,WideOrbit=10,
+		     LastFilter=11};
   enum ExportOs {Linux=0,Windows=1};
   enum ExportType {Generic=0,Traffic=1,Music=2};
   enum StationType {TypeOther=0,TypeAm=1,TypeFm=2,TypeLast=3};
   enum ErrorCode {ErrorOk=0,ErrorCanceled=1,ErrorCantOpen=2};
   RDReport(const QString &rptname,QObject *parent=0,const char *name=0);
   QString name() const;
-  bool exists();
-  QString description();
-  void setDescription(const QString &desc);
-  ExportFilter filter();
-  void setFilter(ExportFilter filter);
-  QString exportPath(ExportOs ostype);
-  void setExportPath(ExportOs ostype,const QString &path);
-  bool exportTypeEnabled(ExportType type);
-  void setExportTypeEnabled(ExportType type,bool state);
-  bool exportTypeForced(ExportType type);
-  void setExportTypeForced(ExportType type,bool state);
-  QString stationId();
-  void setStationId(const QString &id);
-  unsigned cartDigits();
-  void setCartDigits(unsigned num);
-  bool useLeadingZeros();
-  void setUseLeadingZeros(bool state);
+  bool exists() const;
+  QString description() const;
+  void setDescription(const QString &desc) const;
+  ExportFilter filter() const;
+  void setFilter(ExportFilter filter) const;
+  QString exportPath(ExportOs ostype) const;
+  void setExportPath(ExportOs ostype,const QString &path) const;
+  bool exportTypeEnabled(ExportType type) const;
+  void setExportTypeEnabled(ExportType type,bool state) const;
+  bool exportTypeForced(ExportType type) const;
+  void setExportTypeForced(ExportType type,bool state) const;
+  QString stationId() const;
+  void setStationId(const QString &id) const;
+  unsigned cartDigits() const;
+  void setCartDigits(unsigned num) const;
+  bool useLeadingZeros() const;
+  void setUseLeadingZeros(bool state) const;
   int linesPerPage() const;
-  void setLinesPerPage(int lines);
+  void setLinesPerPage(int lines) const;
   QString serviceName() const;
-  void setServiceName(const QString &name);
+  void setServiceName(const QString &name) const;
   RDReport::StationType stationType() const;
-  void setStationType(RDReport::StationType type);
+  void setStationType(RDReport::StationType type) const;
   QString stationFormat() const;
-  void setStationFormat(const QString &fmt);
+  void setStationFormat(const QString &fmt) const;
   RDLogLine::StartSource startSource() const;
-  void setStartSource(RDLogLine::StartSource src);
+  void setStartSource(RDLogLine::StartSource src) const;
   bool filterOnairFlag() const;
-  void setFilterOnairFlag(bool state);
+  void setFilterOnairFlag(bool state) const;
+  bool filterGroups() const;
+  void setFilterGroups(bool state) const;
   RDReport::ErrorCode errorCode() const;
   bool generateReport(const QDate &startdate,const QDate &enddate,
 		      RDStation *station);
@@ -93,12 +96,14 @@ class RDReport
 		     const QString &mixtable);
   bool ExportRadioTraffic(const QDate &startdate,const QDate &enddate,
 			  const QString &mixtable);
-  void SetRow(const QString &param,QString value);
-  void SetRow(const QString &param,int value);
-  void SetRow(const QString &param,unsigned value);
-  void SetRow(const QString &param,bool value);
-  QString OsFieldName(ExportOs os);
-  QString TypeFieldName(ExportType type,bool forced);
+  bool ExportMusicSummary(const QDate &startdate,const QDate &enddate,
+			  const QString &mixtable);
+  void SetRow(const QString &param,QString value) const;
+  void SetRow(const QString &param,int value) const;
+  void SetRow(const QString &param,unsigned value) const;
+  void SetRow(const QString &param,bool value) const;
+  QString OsFieldName(ExportOs os) const;
+  QString TypeFieldName(ExportType type,bool forced) const;
   QString report_name;
   RDReport::ErrorCode report_error_code;
 };

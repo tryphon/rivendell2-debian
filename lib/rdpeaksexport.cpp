@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpeaksexport.cpp,v 1.6 2012/01/12 16:24:50 cvs Exp $
+//      $Id: rdpeaksexport.cpp,v 1.6.4.2 2012/07/24 20:27:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as

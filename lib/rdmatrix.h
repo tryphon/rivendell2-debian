@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmatrix.h,v 1.28 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdmatrix.h,v 1.28.8.1 2012/08/06 00:12:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,7 +38,7 @@ class RDMatrix
 	     BtAcs82=11,SasUsi=12,Bt16x2=13,BtSs124=14,LocalAudioAdapter=15,
 	     LogitekVguest=16,BtSs164=17,StarGuideIII=18,BtSs42=19,
 	     LiveWire=20,Quartz1=21,BtSs44=22,BtSrc8III=23,BtSrc16=24,
-	     None=255};
+	     Harlond=25,None=255};
   enum Endpoint {Input=0,Output=1};
   enum Mode {Stereo=0,Left=1,Right=2};
   enum VguestAttribute {VguestEngine=0,VguestDevice=1,VguestSurface=2,

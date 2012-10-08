@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.cpp,v 1.62 2011/05/18 18:57:54 cvs Exp $
+//      $Id: rdsound_panel.cpp,v 1.62.6.2 2012/08/28 16:55:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -235,6 +235,7 @@ RDSoundPanel::RDSoundPanel(int cols,int rows,int station_panels,
     panel_selector_box->insertItem(QString().sprintf("[U:%d] Panel U:%d",
 						     i+1,i+1));
   }
+  panel_selector_box->setFocus();
 }
 
 
@@ -385,6 +386,26 @@ void RDSoundPanel::stop(RDAirPlayConf::PanelType type,int panel,
                         int mport,bool pause_when_finished,int fade_out)
 {
   StopButton(type,panel,row,col,mport,pause_when_finished,fade_out);
+}
+
+
+void RDSoundPanel::setText(RDAirPlayConf::PanelType type,int panel,int row,
+			   int col,const QString &str)
+{
+  RDPanelButton *button=
+    panel_buttons[PanelOffset(type,panel)]->panelButton(row,col);
+  button->setText(str);
+  SaveButton(type,panel,row,col);
+}
+
+
+void RDSoundPanel::setColor(RDAirPlayConf::PanelType type,int panel,int row,
+			    int col,const QColor &color)
+{
+  RDPanelButton *button=
+    panel_buttons[PanelOffset(type,panel)]->panelButton(row,col);
+  button->setDefaultColor(color);
+  SaveButton(type,panel,row,col);
 }
 
 

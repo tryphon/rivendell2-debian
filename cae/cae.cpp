@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae.cpp,v 1.115 2011/10/31 19:18:21 cvs Exp $
+//      $Id: cae.cpp,v 1.115.4.1 2012/08/03 16:52:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1239,6 +1239,30 @@ void MainObject::DispatchCommand(int ch)
     LogLine(RDConfig::LogInfo,QString().
 	    sprintf("StopRecord - Card: %d  Stream: %d",
 		    card,stream));
+    return;
+  }
+
+  if(!strcmp(args[ch][0],"CS")) {  // Set Clock Source
+    if((card<0)||(stream<0)) {
+      EchoArgs(ch,'-');
+      return;
+    }
+    switch(cae_driver[card]) {
+	case RDStation::Hpi:
+	  if(!hpiSetClockSource(card,stream)) {
+	    EchoArgs(ch,'-');
+	    return;
+	  }
+
+	default:
+	  EchoArgs(ch,'+');
+	  return;
+    }
+    if(rd_config->enableMixerLogging()) {
+      LogLine(RDConfig::LogInfo,QString().
+	      sprintf("SetClockSource - Card: %d  Source: %d",card,stream));
+    }
+    EchoArgs(ch,'+');
     return;
   }
 

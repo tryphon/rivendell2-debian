@@ -2,9 +2,9 @@
 //
 // Edit a Rivendell Matrix
 //
-//   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2002-2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_matrix.h,v 1.17 2011/05/07 00:32:29 cvs Exp $
+//      $Id: edit_matrix.h,v 1.17.6.1 2012/08/06 00:12:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -57,6 +57,7 @@ class EditMatrix : public QDialog
   void vguestRelaysButtonData();
   void vguestDisplaysButtonData();
   void sasResourcesButtonData();
+  void inputsChangedData(int value);
   void gpisChangedData(int value);
   void gposChangedData(int value);
   void startCartData();

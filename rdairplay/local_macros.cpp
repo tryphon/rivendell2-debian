@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: local_macros.cpp,v 1.31 2010/10/11 15:34:57 cvs Exp $
+//      $Id: local_macros.cpp,v 1.31.6.1 2012/07/23 20:56:20 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -219,6 +219,41 @@ void MainWidget::RunLocalMacros(RDMacro *rml)
 	  }
 	}
 	air_button_list->startButton(rml->arg(0).toInt()-1);
+	if(rml->echoRequested()) {
+	  rml->acknowledge(true);
+	  rdripc->sendRml(rml);
+	}   
+	break;
+
+      case RDMacro::PC:   // Label Button
+	if(rml->argQuantity()!=5) {
+	  if(rml->echoRequested()) {
+	    rml->acknowledge(false);
+	    rdripc->sendRml(rml);
+	  }
+	  return;
+	}
+	if(!GetPanel(rml->arg(0).toString(),&panel_type,&panel_number)) {
+	  if(rml->echoRequested()) {
+	    rml->acknowledge(false);
+	    rdripc->sendRml(rml);
+	  }
+	  return;
+	}
+	if((rml->arg(1).toInt()<=0)||
+	   (rml->arg(1).toInt()>AIR_PANEL_BUTTON_COLUMNS)||
+	   (rml->arg(2).toInt()<=0)||
+	   (rml->arg(2).toInt()>AIR_PANEL_BUTTON_ROWS)) {
+	  if(rml->echoRequested()) {
+	    rml->acknowledge(false);
+	    rdripc->sendRml(rml);
+	  }
+	  return;
+	}
+	air_panel->setText(panel_type,panel_number,rml->arg(2).toInt()-1,
+			   rml->arg(1).toInt()-1,rml->arg(3).toString());
+	air_panel->setColor(panel_type,panel_number,rml->arg(2).toInt()-1,
+			    rml->arg(1).toInt()-1,rml->arg(4).toString());
 	if(rml->echoRequested()) {
 	  rml->acknowledge(true);
 	  rdripc->sendRml(rml);

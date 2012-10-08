@@ -177,10 +177,6 @@
 <context>
     <name>AddMatrix</name>
     <message>
-        <source>Add Switcher</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;New Matrix Number:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -258,6 +254,14 @@
     </message>
     <message>
         <source>New Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - Add Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -546,10 +550,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Level:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Output Port</source>
         <translation type="unfinished"></translation>
     </message>
@@ -583,6 +583,10 @@
     </message>
     <message>
         <source>Card Driver:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ref. Level:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1474,10 +1478,6 @@ Do you still want to save?</source>
 <context>
     <name>EditMatrix</name>
     <message>
-        <source>Edit Switcher</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Matrix Number:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1648,6 +1648,10 @@ G&amp;POs</source>
     <message>
         <source>SAS
 Switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - Edit Switcher</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2750,6 +2754,18 @@ in order to populate the audio resources database.</source>
     </message>
     <message>
         <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allowed Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by Groups</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4145,6 +4161,10 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>BroadcastTools SRC-16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

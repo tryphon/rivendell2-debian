@@ -36,7 +36,7 @@ build_triplet = @build@
 host_triplet = @host@
 bin_PROGRAMS = sas_filter$(EXEEXT) wings_filter$(EXEEXT) \
 	rivendell_filter$(EXEEXT) rdcatch_copy$(EXEEXT) \
-	panel_copy$(EXEEXT)
+	panel_copy$(EXEEXT) nexgen_filter$(EXEEXT)
 subdir = importers
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -49,14 +49,19 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
+dist_nexgen_filter_OBJECTS = nexgen_filter.$(OBJEXT)
+nodist_nexgen_filter_OBJECTS = moc_nexgen_filter.$(OBJEXT)
+nexgen_filter_OBJECTS = $(dist_nexgen_filter_OBJECTS) \
+	$(nodist_nexgen_filter_OBJECTS)
+nexgen_filter_DEPENDENCIES =
+AM_V_lt = $(am__v_lt_$(V))
+am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
+am__v_lt_0 = --silent
 dist_panel_copy_OBJECTS = panel_copy.$(OBJEXT)
 nodist_panel_copy_OBJECTS = moc_panel_copy.$(OBJEXT)
 panel_copy_OBJECTS = $(dist_panel_copy_OBJECTS) \
 	$(nodist_panel_copy_OBJECTS)
 panel_copy_DEPENDENCIES =
-AM_V_lt = $(am__v_lt_$(V))
-am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
-am__v_lt_0 = --silent
 dist_rdcatch_copy_OBJECTS = rdcatch_copy.$(OBJEXT)
 nodist_rdcatch_copy_OBJECTS = moc_rdcatch_copy.$(OBJEXT)
 rdcatch_copy_OBJECTS = $(dist_rdcatch_copy_OBJECTS) \
@@ -119,13 +124,16 @@ am__v_CCLD_0 = @echo "  CCLD  " $@;
 AM_V_GEN = $(am__v_GEN_$(V))
 am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
 am__v_GEN_0 = @echo "  GEN   " $@;
-SOURCES = $(dist_panel_copy_SOURCES) $(nodist_panel_copy_SOURCES) \
-	$(dist_rdcatch_copy_SOURCES) $(nodist_rdcatch_copy_SOURCES) \
+SOURCES = $(dist_nexgen_filter_SOURCES) \
+	$(nodist_nexgen_filter_SOURCES) $(dist_panel_copy_SOURCES) \
+	$(nodist_panel_copy_SOURCES) $(dist_rdcatch_copy_SOURCES) \
+	$(nodist_rdcatch_copy_SOURCES) \
 	$(dist_rivendell_filter_SOURCES) \
 	$(nodist_rivendell_filter_SOURCES) $(dist_sas_filter_SOURCES) \
 	$(nodist_sas_filter_SOURCES) $(dist_wings_filter_SOURCES) \
 	$(nodist_wings_filter_SOURCES)
-DIST_SOURCES = $(dist_panel_copy_SOURCES) $(dist_rdcatch_copy_SOURCES) \
+DIST_SOURCES = $(dist_nexgen_filter_SOURCES) \
+	$(dist_panel_copy_SOURCES) $(dist_rdcatch_copy_SOURCES) \
 	$(dist_rivendell_filter_SOURCES) $(dist_sas_filter_SOURCES) \
 	$(dist_wings_filter_SOURCES)
 ETAGS = etags
@@ -201,6 +209,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PARANOIA_INCLUDES = @PARANOIA_INCLUDES@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+QT3_DEVEL_PKG = @QT3_DEVEL_PKG@
 QT3_MYSQL_PKG = @QT3_MYSQL_PKG@
 QT_BIN = @QT_BIN@
 QT_CXXFLAGS = @QT_CXXFLAGS@
@@ -293,6 +302,9 @@ wings_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 dist_rivendell_filter_SOURCES = rivendell_filter.cpp rivendell_filter.h
 nodist_rivendell_filter_SOURCES = moc_rivendell_filter.cpp
 rivendell_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+dist_nexgen_filter_SOURCES = nexgen_filter.cpp nexgen_filter.h
+nodist_nexgen_filter_SOURCES = moc_nexgen_filter.cpp
+nexgen_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 dist_rdcatch_copy_SOURCES = rdcatch_copy.cpp rdcatch_copy.h
 nodist_rdcatch_copy_SOURCES = moc_rdcatch_copy.cpp
 rdcatch_copy_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
@@ -379,6 +391,9 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
+nexgen_filter$(EXEEXT): $(nexgen_filter_OBJECTS) $(nexgen_filter_DEPENDENCIES) 
+	@rm -f nexgen_filter$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(nexgen_filter_OBJECTS) $(nexgen_filter_LDADD) $(LIBS)
 panel_copy$(EXEEXT): $(panel_copy_OBJECTS) $(panel_copy_DEPENDENCIES) 
 	@rm -f panel_copy$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(panel_copy_OBJECTS) $(panel_copy_LDADD) $(LIBS)
@@ -401,11 +416,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_nexgen_filter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_panel_copy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdcatch_copy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rivendell_filter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_sas_filter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_wings_filter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nexgen_filter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/panel_copy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdcatch_copy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rivendell_filter.Po@am__quote@

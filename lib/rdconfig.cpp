@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdconfig.cpp,v 1.24 2010/11/24 19:10:51 cvs Exp $
+//      $Id: rdconfig.cpp,v 1.24.6.1 2012/07/16 23:25:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -86,11 +86,30 @@ QString RDConfig::audioFileName (QString cutname)
     audioExtension();
 };
 
+QString RDConfig::label() const
+{
+  return conf_label;
+}
+
+QString RDConfig::audioStoreMountSource() const
+{
+  return conf_audio_store_mount_source;
+}
+
+QString RDConfig::audioStoreMountType() const
+{
+  return conf_audio_store_mount_type;
+}
+
+QString RDConfig::audioStoreMountOptions() const
+{
+  return conf_audio_store_mount_options;
+}
+
 QString RDConfig::mysqlHostname() const
 {
   return conf_mysql_hostname;
 }
-
 
 QString RDConfig::mysqlUsername() const
 {
@@ -369,6 +388,16 @@ void RDConfig::load()
     profile->stringValue("Identity","AudioOwner",RD_DEFAULT_AUDIO_OWNER);
   conf_audio_group=
     profile->stringValue("Identity","AudioGroup",RD_DEFAULT_AUDIO_GROUP);
+  conf_label=profile->stringValue("Identity","Label",RD_DEFAULT_LABEL);
+
+  conf_audio_store_mount_source=
+    profile->stringValue("AudioStore","MountSource");
+  conf_audio_store_mount_type=
+    profile->stringValue("AudioStore","MountType");
+  conf_audio_store_mount_options=
+    profile->stringValue("AudioStore","MountOptions",
+			 RD_DEFAULT_AUDIO_STORE_MOUNT_OPTIONS);
+
   conf_audio_root=
     profile->stringValue("Cae","AudioRoot",RD_AUDIO_ROOT);
   conf_audio_extension=
@@ -469,6 +498,10 @@ void RDConfig::clear()
   conf_audio_group="";
   conf_audio_root=RD_AUDIO_ROOT;
   conf_audio_extension=RD_AUDIO_EXTENSION;
+  conf_label=RD_DEFAULT_LABEL;
+  conf_audio_store_mount_source="";
+  conf_audio_store_mount_type="";
+  conf_audio_store_mount_options=RD_DEFAULT_AUDIO_STORE_MOUNT_OPTIONS;
   conf_ripcd_logname="";
   conf_airplay_logname="";
   conf_catchd_logname="";

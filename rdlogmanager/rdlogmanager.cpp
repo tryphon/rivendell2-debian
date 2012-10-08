@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogmanager.cpp,v 1.43 2011/06/21 22:20:44 cvs Exp $
+//      $Id: rdlogmanager.cpp,v 1.43.4.1 2012/08/13 18:25:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -404,140 +404,19 @@ int gui_main(int argc,char *argv[])
 }
 
 
-int cmdline_main(int argc,char *argv[],const QString &svcname,
-		 const QDate &date,bool gen_log,bool merge_mus,bool merge_tfc)
-{
-  QString sql;
-  RDSqlQuery *q;
-  QString report;
-  QString unused_report;
-  QApplication a(argc,argv,false);
-  QString svcname_table=svcname;
-  svcname_table.replace(" ","_");
-  unsigned schema=0;
-
-  //
-  // Load Local Configs
-  //
-  RDConfig *config=new RDConfig();
-  config->load();
-
-  //
-  // Open Database
-  //
-  QString err;
-  QSqlDatabase *db=RDInitDb(&schema,&err);
-  if(!db) {
-    fprintf(stderr,"rdlogmanager: unable to connect to database\n");
-    return 256;
-  }
-  if((schema!=RD_VERSION_DATABASE)&&(!skip_db_check)) {
-    fprintf(stderr,
-	    "rdlogmanager: database version mismatch, should be %u, is %u\n",
-	    RD_VERSION_DATABASE,schema);
-    exit(256);
-  }
-
-  //
-  // Some Basic Structures
-  //
-  rdstation_conf=new RDStation(config->stationName());
-#ifndef WIN32
-  rduser=new RDUser(rdstation_conf->defaultName());
-#endif  // WIN32
-  RDSvc *svc=new RDSvc(svcname);
-  if(!svc->exists()) {
-    fprintf(stderr,"rdlogmanager: no such service\n");
-    return 256;
-  }
-  QString logname=RDDateDecode(svc->nameTemplate(),date);
-  RDLog *log=new RDLog(logname);
-
-  //
-  // Generate Log
-  //
-  if(gen_log) {
-    log->removeTracks(rdstation_conf,rduser);
-    srand(QTime::currentTime().msec());
-    sql=RDCreateStackTableSql(svcname_table);
-    q=new RDSqlQuery(sql);
-    if(!q->isActive()) {
-      fprintf(stderr,"SQL: %s\n",(const char *)sql);
-      fprintf(stderr,"SQL Error: %s\n",
-	      (const char *)q->lastError().databaseText());
-    }
-    delete q;
-    if(!svc->generateLog(date,
-			 RDDateDecode(svc->nameTemplate(),date),
-			 RDDateDecode(svc->nameTemplate(),date.addDays(1)),
-			 &unused_report)) {
-      fprintf(stderr,"rdlogmanager: unable to generate log\n");
-      return 256;
-    }
-    log->updateTracks();
-
-    //
-    // Generate Exception Report
-    //
-    RDLogEvent *event=
-      new RDLogEvent(QString().sprintf("%s_LOG",(const char *)logname));
-    event->load();
-    if((event->validate(&report,date)!=0)||
-       (!unused_report.isEmpty())) {
-      printf("%s\n\n%s",(const char*)report,(const char*)unused_report);
-    }
-    delete event;
-  }
-
-  //
-  // Merge Music
-  //
-  if(merge_mus) {
-    if(!log->exists()) {
-      fprintf(stderr,"rdlogmanager: log does not exist\n");
-      return 256;
-    }
-    report="";
-    log->removeTracks(rdstation_conf,rduser);
-    svc->clearLogLinks(RDSvc::Traffic,date,logname);
-    svc->clearLogLinks(RDSvc::Music,date,logname);
-    svc->linkLog(RDSvc::Music,date,logname,&report);
-    printf("%s\n",(const char*)report);
-  }
-
-  //
-  // Merge Traffic
-  //
-  if(merge_tfc) {
-    if(!log->exists()) {
-      fprintf(stderr,"rdlogmanager: log does not exist\n");
-      return 256;
-    }
-    report="";
-    svc->clearLogLinks(RDSvc::Traffic,date,logname);
-    svc->linkLog(RDSvc::Traffic,date,logname,&report);
-    printf("%s\n",(const char*)report);
-  }
-
-  //
-  // Clean Up
-  //
-  delete log;
-  delete svc;
-  return 0;
-}
-
-
 int main(int argc,char *argv[])
 {
   //
   // Read Command Options
   //
-  bool cmd_generate = false;
-  bool cmd_merge_music = false;
-  bool cmd_merge_traffic = false;
-  QString cmd_service = NULL;
-  QDate cmd_date = QDate::currentDate().addDays(1);
+  bool cmd_generate=false;
+  bool cmd_merge_music=false;
+  bool cmd_merge_traffic=false;
+  QString cmd_service=NULL;
+  QString cmd_report=NULL;
+  int cmd_start_offset=0;
+  int cmd_end_offset=0;
+  QDate cmd_start_date = QDate::currentDate().addDays(1);
 
   RDCmdSwitch *cmd=
     new RDCmdSwitch(argc,argv,"rdlogmanager",RDLOGMANAGER_USAGE);
@@ -566,24 +445,52 @@ int main(int argc,char *argv[])
 	exit(256);
       }
     }
+    if (cmd->key(i)=="-r") {
+      if (i+1<cmd->keys()) {
+	i++;
+	cmd_report = cmd->key(i);
+      }
+      else {
+	fprintf(stderr,"rdlogmanager: missing argument to \"-r\"\n");
+	exit(256);
+      }
+    }
     if (cmd->key(i)=="-d") {
       if (i+1<cmd->keys()) {
 	i++;
-	cmd_date = QDate::currentDate().addDays(cmd->key(i).toInt());
+	cmd_start_offset=cmd->key(i).toInt();
       }
       else {
 	fprintf(stderr,"rdlogmanager: missing argument to \"-d\"\n");
 	exit(256);
       }
     }
+    if (cmd->key(i)=="-e") {
+      if (i+1<cmd->keys()) {
+	i++;
+	cmd_end_offset=cmd->key(i).toInt();
+      }
+      else {
+	fprintf(stderr,"rdlogmanager: missing argument to \"-e\"\n");
+	exit(256);
+      }
+    }
   }
   delete cmd;
+  if((!cmd_report.isNull())&&
+     (cmd_generate||cmd_merge_traffic||cmd_merge_music)) {
+    fprintf(stderr,
+	    "rdlogmanager: log and report operations are mutually exclusive\n");
+    exit(256);
+  }
 
-  if(cmd_service.isEmpty()) {
-    return gui_main(argc,argv);
+  if(cmd_generate||cmd_merge_traffic||cmd_merge_music) {
+    return RunLogOperation(argc,argv,cmd_service,cmd_start_offset,cmd_generate,
+			   cmd_merge_music,cmd_merge_traffic);
   }
-  else {
-    return cmdline_main(argc,argv,cmd_service,cmd_date,cmd_generate,
-			cmd_merge_music,cmd_merge_traffic);
+  if(!cmd_report.isEmpty()) {
+    return RunReportOperation(argc,argv,cmd_report,cmd_start_offset,
+			      cmd_end_offset);
   }
+  return gui_main(argc,argv);
 }

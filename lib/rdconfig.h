@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdconfig.h,v 1.18 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdconfig.h,v 1.18.8.2 2012/08/30 14:15:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 
 #ifndef WIN32
 #include <syslog.h>
+#include <unistd.h>
 #endif  // WIN32
 
 #include <vector>
@@ -72,6 +73,10 @@ class RDConfig
   QString audioRoot() const;
   QString audioExtension() const;
   QString audioFileName (QString cutname);
+  QString label() const;
+  QString audioStoreMountSource() const;
+  QString audioStoreMountType() const;
+  QString audioStoreMountOptions() const;
   QString ripcdLogname() const;
   QString airplayLogname() const;
   QString catchdLogname() const;
@@ -116,6 +121,10 @@ class RDConfig
   QString conf_audio_group;
   QString conf_audio_root;
   QString conf_audio_extension;
+  QString conf_label;
+  QString conf_audio_store_mount_source;
+  QString conf_audio_store_mount_type;
+  QString conf_audio_store_mount_options;
   QString conf_ripcd_logname;
   QString conf_airplay_logname;
   QString conf_catchd_logname;

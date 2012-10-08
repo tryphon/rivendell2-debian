@@ -48,7 +48,33 @@ case "$1" in
 	  exit 0
         fi
 	if test -f /etc/redhat-release ; then
-	  cat /etc/redhat-release
+	  awk '/release/ {print $3}' /etc/redhat-release
+	fi
+    ;;
+    MAJOR)
+	if test -f /etc/SuSE-release ; then
+          cat /etc/SuSE-release | sed "/SE/ d;s/VERSION = //" | awk -F '.' '{print $1}'
+	  exit 0
+        fi
+	if test -f /etc/debian_version ; then
+          cat /etc/debian_version | awk -F '.' '{print $1}'
+	  exit 0
+        fi
+	if test -f /etc/redhat-release ; then
+	  awk '/release/ {print $3}' /etc/redhat-release | awk -F '.' '{print $1}'
+	fi
+    ;;
+    MINOR)
+	if test -f /etc/SuSE-release ; then
+          cat /etc/SuSE-release | sed "/SE/ d;s/VERSION = //" | awk -F '.' '{print $2}'
+	  exit 0
+        fi
+	if test -f /etc/debian_version ; then
+          cat /etc/debian_version | awk -F '.' '{print $2}'
+	  exit 0
+        fi
+	if test -f /etc/redhat-release ; then
+	  awk '/release/ {print $3}' /etc/redhat-release | awk -F '.' '{print $2}'
 	fi
     ;;
 esac

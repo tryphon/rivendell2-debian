@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: record_cut.h,v 1.33 2010/09/16 19:52:08 cvs Exp $
+//      $Id: record_cut.h,v 1.33.6.1 2012/08/02 20:37:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -83,7 +83,6 @@ class RecordCut : public QDialog
 
   private:
    void AutoTrim(RDWaveFile *name);
-   RDCart *rec_cart;
    RDCut *rec_cut;
    unsigned rec_length;
    QString cut_origin_name;

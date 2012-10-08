@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.16.4.1 2012/04/02 19:17:45 cvs Exp $
-##      $Date: 2012/04/02 19:17:45 $
+##      $Id: Makefile.am,v 1.16.4.3 2012/08/24 00:57:30 cvs Exp $
+##      $Date: 2012/08/24 00:57:30 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -32,9 +32,11 @@ EXTRA_DIST = my.cnf-master\
              rd-sample.ini\
              rlm_ando.conf\
              rlm_facebook.conf\
+             rlm_filewrite.conf\
              rlm_icecast2.conf\
              rlm_inno713.conf\
              rlm_liqcomp.conf\
+             rlm_padpoint.conf\
              rlm_serial.conf\
              rlm_shoutcast1.conf\
              rlm_spottrap.conf\

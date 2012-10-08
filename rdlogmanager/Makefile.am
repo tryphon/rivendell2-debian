@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.39 2010/08/04 23:07:02 cvs Exp $
+##      $Id: Makefile.am,v 1.39.8.1 2012/08/13 18:25:21 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -69,7 +69,7 @@ dist_rdlogmanager_SOURCES = rdlogmanager.cpp rdlogmanager.h\
                             clock_listview.cpp clock_listview.h\
                             edit_schedrules.cpp edit_schedrules.h\
                             edit_schedcoderules.cpp edit_schedcoderules.h\
-                            globals.h
+                            commandline_ops.cpp globals.h
 
 nodist_rdlogmanager_SOURCES = moc_rdlogmanager.cpp moc_list_events.cpp\
                               moc_add_event.cpp moc_edit_event.cpp\

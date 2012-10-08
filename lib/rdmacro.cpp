@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmacro.cpp,v 1.37 2011/10/31 19:18:21 cvs Exp $
+//      $Id: rdmacro.cpp,v 1.37.4.1 2012/07/23 20:56:19 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -184,6 +184,7 @@ bool RDMacro::parseString(const char *str,int n)
       case RDMacro::MT:
       case RDMacro::NN:
       case RDMacro::PB:
+      case RDMacro::PC:
       case RDMacro::PE:
       case RDMacro::PL:
       case RDMacro::PM:

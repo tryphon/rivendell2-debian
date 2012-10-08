@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: switcher.cpp,v 1.1 2010/08/03 23:39:26 cvs Exp $
+//      $Id: switcher.cpp,v 1.1.8.1 2012/08/06 00:12:07 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -21,6 +21,8 @@
 //
 
 #include <switcher.h>
+
+#include <globals.h>
 
 Switcher::Switcher(RDMatrix *matrix,QObject *parent,const char *name)
   : QObject(parent,name)
@@ -40,4 +42,17 @@ void Switcher::sendGpi()
 
 void Switcher::sendGpo()
 {
+}
+
+
+void Switcher::executeMacroCart(unsigned cartnum)
+{
+  RDMacro rml;
+  rml.setRole(RDMacro::Cmd);
+  rml.setCommand(RDMacro::EX);
+  rml.setAddress(rdstation->address());
+  rml.setEchoRequested(false);
+  rml.setArgQuantity(1);
+  rml.setArg(0,cartnum);
+  emit rmlEcho(&rml);
 }

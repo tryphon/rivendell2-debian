@@ -27,8 +27,9 @@
 #include <vector>
 
 #include <qobject.h>
+#include <qstringlist.h>
 
-#define RDCOLLECT_USAGE "[options]\n\nCollect and combine log exports from a set of directories into a single file.\n\n--source-file=<file-name>\n     Name of source file.  The path part of this value will be taken as the\n     top of the directory tree to recurse, while the name part will be used as\n     the name of the source file(s) to search for.\n\n--destination-file=<file-name>\n     Name of file to which to send output.\n\n--hours-offset=<offset>\n     Start position of the hours field on a data line\n\n--minutes-offset=<offset>\n     Start position of the minutes field on a data line\n\n--seconds-offset=<offset>\n     Start position of the seconds field on a data line\n"
+#define RDCOLLECT_USAGE "[options]\n\nCollect and combine log exports from a set of directories into a single file.\n\n--source-file=<file-name>\n     Name of source file.  The path part of this value will be taken as the\n     top of the directory tree to recurse, while the name part will be used as\n     the name of the source file(s) to search for.  This option may be given\n     multiple times.\n\n--destination-file=<file-name>\n     Name of file to which to send output.\n\n--hours-offset=<offset>\n     Start position of the hours field on a data line\n\n--minutes-offset=<offset>\n     Start position of the minutes field on a data line\n\n--seconds-offset=<offset>\n     Start position of the seconds field on a data line\n"
 
 class MainObject : public QObject
 {
@@ -37,14 +38,15 @@ class MainObject : public QObject
 
  private:
   QStringList GetDirectoryList(const QString &src_file);
-  QStringList LoadSourceFiles(const QString &src_name,const QStringList &dirs);
+  void LoadSourceFiles(const QString &src_name,const QStringList &dirs,
+		       QStringList *lines);
   void LoadSourceFile(const QString &filename,QStringList *lines);
   void SortLines(QStringList *lines,std::vector<unsigned> *index);
   int WriteOutputFile(const QString &filename,const QStringList &lines,
 		      std::vector<unsigned> *index);
   void AddDirs(const QString &path,QStringList *dirs);
   QTime ReadTime(const QString &line);
-  QString source_file;
+  QStringList source_files;
   QString destination_file;
   unsigned hours_offset;
   unsigned minutes_offset;

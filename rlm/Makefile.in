@@ -149,6 +149,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PARANOIA_INCLUDES = @PARANOIA_INCLUDES@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+QT3_DEVEL_PKG = @QT3_DEVEL_PKG@
 QT3_MYSQL_PKG = @QT3_MYSQL_PKG@
 QT_BIN = @QT_BIN@
 QT_CXXFLAGS = @QT_CXXFLAGS@
@@ -232,9 +233,11 @@ top_srcdir = @top_srcdir@
 AM_CFLAGS = -fPIC -Wall
 RLM_MODULES = rlm_ando.rlm\
             rlm_facebook.rlm\
+            rlm_filewrite.rlm\
             rlm_icecast2.rlm\
             rlm_inno713.rlm\
             rlm_liqcomp.rlm\
+            rlm_padpoint.rlm\
             rlm_serial.rlm\
             rlm_shoutcast1.rlm\
             rlm_spottrap.rlm\
@@ -250,9 +253,11 @@ EXTRA_DIST = Makefile-example\
              rlm.h\
              rlm_ando.c\
              rlm_facebook.c\
+             rlm_filewrite.c\
              rlm_icecast2.c\
              rlm_inno713.c\
              rlm_liqcomp.c\
+             rlm_padpoint.c\
              rlm_serial.c\
              rlm_shoutcast1.c\
              rlm_spottrap.c\

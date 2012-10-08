@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae_hpi.cpp,v 1.38 2011/05/18 15:25:32 cvs Exp $
+//      $Id: cae_hpi.cpp,v 1.38.6.1 2012/08/03 16:52:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -286,6 +286,16 @@ bool MainObject::hpiStopRecord(int card,int stream)
   record[card][stream]->pause();
   record[card][stream]->setInputVOX(-10000);
   return true;
+#else
+  return false;
+#endif  // HPI
+}
+
+
+bool MainObject::hpiSetClockSource(int card,int src)
+{
+#ifdef HPI
+  return sound_card->setClockSource(card,(RDHPISoundCard::ClockSource)src);
 #else
   return false;
 #endif  // HPI

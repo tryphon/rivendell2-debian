@@ -7,7 +7,7 @@ dnl
 dnl   BNV_HAVE_QT Macro Copyright (C) 2001, 2002, 2003, 2005, 2006 
 dnl   Bastiaan Veelo
 dnl
-dnl      $Id: acinclude.m4,v 1.7 2010/08/06 20:09:26 cvs Exp $
+dnl      $Id: acinclude.m4,v 1.7.8.2 2012/08/08 19:48:29 cvs Exp $
 dnl
 dnl   This program is free software; you can redistribute it and/or modify
 dnl   it under the terms of the GNU General Public License version 2 as
@@ -48,12 +48,16 @@ dnl on the host machine, based on entries in '/etc/'.
 dnl The following variables are set:
 dnl   $ar_distro_name = Distribution Name (SuSE, Debian, etc)
 dnl   $ar_distro_version = Distribution Version (10.3, 3.1, etc)
+dnl   $ar_distro_major = Distribution Version Major Number (10, 3, etc)
+dnl   $ar_distro_minor = Distribution Version Minor Number (3, 1, etc)
 dnl
 AC_DEFUN([AR_GET_DISTRO],[]
   [
   AC_MSG_CHECKING(distribution)
   ar_distro_name=$(./get_distro.sh NAME $AWK)
   ar_distro_version=$(./get_distro.sh VERSION $AWK)
+  ar_distro_major=$(./get_distro.sh MAJOR $AWK)
+  ar_distro_minor=$(./get_distro.sh MINOR $AWK)
   AC_MSG_RESULT([$ar_distro_name $ar_distro_version])
   ]
 )
@@ -297,7 +301,7 @@ EOF
             echo "configure: could not compile:" >&AC_FD_CC
             cat bnv_qt_main.$ac_ext >&AC_FD_CC
           else
-            bnv_try_4="$CXX $QT_LIBS $LIBS -o bnv_qt_main bnv_qt_main.o moc_bnv_qt_test.o >/dev/null 2>/dev/null"
+            bnv_try_4="$CXX -o bnv_qt_main bnv_qt_main.o moc_bnv_qt_test.o $QT_LIBS $LIBS >/dev/null 2>/dev/null"
             AC_TRY_EVAL(bnv_try_4)
             if test x"$ac_status" != x0; then
               echo "$bnv_err_4" >&AC_FD_CC

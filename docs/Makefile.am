@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.21.6.1 2012/05/07 22:41:56 cvs Exp $
-##      $Date: 2012/05/07 22:41:56 $
+##      $Id: Makefile.am,v 1.21.6.2 2012/07/15 22:35:54 cvs Exp $
+##      $Date: 2012/07/15 22:35:54 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -30,7 +30,7 @@ EXTRA_DIST = ALSA.txt GPIO.txt JACK.txt NOW+NEXT.txt SWITCHERS.txt WIN32.txt\
              ripc.txt rml.sxw PODCASTING.txt RIVENDELL_FILTER.txt\
              ENCODERS.txt MESSAGE_BOX.txt scheduler_formats.ods\
              copy_split_format.odt asound.conf-sample web_api.odt\
-             ando_interface.odt datetime_wildcards.txt
+             ando_interface.odt datetime_wildcards.txt NEXGEN_FILTER.txt
 
 CLEANFILES = *~
 MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcollect.cpp,v 1.2 2010/07/29 19:32:39 cvs Exp $
+//      $Id: rdcollect.cpp,v 1.2.8.1 2012/08/01 19:21:09 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,7 +24,6 @@
 #include <errno.h>
 
 #include <qapplication.h>
-#include <qstringlist.h>
 #include <qdir.h>
 
 #include <rdcmd_switch.h>
@@ -49,7 +48,7 @@ MainObject::MainObject(QObject *parent,const char *name)
     new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdcollect",RDCOLLECT_USAGE);
   for(unsigned i=0;i<cmd->keys();i++) {
     if(cmd->key(i)=="--source-file") {
-      source_file=cmd->value(i);
+      source_files.push_back(cmd->value(i));
       cmd->setProcessed(i,true);
     }
     if(cmd->key(i)=="--destination-file") {
@@ -73,7 +72,7 @@ MainObject::MainObject(QObject *parent,const char *name)
     fprintf(stderr,"rdcollect: unknown option\n");
     exit(256);
   }
-  if(source_file.isEmpty()) {
+  if(source_files.size()==0) {
     fprintf(stderr,"rdcollect: missing --source-file argument\n");
     exit(256);
   }
@@ -85,8 +84,11 @@ MainObject::MainObject(QObject *parent,const char *name)
   //
   // Process Data
   //
-  QStringList src_dirs=GetDirectoryList(source_file);
-  QStringList src_lines=LoadSourceFiles(RDGetBasePart(source_file),src_dirs);
+  QStringList src_lines;
+  for(unsigned i=0;i<source_files.size();i++) {
+    QStringList src_dirs=GetDirectoryList(source_files[i]);
+    LoadSourceFiles(RDGetBasePart(source_files[i]),src_dirs,&src_lines);
+  }
   SortLines(&src_lines,&line_index);
   if((err=WriteOutputFile(destination_file,src_lines,&line_index))!=0) {
     fprintf(stderr,"rdollect: %s\n",strerror(err));
@@ -109,16 +111,12 @@ QStringList MainObject::GetDirectoryList(const QString &src_file)
 }
 
 
-QStringList MainObject::LoadSourceFiles(const QString &src_name,
-					const QStringList &dirs)
+void MainObject::LoadSourceFiles(const QString &src_name,
+				 const QStringList &dirs,QStringList *lines)
 {
-  QStringList ret;
-
   for(unsigned i=0;i<dirs.size();i++) {
-    LoadSourceFile(dirs[i]+"/"+src_name,&ret);
+    LoadSourceFile(dirs[i]+"/"+src_name,lines);
   }
-
-  return ret;
 }
 
 

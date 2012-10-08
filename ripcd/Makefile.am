@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.43 2010/08/03 23:39:25 cvs Exp $
+##      $Id: Makefile.am,v 1.43.8.1 2012/08/06 00:12:07 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -63,6 +63,7 @@ dist_ripcd_SOURCES = ripcd.cpp ripcd.h globals.h\
                      quartz1.cpp quartz1.h\
                      btsrc8iii.cpp btsrc8iii.h\
                      btsrc16.cpp btsrc16.h\
+                     harlond.cpp harlond.h\
                      local_macros.cpp maint_routines.cpp\
                      loaddrivers.cpp
 
@@ -79,7 +80,7 @@ nodist_ripcd_SOURCES = moc_ripcd.cpp moc_ripcd_socket.cpp\
                        moc_starguide3.cpp moc_btss42.cpp\
                        moc_livewire.cpp moc_quartz1.cpp\
                        moc_btss44.cpp moc_btsrc8iii.cpp\
-                       moc_btsrc16.cpp
+                       moc_btsrc16.cpp moc_harlond.cpp
 
 ripcd_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 

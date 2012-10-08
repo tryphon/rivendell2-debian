@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: record_cut.cpp,v 1.90 2010/09/16 19:52:08 cvs Exp $
+//      $Id: record_cut.cpp,v 1.90.6.3 2012/08/13 14:50:09 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -99,7 +99,6 @@ RecordCut::RecordCut(RDCart *cart,QString cut,QWidget *parent,const char *name)
 	  this,SLOT(recordStoppedData(int,int)));
   connect(rdcae,SIGNAL(inputStatusChanged(int,int,bool)),
 	  this,SLOT(aesAlarmData(int,int,bool)));
-  //rdcae->connectHost("localhost",CAED_TCP_PORT,lib_config->password());
 
   //
   // Audio Parameters
@@ -400,11 +399,11 @@ RecordCut::RecordCut(RDCart *cart,QString cut,QWidget *parent,const char *name)
   // AES Alarm
   //
   rec_aes_alarm_label=new QLabel(this,"rec_aes_alarm_label");
-  rec_aes_alarm_label->setGeometry(15,592,110,25);
+  rec_aes_alarm_label->setGeometry(15,592,110,22);
   rec_aes_alarm_label->setAlignment(AlignHCenter|AlignVCenter);
   rec_aes_alarm_label->setFont(large_font);
   rec_aes_alarm_label->setPalette(QColor(red));
-  rec_aes_alarm_label->setText(tr("NO SYNC!"));
+  rec_aes_alarm_label->setText(tr("AES ALARM"));
   rec_aes_alarm_label->hide();
 
   //
@@ -694,11 +693,10 @@ void RecordCut::channelsData(int id)
 
 void RecordCut::recordData()
 {
-  QString filename;
+  //  QString filename;
 
   if((!is_ready)&&(!is_recording)&&(!is_playing)) {
-    filename=RDCut::pathName(rec_cut->cutName()); 
-    if(QFile(filename).exists()) {
+    if(rec_cut->length()>0) {
       if(QMessageBox::warning(this,tr("Audio Exists"),
 			      tr("This will overwrite the existing recording.\nDo you want to proceed?"),
 			      QMessageBox::Yes,
@@ -718,7 +716,9 @@ void RecordCut::recordData()
 	}
       }
     }
-    QFile(filename).remove();
+    RDCart *cart=new RDCart(rec_cut->cartNumber());
+    cart->removeCutAudio(rdstation_conf,lib_user,rec_cut->cutName());
+    delete cart;
     switch(rdlibrary_conf->defaultFormat()) {
 	case 0:
 	  rec_cut->setCodingFormat(0);
@@ -997,9 +997,9 @@ void RecordCut::closeData()
   rec_cut->setIsci(cut_isci_edit->text());
   rec_cut->setWeight(cut_weight_box->value());
   rec_cut->setLength(rec_length);
-  rec_cart=new RDCart(rec_cut->cartNumber());
-  rec_cart->resetRotation();
-  delete rec_cart;
+  RDCart *cart=new RDCart(rec_cut->cartNumber());
+  cart->resetRotation();
+  delete cart;
   done(0);
 }
 

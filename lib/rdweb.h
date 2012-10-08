@@ -79,6 +79,7 @@ extern QString RDXmlField(const QString &tag,const bool value);
 extern QString RDXmlField(const QString &tag,const QDateTime &value);
 extern QString RDXmlField(const QString &tag,const QTime &value);
 extern QString RDXmlEscape(const QString &str);
+extern QString RDXmlUnescape(const QString &str);
 extern QString RDWebDateTime(const QDateTime &datetime);
 extern QDateTime RDGetWebDateTime(const QString &str);
 extern QTime RDGetWebTime(const QString &str);

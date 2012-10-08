@@ -75,8 +75,8 @@ ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = icons helpers rdhpi lib rlm scripts cae conf docs \
 	debian xdg rdadmin ripcd rdlogin rdlibrary rdcatch rdcatchd \
-	rdlogedit rdlogmanager rdpanel rdairplay rdcastmanager rdrepld \
-	utils web tests importers ios pam_rd
+	rdlogedit rdlogmanager rdpanel rdairplay rdselect \
+	rdcastmanager rdrepld utils web tests importers ios pam_rd
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -183,6 +183,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PARANOIA_INCLUDES = @PARANOIA_INCLUDES@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+QT3_DEVEL_PKG = @QT3_DEVEL_PKG@
 QT3_MYSQL_PKG = @QT3_MYSQL_PKG@
 QT_BIN = @QT_BIN@
 QT_CXXFLAGS = @QT_CXXFLAGS@
@@ -268,8 +269,8 @@ top_srcdir = @top_srcdir@
 @ALSA_RD_AM_TRUE@ALSACONFIG_RD_OPT = rdalsaconfig
 SUBDIRS = icons helpers $(HPI_RD_OPT) lib rlm scripts cae conf docs \
           debian xdg rdadmin ripcd rdlogin rdlibrary rdcatch rdcatchd \
-          rdlogedit rdlogmanager rdpanel rdairplay rdcastmanager rdrepld \
-          utils web tests importers ios $(PAM_RD_OPT)
+          rdlogedit rdlogmanager rdpanel rdairplay rdselect rdcastmanager \
+          rdrepld utils web tests importers ios $(PAM_RD_OPT)
 
 EXTRA_DIST = autogen.sh rivendell-suse.in rdrepld-suse.in\
              rivendell.spec.in rivendell.sys rivendell.pro rivendell-gentoo\
@@ -793,6 +794,7 @@ rpm:	dist
 	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
 	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-importers-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
 	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-devel-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
+	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-select-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
 	mv $(RPM_ROOT)/SRPMS/rivendell-$(VERSION)-@RPM_RELEASE@.src.rpm $(top_srcdir)/
 	rm $(RPM_ROOT)/SOURCES/rivendell-$(VERSION).tar.gz
 	rm -rf $(RPM_ROOT)/BUILD/rivendell-$(VERSION)

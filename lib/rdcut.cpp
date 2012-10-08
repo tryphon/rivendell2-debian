@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.cpp,v 1.76.6.1 2012/04/23 20:44:30 cvs Exp $
+//      $Id: rdcut.cpp,v 1.76.6.3 2012/08/02 20:37:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -102,23 +102,6 @@ RDCut::~RDCut()
 bool RDCut::exists() const
 {
   return RDDoesRowExist("CUTS","CUT_NAME",cut_name,cut_db);
-}
-
-
-bool RDCut::audioExists() const
-{
-  if(!exists()) {
-    return false;
-  }
-#ifndef WIN32
-  RDWaveFile *wave=new RDWaveFile(RDCut::pathName(cut_name)); 
-  if(!wave->openWave()) {
-    delete wave;
-    return false;
-  }
-  delete wave;
-#endif
-  return true;
 }
 
 
@@ -924,7 +907,9 @@ void RDCut::getMetadata(RDWaveData *data) const
   sql=QString().sprintf("select DESCRIPTION,OUTCUE,ISRC,ORIGIN_DATETIME,\
                          START_DATETIME,END_DATETIME,SEGUE_START_POINT,\
                          SEGUE_END_POINT,TALK_START_POINT,TALK_END_POINT,\
-                         START_POINT,END_POINT from CUTS where CUT_NAME=\"%s\"",
+                         START_POINT,END_POINT,HOOK_START_POINT,\
+                         HOOK_END_POINT,FADEUP_POINT,FADEDOWN_POINT \
+                         from CUTS where CUT_NAME=\"%s\"",
 			(const char *)cut_name);
   q=new RDSqlQuery(sql);
   if(q->first()) {
@@ -943,6 +928,10 @@ void RDCut::getMetadata(RDWaveData *data) const
     data->setIntroEndPos(q->value(9).toInt());
     data->setStartPos(q->value(10).toInt());
     data->setEndPos(q->value(11).toInt());
+    data->setHookStartPos(q->value(12).toInt());
+    data->setHookEndPos(q->value(13).toInt());
+    data->setFadeUpPos(q->value(14).toInt());
+    data->setFadeDownPos(q->value(15).toInt());
     data->setMetadataFound(true);
   }
   delete q;
@@ -1031,6 +1020,22 @@ void RDCut::setMetadata(RDWaveData *data) const
   if(data->startDate().isValid()&&data->endDate().isValid()&&
      (data->startTime().isNull())&&(data->endTime().isNull())) {
     data->setEndTime(QTime(23,59,59));
+  }
+  if((data->hookStartPos()>=data->startPos())&&
+     (data->hookStartPos()<=data->endPos())&&
+     (data->hookEndPos()>=data->startPos())&&
+     (data->hookEndPos()<=data->endPos())&&
+     (data->hookEndPos()>data->hookStartPos())) {
+    sql+=QString().sprintf("HOOK_START_POINT=%d,HOOK_END_POINT=%d,",
+			   data->hookStartPos(),data->hookEndPos());
+  }
+  if((data->fadeUpPos()>data->startPos())&&
+     (data->fadeUpPos()<=data->endPos())) {
+    sql+=QString().sprintf("FADEUP_POINT=%d,",data->fadeUpPos());
+  }
+  if((data->fadeDownPos()>data->startPos())&&
+     (data->fadeDownPos()<=data->endPos())) {
+    sql+=QString().sprintf("FADEDOWN_POINT=%d,",data->fadeDownPos());
   }
   if((data->startDate()>QDate(1900,1,1))&&(data->endDate().year()<8000)) {
     if(data->startTime().isValid()) {

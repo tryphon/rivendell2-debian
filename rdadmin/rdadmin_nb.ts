@@ -295,7 +295,7 @@ oppdatert til versjon </translation>
     <name>AddMatrix</name>
     <message>
         <source>Add Switcher</source>
-        <translation>Legg til bytar</translation>
+        <translation type="obsolete">Legg til bytar</translation>
     </message>
     <message>
         <source>&amp;New Matrix Number:</source>
@@ -375,6 +375,14 @@ oppdatert til versjon </translation>
     </message>
     <message>
         <source>New Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - Add Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -664,7 +672,7 @@ oppdatert til versjon </translation>
     </message>
     <message>
         <source>Level:</source>
-        <translation>Nivå:</translation>
+        <translation type="obsolete">Nivå:</translation>
     </message>
     <message>
         <source>Output Port</source>
@@ -700,6 +708,10 @@ oppdatert til versjon </translation>
     </message>
     <message>
         <source>Card Driver:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ref. Level:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1613,7 +1625,7 @@ Vil du framleis lagra?</translation>
     <name>EditMatrix</name>
     <message>
         <source>Edit Switcher</source>
-        <translation>Rediger svitsjar</translation>
+        <translation type="obsolete">Rediger svitsjar</translation>
     </message>
     <message>
         <source>Matrix Number:</source>
@@ -1798,6 +1810,10 @@ G&amp;POs</source>
     <message>
         <source>SAS
 Switches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - Edit Switcher</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2933,6 +2949,18 @@ for lydressursar.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Available Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allowed Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by Groups</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4408,6 +4436,10 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>BroadcastTools SRC-16</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Harlond Virtual Mixer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

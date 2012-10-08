@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdreport.cpp,v 1.27 2012/01/12 16:24:50 cvs Exp $
+//      $Id: rdreport.cpp,v 1.27.4.3 2012/08/24 18:58:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -43,7 +43,7 @@ QString RDReport::name() const
 }
 
 
-bool RDReport::exists()
+bool RDReport::exists() const
 {
   RDSqlQuery *q=new RDSqlQuery(QString().sprintf("select NAME from REPORTS\
                                                 where NAME=\"%s\"",
@@ -58,102 +58,102 @@ bool RDReport::exists()
 }
 
 
-QString RDReport::description()
+QString RDReport::description() const
 {
   return RDGetSqlValue("REPORTS","NAME",report_name,"DESCRIPTION").toString();
 }
 
 
-void RDReport::setDescription(const QString &desc)
+void RDReport::setDescription(const QString &desc) const
 {
   SetRow("DESCRIPTION",desc);
 }
 
 
-RDReport::ExportFilter RDReport::filter()
+RDReport::ExportFilter RDReport::filter() const
 {
   return (RDReport::ExportFilter)RDGetSqlValue("REPORTS","NAME",report_name,
 					      "EXPORT_FILTER").toInt();
 }
 
 
-void RDReport::setFilter(ExportFilter filter)
+void RDReport::setFilter(ExportFilter filter) const
 {
   SetRow("EXPORT_FILTER",(int)filter);
 }
 
 
-QString RDReport::exportPath(ExportOs ostype)
+QString RDReport::exportPath(ExportOs ostype) const
 {
   return RDGetSqlValue("REPORTS","NAME",report_name,OsFieldName(ostype)).
     toString();
 }
 
 
-void RDReport::setExportPath(ExportOs ostype,const QString &path)
+void RDReport::setExportPath(ExportOs ostype,const QString &path) const
 {
   SetRow(OsFieldName(ostype),path);
 }
 
 
-bool RDReport::exportTypeEnabled(ExportType type)
+bool RDReport::exportTypeEnabled(ExportType type) const
 {
   return RDBool(RDGetSqlValue("REPORTS","NAME",report_name,
 			    TypeFieldName(type,false)).toString());
 }
 
 
-void RDReport::setExportTypeEnabled(ExportType type,bool state)
+void RDReport::setExportTypeEnabled(ExportType type,bool state) const
 {
   SetRow(TypeFieldName(type,false),RDYesNo(state));
 }
 
 
-bool RDReport::exportTypeForced(ExportType type)
+bool RDReport::exportTypeForced(ExportType type) const
 {
   return RDBool(RDGetSqlValue("REPORTS","NAME",report_name,
 			    TypeFieldName(type,true)).toString());
 }
 
 
-void RDReport::setExportTypeForced(ExportType type,bool state)
+void RDReport::setExportTypeForced(ExportType type,bool state) const
 {
   SetRow(TypeFieldName(type,true),RDYesNo(state));
 }
 
 
-QString RDReport::stationId()
+QString RDReport::stationId() const
 {
   return RDGetSqlValue("REPORTS","NAME",report_name,"STATION_ID").toString();
 }
 
 
-void RDReport::setStationId(const QString &id)
+void RDReport::setStationId(const QString &id) const
 {
   SetRow("STATION_ID",id);
 }
 
 
-unsigned RDReport::cartDigits()
+unsigned RDReport::cartDigits() const
 {
   return RDGetSqlValue("REPORTS","NAME",report_name,"CART_DIGITS").toUInt();
 }
 
   
-void RDReport::setCartDigits(unsigned num)
+void RDReport::setCartDigits(unsigned num) const
 {
   SetRow("CART_DIGITS",num);
 }
 
 
-bool RDReport::useLeadingZeros()
+bool RDReport::useLeadingZeros() const
 {
   return RDBool(RDGetSqlValue("REPORTS","NAME",report_name,"USE_LEADING_ZEROS").
 	       toString());
 }
 
 
-void RDReport::setUseLeadingZeros(bool state)
+void RDReport::setUseLeadingZeros(bool state) const
 {
   SetRow("USE_LEADING_ZEROS",state);
 }
@@ -165,7 +165,7 @@ int RDReport::linesPerPage() const
 }
 
 
-void RDReport::setLinesPerPage(int lines)
+void RDReport::setLinesPerPage(int lines) const
 {
   SetRow("LINES_PER_PAGE",lines);
 }
@@ -177,7 +177,7 @@ QString RDReport::serviceName() const
 }
 
 
-void RDReport::setServiceName(const QString &name)
+void RDReport::setServiceName(const QString &name) const
 {
   SetRow("SERVICE_NAME",name);
 }
@@ -190,7 +190,7 @@ RDReport::StationType RDReport::stationType() const
 }
 
 
-void RDReport::setStationType(RDReport::StationType type)
+void RDReport::setStationType(RDReport::StationType type) const
 {
   SetRow("STATION_TYPE",(int)type);
 }
@@ -203,7 +203,7 @@ QString RDReport::stationFormat() const
 }
 
 
-void RDReport::setStationFormat(const QString &fmt)
+void RDReport::setStationFormat(const QString &fmt) const
 {
   SetRow("STATION_FORMAT",fmt);
 }
@@ -216,9 +216,22 @@ bool RDReport::filterOnairFlag() const
 }
 
 
-void RDReport::setFilterOnairFlag(bool state)
+void RDReport::setFilterOnairFlag(bool state) const
 {
   SetRow("FILTER_ONAIR_FLAG",RDYesNo(state));
+}
+
+
+bool RDReport::filterGroups() const
+{
+  return RDBool(RDGetSqlValue("REPORTS","NAME",report_name,"FILTER_GROUPS").
+    toString());
+}
+
+
+void RDReport::setFilterGroups(bool state) const
+{
+  SetRow("FILTER_GROUPS",RDYesNo(state));
 }
 
 
@@ -261,10 +274,12 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
   //
   // Next, the group list
   //
+  bool where=false;
   if(exportTypeEnabled(RDReport::Generic)) {
     sql="select NAME from GROUPS  ";
   }
   else {
+    where=true;
     sql="select NAME from GROUPS where ";
     if(exportTypeEnabled(RDReport::Traffic)) {
       sql+="(REPORT_TFC=\"Y\")||";
@@ -272,6 +287,21 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
     if(exportTypeEnabled(RDReport::Music)) {
       sql+="(REPORT_MUS=\"Y\")||";
     }
+  }
+  if(filterGroups()) {
+    QString sql2=QString().sprintf("select GROUP_NAME from REPORT_GROUPS \
+                                    where REPORT_NAME=\"%s\"",
+				   (const char *)RDEscapeString(name()));
+    q=new RDSqlQuery(sql2);
+    while(q->next()) {
+      if(!where) {
+	sql+="where ";
+	where=true;
+      }
+      sql+=QString().sprintf("(NAME=\"%s\")||",
+		     (const char *)RDEscapeString(q->value(0).toString()));
+    }
+    delete q;
   }
   sql=sql.left(sql.length()-2);
   q=new RDSqlQuery(sql);
@@ -327,11 +357,14 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
                            LOG_NAME,`%s_SRT`.TITLE,`%s_SRT`.ARTIST,\
                            SCHEDULED_TIME,\
                            START_SOURCE,`%s_SRT`.PUBLISHER,`%s_SRT`.COMPOSER,\
+                           `%s_SRT`.ALBUM,`%s_SRT`.LABEL,\
                            `%s_SRT`.ISRC,`%s_SRT`.USAGE_CODE,\
                            `%s_SRT`.ONAIR_FLAG,`%s_SRT`.ISCI from `%s_SRT`\
                            left join CART on `%s_SRT`.CART_NUMBER=CART.NUMBER \
                            where (EVENT_DATETIME>=\"%s 00:00:00\")&&\
                            (EVENT_DATETIME<=\"%s 23:59:59\")&&(%s)",
+			    (const char *)rec_name,
+			    (const char *)rec_name,
 			    (const char *)rec_name,
 			    (const char *)rec_name,
 			    (const char *)rec_name,
@@ -361,13 +394,20 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
       q1=new RDSqlQuery(sql);
       while(q1->next()) {
 	sql=QString().sprintf("insert into `%s_SRT` set\
-                             LENGTH=%d,LOG_ID=%u,CART_NUMBER=%d,\
-                             STATION_NAME=\"%s\",EVENT_DATETIME=\"%s\",\
-                             EVENT_TYPE=%d,EXT_START_TIME=\"%s\",\
-                             EXT_LENGTH=%d,EXT_DATA=\"%s\",\
-                             EXT_EVENT_ID=\"%s\",EXT_ANNC_TYPE=\"%s\",\
+                             LENGTH=%d,\
+                             LOG_ID=%u,\
+                             CART_NUMBER=%d,\
+                             STATION_NAME=\"%s\",\
+                             EVENT_DATETIME=\"%s\",\
+                             EVENT_TYPE=%d,\
+                             EXT_START_TIME=\"%s\",\
+                             EXT_LENGTH=%d,\
+                             EXT_DATA=\"%s\",\
+                             EXT_EVENT_ID=\"%s\",\
+                             EXT_ANNC_TYPE=\"%s\",\
                              PLAY_SOURCE=%d,\
-                             CUT_NUMBER=%d,EVENT_SOURCE=%d,\
+                             CUT_NUMBER=%d,\
+                             EVENT_SOURCE=%d,\
                              EXT_CART_NAME=\"%s\",\
                              LOG_NAME=\"%s\",\
                              TITLE=\"%s\",\
@@ -376,6 +416,8 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
                              START_SOURCE=%d,\
                              PUBLISHER=\"%s\",\
                              COMPOSER=\"%s\",\
+                             ALBUM=\"%s\",\
+                             LABEL=\"%s\",\
                              ISRC=\"%s\",\
                              USAGE_CODE=%d,\
                              ONAIR_FLAG=\"%s\",\
@@ -418,11 +460,15 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 			      RDEscapeString(q1->value(21).toString()),
 			      (const char *)
 			      RDEscapeString(q1->value(22).toString()),
-			      q1->value(23).toInt(),
+			      (const char *)
+			      RDEscapeString(q1->value(23).toString()),
 			      (const char *)
 			      RDEscapeString(q1->value(24).toString()),
+			      q1->value(25).toInt(),
 			      (const char *)
-			      RDEscapeString(q1->value(25).toString()));
+			      RDEscapeString(q1->value(26).toString()),
+			      (const char *)
+			      RDEscapeString(q1->value(27).toString()));
 	q2=new RDSqlQuery(sql);
 	delete q2;
       }
@@ -463,6 +509,7 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 	break;
 
       case RDReport::CounterPoint:
+      case RDReport::WideOrbit:
 	ret=ExportRadioTraffic(startdate,enddate,mixname);
 	break;
 
@@ -470,11 +517,15 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 	ret=ExportRadioTraffic(startdate,enddate,mixname);
 	break;
 
+      case RDReport::MusicSummary:
+	ret=ExportMusicSummary(startdate,enddate,mixname);
+	break;
+
       default:
 	return false;
 	break;
   }
-  // printf("MIXDOWN TABLE: %s_SRT\n",(const char *)mixname);
+  //printf("MIXDOWN TABLE: %s_SRT\n",(const char *)mixname);
   sql=QString().sprintf("drop table `%s_SRT`",(const char *)mixname);
   q=new RDSqlQuery(sql);
   delete q;
@@ -513,6 +564,12 @@ QString RDReport::filterText(RDReport::ExportFilter filter)
       case RDReport::Music1:
 	return QObject::tr("Music1 Reconciliation");
 
+      case RDReport::MusicSummary:
+	return QObject::tr("Music Summary");
+
+      case RDReport::WideOrbit:
+	return QObject::tr("WideOrbit Traffic Reconciliation");
+
       default:
 	return QObject::tr("Unknown");
   }
@@ -549,11 +606,13 @@ bool RDReport::multipleDaysAllowed(RDReport::ExportFilter filter)
   case RDReport::CounterPoint:
   case RDReport::LastFilter:
   case RDReport::Music1:
+  case RDReport::WideOrbit:
     return false;
 
   case RDReport::BmiEmr:
   case RDReport::SoundExchange:
   case RDReport::Technical:
+  case RDReport::MusicSummary:
     return true;
   }
   return true;
@@ -571,10 +630,12 @@ bool RDReport::multipleMonthsAllowed(RDReport::ExportFilter filter)
   case RDReport::CounterPoint:
   case RDReport::LastFilter:
   case RDReport::Music1:
+  case RDReport::WideOrbit:
     return false;
     
   case RDReport::SoundExchange:
   case RDReport::Technical:
+  case RDReport::MusicSummary:
     return true;
   }
   return true;
@@ -601,7 +662,7 @@ QString RDReport::errorText(RDReport::ErrorCode code)
 }
 
 
-void RDReport::SetRow(const QString &param,QString value)
+void RDReport::SetRow(const QString &param,QString value) const
 {
   RDSqlQuery *q;
   QString sql;
@@ -615,7 +676,7 @@ void RDReport::SetRow(const QString &param,QString value)
 }
 
 
-void RDReport::SetRow(const QString &param,int value)
+void RDReport::SetRow(const QString &param,int value) const
 {
   RDSqlQuery *q;
   QString sql;
@@ -629,7 +690,7 @@ void RDReport::SetRow(const QString &param,int value)
 }
 
 
-void RDReport::SetRow(const QString &param,unsigned value)
+void RDReport::SetRow(const QString &param,unsigned value) const
 {
   RDSqlQuery *q;
   QString sql;
@@ -643,7 +704,7 @@ void RDReport::SetRow(const QString &param,unsigned value)
 }
 
 
-void RDReport::SetRow(const QString &param,bool value)
+void RDReport::SetRow(const QString &param,bool value) const
 {
   RDSqlQuery *q;
   QString sql;
@@ -657,7 +718,7 @@ void RDReport::SetRow(const QString &param,bool value)
 }
 
 
-QString RDReport::OsFieldName(ExportOs os)
+QString RDReport::OsFieldName(ExportOs os) const
 {
   switch(os) {
       case RDReport::Linux:
@@ -670,7 +731,7 @@ QString RDReport::OsFieldName(ExportOs os)
 }
 
 
-QString RDReport::TypeFieldName(ExportType type,bool forced)
+QString RDReport::TypeFieldName(ExportType type,bool forced) const
 {
   if(forced) {
     switch(type) {

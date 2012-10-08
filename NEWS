@@ -1,6 +1,70 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.2.0 -- 8/31/2012
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   HPI Enhancements.  Support for setting input modes for AudioScience
+   adapters has been added (requires support in the hardware as well).
+
+   Scripting Enhancements.  The rdcollect(1) script has been modified
+   to allow multiple source files to be used.
+
+   Report Enhancements.  It is now possible to filter data for reports
+   by Group membership as well as Service and Host.  A new 'Music Summary'
+   report has also been added.
+
+   New Traffic System Preset.  A preset for 'WideOrbit Traffic' has been
+   added.
+
+   New Rivendell Loadable Module.  An 'rlm_padpoint' RLM has been added
+   that can be used to send PAD data to a PadPoint processor system.
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 207, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
+v2.1.5 -- 7/27/2012
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   This is a maintenance release of Rivendell.  Some of the issues
+   addressed include:
+
+   New Rivendell Loadable Module.  An 'rlm_filewrite' RLM has been added
+   that can be used to write PAD data to filesystems.
+
+   NexGen Import Filter.  An filter for importing audio from a Prophet
+   NexGen system has been added.
+
+   New RML.  A 'Label Panel' ['PC'] RML has been added that allows
+   the text and color of SoundPanel buttons to be changed programmatically.
+
+   Multiple System Selector.  An 'RDSelect' utility has been added to
+   allow hosts to be easily switched between multiple database/audio
+   store instances [experimental].
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 205, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.1.4 -- 5/11/2012
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

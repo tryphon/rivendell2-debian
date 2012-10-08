@@ -6,7 +6,7 @@
 ##
 ##   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.65 2011/05/27 16:52:59 cvs Exp $
+##      $Id: Makefile.am,v 1.65.6.1 2012/07/16 23:25:38 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -33,8 +33,8 @@ if ALSA_RD_AM
 endif
 SUBDIRS = icons helpers $(HPI_RD_OPT) lib rlm scripts cae conf docs \
           debian xdg rdadmin ripcd rdlogin rdlibrary rdcatch rdcatchd \
-          rdlogedit rdlogmanager rdpanel rdairplay rdcastmanager rdrepld \
-          utils web tests importers ios $(PAM_RD_OPT)
+          rdlogedit rdlogmanager rdpanel rdairplay rdselect rdcastmanager \
+          rdrepld utils web tests importers ios $(PAM_RD_OPT)
 
 install-exec-local:	
 	./install-init.sh $(DESTDIR)$(prefix)
@@ -55,6 +55,7 @@ rpm:	dist
 	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
 	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-importers-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
 	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-devel-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
+	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-select-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
 	mv $(RPM_ROOT)/SRPMS/rivendell-$(VERSION)-@RPM_RELEASE@.src.rpm $(top_srcdir)/
 	rm $(RPM_ROOT)/SOURCES/rivendell-$(VERSION).tar.gz
 	rm -rf $(RPM_ROOT)/BUILD/rivendell-$(VERSION)

@@ -15,6 +15,9 @@ AudioGroup=rivendell
 ; Rivendell system services [caed(8), ripcd(8), rdcatchd(8)].
 Password=letmein
 
+; This entry is what will appear in RDSelect's list for this configuration.
+Label=Default Configuration
+
 [mySQL]
 ; The connection parameters for the MySQL server.
 Hostname=localhost
@@ -22,6 +25,11 @@ Loginname=rduser
 Password=letmein
 Database=Rivendell
 Driver=QMYSQL3
+
+[AudioStore]
+MountSource=
+MountType=
+MountOptions=defaults
 
 [Logs]
 ; Set the method to be used for logging.  Possible values are:

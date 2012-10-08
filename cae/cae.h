@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae.h,v 1.79 2011/10/31 19:18:21 cvs Exp $
+//      $Id: cae.h,v 1.79.4.1 2012/08/03 16:52:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -182,6 +182,7 @@ class MainObject : public QObject
   bool hpiUnloadRecord(int card,int stream,unsigned *len);
   bool hpiRecord(int card,int stream,int length,int thres);
   bool hpiStopRecord(int card,int stream);
+  bool hpiSetClockSource(int card,int src);
   bool hpiSetInputVolume(int card,int stream,int level);
   bool hpiSetOutputVolume(int card,int stream,int port,int level);
   bool hpiFadeOutputVolume(int card,int stream,int port,int level,int length);

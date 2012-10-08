@@ -5,8 +5,8 @@ dnl Use autoconf to process this into a configure script
 dnl
 dnl   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 dnl
-dnl      $Id: configure.in,v 1.247.6.1 2012/04/23 18:42:37 cvs Exp $
-dnl      $Date: 2012/04/23 18:42:37 $
+dnl      $Id: configure.in,v 1.247.6.4 2012/08/08 19:48:29 cvs Exp $
+dnl      $Date: 2012/08/08 19:48:29 $
 dnl
 dnl   This program is free software; you can redistribute it and/or modify
 dnl   it under the terms of the GNU General Public License version 2 as
@@ -104,11 +104,17 @@ if test $ar_gcc_distro = suse ; then
   AC_SUBST(APACHE_PKG,"apache2")
   AC_SUBST(APACHE_CONFIG_DIR,"/etc/apache2/conf.d")
   AC_SUBST(QT3_MYSQL_PKG,"qt3-mysql")
+  AC_SUBST(QT3_DEVEL_PKG,"qt3-devel")
   AC_SUBST(MYSQL_PKG,"mysql")
 else
   AC_SUBST(APACHE_PKG,"httpd")
   AC_SUBST(APACHE_CONFIG_DIR,"/etc/httpd/conf.d")
   AC_SUBST(QT3_MYSQL_PKG,"qt-MySQL")
+  if test $ar_distro_major -ge 6 ; then
+    AC_SUBST(QT3_DEVEL_PKG,"qt3-devel")
+  else
+    AC_SUBST(QT3_DEVEL_PKG,"qt-devel")
+  fi
   AC_SUBST(MYSQL_PKG,"mysqld")
 fi
 
@@ -400,6 +406,7 @@ AC_CONFIG_FILES([rivendell.spec \
     rdairplay/Makefile \
     rdpanel/Makefile \
     rdcastmanager/Makefile \
+    rdselect/Makefile \
     rdrepld/Makefile \
     tests/Makefile \
     importers/Makefile \

@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.18 2010/07/29 19:32:32 cvs Exp $
-##      $Date: 2010/07/29 19:32:32 $
+##      $Id: Makefile.am,v 1.18.8.1 2012/07/15 22:35:54 cvs Exp $
+##      $Date: 2012/07/15 22:35:54 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -33,7 +33,7 @@ moc_%.cpp:	%.h
 	$(MOC) $< -o $@
 
 bin_PROGRAMS = sas_filter wings_filter rivendell_filter rdcatch_copy \
-               panel_copy
+               panel_copy nexgen_filter
 
 dist_sas_filter_SOURCES = sas_filter.cpp sas_filter.h
 nodist_sas_filter_SOURCES = moc_sas_filter.cpp
@@ -46,6 +46,10 @@ wings_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 dist_rivendell_filter_SOURCES = rivendell_filter.cpp rivendell_filter.h
 nodist_rivendell_filter_SOURCES = moc_rivendell_filter.cpp
 rivendell_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+
+dist_nexgen_filter_SOURCES = nexgen_filter.cpp nexgen_filter.h
+nodist_nexgen_filter_SOURCES = moc_nexgen_filter.cpp
+nexgen_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 dist_rdcatch_copy_SOURCES = rdcatch_copy.cpp rdcatch_copy.h
 nodist_rdcatch_copy_SOURCES = moc_rdcatch_copy.cpp

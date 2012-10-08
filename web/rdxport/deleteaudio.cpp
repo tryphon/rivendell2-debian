@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: deleteaudio.cpp,v 1.6 2012/02/13 23:01:50 cvs Exp $
+//      $Id: deleteaudio.cpp,v 1.6.2.1 2012/07/17 19:29:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -50,7 +50,7 @@ void Xport::DeleteAudio()
   //
   // Process Request
   //
-  if(!xport_user->deleteCarts()) {
+  if((!xport_user->deleteCarts())&&(!xport_user->adminConfig())) {
     XmlExit("User not authorized",401);
   }
   RDCut *cut=new RDCut(cartnum,cutnum);

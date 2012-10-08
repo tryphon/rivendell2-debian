@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,1020 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: switcher.h,v 1.1 2010/08/03 23:39:26 cvs Exp $
+//      $Id: switcher.h,v 1.1.8.1 2012/08/06 00:12:07 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -49,6 +49,9 @@ class Switcher : public QObject
   void gpoChanged(int matrix,int line,bool state);
   void gpiState(int matrix,unsigned line,bool state);
   void gpoState(int matrix,unsigned line,bool state);
+
+ protected:
+  void executeMacroCart(unsigned cartnum);
 };
 
 

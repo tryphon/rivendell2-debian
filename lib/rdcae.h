@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcae.h,v 1.32 2011/10/31 19:18:21 cvs Exp $
+//      $Id: rdcae.h,v 1.32.4.1 2012/08/03 16:52:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -20,6 +20,9 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
+#ifndef RDCAE_H
+#define RDCAE_H
+
 #include <vector>
 
 #include <qsqldatabase.h>
@@ -33,15 +36,11 @@
 #include <rdstation.h>
 #include <rdconfig.h>
 
-#ifndef RDCAE_H
-#define RDCAE_H
-
-
-
 class RDCae : public QObject
 {
  Q_OBJECT
  public:
+  enum ClockSource {InternalClock=0,AesEbuClock=1,SpDiffClock=2,WordClock=4};
   enum ChannelMode {Normal=0,Swap=1,LeftOnly=2,RightOnly=3};
   enum SourceType {Analog=0,AesEbu=1};
   enum AudioCoding {Pcm16=0,MpegL1=1,MpegL2=2,MpegL3=3};
@@ -59,6 +58,7 @@ class RDCae : public QObject
   void unloadRecord(int card,int stream);
   void record(int card,int stream,unsigned length,int threshold);
   void stopRecord(int card,int stream);
+  void setClockSource(int card,RDCae::ClockSource src);
   void setInputVolume(int card,int stream,int level);
   void setOutputVolume(int card,int stream,int port,int level);
   void fadeOutputVolume(int card,int stream,int port,int level,int length);
