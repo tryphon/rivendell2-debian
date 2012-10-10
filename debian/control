@@ -10,7 +10,7 @@ Vcs-Browser: http://projects.tryphon.org/rivendell2-debian/browser
 
 Package: rivendell
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libqt3-mt-mysql
+Depends: ${shlibs:Depends}, ${misc:Depends}, librivendell (= ${binary:Version}), libqt3-mt-mysql
 Recommends: jackd, logrotate, libmp3lame0, libtwolame0, libmad0
 Description: contains a set of functionality needed to operate a radio automation system
  It consisting of the following components:
