@@ -12,6 +12,7 @@ Package: rivendell
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, librivendell (= ${binary:Version}), libqt3-mt-mysql
 Recommends: jackd, logrotate, libmp3lame0, libtwolame0, libmad0
+Suggests: libqt3-headers
 Description: contains a set of functionality needed to operate a radio automation system
  It consisting of the following components:
  .
