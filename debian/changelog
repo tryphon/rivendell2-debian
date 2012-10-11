@@ -1,6 +1,8 @@
 rivendell (2.2.0-1) unstable; urgency=low
 
   * New upstream release
+  * Add libqt3-headers in suggested packages. Fixes #414
+  * Add explicit librivendell dependency with binary:Version. Fixes #415
 
  -- Alban Peignier <alban@tryphon.eu>  Mon, 08 Oct 2012 17:12:03 +0200
 
