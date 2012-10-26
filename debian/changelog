@@ -1,3 +1,9 @@
+rivendell (2.2.0-2) UNRELEASED; urgency=low
+
+  * Provides RLM in rivendell packages (fixes #616)
+
+ -- Alban Peignier <alban@tryphon.eu>  Fri, 26 Oct 2012 12:34:12 +0200
+
 rivendell (2.2.0-1) unstable; urgency=low
 
   * New upstream release
