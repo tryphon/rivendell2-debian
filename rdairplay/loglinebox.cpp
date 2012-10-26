@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loglinebox.cpp,v 1.89 2011/05/20 20:46:44 cvs Exp $
+//      $Id: loglinebox.cpp,v 1.89.6.1 2012/10/09 16:42:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -405,8 +405,7 @@ void LogLineBox::setEvent(int line,RDLogLine::TransType next_type,
   case RDLogLine::Cart:
     line_comment_label->hide();
     cart=new RDCart(logline->cartNumber());
-    cut=new RDCut(QString().sprintf("%06u_%03u",logline->cartNumber(),
-				    logline->cutNumber()));
+    cut=new RDCut(logline->cartNumber(),logline->cutNumber());
     if(!cart->exists()) {
       line_cart_label->
 	setText(QString().sprintf("%06u",logline->cartNumber()));
@@ -510,7 +509,9 @@ void LogLineBox::setEvent(int line,RDLogLine::TransType next_type,
 					    (const char *)line_logline->originDateTime().
 					    toString("M/d hh:mm")));
 	}
-	line_description_label->setText(cut->description());
+	if(cut->exists()) {
+	  line_description_label->setText(cut->description());
+	}
 	line_artist_label->setText(cart->artist());
 	line_up_label->
 	  setText(RDGetTimeLength(line_logline->playPosition(),true,true));

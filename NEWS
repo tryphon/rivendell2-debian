@@ -1,6 +1,38 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.2.1 -- 10/23/2012
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   RDMonitor Module.  A persistent desktop applet has been added that
+   continuously monitors the health of the system and alerts the operator
+   in the event of any detected problems.  See 'RDMONITOR.txt' for usage
+   and configuration info.
+
+   Sage Digital ENDEC Control.  A 'sage_endec_rwt.sh' script has been
+   added that allows a Required Weekly Test (RWT) to be executed on a
+   Sage Digital ENDEC via TCP/IP.  See 'SAGE_ENDEC.txt' for usage and 
+   configuration info.
+
+   Cut Attribute Searching.  The cart filter will now include the
+   attributes of underlying cuts when searching the library.
+
+   RDCheckCuts Utility.  An rdcheckcuts(1) command-line utility has
+   been added for checking the integrity of the audio store.
+   
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 207, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.2.0 -- 8/31/2012
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioconvert.h,v 1.4 2011/12/23 17:44:45 cvs Exp $
+//      $Id: rdaudioconvert.h,v 1.4.4.1 2012/09/06 19:47:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -148,6 +148,7 @@ class RDAudioConvert : public QObject
   int (*lame_encode_buffer)
     (lame_global_flags *,short int[],short int[],int,unsigned char *,int);
   int (*lame_encode_flush)(lame_global_flags *,unsigned char *,int);
+  int (*lame_set_bWriteVbrTag)(lame_global_flags *, int);
 #endif  // HAVE_LAME
 };
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2011 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioinfo.cpp,v 1.3 2011/10/17 21:01:03 cvs Exp $
+//      $Id: rdaudioinfo.cpp,v 1.3.4.1 2012/10/13 04:53:19 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -173,6 +173,9 @@ RDAudioInfo::ErrorCode RDAudioInfo::runInfo(const QString &username,
   case 200:
     break;
 
+  case 404:
+    return RDAudioInfo::ErrorNoAudio;
+
   default:
     return RDAudioInfo::ErrorService;
   }
@@ -209,6 +212,10 @@ QString RDAudioInfo::errorText(RDAudioInfo::ErrorCode err)
 
   case RDAudioInfo::ErrorInvalidUser:
     ret=tr("Invalid user or password");
+    break;
+
+  case RDAudioInfo::ErrorNoAudio:
+    ret=tr("Audio does not exist");
     break;
   }
   return ret;

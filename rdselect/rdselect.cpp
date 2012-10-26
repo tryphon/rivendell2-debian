@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdselect.cpp,v 1.1.2.1 2012/07/16 23:25:38 cvs Exp $
+//      $Id: rdselect.cpp,v 1.1.2.6 2012/10/22 23:09:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,6 +38,8 @@
 #include <rd.h>
 #include <rdconf.h>
 #include <rdcmd_switch.h>
+#include <rdstatus.h>
+#include <dbversion.h>
 
 #include <rdselect.h>
 
@@ -45,6 +47,8 @@
 // Icons
 //
 #include "../icons/rivendell-22x22.xpm"
+#include "../icons/greencheckmark.xpm"
+#include "../icons/redx.xpm"
 
 
 MainWidget::MainWidget(QWidget *parent,const char *name)
@@ -55,6 +59,45 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   RDCmdSwitch *cmd=new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdselect","\n");
   delete cmd;
+
+  //
+  // Read Configuration
+  //
+  monitor_config=new RDMonitorConfig();
+  monitor_config->load();
+  QDesktopWidget *dw=qApp->desktop();
+  int width=sizeHint().width();
+  int height=sizeHint().height();
+  switch(monitor_config->position()) {
+  case RDMonitorConfig::UpperLeft:
+    setGeometry(0,RDMONITOR_HEIGHT,width,sizeHint().height());
+    break;
+
+  case RDMonitorConfig::UpperCenter:
+    setGeometry((dw->size().width()-width)/2,RDMONITOR_HEIGHT,width,height);
+    break;
+
+  case RDMonitorConfig::UpperRight:
+    setGeometry(dw->size().width()-width,RDMONITOR_HEIGHT,width,height);
+    break;
+
+  case RDMonitorConfig::LowerLeft:
+    setGeometry(0,dw->size().height()-height+RDMONITOR_HEIGHT,width,height);
+    break;
+
+  case RDMonitorConfig::LowerCenter:
+    setGeometry((dw->size().width()-width)/2,
+		dw->size().height()-height+RDMONITOR_HEIGHT,width,height);
+    break;
+
+  case RDMonitorConfig::LowerRight:
+    setGeometry(dw->size().width()-width,
+		dw->size().height()-height+RDMONITOR_HEIGHT,width,height);
+    break;
+
+  case RDMonitorConfig::LastPosition:
+    break;
+  }
 
   //
   // Fix the Window Size
@@ -74,11 +117,13 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   label_font.setPixelSize(16);
 
   //
-  // Create And Set Icon
+  // Create And Set Icons
   //
   login_rivendell_map=new QPixmap(rivendell_xpm);
   setIcon(*login_rivendell_map);
   setCaption(tr("RDSelect"));
+  greencheckmark_map=new QPixmap(greencheckmark_xpm);
+  redx_map=new QPixmap(redx_xpm);
 
   //
   // Load Configs
@@ -124,7 +169,6 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   for(unsigned i=0;i<select_configs.size();i++) {
     select_box->insertItem(select_configs[i]->label());
   }
-  select_box->setCurrentItem(select_current_id);
   select_label=new QLabel(select_box,tr("Available Systems"),this);
   select_label->setFont(button_font);
 
@@ -145,11 +189,15 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   connect(cancel_button,SIGNAL(clicked()),this,SLOT(cancelData()));
 
   SetSystem(select_current_id);
+  SetCurrentItem(select_current_id);
+  select_box->clearSelection();
 
   //
   // Check for Root User 
   //
-  if(geteuid()!=0) {
+
+  setuid(geteuid());  // So the SETUID bit works as expected
+  if(getuid()!=0) {
     QMessageBox::information(this,tr("RDSelect"),
 			     tr("Only root can run this utility!"));
     exit(256);
@@ -183,26 +231,22 @@ void MainWidget::okData()
     return;
   }
 
-  if(select_box->currentItem()!=select_current_id) {
-    if(!VerifyShutdown()) {
-      return;
-    }
-    if(!Shutdown(select_current_id)) {
-      SetSystem(-1);
-      QMessageBox::warning(this,tr("RDSelect"),
-			   tr("Unable to shutdown current configuration")+
-			   "\n["+strerror(errno)+"].");
-      return;
-    }
-    if(!Startup(select_box->currentItem())) {
-      SetSystem(-1);
-      QMessageBox::warning(this,tr("RDSelect"),
-			   tr("Unable to start up new configuration")+
-			   "\n["+strerror(errno)+"].");
-      return;
-    }
-    SetSystem(select_box->currentItem());
+  if(!VerifyShutdown()) {
+    return;
   }
+  if(!Shutdown(select_current_id)) {
+    SetSystem(-1);
+    QMessageBox::warning(this,tr("RDSelect"),
+			 tr("Unable to shutdown current configuration")+
+			 "\n["+strerror(errno)+"].");
+    return;
+  }
+  if(!Startup(select_box->currentItem())) {
+    SetSystem(-1);
+    QMessageBox::warning(this,tr("RDSelect"),
+			 tr("Unable to start up new configuration"));
+  }
+  SetSystem(select_box->currentItem());
   exit(0);
 }
 
@@ -230,12 +274,8 @@ bool MainWidget::Shutdown(int id)
   if(system("/etc/init.d/rivendell stop")!=0) {
     return false;
   }
-  if(AudioStoreMounted()) {
-    QString cmd=QString("umount ")+conf->audioRoot();
-    if(system(cmd)!=0) {
-      return false;
-    }
-  }
+  system(QString("umount ")+conf->audioRoot());
+
   return true;
 }
 
@@ -285,24 +325,24 @@ bool MainWidget::VerifyShutdown() const
 }
 
 
-bool MainWidget::AudioStoreMounted()
+void MainWidget::SetCurrentItem(int id)
 {
-  FILE *f=NULL;
-  char line[1024];
-  bool ret=false;
-
-  if((f=fopen("/etc/mtab","r"))==NULL) {
-    QMessageBox::critical(this,tr("RDSelect"),tr("Unable to read mtab(5)!"));
-    return false;
+  QPixmap *pix=redx_map;
+  int schema=0;
+  bool db_ok=RDDbValid(select_configs[select_current_id],&schema);
+  bool snd_ok=RDAudioStoreValid(select_configs[select_current_id]);
+  
+  if(db_ok&(schema==RD_VERSION_DATABASE)&&snd_ok) {
+    pix=greencheckmark_map;
   }
-  while(fgets(line,1024,f)!=NULL) {
-    QStringList fields=fields.split(" ",QString(line));
-    if(fields.size()>=2) {
-      ret=ret||fields[1]==select_configs[select_current_id]->audioRoot();
+  for(unsigned i=0;i<select_box->count();i++) {
+    if((int)i==id) {
+      select_box->changeItem(*pix,select_configs[i]->label(),i);
+    }
+    else {
+      select_box->changeItem(select_configs[i]->label(),i);
     }
   }
-  fclose(f);
-  return ret;
 }
 
 
@@ -338,7 +378,6 @@ int main(int argc,char *argv[])
   //
   MainWidget *w=new MainWidget(NULL,"main");
   a.setMainWidget(w);
-  w->setGeometry(QRect(QPoint(0,0),w->sizeHint()));
   w->show();
   return a.exec();
 }

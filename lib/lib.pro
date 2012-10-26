@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2007 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: lib.pro,v 1.36.8.1 2012/08/13 20:08:27 cvs Exp $
+#      $Id: lib.pro,v 1.36.8.3 2012/10/22 17:49:32 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -157,6 +157,8 @@ x11 {
   SOURCES += rdedit_panel_name.cpp
   SOURCES += rdlist_groups.cpp
   SOURCES += rdlist_logs.cpp
+  SOURCES += rdstatus.cpp
+  SOURCES += rdmonitor_config.cpp
 }
 
 HEADERS += rdescape_string.h
@@ -279,6 +281,8 @@ x11 {
   HEADERS += rdedit_panel_name.h
   HEADERS += rdlist_groups.h
   HEADERS += rdlist_logs.h
+  HEADERS += rdstatus.h
+  HEADERS += rdmonitor_config.h
 }
 
 INCLUDEPATH += ..\..\libradio\radio

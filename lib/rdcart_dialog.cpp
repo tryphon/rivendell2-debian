@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.cpp,v 1.48 2012/01/12 15:33:14 cvs Exp $
+//      $Id: rdcart_dialog.cpp,v 1.48.4.1 2012/10/09 00:12:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -737,7 +737,7 @@ QString RDCartDialog::GetSearchFilter(const QString &filter,
   if(schedcode!=tr("ALL")) {
     sched=schedcode;
   }
-  QString search=RDCartSearchText(filter,group,sched).utf8();
+  QString search=RDCartSearchText(filter,group,sched,false).utf8();
 
   //
   // Excluded Groups

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.cpp,v 1.4.8.1 2012/07/17 02:29:52 cvs Exp $
+//    $Id: rdwavedata.cpp,v 1.4.8.2 2012/09/12 14:36:18 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -306,6 +306,18 @@ void RDWaveData::setIsrc(const QString &str)
 }
 
 
+QString RDWaveData::isci() const
+{
+  return data_isci;
+}
+
+
+void RDWaveData::setIsci(const QString &str)
+{
+  data_isci=str;
+}
+
+
 QString RDWaveData::mcn() const
 {
   return data_mcn;
@@ -582,6 +594,7 @@ void RDWaveData::clear()
   data_originator="";
   data_originator_reference="";
   data_isrc="";
+  data_isci="";
   data_mcn="";
   data_out_cue="";
   data_end_type=RDWaveData::UnknownEnd;

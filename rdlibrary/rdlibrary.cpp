@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.cpp,v 1.117 2012/01/12 15:33:15 cvs Exp $
+//      $Id: rdlibrary.cpp,v 1.117.4.1 2012/10/09 00:12:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -948,7 +948,7 @@ void MainWidget::RefreshList()
       sprintf(" where %s && %s",
 	      (const char *)RDAllCartSearchText(lib_filter_edit->text(),
 						schedcode,
-						lib_user->name()).utf8(),
+						lib_user->name(),true).utf8(),
 	      (const char *)type_filter);
   }
   else {
@@ -956,7 +956,7 @@ void MainWidget::RefreshList()
       sprintf(" where %s && %s",
 	      (const char *)RDCartSearchText(lib_filter_edit->text(),
 					     lib_group_box->currentText(),
-					     schedcode).
+					     schedcode,true).
 	      utf8(),
 	      (const char *)type_filter);
   }

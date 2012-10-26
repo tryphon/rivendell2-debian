@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.1.2.1 2012/07/16 23:25:38 cvs Exp $
+##      $Id: Makefile.am,v 1.1.2.2 2012/10/20 00:24:46 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -35,6 +35,7 @@ moc_%.cpp:	%.h
 install-exec-local:	
 	mkdir -p $(DESTDIR)$(prefix)/share/rivendell
 	cp rdselect_*.qm $(DESTDIR)$(prefix)/share/rivendell
+	chmod 4755 $(prefix)/bin/rdselect
 
 uninstall:
 	rm -f $(DESTDIR)$(prefix)/share/rivendell/rdselect_*.qm

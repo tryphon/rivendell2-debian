@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.54 2010/07/29 19:32:39 cvs Exp $
+##      $Id: Makefile.am,v 1.54.8.1 2012/10/13 04:53:19 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License as
@@ -30,7 +30,7 @@ if ALSA_RD_AM
 endif
 SUBDIRS = rdgen rmlsend rdgpimon rdimport sas_shim rdsoftkeys\
           rddbcheck $(HPIINFO_RD_OPT) rdpurgecasts rdchunk rdmaint\
-          rdpopup $(ALSACONFIG_RD_OPT) rdcollect
+          rdpopup $(ALSACONFIG_RD_OPT) rdcollect rdcheckcuts
 
 AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
 INCLUDES = -I$(top_srcdir)/lib

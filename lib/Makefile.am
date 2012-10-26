@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.132.4.1 2012/08/13 20:08:27 cvs Exp $
+##      $Id: Makefile.am,v 1.132.4.3 2012/10/22 17:49:32 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -207,7 +207,9 @@ dist_librd_la_SOURCES = rduser.cpp rduser.h\
                    rdcopyaudio.cpp rdcopyaudio.h\
                    rdaudioinfo.cpp rdaudioinfo.h\
                    rddelete.cpp rddelete.h\
-                   rdwebresult.cpp rdwebresult.h
+                   rdwebresult.cpp rdwebresult.h\
+                   rdstatus.cpp rdstatus.h\
+                   rdmonitor_config.cpp rdmonitor_config.h
 
 nodist_librd_la_SOURCES = moc_rdpasswd.cpp moc_rdripc.cpp moc_rdcae.cpp\
                           moc_rdcardselector.cpp moc_rdgpioselector.cpp\

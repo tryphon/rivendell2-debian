@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: carts.cpp,v 1.8 2012/02/13 23:01:50 cvs Exp $
+//      $Id: carts.cpp,v 1.8.2.1 2012/10/09 00:12:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -145,7 +145,7 @@ void Xport::ListCarts()
   // Generate Cart List
   //
   if(group_name.isEmpty()||(group_name==tr("ALL"))) {
-    where=RDAllCartSearchText(filter,"ALL",xport_user->name());
+    where=RDAllCartSearchText(filter,"ALL",xport_user->name(),false);
   }
   else {
     sql=QString().
@@ -158,7 +158,7 @@ void Xport::ListCarts()
       delete q;
       XmlExit("No such group",404);
     }
-    where=RDCartSearchText(filter,group_name,"");
+    where=RDCartSearchText(filter,group_name,"",false);
   }
   if(cart_type!=RDCart::All) {
     where+=QString().sprintf("&&(TYPE=%u)",cart_type);

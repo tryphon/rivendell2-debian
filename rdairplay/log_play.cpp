@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_play.cpp,v 1.197 2010/07/29 19:32:36 cvs Exp $
+//      $Id: log_play.cpp,v 1.197.8.1 2012/10/09 16:42:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -633,13 +633,13 @@ bool LogPlay::refresh()
   if(current_id!=-1 && e->loglineById(current_id)!=NULL) {    //Make Next after currently playing cart
     if((next_line=lineById(current_id))>=0) {    
       makeNext(next_line+1,false);              
-      }
     }
+  }
   else {
     if((next_line=lineById(next_id))>=0) {     
-      makeNext(next_line,false);               
-      }
-    } 
+     makeNext(next_line,false);               
+    }
+  } 
   
   //
   // Clean Up

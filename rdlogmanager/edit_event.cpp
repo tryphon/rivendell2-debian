@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.cpp,v 1.53 2012/02/20 16:44:53 cvs Exp $
+//      $Id: edit_event.cpp,v 1.53.2.1 2012/10/09 00:12:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1324,8 +1324,8 @@ void EditEvent::RefreshLibrary()
   sql+=QString().
     sprintf(" where %s && %s",
 	    (const char *)
-	    RDCartSearchText(event_lib_filter_edit->text(),group,"").utf8(),
-	    (const char *)type_filter);
+	    RDCartSearchText(event_lib_filter_edit->text(),group,"",false).
+	    utf8(),(const char *)type_filter);
   RDSqlQuery *q=new RDSqlQuery(sql);
   QListViewItem *item;
   event_lib_list->clear();

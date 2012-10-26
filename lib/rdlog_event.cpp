@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.cpp,v 1.101 2011/09/02 15:04:48 cvs Exp $
+//      $Id: rdlog_event.cpp,v 1.101.4.1 2012/10/09 16:42:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -658,7 +658,6 @@ void RDLogEvent::refresh(int line)
     log_line[line]->setValidity(RDCart::NeverValid);
   }
   delete q;
-  return;
 }
 
 

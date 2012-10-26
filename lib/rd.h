@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194.6.3 2012/07/24 20:27:01 cvs Exp $
+//      $Id: rd.h,v 1.194.6.4 2012/10/22 18:22:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -476,5 +476,9 @@
 #define RD_ANON_FTP_USERNAME "anonymous"
 #define RD_ANON_FTP_PASSWORD "rivendell"
 
+/*
+ * Status Monitor Height
+ */
+#define RDMONITOR_HEIGHT 30
 
 #endif  // RD_H
