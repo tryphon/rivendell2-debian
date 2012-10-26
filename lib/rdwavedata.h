@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.h,v 1.5.8.1 2012/07/17 02:29:52 cvs Exp $
+//    $Id: rdwavedata.h,v 1.5.8.2 2012/09/12 14:36:18 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -78,6 +78,8 @@ class RDWaveData
   void setUserDefined(const QString &str);
   QString isrc() const;
   void setIsrc(const QString &str);
+  QString isci() const;
+  void setIsci(const QString &str);
   QString mcn() const;
   void setMcn(const QString &str);
   QString outCue() const;
@@ -146,6 +148,7 @@ class RDWaveData
   QString data_originator_reference;
   QString data_coding_history;
   QString data_isrc;
+  QString data_isci;
   QString data_mcn;
   QString data_out_cue;
   RDWaveData::EndType data_end_type;

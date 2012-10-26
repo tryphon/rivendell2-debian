@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: commandline_ops.cpp,v 1.1.2.1 2012/08/13 18:25:21 cvs Exp $
+//      $Id: commandline_ops.cpp,v 1.1.2.2 2012/10/19 21:25:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -46,7 +46,7 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
   svcname_table.replace(" ","_");
   unsigned schema=0;
 
-  QApplication a(argc,argv,true);
+  QApplication a(argc,argv,false);
 
   //
   // Load Local Configs

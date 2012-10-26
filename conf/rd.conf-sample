@@ -16,7 +16,7 @@ AudioGroup=rivendell
 Password=letmein
 
 ; This entry is what will appear in RDSelect's list for this configuration.
-Label=Default Configuration
+Label=Default (Local)
 
 [mySQL]
 ; The connection parameters for the MySQL server.

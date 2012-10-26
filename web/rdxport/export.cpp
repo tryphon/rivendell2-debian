@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: export.cpp,v 1.6 2012/02/13 23:01:50 cvs Exp $
+//      $Id: export.cpp,v 1.6.2.1 2012/09/06 20:39:10 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -198,5 +198,5 @@ void Xport::Export()
   }
   unlink(tmpfile);
   rmdir(tmpdir);
-  XmlExit(RDAudioConvert::errorText(conv_err),resp_code,conv_err);
+  exit(0);
 }

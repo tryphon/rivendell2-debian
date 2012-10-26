@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_reports.cpp,v 1.11.4.1 2012/04/09 21:43:38 cvs Exp $
+//      $Id: list_reports.cpp,v 1.11.4.2 2012/10/09 00:12:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -183,14 +183,14 @@ void ListReports::GenerateCartReport(QString *report)
     sql+=QString().
       sprintf(" where %s && %s order by NUMBER",
 	      (const char *)RDAllCartSearchText(list_filter,schedcode,
-						lib_user->name()),
+						lib_user->name(),true),
 	      (const char *)list_type_filter);
   }
   else {
     sql+=QString().
       sprintf(" where %s && %s order by NUMBER",
 	      (const char *)RDCartSearchText(list_filter,list_group,
-					     schedcode).utf8(),
+					     schedcode,true).utf8(),
 	      (const char *)list_type_filter);
   }
   q=new RDSqlQuery(sql);
@@ -342,14 +342,14 @@ void ListReports::GenerateCutReport(QString *report)
     sql+=QString().
       sprintf(" where %s && %s order by CART.NUMBER",
 	      (const char *)RDAllCartSearchText(list_filter,schedcode,
-						lib_user->name()).utf8(),
+						lib_user->name(),true).utf8(),
 	      (const char *)list_type_filter);
   }
   else {
     sql+=QString().
       sprintf(" where %s && %s order by CART.NUMBER",
 	      (const char *)RDCartSearchText(list_filter,list_group,
-					     schedcode).utf8(),
+					     schedcode,true).utf8(),
 	      (const char *)list_type_filter);
   }
   q=new RDSqlQuery(sql);
@@ -546,14 +546,14 @@ void ListReports::GenerateCartDump(QString *report)
     sql+=QString().
       sprintf(" where %s && %s order by CUTS.CUT_NAME",
 	      (const char *)RDAllCartSearchText(list_filter,schedcode,
-						lib_user->name()).utf8(),
+						lib_user->name(),true).utf8(),
 	      (const char *)list_type_filter);
   }
   else {
     sql+=QString().
       sprintf(" where %s && %s order by CUTS.CUT_NAME",
 	      (const char *)RDCartSearchText(list_filter,list_group,
-					     schedcode).utf8(),
+					     schedcode,true).utf8(),
 	      (const char *)list_type_filter);
   }
   q=new RDSqlQuery(sql);

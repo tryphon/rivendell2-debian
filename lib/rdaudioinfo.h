@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2011 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioinfo.h,v 1.1 2011/02/17 20:57:59 cvs Exp $
+//      $Id: rdaudioinfo.h,v 1.1.6.1 2012/10/13 04:53:19 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -33,7 +33,7 @@ class RDAudioInfo : public QObject
   Q_OBJECT;
  public:
   enum ErrorCode {ErrorOk=0,ErrorInternal=5,ErrorUrlInvalid=7,
-		  ErrorService=8,ErrorInvalidUser=9};
+		  ErrorService=8,ErrorInvalidUser=9,ErrorNoAudio=10};
   RDAudioInfo(RDStation *station,QObject *parent=0,const char *name=0);
   RDWaveFile::Format format() const;
   unsigned channels() const;

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioconvert.cpp,v 1.14 2012/03/02 22:33:51 cvs Exp $
+//      $Id: rdaudioconvert.cpp,v 1.14.2.1 2012/09/06 19:47:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1300,6 +1300,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Layer3(SNDFILE *src_sf,
   lame_set_in_samplerate(lameopts,src_sf_info->samplerate);
   lame_set_out_samplerate(lameopts,src_sf_info->samplerate);
   lame_set_brate(lameopts,conv_settings->bitRate()/1000);
+  lame_set_bWriteVbrTag(lameopts,0);
   if(lame_init_params(lameopts)!=0) {
     lame_close(lameopts);
     ::close(dst_fd);
@@ -1796,6 +1797,8 @@ bool RDAudioConvert::LoadLame()
   *(void **)(&lame_encode_buffer)=
     dlsym(conv_lame_handle,"lame_encode_buffer");
   *(void **)(&lame_encode_flush)=dlsym(conv_lame_handle,"lame_encode_flush");
+  *(void **)(&lame_set_bWriteVbrTag)=
+    dlsym(conv_lame_handle,"lame_set_bWriteVbrTag");
   return true;
 #else
   return false;

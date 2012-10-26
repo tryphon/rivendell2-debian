@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.cpp,v 1.76.6.3 2012/08/02 20:37:58 cvs Exp $
+//      $Id: rdcut.cpp,v 1.76.6.4 2012/09/12 14:36:18 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -904,7 +904,7 @@ void RDCut::getMetadata(RDWaveData *data) const
   QString sql;
   RDSqlQuery *q;
 
-  sql=QString().sprintf("select DESCRIPTION,OUTCUE,ISRC,ORIGIN_DATETIME,\
+  sql=QString().sprintf("select DESCRIPTION,OUTCUE,ISRC,ISCI,ORIGIN_DATETIME,\
                          START_DATETIME,END_DATETIME,SEGUE_START_POINT,\
                          SEGUE_END_POINT,TALK_START_POINT,TALK_END_POINT,\
                          START_POINT,END_POINT,HOOK_START_POINT,\
@@ -916,22 +916,23 @@ void RDCut::getMetadata(RDWaveData *data) const
     data->setTitle(q->value(0).toString());
     data->setOutCue(q->value(1).toString());
     data->setIsrc(q->value(2).toString());
-    data->setOriginationDate(q->value(3).toDate());
-    data->setOriginationTime(q->value(3).toTime());
-    data->setStartDate(q->value(4).toDate());
-    data->setStartTime(q->value(4).toTime());
-    data->setEndDate(q->value(5).toDate());
-    data->setEndTime(q->value(5).toTime());
-    data->setSegueStartPos(q->value(6).toInt());
-    data->setSegueEndPos(q->value(7).toInt());
-    data->setIntroStartPos(q->value(8).toInt());
-    data->setIntroEndPos(q->value(9).toInt());
-    data->setStartPos(q->value(10).toInt());
-    data->setEndPos(q->value(11).toInt());
-    data->setHookStartPos(q->value(12).toInt());
-    data->setHookEndPos(q->value(13).toInt());
-    data->setFadeUpPos(q->value(14).toInt());
-    data->setFadeDownPos(q->value(15).toInt());
+    data->setIsci(q->value(3).toString());
+    data->setOriginationDate(q->value(4).toDate());
+    data->setOriginationTime(q->value(4).toTime());
+    data->setStartDate(q->value(5).toDate());
+    data->setStartTime(q->value(5).toTime());
+    data->setEndDate(q->value(6).toDate());
+    data->setEndTime(q->value(6).toTime());
+    data->setSegueStartPos(q->value(7).toInt());
+    data->setSegueEndPos(q->value(8).toInt());
+    data->setIntroStartPos(q->value(9).toInt());
+    data->setIntroEndPos(q->value(10).toInt());
+    data->setStartPos(q->value(11).toInt());
+    data->setEndPos(q->value(12).toInt());
+    data->setHookStartPos(q->value(13).toInt());
+    data->setHookEndPos(q->value(14).toInt());
+    data->setFadeUpPos(q->value(15).toInt());
+    data->setFadeDownPos(q->value(16).toInt());
     data->setMetadataFound(true);
   }
   delete q;
@@ -966,6 +967,10 @@ void RDCut::setMetadata(RDWaveData *data) const
   if(!data->isrc().isEmpty()) {
     sql+=QString().sprintf("ISRC=\"%s\",",
     (const char *)RDTextValidator::stripString(data->isrc()).utf8());
+  }
+  if(!data->isci().isEmpty()) {
+    sql+=QString().sprintf("ISCI=\"%s\",",
+    (const char *)RDTextValidator::stripString(data->isci()).utf8());
   }
   if(data->startPos()>=0) {
     sql+=QString().sprintf("START_POINT=%d,",data->startPos());

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut_dialog.cpp,v 1.31 2012/01/12 15:33:14 cvs Exp $
+//      $Id: rdcut_dialog.cpp,v 1.31.4.1 2012/10/09 00:12:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -495,7 +495,8 @@ void RDCutDialog::RefreshCarts()
                          on CART.GROUP_NAME=GROUPS.NAME \
                          where (%s)&&((CART.TYPE=%u))",
 			(const char *)RDCartSearchText(cut_filter_edit->text(),
-						       group,schedcode.utf8()),
+						       group,schedcode.utf8(),
+						       false),
 			RDCart::Audio);
   if(cut_exclude_tracks) {
     sql+="&&(CART.OWNER is null)";

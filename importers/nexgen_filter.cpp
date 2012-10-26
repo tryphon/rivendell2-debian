@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: nexgen_filter.cpp,v 1.1.2.4 2012/07/20 15:23:28 cvs Exp $
+//      $Id: nexgen_filter.cpp,v 1.1.2.6 2012/10/15 17:24:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -183,6 +183,9 @@ MainObject::MainObject(QObject *parent,const char *name)
     exit(256);
   }
 
+  //
+  // Configure Reject Directory
+  //
   if(reject_dir=="/dev/null") {
     filter_reject_dir=NULL;
   }
@@ -443,6 +446,10 @@ void MainObject::ProcessXmlLine(const QString &line,RDWaveData *data,
   */
   if(tag=="runtime") {
     data->setEndPos(value.toInt());
+    data->setMetadataFound(true);
+  }
+  if(tag=="isci_code") {
+    data->setIsci(value);
     data->setMetadataFound(true);
   }
 

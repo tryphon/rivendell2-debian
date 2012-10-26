@@ -12701,3 +12701,78 @@
 2012-08-31 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.2.0.
+2012-09-06 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdaudioconvert.cpp' and 'lib/rdaudioconvert.h'
+	that caused null bytes to be inserted at the beginning of MPEG
+	Layer 3 exports.
+2012-09-06 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'web/rdxport/export.cpp' that caused cruft to be
+	appended to the end of exported audio files.
+2012-09-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDWaveData::isci()' and 'RDWaveData::setIsci()' methods
+	in 'lib/rdwavedata.cpp' and 'lib/rdwavedata.h'.
+	* Added support for importing ISCI data in
+	'importers/nexgen_filter.cpp'.
+2012-10-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'lib/rdcart_search_text.cpp' to filter by cut
+	attributes.
+2012-10-09 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/loglinebox.cpp' that threw a DB
+	positioning error when refreshing a log.
+2012-10-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'scripts/sage_endec_rwt.sh'.
+2012-10-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'docs/SAGE_ENDEC.txt'.
+2012-10-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added rdmonitor(1) in 'rdmonitor/'.
+	* Added rdcheckcuts(1) in 'utils/rdcheckcuts/'.
+2012-10-15 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'importers/nexgen.filter.cpp' that broke
+	audio importation.
+2012-10-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdlogmanager/commandline_ops.cpp' that
+	broke command-line operations when operating with an X11
+	connection.
+2012-10-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'lib/rdstatus.cpp' and 'lib/rdstatus.h'.
+	* Modified RDSelect(8) to indicate current state by means of
+	an icon.
+2012-10-19 Fred Gleason <fredg@paravelsystems.com>
+	* Set RDSelect to be installed SETUID 0.
+2012-10-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdmonitor/rdmonitor.cpp' that caused the applet
+	intermittently to start minimized.
+2012-10-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'sage_endec_rwt.sh' to the 'EXTRA_DIST' list in
+	'scripts/Makefile.am'.
+2012-10-22 Fred Gleason <fredg@paravelsystems.com>
+	* Disabled display of RDSelect when only a single configuration
+	is present in '/etc/rivendell.d/' in 'rdmonitor/rdmonitor.cpp'.
+2012-10-22 Fred Gleason <fredg@paravelsystems.com>
+	* Added a right-click menu to RDMonitor in 'rdmonitor/rdmonitor.cpp'
+	and 'rdmonitor/rdmonitor.h'.
+2012-10-22 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'rdselect/rdselect.cpp' to position itself properly
+	in accordance with the position setting of RDMonitor(1).
+2012-10-22 Fred Gleason <fredg@paravelsystems.com>
+	* Modified the post-installation script in 'rivendell.spec.in' to
+	convert old rd.conf(5) layout to be compatible with rdmonitor(1).
+	* Added 'docs/RDMONITOR.txt'.
+2012-10-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'utils/rdcheckcuts/rdcheckcuts.cpp' that broke
+	the build under CentOS 6.
+2012-10-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rivendell.spec.in' that broke the 'make rpm'
+	target.
+2012-10-22 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDDbValid()' function in 'lib/rdstatus.cpp' and
+	'lib/rdstatus.h'.
+	* Added checks for database schema version to rdmonitor(1)
+	and rdselect(1).
+2012-10-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdmonitor/rdmonitor.cpp' that prevented display
+	of the status bubble when positioned away from the upper left
+	corner.
+2012-10-23 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.2.1.

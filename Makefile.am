@@ -6,7 +6,7 @@
 ##
 ##   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.65.6.1 2012/07/16 23:25:38 cvs Exp $
+##      $Id: Makefile.am,v 1.65.6.2 2012/10/13 04:53:19 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -33,8 +33,8 @@ if ALSA_RD_AM
 endif
 SUBDIRS = icons helpers $(HPI_RD_OPT) lib rlm scripts cae conf docs \
           debian xdg rdadmin ripcd rdlogin rdlibrary rdcatch rdcatchd \
-          rdlogedit rdlogmanager rdpanel rdairplay rdselect rdcastmanager \
-          rdrepld utils web tests importers ios $(PAM_RD_OPT)
+          rdlogedit rdlogmanager rdpanel rdairplay rdselect rdmonitor \
+          rdcastmanager rdrepld utils web tests importers ios $(PAM_RD_OPT)
 
 install-exec-local:	
 	./install-init.sh $(DESTDIR)$(prefix)

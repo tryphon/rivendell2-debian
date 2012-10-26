@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_search_text.cpp,v 1.21 2012/01/12 15:33:14 cvs Exp $
+//      $Id: rdcart_search_text.cpp,v 1.21.4.1 2012/10/09 00:12:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,7 +24,7 @@
 #include <rdcart_search_text.h>
 #include <rddb.h>
 
-QString RDBaseSearchText(QString filter)
+QString RDBaseSearchText(QString filter,bool incl_cuts)
 {
 QString edit_filter=filter;
 QString return_string="";
@@ -39,7 +39,7 @@ if(edit_filter.isEmpty()) {
       (CART.AGENCY like \"%%%s%%\")||(CART.ALBUM like \"%%%s%%\")||\
       (CART.LABEL like \"%%%s%%\")||(CART.NUMBER like \"%%%s%%\")||\
       (CART.PUBLISHER like \"%%%s%%\")||(CART.COMPOSER like \"%%%s%%\")||\
-      (CART.USER_DEFINED like \"%%%s%%\"))",
+      (CART.USER_DEFINED like \"%%%s%%\")",
   			   (const char *)search_string.utf8(),
 			   (const char *)search_string.utf8(),
 			   (const char *)search_string.utf8(),
@@ -50,6 +50,17 @@ if(edit_filter.isEmpty()) {
 			   (const char *)search_string.utf8(),
 			   (const char *)search_string.utf8(),
 			   (const char *)search_string.utf8());
+    if(incl_cuts) {
+      return_string+=QString().sprintf("||(CUTS.ISCI like \"%%%s%%\")\
+                                        ||(CUTS.ISRC like \"%%%s%%\")\
+                                        ||(CUTS.DESCRIPTION like \"%%%s%%\")\
+                                        ||(CUTS.OUTCUE like \"%%%s%%\")",
+				       (const char *)search_string.utf8(),
+				       (const char *)search_string.utf8(),
+				       (const char *)search_string.utf8(),
+				       (const char *)search_string.utf8());
+    }
+    return_string+=")";
   }
 else {
   while(!edit_filter.isEmpty()) {
@@ -82,7 +93,7 @@ else {
       (CART.AGENCY like \"%%%s%%\")||(CART.ALBUM like \"%%%s%%\")||	\
       (CART.LABEL like \"%%%s%%\")||(CART.NUMBER like \"%%%s%%\")||	\
       (CART.PUBLISHER like \"%%%s%%\")||(CART.COMPOSER like \"%%%s%%\")|| \
-      (CART.USER_DEFINED like \"%%%s%%\"))",
+      (CART.USER_DEFINED like \"%%%s%%\")",
 				    (const char *)search.utf8(),
 				    (const char *)search.utf8(),
 				    (const char *)search.utf8(),
@@ -93,16 +104,28 @@ else {
 				    (const char *)search.utf8(),
 				    (const char *)search.utf8(),
 				    (const char *)search.utf8());
+    if(incl_cuts) {
+      return_string+=QString().sprintf("||(CUTS.ISCI like \"%%%s%%\")\
+                                        ||(CUTS.ISRC like \"%%%s%%\")\
+                                        ||(CUTS.DESCRIPTION like \"%%%s%%\")\
+                                        ||(CUTS.OUTCUE like \"%%%s%%\")",
+				       (const char *)search.utf8(),
+				       (const char *)search.utf8(),
+				       (const char *)search.utf8(),
+				       (const char *)search.utf8());
     }
+    return_string+=")";
   }
-  return return_string;
+  
+ }
+ return return_string;
 }
 
 
 QString RDCartSearchText(QString filter,const QString &group,
-			 const QString &schedcode)
+			 const QString &schedcode,bool incl_cuts)
 {
-  QString ret=QString(" ")+RDBaseSearchText(filter);
+  QString ret=QString(" ")+RDBaseSearchText(filter,incl_cuts);
   if(!group.isEmpty()) {
     ret+=QString("&&(CART.GROUP_NAME=\"")+RDEscapeString(group)+"\")";
   }
@@ -118,7 +141,7 @@ QString RDCartSearchText(QString filter,const QString &group,
 
 
 QString RDAllCartSearchText(const QString &filter,const QString &schedcode,
-			    const QString &user)
+			    const QString &user,bool incl_cuts)
 {
   QString sql;
   RDSqlQuery *q;
@@ -134,7 +157,7 @@ QString RDAllCartSearchText(const QString &filter,const QString &schedcode,
   }
   delete q;
   search=search.left(search.length()-2)+QString(")");
-  search+=QString("&&")+RDBaseSearchText(filter);
+  search+=QString("&&")+RDBaseSearchText(filter,incl_cuts);
 
   if(!schedcode.isEmpty()) {
     QString code=schedcode+"          ";

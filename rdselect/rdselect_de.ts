@@ -30,10 +30,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to read mtab(5)!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unable to shutdown current configuration</source>
         <translation type="unfinished"></translation>
     </message>
