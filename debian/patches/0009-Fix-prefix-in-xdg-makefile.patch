@@ -7,7 +7,7 @@ Subject: Fix prefix in xdg makefile
  1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/xdg/Makefile.am b/xdg/Makefile.am
-index c8de86a..d5343fd 100644
+index efe8a7f..c60be25 100644
 --- a/xdg/Makefile.am
 +++ b/xdg/Makefile.am
 @@ -22,17 +22,17 @@
