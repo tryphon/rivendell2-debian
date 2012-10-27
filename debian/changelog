@@ -1,7 +1,8 @@
 rivendell (2.2.1-1) unstable; urgency=low
 
   * Provides RLM in rivendell packages (fixes #616)
-  * New upstream release
+  * New upstream release (fixes #617)
+  * Fixes prefixes in script and select Makefiles
 
  -- Alban Peignier <alban@tryphon.eu>  Fri, 26 Oct 2012 12:40:33 +0200
 
