@@ -1,0 +1,21 @@
+From: Alban Peignier <alban@tryphon.eu>
+Date: Sat, 27 Oct 2012 11:21:21 +0200
+Subject: Fix prefix in rdselect makefile
+
+---
+ rdselect/Makefile.am |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/rdselect/Makefile.am b/rdselect/Makefile.am
+index 8857131..bdc3366 100644
+--- a/rdselect/Makefile.am
++++ b/rdselect/Makefile.am
+@@ -35,7 +35,7 @@ moc_%.cpp:	%.h
+ install-exec-local:	
+ 	mkdir -p $(DESTDIR)$(prefix)/share/rivendell
+ 	cp rdselect_*.qm $(DESTDIR)$(prefix)/share/rivendell
+-	chmod 4755 $(prefix)/bin/rdselect
++	chmod 4755 $(DESTDIR)$(prefix)/bin/rdselect
+ 
+ uninstall:
+ 	rm -f $(DESTDIR)$(prefix)/share/rivendell/rdselect_*.qm

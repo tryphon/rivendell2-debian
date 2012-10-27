@@ -9,3 +9,4 @@
 0009-Fix-prefix-in-xdg-makefile.patch
 0010-Default-QTDIR-in-RDHotKeyList.patch
 0011-Fix-prefix-in-scripts-makefile.patch
+0012-Fix-prefix-in-rdselect-makefile.patch
