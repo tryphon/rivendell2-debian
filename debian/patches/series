@@ -8,3 +8,4 @@
 0008-Fix-prefix-in-icons-makefile.patch
 0009-Fix-prefix-in-xdg-makefile.patch
 0010-Default-QTDIR-in-RDHotKeyList.patch
+0011-Fix-prefix-in-scripts-makefile.patch
