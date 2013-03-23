@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_matrix.cpp,v 1.36.6.1 2012/08/06 00:12:04 cvs Exp $
+//      $Id: edit_matrix.cpp,v 1.36.6.3 2012/12/10 15:40:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -89,7 +89,7 @@ EditMatrix::EditMatrix(RDMatrix *matrix,QWidget *parent,const char *name)
   //
   // Matrix Type
   //
-  label=new QLabel(edit_matrix->typeString(),this);
+  label=new QLabel(RDMatrix::typeString(edit_matrix->type()),this);
   label->setGeometry(135,30,200,19);
   label->setFont(font);
   label=new QLabel(tr("Switcher Type:"),this);
@@ -455,17 +455,6 @@ EditMatrix::EditMatrix(RDMatrix *matrix,QWidget *parent,const char *name)
 	  this,SLOT(outputsButtonData()));
 
   //
-  //  Configure Crosspoints Button
-  //
-  edit_xpoint_button=new QPushButton(this);
-  edit_xpoint_button->setGeometry(215,446,80,50);
-  edit_xpoint_button->setDefault(true);
-  edit_xpoint_button->setFont(bold_font);
-  edit_xpoint_button->setText(tr("Configure\n&Xpoints"));
-  connect(edit_xpoint_button,SIGNAL(clicked()),this,SLOT(xpointsButtonData()));
-  edit_xpoint_button->hide();
-
-  //
   //  Configure GPIs Button
   //
   edit_gpis_button=new QPushButton(this);
@@ -613,1337 +602,196 @@ EditMatrix::EditMatrix(RDMatrix *matrix,QWidget *parent,const char *name)
   else {
     edit_layer_box->setCurrentItem(edit_matrix->layer()-'@');
   }
-  switch(edit_matrix->type()) {
-      case RDMatrix::LocalGpio:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_port_label->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_inputs_button->setDisabled(true);
-	edit_outputs_button->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_start_cart2_label->setDisabled(true);
-	edit_start_cart2_button->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_stop_cart2_label->setDisabled(true);
-	edit_stop_cart2_button->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
 
-      case RDMatrix::GenericGpo:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_port_label->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  RDMatrix::Type type=edit_matrix->type();
 
-      case RDMatrix::GenericSerial:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  //
+  // Connection Sections
+  //
+  edit_porttype_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::PortTypeControl));
+  edit_porttype_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::PortTypeControl));
+  edit_porttype2_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::PortTypeControl));
+  edit_porttype2_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::PortTypeControl));
 
-      case RDMatrix::Unity4000:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_outputs_box->setRange(0,4);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  edit_port_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::SerialPortControl));
+  edit_port_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::SerialPortControl));
+  edit_port2_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::SerialPortControl));
+  edit_port2_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::SerialPortControl));
 
-      case RDMatrix::Sas32000:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  edit_ipaddress_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::IpAddressControl));
+  edit_ipaddress_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::IpAddressControl));
+  edit_ipaddress2_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::IpAddressControl));
+  edit_ipaddress2_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::IpAddressControl));
 
-      case RDMatrix::Sas64000:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  edit_ipport_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::IpPortControl));
+  edit_ipport_spin->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::IpPortControl));
+  edit_ipport2_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::IpPortControl));
+  edit_ipport2_spin->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::IpPortControl));
 
-      case RDMatrix::BtSs82:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	break;
+  edit_username_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::UsernameControl));
+  edit_username_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::UsernameControl));
+  edit_username2_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::UsernameControl));
+  edit_username2_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::UsernameControl));
 
-      case RDMatrix::Bt10x1:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  edit_password_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::PasswordControl));
+  edit_password_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::PasswordControl));
+  edit_password2_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::PasswordControl));
+  edit_password2_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::PasswordControl));
 
-      case RDMatrix::Sas64000Gpi:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setEnabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  edit_start_cart_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::StartupCartControl));
+  edit_start_cart_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::StartupCartControl));
+  edit_start_cart_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::StartupCartControl));
 
-      case RDMatrix::Bt16x1:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	break;
+  edit_start_cart2_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::StartupCartControl));
+  edit_start_cart2_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::StartupCartControl));
+  edit_start_cart2_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::StartupCartControl));
 
-      case RDMatrix::Bt8x2:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	break;
+  edit_stop_cart_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::ShutdownCartControl));
+  edit_stop_cart_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::ShutdownCartControl));
+  edit_stop_cart_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Primary,
+				       RDMatrix::ShutdownCartControl));
 
-      case RDMatrix::BtAcs82:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	break;
+  edit_stop_cart2_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::ShutdownCartControl));
+  edit_stop_cart2_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::ShutdownCartControl));
+  edit_stop_cart2_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::Backup,
+				       RDMatrix::ShutdownCartControl));
 
-      case RDMatrix::SasUsi:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_porttype_label->setEnabled(true);
-	edit_porttype_box->setEnabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setEnabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setEnabled(true);
-	edit_stop_cart_edit->setEnabled(true);
-	edit_start_cart2_edit->setEnabled(true);
-	edit_stop_cart2_edit->setEnabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	break;
+  //
+  // Device Settings Section
+  //
+  edit_card_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::CardControl));
+  edit_card_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::CardControl));
 
-      case RDMatrix::Bt16x2:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	break;
+  edit_device_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::GpioDeviceControl));
+  edit_device_edit->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::GpioDeviceControl));
 
-      case RDMatrix::BtSs124:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  edit_layer_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::LayerControl));
+  edit_layer_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::LayerControl));
 
-      case RDMatrix::LocalAudioAdapter:
-	edit_port_label->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  edit_inputs_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::InputsControl));
+  edit_inputs_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::InputsControl));
 
-      case RDMatrix::LogitekVguest:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_porttype_label->setEnabled(true);
-	edit_porttype_box->setEnabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_username_label->setEnabled(true);
-	edit_username_edit->setEnabled(true);
-	edit_password_label->setEnabled(true);
-	edit_password_edit->setEnabled(true);
-	edit_displays_label->setEnabled(true);
-	edit_displays_box->setEnabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setEnabled(true);
-	edit_vguestdisplays_button->setEnabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setEnabled(true);
-	edit_stop_cart_edit->setEnabled(true);
-	edit_start_cart2_edit->setEnabled(true);
-	edit_stop_cart2_edit->setEnabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	break;
+  edit_outputs_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::OutputsControl));
+  edit_outputs_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::OutputsControl));
 
-      case RDMatrix::BtSs164:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  edit_gpis_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::GpisControl));
+  edit_gpis_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::GpisControl));
 
-      case RDMatrix::StarGuideIII:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_outputs_box->setRange(0,6);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  edit_gpos_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::GposControl));
+  edit_gpos_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::GposControl));
 
-      case RDMatrix::BtSs42:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	break;
+  edit_displays_label->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::DisplaysControl));
+  edit_displays_box->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::DisplaysControl));
 
-      case RDMatrix::LiveWire:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_port_label->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setEnabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_inputs_button->setEnabled(true);
-	edit_outputs_button->setEnabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
+  //
+  // Button Section
+  //
+  edit_inputs_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::InputsButtonControl));
+  edit_outputs_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::OutputsButtonControl));
+  edit_gpis_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::GpisButtonControl));
+  edit_gpos_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::GposButtonControl));
+  edit_livewire_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::NodesButtonControl));
+  edit_vguestrelays_button->
+    setEnabled(RDMatrix::controlActive(type,
+				       RDMatrix::VguestSwitchesButtonControl));
+  edit_vguestdisplays_button->
+    setEnabled(RDMatrix::controlActive(type,
+				       RDMatrix::VguestDisplaysButtonControl));
+  edit_sasresources_button->
+    setEnabled(RDMatrix::controlActive(type,
+				       RDMatrix::SasSwitchesButtonControl));
 
-      case RDMatrix::Quartz1:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_porttype_label->setEnabled(true);
-	edit_porttype_box->setEnabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setEnabled(true);
-	edit_porttype2_box->setEnabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_layer_box->setEnabled(true);
-	edit_layer_label->setEnabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	break;
-
-      case RDMatrix::BtSs44:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	break;
-
-    case RDMatrix::BtSrc8III:
-    case RDMatrix::BtSrc16:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_inputs_button->setDisabled(true);
-	edit_outputs_button->setDisabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	break;
-
-      case RDMatrix::Harlond:
-	edit_inputs_label->setEnabled(true);
-	edit_inputs_box->setEnabled(true);
-	edit_outputs_label->setEnabled(true);
-	edit_outputs_box->setEnabled(true);
-	edit_outputs_box->setRange(1,4);
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port_label->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setEnabled(true);
-	edit_password_edit->setEnabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_gpis_label->setEnabled(true);
-	edit_gpis_box->setEnabled(true);
-	edit_gpos_label->setEnabled(true);
-	edit_gpos_box->setEnabled(true);
-	edit_gpis_button->setEnabled(true);
-	edit_gpos_button->setEnabled(true);
-	break;
-
-      default:
-	edit_card_label->setDisabled(true);
-	edit_card_box->setDisabled(true);
-	edit_porttype_label->setDisabled(true);
-	edit_porttype_box->setDisabled(true);
-	edit_port_box->setDisabled(true);
-	edit_port_label->setDisabled(true);
-	edit_port2_label->setDisabled(true);
-	edit_port2_box->setDisabled(true);
-	edit_porttype2_label->setDisabled(true);
-	edit_porttype2_box->setDisabled(true);
-	edit_device_label->setDisabled(true);
-	edit_device_edit->setDisabled(true);
-	edit_xpoint_button->setDisabled(true);
-	edit_gpis_button->setDisabled(true);
-	edit_gpos_button->setDisabled(true);
-	edit_inputs_label->setDisabled(true);
-	edit_inputs_box->setDisabled(true);
-	edit_outputs_label->setDisabled(true);
-	edit_outputs_box->setDisabled(true);
-	edit_gpis_label->setDisabled(true);
-	edit_gpis_box->setDisabled(true);
-	edit_gpos_label->setDisabled(true);
-	edit_gpos_box->setDisabled(true);
-	edit_username_label->setDisabled(true);
-	edit_username_edit->setDisabled(true);
-	edit_password_label->setDisabled(true);
-	edit_password_edit->setDisabled(true);
-	edit_ipaddress2_label->setDisabled(true);
-	edit_ipaddress2_edit->setDisabled(true);
-	edit_ipport2_label->setDisabled(true);
-	edit_ipport2_spin->setDisabled(true);
-	edit_username2_label->setDisabled(true);
-	edit_username2_edit->setDisabled(true);
-	edit_password2_label->setDisabled(true);
-	edit_password2_edit->setDisabled(true);
-	edit_displays_label->setDisabled(true);
-	edit_displays_box->setDisabled(true);
-	edit_inputs_button->setDisabled(true);
-	edit_outputs_button->setDisabled(true);
-	edit_livewire_button->setDisabled(true);
-	edit_vguestrelays_button->setDisabled(true);
-	edit_vguestdisplays_button->setDisabled(true);
-	edit_sasresources_button->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_start_cart2_edit->setDisabled(true);
-	edit_stop_cart2_edit->setDisabled(true);
-	edit_layer_box->setDisabled(true);
-	edit_layer_label->setDisabled(true);
-	break;
-  }
   portTypeActivatedData(edit_porttype_box->currentItem());
   portType2ActivatedData(edit_porttype2_box->currentItem());
 }
@@ -1984,120 +832,138 @@ void EditMatrix::paintEvent(QPaintEvent *e)
 
 void EditMatrix::portTypeActivatedData(int index)
 {
+  RDMatrix::Type type=edit_matrix->type();
+
   switch((RDMatrix::PortType)edit_porttype_box->currentItem()) {
-      case RDMatrix::TtyPort:
-	switch(edit_matrix->type()) {
-	    case RDMatrix::LocalGpio:
-	    case RDMatrix::LocalAudioAdapter:
-	    case RDMatrix::LiveWire:
-	    case RDMatrix::Harlond:
-	    case RDMatrix::None:
-	      edit_port_box->setDisabled(true);
-	      edit_port_label->setDisabled(true);
-	      break;
+  case RDMatrix::TtyPort:
+    edit_port_box->setEnabled(RDMatrix::controlActive(type,
+		    RDMatrix::Primary,RDMatrix::SerialPortControl));
+    edit_port_label->setEnabled(RDMatrix::controlActive(type,
+		      RDMatrix::Primary,RDMatrix::SerialPortControl));
+    edit_username_edit->setEnabled(RDMatrix::controlActive(type,
+		         RDMatrix::Primary,RDMatrix::UsernameControl));
+    edit_username_label->setEnabled(RDMatrix::controlActive(type,
+		          RDMatrix::Primary,RDMatrix::UsernameControl));
+    edit_password_edit->setEnabled(RDMatrix::controlActive(type,
+		         RDMatrix::Primary,RDMatrix::PasswordControl));
+    edit_password_label->setEnabled(RDMatrix::controlActive(type,
+		          RDMatrix::Primary,RDMatrix::PasswordControl));
+    edit_ipaddress_edit->setDisabled(true);
+    edit_ipaddress_label->setDisabled(true);
+    edit_ipport_spin->setDisabled(true);
+    edit_ipport_label->setDisabled(true);
+    edit_start_cart_label->setDisabled(true);
+    edit_start_cart_edit->setDisabled(true);
+    edit_start_cart_button->setDisabled(true);
+    edit_stop_cart_label->setDisabled(true);
+    edit_stop_cart_edit->setDisabled(true);
+    edit_stop_cart_button->setDisabled(true);
+    break;
+    
+  case RDMatrix::TcpPort:
+    edit_port_box->setDisabled(true);
+    edit_port_label->setDisabled(true);
+    edit_ipaddress_edit->setEnabled(RDMatrix::controlActive(type,
+			  RDMatrix::Primary,RDMatrix::IpAddressControl));
+    edit_ipaddress_label->setEnabled(RDMatrix::controlActive(type,
+			   RDMatrix::Primary,RDMatrix::IpAddressControl));
+    edit_ipport_spin->setEnabled(RDMatrix::controlActive(type,
+		       RDMatrix::Primary,RDMatrix::IpPortControl));
+    edit_ipport_label->setEnabled(RDMatrix::controlActive(type,
+			RDMatrix::Primary,RDMatrix::IpPortControl));
+    edit_start_cart_edit->setEnabled(RDMatrix::controlActive(type,
+			   RDMatrix::Primary,RDMatrix::StartupCartControl));
+    edit_start_cart_button->setEnabled(RDMatrix::controlActive(type,
+			     RDMatrix::Primary,RDMatrix::StartupCartControl));
+    edit_start_cart_label->setEnabled(RDMatrix::controlActive(type,
+			    RDMatrix::Primary,RDMatrix::StartupCartControl));
+    edit_stop_cart_edit->setEnabled(RDMatrix::controlActive(type,
+			  RDMatrix::Primary,RDMatrix::ShutdownCartControl));
+    edit_stop_cart_button->setEnabled(RDMatrix::controlActive(type,
+			    RDMatrix::Primary,RDMatrix::ShutdownCartControl));
+    edit_stop_cart_label->setEnabled(RDMatrix::controlActive(type,
+			   RDMatrix::Primary,RDMatrix::ShutdownCartControl));
+    break;
 
-	    default:
-	      edit_port_box->setEnabled(true);
-	      edit_port_label->setEnabled(true);
-	      break;
-	}
-	edit_ipaddress_edit->setDisabled(true);
-	edit_ipaddress_label->setDisabled(true);
-	edit_ipport_spin->setDisabled(true);
-	edit_ipport_label->setDisabled(true);
-	edit_start_cart_label->setDisabled(true);
-	edit_start_cart_edit->setDisabled(true);
-	edit_start_cart_button->setDisabled(true);
-	edit_stop_cart_label->setDisabled(true);
-	edit_stop_cart_edit->setDisabled(true);
-	edit_stop_cart_button->setDisabled(true);
-	break;
-	
-      case RDMatrix::TcpPort:
-	edit_port_box->setDisabled(true);
-	edit_port_label->setDisabled(true);
-	edit_ipaddress_edit->setEnabled(true);
-	edit_ipaddress_label->setEnabled(true);
-	edit_ipport_spin->setEnabled(true);
-	edit_ipport_label->setEnabled(true);
-	edit_start_cart_label->setEnabled(true);
-	edit_start_cart_edit->setEnabled(true);
-	edit_start_cart_button->setEnabled(true);
-	edit_stop_cart_label->setEnabled(true);
-	edit_stop_cart_edit->setEnabled(true);
-	edit_stop_cart_button->setEnabled(true);
-	break;
-
-    case RDMatrix::NoPort:
-      break;
+  case RDMatrix::NoPort:
+    break;
   }
 }
 
 
 void EditMatrix::portType2ActivatedData(int index)
 {
-  switch(edit_matrix->type()) {
-    case RDMatrix::LogitekVguest:
-    case RDMatrix::Quartz1:
-    case RDMatrix::Harlond:
-      switch((RDMatrix::PortType)edit_porttype2_box->currentItem()) {
-	case RDMatrix::TtyPort:
-	  edit_port2_box->setEnabled(true);
-	  edit_port2_label->setEnabled(true);
-	  edit_ipaddress2_edit->setDisabled(true);
-	  edit_ipaddress2_label->setDisabled(true);
-	  edit_ipport2_spin->setDisabled(true);
-	  edit_ipport2_label->setDisabled(true);
-	  edit_username2_edit->setEnabled(true);
-	  edit_username2_label->setEnabled(true);
-	  edit_password2_edit->setEnabled(true);
-	  edit_password2_label->setEnabled(true);
-	  edit_start_cart2_label->setDisabled(true);
-	  edit_start_cart2_edit->setDisabled(true);
-	  edit_start_cart2_button->setDisabled(true);
-	  edit_stop_cart2_label->setDisabled(true);
-	  edit_stop_cart2_edit->setDisabled(true);
-	  edit_stop_cart2_button->setDisabled(true);
-	  break;
+  RDMatrix::Type type=edit_matrix->type();
+
+  switch((RDMatrix::PortType)edit_porttype2_box->currentItem()) {
+  case RDMatrix::TtyPort:
+    edit_port2_box->setEnabled(RDMatrix::controlActive(type,
+		     RDMatrix::Backup,RDMatrix::SerialPortControl));
+    edit_port2_label->setEnabled(RDMatrix::controlActive(type,
+		       RDMatrix::Backup,RDMatrix::SerialPortControl));
+    edit_username2_edit->setEnabled(RDMatrix::controlActive(type,
+		          RDMatrix::Backup,RDMatrix::UsernameControl));
+    edit_username2_label->setEnabled(RDMatrix::controlActive(type,
+		           RDMatrix::Backup,RDMatrix::UsernameControl));
+    edit_password2_edit->setEnabled(RDMatrix::controlActive(type,
+		          RDMatrix::Backup,RDMatrix::PasswordControl));
+    edit_password2_label->setEnabled(RDMatrix::controlActive(type,
+		           RDMatrix::Backup,RDMatrix::PasswordControl));
+    edit_ipaddress2_edit->setDisabled(true);
+    edit_ipaddress2_label->setDisabled(true);
+    edit_ipport2_spin->setDisabled(true);
+    edit_ipport2_label->setDisabled(true);
+    edit_start_cart2_label->setDisabled(true);
+    edit_start_cart2_edit->setDisabled(true);
+    edit_start_cart2_button->setDisabled(true);
+    edit_stop_cart2_label->setDisabled(true);
+    edit_stop_cart2_edit->setDisabled(true);
+    edit_stop_cart2_button->setDisabled(true);
+    break;
+    
+  case RDMatrix::TcpPort:
+    edit_ipaddress2_edit->setEnabled(RDMatrix::controlActive(type,
+			  RDMatrix::Backup,RDMatrix::IpAddressControl));
+    edit_ipaddress2_label->setEnabled(RDMatrix::controlActive(type,
+			   RDMatrix::Backup,RDMatrix::IpAddressControl));
+    edit_ipport2_spin->setEnabled(RDMatrix::controlActive(type,
+		       RDMatrix::Backup,RDMatrix::IpPortControl));
+    edit_ipport2_label->setEnabled(RDMatrix::controlActive(type,
+			RDMatrix::Backup,RDMatrix::IpPortControl));
+    edit_start_cart2_edit->setEnabled(RDMatrix::controlActive(type,
+			   RDMatrix::Backup,RDMatrix::StartupCartControl));
+    edit_start_cart2_button->setEnabled(RDMatrix::controlActive(type,
+			     RDMatrix::Backup,RDMatrix::StartupCartControl));
+    edit_start_cart2_label->setEnabled(RDMatrix::controlActive(type,
+			    RDMatrix::Backup,RDMatrix::StartupCartControl));
+    edit_stop_cart2_edit->setEnabled(RDMatrix::controlActive(type,
+			  RDMatrix::Backup,RDMatrix::ShutdownCartControl));
+    edit_stop_cart2_button->setEnabled(RDMatrix::controlActive(type,
+			    RDMatrix::Backup,RDMatrix::ShutdownCartControl));
+    edit_stop_cart2_label->setEnabled(RDMatrix::controlActive(type,
+			   RDMatrix::Backup,RDMatrix::ShutdownCartControl));
+    edit_port2_box->setDisabled(true);
+    edit_port2_label->setDisabled(true);
+    break;
 		  
-	case RDMatrix::TcpPort:
-	  edit_port2_box->setDisabled(true);
-	  edit_port2_label->setDisabled(true);
-	  edit_ipaddress2_edit->setEnabled(true);
-	  edit_ipaddress2_label->setEnabled(true);
-	  edit_ipport2_spin->setEnabled(true);
-	  edit_ipport2_label->setEnabled(true);
-	  edit_username2_edit->setEnabled(true);
-	  edit_username2_label->setEnabled(true);
-	  edit_password2_edit->setEnabled(true);
-	  edit_password2_label->setEnabled(true);
-	  edit_start_cart2_label->setEnabled(true);
-	  edit_start_cart2_edit->setEnabled(true);
-	  edit_start_cart2_button->setEnabled(true);
-	  edit_stop_cart2_label->setEnabled(true);
-	  edit_stop_cart2_edit->setEnabled(true);
-	  edit_stop_cart2_button->setEnabled(true);
-	  break;
-		  
-	case RDMatrix::NoPort:
-	  edit_port2_box->setDisabled(true);
-	  edit_port2_label->setDisabled(true);
-	  edit_ipaddress2_edit->setDisabled(true);
-	  edit_ipaddress2_label->setDisabled(true);
-	  edit_ipport2_spin->setDisabled(true);
-	  edit_ipport2_label->setDisabled(true);
-	  edit_username2_edit->setDisabled(true);
-	  edit_username2_label->setDisabled(true);
-	  edit_start_cart2_label->setDisabled(true);
-	  edit_start_cart2_edit->setDisabled(true);
-	  edit_start_cart2_button->setDisabled(true);
-	  edit_stop_cart2_label->setDisabled(true);
-	  edit_stop_cart2_edit->setDisabled(true);
-	  edit_stop_cart2_button->setDisabled(true);
-	  break;
-      }
-    default:
-      break;
+  case RDMatrix::NoPort:
+    edit_port2_box->setDisabled(true);
+    edit_port2_label->setDisabled(true);
+    edit_ipaddress2_edit->setDisabled(true);
+    edit_ipaddress2_label->setDisabled(true);
+    edit_ipport2_spin->setDisabled(true);
+    edit_ipport2_label->setDisabled(true);
+    edit_username2_edit->setDisabled(true);
+    edit_username2_label->setDisabled(true);
+    edit_password2_edit->setDisabled(true);
+    edit_password2_label->setDisabled(true);
+    edit_start_cart2_label->setDisabled(true);
+    edit_start_cart2_edit->setDisabled(true);
+    edit_start_cart2_button->setDisabled(true);
+    edit_stop_cart2_label->setDisabled(true);
+    edit_stop_cart2_edit->setDisabled(true);
+    edit_stop_cart2_button->setDisabled(true);
+    break;
   }
 }
 
@@ -2153,14 +1019,10 @@ void EditMatrix::gposButtonData()
 
 void EditMatrix::inputsChangedData(int value)
 {
-  switch(edit_matrix->type()) {
-  case RDMatrix::Harlond:
+  if(RDMatrix::controlActive(edit_matrix->type(),
+			     RDMatrix::GpioInputsLinkedControl)) {
     edit_gpis_box->setValue(value);
     edit_gpos_box->setValue(value);
-    break;
-
-  default:
-    break;
   }
   edit_inputs_button->setEnabled(value>0);
 }
@@ -2168,19 +1030,13 @@ void EditMatrix::inputsChangedData(int value)
 
 void EditMatrix::gpisChangedData(int value)
 {
-  switch(edit_matrix->type()) {
-  case RDMatrix::LogitekVguest:
-  case RDMatrix::SasUsi:
+  if(RDMatrix::controlActive(edit_matrix->type(),
+			     RDMatrix::GpiGpoLinkedControl)) {
     edit_gpos_box->setValue(value);
-    break;
-
-  case RDMatrix::Harlond:
-    edit_gpos_box->setValue(value);
+  }
+  if(RDMatrix::controlActive(edit_matrix->type(),
+			     RDMatrix::GpioInputsLinkedControl)) {
     edit_inputs_box->setValue(value);
-    break;
-
-  default:
-    break;
   }
   edit_gpis_button->setEnabled(value>0);
 }
@@ -2188,19 +1044,13 @@ void EditMatrix::gpisChangedData(int value)
 
 void EditMatrix::gposChangedData(int value)
 {
-  switch(edit_matrix->type()) {
-  case RDMatrix::LogitekVguest:
-  case RDMatrix::SasUsi:
+  if(RDMatrix::controlActive(edit_matrix->type(),
+			     RDMatrix::GpiGpoLinkedControl)) {
     edit_gpis_box->setValue(value);
-    break;
-
-  case RDMatrix::Harlond:
-    edit_gpis_box->setValue(value);
+  }
+  if(RDMatrix::controlActive(edit_matrix->type(),
+			     RDMatrix::GpioInputsLinkedControl)) {
     edit_inputs_box->setValue(value);
-    break;
-
-  default:
-    break;
   }
   edit_gpis_button->setEnabled(value>0);
 }
@@ -2246,7 +1096,8 @@ void EditMatrix::sasResourcesButtonData()
 void EditMatrix::startCartData()
 {
   int cartnum=edit_start_cart_edit->text().toUInt();
-  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     if(cartnum>0) {
       edit_start_cart_edit->setText(QString().sprintf("%06u",cartnum));
     }
@@ -2260,7 +1111,8 @@ void EditMatrix::startCartData()
 void EditMatrix::stopCartData()
 {
   int cartnum=edit_stop_cart_edit->text().toUInt();
-  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     if(cartnum>0) {
       edit_stop_cart_edit->setText(QString().sprintf("%06u",cartnum));
     }
@@ -2274,7 +1126,8 @@ void EditMatrix::stopCartData()
 void EditMatrix::startCart2Data()
 {
   int cartnum=edit_start_cart2_edit->text().toUInt();
-  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     if(cartnum>0) {
       edit_start_cart2_edit->setText(QString().sprintf("%06u",cartnum));
     }
@@ -2288,7 +1141,8 @@ void EditMatrix::startCart2Data()
 void EditMatrix::stopCart2Data()
 {
   int cartnum=edit_stop_cart2_edit->text().toUInt();
-  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     if(cartnum>0) {
       edit_stop_cart2_edit->setText(QString().sprintf("%06u",cartnum));
     }
@@ -2318,6 +1172,7 @@ bool EditMatrix::WriteMatrix()
 {
   QHostAddress addr;
   QHostAddress addr2;
+  RDMatrix::Type type=edit_matrix->type();
 
   //
   // Ensure Sane Values
@@ -2334,44 +1189,38 @@ bool EditMatrix::WriteMatrix()
     default:
       break;
   }
-  switch(edit_matrix->type()) {
-      case RDMatrix::LogitekVguest:
-      case RDMatrix::SasUsi:
-      case RDMatrix::Quartz1:
-	  switch((RDMatrix::PortType)edit_porttype2_box->currentItem()) {
-	      case RDMatrix::TcpPort:
-		  if(!addr2.setAddress(edit_ipaddress2_edit->text())) {
-		      QMessageBox::warning(this,tr("Invalid Address"),
-					   tr("The backup IP address is invalid!"));
-		      return false;
-		  }
-		  if(edit_porttype_box->currentItem()==RDMatrix::TcpPort) {
-		      if((addr==addr2)&&
-			 (edit_ipport_spin->value()==edit_ipport2_spin->value())) {
-			  QMessageBox::warning(this,tr("Duplicate Connections"),
-					       tr("The primary and backup connections must be different!"));
-			  return false;
-		      }
-		  }
-		  break;
-		  
-	      case RDMatrix::TtyPort:
-		  if(edit_porttype_box->currentItem()==RDMatrix::TtyPort) {
-		      if(edit_port_box->currentItem()==edit_port2_box->currentItem()) {
-			  QMessageBox::warning(this,tr("Duplicate Connections"),
-					       tr("The primary and backup connections must be different!"));
-			  return false;
-		      }
-		  }
-		  break;
-		  
-	      case RDMatrix::NoPort:
-		  break;
-	  }
-	  break;
 
-      default:
-	  break;
+  if(RDMatrix::controlActive(type,RDMatrix::Backup,RDMatrix::PortTypeControl)) {
+    switch((RDMatrix::PortType)edit_porttype2_box->currentItem()) {
+    case RDMatrix::TcpPort:
+      if(!addr2.setAddress(edit_ipaddress2_edit->text())) {
+	QMessageBox::warning(this,tr("Invalid Address"),
+			     tr("The backup IP address is invalid!"));
+	return false;
+      }
+      if(edit_porttype_box->currentItem()==RDMatrix::TcpPort) {
+	if((addr==addr2)&&
+	   (edit_ipport_spin->value()==edit_ipport2_spin->value())) {
+	  QMessageBox::warning(this,tr("Duplicate Connections"),
+		   tr("The primary and backup connections must be different!"));
+	  return false;
+	}
+      }
+      break;
+		  
+    case RDMatrix::TtyPort:
+      if(edit_porttype_box->currentItem()==RDMatrix::TtyPort) {
+	if(edit_port_box->currentItem()==edit_port2_box->currentItem()) {
+	  QMessageBox::warning(this,tr("Duplicate Connections"),
+		   tr("The primary and backup connections must be different!"));
+	  return false;
+	}
+      }
+      break;
+		  
+    case RDMatrix::NoPort:
+      break;
+    }
   }
 
   switch((RDMatrix::PortType)edit_porttype_box->currentItem()) {
@@ -2468,40 +1317,33 @@ void EditMatrix::WriteGpioTable(RDMatrix::GpioType type)
       break;
   }
 
-  switch(edit_matrix->type()) {
-    case RDMatrix::LiveWire:
-      // LiveWire manages the GPIO tables dynamically
-      break;
-
-    default:
-      //
-      // Create New Entries
-      for(int i=0;i<line_quan;i++) {
-	sql=QString("select ID from ")+RDEscapeStringSQLColumn(tablename)+
-	  " where (STATION_NAME=\""+RDEscapeString(edit_stationname)+"\")&&"+
-	  QString().sprintf("(MATRIX=%d)&&(NUMBER=%d)",
-			      edit_matrix_number,i+1);
-	q=new RDSqlQuery(sql);
-	if(!q->first()) {
-	  sql=QString("insert into ")+RDEscapeStringSQLColumn(tablename)+
-	    " set STATION_NAME=\""+RDEscapeString(edit_stationname)+"\","+
-	    QString().sprintf("MATRIX=%d,NUMBER=%d,MACRO_CART=0",
-				edit_matrix_number,i+1);
-	  q1=new RDSqlQuery(sql);
-	  delete q1;
-	}
-	delete q;
-      }
-
-      //
-      // Purge Stale Entries
-      //
-      sql=QString("delete from ")+RDEscapeStringSQLColumn(tablename)+
-	" where	(STATION_NAME=\""+RDEscapeString(edit_stationname)+
-	QString().sprintf("\")&&(MATRIX=%d)&&(NUMBER>%d)",
-			  edit_matrix_number,line_quan);
+  if(!RDMatrix::controlActive(edit_matrix->type(),
+			      RDMatrix::DynamicGpioControl)) {
+    for(int i=0;i<line_quan;i++) {
+      sql=QString("select ID from ")+RDEscapeStringSQLColumn(tablename)+
+	" where (STATION_NAME=\""+RDEscapeString(edit_stationname)+"\")&&"+
+	QString().sprintf("(MATRIX=%d)&&(NUMBER=%d)",
+			  edit_matrix_number,i+1);
       q=new RDSqlQuery(sql);
+      if(!q->first()) {
+	sql=QString("insert into ")+RDEscapeStringSQLColumn(tablename)+
+	  " set STATION_NAME=\""+RDEscapeString(edit_stationname)+"\","+
+	  QString().sprintf("MATRIX=%d,NUMBER=%d,MACRO_CART=0",
+			    edit_matrix_number,i+1);
+	q1=new RDSqlQuery(sql);
+	delete q1;
+      }
       delete q;
-      break;
+    }
+
+    //
+    // Purge Stale Entries
+    //
+    sql=QString("delete from ")+RDEscapeStringSQLColumn(tablename)+
+      " where	(STATION_NAME=\""+RDEscapeString(edit_stationname)+
+      QString().sprintf("\")&&(MATRIX=%d)&&(NUMBER>%d)",
+			edit_matrix_number,line_quan);
+    q=new RDSqlQuery(sql);
+    delete q;
   }
 }

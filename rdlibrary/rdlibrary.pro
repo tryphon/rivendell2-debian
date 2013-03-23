@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlibrary.pro,v 1.11 2012/01/16 11:16:36 cvs Exp $
+#      $Id: rdlibrary.pro,v 1.11.2.1 2013/01/01 21:36:31 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -57,6 +57,7 @@ x11 {
   HEADERS += validate_cut.h
 }
 
+TRANSLATIONS += rdlibrary_cs.ts
 TRANSLATIONS += rdlibrary_de.ts
 TRANSLATIONS += rdlibrary_es.ts
 TRANSLATIONS += rdlibrary_fr.ts

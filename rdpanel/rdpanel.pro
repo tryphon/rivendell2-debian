@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2007 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdpanel.pro,v 1.3 2010/08/04 23:07:02 cvs Exp $
+#      $Id: rdpanel.pro,v 1.3.8.1 2013/01/01 21:36:32 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -29,7 +29,8 @@ x11 {
   HEADERS += rdpanel.h
 }
 
+TRANSLATIONS += rdpanel_cs.ts
+TRANSLATIONS += rdpanel_de.ts
 TRANSLATIONS += rdpanel_es.ts
 TRANSLATIONS += rdpanel_fr.ts
-TRANSLATIONS += rdpanel_de.ts
 TRANSLATIONS += rdpanel_pt_BR.ts

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmatrix.cpp,v 1.28.8.1 2012/08/06 00:12:04 cvs Exp $
+//      $Id: rdmatrix.cpp,v 1.28.8.3 2012/12/11 03:49:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,106 @@
 #include <rdmatrix.h>
 #include <rdescape_string.h>
 
+//
+// Control Grids
+//
+bool __mx_primary_controls[RDMatrix::LastType][RDMatrix::LastControl]=
+  {
+  // 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2
+  // 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6
+    {0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0},  // Local GPIO
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // Generic GPIO
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // Generic Serial
+    {0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // SAS 32000
+    {0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // SAS 64000
+    {0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // Unity4k
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},  // BT SS 8.2
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // BT 10x1
+    {0,1,0,0,0,0,0,0,0,0,0,1,1,0,1,0,1,1,0,1,0,0,0,0,0,0,0},  // SAS 64000 GPI
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // BT 16x1
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // BT 8x2
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},  // BT ACS 8.2
+    {1,1,1,1,0,0,1,1,0,0,0,1,1,1,1,0,1,1,1,1,0,0,0,1,1,0,0},  // SAS USI
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},  // BT 16x2
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // BT SS 12.4
+    {0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // Local Adapter
+    {1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,0,0},  // vGuest
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},  // BT SS 16.4
+    {0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // StarGuide 3
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},  // BT SS 4.2
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1},  // Livewire
+    {1,1,1,1,0,0,1,1,0,0,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // Quartz 1
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0},  // BT SS 4.4
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},  // BT SRC8 III
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0},  // BT SRC16
+    {0,0,1,1,0,1,1,1,0,0,0,1,1,1,1,0,1,1,1,1,0,0,0,0,0,1,0},  // Harlond
+    {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0}   // ACU-1 Prophet
+  };
+bool __mx_backup_controls[RDMatrix::LastType][RDMatrix::LastControl]=
+  {
+  // 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2
+  // 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // Local GPIO
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // Generic GPIO
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // Generic Serial
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // SAS 32000
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // SAS 64000
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // Unity4k
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT SS 8.2
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT 10x1
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // SAS 64000 GPI
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT 16x1
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT 8x2
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT ACS 8.2
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // SAS USI
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT 16x2
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT SS 12.4
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // Local Adapter
+    {1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,0,0},  // vGuest
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT SS16.4
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // StarGuide 3
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT SS 4.2
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // Livewire
+    {1,1,1,1,0,0,1,1,0,0,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0},  // Quartz 1
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT SS 4.4
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT SRC8 III
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // BT SRC16
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // Harlond
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}   // ACU-1 Prophet
+  };
+
+int __mx_default_values[RDMatrix::LastType][RDMatrix::LastControl]=
+  {
+  // 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2
+  // 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // Local GPIO
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // Generic GPIO
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},   // Generic Serial
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // SAS 32000
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // SAS 64000
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // Unity4k
+    {0,0,0,0,0,0,0,0,0,0,0,8,2,16,8,0,0,0,0,0,0,0,0,0,0,0,0},   // BT SS 8.2
+    {0,0,0,0,0,0,0,0,0,0,0,10,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},   // BT 10x1
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // SAS 64000 GPI
+    {0,0,0,0,0,0,0,0,0,0,0,16,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},   // BT 16x1
+    {0,0,0,0,0,0,0,0,0,0,0,8,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // BT 8x2
+    {0,0,0,0,0,0,0,0,0,0,0,8,2,16,16,0,0,0,0,0,0,0,0,0,0,0,0},  // BT ACS 8.2
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // SAS USI
+    {0,0,0,0,0,0,0,0,0,0,0,16,2,16,16,0,0,0,0,0,0,0,0,0,0,0,0}, // BT 16x2
+    {0,0,0,0,0,0,0,0,0,0,0,12,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0},   // BT SS 12.4
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // Local Adapter
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // vGuest
+    {0,0,0,0,0,0,0,0,0,0,0,16,4,24,24,0,0,0,0,0,0,0,0,0,0,0,0}, // BT SS16.4
+    {0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // StarGuide 3
+    {0,0,0,0,0,0,0,0,0,0,0,4,2,16,8,0,0,0,0,0,0,0,0,0,0,0,0},   // BT SS 4.2
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // Livewire
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},    // Quartz 1
+    {0,0,0,0,0,0,0,0,0,0,0,4,4,16,8,0,0,0,0,0,0,0,0,0,0,0,0},   // BT SS 4.4
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,0,0,0,0},    // BT SRC8 III
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,16,16,0,0,0,0,0,0,0,0,0,0,0,0},  // BT SRC16
+    {1,0,0,0,0,0,0,0,0,0,0,8,4,8,8,0,0,0,0,0,0,0,0,0,0,0,0},    // Harlond
+    {0,0,0,0,0,0,0,0,0,0,0,10,1,16,8,0,0,0,0,0,0,0,0,0,0,0,0}   // ACU-1 Prophet
+  };
 
 RDMatrix::RDMatrix(const QString &station,int matrix)
 {
@@ -76,121 +176,6 @@ int RDMatrix::layer() const
 void RDMatrix::setLayer(int layer)
 {
   SetRow("LAYER",layer);
-}
-
-
-QString RDMatrix::typeString() const
-{
-  switch(type()) {
-      case RDMatrix::LocalGpio:
-	return QString("Local GPIO");
-	break;
-
-      case RDMatrix::GenericGpo:
-	return QString("Generic GPO");
-	break;
-
-      case RDMatrix::GenericSerial:
-	return QString("Generic Serial");
-	break;
-
-      case RDMatrix::Sas32000:
-	return QString("SAS 32000");
-	break;
-
-      case RDMatrix::Sas64000:
-	return QString("SAS 64000");
-	break;
-
-      case RDMatrix::Unity4000:
-	return QString("Wegener Unity 4000");
-	break;
-
-      case RDMatrix::BtSs82:
-	return QString("BroadcastTools SS8.2");
-	break;
-
-      case RDMatrix::Bt10x1:
-	return QString("BroadcastTools 10x1");
-	break;
-
-      case RDMatrix::Sas64000Gpi:
-	return QString("SAS 64000-GPI");
-	break;
-
-      case RDMatrix::Bt16x1:
-	return QString("BroadcastTools 16x1");
-	break;
-
-      case RDMatrix::Bt8x2:
-	return QString("BroadcastTools 8x2");
-	break;
-
-      case RDMatrix::BtAcs82:
-	return QString("BroadcastTools ACS 8.2");
-	break;
-
-      case RDMatrix::SasUsi:
-	return QString("SAS User Serial Interface");
-	break;
-
-      case RDMatrix::Bt16x2:
-	return QString("BroadcastTools 16x2");
-	break;
-
-      case RDMatrix::BtSs124:
-	return QString("BroadcastTools SS12.4");
-	break;
-
-      case RDMatrix::LocalAudioAdapter:
-	return QString("Local Audio Adapter");
-	break;
-
-      case RDMatrix::LogitekVguest:
-	return QString("Logitek vGuest");
-	break;
-
-      case RDMatrix::BtSs164:
-	return QString("BroadcastTools SS16.4");
-	break;
-
-      case RDMatrix::StarGuideIII:
-	return QString("StarGuide III");
-	break;
-
-      case RDMatrix::BtSs42:
-	return QString("BroadcastTools SS4.2");
-	break;
-
-      case RDMatrix::LiveWire:
-	return QString("Axia LiveWire");
-	break;
-
-      case RDMatrix::Quartz1:
-	return QString("Quartz Type 1");
-	break;
-
-      case RDMatrix::BtSs44:
-	return QString("BroadcastTools SS4.4");
-	break;
-
-      case RDMatrix::BtSrc8III:
-	return QString("BroadcastTools SRC-8 III");
-	break;
-
-      case RDMatrix::BtSrc16:
-	return QString("BroadcastTools SRC-16");
-	break;
-
-      case RDMatrix::Harlond:
-	return QString("Harlond Virtual Mixer");
-	break;
-
-      default:
-	return QString("Unknown Type");
-	break;
-  }
-  return QString("Unknown Type");
 }
 
 
@@ -543,6 +528,156 @@ int RDMatrix::displays() const
 void RDMatrix::setDisplays(int quan) const
 {
   SetRow("DISPLAYS",quan);
+}
+
+
+QString RDMatrix::typeString(RDMatrix::Type type)
+{
+  switch(type) {
+      case RDMatrix::LocalGpio:
+	return QString("Local GPIO");
+	break;
+
+      case RDMatrix::GenericGpo:
+	return QString("Generic GPO");
+	break;
+
+      case RDMatrix::GenericSerial:
+	return QString("Generic Serial");
+	break;
+
+      case RDMatrix::Sas32000:
+	return QString("SAS 32000");
+	break;
+
+      case RDMatrix::Sas64000:
+	return QString("SAS 64000");
+	break;
+
+      case RDMatrix::Unity4000:
+	return QString("Wegener Unity 4000");
+	break;
+
+      case RDMatrix::BtSs82:
+	return QString("BroadcastTools SS8.2");
+	break;
+
+      case RDMatrix::Bt10x1:
+	return QString("BroadcastTools 10x1");
+	break;
+
+      case RDMatrix::Sas64000Gpi:
+	return QString("SAS 64000-GPI");
+	break;
+
+      case RDMatrix::Bt16x1:
+	return QString("BroadcastTools 16x1");
+	break;
+
+      case RDMatrix::Bt8x2:
+	return QString("BroadcastTools 8x2");
+	break;
+
+      case RDMatrix::BtAcs82:
+	return QString("BroadcastTools ACS 8.2");
+	break;
+
+      case RDMatrix::SasUsi:
+	return QString("SAS User Serial Interface");
+	break;
+
+      case RDMatrix::Bt16x2:
+	return QString("BroadcastTools 16x2");
+	break;
+
+      case RDMatrix::BtSs124:
+	return QString("BroadcastTools SS12.4");
+	break;
+
+      case RDMatrix::LocalAudioAdapter:
+	return QString("Local Audio Adapter");
+	break;
+
+      case RDMatrix::LogitekVguest:
+	return QString("Logitek vGuest");
+	break;
+
+      case RDMatrix::BtSs164:
+	return QString("BroadcastTools SS16.4");
+	break;
+
+      case RDMatrix::StarGuideIII:
+	return QString("StarGuide III");
+	break;
+
+      case RDMatrix::BtSs42:
+	return QString("BroadcastTools SS4.2");
+	break;
+
+      case RDMatrix::LiveWire:
+	return QString("Axia LiveWire");
+	break;
+
+      case RDMatrix::Quartz1:
+	return QString("Quartz Type 1");
+	break;
+
+      case RDMatrix::BtSs44:
+	return QString("BroadcastTools SS4.4");
+	break;
+
+      case RDMatrix::BtSrc8III:
+	return QString("BroadcastTools SRC-8 III");
+	break;
+
+      case RDMatrix::BtSrc16:
+	return QString("BroadcastTools SRC-16");
+	break;
+
+      case RDMatrix::Harlond:
+	return QString("Harlond Virtual Mixer");
+	break;
+
+      case RDMatrix::Acu1p:
+	return QString("Sine ACU-1 (Prophet)");
+	break;
+
+      default:
+	return QString("Unknown Type");
+	break;
+  }
+  return QString("Unknown Type");
+}
+
+
+bool RDMatrix::controlActive(RDMatrix::Type type,RDMatrix::Role role,
+			     RDMatrix::Control control)
+{
+  bool ret=false;
+
+  switch(role) {
+  case RDMatrix::Primary:
+    ret=__mx_primary_controls[type][control];
+    break;
+
+  case RDMatrix::Backup:
+    ret=__mx_backup_controls[type][control];
+    break;
+  }
+  return ret;
+}
+
+
+bool RDMatrix::controlActive(RDMatrix::Type type,RDMatrix::Control control)
+{
+  return __mx_primary_controls[type][control];
+}
+
+
+int RDMatrix::defaultControlValue(RDMatrix::Type type,
+				  RDMatrix::Control control)
+{
+  return __mx_default_values[type][control];
 }
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.cpp,v 1.76.6.4 2012/09/12 14:36:18 cvs Exp $
+//      $Id: rdcut.cpp,v 1.76.6.5 2012/11/26 20:19:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -61,14 +61,14 @@ RDCut::RDCut(const QString &name,bool create,QSqlDatabase *db)
     return;
   }
 
+  sscanf((const char *)name+7,"%u",&cut_number);
+  sscanf((const char *)name.left(6),"%u",&cart_number);
   if(create) {
-    sql=QString().sprintf("INSERT INTO CUTS SET CUT_NAME=\"%s\"",
-			  (const char *)cut_name);
+    sql=QString().sprintf("insert into CUTS set CUT_NAME=\"%s\",CART_NUMBER=%u",
+			  (const char *)cut_name,cart_number);
     q=new RDSqlQuery(sql,cut_db);
     delete q;
   }
-  sscanf((const char *)name+7,"%u",&cut_number);
-  sscanf((const char *)name.left(6),"%u",&cart_number);
 }
 
 
@@ -78,13 +78,13 @@ RDCut::RDCut(unsigned cartnum,int cutnum,bool create,QSqlDatabase *db)
   QString sql;
 
   cut_db=db;
-  cut_name=QString().sprintf("%06u_%03d",cartnum,cutnum);
+  cut_name=RDCut::cutName(cartnum,cutnum);
 
   cut_signal=new QSignal();
 
   if(create) {
-    sql=QString().sprintf("INSERT INTO CUTS SET CUT_NAME=\"%s\"",
-			  (const char *)cut_name);
+    sql=QString().sprintf("insert into CUTS set CUT_NAME=\"%s\",CART_NUMBER=%u",
+			  (const char *)cut_name,cartnum);
     q=new RDSqlQuery(sql,cut_db);
     delete q;
   }

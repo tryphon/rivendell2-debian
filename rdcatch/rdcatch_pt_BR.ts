@@ -969,7 +969,7 @@ Novo</translation>
     <name>MainWidget</name>
     <message>
         <source>RDCatch - Host:</source>
-        <translation>RDCaptura - Cliente:</translation>
+        <translation type="obsolete">RDCaptura - Cliente:</translation>
     </message>
     <message>
         <source>rdcatch : </source>
@@ -1309,6 +1309,14 @@ Novo</translation>
     </message>
     <message>
         <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.cpp,v 1.195.2.2 2012/08/24 18:58:31 cvs Exp $
+//      $Id: createdb.cpp,v 1.195.2.11 2013/01/14 16:02:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -42,6 +42,7 @@
 #include <rdlog_line.h>
 #include <rdcreateauxfieldstable.h>
 #include <rdfeedlog.h>
+#include <rdescape_string.h>
 #include "rdconfig.h"
 #include <createdb.h>
 #include <globals.h>
@@ -600,6 +601,11 @@ bool CreateDb(QString name,QString pwd)
       FILTER_MODE int default 0,\
       START_JACK enum('N','Y') default 'N',\
       JACK_SERVER_NAME char(64),\
+      JACK_COMMAND_LINE char(255),\
+      CUE_CARD int default 0,\
+      CUE_PORT int default 0,\
+      CARTSLOT_COLUMNS int default 1,\
+      CARTSLOT_ROWS int default 8,\
       SYSTEM_MAINT enum('N','Y') default 'Y',\
       STATION_SCANNED enum('N','Y') default 'N',\
       HAVE_OGGENC enum('N','Y') default 'N',\
@@ -749,12 +755,14 @@ bool CreateDb(QString name,QString pwd)
       HOOK_END_POINT INT DEFAULT -1,\
       TALK_START_POINT INT DEFAULT -1,\
       TALK_END_POINT INT DEFAULT -1,\
-      INDEX CART_NUMBER_IDX (CART_NUMBER),\
-      INDEX DESCRIPTION_IDX (DESCRIPTION),\
-      INDEX OUTCUE_IDX (OUTCUE),\
-      INDEX ORIGIN_DATETIME_IDX (ORIGIN_DATETIME),\
-      INDEX START_DATETIME_IDX (START_DATETIME),\
-      INDEX END_DATETIME_IDX (END_DATETIME))",RD_FADE_DEPTH);
+      index CART_NUMBER_IDX (CART_NUMBER),\
+      index DESCRIPTION_IDX (DESCRIPTION),\
+      index OUTCUE_IDX (OUTCUE),\
+      index ORIGIN_DATETIME_IDX (ORIGIN_DATETIME),\
+      index START_DATETIME_IDX (START_DATETIME),\
+      index END_DATETIME_IDX (END_DATETIME),\
+      index ISCI_IDX (ISCI),\
+      index ISRC_IDX (ISRC))",RD_FADE_DEPTH);
   if(!RunQuery(sql)) {
     return false;
   }
@@ -805,6 +813,7 @@ bool CreateDb(QString name,QString pwd)
       PROGRAM_CODE char(255),\
       CHAIN_LOG enum('N','Y') default 'N',\
       TRACK_GROUP char(10),\
+      AUTOSPOT_GROUP char(10),\
       AUTO_REFRESH enum('N','Y') default 'N',\
       DEFAULT_LOG_SHELFLIFE int default -1,\
       ELR_SHELFLIFE int default -1,\
@@ -897,6 +906,7 @@ bool CreateDb(QString name,QString pwd)
       DEFAULT_LOW_CART int unsigned default 0,\
       DEFAULT_HIGH_CART int unsigned default 0,\
       CUT_SHELFLIFE int default -1,\
+      DELETE_EMPTY_CARTS enum('N','Y') default 'N',\
       DEFAULT_TITLE char(255) default \"Imported from %f.%e\",\
       ENFORCE_CART_RANGE enum('N','Y') default 'N',\
       REPORT_TFC enum('N','Y') default 'Y',\
@@ -1241,6 +1251,7 @@ bool CreateDb(QString name,QString pwd)
       BUTTON_LABEL_TEMPLATE char(32) default \"%t\",\
       PAUSE_ENABLED enum('N','Y'),\
       DEFAULT_SERVICE char(10),\
+      HOUR_SELECTOR_ENABLED enum('N','Y') default 'N',\
       UDP_ADDR0 char(255),\
       UDP_PORT0 int unsigned,\
       UDP_STRING0 char(255),\
@@ -2018,7 +2029,8 @@ bool CreateDb(QString name,QString pwd)
                          SAMPLE_RATE int unsigned default %d,\
                          DUP_CART_TITLES enum('N','Y') not null default 'Y',\
                          MAX_POST_LENGTH int unsigned default %u,\
-                         ISCI_XREFERENCE_PATH char(255))",
+                         ISCI_XREFERENCE_PATH char(255),\
+                         TEMP_CART_GROUP char(10))",
 			RD_DEFAULT_SAMPLE_RATE,
 			RD_DEFAULT_MAX_POST_LENGTH);
   if(!RunQuery(sql)) {
@@ -2159,6 +2171,44 @@ bool CreateDb(QString name,QString pwd)
      return false;
   }
 
+  //
+  // Create JACK_CLIENTS Table
+  //
+  sql=QString("create table if not exists JACK_CLIENTS (\
+               ID int unsigned auto_increment not null primary key,	\
+               STATION_NAME char(64) not null,\
+               DESCRIPTION char(64),\
+               COMMAND_LINE char(255) not null,\
+               index IDX_STATION_NAME (STATION_NAME))");
+  if(!RunQuery(sql)) {
+     return false;
+  }
+
+  //
+  // Create CARTSLOTS Table
+  //
+  sql=QString("create table if not exists CARTSLOTS (")+
+    "ID int unsigned auto_increment not null primary key,"+
+    "STATION_NAME char(64) not null,"+
+    "SLOT_NUMBER int unsigned not null,"+
+    "MODE int not null default 0,"+
+    "DEFAULT_MODE int not null default -1,"+
+    "STOP_ACTION int not null default 0,"+
+    "DEFAULT_STOP_ACTION int not null default -1,"+
+    "CART_NUMBER int default 0,"+
+    "DEFAULT_CART_NUMBER int not null default 0,"+
+    "HOOK_MODE int default 0,"+
+    "DEFAULT_HOOK_MODE int not null default -1,"+
+    "SERVICE_NAME char(10),"+
+    "CARD int not null default 0,"+
+    "INPUT_PORT int not null default 0,"+
+    "OUTPUT_PORT int not null default 0,"+
+    "index STATION_NAME_IDX(STATION_NAME,SLOT_NUMBER))";
+  if(!RunQuery(sql)) {
+     return false;
+  }
+
+
   return true;
 }
 
@@ -2287,8 +2337,8 @@ bool InitDb(QString name,QString pwd,QString station_name)
 
   struct Group
   {
-    char *group;
-    char *description;
+    const char *group;
+    const char *description;
     int start;
     int end;
     bool now_next;
@@ -7222,6 +7272,127 @@ int UpdateDb(int ver)
          EVENT_ID_LENGTH=32,\
          DATA_OFFSET=102,\
          DATA_LENGTH=32";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<208) {
+    sql="alter table RDAIRPLAY add column HOUR_SELECTOR_ENABLED enum('N','Y') \
+         default 'N' after DEFAULT_SERVICE";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<209) {
+    sql="alter table STATIONS add column JACK_COMMAND_LINE char(255) \
+         after JACK_SERVER_NAME";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("create table if not exists JACK_CLIENTS (\
+                 ID int unsigned auto_increment not null primary key,\
+                 STATION_NAME char(64) not null,\
+                 DESCRIPTION char(64),\
+                 COMMAND_LINE char(255) not null,\
+                 index IDX_STATION_NAME (STATION_NAME))");
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<210) {
+    sql=QString("create table if not exists CARTSLOTS (")+
+      "ID int unsigned auto_increment not null primary key,"+
+      "STATION_NAME char(64) not null,"+
+      "SLOT_NUMBER int unsigned not null,"+
+      "MODE int not null default 0,"+
+      "DEFAULT_MODE int not null default -1,"+
+      "STOP_ACTION int not null default 0,"+
+      "DEFAULT_STOP_ACTION int not null default -1,"+
+      "CART_NUMBER int default 0,"+
+      "DEFAULT_CART_NUMBER int not null default 0,"+
+      "SERVICE_NAME char(10),"+
+      "CARD int not null default 0,"+
+      "INPUT_PORT int not null default 0,"+
+      "OUTPUT_PORT int not null default 0,"+
+      "index STATION_NAME_IDX(STATION_NAME,SLOT_NUMBER))";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<211) {
+    sql=QString("alter table SYSTEM add column TEMP_CART_GROUP char(10) ")+
+      "default \"TEMP\" after ISCI_XREFERENCE_PATH";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<212) {
+    sql=QString("alter table CARTSLOTS add column HOOK_MODE int default 0 ")+
+      "after DEFAULT_CART_NUMBER";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table CARTSLOTS add column DEFAULT_HOOK_MODE int ")+
+      "default -1 after HOOK_MODE";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<213) {
+    sql=QString("alter table STATIONS add column CUE_CARD int default 0 ")+
+      "after JACK_COMMAND_LINE";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table STATIONS add column CUE_PORT int default 0 ")+
+      "after CUE_CARD";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table STATIONS add column CARTSLOT_COLUMNS int ")+
+      "default 1 after CUE_PORT";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table STATIONS add column CARTSLOT_ROWS int ")+
+      "default 8 after CARTSLOT_COLUMNS";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("select STATION_NAME,CARD_NUMBER,PORT_NUMBER from DECKS ")+
+      "where CHANNEL=0";
+    q=new QSqlQuery(sql);
+    while(q->next()) {
+      sql=QString("update STATIONS set ")+
+	QString().sprintf("CUE_CARD=%d,",q->value(1).toInt())+
+	QString().sprintf("CUE_PORT=%d ",q->value(2).toInt())+
+	"where NAME=\""+RDEscapeString(q->value(0).toString())+"\"";
+      q1=new QSqlQuery(sql);
+      delete q1;
+    }
+    delete q;
+  }
+
+  if(ver<214) {
+    sql=QString("alter table SERVICES add column AUTOSPOT_GROUP char(10) ")+
+      "after TRACK_GROUP";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<215) {
+    sql=QString("alter table GROUPS add column DELETE_EMPTY_CARTS ")+
+      "enum('N','Y') default 'N' after CUT_SHELFLIFE";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<216) {
+    sql="alter table CUTS add index ISCI_IDX(ISCI)";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="alter table CUTS add index ISRC_IDX(ISRC)";
     q=new QSqlQuery(sql);
     delete q;
   }

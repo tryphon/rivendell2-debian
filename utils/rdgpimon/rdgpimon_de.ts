@@ -28,7 +28,7 @@
     </message>
     <message>
         <source>RDGpiMon - User:</source>
-        <translation>RDGpiMon-Benutzer:</translation>
+        <translation type="obsolete">RDGpiMon-Benutzer:</translation>
     </message>
     <message>
         <source>Show:</source>
@@ -49,6 +49,10 @@
     <message>
         <source>Red = OFF Cart</source>
         <translation>Rot = OFF Cart</translation>
+    </message>
+    <message>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

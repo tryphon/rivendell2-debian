@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194.6.4 2012/10/22 18:22:38 cvs Exp $
+//      $Id: rd.h,v 1.194.6.6 2012/11/28 21:44:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -480,5 +480,56 @@
  * Status Monitor Height
  */
 #define RDMONITOR_HEIGHT 30
+
+/*
+ * RDAirPlay Colors
+ */
+#define RDPANEL_SETUP_FLASH_COLOR Qt::blue
+#define RDPANEL_RESET_FLASH_COLOR Qt::blue
+#define RDPANEL_PLAY_BACKGROUND_COLOR Qt::red
+#define RDPANEL_PAUSED_BACKGROUND_COLOR Qt::cyan
+#define BUTTON_STOPPED_BACKGROUND_COLOR Qt::green
+#define BUTTON_PLAY_BACKGROUND_COLOR Qt::red
+#define BUTTON_PLAY_TEXT_COLOR Qt::black
+#define BUTTON_PAUSE_BACKGROUND_COLOR Qt::cyan
+#define BUTTON_PAUSE_TEXT_COLOR Qt::black
+#define BUTTON_FROM_BACKGROUND_COLOR Qt::magenta
+#define BUTTON_FROM_TEXT_COLOR Qt::black
+#define BUTTON_TO_BACKGROUND_COLOR Qt::yellow
+#define BUTTON_TO_TEXT_COLOR Qt::black
+#define BUTTON_DISABLED_BACKGROUND_COLOR Qt::darkGray
+#define BUTTON_DISABLED_TEXT_COLOR Qt::white
+#define BUTTON_ERROR_BACKGROUND_COLOR Qt::red
+#define BUTTON_ERROR_TEXT_COLOR Qt::black
+
+#define LOG_SCHEDULED_COLOR Qt::white
+#define LOG_PLAYING_COLOR Qt::green
+#define LOG_PAUSED_COLOR Qt::cyan
+#define LOG_NEXT_COLOR "#CCFFCC"
+#define LOG_FINISHED_COLOR Qt::gray
+#define LOG_EVERGREEN_COLOR "#008000"
+#define LOG_ERROR_COLOR Qt::red
+#define LOG_RELATIVE_TEXT_COLOR Qt::black
+#define LOG_HARDTIME_TEXT_COLOR Qt::blue
+
+/*
+ * Cart Label Box Colors
+ */
+#define BAR_UNCHANGED_TRANSITION_COLOR Qt::green
+#define BAR_UNCHANGED_STOPPING_COLOR Qt::red
+#define BAR_CHANGED_TRANSITION_COLOR Qt::yellow
+#define BAR_CHANGED_STOPPING_COLOR Qt::blue
+#define LABELBOX_BACKGROUND_COLOR Qt::white
+#define LABELBOX_MISSING_COLOR Qt::red
+#define LABELBOX_MARKER_COLOR Qt::cyan
+#define LABELBOX_CHAIN_COLOR Qt::magenta
+#define LABELBOX_EVERGREEN_COLOR "#008000"
+#define LABELBOX_TIMESCALE_COLOR Qt::green
+
+/*
+ * RDCartSlots Settings
+ */
+#define RDCARTSLOTS_MAX_ROWS 16
+#define RDCARTSLOTS_MAX_COLUMNS 4
 
 #endif  // RD_H

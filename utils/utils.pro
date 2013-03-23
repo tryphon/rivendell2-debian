@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2006 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: utils.pro,v 1.9 2010/07/29 19:32:39 cvs Exp $
+#      $Id: utils.pro,v 1.9.8.1 2012/11/29 01:37:37 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -21,6 +21,6 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS += rmlsend
-SUBDIRS += rdsoftkeys
 SUBDIRS += rdcollect
+SUBDIRS += rdsoftkeys
+SUBDIRS += rmlsend

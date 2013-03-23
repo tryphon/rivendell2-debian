@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.cpp,v 1.101.4.1 2012/10/09 16:42:05 cvs Exp $
+//      $Id: rdlog_event.cpp,v 1.101.4.2 2012/11/13 23:45:09 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -935,6 +935,31 @@ int RDLogEvent::lineById(int id) const
     }
   }
   return -1;
+}
+
+
+int RDLogEvent::lineByStartHour(int hour,RDLogLine::StartTimeType type) const
+{
+  for(int i=0;i<size();i++) {
+    if(!log_line[i]->startTime(type).isNull()&&
+       (log_line[i]->startTime(type).hour()==hour)) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+int RDLogEvent::lineByStartHour(int hour) const
+{
+  int line=-1;
+
+  if((line=lineByStartHour(hour,RDLogLine::Initial))<0) {
+    if((line=lineByStartHour(hour,RDLogLine::Predicted))<0) {
+      line=lineByStartHour(hour,RDLogLine::Imported);
+    }
+  }
+  return line;
 }
 
 

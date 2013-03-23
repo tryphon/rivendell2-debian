@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_group.cpp,v 1.27 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_group.cpp,v 1.27.8.1 2013/01/07 13:50:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -165,10 +165,10 @@ EditGroup::EditGroup(QString group,QWidget *parent,const char *name)
   //
   // Traffic Report Checkbox
   //
-  group_traffic_box=new QCheckBox(this,"group_traffic_box");
-  group_traffic_box->setGeometry(20,145,15,15);
+  group_traffic_check=new QCheckBox(this,"group_traffic_check");
+  group_traffic_check->setGeometry(20,145,15,15);
   label=
-    new QLabel(group_traffic_box,tr("Include this group in Traffic reports"),
+    new QLabel(group_traffic_check,tr("Include this group in Traffic reports"),
 	       this,"group_traffic_label");
   label->setGeometry(40,143,sizeHint().width()-50,19);
   label->setFont(font);
@@ -177,44 +177,52 @@ EditGroup::EditGroup(QString group,QWidget *parent,const char *name)
   //
   // Music Report Checkbox
   //
-  group_music_box=new QCheckBox(this,"group_music_box");
-  group_music_box->setGeometry(20,166,15,15);
-  label=new QLabel(group_music_box,tr("Include this group in Music reports"),
+  group_music_check=new QCheckBox(this,"group_music_check");
+  group_music_check->setGeometry(20,166,15,15);
+  label=new QLabel(group_music_check,tr("Include this group in Music reports"),
 		   this,"group_music_label");
   label->setGeometry(40,164,sizeHint().width()-50,19);
   label->setFont(font);
   label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
 
   //
-  // Cut Autopurging
+  // Cut Auto Purging
   //
-  group_shelflife_box=new QCheckBox(this,"group_shelflife_box");
-  group_shelflife_box->setGeometry(20,193,15,15);
-  connect(group_shelflife_box,SIGNAL(toggled(bool)),
+  group_shelflife_check=new QCheckBox(this,"group_shelflife_check");
+  group_shelflife_check->setGeometry(20,193,15,15);
+  connect(group_shelflife_check,SIGNAL(toggled(bool)),
 	  this,SLOT(purgeEnabledData(bool)));
   group_shelflife_spin=new QSpinBox(this,"group_shelflife_spin");
   group_shelflife_spin->setGeometry(200,191,40,19);
   group_shelflife_spin->setRange(0,30);
   group_shelflife_label=
-    new QLabel(group_shelflife_box,tr("Purge expired cuts after"),
+    new QLabel(group_shelflife_check,tr("Purge expired cuts after"),
 	       this,"group_shelflife_label");
   group_shelflife_label->setGeometry(40,193,160,19);
   group_shelflife_label->setFont(font);
   group_shelflife_label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
   group_shelflife_unit=
-    new QLabel(group_shelflife_box,tr("days"),this,"group_shelflife_unit");
+    new QLabel(group_shelflife_check,tr("days"),this,"group_shelflife_unit");
   group_shelflife_unit->setGeometry(250,193,50,19);
   group_shelflife_unit->setFont(font);
   group_shelflife_unit->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
 
+  group_delete_carts_check=new QCheckBox(this);
+  group_delete_carts_check->setGeometry(40,214,15,15);
+  group_delete_carts_label=
+    new QLabel(group_delete_carts_check,tr("Delete cart if empty"),this);
+  group_delete_carts_label->setGeometry(60,214,160,19);
+  group_delete_carts_label->setFont(font);
+  group_delete_carts_label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
+
   //
   // Now & Next Data Checkbox
   //
-  group_nownext_box=new QCheckBox(this,"group_nownext_box");
-  group_nownext_box->setGeometry(20,220,15,15);
-  label=new QLabel(group_nownext_box,tr("Transmit Now && Next data"),
+  group_nownext_check=new QCheckBox(this,"group_nownext_check");
+  group_nownext_check->setGeometry(20,242,15,15);
+  label=new QLabel(group_nownext_check,tr("Transmit Now && Next data"),
 		   this,"group_nownext_label");
-  label->setGeometry(40,219,sizeHint().width()-50,19);
+  label->setGeometry(40,241,sizeHint().width()-50,19);
   label->setFont(font);
   label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
 
@@ -222,7 +230,7 @@ EditGroup::EditGroup(QString group,QWidget *parent,const char *name)
   // Services Selector
   //
   group_svcs_sel=new RDListSelector(this,"group_svcs_sel");
-  group_svcs_sel->setGeometry(10,239,380,130);
+  group_svcs_sel->setGeometry(10,261,380,130);
 
   //
   //  Color Button
@@ -264,14 +272,15 @@ EditGroup::EditGroup(QString group,QWidget *parent,const char *name)
   group_highcart_box->setValue(group_group->defaultHighCart());
   lowCartChangedData(group_group->defaultLowCart());
   group_enforcerange_box->setChecked(group_group->enforceCartRange());
-  group_traffic_box->setChecked(group_group->exportReport(RDGroup::Traffic));
-  group_music_box->setChecked(group_group->exportReport(RDGroup::Music));
+  group_traffic_check->setChecked(group_group->exportReport(RDGroup::Traffic));
+  group_music_check->setChecked(group_group->exportReport(RDGroup::Music));
   if(group_group->cutShelflife()>=0) {
     group_shelflife_spin->setValue(group_group->cutShelflife());
-    group_shelflife_box->setChecked(true);
+    group_shelflife_check->setChecked(true);
+    group_delete_carts_check->setChecked(group_group->deleteEmptyCarts());
   }
-  purgeEnabledData(group_shelflife_box->isChecked());
-  group_nownext_box->setChecked(group_group->enableNowNext());
+  purgeEnabledData(group_shelflife_check->isChecked());
+  group_nownext_check->setChecked(group_group->enableNowNext());
   sql=QString().sprintf("select SERVICE_NAME from AUDIO_PERMS \
                          where GROUP_NAME=\"%s\"",
 			(const char *)group_group->name());
@@ -303,7 +312,7 @@ EditGroup::~EditGroup()
 
 QSize EditGroup::sizeHint() const
 {
-  return QSize(400,450);
+  return QSize(400,472);
 } 
 
 
@@ -348,6 +357,8 @@ void EditGroup::purgeEnabledData(bool state)
 {
   group_shelflife_spin->setEnabled(state);
   group_shelflife_unit->setEnabled(state);
+  group_delete_carts_check->setEnabled(state);
+  group_delete_carts_label->setEnabled(state);
 }
 
 
@@ -373,15 +384,17 @@ void EditGroup::okData()
     group_group->setEnforceCartRange(group_enforcerange_box->isChecked());
   }
   group_group->
-    setExportReport(RDGroup::Traffic,group_traffic_box->isChecked());
-  group_group->setExportReport(RDGroup::Music,group_music_box->isChecked());
-  if(group_shelflife_box->isChecked()) {
+    setExportReport(RDGroup::Traffic,group_traffic_check->isChecked());
+  group_group->setExportReport(RDGroup::Music,group_music_check->isChecked());
+  if(group_shelflife_check->isChecked()) {
     group_group->setCutShelflife(group_shelflife_spin->value());
+    group_group->setDeleteEmptyCarts(group_delete_carts_check->isChecked());
   }
   else {
     group_group->setCutShelflife(-1);
+    group_group->setDeleteEmptyCarts(false);
   }
-  group_group->setEnableNowNext(group_nownext_box->isChecked());
+  group_group->setEnableNowNext(group_nownext_check->isChecked());
   group_group->setColor(group_color_button->
 			palette().color(QPalette::Active,
 					QColorGroup::ButtonText));

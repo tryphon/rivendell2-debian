@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.7.4.3 2012/08/24 00:57:30 cvs Exp $
+##      $Id: Makefile.am,v 1.7.4.4 2012/11/29 01:37:37 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -71,5 +71,18 @@ EXTRA_DIST = Makefile-example\
              rlm_xds.c\
              rlm_xmpad.c
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk *.rlm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             *.rlm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

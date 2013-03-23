@@ -8,7 +8,7 @@
 ##
 ##   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.7 2010/08/04 23:07:01 cvs Exp $
+##      $Id: Makefile.am,v 1.7.8.3 2013/01/01 21:36:30 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -53,22 +53,43 @@ all:
 	@QT_BIN@/lrelease rdhpi.pro
 
 lib_LTLIBRARIES = librdhpi.la
-dist_librdhpi_la_SOURCES = rdhpisoundcard.cpp rdhpisoundcard.h\
+dist_librdhpi_la_SOURCES = rdhpicardselector.cpp rdhpicardselector.h\
+                           rdhpiinformation.cpp rdhpiinformation.h\
                            rdhpiplaystream.cpp rdhpiplaystream.h\
                            rdhpirecordstream.cpp rdhpirecordstream.h\
-                           rdhpisoundselector.cpp rdhpisoundselector.h\
-                           rdhpicardselector.cpp rdhpicardselector.h\
-                           rdhpiinformation.cpp rdhpiinformation.h
+                           rdhpisoundcard.cpp rdhpisoundcard.h\
+                           rdhpisoundselector.cpp rdhpisoundselector.h
 
-nodist_librdhpi_la_SOURCES = moc_rdhpisoundcard.cpp moc_rdhpiplaystream.cpp\
-                             moc_rdhpisoundselector.cpp\
-                             moc_rdhpicardselector.cpp\
-                             moc_rdhpirecordstream.cpp
+nodist_librdhpi_la_SOURCES = moc_rdhpicardselector.cpp\
+                             moc_rdhpiplaystream.cpp\
+                             moc_rdhpirecordstream.cpp\
+                             moc_rdhpisoundcard.cpp\
+                             moc_rdhpisoundselector.cpp
+
 
 librdhpi_la_LDFLAGS = -release $(VERSION)
 
-EXTRA_DIST = rdhpi.pro rdhpi_es.ts rdhpi_fr.ts rdhpi_de.ts\
-             rdhpi_nb.ts rdhpi_nn.ts rdhpi_pt_BR.ts
+EXTRA_DIST = rdhpi.pro\
+             rdhpi_cs.ts\
+             rdhpi_de.ts\
+             rdhpi_es.ts\
+             rdhpi_fr.ts\
+             rdhpi_nb.ts\
+             rdhpi_nn.ts\
+             rdhpi_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.obj *.lib *.idb *.pdb *.ilk *.qm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *.ilk\
+             *.lib\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+DISTCLEAN = Makefile
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile\
+                       Makefile.in\
+                       moc_*

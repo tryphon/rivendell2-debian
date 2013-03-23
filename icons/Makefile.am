@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@salemradiolabs.com>
 ##
-##      $Id: Makefile.am,v 1.19 2012/01/17 18:11:35 cvs Exp $
-##      $Date: 2012/01/17 18:11:35 $
+##      $Id: Makefile.am,v 1.19.2.1 2012/11/29 01:37:35 cvs Exp $
+##      $Date: 2012/11/29 01:37:35 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -58,27 +58,65 @@ uninstall:
 	rm -f @prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
 	rm -f @prefix@/share/icons/hicolor/128x128/apps/rivendell-128x128.xpm
 
-EXTRA_DIST = rivendell.res play.xpm macro.xpm\
-             fillstart.xpm fillstop.xpm\
-             note.xpm note2.xpm\
-             post.xpm post2.xpm post3.xpm\
-             record.xpm record2.xpm record3.xpm\
-             rml.xpm rml2.xpm rml3.xpm rml5.xpm\
-             switch.xpm switch2.xpm switch3.xpm\
-             marker.xpm chain.xpm rivendell.ico\
-             download.xpm upload.xpm track.xpm\
-             checkmark.xpm ex.xpm track_cart.xpm\
-             track_cart.xpm rivendell-16x16.xpm\
-             greencheckmark.xpm redcheckmark.xpm\
-             redx.xpm whiteball.xpm blueball.xpm\
-             redball.xpm greenball.xpm mic16.xpm\
-             music.xpm traffic.xpm notemarker.xpm\
-             rivendell-22x22.xpm rivendell-32x32.xpm\
-             rivendell-48x48.xpm rivendell-64x64.xpm\
-             rivendell-128x128.xpm greencheckmark.png redx.png\
-             greenball.png redball.png whiteball.png\
-             user.xpm admin.xpm\
-             progressbar.xcf progressbar.gif split.xpm
+EXTRA_DIST = admin.xpm\
+             blueball.xpm\
+             chain.xpm\
+             checkmark.xpm\
+             download.xpm\
+             ex.xpm\
+             fillstart.xpm\
+             fillstop.xpm\
+             greenball.png\
+             greencheckmark.png\
+             greenball.xpm\
+             greencheckmark.xpm\
+             marker.xpm\
+             mic16.xpm\
+             music.xpm\
+             note.xpm\
+             note2.xpm\
+             notemarker.xpm\
+             play.xpm macro.xpm\
+             post.xpm\
+             post2.xpm\
+             post3.xpm\
+             progressbar.gif\
+             progressbar.xcf\
+             record.xpm\
+             record2.xpm\
+             record3.xpm\
+             redball.png\
+             redball.xpm\
+             redcheckmark.xpm\
+             redx.png\
+             redx.xpm\
+             rivendell.ico\
+             rivendell.res\
+             rivendell-16x16.xpm\
+             rivendell-22x22.xpm\
+             rivendell-32x32.xpm\
+             rivendell-48x48.xpm\
+             rivendell-64x64.xpm\
+             rivendell-128x128.xpm\
+             rml.xpm\
+             rml2.xpm\
+             rml3.xpm\
+             rml5.xpm\
+             split.xpm\
+             switch.xpm\
+             switch2.xpm\
+             switch3.xpm\
+             track.xpm\
+             track_cart.xpm\
+             traffic.xpm\
+             upload.xpm\
+             user.xpm\
+             whiteball.png\
+             whiteball.xpm
 
 CLEANFILES = *~
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4
+
+MAINTAINERCLEANFILES = *~\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in

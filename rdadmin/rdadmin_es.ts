@@ -348,35 +348,19 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Local GPIO</source>
-        <translation>GPIO Local</translation>
+        <translation type="obsolete">GPIO Local</translation>
     </message>
     <message>
         <source>Generic GPO</source>
-        <translation>GPO Genérico</translation>
+        <translation type="obsolete">GPO Genérico</translation>
     </message>
     <message>
         <source>Generic Serial</source>
-        <translation>Serial Genérico</translation>
+        <translation type="obsolete">Serial Genérico</translation>
     </message>
     <message>
         <source>Local Audio Adapter</source>
-        <translation>Adaptador de Audio Local</translation>
-    </message>
-    <message>
-        <source>Logitek vGuest</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SS16.4</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>StarGuide III</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SS4.2</source>
-        <translation></translation>
+        <translation type="obsolete">Adaptador de Audio Local</translation>
     </message>
     <message>
         <source>&amp;Switcher Type:</source>
@@ -399,35 +383,11 @@ y un respaldo de la base de datos se guardó en </translation>
         <translation>¡La matriz ya existe!</translation>
     </message>
     <message>
-        <source>Axia LiveWire</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Quartz Type 1</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SS4.4</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SRC-8 III</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SRC-16</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>New Switcher</source>
         <translation>Nueva Suichera</translation>
     </message>
     <message>
         <source>RDAdmin - Add Switcher</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Harlond Virtual Mixer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -854,6 +814,133 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
 </context>
 <context>
+    <name>EditCartSlots</name>
+    <message>
+        <source>RDAdmin - Edit CartSlots</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ninguno</translation>
+    </message>
+    <message>
+        <source>Output Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Card:</source>
+        <translation type="unfinished">Tarjeta:</translation>
+    </message>
+    <message>
+        <source>Input Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart</source>
+        <translation type="obsolete">Cartucho</translation>
+    </message>
+    <message>
+        <source>Mode:</source>
+        <translation type="obsolete">Modo:</translation>
+    </message>
+    <message>
+        <source>Cart:</source>
+        <translation type="unfinished">Cartucho:</translation>
+    </message>
+    <message>
+        <source>At Playout End:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Assignments</source>
+        <translation type="unfinished">Asignación de Canales</translation>
+    </message>
+    <message>
+        <source>Default Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished">Elegir</translation>
+    </message>
+    <message>
+        <source>Load Specified Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At Startup:</source>
+        <translation type="unfinished">Al inicio:</translation>
+    </message>
+    <message>
+        <source>Do Nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slot Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Full</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User previous mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use previous mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use previous cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use previous action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Service:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slot Columns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slot Rows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Parámetros</translation>
+    </message>
+    <message>
+        <source>Slot selected has changed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditDecks</name>
     <message>
         <source>Configure RDCatch</source>
@@ -929,7 +1016,7 @@ y un respaldo de la base de datos se guardó en </translation>
     </message>
     <message>
         <source>Audition Deck</source>
-        <translation>Bandeja Escucha</translation>
+        <translation type="obsolete">Bandeja Escucha</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -1575,6 +1662,10 @@ Do you still want to save?</source>
         <source>days</source>
         <translation>días</translation>
     </message>
+    <message>
+        <source>Delete cart if empty</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditHostvar</name>
@@ -1688,6 +1779,81 @@ Do you still want to save?</source>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
     </message>
+    <message>
+        <source>JACK Command Line:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NAME</source>
+        <translation type="obsolete">NOMBRE</translation>
+    </message>
+    <message>
+        <source>VALUE</source>
+        <translation type="obsolete">VALOR</translation>
+    </message>
+    <message>
+        <source>REMARK</source>
+        <translation type="obsolete">COMENTARIO</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">E&amp;liminar</translation>
+    </message>
+    <message>
+        <source>JACK Clients to Start:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Command Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[New Client]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - JACK Clients</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete JACK Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditJackClient</name>
+    <message>
+        <source>JACK Client Configuration for </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Descripción: </translation>
+    </message>
+    <message>
+        <source>Command Line:</source>
+        <translation type="unfinished">Línea de comandos:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancelar</translation>
+    </message>
 </context>
 <context>
     <name>EditMatrix</name>
@@ -1768,13 +1934,13 @@ Do you still want to save?</source>
     <message>
         <source>Configure
 &amp;Outputs</source>
-        <translation>Configurar
+        <translation type="unfinished">Configurar
 &amp;Salidas</translation>
     </message>
     <message>
         <source>Configure
 &amp;Xpoints</source>
-        <translation>Configurar
+        <translation type="obsolete">Configurar
 &amp;Xpoints</translation>
     </message>
     <message>
@@ -2299,6 +2465,10 @@ servicios de Rivendell en el equipo configurado para ejecutar el servicio CAE. <
     <message>
         <source>Configure Hot Keys</source>
         <translation>Configurar atajos de teclado</translation>
+    </message>
+    <message>
+        <source>Show Hour Selector</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3103,6 +3273,10 @@ Overwrite?</source>
         <source>Checking the Library for duplicates.</source>
         <translation>Buscando duplicados en la biblioteca.</translation>
     </message>
+    <message>
+        <source>Temporary Cart Group:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStation</name>
@@ -3296,6 +3470,25 @@ Settings</source>
         <translation>Parámetros
 de JACK</translation>
     </message>
+    <message>
+        <source>RDCart
+Slots</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cue &amp;Output:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - No Audio Configuration Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel assignments will not be available for this host as audio resource data
+has not yet been generated.  Please start the Rivendell daemons on the host
+configured to run the CAE service in order to populate the audio resources database.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditSvc</name>
@@ -3430,6 +3623,10 @@ debe guardarse.  ¿Hacerlo ahora?</translation>
     <message>
         <source>&amp;Program Code:</source>
         <translation>Código &amp;Progr.:</translation>
+    </message>
+    <message>
+        <source>AutoSpot Group:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4405,63 +4602,19 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>Local GPIO</source>
-        <translation>GPIO Local</translation>
+        <translation type="obsolete">GPIO Local</translation>
     </message>
     <message>
         <source>Generic GPO</source>
-        <translation>GPO Genérico</translation>
+        <translation type="obsolete">GPO Genérico</translation>
     </message>
     <message>
         <source>Generic Serial</source>
-        <translation>Serial Genérico</translation>
+        <translation type="obsolete">Serial Genérico</translation>
     </message>
     <message>
         <source>Local Audio Adapter</source>
-        <translation>Adaptador de Audio Local</translation>
-    </message>
-    <message>
-        <source>Logitek vGuest</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SS16.4</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>StarGuide III</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SS4.2</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Axia LiveWire</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Quartz Type 1</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SS4.4</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SRC-8 III</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SRC-16</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Harlond Virtual Mixer</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Adaptador de Audio Local</translation>
     </message>
 </context>
 <context>
@@ -4814,7 +4967,7 @@ Do you still want to proceed?</source>
     <name>MainWidget</name>
     <message>
         <source>RDAdmin - Host:</source>
-        <translation>RDAdmin - Computador: </translation>
+        <translation type="obsolete">RDAdmin - Computador: </translation>
     </message>
     <message>
         <source>Daemons Failed</source>
@@ -4955,6 +5108,10 @@ Sistema</translation>
 Replicators</source>
         <translation>Administrar
 Replicadores</translation>
+    </message>
+    <message>
+        <source>RDAdmin</source>
+        <translation type="unfinished">RDAdmin</translation>
     </message>
 </context>
 <context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdreport.h,v 1.17.8.3 2012/08/24 18:58:30 cvs Exp $
+//      $Id: rdreport.h,v 1.17.8.6 2013/01/22 20:59:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,7 +36,7 @@ class RDReport
   enum ExportFilter {CbsiDeltaFlex=0,TextLog=1,BmiEmr=2,Technical=3,
 		     SoundExchange=4,RadioTraffic=5,VisualTraffic=6,
 		     CounterPoint=7,Music1=8,MusicSummary=9,WideOrbit=10,
-		     LastFilter=11};
+		     NprSoundExchange=11,MusicPlayout=12,LastFilter=13};
   enum ExportOs {Linux=0,Windows=1};
   enum ExportType {Generic=0,Traffic=1,Music=2};
   enum StationType {TypeOther=0,TypeAm=1,TypeFm=2,TypeLast=3};
@@ -76,7 +76,7 @@ class RDReport
   void setFilterGroups(bool state) const;
   RDReport::ErrorCode errorCode() const;
   bool generateReport(const QDate &startdate,const QDate &enddate,
-		      RDStation *station);
+		      RDStation *station,QString *out_path);
   static QString filterText(RDReport::ExportFilter filter);
   static QString stationTypeText(RDReport::StationType type);
   static bool multipleDaysAllowed(RDReport::ExportFilter filter);
@@ -94,10 +94,15 @@ class RDReport
 		       const QString &mixtable);
   bool ExportSoundEx(const QDate &startdate,const QDate &enddate,
 		     const QString &mixtable);
+  bool ExportNprSoundEx(const QDate &startdate,const QDate &enddate,
+			const QString &mixtable);
   bool ExportRadioTraffic(const QDate &startdate,const QDate &enddate,
+			  const QString &mixtable);
+  bool ExportMusicPlayout(const QDate &startdate,const QDate &enddate,
 			  const QString &mixtable);
   bool ExportMusicSummary(const QDate &startdate,const QDate &enddate,
 			  const QString &mixtable);
+  QString StringField(const QString &str) const;
   void SetRow(const QString &param,QString value) const;
   void SetRow(const QString &param,int value) const;
   void SetRow(const QString &param,unsigned value) const;

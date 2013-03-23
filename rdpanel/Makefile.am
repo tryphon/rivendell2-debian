@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.18 2010/08/04 23:07:02 cvs Exp $
+##      $Id: Makefile.am,v 1.18.8.2 2013/01/01 21:36:32 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -45,14 +45,27 @@ all:
 
 bin_PROGRAMS = rdpanel
 
-dist_rdpanel_SOURCES = rdpanel.cpp rdpanel.h globals.h
+dist_rdpanel_SOURCES = globals.h\
+                       rdpanel.cpp rdpanel.h
 
 nodist_rdpanel_SOURCES = moc_rdpanel.cpp
 
 rdpanel_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-EXTRA_DIST = rdpanel.pro rdpanel_es.ts rdpanel_fr.ts rdpanel_de.ts\
+EXTRA_DIST = rdpanel.pro\
+             rdpanel_cs.ts\
+             rdpanel_de.ts\
+             rdpanel_es.ts\
+             rdpanel_fr.ts\
              rdpanel_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

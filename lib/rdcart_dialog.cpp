@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.cpp,v 1.48.4.1 2012/10/09 00:12:29 cvs Exp $
+//      $Id: rdcart_dialog.cpp,v 1.48.4.4 2012/12/03 17:54:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -29,6 +29,8 @@
 #include <qdatetime.h>
 #include <qapplication.h>
 #include <qeventloop.h>
+#include <qfiledialog.h>
+#include <qmessagebox.h>
 
 #include <rdconf.h>
 #include <rdcart_dialog.h>
@@ -36,6 +38,12 @@
 #include <rdtextvalidator.h>
 #include <rdprofile.h>
 #include <rddb.h>
+#include <rdgroup.h>
+#ifndef WIN32
+#include <rdaudioimport.h>
+#endif  // WIN32
+#include <rdsettings.h>
+#include <rdwavefile.h>
 
 //
 // Icons
@@ -46,7 +54,7 @@
 RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
 			   int audition_card,int audition_port,
 			   unsigned start_cart,unsigned end_cart,RDCae *cae,
-			   RDRipc *ripc,RDStation *station,
+			   RDRipc *ripc,RDStation *station,RDSystem *system,
 			   const QString &edit_cmd,
 			   QWidget *parent,const char *name)
   : QDialog(parent,name,true)
@@ -57,11 +65,14 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   setMinimumWidth(sizeHint().width());
   setMinimumHeight(sizeHint().height());
 
+  cart_station=station;
+  cart_system=system;
   cart_cartnum=NULL;
   cart_type=RDCart::All;
   cart_group=group;
   cart_schedcode=schedcode;
   cart_edit_cmd=edit_cmd;
+  cart_temp_allowed=NULL;
 #ifdef WIN32
   cart_filter_mode=RDStation::FilterSynchronous;
 #else
@@ -76,6 +87,8 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
     cart_filter=filter;
     local_filter=false;
   }
+  cart_import_path=RDGetHomeDir();
+  cart_import_file_filter=RD_AUDIO_FILE_FILTER;
 
   setCaption(tr("Select Cart"));
 
@@ -112,6 +125,8 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   cart_progress_dialog->setLabel(label);
   cart_progress_dialog->setCancelButton(NULL);
   cart_progress_dialog->setMinimumDuration(2000);
+  
+  cart_busy_dialog=new RDBusyDialog(this);
 
   //
   // Filter Selector
@@ -244,6 +259,19 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   }
 
   //
+  // Load From File Button
+  //
+  cart_file_button=new QPushButton(tr("Load From\n&File"),this);
+  cart_file_button->setFont(button_font);
+  connect(cart_file_button,SIGNAL(clicked()),this,SLOT(loadFileData()));
+  if(edit_cmd.isEmpty()) {
+    cart_file_button->hide();
+  }
+#ifdef WIN32
+  cart_file_button->hide();
+#endif  // WIN32
+
+  //
   // OK Button
   //
   cart_ok_button=new QPushButton(tr("&OK"),this,"cart_ok_button");
@@ -276,18 +304,21 @@ RDCartDialog::~RDCartDialog()
 
 QSize RDCartDialog::sizeHint() const
 {
-  return QSize(550,400);
+  return QSize(640,400);
 }
 
-
 int RDCartDialog::exec(int *cartnum,RDCart::Type type,QString *svcname,
-		       int svc_quan)
+		       int svc_quan,const QString &username,
+		       const QString &passwd,bool *temp_allowed)
 {
   LoadState();
   cart_cartnum=cartnum;
   cart_type=type;
   cart_service=svcname;
   cart_service_quan=svc_quan;
+  cart_user_name=username;
+  cart_user_password=passwd;
+  cart_temp_allowed=temp_allowed;
   switch(cart_type) {
     case RDCart::All:
     case RDCart::Audio:
@@ -296,6 +327,12 @@ int RDCartDialog::exec(int *cartnum,RDCart::Type type,QString *svcname,
       }
       else {
 	cart_editor_button->show();
+      }
+      if(temp_allowed==NULL) {
+	cart_file_button->hide();
+      }
+      else {
+	cart_file_button->show();
       }
 #ifndef WIN32
       if(cart_player!=NULL) {
@@ -487,6 +524,100 @@ void RDCartDialog::editorData()
 }
 
 
+void RDCartDialog::loadFileData()
+{
+#ifndef WIN32
+  QString filename;
+  RDGroup *group=NULL;
+  RDCart *cart=NULL;
+  RDCut *cut=NULL;
+  RDAudioImport *conv;
+  RDAudioImport::ErrorCode err; 
+  RDAudioConvert::ErrorCode conv_err;
+  RDSettings settings;
+  unsigned cartnum=0;
+  QString file_title="";
+  RDWaveFile *wavefile=NULL;
+  RDWaveData wavedata;
+
+  filename=QFileDialog::getOpenFileName(cart_import_path,
+					cart_import_file_filter,this);
+  if(!filename.isEmpty()) {
+
+    //
+    // Get Cart Number
+    //
+    cart_import_path=RDGetPathPart(filename);
+    group=new RDGroup(cart_system->tempCartGroup());
+    if((!group->exists())||((cartnum=group->nextFreeCart())==0)) {
+      delete group;
+      QMessageBox::warning(this,tr("Cart Error"),
+		       tr("Unable to get temporary cart number for import!"));
+      return;
+    }
+    delete group;
+
+    //
+    // Create Cart
+    //
+    cart=new RDCart(cartnum);
+    if(!cart->create(cart_system->tempCartGroup(),RDCart::Audio)) {
+      delete cart;
+      QMessageBox::warning(this,tr("Cart Error"),
+			   tr("Unable to create temporary cart for import!"));
+      return;
+    }
+    cart->setOwner(cart_station->name());
+    cut=new RDCut(cartnum,1,true);
+
+    //
+    // Import Audio
+    //
+    cart_busy_dialog->show(tr("Importing"),tr("Importing..."));
+    conv=new RDAudioImport(cart_station,this);
+    conv->setCartNumber(cartnum);
+    conv->setCutNumber(1);
+    conv->setSourceFile(filename);
+    settings.setChannels(2);
+    settings.setNormalizationLevel(-11);
+    conv->setDestinationSettings(&settings);
+    conv->setUseMetadata(true);
+    err=conv->runImport(cart_user_name,cart_user_password,&conv_err);
+    cart_busy_dialog->hide();
+    switch(conv_err) {
+    case RDAudioImport::ErrorOk:
+      break;
+
+    default:
+      QMessageBox::warning(this,tr("Import Error"),
+			   RDAudioImport::errorText(err,conv_err));
+      delete conv;
+      delete cart;
+      delete cut;
+      return;
+    }
+
+    //
+    // Check Metadata
+    //
+    wavefile=new RDWaveFile(filename);
+    if(wavefile->openWave(&wavedata)) {
+      if((!wavedata.metadataFound())||(wavedata.title().isEmpty())) {
+	cart->setTitle(tr("Imported from")+" "+RDGetBasePart(filename));
+      }
+    }
+
+    *cart_cartnum=cartnum;
+    *cart_temp_allowed=true;
+    delete conv;
+    delete cart;
+    delete cut;
+    done(0);
+  }
+#endif  // WIN32
+}
+
+
 void RDCartDialog::okData()
 {
   RDListViewItem *item=(RDListViewItem *)cart_cart_list->currentItem();
@@ -504,6 +635,9 @@ void RDCartDialog::okData()
     *cart_filter=cart_filter_edit->text();
   }
   *cart_cartnum=item->text(1).toInt();
+  if(cart_temp_allowed!=NULL) {
+    *cart_temp_allowed=false;
+  }
   done(0);
 }
 
@@ -535,6 +669,7 @@ void RDCartDialog::resizeEvent(QResizeEvent *e)
   cart_cart_label->setGeometry(15,90,100,20);
   cart_cart_list->setGeometry(10,110,size().width()-20,size().height()-180);
   cart_editor_button->setGeometry(235,size().height()-60,80,50);
+  cart_file_button->setGeometry(325,size().height()-60,80,50);
   cart_ok_button->setGeometry(size().width()-180,size().height()-60,80,50);
   cart_cancel_button->setGeometry(size().width()-90,size().height()-60,80,50);
   switch(cart_filter_mode) {

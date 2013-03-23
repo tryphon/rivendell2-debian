@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.54.8.1 2012/10/13 04:53:19 cvs Exp $
+##      $Id: Makefile.am,v 1.54.8.3 2013/01/04 18:41:14 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License as
@@ -28,9 +28,22 @@ endif
 if ALSA_RD_AM
   ALSACONFIG_RD_OPT = rdalsaconfig
 endif
-SUBDIRS = rdgen rmlsend rdgpimon rdimport sas_shim rdsoftkeys\
-          rddbcheck $(HPIINFO_RD_OPT) rdpurgecasts rdchunk rdmaint\
-          rdpopup $(ALSACONFIG_RD_OPT) rdcollect rdcheckcuts
+SUBDIRS = $(ALSACONFIG_RD_OPT)\
+          $(HPIINFO_RD_OPT)\
+          rddbcheck\
+          rddgimport\
+          rdcheckcuts\
+          rdchunk\
+          rdcollect\
+          rdgen\
+          rdgpimon\
+          rdimport\
+          rdmaint\
+          rdpopup\
+          rdpurgecasts\
+          rmlsend\
+          rdsoftkeys\
+          sas_shim
 
 AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
 INCLUDES = -I$(top_srcdir)/lib
@@ -43,5 +56,17 @@ moc_%.cpp:	%.h
 
 EXTRA_DIST = utils.pro
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

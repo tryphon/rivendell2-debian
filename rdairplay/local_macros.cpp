@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: local_macros.cpp,v 1.31.6.1 2012/07/23 20:56:20 cvs Exp $
+//      $Id: local_macros.cpp,v 1.31.6.2 2012/12/12 15:36:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,7 +40,8 @@ void MainWidget::RunLocalMacros(RDMacro *rml)
   QPalette pal;
   bool ret=false;
   int fade;
-  RDLogLine *logline;
+  RDLogLine *logline=NULL;
+  QString label;
 
   if(rml->role()!=RDMacro::Cmd) {
     return;
@@ -226,7 +227,7 @@ void MainWidget::RunLocalMacros(RDMacro *rml)
 	break;
 
       case RDMacro::PC:   // Label Button
-	if(rml->argQuantity()!=5) {
+	if(rml->argQuantity()<5) {
 	  if(rml->echoRequested()) {
 	    rml->acknowledge(false);
 	    rdripc->sendRml(rml);
@@ -250,10 +251,15 @@ void MainWidget::RunLocalMacros(RDMacro *rml)
 	  }
 	  return;
 	}
+	for(int i=3;i<(rml->argQuantity()-1);i++) {
+	  label+=(rml->arg(i).toString()+" ");
+	}
+	label=label.left(label.length()-1);
 	air_panel->setText(panel_type,panel_number,rml->arg(2).toInt()-1,
-			   rml->arg(1).toInt()-1,rml->arg(3).toString());
+			   rml->arg(1).toInt()-1,label);
 	air_panel->setColor(panel_type,panel_number,rml->arg(2).toInt()-1,
-			    rml->arg(1).toInt()-1,rml->arg(4).toString());
+			    rml->arg(1).toInt()-1,
+			    rml->arg(rml->argQuantity()-1).toString());
 	if(rml->echoRequested()) {
 	  rml->acknowledge(true);
 	  rdripc->sendRml(rml);

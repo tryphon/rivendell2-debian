@@ -1233,7 +1233,11 @@ Report</translation>
     </message>
     <message>
         <source>Report complete!</source>
-        <translation>Report komplett!</translation>
+        <translation type="obsolete">Report komplett!</translation>
+    </message>
+    <message>
+        <source>Report generated in</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

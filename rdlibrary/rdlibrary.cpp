@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.cpp,v 1.117.4.1 2012/10/09 00:12:29 cvs Exp $
+//      $Id: rdlibrary.cpp,v 1.117.4.2 2013/01/07 15:35:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1248,14 +1248,9 @@ void MainWidget::SetCaption(QString user)
   QString str1;
   QString str2;
 
-  str1=QString(tr("RDLibrary - Host:"));
-  str2=QString(tr(", User:"));
-  setCaption(QString().sprintf("%s %s, %s %s",
-			       (const char *)str1,
-			       (const char *)lib_config->stationName(),
-			       (const char *)str2,
-			       (const char *)user));
-  
+  str1=QString("RDLibrary")+" v"+VERSION+" - "+tr("Host")+":";
+  str2=tr("User")+":";
+  setCaption(str1+" "+lib_config->stationName()+", "+str2+" "+user);
 }
 
 

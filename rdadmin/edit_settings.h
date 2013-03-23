@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_settings.h,v 1.4 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_settings.h,v 1.4.8.1 2012/11/26 20:19:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -58,6 +58,7 @@ class EditSettings : public QDialog
    QSpinBox *edit_maxpost_spin;
    RDLabel *edit_duplicate_label;
    QLineEdit *edit_isci_path_edit;
+   QComboBox *edit_temp_cart_group_box;
    QListView *edit_duplicate_list;
    QPushButton *edit_settings_button;
    QPushButton *edit_save_button;

@@ -12,6 +12,7 @@ NAME_TEMPLATE           char(255)
 PROGRAM_CODE            char(255)
 CHAIN_LOG               enum('N','Y')
 TRACK_GROUP             char(10)           From GROUPS.NAME
+AUTOSPOT_GROUP          char(10)           From GROUPS.NAME
 AUTO_REFRESH            enum('N','Y')
 DEFAULT_LOG_SHELFLIFE   int(11)
 ELR_SHELFLIFE           int(11)

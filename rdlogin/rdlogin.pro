@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlogin.pro,v 1.7 2010/08/04 23:07:02 cvs Exp $
+#      $Id: rdlogin.pro,v 1.7.8.1 2013/01/01 21:36:31 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -34,6 +34,7 @@ x11 {
   HEADERS += rdlogin.h
 }
 
+TRANSLATIONS += rdlogin_cs.ts
 TRANSLATIONS += rdlogin_de.ts
 TRANSLATIONS += rdlogin_es.ts
 TRANSLATIONS += rdlogin_fr.ts

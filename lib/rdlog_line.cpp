@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.cpp,v 1.113 2012/01/12 16:24:50 cvs Exp $
+//      $Id: rdlog_line.cpp,v 1.113.4.2 2012/11/28 01:57:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -98,6 +98,7 @@ void RDLogLine::clear()
   log_fadeup_gain=0;
   log_duck_up_gain=0;
   log_duck_down_gain=0;
+  log_hook_mode=false;
   log_hook_start=-1;
   log_hook_end=-1;
   log_cart_type=RDCart::Audio;
@@ -617,6 +618,18 @@ int RDLogLine::talkEndPoint() const
 void RDLogLine::setTalkEndPoint(int point)
 {
   log_talk_end=point;
+}
+
+
+bool RDLogLine::hookMode() const
+{
+  return log_hook_mode;
+}
+
+
+void RDLogLine::setHookMode(bool state)
+{
+  log_hook_mode=state;
 }
 
 
@@ -1441,13 +1454,13 @@ QString RDLogLine::resolveWildcards(QString pattern)
 
 
 RDLogLine::State RDLogLine::setEvent(int mach,RDLogLine::TransType next_type,
-				      bool timescale)
+				     bool timescale,int len)
 {
   RDCart *cart;
   RDMacroEvent *rml_event;
   QString sql;
   RDSqlQuery *q;
-  double time_ratio;
+  double time_ratio=1.0;
 
   switch(log_type) {
       case RDLogLine::Cart:
@@ -1498,12 +1511,27 @@ RDLogLine::State RDLogLine::setEvent(int mach,RDLogLine::TransType next_type,
 	  return RDLogLine::NoCut;
 	}
 	if(timescale) {
-	  log_effective_length=cart->forcedLength();
-	  time_ratio=(double)log_forced_length/
-	    (q->value(2).toDouble()-q->value(1).toDouble());
-	  if(((1.0/time_ratio)<RD_TIMESCALE_MIN)||
-	     ((1.0/time_ratio)>RD_TIMESCALE_MAX)) {
-	    timescale=false;
+	  if(len>0) {
+	    log_effective_length=len;
+	    log_forced_length=len;
+	  }
+	  else {
+	    if(log_hook_mode&&
+	       (q->value(8).toInt()>=0)&&(q->value(9).toInt()>=0)) {
+	      log_effective_length=q->value(9).toInt()-q->value(8).toInt();
+	      log_forced_length=log_effective_length;
+	      time_ratio=1.0;
+	      timescale=false;
+	    }
+	    else {
+	      log_effective_length=cart->forcedLength();
+	      time_ratio=(double)log_forced_length/
+		(q->value(2).toDouble()-q->value(1).toDouble());
+	      if(((1.0/time_ratio)<RD_TIMESCALE_MIN)||
+		 ((1.0/time_ratio)>RD_TIMESCALE_MAX)) {
+		timescale=false;
+	      }
+	    }
 	  }
 	}
 	if(timescale) {
@@ -1528,20 +1556,31 @@ RDLogLine::State RDLogLine::setEvent(int mach,RDLogLine::TransType next_type,
 	  log_talk_length=log_talk_end-log_talk_start;
 	}
 	else {
-	  log_start_point[0]=q->value(1).toInt();
-	  log_end_point[0]=q->value(2).toInt();
-          if(log_start_point[RDLogLine::LogPointer]>=0 ||
-             log_end_point[RDLogLine::LogPointer]>=0) {
-            log_effective_length=log_end_point[RDLogLine::LogPointer]-
-                                   log_start_point[RDLogLine::LogPointer];
-          }
-          else {
-	    log_effective_length=q->value(0).toUInt();
-          }
-	  log_segue_start_point[0]=q->value(3).toInt();
-	  log_segue_end_point[0]=q->value(4).toInt();
-	  log_talk_start=q->value(6).toInt();
-	  log_talk_end=q->value(7).toInt();
+	  if(log_hook_mode&&
+	     (q->value(8).toInt()>=0)&&(q->value(9).toInt()>=0)) {
+	    log_start_point[0]=q->value(8).toInt();
+	    log_end_point[0]=q->value(9).toInt();
+	    log_segue_start_point[0]=-1;
+	    log_segue_end_point[0]=-1;
+	    log_talk_start=-1;
+	    log_talk_end=-1;
+	  }
+	  else {
+	    log_start_point[0]=q->value(1).toInt();
+	    log_end_point[0]=q->value(2).toInt();
+	    if(log_start_point[RDLogLine::LogPointer]>=0 ||
+	       log_end_point[RDLogLine::LogPointer]>=0) {
+	      log_effective_length=log_end_point[RDLogLine::LogPointer]-
+		log_start_point[RDLogLine::LogPointer];
+	    }
+	    else {
+	      log_effective_length=q->value(0).toUInt();
+	    }
+	    log_segue_start_point[0]=q->value(3).toInt();
+	    log_segue_end_point[0]=q->value(4).toInt();
+	    log_talk_start=q->value(6).toInt();
+	    log_talk_end=q->value(7).toInt();
+	  }
 	  log_hook_start=q->value(8).toInt();
 	  log_hook_end=q->value(9).toInt();
           if(log_talk_end>log_end_point[RDLogLine::LogPointer] && 
@@ -1631,7 +1670,7 @@ RDLogLine::State RDLogLine::setEvent(int mach,RDLogLine::TransType next_type,
 
 
 void RDLogLine::loadCart(int cartnum,RDLogLine::TransType next_type,int mach,
-			 bool timescale,RDLogLine::TransType type)
+			 bool timescale,RDLogLine::TransType type,int len)
 {
   QString sql=QString().sprintf("select CART.TYPE,CART.GROUP_NAME,CART.TITLE,\
                                  CART.ARTIST,CART.ALBUM,CART.YEAR,CART.ISRC,\
@@ -1678,14 +1717,20 @@ void RDLogLine::loadCart(int cartnum,RDLogLine::TransType next_type,int mach,
   log_client=q->value(8).toString();
   log_agency=q->value(9).toString();
   log_user_defined=q->value(10).toString();
-  log_forced_length=q->value(11).toUInt();
   log_cut_quantity=q->value(12).toUInt();
   log_last_cut_played=q->value(13).toUInt();
   log_play_order=(RDCart::PlayOrder)q->value(14).toInt();
   log_start_datetime=q->value(15).toDateTime();
   log_end_datetime=q->value(16).toDateTime();
   log_preserve_pitch=RDBool(q->value(18).toString());
-  log_enforce_length=RDBool(q->value(17).toString());
+  if(len<0) {
+    log_forced_length=q->value(11).toUInt();
+    log_enforce_length=RDBool(q->value(17).toString());
+  }
+  else {
+    log_forced_length=len;
+    log_enforce_length=true;
+  }
   log_now_next_enabled=RDBool(q->value(19).toString());
   log_asyncronous=RDBool(q->value(20).toString());
   log_publisher=q->value(21).toString();

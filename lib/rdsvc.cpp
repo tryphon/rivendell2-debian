@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.cpp,v 1.71 2010/07/29 19:32:34 cvs Exp $
+//      $Id: rdsvc.cpp,v 1.71.8.2 2013/01/14 16:35:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -103,6 +103,19 @@ QString RDSvc::trackGroup() const
 void RDSvc::setTrackGroup(const QString &group) const
 {
   SetRow("TRACK_GROUP",group);
+}
+
+
+QString RDSvc::autospotGroup() const
+{
+  return RDGetSqlValue("SERVICES","NAME",svc_name,"AUTOSPOT_GROUP").
+    toString();
+}
+
+
+void RDSvc::setAutospotGroup(const QString &group) const
+{
+  SetRow("AUTOSPOT_GROUP",group);
 }
 
 
@@ -1050,8 +1063,9 @@ void RDSvc::create(const QString exemplar) const
   RDSqlQuery *q1;
 
   if(exemplar.isEmpty()) {  // Create Empty Service
-    sql=QString().sprintf("insert into SERVICES set NAME=\"%s\"",
-			  (const char *)RDEscapeString(svc_name));
+    sql=QString("insert into SERVICES set NAME=\"")+
+      RDEscapeString(svc_name)+"\","+
+      "NAME_TEMPLATE=\""+RDEscapeString(svc_name)+"-%m%d\"";
     q=new RDSqlQuery(sql);
     delete q;
 
@@ -1311,7 +1325,7 @@ void RDSvc::remove() const
 		      (const char *)RDEscapeString(svc_name));
   q=new RDSqlQuery(sql);
   delete q;
-  sql=QString().sprintf("update RDAIRPLAY set DEFAULT_SERVICE="" \
+  sql=QString().sprintf("update RDAIRPLAY set DEFAULT_SERVICE=\"\" \
                          where DEFAULT_SERVICE=\"%s\"",
 			(const char *)RDEscapeString(svc_name));
   q=new RDSqlQuery(sql);

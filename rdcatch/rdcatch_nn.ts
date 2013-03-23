@@ -966,7 +966,7 @@ ny</translation>
     <name>MainWidget</name>
     <message>
         <source>RDCatch - Host:</source>
-        <translation>RDCatch - vert:</translation>
+        <translation type="obsolete">RDCatch - vert:</translation>
     </message>
     <message>
         <source>rdcatch : </source>
@@ -1306,6 +1306,14 @@ ny</translation>
     </message>
     <message>
         <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

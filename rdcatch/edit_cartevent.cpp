@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cartevent.cpp,v 1.27 2010/07/29 19:32:36 cvs Exp $
+//      $Id: edit_cartevent.cpp,v 1.27.8.1 2012/11/26 20:19:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -333,7 +333,8 @@ void EditCartEvent::selectCartData()
   if(edit_cart!=NULL) {
     cartnum=edit_cart->number();
   }
-  switch(catch_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0)) {
+  switch(catch_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0,
+				 catch_user->name(),catch_user->password())) {
       case 0:
 	if(edit_cart!=NULL) {
 	  delete edit_cart;

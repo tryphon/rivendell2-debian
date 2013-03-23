@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rddatepicker.cpp,v 1.3 2010/07/29 19:32:33 cvs Exp $
+//    $Id: rddatepicker.cpp,v 1.3.8.1 2013/01/22 18:33:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -140,7 +140,7 @@ RDDatePicker::RDDatePicker(int low_year,int high_year,
       pick_date_label[i][j]->
 	setGeometry(RDDATEPICKER_X_ORIGIN+RDDATEPICKER_X_INTERVAL*j,
 		    RDDATEPICKER_Y_ORIGIN+20+RDDATEPICKER_Y_INTERVAL*i,30,30);
-      pick_date_label[i][j]->setAlignment(AlignCenter);
+      pick_date_label[i][j]->setAlignment(Qt::AlignTop|Qt::AlignHCenter);
     }
   }
   PrintDays();

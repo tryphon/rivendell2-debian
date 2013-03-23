@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae.h,v 1.79.4.1 2012/08/03 16:52:38 cvs Exp $
+//      $Id: cae.h,v 1.79.4.4 2012/11/30 16:14:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -28,12 +28,16 @@
 #include <pthread.h>
 #include <stdint.h>
 
+#include <soundtouch/SoundTouch.h>
+
 #include <qobject.h>
 #include <qstring.h>
 #include <qsocketdevice.h>
 #include <qserversocket.h>
 #include <qsignalmapper.h>
 #include <qtimer.h>
+#include <qprocess.h>
+
 #include <rdwavefile.h>
 #include <rdsocket.h>
 
@@ -130,6 +134,7 @@ class MainObject : public QObject
   void ClearDriverEntries(RDStation *station);
   void SendMeterLevelUpdate(const QString &type,int cardnum,int portnum,
 			    short levels[]);
+  void SendStreamMeterLevelUpdate(int cardnum,int streamnum,short levels[]);
   void SendMeterPositionUpdate(int cardnum,unsigned pos[]);
   void SendMeterOutputStatusUpdate();
   void SendMeterOutputStatusUpdate(int card,int port,int stream);
@@ -195,6 +200,7 @@ class MainObject : public QObject
   bool hpiGetInputStatus(int card,int port);
   bool hpiGetInputMeters(int card,int port,short levels[2]);
   bool hpiGetOutputMeters(int card,int port,short levels[2]);
+  bool hpiGetStreamOutputMeters(int card,int stream,short levels[2]);
   bool hpiSetPassthroughLevel(int card,int in_port,int out_port,int level);
   void hpiGetOutputPosition(int card,unsigned *pos);
 #ifdef HPI
@@ -238,6 +244,7 @@ class MainObject : public QObject
   bool jackGetInputStatus(int card,int port);
   bool jackGetInputMeters(int card,int port,short levels[2]);
   bool jackGetOutputMeters(int card,int port,short levels[2]);
+  bool jackGetStreamOutputMeters(int card,int stream,short levels[2]);
   bool jackSetPassthroughLevel(int card,int in_port,int out_port,int level);
   void jackGetOutputPosition(int card,unsigned *pos);
   void jackConnectPorts(const QString &out,const QString &in);
@@ -256,10 +263,12 @@ class MainObject : public QObject
   bool jack_activated;
 #ifdef JACK
   int jack_card;
+  std::vector<QProcess *> jack_clients;
   RDWaveFile *jack_record_wave[RD_MAX_STREAMS];
   RDWaveFile *jack_play_wave[RD_MAX_STREAMS];
   short *jack_wave_buffer;
   jack_default_audio_sample_t *jack_sample_buffer;
+  soundtouch::SoundTouch *jack_st_conv[RD_MAX_STREAMS];
   short jack_input_volume_db[RD_MAX_STREAMS];
   short jack_output_volume_db[RD_MAX_PORTS][RD_MAX_STREAMS];
   short jack_passthrough_volume_db[RD_MAX_PORTS][RD_MAX_PORTS];
@@ -310,6 +319,7 @@ class MainObject : public QObject
   bool alsaGetInputStatus(int card,int port);
   bool alsaGetInputMeters(int card,int port,short levels[2]);
   bool alsaGetOutputMeters(int card,int port,short levels[2]);
+  bool alsaGetStreamOutputMeters(int card,int stream,short levels[2]);
   bool alsaSetPassthroughLevel(int card,int in_port,int out_port,int level);
   void alsaGetOutputPosition(int card,unsigned *pos);
   void AlsaClock();

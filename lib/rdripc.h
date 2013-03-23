@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdripc.h,v 1.24 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdripc.h,v 1.24.8.1 2012/11/16 18:10:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,6 +44,7 @@ class RDRipc : public QObject
   ~RDRipc();
   QString user() const;
   QString station() const;
+  bool onairFlag() const;
   void setUser(QString user);
   void setIgnoreMask(bool state);
   void connectHost(QString hostname,Q_UINT16 hostport,QString password);
@@ -81,6 +82,7 @@ class RDRipc : public QObject
   QString ripc_user;
   QString ripc_password;
   QString ripc_stationname;
+  bool ripc_onair_flag;
   bool ripc_ignore_mask;
   bool debug;
   char args[RIPC_MAX_ARGS][RIPC_MAX_LENGTH];

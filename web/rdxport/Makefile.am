@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.6 2011/02/17 20:58:00 cvs Exp $
+##      $Id: Makefile.am,v 1.6.6.1 2012/11/29 01:37:38 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -47,5 +47,14 @@ rdxport_cgi_LDADD = @LIB_RDLIBS@ -lsndfile @LIBVORBIS@
 
 EXTRA_DIST = rdxport.pro
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

@@ -3,7 +3,7 @@
 ##    The Rivendell Radio Automation System
 ##    Copyright (C) 2002-2010  Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: rivendell.spec.in,v 1.98.4.14 2012/10/22 20:33:26 cvs Exp $
+##      $Id: rivendell.spec.in,v 1.98.4.18 2013/01/07 15:34:58 cvs Exp $
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of version 2 of the GNU General Public License as
@@ -104,10 +104,10 @@ cp cae/.libs/caed $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdadmin/.libs/rdadmin $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdairplay/.libs/rdairplay $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdpanel/.libs/rdpanel $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp rdcartslots/.libs/rdcartslots $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdcatch/.libs/rdcatch $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdcatchd/.libs/rdcatchd $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdrepld/.libs/rdrepld $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rdgen/rdgen $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdlibrary/.libs/rdlibrary $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdlogedit/.libs/rdlogedit $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdlogmanager/.libs/rdlogmanager $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
@@ -115,17 +115,19 @@ cp rdcastmanager/.libs/rdcastmanager $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdlogin/.libs/rdlogin $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdselect/.libs/rdselect $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdmonitor/.libs/rdmonitor $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rmlsend/.libs/rmlsend $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rdsoftkeys/.libs/rdsoftkeys $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rdpopup/.libs/rdpopup $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rdgpimon/.libs/rdgpimon $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rdimport/.libs/rdimport $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rdhpiinfo/.libs/rdhpiinfo $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rdalsaconfig/.libs/rdalsaconfig $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rdpurgecasts/.libs/rdpurgecasts $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rdmaint/.libs/rdmaint $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp utils/rdcollect/.libs/rdcollect $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rdcheckcuts/.libs/rdcheckcuts $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rdcollect/.libs/rdcollect $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rddgimport/.libs/rddgimport $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rdgen/rdgen $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rdgpimon/.libs/rdgpimon $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rdhpiinfo/.libs/rdhpiinfo $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rdimport/.libs/rdimport $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rdmaint/.libs/rdmaint $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rdpopup/.libs/rdpopup $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rdpurgecasts/.libs/rdpurgecasts $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rdsoftkeys/.libs/rdsoftkeys $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rmlsend/.libs/rmlsend $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp scripts/rd_audio_sync $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp scripts/rd_config $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp scripts/sage_endec_rwt.sh $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
@@ -167,6 +169,7 @@ cp rdmonitor/rdmonitor_es.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp rdlogmanager/rdlogmanager_es.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp utils/rdgpimon/rdgpimon_es.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp utils/rmlsend/rmlsend_es.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+
 cp lib/librd_de.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp rdadmin/rdadmin_de.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp rdairplay/rdairplay_de.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
@@ -181,6 +184,20 @@ cp rdmonitor/rdmonitor_de.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp rdlogmanager/rdlogmanager_de.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp utils/rdgpimon/rdgpimon_de.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp utils/rmlsend/rmlsend_de.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp lib/librd_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdadmin/rdadmin_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdairplay/rdairplay_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdcastmanager/rdcastmanager_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdcatch/rdcatch_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdhpi/rdhpi_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdlibrary/rdlibrary_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdlogedit/rdlogedit_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdlogin/rdlogin_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdselect/rdselect_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdmonitor/rdmonitor_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp rdlogmanager/rdlogmanager_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp utils/rdgpimon/rdgpimon_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
+cp utils/rmlsend/rmlsend_cs.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp lib/librd_nn.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp rdadmin/rdadmin_nn.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
 cp rdairplay/rdairplay_nn.qm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/rivendell/
@@ -246,27 +263,11 @@ mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/X11/fvwm2/pixmaps
 cp icons/rivendell-16x16.xpm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/X11/fvwm2/pixmaps/mini.rivendell.xpm
 cp icons/rivendell-32x32.xpm $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/X11/fvwm2/pixmaps/rivendell.xpm
 mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications
-cp xdg/rivendell-rdadmin.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdadmin.desktop
-cp xdg/rivendell-rdlogin.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdlogin.desktop
-cp xdg/rivendell-rdairplay.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdairplay.desktop
-cp xdg/rivendell-rdpanel.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdpanel.desktop
-cp xdg/rivendell-rdcatch.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdcatch.desktop
-cp xdg/rivendell-rdgpimon.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdgpimon.desktop
-cp xdg/rivendell-rdhpiinfo.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdhpiinfo.desktop
-cp xdg/rivendell-rdalsaconfig.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdalsaconfig.desktop
-cp xdg/rivendell-rdlibrary.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdlibrary.desktop
-cp xdg/rivendell-rdlogedit.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdlogedit.desktop
-cp xdg/rivendell-rdlogmanager.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdlogmanager.desktop
-cp xdg/rivendell-rdcastmanager.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdcastmanager.desktop
-cp xdg/rivendell-rmlsend.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rmlsend.desktop
-cp xdg/rivendell-rdsoftkeys.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/rivendell-rdsoftkeys.desktop
+cp xdg/*.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/desktop-directories
-cp xdg/rivendell-configuration.directory $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/desktop-directories/
-cp xdg/rivendell-logtools.directory $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/desktop-directories/
-cp xdg/rivendell-rivendell.directory $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/desktop-directories/
-cp xdg/rivendell-utilities.directory $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/desktop-directories/
+cp xdg/*.directory $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/desktop-directories/
 mkdir -p $RPM_BUILD_ROOT/etc/xdg/menus/applications-merged
-cp xdg/rivendell-rivendell.menu $RPM_BUILD_ROOT/etc/xdg/menus/applications-merged/
+cp xdg/*.menu $RPM_BUILD_ROOT/etc/xdg/menus/applications-merged/
 mkdir $RPM_BUILD_ROOT/.qt
 touch $RPM_BUILD_ROOT/.qt/qt
 mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell
@@ -313,58 +314,6 @@ fi
 mkdir -p $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d
 cp scripts/start-rdmonitor.sh $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/
 
-if test "@STRIP_DEBUG@" = "yes" ; then
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/librd-@VERSION@.so
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/librd.a
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/librdhpi-@VERSION@.so
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_test.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_serial.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_udp.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_twitter.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_facebook.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_xmpad.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_ando.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_liqcomp.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_padpoint.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_inno713.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_xds.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_icecast2.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_shoutcast1.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_spottrap.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/@RD_LIB_PATH@/rivendell/rlm_filewrite.rlm
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/caed
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdadmin
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdairplay
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdpanel
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdcatch
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdcatchd
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdrepld
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdgen
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdlibrary
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdlogedit
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdlogmanager
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdcastmanager
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdlogin
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdselect
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdmonitor
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rmlsend
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdsoftkeys
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdpopup
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdhpiinfo
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdalsaconfig
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdgpimon
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdimport
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdpurgecasts
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdmaint
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdcollect
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdcheckcuts
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/ripcd
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin/sas_shim
-  strip $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin/rddbcheck
-  strip $RPM_BUILD_ROOT/@RD_LIB_PATH@/security/pam_rd.so
-  strip $RPM_BUILD_ROOT@libexecdir@/rdcastmanager.cgi
-  strip $RPM_BUILD_ROOT@libexecdir@/rdxport.cgi
-fi
 
 %post
 ldconfig
@@ -469,6 +418,7 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/bin/rdadmin
 @LOCAL_PREFIX@/bin/rdairplay
 @LOCAL_PREFIX@/bin/rdpanel
+@LOCAL_PREFIX@/bin/rdcartslots
 @LOCAL_PREFIX@/bin/rdcatch
 %attr(4755,root,root)@LOCAL_PREFIX@/bin/rdcatchd
 %attr(4755,root,root)@LOCAL_PREFIX@/bin/rdrepld
@@ -507,6 +457,18 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/share/rivendell/rdlogin_es.qm
 @LOCAL_PREFIX@/share/rivendell/rdlogmanager_es.qm
 @LOCAL_PREFIX@/share/rivendell/rmlsend_es.qm
+@LOCAL_PREFIX@/share/rivendell/librd_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdadmin_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdairplay_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdcastmanager_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdcatch_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdgpimon_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdhpi_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdlibrary_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdlogedit_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdlogin_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rdlogmanager_cs.qm
+@LOCAL_PREFIX@/share/rivendell/rmlsend_cs.qm
 @LOCAL_PREFIX@/share/rivendell/librd_de.qm
 @LOCAL_PREFIX@/share/rivendell/rdadmin_de.qm
 @LOCAL_PREFIX@/share/rivendell/rdairplay_de.qm
@@ -570,6 +532,7 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/share/applications/rivendell-rdlogin.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdairplay.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdpanel.desktop
+@LOCAL_PREFIX@/share/applications/rivendell-rdcartslots.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdcatch.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdgpimon.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdhpiinfo.desktop
@@ -626,6 +589,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/tables/audio_perms.txt 
 %doc docs/tables/audio_ports.txt 
 %doc docs/tables/cart.txt 
+%doc docs/tables/cartslots.txt 
 %doc docs/tables/clipboard.txt 
 %doc docs/tables/cuts.txt 
 %doc docs/tables/decks.txt 
@@ -693,6 +657,8 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/bin/crc-unity4k.sh
 @LOCAL_PREFIX@/bin/rdcatch_copy
 @LOCAL_PREFIX@/bin/panel_copy
+@LOCAL_PREFIX@/bin/rddgimport
+@LOCAL_PREFIX@/share/applications/rivendell-rddgimport.desktop
 %doc docs/WINGS_FILTER.txt
 %doc docs/RIVENDELL_FILTER.txt
 %doc docs/NEXGEN_FILTER.txt
@@ -720,12 +686,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files select
 %attr(4755,root,root) @LOCAL_PREFIX@/bin/rdselect
+@LOCAL_PREFIX@/share/rivendell/rdselect_cs.qm
 @LOCAL_PREFIX@/share/rivendell/rdselect_de.qm
 @LOCAL_PREFIX@/share/rivendell/rdselect_es.qm
 @LOCAL_PREFIX@/share/rivendell/rdselect_nb.qm
 @LOCAL_PREFIX@/share/rivendell/rdselect_nn.qm
 @LOCAL_PREFIX@/share/rivendell/rdselect_pt_BR.qm
 @LOCAL_PREFIX@/bin/rdmonitor
+@LOCAL_PREFIX@/share/rivendell/rdmonitor_cs.qm
 @LOCAL_PREFIX@/share/rivendell/rdmonitor_de.qm
 @LOCAL_PREFIX@/share/rivendell/rdmonitor_es.qm
 @LOCAL_PREFIX@/share/rivendell/rdmonitor_nb.qm
@@ -735,6 +703,13 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jan 07 2013 Fred Gleason <fredg@paravelsystems.com>
+-- Added RDDgImport(1).
+-- Removed stripping code.
+* Tue Jan 01 2013 Fred Gleason <fredg@paravelsystems.com>
+-- Added Czech [CS] translation.
+* Fri Nov 16 2012 Fred Gleason <fredg@paravelsystems.com>
+-- Added RDCartSlots
 * Mon Oct 22 2012 Fred Gleason <fredg@paravelsystems.com>
 -- Modified the post-installation script to convert rd.conf(5) layout to
 be compatible with rdmonitor(1).

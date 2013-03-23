@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdselect.pro,v 1.1.2.1 2012/07/16 23:25:38 cvs Exp $
+#      $Id: rdselect.pro,v 1.1.2.2 2013/01/01 21:36:33 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -29,6 +29,7 @@ x11 {
   HEADERS += rdselect.h
 }
 
+TRANSLATIONS += rdselect_cs.ts
 TRANSLATIONS += rdselect_de.ts
 TRANSLATIONS += rdselect_es.ts
 TRANSLATIONS += rdselect_fr.ts

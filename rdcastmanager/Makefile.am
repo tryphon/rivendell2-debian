@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.8 2010/08/04 23:07:01 cvs Exp $
+##      $Id: Makefile.am,v 1.8.8.2 2013/01/01 21:36:30 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -45,22 +45,39 @@ all:
 
 bin_PROGRAMS = rdcastmanager
 
-dist_rdcastmanager_SOURCES = rdcastmanager.cpp rdcastmanager.h\
+dist_rdcastmanager_SOURCES = edit_cast.cpp edit_cast.h\
+                             globals.h\
                              list_casts.cpp list_casts.h\
-                             edit_cast.cpp edit_cast.h\
                              pick_report_dates.cpp pick_report_dates.h\
-                             globals.h
+                             rdcastmanager.cpp rdcastmanager.h
 
-nodist_rdcastmanager_SOURCES = moc_rdcastmanager.cpp moc_list_casts.cpp\
-                               moc_edit_cast.cpp moc_pick_report_dates.cpp
+nodist_rdcastmanager_SOURCES = moc_edit_cast.cpp\
+                               moc_list_casts.cpp\
+                               moc_pick_report_dates.cpp\
+                               moc_rdcastmanager.cpp
 
 rdcastmanager_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-# rdcastmanager_LDFLAGS = -static
-
 EXTRA_DIST = rdcastmanager.pro\
-             rdcastmanager_es.ts rdcastmanager_fr.ts rdcastmanager_de.ts\
-             rdcastmanager_nb.ts rdcastmanager_nn.ts rdcastmanager_pt_BR.ts
+             rdcastmanager_cs.ts\
+             rdcastmanager_de.ts\
+             rdcastmanager_es.ts\
+             rdcastmanager_fr.ts\
+             rdcastmanager_nb.ts\
+             rdcastmanager_nn.ts\
+             rdcastmanager_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

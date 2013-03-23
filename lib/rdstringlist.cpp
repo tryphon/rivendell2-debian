@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdstringlist.cpp,v 1.2 2010/07/29 19:32:34 cvs Exp $
+//    $Id: rdstringlist.cpp,v 1.2.8.1 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -52,7 +52,7 @@ RDStringList RDStringList::split(const QString &sep,const QString &str,
   bool escape=false;
   QChar e=esc.at(0);
   list.push_back(QString());
-  for(int i=0;i<str.length();i++) {
+  for(unsigned i=0;i<str.length();i++) {
     if(str.at(i)==e) {
       escape=!escape;
     }

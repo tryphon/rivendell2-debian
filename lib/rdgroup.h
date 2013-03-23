@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdgroup.h,v 1.17 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdgroup.h,v 1.17.8.1 2013/01/07 13:50:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -45,6 +45,8 @@ class RDGroup
   void setDefaultHighCart(unsigned cartnum) const;
   int cutShelflife() const;
   void setCutShelflife(int days) const;
+  bool deleteEmptyCarts() const;
+  void setDeleteEmptyCarts(bool state) const;
   QString defaultTitle() const;
   void setDefaultTitle(const QString &str);
   bool enforceCartRange() const;

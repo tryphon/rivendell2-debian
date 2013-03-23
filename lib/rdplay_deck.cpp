@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2003-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdplay_deck.cpp,v 1.85 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdplay_deck.cpp,v 1.85.8.4 2012/12/05 00:05:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -154,9 +154,13 @@ bool RDPlayDeck::setCart(RDLogLine *logline,bool rotate)
       play_cut=NULL;
       return false;
     }
-  }  // NEW!!
+  }
   if(logline->startPoint(RDLogLine::LogPointer)<0) {
-    play_forced_length=play_cart->forcedLength();
+    play_forced_length=logline->forcedLength();
+    /*
+    play_audio_point[0]=logline->startPoint();
+    play_audio_point[1]=logline->endPoint();
+    */
     play_audio_point[0]=play_cut->startPoint(RDLogLine::CartPointer);
     play_audio_point[1]=play_cut->endPoint();
   }
@@ -179,12 +183,12 @@ bool RDPlayDeck::setCart(RDLogLine *logline,bool rotate)
 	(RD_TIMESCALE_DIVISOR*RD_TIMESCALE_MIN))||
        (((double)play_timescale_speed)>
 	(RD_TIMESCALE_DIVISOR*RD_TIMESCALE_MAX))) {
-      play_timescale_speed=RD_TIMESCALE_DIVISOR;
+      play_timescale_speed=(int)RD_TIMESCALE_DIVISOR;
       play_timescale_active=false;
     }
   }
   else {
-    play_timescale_speed=RD_TIMESCALE_DIVISOR;
+    play_timescale_speed=(int)RD_TIMESCALE_DIVISOR;
   }
   play_audio_length=play_audio_point[1]-play_audio_point[0];
   if(logline->segueStartPoint(RDLogLine::AutoPointer)<0) {

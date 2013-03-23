@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.6 2011/02/17 20:58:00 cvs Exp $
+##      $Id: Makefile.am,v 1.6.6.1 2012/11/29 01:37:38 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -83,4 +83,5 @@ EXTRA_DIST = addcart.html\
              trimaudio.html
 
 CLEANFILES = *~
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in

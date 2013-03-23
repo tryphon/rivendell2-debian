@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_decks.cpp,v 1.35 2012/02/13 19:26:14 cvs Exp $
+//      $Id: edit_decks.cpp,v 1.35.2.1 2012/11/28 18:49:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -267,21 +267,6 @@ EditDecks::EditDecks(RDStation *station,RDStation *cae_station,
   edit_play_selector->setGeometry(387,42,120,10);
 
   //
-  // Audition Section
-  //
-  label=new QLabel(edit_record_deck_box,tr("Audition Deck"),this,
-		   "edit_audition_label");
-  label->setFont(small_font);
-  label->setGeometry(400,134,100,22);
-  label->setAlignment(AlignRight);
-
-  //
-  // Audition Deck Card Selector
-  //
-  edit_audition_selector=new RDCardSelector(this,"edit_audition_selector");
-  edit_audition_selector->setGeometry(387,162,120,87);
-
-  //
   //  Close Button
   //
   QPushButton *close_button=new QPushButton(this,"close_button");
@@ -298,11 +283,9 @@ EditDecks::EditDecks(RDStation *station,RDStation *cae_station,
   if(cae_station->scanned()) {
     edit_record_selector->setMaxCards(cae_station->cards());
     edit_play_selector->setMaxCards(cae_station->cards());
-    edit_audition_selector->setMaxCards(cae_station->cards());
     for(int i=0;i<edit_record_selector->maxCards();i++) {
       edit_record_selector->setMaxPorts(i,cae_station->cardInputs(i));
       edit_play_selector->setMaxPorts(i,cae_station->cardOutputs(i));
-      edit_audition_selector->setMaxPorts(i,cae_station->cardOutputs(i));
     }
   }
   else {
@@ -312,7 +295,6 @@ EditDecks::EditDecks(RDStation *station,RDStation *cae_station,
     edit_monitor_box->setDisabled(true);
     edit_monitor_label->setDisabled(true);
     edit_play_selector->setDisabled(true);
-    edit_audition_selector->setDisabled(true);
   }
   edit_errorrml_edit->setText(edit_catch_conf->errorRml());
   edit_record_deck=NULL;
@@ -360,7 +342,6 @@ EditDecks::~EditDecks()
   delete edit_bitrate_box;
   delete edit_threshold_box;
   delete edit_record_selector;
-  delete edit_audition_selector;
   delete edit_record_deck;
   delete edit_audition_deck;
   delete edit_errorrml_edit;
@@ -525,10 +506,6 @@ void EditDecks::paintEvent(QPaintEvent *e)
   p->setPen(QColor(black));
   p->moveTo(385,10);
   p->lineTo(385,sizeHint().height()-10);
-  p->moveTo(385,120);
-  p->lineTo(sizeHint().width()-10,120);
-  p->moveTo(385,383);
-  p->lineTo(10,383);
   p->end();
 }
 
@@ -539,8 +516,6 @@ void EditDecks::ReadRecord(int chan)
     if(edit_audition_deck==NULL) {
       edit_audition_deck=new RDDeck(edit_station->name(),0,true);
     }
-    edit_audition_selector->setCard(edit_audition_deck->cardNumber());
-    edit_audition_selector->setPort(edit_audition_deck->portNumber());
   }
   if((chan>128)&&(chan<(MAX_DECKS+129))) {  // Play Deck
     if(edit_play_deck!=NULL) {
@@ -659,10 +634,6 @@ void EditDecks::WriteRecord(int chan)
 {
   int temp;
 
-  if(chan==0) {                             // Audition Deck
-    edit_audition_deck->setCardNumber(edit_audition_selector->card());
-    edit_audition_deck->setPortNumber(edit_audition_selector->port());
-  }
   if((chan>128)&&(chan<(MAX_DECKS+129))) { // Play Deck
     edit_play_deck->setCardNumber(edit_play_selector->card());
     edit_play_deck->setPortNumber(edit_play_selector->port());

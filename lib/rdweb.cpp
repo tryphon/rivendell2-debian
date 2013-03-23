@@ -94,7 +94,7 @@ int RDPutPostString(char *sPost,char *sArg,char *sValue,int dMaxSize)
      * Will it fit?
      */
     dOrigin=strlen(sPost);
-    if((dOrigin+strlen(sArg)+strlen(sValue)+2)>=dMaxSize) {
+    if((dOrigin+strlen(sArg)+strlen(sValue)+2)>=(unsigned)dMaxSize) {
       return -1;
     }
     /*
@@ -136,7 +136,7 @@ int RDPutPostString(char *sPost,char *sArg,char *sValue,int dMaxSize)
  *          -1 if the search is unsuccessful
  */
 
-int RDFindPostString(char *cBuffer,char *sSearch,char *sReturn,int dReturnSize)
+int RDFindPostString(const char *cBuffer,const char *sSearch,char *sReturn,int dReturnSize)
 
 {
   int i=0,j=0;
@@ -190,7 +190,8 @@ int RDFindPostString(char *cBuffer,char *sSearch,char *sReturn,int dReturnSize)
  *          -1 if the search is unsuccessful
  */
 
-int RDGetPostString(char *cBuffer,char *sSearch,char *sReturn,int dReturnSize)
+int RDGetPostString(const char *cBuffer,const char *sSearch,
+		    char *sReturn,int dReturnSize)
 {
   if(RDFindPostString(cBuffer,sSearch,sReturn,dReturnSize)<0) {
     return -1;
@@ -212,7 +213,7 @@ int RDGetPostString(char *cBuffer,char *sSearch,char *sReturn,int dReturnSize)
  *          -1 if the search is unsuccessful
  */
 
-int RDGetPostInt(char *cBuffer,char *sSearch,int *dReturn)
+int RDGetPostInt(const char *cBuffer,const char *sSearch,int *dReturn)
 {
   char sAccum[256];
 
@@ -228,7 +229,7 @@ int RDGetPostInt(char *cBuffer,char *sSearch,int *dReturn)
 
 
 
-int RDGetPostLongInt(char *cBuffer,char *sSearch,long int *dReturn)
+int RDGetPostLongInt(const char *cBuffer,const char *sSearch,long int *dReturn)
 {
   char sAccum[256];
 

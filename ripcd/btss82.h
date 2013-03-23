@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: btss82.h,v 1.11 2010/08/03 23:39:26 cvs Exp $
+//      $Id: btss82.h,v 1.11.8.1 2012/12/11 03:49:48 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -60,8 +60,8 @@ class BtSs82 : public Switcher
   int bt_matrix;
   int bt_inputs;
   int bt_outputs;
-  unsigned bt_gpis;
-  unsigned bt_gpos;
+  int bt_gpis;
+  int bt_gpos;
   int bt_istate;
   bool bt_gpi_state[BTSS82_GPIO_PINS];
   bool bt_gpi_mask[BTSS82_GPIO_PINS];

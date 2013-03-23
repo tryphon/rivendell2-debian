@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2011 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioinfo.cpp,v 1.3.4.1 2012/10/13 04:53:19 cvs Exp $
+//      $Id: rdaudioinfo.cpp,v 1.3.4.2 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -229,7 +229,7 @@ int RDAudioInfo::ParseInt(const QString &tag,const QString &xml)
   //        a proper XML parser.
   //
   QStringList list=list.split("\n",xml);
-  for(int i=0;i<list.size();i++) {
+  for(unsigned i=0;i<list.size();i++) {
     if(list[i].contains(tag)) {
       QStringList list2=list.split("<",list[i]);
       if(list2.size()>=2) {

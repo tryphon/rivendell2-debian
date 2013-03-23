@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.1.2.2 2012/10/20 00:24:46 cvs Exp $
+##      $Id: Makefile.am,v 1.1.2.4 2013/01/01 21:36:32 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -52,8 +52,22 @@ nodist_rdselect_SOURCES = moc_rdselect.cpp
 
 rdselect_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-EXTRA_DIST = rdselect.pro rdselect_es.ts rdselect_fr.ts rdselect_de.ts\
-             rdselect_nb.ts rdselect_nn.ts rdselect_pt_BR.ts
+EXTRA_DIST = rdselect.pro\
+             rdselect_cs.ts\
+             rdselect_de.ts\
+             rdselect_es.ts\
+             rdselect_fr.ts\
+             rdselect_nb.ts\
+             rdselect_nn.ts\
+             rdselect_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

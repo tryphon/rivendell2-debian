@@ -4,7 +4,7 @@
 ##
 ## (C) 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.48 2010/08/04 23:07:01 cvs Exp $
+##      $Id: Makefile.am,v 1.48.8.3 2013/01/01 21:36:30 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -45,40 +45,64 @@ all:
 
 bin_PROGRAMS = rdairplay
 
-dist_rdairplay_SOURCES = rdairplay.cpp rdairplay.h\
-                         loglinebox.cpp loglinebox.h\
-                         wall_clock.cpp wall_clock.h\
-                         post_counter.cpp post_counter.h\
-                         pie_counter.cpp pie_counter.h\
-                         stop_counter.cpp stop_counter.h\
-                         start_button.cpp start_button.h\
-                         globals.h\
-                         mode_display.cpp mode_display.h\
-                         list_log.cpp list_log.h\
-                         log_play.cpp log_play.h\
+dist_rdairplay_SOURCES = button_log.cpp button_log.h\
                          edit_event.cpp edit_event.h\
-                         button_log.cpp button_log.h\
+                         globals.h\
+                         hourselector.cpp hourselector.h\
+                         list_log.cpp list_log.h\
                          list_logs.cpp list_logs.h\
                          local_macros.cpp colors.h\
+                         log_play.cpp log_play.h\
                          log_traffic.cpp log_traffic.h\
+                         loglinebox.cpp loglinebox.h\
                          marker_bar.cpp marker_bar.h\
+                         mode_display.cpp mode_display.h\
                          nownext.cpp\
-                         rlmhost.cpp rlmhost.h
+                         pie_counter.cpp pie_counter.h\
+                         post_counter.cpp post_counter.h\
+                         rdairplay.cpp rdairplay.h\
+                         rlmhost.cpp rlmhost.h\
+                         start_button.cpp start_button.h\
+                         stop_counter.cpp stop_counter.h\
+                         wall_clock.cpp wall_clock.h
 
-nodist_rdairplay_SOURCES = moc_rdairplay.cpp moc_loglinebox.cpp\
-                           moc_wall_clock.cpp moc_post_counter.cpp\
-                           moc_pie_counter.cpp moc_stop_counter.cpp\
-                           moc_start_button.cpp moc_mode_display.cpp\
-                           moc_list_log.cpp moc_button_log.cpp\
-                           moc_log_play.cpp moc_edit_event.cpp\
-                           moc_list_logs.cpp moc_marker_bar.cpp\
-                           moc_rlmhost.cpp
+
+nodist_rdairplay_SOURCES = moc_button_log.cpp\
+                           moc_edit_event.cpp\
+                           moc_hourselector.cpp\
+                           moc_list_log.cpp\
+                           moc_list_logs.cpp\
+                           moc_log_play.cpp\
+                           moc_loglinebox.cpp\
+                           moc_marker_bar.cpp\
+                           moc_mode_display.cpp\
+                           moc_pie_counter.cpp\
+                           moc_post_counter.cpp\
+                           moc_rdairplay.cpp\
+                           moc_rlmhost.cpp\
+                           moc_start_button.cpp\
+                           moc_stop_counter.cpp\
+                           moc_wall_clock.cpp
 
 rdairplay_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 rdairplay_LDFLAGS = -rdynamic
 
-EXTRA_DIST = rdairplay.pro rdairplay_es.ts rdairplay_fr.ts rdairplay_de.ts\
-             rdairplay_nb.ts rdairplay_nn.ts rdairplay_pt_BR.ts
+EXTRA_DIST = rdairplay.pro\
+             rdairplay_cs.ts\
+             rdairplay_de.ts\
+             rdairplay_es.ts\
+             rdairplay_fr.ts\
+             rdairplay_nb.ts\
+             rdairplay_nn.ts\
+             rdairplay_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

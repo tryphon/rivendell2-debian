@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit.cpp,v 1.77 2011/10/17 20:08:21 cvs Exp $
+//      $Id: rdlogedit.cpp,v 1.77.4.3 2013/01/07 15:35:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -142,8 +142,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   //
   log_config=new RDConfig();
   log_config->load();
-  str1=QString(tr("RDLogEdit - Host"));
-  str2=QString(tr("User: [Unknown]"));
+  str1=QString("RDLogEdit")+"v"+VERSION+" - "+tr("Host");
+  str2=tr("User")+": ["+tr("Unknown")+"]";
   setCaption(QString().sprintf("%s: %s, %s",(const char *)str1,
 			       (const char *)log_config->stationName(),
 			       (const char *)str2));
@@ -214,7 +214,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
 				   rdlogedit_conf->outputPort(),
 				   rdlogedit_conf->startCart(),
 				   rdlogedit_conf->endCart(),
-				   NULL,NULL,rdstation_conf,"",
+				   NULL,NULL,rdstation_conf,rdsystem,"",
 				   this,"log_cart_dialog");
 #else
   log_cart_dialog=new RDCartDialog(&log_filter,&log_group,&log_schedcode,
@@ -222,7 +222,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
 				   rdlogedit_conf->outputPort(),
 				   rdlogedit_conf->startCart(),
 				   rdlogedit_conf->endCart(),
-				   rdcae,rdripc,rdstation_conf,"",
+				   rdcae,rdripc,rdstation_conf,rdsystem,"",
 				   this,"log_cart_dialog");
 #endif
 
@@ -381,12 +381,10 @@ void MainWidget::userData()
   QString str1;
   QString str2;
 
-  str1=QString(tr("RDLogEdit - Host"));
+  str1=QString("RDLogEdit")+" v"+VERSION+" - "+tr("Host");
   str2=QString(tr("User"));
-  setCaption(QString().sprintf("%s: %s, %s: %s",(const char *)str1,
-			       (const char *)log_config->stationName(),
-			       (const char *)str2,
-			       (const char *)rdripc->user()));
+  setCaption(str1+": "+log_config->stationName()+", "+str2+": "+
+	     rdripc->user());
   if(rduser!=NULL) {
     delete rduser;
   }

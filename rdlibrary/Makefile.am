@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.51 2010/08/04 23:07:01 cvs Exp $
+##      $Id: Makefile.am,v 1.51.8.2 2013/01/01 21:36:31 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -45,38 +45,57 @@ all:
 
 bin_PROGRAMS = rdlibrary
 
-dist_rdlibrary_SOURCES = rdlibrary.cpp rdlibrary.h\
-                         filter.cpp filter.h\
-                         edit_cart.cpp edit_cart.h\
-                         audio_cart.cpp audio_cart.h\
-                         macro_cart.cpp macro_cart.h\
-                         record_cut.cpp record_cut.h\
-                         edit_macro.cpp edit_macro.h\
-                         cdripper.cpp cdripper.h\
-                         disk_gauge.cpp disk_gauge.h\
-                         disk_bar.cpp disk_bar.h\
-                         disk_ripper.cpp disk_ripper.h\
+dist_rdlibrary_SOURCES = audio_cart.cpp audio_cart.h\
                          audio_controls.h\
-                         list_reports.cpp list_reports.h\
-                         validate_cut.cpp validate_cut.h\
-                         edit_schedulercodes.cpp edit_schedulercodes.h\
-                         edit_notes.cpp edit_notes.h\
                          cart_tip.cpp cart_tip.h\
-                         globals.h
+                         cdripper.cpp cdripper.h\
+                         disk_bar.cpp disk_bar.h\
+                         disk_gauge.cpp disk_gauge.h\
+                         disk_ripper.cpp disk_ripper.h\
+                         edit_cart.cpp edit_cart.h\
+                         edit_macro.cpp edit_macro.h\
+                         edit_notes.cpp edit_notes.h\
+                         edit_schedulercodes.cpp edit_schedulercodes.h\
+                         filter.cpp filter.h\
+                         globals.h\
+                         list_reports.cpp list_reports.h\
+                         macro_cart.cpp macro_cart.h\
+                         rdlibrary.cpp rdlibrary.h\
+                         record_cut.cpp record_cut.h\
+                         validate_cut.cpp validate_cut.h
 
-nodist_rdlibrary_SOURCES = moc_rdlibrary.cpp moc_filter.cpp\
+nodist_rdlibrary_SOURCES = moc_audio_cart.cpp\
+                           moc_cdripper.cpp\
+                           moc_disk_gauge.cpp\
+                           moc_disk_ripper.cpp\
                            moc_edit_cart.cpp\
-                           moc_audio_cart.cpp moc_macro_cart.cpp\
-                           moc_record_cut.cpp moc_cdripper.cpp\
-                           moc_edit_macro.cpp moc_list_reports.cpp\
+                           moc_edit_macro.cpp\
+                           moc_edit_notes.cpp\
                            moc_edit_schedulercodes.cpp \
-                           moc_disk_gauge.cpp moc_disk_ripper.cpp\
-                           moc_edit_notes.cpp
+                           moc_filter.cpp\
+                           moc_list_reports.cpp\
+                           moc_macro_cart.cpp\
+                           moc_rdlibrary.cpp\
+                           moc_record_cut.cpp
 
 rdlibrary_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-EXTRA_DIST = rdlibrary.pro rdlibrary_es.ts rdlibrary_fr.ts rdlibrary_de.ts\
-             rdlibrary_nb.ts rdlibrary_nn.ts rdlibrary_pt_BR.ts
+EXTRA_DIST = rdlibrary.pro\
+             rdlibrary_cs.ts\
+             rdlibrary_de.ts\
+             rdlibrary_es.ts\
+             rdlibrary_fr.ts\
+             rdlibrary_nb.ts\
+             rdlibrary_nn.ts\
+             rdlibrary_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

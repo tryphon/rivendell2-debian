@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdevent_player.cpp,v 1.6 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdevent_player.cpp,v 1.6.8.1 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -72,7 +72,7 @@ bool RDEventPlayer::exec(unsigned cartnum)
   if(cartnum==0) {
     return false;
   }
-  exec(QString().sprintf("EX %u!",cartnum));
+  return exec(QString().sprintf("EX %u!",cartnum));
 }
 
 

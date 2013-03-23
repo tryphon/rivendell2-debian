@@ -279,7 +279,7 @@ Vil du halda fram med å sletta podkasten?</translation>
     <name>MainWidget</name>
     <message>
         <source>RDCastManager - Host</source>
-        <translation>RDCastManager - Vert</translation>
+        <translation type="obsolete">RDCastManager - Vert</translation>
     </message>
     <message>
         <source>User: [Unknown]</source>
@@ -318,6 +318,10 @@ straum</translation>
     <message>
         <source>User</source>
         <translation>Brukar</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

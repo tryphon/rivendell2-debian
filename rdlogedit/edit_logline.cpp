@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_logline.cpp,v 1.40 2010/07/29 19:32:37 cvs Exp $
+//      $Id: edit_logline.cpp,v 1.40.8.1 2012/11/26 20:19:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -274,7 +274,8 @@ void EditLogLine::selectCartData()
   if(!ok) {
     cartnum=-1;
   }
-  if(log_cart_dialog->exec(&cartnum,RDCart::All,&edit_service,1)==0) {
+  if(log_cart_dialog->exec(&cartnum,RDCart::All,&edit_service,1,
+			   rduser->name(),rduser->password())==0) {
     FillCart(cartnum);
   }
 }

@@ -701,11 +701,11 @@ desactivado para el servicio especificado!</translation>
     <name>MainWidget</name>
     <message>
         <source>RDLogEdit - Host</source>
-        <translation>RDLogEdit - Computador </translation>
+        <translation type="obsolete">RDLogEdit - Computador </translation>
     </message>
     <message>
         <source>User: [Unknown]</source>
-        <translation>Usuario: [Desconocido]</translation>
+        <translation type="obsolete">Usuario: [Desconocido]</translation>
     </message>
     <message>
         <source>Can&apos;t Connect</source>
@@ -846,6 +846,14 @@ de Listas</translation>
 See your system administrator for an update!</source>
         <translation>Esta versión de RDLogEdit es incompatible con la versión instalada en el servidor.
 ¡Solicite una actualización al administrador!</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

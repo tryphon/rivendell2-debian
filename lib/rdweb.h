@@ -44,11 +44,11 @@
 //
 extern int RDReadPost(char *,int);
 extern int RDPutPostString(char *,char *,char *,int);
-extern int RDFindPostString(char *,char *,char *,int);
-extern int RDGetPostString(char *,char *,char *,int);
-extern int RDGetPostInt(char *,char *,int *);
-extern int RDGetPostLongInt(char *,char *,long int *);
-extern int RDPurgePostString(char *,char *,int);
+extern int RDFindPostString(const char *,const char *,char *,int);
+extern int RDGetPostString(const char *,const char *,char *,int);
+extern int RDGetPostInt(const char *,const char *,int *);
+extern int RDGetPostLongInt(const char *,const char *,long int *);
+extern int RDPurgePostString(const char *,const char *,int);
 extern int RDEncodeString(char *,int);
 extern int RDEncodeSQLString(char *,int);
 extern int RDDecodeString(char *);

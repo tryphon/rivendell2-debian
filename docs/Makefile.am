@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.21.6.4 2012/10/22 19:20:23 cvs Exp $
-##      $Date: 2012/10/22 19:20:23 $
+##      $Id: Makefile.am,v 1.21.6.5 2012/11/29 01:37:35 cvs Exp $
+##      $Date: 2012/11/29 01:37:35 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -22,16 +22,41 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-SUBDIRS = tables examples
+SUBDIRS = examples\
+          tables
 
-EXTRA_DIST = ALSA.txt GPIO.txt JACK.txt NOW+NEXT.txt SWITCHERS.txt WIN32.txt\
-	     WINGS_FILTER.txt cae.sxw catchd.txt colors \
-             implemented_macros.txt pam_rd.txt reports.txt \
-             ripc.txt rml.sxw PODCASTING.txt RIVENDELL_FILTER.txt\
-             ENCODERS.txt MESSAGE_BOX.txt scheduler_formats.ods\
-             copy_split_format.odt asound.conf-sample web_api.odt\
-             ando_interface.odt datetime_wildcards.txt NEXGEN_FILTER.txt\
-             SAGE_ENDEC.txt RDMONITOR.txt
+EXTRA_DIST = ALSA.txt\
+             ando_interface.odt\
+             asound.conf-sample\
+             cae.sxw\
+             catchd.txt\
+             colors\
+             copy_split_format.odt\
+             datetime_wildcards.txt\
+             implemented_macros.txt\
+             ENCODERS.txt\
+             GPIO.txt\
+             JACK.txt\
+             MESSAGE_BOX.txt\
+             NEXGEN_FILTER.txt\
+             NOW+NEXT.txt\
+             pam_rd.txt\
+             PODCASTING.txt\
+             RDMONITOR.txt\
+             reports.txt\
+             ripc.txt\
+             RIVENDELL_FILTER.txt\
+             rml.sxw\
+             SAGE_ENDEC.txt\
+             scheduler_formats.ods\
+             SWITCHERS.txt\
+             web_api.odt\
+             WIN32.txt\
+	     WINGS_FILTER.txt
+
 
 CLEANFILES = *~
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4
+MAINTAINERCLEANFILES = *~\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in

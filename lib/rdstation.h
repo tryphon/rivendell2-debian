@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdstation.h,v 1.24 2011/10/31 11:38:33 cvs Exp $
+//      $Id: rdstation.h,v 1.24.4.3 2012/11/28 21:44:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -94,6 +94,16 @@ class RDStation
   void setStartJack(bool state) const;
   QString jackServerName() const;
   void setJackServerName(const QString &str) const;
+  QString jackCommandLine() const;
+  void setJackCommandLine(const QString &str) const;
+  int cueCard() const;
+  void setCueCard(int card);
+  int cuePort() const;
+  void setCuePort(int port);
+  int cartSlotColumns() const;
+  void setCartSlotColumns(int cols);
+  int cartSlotRows() const;
+  void setCartSlotRows(int rows);
   bool systemMaint() const;
   void setSystemMaint(bool state) const;
   bool scanned() const;

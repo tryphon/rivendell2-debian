@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdmonitor.pro,v 1.1.2.1 2012/10/13 04:53:19 cvs Exp $
+#      $Id: rdmonitor.pro,v 1.1.2.2 2013/01/01 21:36:32 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,7 @@ x11 {
   HEADERS += status_tip.h
 }
 
+TRANSLATIONS += rdmonitor_cs.ts
 TRANSLATIONS += rdmonitor_de.ts
 TRANSLATIONS += rdmonitor_es.ts
 TRANSLATIONS += rdmonitor_fr.ts

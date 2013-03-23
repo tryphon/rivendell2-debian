@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdbutton_dialog.h,v 1.14 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdbutton_dialog.h,v 1.14.8.1 2012/11/26 20:19:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -50,7 +50,8 @@ class RDButtonDialog : public QDialog
   QSizePolicy sizePolicy() const;
 
  public slots:
-  int exec(RDPanelButton *button,bool hookmode);
+  int exec(RDPanelButton *button,bool hookmode,const QString &username,
+	   const QString &passwd);
 
  private slots:
   void setCartData();
@@ -67,6 +68,8 @@ class RDButtonDialog : public QDialog
   QString edit_label_template;
   QString edit_filter;
   QString edit_group;
+  QString edit_user_name;
+  QString edit_user_password;
   QPushButton *edit_color_button;
   int edit_cart;
   QColor edit_color;

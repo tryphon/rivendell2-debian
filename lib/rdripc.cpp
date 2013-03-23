@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdripc.cpp,v 1.36 2011/03/01 20:35:52 cvs Exp $
+//      $Id: rdripc.cpp,v 1.36.6.1 2012/11/16 18:10:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -30,6 +30,7 @@ RDRipc::RDRipc(QString stationname,QObject *parent,const char *name)
   : QObject(parent,name)
 {
   ripc_stationname=stationname;
+  ripc_onair_flag=false;
   ripc_ignore_mask=false;
   debug=false;
   argnum=0;
@@ -62,6 +63,12 @@ QString RDRipc::user() const
 QString RDRipc::station() const
 {
   return ripc_stationname;
+}
+
+
+bool RDRipc::onairFlag() const
+{
+  return ripc_onair_flag;
 }
 
 
@@ -410,5 +417,13 @@ void RDRipc::DispatchCommand()
       return;
     }
     emit onairFlagChanged(args[1][0]=='1');
+  }
+
+  if(!strcmp(args[0],"TA")) {   // On Air Flag Changed
+    if(argnum!=2) {
+      return;
+    }
+    ripc_onair_flag=args[1][0]=='1';
+    emit onairFlagChanged(ripc_onair_flag);
   }
 }

@@ -8,6 +8,7 @@
   <Directory>rivendell-rivendell.directory</Directory>
   <Include>
     <Filename>rivendell-rdairplay.desktop</Filename>
+    <Filename>rivendell-rdcartslots.desktop</Filename>
     <Filename>rivendell-rdcastmanager.desktop</Filename>
     <Filename>rivendell-rdcatch.desktop</Filename>
     <Filename>rivendell-rdlibrary.desktop</Filename>
@@ -35,10 +36,12 @@
     <Name>Utilities</Name>
     <Directory>rivendell-utilities.directory</Directory>
     <Include>
+      <Filename>rivendell-rddgimport.desktop</Filename>
       <Filename>rivendell-rdgpimon.desktop</Filename>
       <Filename>rivendell-rdselect.desktop</Filename>
       <Filename>rivendell-rdsoftkeys.desktop</Filename>
       <Filename>rivendell-rmlsend.desktop</Filename>
+      <Filename>rivendell-rddgimport.desktop</Filename>
     </Include>
   </Menu>
 </Menu>

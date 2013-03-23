@@ -280,7 +280,7 @@ Podcast trotzdem löschen?</translation>
     <name>MainWidget</name>
     <message>
         <source>RDCastManager - Host</source>
-        <translation>RDCastManager - Host</translation>
+        <translation type="obsolete">RDCastManager - Host</translation>
     </message>
     <message>
         <source>User: [Unknown]</source>
@@ -319,6 +319,10 @@ Feed</translation>
     <message>
         <source>User</source>
         <translation>Benutzer</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

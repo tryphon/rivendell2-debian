@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdcatch.pro,v 1.9 2010/08/04 23:07:01 cvs Exp $
+#      $Id: rdcatch.pro,v 1.9.8.1 2013/01/01 21:36:30 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -49,6 +49,7 @@ x11 {
   HEADERS += catch_listview.h
 }
 
+TRANSLATIONS += rdcatch_cs.ts
 TRANSLATIONS += rdcatch_de.ts
 TRANSLATIONS += rdcatch_es.ts
 TRANSLATIONS += rdcatch_fr.ts

@@ -327,6 +327,14 @@
         <source>Bottom Right</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>NPR/DS SoundExchange Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Music Playout</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>
@@ -681,6 +689,39 @@ Color</translation>
     <message>
         <source>Scheduler Code:</source>
         <translation>Cód. Programac.:</translation>
+    </message>
+    <message>
+        <source>Load From
+&amp;File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create temporary cart for import!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to get temporary cart number for import!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import Error</source>
+        <translation type="unfinished">Error importando</translation>
+    </message>
+    <message>
+        <source>Imported from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdevent_line.cpp,v 1.60 2012/02/13 18:05:06 cvs Exp $
+//      $Id: rdevent_line.cpp,v 1.60.2.1 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -868,16 +868,17 @@ bool RDEventLine::linkLog(RDLogEvent *e,int next_id,const QString &svcname,
   //
   RDLogLine::Source event_src=RDLogLine::Manual;
   switch(event_import_source) {
-      case RDEventLine::Music:
-	event_src=RDLogLine::Music;
-	break;
+  case RDEventLine::Music:
+    event_src=RDLogLine::Music;
+    break;
 
-      case RDEventLine::Traffic:
-	event_src=RDLogLine::Traffic;
-	break;
+  case RDEventLine::Traffic:
+    event_src=RDLogLine::Traffic;
+    break;
 
-      case RDEventLine::None:
-	break;
+  case RDEventLine::Scheduler:
+  case RDEventLine::None:
+    break;
   }
   RDLogLine::TimeType time_type=link_logline->timeType();
   RDLogLine::TransType trans_type=link_logline->transType();

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.cpp,v 1.62.6.2 2012/08/28 16:55:35 cvs Exp $
+//      $Id: rdsound_panel.cpp,v 1.62.6.3 2012/11/26 20:19:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -687,7 +687,8 @@ void RDSoundPanel::buttonMapperData(int id)
 	  }
 	  if(panel_button_dialog->
 	     exec(panel_buttons[PanelOffset(panel_type,panel_number)]->
-		  panelButton(row,col),panel_playmode_box->currentItem()==1)
+		  panelButton(row,col),panel_playmode_box->currentItem()==1,
+		  panel_user->name(),panel_user->password())
 	     ==0) {
 	    SaveButton(panel_type,panel_number,row,col);
 	  }

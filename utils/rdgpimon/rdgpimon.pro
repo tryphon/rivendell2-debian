@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2006 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdgpimon.pro,v 1.6 2010/08/04 23:07:02 cvs Exp $
+#      $Id: rdgpimon.pro,v 1.6.8.1 2013/01/01 21:36:33 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,7 @@
 SOURCES += rdgpimon.cpp
 HEADERS += rdgpimon.h
 
+TRANSLATIONS += rdgpimon_cs.ts
 TRANSLATIONS += rdgpimon_de.ts
 TRANSLATIONS += rdgpimon_es.ts
 TRANSLATIONS += rdgpimon_fr.ts

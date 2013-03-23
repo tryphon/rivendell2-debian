@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioconvert.cpp,v 1.14.2.1 2012/09/06 19:47:15 cvs Exp $
+//      $Id: rdaudioconvert.cpp,v 1.14.2.2 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -721,7 +721,6 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage2Convert(const QString &srcfile,
   int err;
   sf_count_t n;
   float ratio=1.0;
-  unsigned max_chans=2;
 
   //
   // Open Files
@@ -881,7 +880,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage2Convert(const QString &srcfile,
 	}
       }
       if(src_state!=NULL) {
-	delete src_state;
+	src_delete(src_state);
       }
       sf_close(src_sf);
       sf_close(dst_sf);
@@ -903,7 +902,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage2Convert(const QString &srcfile,
 	  }
 	}
 	if(src_state!=NULL) {
-	  delete src_state;
+	  src_delete(src_state);
 	}
 	sf_close(src_sf);
 	sf_close(dst_sf);
@@ -922,7 +921,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage2Convert(const QString &srcfile,
     }
   }
   if(src_state!=NULL) {
-    delete src_state;
+    src_delete(src_state);
   }
   sf_close(src_sf);
   sf_close(dst_sf);
@@ -985,7 +984,6 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Flac(SNDFILE *src_sf,
 						     const QString &dstfile)
 {
 #ifdef HAVE_FLAC
-  int dst_fd=-1;
   sf_count_t n;
   int32_t *pcm;
 
@@ -1073,7 +1071,6 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Vorbis(SNDFILE *src_sf,
   ogg_packet header;
   ogg_packet comment;
   ogg_packet codebook;
-  ogg_packet ogg_eos_packet;
   ogg_packet ogg_packet;
   vorbis_info vorbis_info;
   vorbis_comment vorbis_comment;
@@ -1129,7 +1126,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Vorbis(SNDFILE *src_sf,
   while((n=sf_readf_float(src_sf,pcm,2048))>0) {
     vorbis=vorbis_analysis_buffer(&vorbis_dsp,n);
     for(unsigned i=0;i<n;i++) {
-      for(unsigned j=0;j<src_sf_info->channels;j++) {
+      for(int j=0;j<src_sf_info->channels;j++) {
 	vorbis[j][i]=pcm[src_sf_info->channels*i+j];
       }
     }
@@ -1488,7 +1485,6 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Layer2(SNDFILE *src_sf,
 						       const QString &dstfile)
 {
 #ifdef HAVE_TWOLAME
-  short *sf_buffer=NULL;
   sf_count_t n;
   ssize_t s;
   int dst_fd=-1;
@@ -1620,7 +1616,8 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Pcm16(SNDFILE *src_sf,
     return RDAudioConvert::ErrorNoDestination;
   }
   while((n=sf_readf_short(src_sf,sf_buffer,2048))>0) {
-    if(wave->writeWave(sf_buffer,n*sizeof(short)*src_sf_info->channels)!=
+    if((unsigned)wave->
+       writeWave(sf_buffer,n*sizeof(short)*src_sf_info->channels)!=
        (n*sizeof(short)*src_sf_info->channels)) {
       delete sf_buffer;
       wave->closeWave();

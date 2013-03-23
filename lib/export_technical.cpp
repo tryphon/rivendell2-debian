@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: export_technical.cpp,v 1.9 2010/07/29 19:32:33 cvs Exp $
+//      $Id: export_technical.cpp,v 1.9.8.1 2012/11/16 18:10:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -150,6 +150,10 @@ bool RDReport::ExportTechnical(const QDate &startdate,const QDate &enddate,
 
 	case RDLogLine::SoundPanel:
 	  fprintf(f,"SPnl   ");
+	  break;
+
+	case RDLogLine::CartSlot:
+	  fprintf(f,"Slot   ");
 	  break;
 
 	default:

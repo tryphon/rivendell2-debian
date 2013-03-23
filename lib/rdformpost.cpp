@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdformpost.cpp,v 1.3 2012/02/13 23:01:50 cvs Exp $
+//      $Id: rdformpost.cpp,v 1.3.2.1 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -315,7 +315,7 @@ QString RDFormPost::urlEncode(const QString &str)
 {
   QString ret;
 
-  for(int i=0;i<str.length();i++) {
+  for(unsigned i=0;i<str.length();i++) {
     if(str.at(i).isLetterOrNumber()) {
       ret+=str.mid(i,1);
     }
@@ -336,7 +336,7 @@ QString RDFormPost::urlDecode(const QString &str)
   QString ret;
   bool ok=false;
 
-  for(int i=0;i<str.length();i++) {
+  for(unsigned i=0;i<str.length();i++) {
     switch(istate) {
     case 0:
       if(str.at(i)==QChar('+')) {
@@ -403,7 +403,7 @@ void RDFormPost::LoadUrlEncoding(char first)
   exit(0);
   */
   lines=lines.split("&",data);
-  for(int i=0;i<lines.size();i++) {
+  for(unsigned i=0;i<lines.size();i++) {
     line=line.split("=",lines[i]);
     switch(line.size()) {
     case 1:
@@ -484,7 +484,7 @@ void RDFormPost::LoadMultipartEncoding(char first)
 	  fields=fields.split(";",headers["content-disposition"]);
 	  if(fields.size()>0) {
 	    if(fields[0].lower().simplifyWhiteSpace()=="form-data") {
-	      for(int i=1;i<fields.size();i++) {
+	      for(unsigned i=1;i<fields.size();i++) {
 		QStringList pairs;
 		pairs=pairs.split("=",fields[i]);
 		if(pairs[0].lower().simplifyWhiteSpace()=="name") {
@@ -507,7 +507,7 @@ void RDFormPost::LoadMultipartEncoding(char first)
 	hdr=hdr.split(":",QString(data).simplifyWhiteSpace());
 	// Reconcaternate trailing sections so we don't split on the 
 	// useless M$ drive letter supplied by IE
-	for(int i=2;i<hdr.size();i++) {
+	for(unsigned i=2;i<hdr.size();i++) {
 	  hdr[1]+=hdr[i];
 	}
 	headers[hdr[0].lower()]=hdr[1];

@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.1.2.1 2012/10/13 04:53:19 cvs Exp $
+##      $Id: Makefile.am,v 1.1.2.3 2013/01/01 21:36:31 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -47,11 +47,27 @@ bin_PROGRAMS = rdmonitor
 
 dist_rdmonitor_SOURCES = rdmonitor.cpp rdmonitor.h\
                          status_tip.cpp status_tip.h
+
 nodist_rdmonitor_SOURCES = moc_rdmonitor.cpp
+
 rdmonitor_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-EXTRA_DIST = rdmonitor.pro rdmonitor_es.ts rdmonitor_fr.ts rdmonitor_de.ts\
-             rdmonitor_nb.ts rdmonitor_nn.ts rdmonitor_pt_BR.ts
+EXTRA_DIST = rdmonitor.pro\
+             rdmonitor_cs.ts\
+             rdmonitor_de.ts\
+             rdmonitor_es.ts\
+             rdmonitor_fr.ts\
+             rdmonitor_nb.ts\
+             rdmonitor_nn.ts\
+             rdmonitor_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

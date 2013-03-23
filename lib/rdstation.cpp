@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdstation.cpp,v 1.30 2011/10/31 11:38:33 cvs Exp $
+//      $Id: rdstation.cpp,v 1.30.4.3 2012/11/28 21:44:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -297,6 +297,68 @@ QString RDStation::jackServerName() const
 void RDStation::setJackServerName(const QString &str) const
 {
   SetRow("JACK_SERVER_NAME",str);
+}
+
+
+QString RDStation::jackCommandLine() const
+{
+  return RDGetSqlValue("STATIONS","NAME",station_name,"JACK_COMMAND_LINE").
+    toString();
+}
+
+
+void RDStation::setJackCommandLine(const QString &str) const
+{
+  SetRow("JACK_COMMAND_LINE",str);
+}
+
+
+int RDStation::cueCard() const
+{
+  return RDGetSqlValue("STATIONS","NAME",station_name,"CUE_CARD").toInt();
+}
+
+
+void RDStation::setCueCard(int card)
+{
+  SetRow("CUE_CARD",card);
+}
+
+
+int RDStation::cuePort() const
+{
+  return RDGetSqlValue("STATIONS","NAME",station_name,"CUE_PORT").toInt();
+}
+
+
+void RDStation::setCuePort(int port)
+{
+  SetRow("CUE_PORT",port);
+}
+
+
+int RDStation::cartSlotColumns() const
+{
+  return RDGetSqlValue("STATIONS","NAME",station_name,"CARTSLOT_COLUMNS").
+    toInt();
+}
+
+
+void RDStation::setCartSlotColumns(int cols)
+{
+  SetRow("CARTSLOT_COLUMNS",cols);
+}
+
+
+int RDStation::cartSlotRows() const
+{
+  return RDGetSqlValue("STATIONS","NAME",station_name,"CARTSLOT_ROWS").toInt();
+}
+
+
+void RDStation::setCartSlotRows(int rows)
+{
+  SetRow("CARTSLOT_ROWS",rows);
 }
 
 

@@ -1216,7 +1216,7 @@ Report</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Report complete!</source>
+        <source>Report generated in</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

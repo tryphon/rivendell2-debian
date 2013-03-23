@@ -4,7 +4,7 @@
 ##
 ## Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.33 2010/07/29 19:32:30 cvs Exp $
+##      $Id: Makefile.am,v 1.33.8.1 2012/11/29 01:37:34 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -30,15 +30,26 @@ MOC = @QT_MOC@
 moc_%.cpp:	%.h
 	$(MOC) $< -o $@
 
-
 bin_PROGRAMS = caed
 
-dist_caed_SOURCES = cae.cpp cae.h cae_socket.cpp cae_socket.h\
-                    cae_hpi.cpp cae_jack.cpp cae_alsa.cpp
-nodist_caed_SOURCES = moc_cae.cpp moc_cae_socket.cpp
-caed_LDADD = @LIB_RDLIBS@ @LIBHPI@ @LIBJACK@ @LIBALSA@\
-             @LIBVORBIS@ @LIBSRC@
-# caed_LDFLAGS = -static
+dist_caed_SOURCES = cae.cpp cae.h\
+                    cae_alsa.cpp\
+                    cae_hpi.cpp\
+                    cae_jack.cpp\
+                    cae_socket.cpp cae_socket.h
 
-CLEANFILES = *~ moc_*
-MAINTAINERCLEANFILES = *~ Makefile.in
+nodist_caed_SOURCES = moc_cae.cpp\
+                      moc_cae_socket.cpp
+
+caed_LDADD = @LIB_RDLIBS@\
+             @LIBALSA@\
+             @LIBHPI@\
+             @LIBJACK@\
+             @LIBSRC@\
+             @LIBVORBIS@
+
+CLEANFILES = *~\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in

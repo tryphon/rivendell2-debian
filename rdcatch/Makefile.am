@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.40 2010/08/04 23:07:01 cvs Exp $
+##      $Id: Makefile.am,v 1.40.8.2 2013/01/01 21:36:30 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -45,33 +45,53 @@ all:
 
 bin_PROGRAMS = rdcatch
 
-dist_rdcatch_SOURCES = rdcatch.cpp rdcatch.h\
-                       add_recording.cpp add_recording.h\
-                       edit_recording.cpp edit_recording.h\
-                       edit_playout.cpp edit_playout.h\
-                       edit_cartevent.cpp edit_cartevent.h\
-                       edit_switchevent.cpp edit_switchevent.h\
-                       edit_download.cpp edit_download.h\
-                       edit_upload.cpp edit_upload.h\
-                       deckmon.cpp deckmon.h\
+dist_rdcatch_SOURCES = add_recording.cpp add_recording.h\
                        catch_monitor.cpp catch_monitor.h\
-                       vbox.cpp vbox.h\
-                       list_reports.cpp list_reports.h\
                        catch_listview.cpp catch_listview.h\
-                       colors.h globals.h
+                       colors.h\
+                       deckmon.cpp deckmon.h\
+                       edit_cartevent.cpp edit_cartevent.h\
+                       edit_download.cpp edit_download.h\
+                       edit_playout.cpp edit_playout.h\
+                       edit_recording.cpp edit_recording.h\
+                       edit_switchevent.cpp edit_switchevent.h\
+                       edit_upload.cpp edit_upload.h\
+                       globals.h\
+                       list_reports.cpp list_reports.h\
+                       rdcatch.cpp rdcatch.h\
+                       vbox.cpp vbox.h
 
-nodist_rdcatch_SOURCES = moc_rdcatch.cpp\
-                         moc_add_recording.cpp moc_edit_recording.cpp\
-                         moc_edit_cartevent.cpp moc_edit_switchevent.cpp\
-                         moc_edit_download.cpp moc_edit_upload.cpp\
-                         moc_deckmon.cpp moc_edit_playout.cpp moc_vbox.cpp\
-                         moc_list_reports.cpp moc_catch_listview.cpp
+nodist_rdcatch_SOURCES = moc_add_recording.cpp\
+                         moc_catch_listview.cpp\
+                         moc_deckmon.cpp\
+                         moc_edit_cartevent.cpp\
+                         moc_edit_download.cpp\
+                         moc_edit_playout.cpp\
+                         moc_edit_recording.cpp\
+                         moc_edit_switchevent.cpp\
+                         moc_edit_upload.cpp\
+                         moc_list_reports.cpp\
+                         moc_rdcatch.cpp\
+                         moc_vbox.cpp
+
 
 rdcatch_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
-# rdcatch_LDFLAGS = -static
 
-EXTRA_DIST = rdcatch.pro rdcatch_es.ts rdcatch_fr.ts rdcatch_de.ts\
-             rdcatch_nb.ts rdcatch_nn.ts rdcatch_pt_BR.ts
+EXTRA_DIST = rdcatch.pro\
+             rdcatch_cs.ts\
+             rdcatch_de.ts\
+             rdcatch_es.ts\
+             rdcatch_fr.ts\
+             rdcatch_nb.ts\
+             rdcatch_nn.ts\
+             rdcatch_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in

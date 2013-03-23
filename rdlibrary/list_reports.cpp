@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_reports.cpp,v 1.11.4.2 2012/10/09 00:12:29 cvs Exp $
+//      $Id: list_reports.cpp,v 1.11.4.3 2013/01/16 02:01:19 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -177,8 +177,10 @@ void ListReports::GenerateCartReport(QString *report)
   if(list_type_filter.isEmpty()) {
     return;
   }
-  sql="select TYPE,NUMBER,GROUP_NAME,FORCED_LENGTH,TITLE,ARTIST,CUT_QUANTITY,\
-       PLAY_ORDER,ENFORCE_LENGTH,LENGTH_DEVIATION,OWNER from CART";
+  sql=QString("select CART.TYPE,CART.NUMBER,CART.GROUP_NAME,")+
+    "CART.FORCED_LENGTH,CART.TITLE,CART.ARTIST,CART.CUT_QUANTITY,"+
+    "CART.PLAY_ORDER,CART.ENFORCE_LENGTH,CART.LENGTH_DEVIATION,CART.OWNER "+
+    "from CART left join CUTS on CART.NUMBER=CUTS.CART_NUMBER";
   if(list_group==QString("ALL")) {
     sql+=QString().
       sprintf(" where %s && %s order by NUMBER",

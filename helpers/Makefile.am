@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.9 2011/03/01 21:00:07 cvs Exp $
-##      $Date: 2011/03/01 21:00:07 $
+##      $Id: Makefile.am,v 1.9.6.1 2012/11/29 01:37:35 cvs Exp $
+##      $Date: 2012/11/29 01:37:35 $
 ##
 ## Use automake to process this into a Makefile.in
 ##
@@ -26,14 +26,30 @@
 
 AM_CFLAGS = -Wall
 
-noinst_PROGRAMS = cwrap jsmin
-noinst_SCRIPTS = rdtrans.sh rdpack.sh
+noinst_PROGRAMS = cwrap\
+                  jsmin
+
+noinst_SCRIPTS = rdpack.sh\
+                 rdtrans.sh
 
 dist_cwrap_SOURCES = cwrap.cpp cwrap.h
+
 dist_jsmin_SOURCES = jsmin.c
 
-EXTRA_DIST = rdtrans.sh rdpack.sh win32_frag1.txt win32_frag2.txt\
-             rdtransgui.sh setenvvar.sh
+EXTRA_DIST = rdpack.sh\
+             rdtrans.sh\
+             rdtransgui.sh\
+             setenvvar.sh\
+             win32_frag1.txt\
+             win32_frag2.txt
 
-CLEANFILES = *~ moc_* *.tar.gz
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 moc_* *.tar.gz
+CLEANFILES = *~\
+             *.tar.gz\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

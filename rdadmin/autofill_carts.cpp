@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: autofill_carts.cpp,v 1.16 2010/07/29 19:32:34 cvs Exp $
+//      $Id: autofill_carts.cpp,v 1.16.8.1 2012/11/26 20:19:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -149,7 +149,8 @@ QSizePolicy AutofillCarts::sizePolicy() const
 void AutofillCarts::addData()
 {
   int cart=0;
-  if(admin_cart_dialog->exec(&cart,RDCart::Audio,NULL,0)<0) {
+  if(admin_cart_dialog->exec(&cart,RDCart::Audio,NULL,0,
+			     admin_user->name(),admin_user->password())<0) {
     return;
   }
   RDCart *rdcart=new RDCart(cart);

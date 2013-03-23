@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.11.2.2 2012/10/20 00:24:47 cvs Exp $
+##      $Id: Makefile.am,v 1.11.2.5 2013/01/07 15:35:09 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -34,25 +34,29 @@ uninstall:
 	rm -f @prefix@/share/desktop-directories/rivendell-*.directory
 	rm -f /etc/xdg/menus/applications-merged/rivendell-*.menu
 
-EXTRA_DIST = rivendell-rdlibrary.desktop \
-             rivendell-rdcatch.desktop \
-             rivendell-rdairplay.desktop \
-             rivendell-rdlogedit.desktop \
-             rivendell-rdlogmanager.desktop \
-             rivendell-rmlsend.desktop \
-             rivendell-rdgpimon.desktop \
-             rivendell-rdadmin.desktop \
-             rivendell-rdlogin.desktop \
-             rivendell-rdpanel.desktop \
-             rivendell-rdhpiinfo.desktop \
-             rivendell-rdcastmanager.desktop \
-             rivendell-rdsoftkeys.desktop \
-             rivendell-rdalsaconfig.desktop \
-             rivendell-configuration.directory \
+EXTRA_DIST = rivendell-configuration.directory \
              rivendell-logtools.directory \
+             rivendell-rdadmin.desktop \
+             rivendell-rdairplay.desktop \
+             rivendell-rdalsaconfig.desktop \
+             rivendell-rdcartslots.desktop \
+             rivendell-rdcastmanager.desktop \
+             rivendell-rdcatch.desktop \
+             rivendell-rddgimport.desktop \
+             rivendell-rdgpimon.desktop \
+             rivendell-rdhpiinfo.desktop \
+             rivendell-rdlibrary.desktop \
+             rivendell-rdlogedit.desktop \
+             rivendell-rdlogin.desktop \
+             rivendell-rdlogmanager.desktop \
+             rivendell-rdpanel.desktop \
+             rivendell-rmlsend.desktop \
+             rivendell-rdsoftkeys.desktop \
              rivendell-rivendell.directory \
-             rivendell-utilities.directory \
-             rivendell-rivendell.menu
+             rivendell-rivendell.menu\
+             rivendell-utilities.directory
 
 CLEANFILES = *~
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in

@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.5 2010/07/29 19:32:40 cvs Exp $
+##      $Id: Makefile.am,v 1.5.8.1 2012/11/29 01:37:38 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -33,9 +33,17 @@ moc_%.cpp:	%.h
 bin_PROGRAMS = rdpopup
 
 dist_rdpopup_SOURCES = rdpopup.cpp rdpopup.h
+
 rdpopup_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-#EXTRA_DIST = rdpopup.pro
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

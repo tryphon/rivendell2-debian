@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpeaksexport.cpp,v 1.6.4.2 2012/07/24 20:27:01 cvs Exp $
+//      $Id: rdpeaksexport.cpp,v 1.6.4.3 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -48,7 +48,7 @@ size_t RDPeaksExportWrite(void *ptr, size_t size, size_t nmemb, void *userdata)
   int bytes=size*nmemb;
   peaks->conv_energy_data=
     (unsigned short *)realloc(peaks->conv_energy_data,peaks->conv_write_ptr+bytes);
-  for(unsigned i=0;i<bytes;i++) {
+  for(int i=0;i<bytes;i++) {
     ((uint8_t *)peaks->conv_energy_data)[i+peaks->conv_write_ptr]=
       ((uint8_t *)ptr)[i];
   }
@@ -94,7 +94,6 @@ RDPeaksExport::ErrorCode RDPeaksExport::runExport(const QString &username,
   long response_code;
   CURL *curl=NULL;
   CURLcode curl_err;
-  FILE *f=NULL;
   char url[1024];
 
   //
@@ -222,7 +221,7 @@ unsigned short RDPeaksExport::energy(unsigned frame)
 
 int RDPeaksExport::readEnergy(unsigned short buf[],int count)
 {
-  for(unsigned i=0;i<count;i++) {
+  for(int i=0;i<count;i++) {
     buf[i]=conv_energy_data[i];
   }
   return count;

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdexport_settings_dialog.cpp,v 1.12 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdexport_settings_dialog.cpp,v 1.12.8.1 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -863,7 +863,7 @@ void RDExportSettingsDialog::ShowBitRates(RDSettings::Format fmt,
 	  }
 	  else {
 	    lib_channels_box->setEnabled(true);
-	    for(unsigned j=0;j<encoder->allowedChannelsQuantity();j++) {
+	    for(int j=0;j<encoder->allowedChannelsQuantity();j++) {
 	      lib_channels_box->
 		insertItem(QString().sprintf("%d",encoder->allowedChannel(j)));
 	    }
@@ -873,7 +873,7 @@ void RDExportSettingsDialog::ShowBitRates(RDSettings::Format fmt,
 	  }
 	  else {
 	    lib_samprate_box->setEnabled(true);
-	    for(unsigned j=0;j<encoder->allowedSampleratesQuantity();j++) {
+	    for(int j=0;j<encoder->allowedSampleratesQuantity();j++) {
 	      lib_samprate_box->
 		insertItem(QString().sprintf("%d",
 					     encoder->allowedSamplerate(j)));
@@ -884,7 +884,7 @@ void RDExportSettingsDialog::ShowBitRates(RDSettings::Format fmt,
 	  }
 	  else {
 	    lib_bitrate_box->setEnabled(true);
-	    for(unsigned j=0;j<encoder->allowedBitratesQuantity();j++) {
+	    for(int j=0;j<encoder->allowedBitratesQuantity();j++) {
 	      lib_bitrate_box->
 		insertItem(QString().sprintf("%d kbps",
 					     encoder->allowedBitrate(j)));

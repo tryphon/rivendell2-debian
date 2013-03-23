@@ -1069,11 +1069,11 @@ Vil du sletta ho likevel?</translation>
     </message>
     <message>
         <source>RDLibrary - Host:</source>
-        <translation>RDLibrary -- Vert:</translation>
+        <translation type="obsolete">RDLibrary -- Vert:</translation>
     </message>
     <message>
         <source>, User:</source>
-        <translation>, brukar:</translation>
+        <translation type="obsolete">, brukar:</translation>
     </message>
     <message>
         <source>Show Note Bubbles</source>
@@ -1093,6 +1093,14 @@ Vil du sletta ho likevel?</translation>
     </message>
     <message>
         <source> Matches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

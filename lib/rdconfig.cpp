@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdconfig.cpp,v 1.24.6.1 2012/07/16 23:25:38 cvs Exp $
+//      $Id: rdconfig.cpp,v 1.24.6.4 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -366,6 +366,7 @@ QString RDConfig::destination(unsigned n)
 void RDConfig::load()
 {
   char sname[256];
+  QString client;
   QString facility;
 #ifndef WIN32
   struct passwd *user;

@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2004 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlogedit.pro,v 1.17 2012/02/13 19:26:17 cvs Exp $
+#      $Id: rdlogedit.pro,v 1.17.2.2 2013/01/01 21:36:31 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -32,31 +32,31 @@ win32 {
   DEFINES += PACKAGE_BUGREPORT=\"fredg@paravelsystems.com\"
 }
 
-SOURCES += rdlogedit.cpp
+SOURCES += add_meta.cpp
+SOURCES += edit_chain.cpp
 SOURCES += edit_log.cpp
 SOURCES += edit_logline.cpp
 SOURCES += edit_marker.cpp
-SOURCES += edit_chain.cpp
-SOURCES += add_meta.cpp
-SOURCES += list_logs.cpp
 SOURCES += edit_track.cpp
 SOURCES += list_listviewitem.cpp
+SOURCES += list_logs.cpp
 SOURCES += list_reports.cpp
+SOURCES += rdlogedit.cpp
 x11 {
   SOURCES += voice_tracker.cpp
 }
 
-HEADERS += rdlogedit.h
+HEADERS += add_meta.h
+HEADERS += edit_chain.h
 HEADERS += edit_log.h
 HEADERS += edit_logline.h
 HEADERS += edit_marker.h
-HEADERS += edit_chain.h
-HEADERS += add_meta.h
-HEADERS += list_logs.h
 HEADERS += edit_track.h
 HEADERS += globals.h
 HEADERS += list_listviewitem.h
+HEADERS += list_logs.h
 HEADERS += list_reports.h
+HEADERS += rdlogedit.h
 x11 {
   HEADERS += voice_tracker.h
 }
@@ -69,6 +69,7 @@ LIBS = -lqui -L..\lib -llib
 
 CONFIG += qt
 
+TRANSLATIONS += rdlogedit_cs.ts
 TRANSLATIONS += rdlogedit_de.ts
 TRANSLATIONS += rdlogedit_es.ts
 TRANSLATIONS += rdlogedit_fr.ts
