@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpam.cpp,v 1.2 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdpam.cpp,v 1.2.8.1 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -64,13 +64,8 @@ int RDPamCallback(int num_msg, const struct pam_message **msg,
 
 RDPam::RDPam(const QString &pam_service)
 {
-  struct passwd *user=NULL;
-  FILE *f=NULL;
-  char str[1024];
-  QStringList fields;
-
   system_pam_response=NULL;
-  system_pam_response_count;
+  system_pam_response_count=0;
   system_pam_service=pam_service;
 }
 
@@ -107,7 +102,7 @@ void RDPam::CleanupPam()
   if(system_pam_response==NULL) {
     return;
   }
-  for(unsigned i=0;i<system_pam_response_count;i++) {
+  for(int i=0;i<system_pam_response_count;i++) {
     delete system_pam_response[i].resp;
   }
   delete system_pam_response;

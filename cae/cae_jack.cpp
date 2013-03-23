@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae_jack.cpp,v 1.59.4.1 2012/04/23 16:18:55 cvs Exp $
+//      $Id: cae_jack.cpp,v 1.59.4.6 2012/11/30 16:14:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,6 +27,8 @@
 #include <qsignalmapper.h>
 
 #include <rd.h>
+#include <rddb.h>
+#include <rdescape_string.h>
 #include <rdringbuffer.h>
 #include <rdprofile.h>
 #include <rdmeteraverage.h>
@@ -40,6 +42,7 @@
 jack_client_t *jack_client;
 RDMeterAverage *jack_input_meter[RD_MAX_PORTS][2];
 RDMeterAverage *jack_output_meter[RD_MAX_PORTS][2];
+RDMeterAverage *jack_stream_output_meter[RD_MAX_STREAMS][2];
 //volatile jack_default_audio_sample_t jack_input_meter[RD_MAX_PORTS][2];
 //volatile jack_default_audio_sample_t jack_output_meter[RD_MAX_PORTS][2];
 volatile jack_default_audio_sample_t 
@@ -79,6 +82,7 @@ int JackProcess(jack_nframes_t nframes, void *arg)
   unsigned n=0;
   jack_default_audio_sample_t in_meter[2];
   jack_default_audio_sample_t out_meter[2];
+  jack_default_audio_sample_t stream_out_meter;
 
   //
   // Ensure Buffers are Valid
@@ -200,6 +204,14 @@ int JackProcess(jack_nframes_t nframes, void *arg)
 	  read((char *)jack_callback_buffer,
 	       nframes*sizeof(jack_default_audio_sample_t))/
 	  sizeof(jack_default_audio_sample_t);
+	stream_out_meter=0.0;
+	for(unsigned j=0;j<n;j++) {  // Stream Output Meters
+	  if(fabsf(jack_callback_buffer[j])>stream_out_meter) {
+	    stream_out_meter=fabsf(jack_callback_buffer[j]);
+	  }
+	}
+	jack_stream_output_meter[i][0]->addValue(stream_out_meter);
+	jack_stream_output_meter[i][1]->addValue(stream_out_meter);
 	break;
 
       case 2:
@@ -207,6 +219,15 @@ int JackProcess(jack_nframes_t nframes, void *arg)
 	  read((char *)jack_callback_buffer,
 	       2*nframes*sizeof(jack_default_audio_sample_t))/
 	  (2*sizeof(jack_default_audio_sample_t));
+	for(unsigned j=0;j<2;j++) {  // Stream Output Meters
+	  stream_out_meter=0.0;
+	  for(unsigned k=0;k<n;k+=2) {
+	    if(fabsf(jack_callback_buffer[k+j])>stream_out_meter) {
+	      stream_out_meter=fabsf(jack_callback_buffer[k+j]);
+	    }
+	  }
+	  jack_stream_output_meter[i][j]->addValue(stream_out_meter);
+	}
 	break;
       }
       for(int j=0;j<RD_MAX_PORTS;j++) {
@@ -344,6 +365,9 @@ void JackInitCallback()
   for(int i=0;i<RD_MAX_STREAMS;i++) {
     jack_play_ring[i]=NULL;
     jack_playing[i]=false;
+    for(int j=0;j<2;j++) {
+      jack_stream_output_meter[i][j]=new RDMeterAverage(avg_periods);
+    }
   }
 }
 #endif  // JACK
@@ -395,6 +419,8 @@ void MainObject::jackRecordTimerData(int stream)
 void MainObject::jackInit(RDStation *station)
 {
 #ifdef JACK
+  QString sql;
+  RDSqlQuery *q;
   jack_options_t jackopts=JackNullOption;
   jack_status_t jackstat=JackFailure;
   RDConfig::LogPriority prio=RDConfig::LogDebug;
@@ -417,19 +443,29 @@ void MainObject::jackInit(RDStation *station)
   QString name=QString().sprintf("rivendell_%d",jack_card);
 
   //
-  // Attempt to Connect to Jack Server
+  // Start Jack Server
   //
   if(station->startJack()) {
-    prio=RDConfig::LogWarning;
+    QStringList fields=QStringList().split(" ",station->jackCommandLine());
+    QProcess *proc=new QProcess(fields,this);
+    if(proc->start()) {
+      LogLine(RDConfig::LogDebug,"JACK server started");
+    }
+    else {
+      LogLine(RDConfig::LogErr,"failed to start JACK server");
+    }
+    sleep(1);
   }
-  else {
-    jackopts=JackNoStartServer;
-  }
+
+  //
+  // Attempt to Connect to Jack Server
+  //
+  jackopts=JackNoStartServer;
   if(station->jackServerName().isEmpty()) {
-    jack_client=jack_client_open((const char *)name,jackopts,&jackstat);
+    jack_client=jack_client_open(name,jackopts,&jackstat);
   }
   else {
-    jack_client=jack_client_open((const char *)name,jackopts,&jackstat,
+    jack_client=jack_client_open(name,jackopts,&jackstat,
 				 (const char *)station->jackServerName());
   }
   if(jack_client==NULL) {
@@ -492,15 +528,38 @@ void MainObject::jackInit(RDStation *station)
     LogLine(prio,"no connection to JACK server");
     return;
   }
-  if((jackstat&JackServerStarted)!=0) {
-    LogLine(RDConfig::LogDebug,"JACK server started");
-  }
   jack_connected=true;
   jack_set_process_callback(jack_client,JackProcess,0);
   jack_set_sample_rate_callback(jack_client,JackSampleRate,0);
   //jack_set_port_connect_callback(jack_client,JackPortConnectCB,this);
+#ifdef HAVE_JACK_INFO_SHUTDOWN
+  jack_on_info_shutdown(jack_client,JackInfoShutdown,0);
+#else
   jack_on_shutdown(jack_client,JackShutdown,0);
+#endif  // HAVE_JACK_INFO_SHUTDOWN
   LogLine(RDConfig::LogDebug,"connected to JACK server");
+
+  //
+  // Start JACK Clients
+  //
+  sql=QString("select DESCRIPTION,COMMAND_LINE from JACK_CLIENTS where ")+
+    "STATION_NAME=\""+RDEscapeString(station->name())+"\"";
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    QStringList fields=QStringList().split(" ",q->value(1).toString());
+    jack_clients.push_back(new QProcess(fields,this));
+    if(jack_clients.back()->start()) {
+      LogLine(RDConfig::LogDebug,"started JACK Client \""+
+	      q->value(0).toString()+"\"");
+    }
+    else {
+      LogLine(RDConfig::LogWarning,"failed to start JACK Client \""+
+	      q->value(0).toString()+"\" ["+
+	      q->value(1).toString()+"]");
+    }
+    sleep(1);
+  }
+  delete q;
 
   //
   // Tell the database about us
@@ -520,6 +579,7 @@ void MainObject::jackInit(RDStation *station)
       jack_output_volume_db[j][i]=0; 
       jack_samples_recorded[i]=0;
     }
+    jack_st_conv[i]=NULL;
   }
   for(int i=0;i<RD_MAX_PORTS;i++) {
     jack_input_volume_db[i]=0;
@@ -537,11 +597,11 @@ void MainObject::jackInit(RDStation *station)
   //
   // Stop & Fade Timers
   //
-  QSignalMapper *stop_mapper=new QSignalMapper(this,"stop_mapper");
+  QSignalMapper *stop_mapper=new QSignalMapper(this);
   connect(stop_mapper,SIGNAL(mapped(int)),this,SLOT(jackStopTimerData(int)));
-  QSignalMapper *fade_mapper=new QSignalMapper(this,"fade_mapper");
+  QSignalMapper *fade_mapper=new QSignalMapper(this);
   connect(fade_mapper,SIGNAL(mapped(int)),this,SLOT(jackFadeTimerData(int)));
-  QSignalMapper *record_mapper=new QSignalMapper(this,"record_mapper");
+  QSignalMapper *record_mapper=new QSignalMapper(this);
   connect(record_mapper,SIGNAL(mapped(int)),
 	  this,SLOT(jackRecordTimerData(int)));
   for(int i=0;i<RD_MAX_STREAMS;i++) {
@@ -613,6 +673,11 @@ void MainObject::jackInit(RDStation *station)
 void MainObject::jackFree()
 {
 #ifdef JACK
+  for(unsigned i=0;i<jack_clients.size();i++) {
+    jack_clients[i]->kill();
+    delete jack_clients[i];
+  }
+  jack_clients.clear();
   if(jack_activated) {
     jack_deactivate(jack_client);
   }
@@ -758,9 +823,14 @@ bool MainObject::jackPlay(int card,int stream,int length,int speed,bool pitch,
 {
 #ifdef JACK
   if((stream <0) || (stream >= RD_MAX_STREAMS) || 
-     (jack_play_ring[stream]==NULL)||jack_playing[stream]||
-     (speed!=RD_TIMESCALE_DIVISOR)) {
+     (jack_play_ring[stream]==NULL)||jack_playing[stream]) {
     return false;
+  }
+  if(speed!=RD_TIMESCALE_DIVISOR) {
+    jack_st_conv[stream]=new soundtouch::SoundTouch();
+    jack_st_conv[stream]->setTempo((float)speed/RD_TIMESCALE_DIVISOR);
+    jack_st_conv[stream]->setSampleRate(jack_output_sample_rate[stream]);
+    jack_st_conv[stream]->setChannels(jack_output_channels[stream]);
   }
   jack_playing[stream]=true;
   if(length>0) {
@@ -794,7 +864,7 @@ bool MainObject::jackStopPlayback(int card,int stream)
 bool MainObject::jackTimescaleSupported(int card)
 {
 #ifdef JACK
-  return false;
+  return true;
 #else
   return false;
 #endif  // JACK
@@ -1177,6 +1247,33 @@ bool MainObject::jackGetOutputMeters(int card,int port,short levels[2])
 }
 
 
+bool MainObject::jackGetStreamOutputMeters(int card,int stream,short levels[2])
+{
+#ifdef JACK
+  jack_default_audio_sample_t meter;
+  if ((stream<0) || (stream>=RD_MAX_STREAMS)){
+    return false;
+  }
+
+  for(int i=0;i<2;i++) {
+    meter=jack_stream_output_meter[stream][i]->average();
+    if(meter==0.0) {
+      levels[i]=-10000;
+    }
+    else {
+      levels[i]=(short)(2000.0*log10(meter));
+      if(levels[i]<-10000) {
+	levels[i]=-10000;
+      }
+    }
+  }
+  return true;
+#else
+  return false;
+#endif  // JACK
+}
+
+
 void MainObject::jackGetOutputPosition(int card,unsigned *pos)
 {
 #ifdef JACK
@@ -1262,6 +1359,10 @@ void MainObject::FreeJackOutputStream(int stream)
   }
   delete jack_play_ring[stream];
   jack_play_ring[stream]=NULL;
+  if(jack_st_conv[stream]!=NULL) {
+    delete jack_st_conv[stream];
+    jack_st_conv[stream]=NULL;
+  }
 #else
   return;
 #endif
@@ -1354,7 +1455,7 @@ void MainObject::FillJackOutputStream(int stream)
     free=(int)free/jack_output_channels[stream]*jack_output_channels[stream];
     n=jack_play_wave[stream]->readWave(jack_wave_buffer,sizeof(short)*free)/
       sizeof(short);
-    if(n!=free) {
+    if((n!=free)&&(jack_st_conv[stream]==NULL)) {
       jack_eof[stream]=true;
       jack_stop_timer[stream]->stop();
     }
@@ -1427,8 +1528,30 @@ void MainObject::FillJackOutputStream(int stream)
 #endif  // HAVE_MAD
     break;
   }
-  jack_play_ring[stream]->
-    write((char *)jack_sample_buffer,n*sizeof(jack_default_audio_sample_t));
+  if(jack_st_conv[stream]==NULL) {
+    jack_play_ring[stream]->
+      write((char *)jack_sample_buffer,n*sizeof(jack_default_audio_sample_t));
+  }
+  else {
+    jack_st_conv[stream]->
+      putSamples(jack_sample_buffer,n/jack_output_channels[stream]);
+    free=jack_play_ring[stream]->writeSpace()/
+      (sizeof(jack_default_audio_sample_t)*jack_output_channels[stream])-1;
+    while((n=jack_st_conv[stream]->
+	   receiveSamples(jack_sample_buffer,free))>0) {
+      jack_play_ring[stream]->
+	write((char *)jack_sample_buffer,n*
+	      sizeof(jack_default_audio_sample_t)*
+	      jack_output_channels[stream]);
+      free=jack_play_ring[stream]->writeSpace()/
+	(sizeof(jack_default_audio_sample_t)*jack_output_channels[stream])-1;
+    }
+    if((jack_st_conv[stream]->numSamples()==0)&&
+       (jack_st_conv[stream]->numUnprocessedSamples()==0)) {
+      jack_eof[stream]=true;
+      jack_stop_timer[stream]->stop();
+    }
+  }
 #endif  // JACK
 }
 

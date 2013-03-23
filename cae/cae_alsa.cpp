@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae_alsa.cpp,v 1.48.6.1 2012/04/23 16:18:55 cvs Exp $
+//      $Id: cae_alsa.cpp,v 1.48.6.3 2012/11/30 16:14:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -41,6 +41,7 @@ volatile int alsa_input_channels[RD_MAX_CARDS][RD_MAX_PORTS];
 volatile int alsa_output_channels[RD_MAX_CARDS][RD_MAX_STREAMS];
 RDMeterAverage *alsa_input_meter[RD_MAX_CARDS][RD_MAX_PORTS][2];
 RDMeterAverage *alsa_output_meter[RD_MAX_CARDS][RD_MAX_PORTS][2];
+RDMeterAverage *alsa_stream_output_meter[RD_MAX_CARDS][RD_MAX_STREAMS][2];
 volatile double alsa_input_volume[RD_MAX_CARDS][RD_MAX_PORTS];
 volatile double alsa_output_volume[RD_MAX_CARDS][RD_MAX_PORTS][RD_MAX_STREAMS];
 volatile double 
@@ -283,6 +284,7 @@ void AlsaPlay2Callback(struct alsa_format *alsa_format)
   char alsa_buffer[RINGBUFFER_SIZE];
   int modulo;
   short out_meter[RD_MAX_PORTS][2];
+  short stream_out_meter=0;
 
   while(!alsa_format->exiting) {
     memset(alsa_format->card_buffer,0,alsa_format->card_buffer_size);
@@ -297,6 +299,16 @@ void AlsaPlay2Callback(struct alsa_format *alsa_format)
 		      read(alsa_buffer,alsa_format->
 			   buffer_size/alsa_format->periods)/
 		      (2*sizeof(short));
+		    stream_out_meter=0;  // Stream Output Meters
+		    for(int k=0;k<n;k++) {
+		      if(abs(((short *)alsa_buffer)[k])>stream_out_meter) {
+			stream_out_meter=abs(((short *)alsa_buffer)[k]);
+		      }
+		    }
+		    alsa_stream_output_meter[alsa_format->card][j][0]->
+		      addValue(((double)stream_out_meter)/32768.0);
+		    alsa_stream_output_meter[alsa_format->card][j][1]->
+		      addValue(((double)stream_out_meter)/32768.0);
 		    modulo=alsa_format->channels;
 		    for(unsigned i=0;i<(alsa_format->channels/2);i++) {
 		      if(alsa_output_volume[alsa_format->card][i][j]!=0.0) {
@@ -317,6 +329,16 @@ void AlsaPlay2Callback(struct alsa_format *alsa_format)
 		    n=alsa_play_ring[alsa_format->card][j]->
 		      read(alsa_buffer,alsa_format->buffer_size*2/
 			   alsa_format->periods)/(2*sizeof(short));
+		    for(unsigned k=0;k<2;k++) {  // Stream Output Meters
+		      stream_out_meter=0;
+		      for(int l=0;l<n;l+=2) {
+			if(abs(((short *)alsa_buffer)[l+k])>stream_out_meter) {
+			  stream_out_meter=abs(((short *)alsa_buffer)[l+k]);
+			}
+		      }
+		      alsa_stream_output_meter[alsa_format->card][j][k]->
+			addValue(((double)stream_out_meter)/32768.0);
+		    }
 		    modulo=alsa_format->channels;
 		    for(unsigned i=0;i<(alsa_format->channels/2);i++) {
 		      if(alsa_output_volume[alsa_format->card][i][j]!=0.0) {
@@ -391,6 +413,16 @@ void AlsaPlay2Callback(struct alsa_format *alsa_format)
 		    n=alsa_play_ring[alsa_format->card][j]->
 		      read(alsa_buffer,alsa_format->buffer_size/
 			   alsa_format->periods)/(2*sizeof(short));
+		    stream_out_meter=0;
+		    for(int k=0;k<n;k++) {  // Stream Output Meters
+		      if(abs(((short *)alsa_buffer)[k])>stream_out_meter) {
+			stream_out_meter=abs(((short *)alsa_buffer)[k]);
+		      }
+		    }
+		    alsa_stream_output_meter[alsa_format->card][j][0]->
+		      addValue(((double)stream_out_meter)/32768.0);
+		    alsa_stream_output_meter[alsa_format->card][j][1]->
+		      addValue(((double)stream_out_meter)/32768.0);
 		    modulo=alsa_format->channels*2;
 		    for(unsigned i=0;i<(alsa_format->channels/2);i++) {
 		      if(alsa_output_volume[alsa_format->card][i][j]!=0.0) {
@@ -411,6 +443,16 @@ void AlsaPlay2Callback(struct alsa_format *alsa_format)
 		    n=alsa_play_ring[alsa_format->card][j]->
 		      read(alsa_buffer,alsa_format->buffer_size*2/
 			   alsa_format->periods)/(2*sizeof(short));
+		    for(unsigned k=0;k<2;k++) {  // Stream Output Meters
+		      stream_out_meter=0;
+		      for(int l=0;l<n;l+=2) {
+			if(abs(((short *)alsa_buffer)[l+k])>stream_out_meter) {
+			  stream_out_meter=abs(((short *)alsa_buffer)[l+k]);
+			}
+		      }
+		      alsa_stream_output_meter[alsa_format->card][j][k]->
+			addValue(((double)stream_out_meter)/32768.0);
+		    }
 		    modulo=alsa_format->channels*2;
 		    for(unsigned i=0;i<(alsa_format->channels/2);i++) {
 		      if(alsa_output_volume[alsa_format->card][i][j]!=0.0) {
@@ -559,6 +601,9 @@ void MainObject::AlsaInitCallback()
     for(int j=0;j<RD_MAX_STREAMS;j++) {
       alsa_play_ring[i][j]=NULL;
       alsa_playing[i][j]=false;
+      for(int k=0;k<2;k++) {
+	alsa_stream_output_meter[i][j][k]=new RDMeterAverage(avg_periods);
+      }
     }
   }
 }
@@ -760,6 +805,15 @@ void MainObject::alsaFree()
       alsa_play_format[i].exiting=true;
       pthread_join(alsa_play_format[i].thread,NULL);
       snd_pcm_close(alsa_play_format[i].pcm);
+      if(alsa_capture_format[i].pcm!=NULL) {
+	printf("SHUTDOWN 1\n");
+	alsa_capture_format[i].exiting=true;
+	printf("SHUTDOWN 2\n");
+	pthread_join(alsa_capture_format[i].thread,NULL);
+	printf("SHUTDOWN 3\n");
+	snd_pcm_close(alsa_capture_format[i].pcm);
+	printf("SHUTDOWN 4\n");
+      }
     }
   }
 #endif  // ALSA
@@ -1253,6 +1307,30 @@ bool MainObject::alsaGetOutputMeters(int card,int port,short levels[2])
 
   for(int i=0;i<2;i++) {
     meter=alsa_output_meter[card][port][i]->average();
+    if(meter==0.0) {
+      levels[i]=-10000;
+    }
+    else {
+      levels[i]=(short)(2000.0*log10(meter));
+      if(levels[i]<-10000) {
+	levels[i]=-10000;
+      }
+    }
+  }
+  return true;
+#else
+  return false;
+#endif  // ALSA
+}
+
+
+bool MainObject::alsaGetStreamOutputMeters(int card,int stream,short levels[2])
+{
+#ifdef ALSA
+  double meter;
+
+  for(int i=0;i<2;i++) {
+    meter=alsa_stream_output_meter[card][stream][i]->average();
     if(meter==0.0) {
       levels[i]=-10000;
     }

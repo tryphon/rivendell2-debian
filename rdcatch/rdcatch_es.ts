@@ -969,7 +969,7 @@ como Nuevo</translation>
     <name>MainWidget</name>
     <message>
         <source>RDCatch - Host:</source>
-        <translation>RDCatch - Computador:</translation>
+        <translation type="obsolete">RDCatch - Computador:</translation>
     </message>
     <message>
         <source>Can&apos;t Connect</source>
@@ -1254,6 +1254,14 @@ como Nuevo</translation>
     <message>
         <source>Unknown</source>
         <translation>Desconocido</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

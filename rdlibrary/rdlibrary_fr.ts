@@ -972,14 +972,6 @@ Do you still want to delete it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>RDLibrary - Host:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>, User:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show Note Bubbles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -997,6 +989,14 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source> Matches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

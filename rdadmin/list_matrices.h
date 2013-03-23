@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_matrices.h,v 1.9 2010/07/29 19:32:35 cvs Exp $
+//      $Id: list_matrices.h,v 1.9.8.1 2012/12/10 15:40:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -55,7 +55,6 @@ class ListMatrices : public QDialog
    void RefreshList();
    void AddList(int matrix_num);
    void RefreshRecord(QListViewItem *item);
-   QString TypeString(RDMatrix::Type type);
    QListView *list_view;
    QString list_station;
    bool list_matrix_modified[MAX_MATRICES];

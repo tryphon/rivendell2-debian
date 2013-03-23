@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.5 2010/08/04 23:07:02 cvs Exp $
+##      $Id: Makefile.am,v 1.5.8.1 2012/11/29 01:37:37 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -50,8 +50,23 @@ nodist_rdchunk_SOURCES = moc_rdchunk.cpp
 
 rdchunk_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-EXTRA_DIST = rdchunk.pro rdchunk_es.ts rdchunk_fr.ts rdchunk_de.ts\
+EXTRA_DIST = rdchunk.pro\
+             rdchunk_de.ts\
+             rdchunk_es.ts\
+             rdchunk_fr.ts\
              rdchunk_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

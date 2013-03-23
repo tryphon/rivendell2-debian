@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioimport.cpp,v 1.12 2011/12/23 23:07:00 cvs Exp $
+//      $Id: rdaudioimport.cpp,v 1.12.4.1 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -115,7 +115,6 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
   struct curl_httppost *first=NULL;
   struct curl_httppost *last=NULL;
   char url[1024];
-  char str[1024];
   QString xml;
   RDWebResult web_result;
 

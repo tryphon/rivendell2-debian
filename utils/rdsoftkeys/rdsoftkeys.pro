@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2006 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdsoftkeys.pro,v 1.3 2007/02/14 21:59:12 fredg Exp $
+#      $Id: rdsoftkeys.pro,v 1.3.18.1 2013/01/07 15:35:08 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,11 @@ TARGET = rdsoftkeys
 
 win32 {
   DEFINES += WIN32
+  DEFINES += VERSION=\"$$[VERSION]\"
+  DEFINES += PACKAGE=\"rivendell\" 
+  DEFINES += PACKAGE_VERSION=\"$$[VERSION]\" 
+  DEFINES += PACKAGE_NAME=\"rivendell\"
+  DEFINES += PACKAGE_BUGREPORT=\"fredg@paravelsystems.com\"
 }
 
 SOURCES += rdsoftkeys.cpp

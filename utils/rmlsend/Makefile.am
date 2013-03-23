@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.12 2010/08/04 23:07:02 cvs Exp $
+##      $Id: Makefile.am,v 1.12.8.3 2013/01/01 21:36:33 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -45,11 +45,29 @@ all:
 bin_PROGRAMS = rmlsend
 
 dist_rmlsend_SOURCES = rmlsend.cpp rmlsend.h
+
 nodist_rmlsend_SOURCES = moc_rmlsend.cpp
+
 rmlsend_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-EXTRA_DIST = rmlsend.pro rmlsend_es.ts rmlsend_fr.ts rmlsend_de.ts\
-             rmlsend_nb.ts rmlsend_nn.ts rmlsend_pt_BR.ts
+EXTRA_DIST = rmlsend.pro\
+             rmlsend_cs.ts\
+             rmlsend_de.ts\
+             rmlsend_es.ts\
+             rmlsend_fr.ts\
+             rmlsend_nb.ts\
+             rmlsend_nn.ts\
+             rmlsend_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.exe\
+             *.idb\
+             *ilk\
+             *.qm\
+             *.obj\
+             *.pdb\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

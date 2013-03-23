@@ -969,7 +969,7 @@ Neu</translation>
     <name>MainWidget</name>
     <message>
         <source>RDCatch - Host:</source>
-        <translation>RDCatch - Host:</translation>
+        <translation type="obsolete">RDCatch - Host:</translation>
     </message>
     <message>
         <source>rdcatch : </source>
@@ -1310,6 +1310,14 @@ Neu</translation>
     <message>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_log.cpp,v 1.105.6.3 2012/05/10 21:21:15 cvs Exp $
+//      $Id: list_log.cpp,v 1.105.6.5 2012/12/18 19:29:49 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -66,6 +66,7 @@ ListLog::ListLog(LogPlay *log,int id,bool allow_pause,
   //
   QFont list_font=QFont("Helvetica",12,QFont::Normal);
   list_font.setPixelSize(12);
+  setFont(list_font);
   QFont label_font=QFont("Helvetica",12,QFont::Bold);
   label_font.setPixelSize(12);
   QFont font=QFont("Helvetica",14,QFont::Bold);
@@ -131,14 +132,32 @@ ListLog::ListLog(LogPlay *log,int id,bool allow_pause,
 			lightGray);
   list_scroll_color[1]=QPalette(backgroundColor(),lightGray);
 
+  //
+  // Hour Selector
+  //
+  list_hour_selector=new HourSelector(this);
+  list_hour_selector->setTimeMode(list_time_mode);
+  connect(list_hour_selector,SIGNAL(hourSelected(int)),
+	  this,SLOT(selectHour(int)));
+  list_hour_selector->hide();
+
+  //
+  // Log List
+  //
   list_log_list=new RDListView(this,"list_log_list");
   list_log_list->setFont(list_font);
+  int y=0;
+  int h=sizeHint().height()-60;
   if(rdairplay_conf->showCounters()) {
-    list_log_list->setGeometry(0,0,sizeHint().width(),sizeHint().height()-120);
+    h-=60;
   }
-  else {
-    list_log_list->setGeometry(0,0,sizeHint().width(),sizeHint().height()-60);
+  if(rdairplay_conf->hourSelectorEnabled()) {
+    y+=80;
+    h-=80;
+    list_hour_selector->setGeometry(0,0,sizeHint().width(),80);
+    list_hour_selector->show();
   }
+  list_log_list->setGeometry(0,y,sizeHint().width(),h);
   list_log_list->setAllColumnsShowFocus(true);
   list_log_list->setSelectionMode(QListView::Extended);
   list_log_list->setItemMargin(5);
@@ -191,7 +210,7 @@ ListLog::ListLog(LogPlay *log,int id,bool allow_pause,
   // Time Counter Section
   //
   QLabel *label=new QLabel(tr("Run Length"),this);
-  label->setGeometry(370,sizeHint().height()-120,75,20);
+  label->setGeometry(372,sizeHint().height()-120,75,20);
   label->setFont(label_font);
   label->setAlignment(AlignCenter);  
   label->setBackgroundColor(QColor(lightGray));
@@ -203,9 +222,9 @@ ListLog::ListLog(LogPlay *log,int id,bool allow_pause,
   // Stop Time Counter
   //
   list_stoptime_edit=new QLineEdit(this,"list_stoptime_edit");
-  list_stoptime_edit->setGeometry(410,sizeHint().height()-100,60,18);
+  list_stoptime_edit->setGeometry(407,sizeHint().height()-100,70,18);
   list_stoptime_label=new QLabel(list_stoptime_edit,tr("Next Stop:"),this);
-  list_stoptime_label->setGeometry(340,sizeHint().height()-100,65,18);
+  list_stoptime_label->setGeometry(337,sizeHint().height()-100,65,18);
   list_stoptime_label->setFont(label_font);
   list_stoptime_label->setAlignment(AlignRight|AlignVCenter);  
   list_stoptime_label->setBackgroundColor(QColor(lightGray));
@@ -218,9 +237,9 @@ ListLog::ListLog(LogPlay *log,int id,bool allow_pause,
   // End Time Counter
   //
   list_endtime_edit=new QLineEdit(this,"list_endtime_edit");
-  list_endtime_edit->setGeometry(410,sizeHint().height()-80,60,18);
+  list_endtime_edit->setGeometry(407,sizeHint().height()-80,70,18);
   label=new QLabel(list_endtime_edit,tr("Log End:"),this);
-  label->setGeometry(340,sizeHint().height()-80,65,18);
+  label->setGeometry(337,sizeHint().height()-80,65,18);
   label->setFont(label_font);
   label->setAlignment(AlignRight|AlignVCenter);  
   label->setBackgroundColor(QColor(lightGray));
@@ -557,6 +576,7 @@ void ListLog::setTimeMode(RDAirPlayConf::TimeMode mode)
   if(mode==list_time_mode) {
     return;
   }
+  list_hour_selector->setTimeMode(mode);
   list_time_mode=mode;
   UpdateTimes();
   RefreshList();
@@ -567,6 +587,21 @@ void ListLog::userChanged(bool add_allowed,bool delete_allowed,
 			  bool arrange_allowed,bool playout_allowed)
 {
   list_load_button->setEnabled(playout_allowed);
+}
+
+
+void ListLog::selectHour(int hour)
+{
+  RDListViewItem *item=(RDListViewItem *)list_log_list->firstChild();
+  while(item!=NULL) {
+    if(PredictedStartHour(item)==hour) {
+      list_log_list->clearSelection();
+      list_log_list->ensureItemVisible(item);
+      list_log_list->setSelected(item,true);
+      return;
+    }
+    item=(RDListViewItem *)item->nextSibling();
+  }
 }
 
 
@@ -1040,15 +1075,15 @@ void ListLog::paintEvent(QPaintEvent *e)
   if(!rdairplay_conf->showCounters()) {
     return;
   }
-  int x=339;
+  int x=336;
   int y=sizeHint().height()-111;
 
   QPainter *p=new QPainter(this);
   p->setPen(black);
   p->setBrush(black);
   p->moveTo(x,y);
-  p->lineTo(x+136,y);
-  p->lineTo(x+136,y+53);
+  p->lineTo(x+146,y);
+  p->lineTo(x+146,y+53);
   p->lineTo(x,y+53);
   p->lineTo(x,y);
 
@@ -1364,6 +1399,7 @@ void ListLog::UpdateTimes(int removed_line,int num_lines)
       next=(RDListViewItem *)next->nextSibling();
     }
   }
+  UpdateHourSelector();
 }
 
 
@@ -1496,4 +1532,38 @@ QString ListLog::TimeString(const QTime &time) const
     break;
   }
   return ret;
+}
+
+
+void ListLog::UpdateHourSelector()
+{
+  bool found[24]={false};
+  RDListViewItem *item=(RDListViewItem *)list_log_list->firstChild();
+  int hour=-1;
+
+  while(item!=NULL) {
+    if((hour=PredictedStartHour(item))>=0) {
+      found[hour]=true;
+    }
+    item=(RDListViewItem *)item->nextSibling();
+  }
+  list_hour_selector->updateHours(found);
+}
+
+
+int ListLog::PredictedStartHour(RDListViewItem *item)
+{
+  bool ok=false;
+
+  if(item==NULL) {
+    return -1;
+  }
+  QStringList item_fields=QStringList().split(":",item->text(1));
+  if(item_fields.size()==3) {
+    int item_hour=item_fields[0].replace("T","").toInt(&ok);
+    if(ok) {
+      return item_hour;
+    }
+  }
+  return -1;
 }

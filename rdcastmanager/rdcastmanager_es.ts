@@ -231,7 +231,7 @@ Suscripción</translation>
     <name>MainWidget</name>
     <message>
         <source>RDCastManager - Host</source>
-        <translation>RDCastManager - Equipo </translation>
+        <translation type="obsolete">RDCastManager - Equipo </translation>
     </message>
     <message>
         <source>User: [Unknown]</source>
@@ -269,6 +269,10 @@ Suscripción</translation>
         <source>&amp;View
 Feed</source>
         <translation>&amp;Ver Feed</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

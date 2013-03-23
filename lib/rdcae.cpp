@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcae.cpp,v 1.59.4.2 2012/08/03 16:52:39 cvs Exp $
+//      $Id: rdcae.cpp,v 1.59.4.3 2012/11/30 16:14:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -73,6 +73,7 @@ RDCae::RDCae(RDStation *station,RDConfig *config,
       for(unsigned k=0;k<2;k++) {
 	cae_input_levels[i][j][k]=-10000;
 	cae_output_levels[i][j][k]=-10000;
+	cae_stream_output_levels[i][j][k]=-10000;
       }
       for(int k=0;k<RD_MAX_STREAMS;k++) {
 	cae_output_status_flags[i][j][k]=false;
@@ -315,6 +316,14 @@ void RDCae::outputMeterUpdate(int card,int port,short levels[2])
   UpdateMeters();
   levels[0]=cae_output_levels[card][port][0];
   levels[1]=cae_output_levels[card][port][1];
+}
+
+
+void RDCae::outputStreamMeterUpdate(int card,int stream,short levels[2])
+{
+  UpdateMeters();
+  levels[0]=cae_stream_output_levels[card][stream][0];
+  levels[1]=cae_stream_output_levels[card][stream][1];
 }
 
 
@@ -650,7 +659,14 @@ void RDCae::UpdateMeters()
 	}
       }
     }
-
+    if(args[0]=="MO") {
+      if(args.size()==5) {
+	cae_stream_output_levels[args[1].toInt()][args[2].toInt()][0]=
+	    args[3].toInt();
+	cae_stream_output_levels[args[1].toInt()][args[2].toInt()][1]=
+	    args[4].toInt();
+      }
+    }
     if(args[0]=="MP") {
       if(args.size()==4) {
 	cae_output_positions[args[1].toInt()][args[2].toInt()]=args[3].toUInt();

@@ -225,10 +225,6 @@ Car&amp;t/Cut</source>
 <context>
     <name>MainWidget</name>
     <message>
-        <source>RDCastManager - Host</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>User: [Unknown]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -263,6 +259,10 @@ Feed</source>
     </message>
     <message>
         <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

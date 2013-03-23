@@ -99,6 +99,105 @@
     </message>
 </context>
 <context>
+    <name>HourSelector</name>
+    <message>
+        <source>12a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>6a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>7a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>9a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>10a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>12p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>4p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>6p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>7p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>9p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>10p</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11p</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ListLog</name>
     <message>
         <source>EST TIME</source>
@@ -395,10 +494,6 @@ Tail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>RDAirPlay - Host:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Database Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -469,6 +564,14 @@ REFRESHING</source>
     </message>
     <message>
         <source>Service:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

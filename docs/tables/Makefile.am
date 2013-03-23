@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@salemradiolabs.com>
 ##
-##      $Id: Makefile.am,v 1.16 2010/07/29 19:32:32 cvs Exp $
-##      $Date: 2010/07/29 19:32:32 $
+##      $Id: Makefile.am,v 1.16.8.2 2012/11/17 02:20:54 cvs Exp $
+##      $Date: 2012/11/17 02:20:54 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -26,6 +26,7 @@
 EXTRA_DIST = audio_perms.txt\
              audio_ports.txt\
              cart.txt\
+             cartslots.txt\
              clipboard.txt\
              clock_perms.txt\
              copy_splits.txt\
@@ -43,6 +44,7 @@ EXTRA_DIST = audio_perms.txt\
              gpos.txt\
              groups.txt\
              isci_xreference.txt\
+             jack_clients.txt\
              log_format.txt\
              logs.txt\
              nownext_plugins.txt\

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: ripcd.cpp,v 1.77 2011/06/21 22:20:44 cvs Exp $
+//      $Id: ripcd.cpp,v 1.77.4.1 2013/01/01 21:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -68,7 +68,7 @@ void SigHandler(int signo)
   case SIGCHLD:
     pLocalPid=waitpid(-1,NULL,WNOHANG);
     while(pLocalPid>0) {
-      pLocalPid=waitpid(-1,NULL,WNOHANG);
+            pLocalPid=waitpid(-1,NULL,WNOHANG);
     }
     ::signal(SIGCHLD,SigHandler);
     ::signal(SIGTERM,SigHandler);

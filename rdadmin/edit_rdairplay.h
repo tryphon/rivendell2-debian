@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdairplay.h,v 1.29 2010/10/04 18:11:46 cvs Exp $
+//      $Id: edit_rdairplay.h,v 1.29.6.1 2012/11/13 23:45:10 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -107,6 +107,7 @@ class EditRDAirPlay : public QDialog
   QSpinBox *air_audition_preroll_spin;
   QLineEdit *air_label_template_edit;
   QCheckBox *air_pause_box;
+  QCheckBox *air_hour_selector_box;
   QComboBox *air_default_transtype_box;
   QComboBox *air_defaultsvc_box;
   QLineEdit *air_exitpasswd_edit;

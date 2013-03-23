@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdbutton_dialog.cpp,v 1.23 2011/05/02 19:42:04 cvs Exp $
+//      $Id: rdbutton_dialog.cpp,v 1.23.6.1 2012/11/26 20:19:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -151,10 +151,13 @@ QSizePolicy RDButtonDialog::sizePolicy() const
 }
 
 
-int RDButtonDialog::exec(RDPanelButton *button,bool hookmode)
+int RDButtonDialog::exec(RDPanelButton *button,bool hookmode,
+			 const QString &username,const QString &passwd)
 {
   edit_button=button;
   edit_hookmode=hookmode;
+  edit_user_name=username;
+  edit_user_password=passwd;
   edit_cart=edit_button->cart();
   edit_color=edit_button->defaultColor();
   QPalette p=QPalette(edit_color,backgroundColor());
@@ -168,7 +171,8 @@ int RDButtonDialog::exec(RDPanelButton *button,bool hookmode)
 
 void RDButtonDialog::setCartData()
 {
-  if(edit_cart_dialog->exec(&edit_cart,RDCart::All,&edit_svcname,1)==0) {
+  if(edit_cart_dialog->exec(&edit_cart,RDCart::All,&edit_svcname,1,
+			    edit_user_name,edit_user_password)==0) {
     DisplayCart(edit_cart);
   }
 }

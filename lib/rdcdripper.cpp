@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcdripper.cpp,v 1.4 2011/02/11 18:39:50 cvs Exp $
+//      $Id: rdcdripper.cpp,v 1.4.6.1 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -69,7 +69,6 @@ RDCdRipper::ErrorCode RDCdRipper::rip(int track)
   cdrom_drive *drive;
   int err;
   char *msg;
-  int fd;
   long sect=0;
   long n;
   short buffer[63504];

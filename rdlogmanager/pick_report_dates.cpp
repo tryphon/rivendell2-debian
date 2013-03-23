@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: pick_report_dates.cpp,v 1.8 2010/07/29 19:32:37 cvs Exp $
+//      $Id: pick_report_dates.cpp,v 1.8.8.2 2013/01/22 20:59:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -83,7 +83,7 @@ PickReportDates::PickReportDates(const QString &svcname,
   // Start Date
   //
   edit_startdate_edit=new QDateEdit(this,"edit_startdate_edit");
-  edit_startdate_edit->setGeometry(150,36,100,19);
+  edit_startdate_edit->setGeometry(150,35,100,22);
   edit_startdate_edit->setDate(yesterday_date);
   label=new QLabel(edit_startdate_edit,tr("&Start Date:"),
 				      this,"edit_startdate_label");
@@ -100,7 +100,7 @@ PickReportDates::PickReportDates(const QString &svcname,
   // End Date
   //
   edit_enddate_edit=new QDateEdit(this,"edit_enddate_edit");
-  edit_enddate_edit->setGeometry(150,66,100,19);
+  edit_enddate_edit->setGeometry(150,65,100,22);
   edit_enddate_edit->setDate(yesterday_date);
   label=new QLabel(edit_enddate_edit,tr("&End Date:"),
 				      this,"edit_enddate_label");
@@ -217,12 +217,14 @@ void PickReportDates::generateData()
       return;
     }
   }
+  QString out_path;
   report->generateReport(edit_startdate_edit->date(),
-			 edit_enddate_edit->date(),rdstation_conf);
+			 edit_enddate_edit->date(),rdstation_conf,&out_path);
   switch(report->errorCode()) {
       case RDReport::ErrorOk:
 	QMessageBox::information(this,tr("Report Complete"),
-				 tr("Report complete!"));
+				 tr("Report generated in")+" \""+out_path+
+				 "\".");
 	break;
 
       case RDReport::ErrorCantOpen:

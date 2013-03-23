@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdalsaconfig.cpp,v 1.2 2010/07/29 19:32:39 cvs Exp $
+//    $Id: rdalsaconfig.cpp,v 1.2.8.1 2013/01/07 15:35:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -62,7 +62,7 @@ void StartDaemons()
 MainWidget::MainWidget(QWidget *parent,const char *name)
   :QWidget(parent,name)
 {
-  setCaption(tr("RDAlsaConfig"));
+  setCaption(tr("RDAlsaConfig")+" v"+VERSION);
 
   //
   // Fix the Window Size

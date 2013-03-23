@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdflacdecode.cpp,v 1.5 2010/11/24 18:03:30 cvs Exp $
+//      $Id: rdflacdecode.cpp,v 1.5.6.1 2012/12/13 22:33:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -84,12 +84,12 @@ RDFlacDecode::write_callback(const ::FLAC__Frame *frame,
     }
   }
   if(flac_total_frames>=flac_start_sample) {
-    if((flac_total_frames+frame->header.blocksize)<flac_end_sample) {    // Write entire buffer 
+    if((flac_total_frames+frame->header.blocksize)<(unsigned)flac_end_sample) {    // Write entire buffer 
       UpdatePeak(pcm,frame->header.blocksize*flac_wavefile->getChannels());
       sf_writef_float(flac_sf_dst,pcm,frame->header.blocksize);
     }
     else {
-      if(flac_total_frames<(flac_total_frames+frame->header.blocksize)) {  // Write start of buffer
+      if((unsigned)flac_total_frames<(flac_total_frames+frame->header.blocksize)) {  // Write start of buffer
 	UpdatePeak(pcm,
 		   (flac_total_frames+frame->header.blocksize-flac_end_sample)*flac_wavefile->getChannels());
 	sf_writef_float(flac_sf_dst,pcm,flac_total_frames+frame->header.blocksize-flac_end_sample);

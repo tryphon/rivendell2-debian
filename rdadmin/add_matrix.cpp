@@ -1,10 +1,9 @@
-// add_matrix.cpp
 //
 // Add a Rivendell Matrix
 //
 //   (C) Copyright 2002-2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_matrix.cpp,v 1.28.2.1 2012/08/06 00:12:04 cvs Exp $
+//      $Id: add_matrix.cpp,v 1.28.2.2 2012/12/10 15:40:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -73,32 +72,9 @@ AddMatrix::AddMatrix(QString station,QWidget *parent,const char *name)
   //
   add_type_box=new QComboBox(this,"add_type_box");
   add_type_box->setGeometry(165,36,200,19);
-  add_type_box->insertItem(tr("Local GPIO"));
-  add_type_box->insertItem(tr("Generic GPO"));
-  add_type_box->insertItem(tr("Generic Serial"));
-  add_type_box->insertItem("SAS 32000");
-  add_type_box->insertItem("SAS 64000");
-  add_type_box->insertItem("Wegener Unity 4000");
-  add_type_box->insertItem("BroadcastTools SS8.2");
-  add_type_box->insertItem("BroadcastTools 10x1");
-  add_type_box->insertItem("SAS 64000-GPI");
-  add_type_box->insertItem("BroadcastTools 16x1");
-  add_type_box->insertItem("BroadcastTools 8x2");
-  add_type_box->insertItem("BroadcastTools ACS82");
-  add_type_box->insertItem("SAS User Serial Interface");
-  add_type_box->insertItem("BroadcastTools 16x2");
-  add_type_box->insertItem("BroadcastTools SS12.4");
-  add_type_box->insertItem(tr("Local Audio Adapter"));
-  add_type_box->insertItem(tr("Logitek vGuest"));
-  add_type_box->insertItem(tr("BroadcastTools SS16.4"));
-  add_type_box->insertItem(tr("StarGuide III"));
-  add_type_box->insertItem(tr("BroadcastTools SS4.2"));
-  add_type_box->insertItem(tr("Axia LiveWire"));
-  add_type_box->insertItem(tr("Quartz Type 1"));
-  add_type_box->insertItem(tr("BroadcastTools SS4.4"));
-  add_type_box->insertItem(tr("BroadcastTools SRC-8 III"));
-  add_type_box->insertItem(tr("BroadcastTools SRC-16"));
-  add_type_box->insertItem(tr("Harlond Virtual Mixer"));
+  for(int i=0;i<RDMatrix::LastType;i++) {
+    add_type_box->insertItem(RDMatrix::typeString((RDMatrix::Type)i));
+  }
   label=new QLabel(add_type_box,tr("&Switcher Type:"),this,
 		   "matrix_label");
   label->setGeometry(10,36,150,19);
@@ -149,12 +125,14 @@ QSizePolicy AddMatrix::sizePolicy() const
 
 void AddMatrix::okData()
 {
+  /*
   int inputs;
   int outputs;
   int gpis;
   int gpos;
   RDMatrix::PortType port_type=RDMatrix::TtyPort;
   RDMatrix::PortType port_type2=RDMatrix::TtyPort;
+  */
 
   QString sql=QString("select MATRIX from MATRICES where STATION_NAME=\"")+
     RDEscapeString(add_station)+"\" && MATRIX="+
@@ -167,6 +145,7 @@ void AddMatrix::okData()
     return;
   }
   delete q;
+  /*
   switch((RDMatrix::Type)add_type_box->currentItem()) {
       case RDMatrix::BtSs82:
 	inputs=8;
@@ -296,6 +275,15 @@ void AddMatrix::okData()
 	port_type2=RDMatrix::NoPort;
 	break;
 
+      case RDMatrix::Acu1p:
+	inputs=8;
+	outputs=1;
+	gpis=16;
+	gpos=8;
+	port_type=RDMatrix::TcpPort;
+	port_type2=RDMatrix::NoPort;
+	break;
+
       default:
 	inputs=0;
 	outputs=0;
@@ -303,27 +291,35 @@ void AddMatrix::okData()
 	gpos=0;
 	break;
   }
+  */
+
   sql=QString("insert into MATRICES set STATION_NAME=\"")+
     RDEscapeString(add_station)+"\","+
     "NAME=\""+tr("New Switcher")+"\","+
     "GPIO_DEVICE=\""+RD_DEFAULT_GPIO_DEVICE+"\","+
-    QString().sprintf("MATRIX=%d,\
-                       PORT=0,\
-                       TYPE=%d,\
-                       INPUTS=%d,\
-                       OUTPUTS=%d,\
-                       GPIS=%d,\
-                       GPOS=%d,\
-                       PORT_TYPE=%d,\
-                       PORT_TYPE_2=%d",
-		      add_matrix_box->value(),
-		      add_type_box->currentItem(),
-		      inputs,
-		      outputs,
-		      gpis,
-		      gpos,
-		      port_type,
-		      port_type2);
+    QString().
+    sprintf("MATRIX=%d,\
+             PORT=0,\
+             TYPE=%d,\
+             INPUTS=%d,\
+             OUTPUTS=%d,\
+             GPIS=%d,\
+             GPOS=%d,\
+             PORT_TYPE=%d,\
+             PORT_TYPE_2=%d",
+	    add_matrix_box->value(),
+	    add_type_box->currentItem(),
+      RDMatrix::defaultControlValue((RDMatrix::Type)add_type_box->currentItem(),
+				    RDMatrix::InputsControl),
+      RDMatrix::defaultControlValue((RDMatrix::Type)add_type_box->currentItem(),
+				    RDMatrix::OutputsControl),
+      RDMatrix::defaultControlValue((RDMatrix::Type)add_type_box->currentItem(),
+				    RDMatrix::GpisControl),
+      RDMatrix::defaultControlValue((RDMatrix::Type)add_type_box->currentItem(),
+				    RDMatrix::GposControl),
+      RDMatrix::defaultControlValue((RDMatrix::Type)add_type_box->currentItem(),
+				    RDMatrix::PortTypeControl),
+	    RDMatrix::NoPort);
   q=new RDSqlQuery(sql);
   delete q;
   done(add_matrix_box->value());

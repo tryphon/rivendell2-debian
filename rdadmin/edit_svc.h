@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_svc.h,v 1.24 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_svc.h,v 1.24.8.1 2013/01/07 12:31:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -62,6 +62,7 @@ class EditSvc : public QDialog
   QLineEdit *svc_program_code_edit;
   QLineEdit *svc_template_edit;
   QComboBox *svc_voice_group_box;
+  QComboBox *svc_autospot_group_box;
   QLineEdit *svc_tfc_path_edit;
   QLineEdit *svc_tfc_preimport_cmd_edit;
   QLineEdit *svc_tfc_win_path_edit;

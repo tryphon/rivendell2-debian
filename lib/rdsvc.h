@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.h,v 1.26 2010/07/29 19:32:34 cvs Exp $
+//      $Id: rdsvc.h,v 1.26.8.1 2013/01/07 12:31:07 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -48,6 +48,8 @@ class RDSvc : public QObject
   void setNameTemplate(const QString &str) const;
   QString trackGroup() const;
   void setTrackGroup(const QString &group) const;
+  QString autospotGroup() const;
+  void setAutospotGroup(const QString &group) const;
   bool autoRefresh() const;
   void setAutoRefresh(bool state);
   int defaultLogShelflife() const;

@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2007 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rmlsend.pro,v 1.7 2010/08/04 23:07:02 cvs Exp $
+#      $Id: rmlsend.pro,v 1.7.8.1 2013/01/01 21:36:33 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -43,6 +43,7 @@ LIBS = -lqui -L..\..\..\libradio\radio -lradio -L..\..\lib -llib
 
 CONFIG += qt
 
+TRANSLATIONS += rmlsend_cs.ts
 TRANSLATIONS += rmlsend_de.ts
 TRANSLATIONS += rmlsend_es.ts
 TRANSLATIONS += rmlsend_fr.ts

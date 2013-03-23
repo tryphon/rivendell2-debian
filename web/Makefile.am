@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.4 2010/07/29 19:32:40 cvs Exp $
+##      $Id: Makefile.am,v 1.4.8.1 2012/11/29 01:37:38 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License as
@@ -22,7 +22,10 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-SUBDIRS = rdfeed rdcastmanager rdxport tests
+SUBDIRS = rdcastmanager\
+          rdfeed\
+          rdxport\
+          tests
 
 AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
 INCLUDES = -I$(top_srcdir)/lib
@@ -35,5 +38,14 @@ moc_%.cpp:	%.h
 
 EXTRA_DIST = web.pro
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

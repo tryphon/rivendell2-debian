@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsystem.cpp,v 1.4 2010/07/29 19:32:34 cvs Exp $
+//      $Id: rdsystem.cpp,v 1.4.8.1 2012/11/26 20:19:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -104,6 +104,18 @@ QString RDSystem::isciXreferencePath() const
 void RDSystem::setIsciXreferencePath(const QString &str) const
 {
   SetRow("ISCI_XREFERENCE_PATH",str);
+}
+
+
+QString RDSystem::tempCartGroup() const
+{
+  return GetValue("TEMP_CART_GROUP").toString();
+}
+
+
+void RDSystem::setTempCartGroup(const QString &str) const
+{
+  SetRow("TEMP_CART_GROUP",str);
 }
 
 

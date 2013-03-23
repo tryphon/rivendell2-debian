@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.7 2010/07/29 19:32:40 cvs Exp $
+##      $Id: Makefile.am,v 1.7.8.1 2012/11/29 01:37:38 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -35,9 +35,19 @@ uninstall:
 libexec_PROGRAMS = rdfeed.xml
 
 dist_rdfeed_xml_SOURCES = rdfeed_script.cpp rdfeed_script.h
+
 rdfeed_xml_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 EXTRA_DIST = rdfeed.pro
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

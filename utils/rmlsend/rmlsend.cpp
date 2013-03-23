@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rmlsend.cpp,v 1.7 2010/07/29 19:32:40 cvs Exp $
+//      $Id: rmlsend.cpp,v 1.7.8.1 2013/01/07 15:35:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -97,7 +97,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   rivendell_map=new QPixmap(rivendell_xpm);
   setIcon(*rivendell_map);
 
-  setCaption(tr("RMLSend - Macro Command Utility"));
+  setCaption(QString("RMLSend")+" v"+VERSION+" - "+tr("Macro Command Utility"));
 
   host=new QLineEdit(this,"host");
   host->setGeometry(80,10,180,25);

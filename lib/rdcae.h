@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcae.h,v 1.32.4.1 2012/08/03 16:52:39 cvs Exp $
+//      $Id: rdcae.h,v 1.32.4.2 2012/11/30 16:14:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -72,6 +72,7 @@ class RDCae : public QObject
   bool inputStatus(int card,int port) const;
   void inputMeterUpdate(int card,int port,short levels[2]);
   void outputMeterUpdate(int card,int port,short levels[2]);
+  void outputStreamMeterUpdate(int card,int stream,short levels[2]);
   unsigned playPosition(int handle);
   void requestTimescale(int card);
   bool playPortActive(int card,int port,int except_stream=-1);
@@ -120,6 +121,7 @@ class RDCae : public QObject
   QSocketDevice *cae_meter_socket;
   short cae_input_levels[RD_MAX_CARDS][RD_MAX_PORTS][2];
   short cae_output_levels[RD_MAX_CARDS][RD_MAX_PORTS][2];
+  short cae_stream_output_levels[RD_MAX_CARDS][RD_MAX_PORTS][2];
   unsigned cae_output_positions[RD_MAX_CARDS][RD_MAX_STREAMS];
   bool cae_output_status_flags[RD_MAX_CARDS][RD_MAX_PORTS][RD_MAX_STREAMS];
   std::vector<RDCmdCache> delayed_cmds;

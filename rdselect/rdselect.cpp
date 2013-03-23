@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdselect.cpp,v 1.1.2.6 2012/10/22 23:09:39 cvs Exp $
+//      $Id: rdselect.cpp,v 1.1.2.7 2013/01/07 15:35:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -121,7 +121,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   login_rivendell_map=new QPixmap(rivendell_xpm);
   setIcon(*login_rivendell_map);
-  setCaption(tr("RDSelect"));
+  setCaption(tr("RDSelect")+" v"+VERSION);
   greencheckmark_map=new QPixmap(greencheckmark_xpm);
   redx_map=new QPixmap(redx_xpm);
 

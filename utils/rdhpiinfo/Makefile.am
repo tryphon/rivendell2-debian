@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 ##
-##    $Id: Makefile.am,v 1.4 2010/07/29 19:32:40 cvs Exp $
+##    $Id: Makefile.am,v 1.4.8.1 2012/11/29 01:37:38 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -33,12 +33,20 @@ moc_%.cpp:	%.h
 
 bin_PROGRAMS = rdhpiinfo
 
-dist_rdhpiinfo_SOURCES = rdhpiinfo.cpp rdhpiinfo.h\
-                        change_mode.cpp change_mode.h
-nodist_rdhpiinfo_SOURCES = moc_rdhpiinfo.cpp moc_change_mode.cpp
+dist_rdhpiinfo_SOURCES = change_mode.cpp change_mode.h\
+                         rdhpiinfo.cpp rdhpiinfo.h
+
+nodist_rdhpiinfo_SOURCES = moc_change_mode.cpp\
+                           moc_rdhpiinfo.cpp
+
 rdhpiinfo_LDADD = @LIB_RDLIBS@ @LIBVORBIS@ @LIBHPI@
 
 EXTRA_DIST = rdhpiinfo.pro
 
-CLEANFILES = *~ moc_* *.qm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_matrices.cpp,v 1.28.6.1 2012/08/06 00:12:05 cvs Exp $
+//      $Id: list_matrices.cpp,v 1.28.6.2 2012/12/10 15:40:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -309,7 +309,7 @@ void ListMatrices::RefreshList()
     l=new QListViewItem(list_view);
     l->setText(0,q->value(0).toString());
     l->setText(1,q->value(1).toString());
-    l->setText(2,TypeString((RDMatrix::Type)q->value(2).toInt()));
+    l->setText(2,RDMatrix::typeString((RDMatrix::Type)q->value(2).toInt()));
   }
   delete q;
 }
@@ -321,7 +321,7 @@ void ListMatrices::AddList(int matrix_num)
   QListViewItem *item=new QListViewItem(list_view);
   item->setText(0,QString().sprintf("%d",matrix_num));
   item->setText(1,matrix->name());
-  item->setText(2,TypeString(matrix->type()));
+  item->setText(2,RDMatrix::typeString(matrix->type()));
   delete matrix;
   list_view->setCurrentItem(item);
   list_view->setSelected(item,true);
@@ -333,92 +333,4 @@ void ListMatrices::RefreshRecord(QListViewItem *item)
   RDMatrix *matrix=new RDMatrix(list_station,item->text(0).toInt());
   item->setText(1,matrix->name());
   delete matrix;
-}
-
-
-QString ListMatrices::TypeString(RDMatrix::Type type)
-{
-  switch(type) {
-      case RDMatrix::LocalGpio:
-	return QString(tr("Local GPIO"));
-
-      case RDMatrix::GenericGpo:
-	return QString(tr("Generic GPO"));
-
-      case RDMatrix::GenericSerial:
-	return QString(tr("Generic Serial"));
-
-      case RDMatrix::Sas32000:
-	return QString("SAS 32000");
-
-      case RDMatrix::Sas64000:
-	return QString("SAS 64000");
-
-      case RDMatrix::Unity4000:
-	return QString("Wegener Unity 4000");
-
-      case RDMatrix::BtSs82:
-	return QString("BroadcastTools SS8.2");
-
-      case RDMatrix::Bt10x1:
-	return QString("BroadcastTools 10x1");
-
-      case RDMatrix::Sas64000Gpi:
-	return QString("SAS 64000-GPI");
-
-      case RDMatrix::Bt16x1:
-	return QString("BroadcastTools 16x1");
-
-      case RDMatrix::Bt8x2:
-	return QString("BroadcastTools 8x2");
-
-      case RDMatrix::BtAcs82:
-	return QString("BroadcastTools ACS 8.2");
-
-      case RDMatrix::SasUsi:
-	return QString("SAS User Serial Interface");
-
-      case RDMatrix::Bt16x2:
-	return QString("BroadcastTools 16x2");
-
-      case RDMatrix::BtSs124:
-	return QString("BroadcastTools SS12.4");
-
-      case RDMatrix::LocalAudioAdapter:
-	return QString(tr("Local Audio Adapter"));
-
-      case RDMatrix::LogitekVguest:
-	return QString(tr("Logitek vGuest"));
-
-      case RDMatrix::BtSs164:
-	return QString(tr("BroadcastTools SS16.4"));
-
-      case RDMatrix::StarGuideIII:
-	return QString(tr("StarGuide III"));
-
-      case RDMatrix::BtSs42:
-	return QString(tr("BroadcastTools SS4.2"));
-
-      case RDMatrix::LiveWire:
-	return QString(tr("Axia LiveWire"));
-
-      case RDMatrix::Quartz1:
-	return QString(tr("Quartz Type 1"));
-
-      case RDMatrix::BtSs44:
-	return QString(tr("BroadcastTools SS4.4"));
-
-      case RDMatrix::BtSrc8III:
-	return QString(tr("BroadcastTools SRC-8 III"));
-
-      case RDMatrix::BtSrc16:
-	return QString(tr("BroadcastTools SRC-16"));
-
-      case RDMatrix::Harlond:
-	return QString(tr("Harlond Virtual Mixer"));
-
-      default:
-	return QString(tr("Unknown"));
-  }
-  return QString(tr("Unknown"));
 }

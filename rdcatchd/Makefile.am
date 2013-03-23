@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.20 2010/07/29 19:32:36 cvs Exp $
+##      $Id: Makefile.am,v 1.20.8.1 2012/11/29 01:37:36 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -32,14 +32,26 @@ moc_%.cpp:	%.h
 	$(MOC) $< -o $@
 
 bin_PROGRAMS = rdcatchd
-dist_rdcatchd_SOURCES = rdcatchd.cpp rdcatchd.h\
-                        batch.cpp local_macros.cpp\
-                        rdcatchd_socket.cpp rdcatchd_socket.h\
-                        catch_event.cpp catch_event.h
-nodist_rdcatchd_SOURCES = moc_rdcatchd.cpp moc_rdcatchd_socket.cpp
+
+dist_rdcatchd_SOURCES = batch.cpp\
+                        catch_event.cpp catch_event.h\
+                        local_macros.cpp\
+                        rdcatchd.cpp rdcatchd.h\
+                        rdcatchd_socket.cpp rdcatchd_socket.h
+
+nodist_rdcatchd_SOURCES = moc_rdcatchd.cpp\
+                          moc_rdcatchd_socket.cpp
+
 rdcatchd_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
+CLEANFILES = *~\
+             moc_*
 
-CLEANFILES = *~ moc_*
 DISTCLEANFILES = moc_*
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 moc_* *.tar.gz
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

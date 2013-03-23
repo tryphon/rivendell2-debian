@@ -23,6 +23,11 @@ EDITOR_PATH          char(255)
 FILTER_MODE          int(11)            0=Synchronous, 1=Asynchronous
 START_JACK           enum('Y','N')
 JACK_SERVER_NAME     char(64)
+JACK_COMMAND_LINE    char(255)
+CUE_CARD             int(11) signed
+CUE_PORT             int(11) signed
+CARTSLOT_COLUMNS     int(11) signed
+CARTSLOT_ROWS        int(11) signed
 SYSTEM_MAINT         enum('N','Y')
 STATION_SCANNED      enum('N','Y')
 HAVE_OGGENC          enum('N','Y')

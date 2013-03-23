@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2011 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.1 2011/05/27 16:52:59 cvs Exp $
+##      $Id: Makefile.am,v 1.1.6.1 2012/11/29 01:37:35 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License as
@@ -24,5 +24,17 @@
 
 SUBDIRS = rmlsend
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

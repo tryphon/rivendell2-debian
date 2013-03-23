@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: colors.h,v 1.37 2012/01/12 16:24:51 cvs Exp $
+//      $Id: colors.h,v 1.37.4.1 2012/11/26 20:19:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -41,14 +41,6 @@
 #define ERROR_MODE_TITLE QObject::tr("ERROR")
 
 //
-// Progress Bars
-//
-#define BAR_UNCHANGED_TRANSITION_COLOR green
-#define BAR_UNCHANGED_STOPPING_COLOR red
-#define BAR_CHANGED_TRANSITION_COLOR yellow
-#define BAR_CHANGED_STOPPING_COLOR blue
-
-//
 // Wall Clock
 //
 #define BUTTON_TIME_SYNC_LOST_COLOR red
@@ -69,15 +61,8 @@
 //
 // Full Log Colors
 //
-#define LOG_SCHEDULED_COLOR white
-#define LOG_PLAYING_COLOR green
-#define LOG_PAUSED_COLOR cyan
 #define LOG_NEXT_COLOR "#CCFFCC"
-#define LOG_FINISHED_COLOR gray
 #define LOG_EVERGREEN_COLOR "#008000"
-#define LOG_ERROR_COLOR red
-#define LOG_RELATIVE_TEXT_COLOR black
-#define LOG_HARDTIME_TEXT_COLOR blue
 
 //
 // Pie Counter Color

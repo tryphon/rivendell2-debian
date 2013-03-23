@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsoftkeys.cpp,v 1.7 2010/07/29 19:32:40 cvs Exp $
+//      $Id: rdsoftkeys.cpp,v 1.7.8.1 2013/01/07 15:35:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -77,7 +77,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   QFont label_font("Helvetica",18,QFont::Bold);
   label_font.setPixelSize(18);
 
-  setCaption("RDSoftKeys");
+  setCaption(QString("RDSoftKeys")+" v"+VERSION);
 
   //
   // Create And Set Icon

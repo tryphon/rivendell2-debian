@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdairplay.cpp,v 1.53 2010/10/21 18:28:07 cvs Exp $
+//      $Id: edit_rdairplay.cpp,v 1.53.6.1 2012/11/13 23:45:10 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -527,19 +527,29 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   label->setAlignment(AlignLeft|AlignVCenter);
 
   //
+  // Show Hour Selector
+  //
+  air_hour_selector_box=new QCheckBox(this,"air_hour_selector_box");
+  air_hour_selector_box->setGeometry(810,510,15,15);
+  label=new QLabel(air_hour_selector_box,tr("Show Hour Selector"),
+		   this,"air_hour_selector_label");
+  label->setGeometry(830,510,170,15);
+  label->setAlignment(AlignLeft|AlignVCenter);
+
+  //
   // Audition Preroll
   //
   air_audition_preroll_spin=new QSpinBox(this,"air_audition_preroll_spin");
-  air_audition_preroll_spin->setGeometry(895,508,45,20);
+  air_audition_preroll_spin->setGeometry(895,50830,45,20);
   air_audition_preroll_spin->setRange(1,60);
   air_audition_preroll_label=new QLabel(air_audition_preroll_spin,
 					tr("Audition Preroll:"),
 					this,"air_audition_preroll_label");
-  air_audition_preroll_label->setGeometry(800,510,90,15);
+  air_audition_preroll_label->setGeometry(800,532,90,15);
   air_audition_preroll_label->setAlignment(AlignRight|AlignVCenter);
   air_audition_preroll_unit=
     new QLabel(tr("secs"),this,"air_audition_preroll_unit");
-  air_audition_preroll_unit->setGeometry(945,510,100,15);
+  air_audition_preroll_unit->setGeometry(945,532,100,15);
   air_audition_preroll_unit->setAlignment(AlignLeft|AlignVCenter);
 
   //
@@ -547,7 +557,7 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   air_bar_group=new QButtonGroup(1,Qt::Vertical,tr("Space Bar Action"),
 				 this,"air_bar_group");
-  air_bar_group->setGeometry(805,532,sizeHint().width()-815,55);
+  air_bar_group->setGeometry(805,554,sizeHint().width()-815,55);
   QRadioButton *rbutton=
     new QRadioButton(tr("None"),air_bar_group,"none_button");
   rbutton=new QRadioButton(tr("Start Next"),air_bar_group,"start_next_button");
@@ -556,7 +566,7 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   // Now & Next Button
   //
   QPushButton *button=new QPushButton(this,"nownext_button");
-  button->setGeometry(815,603,180,50);
+  button->setGeometry(815,625,180,50);
   button->setFont(small_font);
   button->setText(tr("Configure Now && Next\nParameters"));
   connect(button,SIGNAL(clicked()),this,SLOT(nownextData()));
@@ -566,7 +576,7 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   // HotKeys Configuration Button
   //
   button=new QPushButton(this,"hotkeys_button");
-  button->setGeometry(625,603,180,50);
+  button->setGeometry(625,625,180,50);
   button->setFont(small_font);
   button->setText(tr("Configure Hot Keys"));
   connect(button,SIGNAL(clicked()),this,SLOT(editHotKeys()));
@@ -742,6 +752,7 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   air_label_template_edit->setText(air_conf->buttonLabelTemplate());
   air_pause_box->setChecked(air_conf->pauseEnabled());
   air_show_counters_box->setChecked(air_conf->showCounters());
+  air_hour_selector_box->setChecked(air_conf->hourSelectorEnabled());
   air_audition_preroll_spin->setValue(air_conf->auditionPreroll()/1000);
   for(int i=0;i<10;i++) {
     air_start_rml_edit[i]->setText(air_conf->startRml(i));
@@ -767,7 +778,7 @@ EditRDAirPlay::~EditRDAirPlay()
 
 QSize EditRDAirPlay::sizeHint() const
 {
-  return QSize(1010,743);
+  return QSize(1010,765);
 } 
 
 
@@ -904,6 +915,7 @@ void EditRDAirPlay::okData()
   air_conf->setButtonLabelTemplate(air_label_template_edit->text());
   air_conf->setPauseEnabled(air_pause_box->isChecked());
   air_conf->setShowCounters(air_show_counters_box->isChecked());
+  air_conf->setHourSelectorEnabled(air_hour_selector_box->isChecked());
   air_conf->setAuditionPreroll(air_audition_preroll_spin->value()*1000);
   if(air_exitpasswd_changed) {
     air_conf->setExitPassword(air_exitpasswd_edit->text());

@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdairplay.pro,v 1.8 2012/01/12 16:33:42 cvs Exp $
+#      $Id: rdairplay.pro,v 1.8.4.2 2013/01/01 21:36:30 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,7 @@ TEMPLATE = app
 x11 {
   SOURCES += button_log.cpp
   SOURCES += edit_event.cpp
+  SOURCES += hourselector.cpp
   SOURCES += list_log.cpp
   SOURCES += list_logs.cpp
   SOURCES += local_macros.cpp
@@ -44,6 +45,7 @@ x11 {
   HEADERS += button_log.h
   HEADERS += colors.h
   HEADERS += edit_event.h
+  HEADERS += hourselector.h
   HEADERS += list_log.h
   HEADERS += list_logs.h
   HEADERS += log_play.h
@@ -59,6 +61,7 @@ x11 {
   HEADERS += wall_clock.h
 }
 
+TRANSLATIONS += rdairplay_cs.ts
 TRANSLATIONS += rdairplay_de.ts
 TRANSLATIONS += rdairplay_es.ts
 TRANSLATIONS += rdairplay_fr.ts

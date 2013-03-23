@@ -723,11 +723,11 @@ som er skrudd av for denne tenesta!</translation>
     <name>MainWidget</name>
     <message>
         <source>RDLogEdit - Host</source>
-        <translation>RdLogEdit - Vert</translation>
+        <translation type="obsolete">RdLogEdit - Vert</translation>
     </message>
     <message>
         <source>User: [Unknown]</source>
-        <translation>Brukar: [Ukjent]</translation>
+        <translation type="obsolete">Brukar: [Ukjent]</translation>
     </message>
     <message>
         <source>Can&apos;t Connect</source>
@@ -866,6 +866,14 @@ Vil du halda fram?</translation>
     <message>
         <source>This version of RDLogEdit is incompatible with the version installed on the server.
 See your system administrator for an update!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

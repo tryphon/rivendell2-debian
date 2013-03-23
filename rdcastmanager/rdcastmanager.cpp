@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcastmanager.cpp,v 1.15 2011/08/30 23:35:44 cvs Exp $
+//      $Id: rdcastmanager.cpp,v 1.15.4.1 2013/01/07 15:35:02 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -99,7 +99,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   //
   config=new RDConfig();
   config->load();
-  str1=QString(tr("RDCastManager - Host"));
+  str1=QString("RDCastManager")+" v"+VERSION+" - "+tr("Host");
   str2=QString(tr("User: [Unknown]"));
   setCaption(QString().sprintf("%s: %s, %s",(const char *)str1,
 			       (const char *)config->stationName(),
@@ -224,7 +224,7 @@ void MainWidget::userChangedData()
   if(cast_user!=NULL) {
     delete cast_user;
   }
-  str1=QString(tr("RDCastManager - Host"));
+  str1=QString("RDCastManager")+" v"+VERSION+" - "+tr("Host");
   str2=QString(tr("User"));
   setCaption(QString().sprintf("%s: %s, %s: %s",(const char *)str1,
 			       (const char *)config->stationName(),

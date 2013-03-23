@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_settings.cpp,v 1.4 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_settings.cpp,v 1.4.8.1 2012/11/26 20:19:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -42,6 +42,9 @@
 EditSettings::EditSettings(QWidget *parent,const char *name)
   : QDialog(parent,name,true)
 {
+  QString sql;
+  RDSqlQuery *q;
+
   //
   // Create Fonts
   //
@@ -127,16 +130,32 @@ EditSettings::EditSettings(QWidget *parent,const char *name)
   label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
 
   //
+  // Temporary Cart Group
+  //
+  edit_temp_cart_group_box=new QComboBox(this);
+  edit_temp_cart_group_box->setGeometry(200,97,100,20);
+  sql="select NAME from GROUPS order by NAME";
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    edit_temp_cart_group_box->insertItem(q->value(0).toString());
+  }
+  delete q;
+  label=new QLabel(edit_temp_cart_group_box,tr("Temporary Cart Group:"),this);
+  label->setGeometry(10,97,185,20);
+  label->setFont(font);
+  label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+
+  //
   // Duplicate List (initially hidden)
   //
   edit_duplicate_label=new RDLabel(this,"edit_duplicate_label");
   edit_duplicate_label->setText(tr("The following duplicate titles must be corrected before \"Allow Duplicate Values\" can be turned off."));
   edit_duplicate_label->setWordWrapEnabled(true);
-  edit_duplicate_label->setGeometry(15,98,sizeHint().width()-30,50);
+  edit_duplicate_label->setGeometry(15,120,sizeHint().width()-30,50);
   edit_duplicate_label->setFont(normal_font);
   edit_duplicate_label->hide();
   edit_duplicate_list=new QListView(this);
-  edit_duplicate_list->setGeometry(10,143,sizeHint().width()-20,200);
+  edit_duplicate_list->setGeometry(10,165,sizeHint().width()-20,200);
   edit_duplicate_list->setItemMargin(5);
   edit_duplicate_list->setAllColumnsShowFocus(true);
   edit_duplicate_list->addColumn(tr("CART"));
@@ -146,7 +165,7 @@ EditSettings::EditSettings(QWidget *parent,const char *name)
   edit_duplicate_list->hide();
   edit_save_button=new QPushButton(this,"save_button");
   edit_save_button->
-    setGeometry(sizeHint().width()-85,348,70,25);
+    setGeometry(sizeHint().width()-85,370,70,25);
   edit_save_button->setFont(normal_font);
   edit_save_button->setText(tr("&Save List"));
   connect(edit_save_button,SIGNAL(clicked()),this,SLOT(saveData()));
@@ -181,6 +200,11 @@ EditSettings::EditSettings(QWidget *parent,const char *name)
       edit_sample_rate_box->setCurrentItem(i);
     }
   }
+  for(int i=0;i<edit_temp_cart_group_box->count();i++) {
+    if(edit_temp_cart_group_box->text(i)==edit_system->tempCartGroup()) {
+      edit_temp_cart_group_box->setCurrentItem(i);
+    }
+  }
 }
 
 
@@ -195,7 +219,7 @@ EditSettings::~EditSettings()
 
 QSize EditSettings::sizeHint() const
 {
-  return QSize(500,174+y_pos);
+  return QSize(500,196+y_pos);
 } 
 
 
@@ -345,6 +369,7 @@ void EditSettings::okData()
   edit_system->setSampleRate(edit_sample_rate_box->currentText().toUInt());
   edit_system->setMaxPostLength(edit_maxpost_spin->value()*1000000);
   edit_system->setIsciXreferencePath(edit_isci_path_edit->text());
+  edit_system->setTempCartGroup(edit_temp_cart_group_box->currentText());
   done(0);
 }
 

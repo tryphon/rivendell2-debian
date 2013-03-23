@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel.cpp,v 1.27 2011/08/30 23:35:45 cvs Exp $
+//      $Id: rdpanel.cpp,v 1.27.4.2 2013/01/07 15:35:07 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,6 +44,7 @@
 // Global Resources
 //
 RDStation *rdstation_conf;
+RDSystem *rdsystem_conf;
 RDAirPlayConf *rdairplay_conf;
 RDAudioPort *rdaudioport_conf;
 RDUser *rduser;
@@ -78,7 +79,6 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 {
   QPixmap *pm;
   QPainter *pd;
-  QPixmap *mainmap;
   bool skip_db_check=false;
   unsigned schema=0;
 
@@ -153,6 +153,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Allocate Global Resources
   //
   rdstation_conf=new RDStation(panel_config->stationName());
+  rdsystem_conf=new RDSystem();
   rdairplay_conf=new RDAirPlayConf(panel_config->stationName(),0,"RDPANEL");
   panel_skin_pixmap=new QPixmap(rdairplay_conf->skinPath());
   if(panel_skin_pixmap->isNull()||(panel_skin_pixmap->width()<1024)||
@@ -204,7 +205,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 				     rdairplay_conf->card(3),
 				     rdairplay_conf->port(3),
 				     0,0,panel_cae,rdripc,rdstation_conf,
-				     rdstation_conf->editorPath(),
+				     rdsystem_conf,rdstation_conf->editorPath(),
 				     this,"panel_cart_dialog");
 
   //
@@ -416,9 +417,9 @@ void MainWidget::RunLocalMacros(RDMacro *rml)
 
 void MainWidget::SetCaption()
 {
-  setCaption(QString().sprintf("RDPanel - Station: %s  User: %s",
-			       (const char *)panel_config->stationName(),
-			       (const char *)rdripc->user()));
+  setCaption(QString("RDPanel")+" v"+VERSION+" - "+tr("Station")+": "+
+	     panel_config->stationName()+", "+tr("User")+": "+
+	     rdripc->user());
 }
 
 

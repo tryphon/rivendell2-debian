@@ -12776,3 +12776,272 @@
 2012-10-23 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.2.1.
+2012-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'JackCommandLine' directive to the [Hacks] section
+	of rd.conf(5) in 'lib/rdconfig.cpp' and 'lib/rdconfig.h'.
+2012-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDAIRPLAY.HOUR_SELECTOR_ENABLED' field to the
+	database.
+	* Incremented the database version to 208.
+	* Added 'RDAirPlayConf::hourSelectorEnabled()'
+	and 'RDAirPlayConf::setHourSelectorEnabled()' in
+	'lib/rdairplay_conf.cpp' and 'lib/rdairplay_conf.h'.
+	* Added a 'Show Hour Selector' control to the RDAirPlay Config
+	dialog in 'rdadmin/edit_rdairplay.cpp' and
+	'rdadmin/edit_rdairplay.h'.
+	* Added an HourSelector widget in 'rdairplay/hourselector.cpp'
+	and 'rdairplay/hourselector.h'.
+2012-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'STATIONS.JACK_COMMAND_LINE' field to the database.
+	* Added a 'JACK_CLIENTS' table to the database.
+	* Incremented the database version to 209.
+	* Added 'RDStation::jackCommandLine()' and
+	'RDStation::setJackCommandLine()' methods in 'lib/rdstation.cpp'
+	and 'lib/rdstation.h'.
+	* Removed 'JackCommandLine' directive to the [Hacks] section
+	of rd.conf(5) in 'lib/rdconfig.cpp' and 'lib/rdconfig.h'.
+2012-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Stubbed out an 'Edit JACK Client' dialog in
+	'rdadmin/edit_jack_client.cpp' and 'rdadmin/edit_jack_client.h'.
+2012-11-14 Fred Gleason <fredg@paravelsystems.com>
+	* Commented out JACK Client dialog code in 'rdadmin/edit_jack.cpp'
+	and 'rdadmin/edit_jack.h'.
+2012-11-15 Fred Gleason <fredg@paravelsystems.com>
+	* Completed JACK Client dialog code in 'rdadmin/edit_jack.cpp'
+	and 'rdadmin/edit_jack.h'.
+	* Implemented JACK Client startup in 'cae/cae_jack.cpp' and
+	'cae/cae.h'.
+2012-11-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Load Slot' ['DL'], 'Play Slot' ['DP'], 'Stop Slot' ['DS']
+	and 'Execute Breakaway' ['DX'] RMLs in 'docs/rml.sxw',
+	'lib/rdmacro.cpp' and 'lib/rdmacro.h'.
+	* Added RDCartSlots module in 'rdcartslots.cpp'.
+2012-11-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'CARTSLOTS' table to the database.
+	* Incremented the database version to 210.
+	* Added an 'Edit CartSlots' dialog in 'rdadmin/edit_cartslots.cpp'
+	and 'rdadmin/edit_cartslots.h'.
+2012-11-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed various formatting bugs in 'lib/rdcartslot.cpp'.
+2012-11-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added RDCartSlots to 'xdg/rivendell-rivendell.menu'.
+2012-11-19 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented timescaling support for the JACK audio driver in
+	'cae/cae_jack.cpp'.
+2012-11-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcartslot.cpp' that broke breakaways when
+	using a device with no timescaling support.
+2012-11-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'SYSTEM.TEMP_CART_GROUP' field to the database.
+	* Incremented the database version to 211.
+	* Added 'RDSystem::tempCartGroup()' and 'RDSystem::setTempCartGroup()'
+	methods in 'lib/rdsystem.cpp' and 'lib/rdsystem.h'.
+	* Added a 'Temporary Cart Group' control to the Edit Settings
+	dialog in 'rdadmin/edit_settings.cpp' and
+	'rdadmin/edit_settings.h'.
+	* Added a Busy Dialog in 'lib/rdbusydialog.cpp' and
+	'lib/rdbusydialog.h'.
+	* Added a 'Load from File' button to the Cart Picker dialog
+	in 'lib/rdcart_dialog.cpp' and 'lib/rdcart_dialog.h'.
+2012-11-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDSlotOptions::hookMode()' and 'RDSlotOptions::setHookMode()'
+	methods in 'lib/rdslotoptions.cpp' and 'lib/rdslotoptions.h'.
+	* Added a 'Play Mode' control to the RDCartSlots Options dialog
+	in 'lib/rdslotoptions.cpp' and 'lib/rdslotoptions.h'.
+	* Added 'RDLogLine::hookMode()' and 'RDLogLine::setHookMode()'
+	methods in 'lib/rdlog_line.cpp' and 'lib/rdlog_line.h'.
+	* Added 'CARTSLOTS.HOOK_MODE' and 'CARTSLOTS.DEFAULT_HOOK_MODE'
+	fields to the database.
+	* Incremented the database version to 212.
+2012-11-28 Fred Gleason <fredg@paravelsystems.com>
+	* Adjusted field layout in 'lib/rdslotbox.cpp'.
+2012-11-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'STATIONS.CUE_CARD', 'STATIONS.CUE_PORT',
+	'STATIONS.CARTSLOT_COLUMNS' and 'STATIONS.CARTSLOT_ROWS'
+	fields to the database.
+	* Incremented the database version to 213.
+	* Added logic in 'rdadmin/edit_cartslots.cpp' and
+	'rdadmin/edit_cartslots.h' to ensure sane audio channel assignments.
+	* Added 'RDStation::cueCard()', 'RDStation::setCueCard()',
+	'RDStation::cuePort()' and 'RDStation::setCuePort()' methods
+	in 'lib/rdstation.cpp' and 'lib/rdstation.h'.
+	* Added a 'Cue Output' control to the 'Edit Station' dialog
+	in 'rdadmin/edit_station.cpp' and 'rdadmin/edit_station.h'.
+	* Removed the 'Audition Deck' controls from the 'Edit Decks'
+	dialog in 'rdadmin/edit_decks.cpp' and 'rdadmin/edit_decks.h'.
+	* Modified RDCatch to use cue output assignments from the
+	'Edit Station' dialog in 'rdcatch/rdcatch.cpp'.
+	* Modified RDCartSlots to use cue output assignments from the
+	'Edit Station' dialog in 'rdcartslots/rdcartslots.cpp'.
+2012-11-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDStation::cartSlotColumns()',
+	'RDStation::setCartSlotColumns()', 'RDStation::cartSlotRows()'
+	and 'RDStation::setCartSLotRows()' in 'lib/rdstation.cpp' and
+	'lib/rdstation.h'.
+	* Added 'Slot Columns' and 'Slot Rows' control to the
+	'Edit CartSlot' dialog in 'rdadmin/edit_cartslots.cpp' and
+	'rdadmin/edit_cartslots.h'.
+2012-11-28 Fred Gleason <fredg@paravelsystems.com>
+	* Sorted Makefile entries alphabetically.
+2012-11-29 Fred Gleason <fredg@paravelsystems.com>
+	* Removed debugging printfs from 'rlm/rlm_shoutcast1.c'.
+2012-11-30 Fred Gleason <fredg@paravelsystems.com>
+	* Documented an 'Output Stream Meter Level' ['MO'] status command
+	in 'docs/cae.sxw'.
+	* Implemented an 'Output Stream Meter Level' ['MO'] status command
+	in 'cae/cae.cpp', 'cae/cae.h', 'cae/cae_hpi.cpp',
+	'cae/cae_jack.cpp', 'cae/cae_alsa.cpp', 'lib/rdcae.cpp'
+	and 'lib/rdcae.h'.
+	* Modified 'lib/rdcartslot.cpp' to use stream output metering.
+2012-12-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'lib/rdcart_dialog.cpp' that broke the build
+	under Windows.
+	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that broke the build
+	under Windows.
+	* Added 'rdbusybar.cpp' and 'rdbusybar.h' to 'lib/lib.pro'.
+2012-12-03 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up 'make maintainerclean' rules.
+2012-12-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'lib/rdcart_dialog.cpp' that broke the build.
+2012-12-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'Makefile.am' that broke the build.
+2012-12-04 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'lib/rdplay_deck.cpp' that broke timescale
+	playout.
+2012-12-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'Type::Acu1p' entry to the 'RDMatrix::Type' enum in
+	'lib/rdmatrix.cpp' and 'lib/rdmatrix.h'.
+	* Added an 'RDMatrix::typeString()' static method in
+	'lib/rdmatrix.cpp' and 'lib/rdmatrix.h'.
+	* Refactored RDAdmin to place all device-specific configuration
+	policy in the RDMatrix class.
+2012-12-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added a switcher driver for the Sine ACU-1 with Prophet firmware
+	in 'ripcd/acu1p.cpp' and 'ripcd/acu1p.h'.
+2012-12-12 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a bugfix provided by Max Goldstein <ops@wmfo.org> to
+	correct handling of button labels containing spaces in the 'PC'
+	RML in 'rdairplay/local_macros.cpp'.
+2012-12-12 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented GPIs for the Sine ACU-1 driver in 'ripcd/acu1p.cpp'.
+2012-12-13 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up warnings in 'lib/rdaudioconvert.cpp',
+	lib/rdaudioinfo.cpp', 'lib/rdceripper.cpp', 'lib/rdconfig.cpp',
+	'lib/rdevent_line.cpp', 'lib/rdevent_player.cpp',
+	'lib/rdexport_settings_dialog.cpp', 'lib/rdfeed.cpp',
+	'lib/rdflacdecode.cpp', 'lib/rdformpost.cpp', 'lib/rdpam.cpp',
+	'lib/rdsettings.cpp', 'lib/rdstringlist.cpp', and 'lib/rdweb.cpp'
+2012-12-18 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdadmin/edit_cartslots.cpp' that made it
+	impossible to configure any slots beyond the first eight.
+2012-12-18 Fred Gleason <fredg@paravelsystems.com>
+	* Tweaked layout in 'rdairplay/list_log.cpp' to display properly
+	under gdm(1).
+2012-12-21 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.3.0.
+2013-01-01 Fred Gleason <fredg@paravelsystems.com>
+	* Added Czech [CS] translation from Pavel Fric <pavelfric@seznam.cz>.
+2013-01-04 Fred Gleason <fredg@paravelsystems.com>
+	* Added an RDDgImport(1) utility in 'utils/rddgimport/'.
+2013-01-07 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'SERVICES.AUTOSPOT_GROUP' field to the database.
+	* Incremented the database version to 214.
+	* Added 'RDSvc::autospotGroup()' and 'RDSvc::setAutospotGroup()'
+	methods in 'lib/rdsvc.cpp' and 'lib/rdsvc.h'.
+	* Added an 'AutoSpot Group' control to the Edit Service
+	dialog in 'rdadmin/edit_svc.cpp' and 'rdadmin/edit_svc.h'.
+	* Added a 'Service' control to the RDDgImport utility in
+	'utils/rddgimport/rddgimport.cpp' and
+	'utils/rddgimport/rddgimport.h'.
+2013-01-07 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'GROUPS.DELETE_EMPTY_CARTS' field to the database.
+	* Incremented the database version to 215.
+	* Added 'RDGroup::deleteEmptyCarts()' and
+	'RDGroup::setDeleteEmptyCarts()' methods in 'lib/rdgroup.cpp'
+	and 'lib/rdgroup.h'.
+	* Added a 'Delete carts if empty' control to the Edit Group
+	dialog in 'rdadmin/edit_group.cpp' and 'rdadmin/edit_group.h'.
+	* Implemented empty cart deletion for rdmaint(1) in
+	'utils/rdmaint/rdmain.cpp'.
+2013-01-07 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up warnings in 'lib/rdweb.cpp' and 'lib/rdweb.h'.
+2013-01-07 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'xdg/rivendell-rddgimport.desktop'.
+	* Removed strip(1) calls from 'rivendell.spec.in'.
+	* Added version information to title bar in 'rdadmin/rdadmin.cpp'.
+	* Added version information to title bar in 'rdairplay/rdairplay.cpp'.
+	* Added version information to title bar in
+	'rdcastmanager/rdcastmanager.cpp'.
+	* Added version information to title bar in 'rdcatch/rdcatch.cpp'.
+	* Added version information to title bar in 'rdlibrary/rdlibrary.cpp'.
+	* Added version information to title bar in 'rdlogedit/rdlogedit.cpp'.
+	* Added version information to title bar in 'rdpanel/rdpanel.cpp'.
+	* Added version information to title bar in 'rdselect/rdselect.cpp'.
+	* Added version information to title bar in
+	'utils/rdalsaconfig/rdalsaconfig.cpp'.
+	* Added version information to title bar in
+	'utils/rdgpimon/rdgpimon.cpp'.
+	* Added version information to title bar in
+	'utils/rdhpiinfo/rdhpiinfo.cpp'.
+	* Added version information to title bar in
+	'utils/rdsoftkeys/rdsoftkeys.cpp'.
+	* Added version information to title bar in
+	'utils/rmlsend/rmlsend.cpp'.
+2013-01-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added RDDgImport(1) to the 'Utilities' menu in
+	'/xdg/rivendell-rivendell.menu'.
+2013-01-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added a workaround in 'utils/rddgimport/rddgimport.cpp' to
+	prevent double entry of spots in the traffic file when outputting
+	to broken CIFS filesystems that don't honor O_TRUNC.
+2013-01-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'CUTS.ISCI_IDX' and 'CUTS.ISRC_IDX' indices to the database.
+	* Incremented the database version to 216.
+	* Optimized RDDgImport(1) to reuse existing spot audio for multiple
+	logs.
+2013-01-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in the 'make rpm' target of 'Makefile.am' that failed
+	to copy all generated RPMs to the build directory.
+	* Added code to provide a default log template name for new
+	services in 'lib/rdsvc.cpp'.
+2013-01-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlibrary/list_reports.cpp' that caused the
+	'Cart Report' report to be empty.
+2013-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'NPR SoundExchange' report in 'lib/export_nprsoundex.cpp'.
+	* Added 'RDReport::NprSoundExchange' value to the
+	'RDReport::ExportFilter' enum in 'lib/rdreport.h'.
+2013-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'utils/rddgimport/rddgimport.cpp' that caused
+	invalid end dates to be set on cuts.
+2013-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'utils/rddgimport/rddgimport.cpp' that caused
+	a segfault at startup.
+2013-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added the source filename when reporting importer errors
+	in 'utils/rddgimport/rddgimport.cpp'.
+2013-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/lib.pro' that broke the build under
+	Windows.
+2013-01-22 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'Music Playout' report in 'lib/export_musicplayout.cpp'.
+	* Added 'RDReport::MusicPlayout' value to the
+	'RDReport::ExportFilter' enum in 'lib/rdreport.h'.
+2013-01-22 Fred Gleason <fredg@paravelsystems.com>
+	* Tweaked layout on the 'Select Report Dates' dialog in
+	'rdlogmanager/pick_report_dates.cpp'.
+	* Tweaked layout on the 'Select Date' dialog in
+	'lib/rddatepicker.cpp'.
+2013-01-22 Fred Gleason <fredg@paravelsystems.com>
+	* Tweaked the field widths in the 'Music Playout' report in
+	'lib/export_musicplayout.cpp'.
+2013-01-22 Fred Gleason <fredg@paravelsystems.com>
+	* Added an display of the report location in
+	'rdlogmanager/pick_report_dates.cpp'.
+2013-01-28 Fred Gleason <fredg@paravelsystems.com>
+	* Applied updates to the Czech [CS] translation from
+	Pavel Fric <pavelfric@seznam.cz>.
+2013-01-28 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Updated the package version to 2.4.0.

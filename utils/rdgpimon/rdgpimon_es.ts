@@ -28,7 +28,7 @@
     </message>
     <message>
         <source>RDGpiMon - User:</source>
-        <translation>RDGpiMon - Usuario:</translation>
+        <translation type="obsolete">RDGpiMon - Usuario:</translation>
     </message>
     <message>
         <source>Show:</source>
@@ -49,6 +49,10 @@
     <message>
         <source>Red = OFF Cart</source>
         <translation>Rojo = Cartucho APAGADO</translation>
+    </message>
+    <message>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

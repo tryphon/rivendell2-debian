@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae_hpi.cpp,v 1.38.6.1 2012/08/03 16:52:38 cvs Exp $
+//      $Id: cae_hpi.cpp,v 1.38.6.2 2012/11/30 16:14:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -492,6 +492,16 @@ bool MainObject::hpiGetOutputMeters(int card,int port,short levels[2])
     return true;
   }
   return sound_card->outputPortMeter(card,port,levels);
+#else
+  return false;
+#endif  // HPI
+}
+
+
+bool MainObject::hpiGetStreamOutputMeters(int card,int stream,short levels[2])
+{
+#ifdef HPI
+  return sound_card->outputStreamMeter(card,stream,levels);
 #else
   return false;
 #endif  // HPI

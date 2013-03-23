@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.43.8.1 2012/08/06 00:12:07 cvs Exp $
+##      $Id: Makefile.am,v 1.43.8.3 2012/12/11 03:49:48 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -34,57 +34,79 @@ moc_%.cpp:	%.h
 
 bin_PROGRAMS = ripcd
 
-dist_ripcd_SOURCES = ripcd.cpp ripcd.h globals.h\
-                     ripcd_socket.cpp ripcd_socket.h\
-                     ripcd_connection.cpp ripcd_connection.h\
-                     switcher.cpp switcher.h\
-                     local_gpio.cpp local_gpio.h\
-                     sas32000.cpp sas32000.h\
-                     sas64000.cpp sas64000.h\
-                     unity4000.cpp unity4000.h\
-                     unity_feed.cpp unity_feed.h\
+dist_ripcd_SOURCES = acu1p.cpp acu1p.h\
                      bt10x1.cpp bt10x1.h\
-                     sas64000gpi.cpp sas64000gpi.h\
-                     btss82.cpp btss82.h\
                      bt16x1.cpp bt16x1.h\
+                     bt16x2.cpp bt16x2.h\
                      bt8x2.cpp bt8x2.h\
                      btacs82.cpp btacs82.h\
-                     sasusi.cpp sasusi.h\
-                     bt16x2.cpp bt16x2.h\
                      btss124.cpp btss124.h\
-                     local_audio.cpp local_audio.h\
-                     vguest.cpp vguest.h\
                      btss164.cpp btss164.h\
-                     starguide3.cpp starguide3.h\
-                     starguide_feed.cpp starguide_feed.h\
                      btss42.cpp btss42.h\
                      btss44.cpp btss44.h\
-                     livewire.cpp livewire.h\
-                     quartz1.cpp quartz1.h\
-                     btsrc8iii.cpp btsrc8iii.h\
+                     btss82.cpp btss82.h\
                      btsrc16.cpp btsrc16.h\
+                     btsrc8iii.cpp btsrc8iii.h\
                      harlond.cpp harlond.h\
+                     livewire.cpp livewire.h\
+                     local_audio.cpp local_audio.h\
+                     local_gpio.cpp local_gpio.h\
                      local_macros.cpp maint_routines.cpp\
-                     loaddrivers.cpp
+                     loaddrivers.cpp\
+                     quartz1.cpp quartz1.h\
+                     ripcd.cpp ripcd.h globals.h\
+                     ripcd_connection.cpp ripcd_connection.h\
+                     ripcd_socket.cpp ripcd_socket.h\
+                     sas32000.cpp sas32000.h\
+                     sas64000.cpp sas64000.h\
+                     sas64000gpi.cpp sas64000gpi.h\
+                     sasusi.cpp sasusi.h\
+                     starguide3.cpp starguide3.h\
+                     starguide_feed.cpp starguide_feed.h\
+                     switcher.cpp switcher.h\
+                     unity4000.cpp unity4000.h\
+                     unity_feed.cpp unity_feed.h\
+                     vguest.cpp vguest.h
 
-nodist_ripcd_SOURCES = moc_ripcd.cpp moc_ripcd_socket.cpp\
-                       moc_local_gpio.cpp moc_switcher.cpp\
+nodist_ripcd_SOURCES = moc_acu1p.cpp\
+                       moc_bt10x1.cpp\
+                       moc_bt16x1.cpp\
+                       moc_bt16x2.cpp\
+                       moc_bt8x2.cpp\
+                       moc_btacs82.cpp\
+                       moc_btsrc16.cpp\
+                       moc_btsrc8iii.cpp\
+                       moc_btss124.cpp\
+                       moc_btss164.cpp\
+                       moc_btss42.cpp\
+                       moc_btss44.cpp\
+                       moc_btss82.cpp\
+                       moc_harlond.cpp\
+                       moc_livewire.cpp\
+                       moc_local_audio.cpp\
+                       moc_local_gpio.cpp\
+                       moc_quartz1.cpp\
+                       moc_ripcd.cpp\
+                       moc_ripcd_socket.cpp\
                        moc_sas32000.cpp\
-                       moc_sas64000.cpp moc_unity4000.cpp\
-                       moc_bt10x1.cpp moc_sas64000gpi.cpp\
-                       moc_btss82.cpp moc_bt16x1.cpp\
-                       moc_bt8x2.cpp moc_btacs82.cpp\
-                       moc_sasusi.cpp moc_bt16x2.cpp\
-                       moc_btss124.cpp moc_local_audio.cpp\
-                       moc_vguest.cpp moc_btss164.cpp\
-                       moc_starguide3.cpp moc_btss42.cpp\
-                       moc_livewire.cpp moc_quartz1.cpp\
-                       moc_btss44.cpp moc_btsrc8iii.cpp\
-                       moc_btsrc16.cpp moc_harlond.cpp
+                       moc_sas64000.cpp\
+                       moc_sas64000gpi.cpp\
+                       moc_sasusi.cpp\
+                       moc_starguide3.cpp\
+                       moc_switcher.cpp\
+                       moc_unity4000.cpp\
+                       moc_vguest.cpp
 
 ripcd_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 EXTRA_DIST = ripcd.pro
 
-CLEANFILES = *~ moc_* *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in

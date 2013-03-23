@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 ##
-##    $Id: Makefile.am,v 1.2 2010/07/29 19:32:39 cvs Exp $
+##    $Id: Makefile.am,v 1.2.8.1 2012/11/29 01:37:37 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -34,13 +34,22 @@ moc_%.cpp:	%.h
 bin_PROGRAMS = rdalsaconfig
 
 dist_rdalsaconfig_SOURCES = alsaitem.cpp alsaitem.h\
-                            rdalsaconfig.cpp rdalsaconfig.h\
-                            rdalsa.cpp rdalsa.h
+                            rdalsa.cpp rdalsa.h\
+                            rdalsaconfig.cpp rdalsaconfig.h
 
 nodist_rdalsaconfig_SOURCES = moc_rdalsaconfig.cpp
+
 rdalsaconfig_LDADD = @LIB_RDLIBS@ @LIBVORBIS@ @LIBALSA@
 
 EXTRA_DIST = rdalsaconfig.pro
 
-CLEANFILES = *~ moc_* *.qm
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

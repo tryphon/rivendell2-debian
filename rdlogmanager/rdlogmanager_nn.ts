@@ -1264,7 +1264,11 @@ rapport</translation>
     </message>
     <message>
         <source>Report complete!</source>
-        <translation>Rapporten er ferdig!</translation>
+        <translation type="obsolete">Rapporten er ferdig!</translation>
+    </message>
+    <message>
+        <source>Report generated in</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

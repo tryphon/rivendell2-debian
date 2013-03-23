@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: commandline_ops.cpp,v 1.1.2.2 2012/10/19 21:25:33 cvs Exp $
+//      $Id: commandline_ops.cpp,v 1.1.2.3 2013/01/22 20:59:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -165,6 +165,7 @@ int RunReportOperation(int argc,char *argv[],const QString &rptname,
 		       int start_offset,int end_offset)
 {
   unsigned schema=0;
+  QString out_path;
 
   QApplication a(argc,argv,true);
 
@@ -211,7 +212,8 @@ int RunReportOperation(int argc,char *argv[],const QString &rptname,
   //
   QDate yesterday=QDate::currentDate().addDays(-1);
   if(!report->generateReport(yesterday.addDays(start_offset),
-			     yesterday.addDays(end_offset),rdstation_conf)) {
+			     yesterday.addDays(end_offset),rdstation_conf,
+			     &out_path)) {
     fprintf(stderr,"rdlogmanager: report generation failed [%s]\n",
 	    (const char *)RDReport::errorText(report->errorCode()));
     return 256;

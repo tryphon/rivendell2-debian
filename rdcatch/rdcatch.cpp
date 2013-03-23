@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcatch.cpp,v 1.127 2011/08/30 23:35:44 cvs Exp $
+//      $Id: rdcatch.cpp,v 1.127.4.3 2013/01/07 15:35:02 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -185,7 +185,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   catch_config=new RDConfig();
   catch_config->load();
 
-  str=QString(tr("RDCatch - Host:"));
+  str=QString("RDCatch")+" v"+VERSION+" - "+tr("Host")+":";
   setCaption(QString().sprintf("%s %s",(const char *)str,
 			       (const char *)catch_config->stationName()));
 
@@ -210,6 +210,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Allocate Global Resources
   //
   rdstation_conf=new RDStation(catch_config->stationName());
+  catch_audition_card=rdstation_conf->cueCard();
+  catch_audition_port=rdstation_conf->cuePort();
   catch_time_offset=rdstation_conf->timeOffset();
   catch_system=new RDSystem();
 
@@ -217,8 +219,6 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Load Audio Settings
   //
   RDDeck *deck=new RDDeck(catch_config->stationName(),0);
-  catch_audition_card=deck->cardNumber();
-  catch_audition_port=deck->portNumber();
   delete deck;
   head_playing=false;
   tail_playing=false;
@@ -393,7 +393,7 @@ order by CHANNEL",(const char *)q->value(0).toString().lower());
 				     &catch_schedcode,
 				     catch_audition_card,catch_audition_port,
 				     0,0,catch_cae,catch_ripc,rdstation_conf,
-				     "",this,"catch_cart_dialog");
+				     catch_system,"",this);
 
   //
   // Cart List
@@ -930,10 +930,9 @@ void MainWidget::ripcUserData()
 {
   QString str;
 
-  str=QString(tr("RDCatch - Host:"));
-  setCaption(QString().sprintf("%s %s, User: %s",(const char *)str,
-			       (const char *)catch_config->stationName(),
-			       (const char *)catch_ripc->user()));
+  str=QString("RDCatch")+" v"+VERSION+" - "+tr("Host")+":";
+  setCaption(str+" "+catch_config->stationName()+", "+tr("User")+": "+
+	     catch_ripc->user());
   if(catch_user!=NULL) {
     delete catch_user;
   }

@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.14.8.1 2012/05/10 23:12:43 cvs Exp $
+##      $Id: Makefile.am,v 1.14.8.2 2012/11/29 01:37:37 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -31,17 +31,14 @@ MOC = @QT_MOC@
 moc_%.cpp:	%.h
 	$(MOC) $< -o $@
 
-noinst_PROGRAMS = sas_torture sas_switch_torture audio_convert_test \
-                  audio_export_test audio_import_test upload_test test_pam\
-                  datedecode_test
-
-dist_sas_torture_SOURCES = sas_torture.cpp sas_torture.h
-nodist_sas_torture_SOURCES = moc_sas_torture.cpp
-sas_torture_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
-
-dist_sas_switch_torture_SOURCES = sas_switch_torture.cpp sas_switch_torture.h
-nodist_sas_switch_torture_SOURCES = moc_sas_switch_torture.cpp
-sas_switch_torture_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+noinst_PROGRAMS = audio_convert_test\
+                  audio_export_test\
+                  audio_import_test\
+                  datedecode_test\
+                  sas_switch_torture\
+                  sas_torture\
+                  test_pam\
+                  upload_test
 
 dist_audio_convert_test_SOURCES = audio_convert_test.cpp audio_convert_test.h
 audio_convert_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
@@ -55,13 +52,29 @@ audio_import_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 dist_datedecode_test_SOURCES = datedecode_test.cpp datedecode_test.h
 datedecode_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-dist_upload_test_SOURCES = upload_test.cpp upload_test.h
-upload_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+dist_sas_switch_torture_SOURCES = sas_switch_torture.cpp sas_switch_torture.h
+nodist_sas_switch_torture_SOURCES = moc_sas_switch_torture.cpp
+sas_switch_torture_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+
+dist_sas_torture_SOURCES = sas_torture.cpp sas_torture.h
+nodist_sas_torture_SOURCES = moc_sas_torture.cpp
+sas_torture_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 dist_test_pam_SOURCES = test_pam.cpp test_pam.h
 test_pam_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-EXTRA_DIST = rivendell_standard.txt visualtraffic.txt
+dist_upload_test_SOURCES = upload_test.cpp upload_test.h
+upload_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-CLEANFILES = *~ moc_*
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+EXTRA_DIST = rivendell_standard.txt\
+             visualtraffic.txt
+
+CLEANFILES = *~\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

@@ -1237,7 +1237,11 @@ Relatório</translation>
     </message>
     <message>
         <source>Report complete!</source>
-        <translation>Relatório Completo!</translation>
+        <translation type="obsolete">Relatório Completo!</translation>
+    </message>
+    <message>
+        <source>Report generated in</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

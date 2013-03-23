@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.h,v 1.36 2011/01/04 17:21:12 cvs Exp $
+//      $Id: rdlog_event.h,v 1.36.6.1 2012/11/13 23:45:09 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -61,6 +61,8 @@ class RDLogEvent
    RDLogLine *logLine(int line);
    RDLogLine *loglineById(int id);
    int lineById(int id) const;
+   int lineByStartHour(int hour,RDLogLine::StartTimeType type) const;
+   int lineByStartHour(int hour) const;
    int nextTimeStart(QTime after);
    RDLogLine::TransType nextTransType(int);
    void removeCustomTransition(int line);

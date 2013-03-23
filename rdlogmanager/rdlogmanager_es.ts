@@ -1237,7 +1237,11 @@ Reporte</translation>
     </message>
     <message>
         <source>Report complete!</source>
-        <translation>¡Reporte completado!</translation>
+        <translation type="obsolete">¡Reporte completado!</translation>
+    </message>
+    <message>
+        <source>Report generated in</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

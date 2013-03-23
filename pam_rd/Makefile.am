@@ -6,7 +6,7 @@
 ## based on work by Fred Gleason <fredg@paravelsystems.com> and from 
 ## libpam-ldap-178
 ##
-##      $Id: Makefile.am,v 1.9 2010/07/29 19:32:34 cvs Exp $
+##      $Id: Makefile.am,v 1.9.8.1 2012/11/29 01:37:35 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -38,5 +38,8 @@ dist_pam_rd_la_SOURCES = pam_rd.cpp
 pam_rd_la_LDFLAGS = -module -shared -Xlinker -x -avoid-version -export-dynamic
 pam_rd_la_LIBADD = @LIB_RDLIBS@ -lpam @LIBVORBIS@
 
-CLEANFILES = *~ moc_* *.qm
+CLEANFILES = *~\
+             *.qm\
+             moc_*
+
 DISTCLEANFILES = Makefile.in

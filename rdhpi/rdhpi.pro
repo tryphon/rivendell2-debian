@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2007 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdhpi.pro,v 1.4 2010/08/04 23:07:01 cvs Exp $
+#      $Id: rdhpi.pro,v 1.4.8.1 2013/01/01 21:36:31 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -50,6 +50,7 @@ x11 {
 
 CONFIG += qt staticlib
 
+TRANSLATIONS += rdhpi_cs.ts
 TRANSLATIONS += rdhpi_de.ts
 TRANSLATIONS += rdhpi_es.ts
 TRANSLATIONS += rdhpi_fr.ts

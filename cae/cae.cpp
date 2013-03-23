@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae.cpp,v 1.115.4.1 2012/08/03 16:52:38 cvs Exp $
+//      $Id: cae.cpp,v 1.115.4.3 2012/11/30 16:14:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -490,6 +490,11 @@ void MainObject::updateMeters()
 	  }
 	  hpiGetOutputPosition(i,positions);
 	  SendMeterPositionUpdate(i,positions);
+	  for(int j=0;j<RD_MAX_STREAMS;j++) {
+	    if(hpiGetStreamOutputMeters(i,j,levels)) {
+	      SendStreamMeterLevelUpdate(i,j,levels);
+	    }      
+	  }
 	  break;
 
 	case RDStation::Jack:
@@ -508,6 +513,11 @@ void MainObject::updateMeters()
 	  }
 	  jackGetOutputPosition(i,positions);
 	  SendMeterPositionUpdate(i,positions);
+	  for(int j=0;j<RD_MAX_STREAMS;j++) {
+	    if(jackGetStreamOutputMeters(i,j,levels)) {
+	      SendStreamMeterLevelUpdate(i,j,levels);
+	    }      
+	  }
 	  break;
 
 	case RDStation::Alsa:
@@ -526,6 +536,11 @@ void MainObject::updateMeters()
 	  }
 	  alsaGetOutputPosition(i,positions);
 	  SendMeterPositionUpdate(i,positions);
+	  for(int j=0;j<RD_MAX_STREAMS;j++) {
+	    if(alsaGetStreamOutputMeters(i,j,levels)) {
+	      SendStreamMeterLevelUpdate(i,j,levels);
+	    }      
+	  }
 	  break;
 
 	case RDStation::None:
@@ -1953,8 +1968,6 @@ int MainObject::GetHandle(int card,int stream)
 
 void MainObject::ProbeCaps(RDStation *station)
 {
-  void *handle;
-
   //
   // Patent-clear codecs
   //
@@ -2193,6 +2206,16 @@ void MainObject::SendMeterLevelUpdate(const QString &type,int cardnum,
   char msg[1500];
   int n=snprintf(msg,1500,"ML %s %d %d %d %d",
 		 (const char *)type,cardnum,portnum,levels[0],levels[1]);
+  SendMeterUpdate(msg,n);
+}
+
+
+void MainObject::SendStreamMeterLevelUpdate(int cardnum,int streamnum,
+					    short levels[])
+{
+  char msg[1500];
+  int n=snprintf(msg,1500,"MO %d %d %d %d",
+		 cardnum,streamnum,levels[0],levels[1]);
   SendMeterUpdate(msg,n);
 }
 

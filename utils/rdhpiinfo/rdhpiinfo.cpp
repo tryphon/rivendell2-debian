@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdhpiinfo.cpp,v 1.8.6.1 2012/08/28 18:01:11 cvs Exp $
+//    $Id: rdhpiinfo.cpp,v 1.8.6.2 2013/01/07 15:35:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,7 +39,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 {
   hpi_err_t hpi_err;
 
-  setCaption(tr("RDHPIInfo"));
+  setCaption(tr("RDHPIInfo")+" v"+VERSION);
 
   //
   // Fix the Window Size
@@ -54,6 +54,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   RDCmdSwitch *cmd=new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdhpiinfo",
 				   RDHPIINFO_USAGE);
+  delete cmd;
 
   //
   // Generate Fonts

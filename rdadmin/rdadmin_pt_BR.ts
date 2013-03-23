@@ -304,43 +304,43 @@ atualizada para a Versão</translation>
     </message>
     <message>
         <source>Local GPIO</source>
-        <translation>GPIO Local</translation>
+        <translation type="obsolete">GPIO Local</translation>
     </message>
     <message>
         <source>Generic GPO</source>
-        <translation>GPO Genérico</translation>
+        <translation type="obsolete">GPO Genérico</translation>
     </message>
     <message>
         <source>Generic Serial</source>
-        <translation>Serial Genérico</translation>
+        <translation type="obsolete">Serial Genérico</translation>
     </message>
     <message>
         <source>Local Audio Adapter</source>
-        <translation>Placa de Som Local</translation>
+        <translation type="obsolete">Placa de Som Local</translation>
     </message>
     <message>
         <source>Logitek vGuest</source>
-        <translation>Logitek vGuest</translation>
+        <translation type="obsolete">Logitek vGuest</translation>
     </message>
     <message>
         <source>BroadcastTools SS16.4</source>
-        <translation>BroadcastTools SS16.4</translation>
+        <translation type="obsolete">BroadcastTools SS16.4</translation>
     </message>
     <message>
         <source>StarGuide III</source>
-        <translation>StarGuide III</translation>
+        <translation type="obsolete">StarGuide III</translation>
     </message>
     <message>
         <source>BroadcastTools SS4.2</source>
-        <translation>BroadcastTools SS4.2</translation>
+        <translation type="obsolete">BroadcastTools SS4.2</translation>
     </message>
     <message>
         <source>Axia LiveWire</source>
-        <translation>Axia LiveWire</translation>
+        <translation type="obsolete">Axia LiveWire</translation>
     </message>
     <message>
         <source>Quartz Type 1</source>
-        <translation>Quartz Type 1</translation>
+        <translation type="obsolete">Quartz Type 1</translation>
     </message>
     <message>
         <source>&amp;Switcher Type:</source>
@@ -364,15 +364,7 @@ atualizada para a Versão</translation>
     </message>
     <message>
         <source>BroadcastTools SS4.4</source>
-        <translation type="unfinished">BroadcastTools SS4.4</translation>
-    </message>
-    <message>
-        <source>BroadcastTools SRC-8 III</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SRC-16</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">BroadcastTools SS4.4</translation>
     </message>
     <message>
         <source>New Switcher</source>
@@ -380,10 +372,6 @@ atualizada para a Versão</translation>
     </message>
     <message>
         <source>RDAdmin - Add Switcher</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Harlond Virtual Mixer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -775,6 +763,133 @@ atualizada para a Versão</translation>
     </message>
 </context>
 <context>
+    <name>EditCartSlots</name>
+    <message>
+        <source>RDAdmin - Edit CartSlots</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Nenhum</translation>
+    </message>
+    <message>
+        <source>Output Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Card:</source>
+        <translation type="unfinished">Placa:</translation>
+    </message>
+    <message>
+        <source>Input Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart</source>
+        <translation type="obsolete">Cartão</translation>
+    </message>
+    <message>
+        <source>Mode:</source>
+        <translation type="obsolete">Modo:</translation>
+    </message>
+    <message>
+        <source>Cart:</source>
+        <translation type="unfinished">Cartão:</translation>
+    </message>
+    <message>
+        <source>At Playout End:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel Assignments</source>
+        <translation type="unfinished">Configurações de Canais</translation>
+    </message>
+    <message>
+        <source>Default Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Specified Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At Startup:</source>
+        <translation type="unfinished">Ao Iniciar:</translation>
+    </message>
+    <message>
+        <source>Do Nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slot Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Full</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User previous mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use previous mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use previous cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use previous action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Service:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slot Columns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slot Rows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Configurações</translation>
+    </message>
+    <message>
+        <source>Slot selected has changed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditDecks</name>
     <message>
         <source>Configure RDCatch</source>
@@ -854,7 +969,7 @@ atualizada para a Versão</translation>
     </message>
     <message>
         <source>Audition Deck</source>
-        <translation>  Disp. de Audição</translation>
+        <translation type="obsolete">  Disp. de Audição</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -1505,6 +1620,10 @@ Do you still want to save?</source>
         <translation>
 Você ainda quer salvar?</translation>
     </message>
+    <message>
+        <source>Delete cart if empty</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditHostvar</name>
@@ -1608,6 +1727,81 @@ Você ainda quer salvar?</translation>
     </message>
     <message>
         <source>JACK Server Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>JACK Command Line:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NAME</source>
+        <translation type="obsolete">NOME</translation>
+    </message>
+    <message>
+        <source>VALUE</source>
+        <translation type="obsolete">VALOR</translation>
+    </message>
+    <message>
+        <source>REMARK</source>
+        <translation type="obsolete">OBSERVAÇÃO</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Adicionar</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Deletar</translation>
+    </message>
+    <message>
+        <source>JACK Clients to Start:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Command Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[New Client]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - JACK Clients</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete JACK Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EditJackClient</name>
+    <message>
+        <source>JACK Client Configuration for </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Descrição: </translation>
+    </message>
+    <message>
+        <source>Command Line:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1735,13 +1929,13 @@ Você ainda quer salvar?</translation>
     <message>
         <source>Configure
 &amp;Outputs</source>
-        <translation>Configurar
+        <translation type="unfinished">Configurar
 &amp;Saídas</translation>
     </message>
     <message>
         <source>Configure
 &amp;Xpoints</source>
-        <translation>Configurar
+        <translation type="obsolete">Configurar
 &amp;PontosX</translation>
     </message>
     <message>
@@ -2241,6 +2435,10 @@ configured to run the CAE service in order to populate the audio resources datab
     </message>
     <message>
         <source>Configure Hot Keys</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Hour Selector</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3032,6 +3230,10 @@ Overwrite?</source>
         <source>Checking the Library for duplicates.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Temporary Cart Group:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditStation</name>
@@ -3225,6 +3427,25 @@ Segurança</translation>
 Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>RDCart
+Slots</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cue &amp;Output:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin - No Audio Configuration Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel assignments will not be available for this host as audio resource data
+has not yet been generated.  Please start the Rivendell daemons on the host
+configured to run the CAE service in order to populate the audio resources database.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditSvc</name>
@@ -3410,6 +3631,10 @@ deve ser salva.  Salvar Agora?</translation>
     </message>
     <message>
         <source>[custom]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AutoSpot Group:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4374,63 +4599,51 @@ Você ainda quer Deletar?</translation>
     </message>
     <message>
         <source>Local GPIO</source>
-        <translation>GPIO Local</translation>
+        <translation type="obsolete">GPIO Local</translation>
     </message>
     <message>
         <source>Generic GPO</source>
-        <translation>GPO Genérico</translation>
+        <translation type="obsolete">GPO Genérico</translation>
     </message>
     <message>
         <source>Generic Serial</source>
-        <translation>Serial Genérico</translation>
+        <translation type="obsolete">Serial Genérico</translation>
     </message>
     <message>
         <source>Local Audio Adapter</source>
-        <translation>Placa de Som Local</translation>
+        <translation type="obsolete">Placa de Som Local</translation>
     </message>
     <message>
         <source>Logitek vGuest</source>
-        <translation>Logitek vGuest</translation>
+        <translation type="obsolete">Logitek vGuest</translation>
     </message>
     <message>
         <source>BroadcastTools SS16.4</source>
-        <translation>BroadcastTools SS16.4</translation>
+        <translation type="obsolete">BroadcastTools SS16.4</translation>
     </message>
     <message>
         <source>StarGuide III</source>
-        <translation>StarGuide III</translation>
+        <translation type="obsolete">StarGuide III</translation>
     </message>
     <message>
         <source>BroadcastTools SS4.2</source>
-        <translation>BroadcastTools SS4.2</translation>
+        <translation type="obsolete">BroadcastTools SS4.2</translation>
     </message>
     <message>
         <source>Axia LiveWire</source>
-        <translation>Axia LiveWire</translation>
+        <translation type="obsolete">Axia LiveWire</translation>
     </message>
     <message>
         <source>Quartz Type 1</source>
-        <translation>Quartz Type 1</translation>
+        <translation type="obsolete">Quartz Type 1</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>Desconhecido</translation>
+        <translation type="obsolete">Desconhecido</translation>
     </message>
     <message>
         <source>BroadcastTools SS4.4</source>
-        <translation type="unfinished">BroadcastTools SS4.4</translation>
-    </message>
-    <message>
-        <source>BroadcastTools SRC-8 III</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>BroadcastTools SRC-16</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Harlond Virtual Mixer</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">BroadcastTools SS4.4</translation>
     </message>
 </context>
 <context>
@@ -4738,7 +4951,7 @@ Você quer proceder?</translation>
     <name>MainWidget</name>
     <message>
         <source>RDAdmin - Host:</source>
-        <translation>RDAdmin - Cliente:</translation>
+        <translation type="obsolete">RDAdmin - Cliente:</translation>
     </message>
     <message>
         <source>Daemons Failed</source>
@@ -4876,6 +5089,10 @@ Settings</source>
     <message>
         <source>Manage
 Replicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDAdmin</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_station.h,v 1.36 2011/10/31 11:38:33 cvs Exp $
+//      $Id: edit_station.h,v 1.36.4.2 2012/11/28 18:49:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,7 +38,7 @@
 #include <rdstation.h>
 #include <rdcatch_connect.h>
 #include <rdripc.h>
-
+#include <rdcardselector.h>
 
 class EditStation : public QDialog
 {
@@ -65,6 +65,7 @@ class EditStation : public QDialog
    void editAirPlayData();
    void editPanelData();
    void editLogEditData();
+   void editCartSlotsData();
    void viewAdaptersData();
    void editAudioData();
    void editTtyData();
@@ -89,6 +90,7 @@ class EditStation : public QDialog
    QLineEdit *station_editor_cmd_edit;
    QSpinBox *station_timeoffset_box;
    QLineEdit *station_startup_cart_edit;
+   RDCardSelector *station_cue_sel;
    QCheckBox *station_heartbeat_box;
    QCheckBox *station_filter_box;
    QLabel *station_hbcart_label;

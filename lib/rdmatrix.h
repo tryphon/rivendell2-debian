@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmatrix.h,v 1.28.8.1 2012/08/06 00:12:04 cvs Exp $
+//      $Id: rdmatrix.h,v 1.28.8.2 2012/12/10 15:40:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,13 +38,27 @@ class RDMatrix
 	     BtAcs82=11,SasUsi=12,Bt16x2=13,BtSs124=14,LocalAudioAdapter=15,
 	     LogitekVguest=16,BtSs164=17,StarGuideIII=18,BtSs42=19,
 	     LiveWire=20,Quartz1=21,BtSs44=22,BtSrc8III=23,BtSrc16=24,
-	     Harlond=25,None=255};
+	     Harlond=25,Acu1p=26,LastType=27};
   enum Endpoint {Input=0,Output=1};
   enum Mode {Stereo=0,Left=1,Right=2};
   enum VguestAttribute {VguestEngine=0,VguestDevice=1,VguestSurface=2,
 			VguestRelay=3,VguestBuss=4};
   enum VguestType {VguestTypeRelay=0,VguestTypeDisplay=2};
   enum GpioType {GpioInput=0,GpioOutput=1};
+  enum Control {PortTypeControl=0,SerialPortControl=1,
+		IpAddressControl=2,IpPortControl=3,
+		UsernameControl=4,PasswordControl=5,
+		StartupCartControl=6,ShutdownCartControl=7,
+		CardControl=8,GpioDeviceControl=9,
+		LayerControl=10,InputsControl=11,
+		OutputsControl=12,GpisControl=13,
+		GposControl=14,DisplaysControl=15,
+		InputsButtonControl=16,OutputsButtonControl=17,
+		GpisButtonControl=18,GposButtonControl=19,
+		NodesButtonControl=20,VguestSwitchesButtonControl=21,
+		VguestDisplaysButtonControl=22,SasSwitchesButtonControl=23,
+		GpiGpoLinkedControl=24,GpioInputsLinkedControl=25,
+		DynamicGpioControl=26,LastControl=27};
   RDMatrix(const QString &station,int matrix);
   QString station() const;
   int matrix() const;
@@ -53,7 +67,6 @@ class RDMatrix
   void setType(RDMatrix::Type type) const;
   int layer() const;
   void setLayer(int layer);
-  QString typeString() const;
   QString name() const;
   void setName(const QString &name) const;
   PortType portType(RDMatrix::Role role) const;
@@ -91,6 +104,12 @@ class RDMatrix
   void setFaders(int quan) const;
   int displays() const;
   void setDisplays(int quan) const;
+  static QString typeString(RDMatrix::Type type);
+  static bool controlActive(RDMatrix::Type type,RDMatrix::Role role,
+			    RDMatrix::Control control);
+  static bool controlActive(RDMatrix::Type type,RDMatrix::Control control);
+  static int defaultControlValue(RDMatrix::Type type,
+				 RDMatrix::Control control);
 
  private:
   QString GetEndpointName(int pointnum,const QString &table) const;

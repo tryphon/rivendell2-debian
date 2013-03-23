@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmaint.cpp,v 1.9.4.2 2012/07/17 19:30:29 cvs Exp $
+//      $Id: rdmaint.cpp,v 1.9.4.3 2013/01/07 13:50:23 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -149,9 +149,11 @@ void MainObject::PurgeCuts()
   QString sql;
   RDSqlQuery *q;
   RDSqlQuery *q1;
+  RDSqlQuery *q2;
   QDateTime dt=QDateTime(QDate::currentDate(),QTime::currentTime());
 
-  sql="select NAME,CUT_SHELFLIFE from GROUPS where CUT_SHELFLIFE>=0";
+  sql=QString("select NAME,CUT_SHELFLIFE,DELETE_EMPTY_CARTS from GROUPS ")+
+    "where CUT_SHELFLIFE>=0";
   q=new RDSqlQuery(sql);
   while(q->next()) {
     sql=QString().sprintf("select CART.NUMBER,CUTS.CUT_NAME \
@@ -175,6 +177,18 @@ void MainObject::PurgeCuts()
 	  log("rdmaint",RDConfig::LogErr,QString().
 	      sprintf("unable to purge cut %s: audio deletion error",
 		      (const char *)q1->value(1).toString()));
+      }
+      if(q->value(2).toString()=="Y") {  // Delete Empty Cart
+	sql=QString().sprintf("select CUT_NAME from CUTS where CART_NUMBER=%u",
+			      q1->value(0).toUInt());
+	q2=new RDSqlQuery(sql);
+	if(!q2->first()) {
+	  cart->remove(maint_station,maint_user);
+	  maint_config->
+	    log("rdmaint",RDConfig::LogInfo,QString().
+		sprintf("deleted purged cart %06u",cart->number()));
+	}
+	delete q2;
       }
       delete cart;
     }

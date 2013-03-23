@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_group.h,v 1.16 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_group.h,v 1.16.8.1 2013/01/07 13:50:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -68,14 +68,16 @@ class EditGroup : public QDialog
   QLabel *group_enforcerange_label;
   QCheckBox *group_enforcerange_box;
   RDListSelector *group_svcs_sel;
-  QCheckBox *group_music_box;
-  QCheckBox *group_traffic_box;
-  QCheckBox *group_nownext_box;
+  QCheckBox *group_music_check;
+  QCheckBox *group_traffic_check;
+  QCheckBox *group_nownext_check;
   QComboBox *group_carttype_box;
   QPushButton *group_color_button;
   QLineEdit *group_title_edit;
   QSpinBox *group_shelflife_spin;
-  QCheckBox *group_shelflife_box;
+  QCheckBox *group_shelflife_check;
+  QLabel *group_delete_carts_label;
+  QCheckBox *group_delete_carts_check;
   QLabel *group_shelflife_label;
   QLabel *group_shelflife_unit;
 };

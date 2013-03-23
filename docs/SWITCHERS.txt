@@ -20,6 +20,7 @@ Quartz Electronics Type 1 Routing Protocol
 Sierra Automated Systems 32000 Audio Router
 Sierra Automated Systems 64000 Audio Router
 Sierra Automated Systems Universal Serial Interface (USI)
+Sine Systems ACU-1 (Prophet version)
 StarGuide III Satellite Receiver
 Wegener Unity4000 DVB Satellite Receiver
 
@@ -457,6 +458,26 @@ Control can done either by means of an RS-232C connection to one of
 the serial ports on a DRC-16E card or by means of TCP/IP to a PC
 running SAS's Server Module software.  TCP connections are normally made
 to port 1350 on the Server Module system.
+
+
+----------------------------------------------------------------------------
+SINE SYSTEMS ACU-1 (PROPHET VERSION)
+
+Driver Name: Since ACU-1 (Prophet)
+
+Supported RML Commands:
+  Switch Add ('SA')
+  Switch Remove ('SR')
+  Switch Take ('ST')
+
+GENERAL NOTES:
+Control is done by means of an RS-232C connection to the  RS-232 port on
+the unit.  Serial port parameters in RDAdmin should be set to 57600 baud
+rate, even parity, 8 data bits, 1 stop bit and no terminator.
+
+The ACU-1 should be set to use factory default settings.  This can be done
+by simultaneously pressing buttons 1 and 8 on the front panel of the unit
+for at least one second.
 
 
 ----------------------------------------------------------------------------

@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.6 2010/07/29 19:32:40 cvs Exp $
+##      $Id: Makefile.am,v 1.6.8.1 2012/11/29 01:37:38 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -32,10 +32,19 @@ moc_%.cpp:	%.h
 
 bin_PROGRAMS = rdgen
 
-dist_rdgen_SOURCES = rdgen.c wavlib.c wavlib.h
+dist_rdgen_SOURCES = rdgen.c\
+                     wavlib.c wavlib.h
+
 rdgen_LDADD = -lm
 
-EXTRA_DIST = 
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

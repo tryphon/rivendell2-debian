@@ -6,7 +6,7 @@
 ##
 ##   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.65.6.2 2012/10/13 04:53:19 cvs Exp $
+##      $Id: Makefile.am,v 1.65.6.6 2013/01/14 16:35:58 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -31,10 +31,36 @@ endif
 if ALSA_RD_AM
   ALSACONFIG_RD_OPT = rdalsaconfig
 endif
-SUBDIRS = icons helpers $(HPI_RD_OPT) lib rlm scripts cae conf docs \
-          debian xdg rdadmin ripcd rdlogin rdlibrary rdcatch rdcatchd \
-          rdlogedit rdlogmanager rdpanel rdairplay rdselect rdmonitor \
-          rdcastmanager rdrepld utils web tests importers ios $(PAM_RD_OPT)
+SUBDIRS = icons\
+          helpers\
+          lib\
+          $(HPI_RD_OPT) $(PAM_RD_OPT) rlm\
+          scripts\
+          conf\
+          debian\
+          docs\
+          xdg\
+          cae\
+          importers\
+          ios\
+          rdadmin\
+          rdairplay\
+          rdcartslots\
+          rdcastmanager\
+          rdcatch\
+          rdcatchd\
+          rdlibrary\
+          rdlogedit\
+          rdlogin\
+          rdlogmanager\
+          rdmonitor\
+          rdpanel\
+          rdrepld\
+          rdselect\
+          ripcd\
+          tests\
+          utils\
+          web
 
 install-exec-local:	
 	./install-init.sh $(DESTDIR)$(prefix)
@@ -45,18 +71,15 @@ install-debian:
 	rm -f ./building-debian
 
 uninstall-exec:
-	rm -f /etc/init.d/rivendell
 	rm -f /etc/init.d/rdrepld
+	rm -f /etc/init.d/rivendell
 	rm -f /etc/sysconfig/rivendell
 
 rpm:	dist
 	cp rivendell-$(VERSION).tar.gz $(RPM_ROOT)/SOURCES/
 	$(RPMBUILD) -ba --target $(ARCH)-$(VENDOR)-linux rivendell.spec
-	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
-	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-importers-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
-	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-devel-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
-	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-select-$(VERSION)-@RPM_RELEASE@.$(ARCH).rpm $(top_srcdir)/
-	mv $(RPM_ROOT)/SRPMS/rivendell-$(VERSION)-@RPM_RELEASE@.src.rpm $(top_srcdir)/
+	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-*.rpm $(top_srcdir)/
+	mv $(RPM_ROOT)/SRPMS/rivendell-*.src.rpm $(top_srcdir)/
 	rm $(RPM_ROOT)/SOURCES/rivendell-$(VERSION).tar.gz
 	rm -rf $(RPM_ROOT)/BUILD/rivendell-$(VERSION)
 
@@ -86,15 +109,54 @@ doxygen:
 	cd rdlogmanager && doxygen doxygen.conf &
 	cd ripcd && doxygen doxygen.conf &
 
-EXTRA_DIST = autogen.sh rivendell-suse.in rdrepld-suse.in\
-             rivendell.spec.in rivendell.sys rivendell.pro rivendell-gentoo\
-             install-init.sh make_slack.in slack-desc.in slack_doinst.sh\
-             CODINGSTYLE PACKAGE_VERSION build_win32.bat rivendell.ism\
-             get_target.sh get_distro.sh UPGRADING
+EXTRA_DIST = autogen.sh\
+             build_win32.bat\
+             CODINGSTYLE\
+             get_distro.sh\
+             get_target.sh\
+             install-init.sh\
+             make_slack.in\
+             PACKAGE_VERSION\
+             rdrepld-suse.in\
+             rivendell-gentoo\
+             rivendell.ism\
+             rivendell.pro\
+             rivendell.spec.in\
+             rivendell-suse.in\
+             rivendell.sys\
+             slack-desc.in\
+             slack_doinst.sh\
+             UPGRADING
 
-CLEANFILES = *~ *.tar.gz *.tgz *.mo *.rpm *.zip
-DISTCLEANFILES = rivendell.spec rivendell make_slack slack-desc ltmain.sh config.guess config.sub rdrepld-suse
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz\
-                       config.guess config.status config.sub install-sh\
-                       libtool ltmain.sh missing mkinstalldirs depcomp\
-                       rivendell.spec rivendell-suse
+CLEANFILES = *~\
+             *.mo\
+             *.rpm\
+             *.tar.gz\
+             *.tgz\
+             *.zip
+
+DISTCLEANFILES = config.guess\
+                 config.sub\
+                 ltmain.sh\
+                 make_slack\
+                 rdrepld-suse\
+                 rivendell\
+                 rivendell.spec\
+                 slack-desc
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       Makefile.in\
+                       config.guess\
+                       config.status\
+                       config.sub\
+                       configure\
+                       depcomp\
+                       install-sh\
+                       libtool\
+                       ltmain.sh\
+                       missing\
+                       mkinstalldirs\
+                       rivendell.spec\
+                       rivendell-suse

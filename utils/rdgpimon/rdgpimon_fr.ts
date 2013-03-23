@@ -27,10 +27,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>RDGpiMon - User:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Show:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -48,6 +44,10 @@
     </message>
     <message>
         <source>Red = OFF Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

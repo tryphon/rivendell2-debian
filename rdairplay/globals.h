@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: globals.h,v 1.12 2008/03/28 20:00:07 fredg Exp $
+//      $Id: globals.h,v 1.12.14.1 2012/11/26 20:19:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 #define GLOBALS_H
 
 #include <rdstation.h>
+#include <rdsystem.h>
 #include <rdairplay_conf.h>
 #include <rdaudio_port.h>
 #include <rduser.h>
@@ -38,6 +39,7 @@
 // Global Resources
 //
 extern RDStation *rdstation_conf;
+extern RDSystem *rdsystem_conf;
 extern RDAirPlayConf *rdairplay_conf;
 extern RDAudioPort *rdaudioport_conf;
 extern RDUser *rduser;

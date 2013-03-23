@@ -38,7 +38,7 @@ END_DATETIME         datetime
 ENFORCE_LENGTH       enum('N','Y')     Timeshift?
 PRESERVE_PITCH       enum('N','Y')     Preserve Pitch?
 ASYNCRONOUS          enum('N','Y')
-OWNER                char(64)          From LOGS.NAME
+OWNER                char(64)          From LOGS.NAME or STATIONS.NAME
 MACROS               text              RML Macros
 NOTES                text              User notes (freeform)
 METADATA_DATETIME    datetime          Metadata last modified

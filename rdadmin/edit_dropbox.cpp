@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_dropbox.cpp,v 1.11 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_dropbox.cpp,v 1.11.8.1 2012/11/26 20:19:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -419,7 +419,8 @@ void EditDropbox::selectPathData()
 void EditDropbox::selectCartData()
 {
   int cartnum=box_to_cart_edit->text().toInt();
-  admin_cart_dialog->exec(&cartnum,RDCart::Audio,NULL,0);
+  admin_cart_dialog->exec(&cartnum,RDCart::Audio,NULL,0,
+			  admin_user->name(),admin_user->password());
   if(cartnum>0) {
     box_to_cart_edit->setText(QString().sprintf("%06d",cartnum));
   }

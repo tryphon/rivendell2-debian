@@ -1,6 +1,68 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.4.0 -- 01/28/2013
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   New Translation.  A Czech [CS] translation has been added by
+   Pavel Fric <pavelfric@seznam.cz>.
+
+   New Cart/Cut Purge Option.  A new option has been added in
+   RDAdmin->ManageGroups to allow empty carts to be automatically deleted
+   after purging.
+
+   New Reports.  'NPR SoundExchange' and 'Music Playout' reports
+   have been added in RDAdmin->ManageReports.
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 216, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
+v2.3.0 -- 12/21/2012
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   RDCartSlots Module.  A new Rivendell module has been added that is
+   optimized for use in busy live assist environments, along with four
+   new RMLs ('Load Slot' ['DL'], 'Play Slot' ['DP'], 'Stop Slot' ['DS']
+   and 'Execute Breakaway' ['DX']) for automating its operation.
+
+   RDAirPlay Enhancements.  A set of buttons for quickly locating a given
+   hour has been added to the Full Log widget, enabled by checking the
+   'Show Hour Selector' box in RDAdmin->ManageHost->RDAirPlay.
+
+   JACK Enhancements.  It is now possible to specify the command-line
+   used to start jackd(8) and a list of clients to start when
+   starting the Rivendell service.  See RDAdmin->ManageHosts->JackSettings.
+
+   Switcher/GPIO Device Support.  Added support for the Sine Systems ACU-1
+   switcher.  See 'SWITCHERS.txt' for details.
+
+   Cue Output Assignments.  Cue output assignments for all modules
+   except RDAirPlay have now been consolidated into one setting in
+   RDAirPlay->ManageHosts.
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 213, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.2.1 -- 10/23/2012
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

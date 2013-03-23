@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: globals.h,v 1.11 2011/06/23 22:30:44 cvs Exp $
+//      $Id: globals.h,v 1.11.4.1 2012/11/26 20:19:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -28,6 +28,7 @@
 #include <rdconfig.h>
 #include <rduser.h>
 #include <rdstation.h>
+#include <rdsystem.h>
 #include <rdcart_dialog.h>
 
 //
@@ -37,6 +38,7 @@ extern RDRipc *rdripc;
 extern RDConfig *admin_config;
 extern RDUser *admin_user;
 extern RDStation *admin_station;
+extern RDSystem *admin_system;
 extern RDCartDialog *admin_cart_dialog;
 extern QString admin_svc_name;
 extern QString admin_admin_username;

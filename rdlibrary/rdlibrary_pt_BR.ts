@@ -1075,11 +1075,11 @@ Você ainda quer deletá-lo?</translation>
     </message>
     <message>
         <source>RDLibrary - Host:</source>
-        <translation>RDBiblio - Cliente:</translation>
+        <translation type="obsolete">RDBiblio - Cliente:</translation>
     </message>
     <message>
         <source>, User:</source>
-        <translation>, Usuário:</translation>
+        <translation type="obsolete">, Usuário:</translation>
     </message>
     <message>
         <source>Show Only First </source>
@@ -1095,6 +1095,14 @@ Você ainda quer deletá-lo?</translation>
     </message>
     <message>
         <source>Unable to delete audio!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

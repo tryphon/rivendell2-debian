@@ -28,7 +28,7 @@
     </message>
     <message>
         <source>RDGpiMon - User:</source>
-        <translation>RDGpiMon-brukar:</translation>
+        <translation type="obsolete">RDGpiMon-brukar:</translation>
     </message>
     <message>
         <source>GPI (Inputs)</source>
@@ -48,6 +48,10 @@
     </message>
     <message>
         <source>Red = OFF Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

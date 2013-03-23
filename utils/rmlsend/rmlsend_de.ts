@@ -3,7 +3,7 @@
     <name>MainWidget</name>
     <message>
         <source>RMLSend - Macro Command Utility</source>
-        <translation>RMLSend - Macro Command Utility</translation>
+        <translation type="obsolete">RMLSend - Macro Command Utility</translation>
     </message>
     <message>
         <source>RML</source>
@@ -48,6 +48,10 @@
     <message>
         <source>no response</source>
         <translation>keine Antwort</translation>
+    </message>
+    <message>
+        <source>Macro Command Utility</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

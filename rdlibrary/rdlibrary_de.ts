@@ -1069,11 +1069,11 @@ verwendet. Trotzdem löschen?</translation>
     </message>
     <message>
         <source>RDLibrary - Host:</source>
-        <translation>RDLibrary-Host : </translation>
+        <translation type="obsolete">RDLibrary-Host : </translation>
     </message>
     <message>
         <source>, User:</source>
-        <translation>, Benutzer:</translation>
+        <translation type="obsolete">, Benutzer:</translation>
     </message>
     <message>
         <source>Show Note Bubbles</source>
@@ -1094,6 +1094,14 @@ verwendet. Trotzdem löschen?</translation>
     <message>
         <source> Matches</source>
         <translation>Treffer</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

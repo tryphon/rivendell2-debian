@@ -245,7 +245,7 @@ Continuar deletando cast?</translation>
     <name>MainWidget</name>
     <message>
         <source>RDCastManager - Host</source>
-        <translation>RDPodcast - Cliente</translation>
+        <translation type="obsolete">RDPodcast - Cliente</translation>
     </message>
     <message>
         <source>User: [Unknown]</source>
@@ -284,6 +284,10 @@ Feed</translation>
     <message>
         <source>User</source>
         <translation>Usuário</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

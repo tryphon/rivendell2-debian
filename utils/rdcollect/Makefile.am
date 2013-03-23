@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.2 2010/07/29 19:32:39 cvs Exp $
+##      $Id: Makefile.am,v 1.2.8.2 2012/12/03 16:53:46 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -33,9 +33,23 @@ moc_%.cpp:	%.h
 bin_PROGRAMS = rdcollect
 
 dist_rdcollect_SOURCES = rdcollect.cpp rdcollect.h
+
 rdcollect_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 EXTRA_DIST = rdcollect.pro
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.exe\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       *.tar.gz\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*

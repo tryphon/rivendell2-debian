@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2012 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.20.6.4 2012/10/20 00:50:11 cvs Exp $
+##      $Id: Makefile.am,v 1.20.6.5 2012/11/29 01:37:37 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -29,13 +29,30 @@ install-exec-local:
 uninstall-local:	
 	rm -f /etc/X11/xinit/xinitrc.d/start-rdmonitor.sh
 
-bin_SCRIPTS = rd_audio_sync rd_config crc-unity4k.sh rd_backup\
-              rdmemcheck.sh sage_endec_rwt.sh
+bin_SCRIPTS = crc-unity4k.sh\
+              rd_audio_sync\
+              rd_config\
+              rd_backup\
+              rdmemcheck.sh\
+              sage_endec_rwt.sh
 
-EXTRA_DIST = kill_rd rd_create_db start_rd rd_audio_sync rd_config \
-             crc-unity4k.sh rd_backup start_traverso.sh rd_memmon.sh\
-             rdmemcheck.sh rd_mysql_enable_host.sh start-rdmonitor.sh\
-             rd_backup_system.sh rd_restore_system.sh sage_endec_rwt.sh
+EXTRA_DIST = crc-unity4k.sh\
+             kill_rd\
+             rd_audio_sync\
+             rd_backup\
+             rd_backup_system.sh\
+             rd_config\
+             rd_create_db\
+             rd_memmon.sh\
+             rd_mysql_enable_host.sh\
+             rd_restore_system.sh\
+             rdmemcheck.sh\
+             sage_endec_rwt.sh\
+             start_rd\
+             start_traverso.sh\
+             start-rdmonitor.sh
 
 CLEANFILES = *~
-MAINTAINERCLEANFILES = *~ Makefile.in
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in

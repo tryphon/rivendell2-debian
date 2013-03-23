@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdbusybar.h,v 1.2 2010/07/29 19:32:33 cvs Exp $
+//    $Id: rdbusybar.h,v 1.2.8.1 2012/11/26 20:19:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -34,7 +34,7 @@ class RDBusyBar : public QFrame
   Q_OBJECT
 
  public:
-  RDBusyBar(QWidget *parent,const char *name,WFlags f=0);
+  RDBusyBar(QWidget *parent=0,const char *name=0,WFlags f=0);
 
  public slots:
   void activate(bool state);

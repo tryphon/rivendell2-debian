@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.8 2010/07/29 19:32:40 cvs Exp $
+##      $Id: Makefile.am,v 1.8.8.2 2012/12/03 16:53:46 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -33,10 +33,22 @@ moc_%.cpp:	%.h
 bin_PROGRAMS = rdsoftkeys
 
 dist_rdsoftkeys_SOURCES = rdsoftkeys.cpp rdsoftkeys.h
+
 nodist_rdsoftkeys_SOURCES = moc_rdsoftkeys.cpp
+
 rdsoftkeys_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 EXTRA_DIST = rdsoftkeys.pro
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.exe\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

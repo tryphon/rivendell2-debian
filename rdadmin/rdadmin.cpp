@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadmin.cpp,v 1.72 2012/01/12 16:24:50 cvs Exp $
+//      $Id: rdadmin.cpp,v 1.72.4.2 2013/01/07 15:34:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -75,6 +75,7 @@ RDRipc *rdripc;
 RDConfig *admin_config;
 RDUser *admin_user;
 RDStation *admin_station;
+RDSystem *admin_system;
 RDCartDialog *admin_cart_dialog;
 bool exiting=false;
 QString admin_admin_username;
@@ -145,7 +146,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   admin_config=new RDConfig();
   admin_config->load();
 
-  str=QString(tr("RDAdmin - Host:"));
+  str=QString(tr("RDAdmin")+" v"+VERSION+" - Host:");
   setCaption(QString().
 	     sprintf("%s %s",(const char *)str,
 		     (const char *)admin_config->stationName()));
@@ -178,6 +179,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   rdripc=new RDRipc(admin_config->stationName(),this,"rdripc");
   rdripc->connectHost("localhost",RIPCD_TCP_PORT,temp);
   admin_station=new RDStation(admin_config->stationName(),this);
+  admin_system=new RDSystem();
 
   //
   // Log In
@@ -204,7 +206,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   admin_cart_dialog=new RDCartDialog(&admin_filter,&admin_group,
 				     &admin_schedcode,-1,-1,0,0,NULL,
-				     rdripc,admin_station,"",
+				     rdripc,admin_station,admin_system,"",
 				     this,"admin_cart_dialog");
 
   //

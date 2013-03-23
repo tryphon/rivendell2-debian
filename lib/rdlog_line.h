@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.h,v 1.85 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdlog_line.h,v 1.85.8.3 2012/11/28 01:57:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -46,7 +46,8 @@ class RDLogLine
 	     Track=6,MusicLink=7,TrafficLink=8,UnknownType=9};
   enum StartSource {StartUnknown=0,StartManual=1,StartPlay=2,StartSegue=3,
 		    StartTime=4,StartPanel=5,StartMacro=6};
-  enum PlaySource {UnknownSource=0,MainLog=1,AuxLog1=2,AuxLog2=3,SoundPanel=4};
+  enum PlaySource {UnknownSource=0,MainLog=1,AuxLog1=2,AuxLog2=3,SoundPanel=4,
+		   CartSlot=5};
   enum PointerSource {CartPointer=0,LogPointer=1,AutoPointer=2};
   RDLogLine();
   RDLogLine(unsigned cartnum);
@@ -111,6 +112,8 @@ class RDLogLine
   void setTalkStartPoint(int point);
   int talkEndPoint() const;
   void setTalkEndPoint(int point);
+  bool hookMode() const;
+  void setHookMode(bool state);
   int hookStartPoint() const;
   void setHookStartPoint(int point);
   int hookEndPoint() const;
@@ -238,9 +241,10 @@ class RDLogLine
   void setStartSource(RDLogLine::StartSource src);
   QString resolveWildcards(QString pattern);
   RDLogLine::State setEvent(int mach,RDLogLine::TransType next_type,
-			    bool timescale);
+			    bool timescale,int len=-1);
   void loadCart(int cartnum,RDLogLine::TransType next_type,int mach,
-		bool timescale,RDLogLine::TransType type=RDLogLine::NoTrans);
+		bool timescale,RDLogLine::TransType type=RDLogLine::NoTrans,
+		int len=-1);
   void refreshPointers();
   static QString resolveWildcards(unsigned cartnum,const QString &pattern);
   static QString startSourceText(RDLogLine::StartSource src);
@@ -273,6 +277,7 @@ class RDLogLine
   int log_fadedown_gain;
   int log_duck_up_gain;
   int log_duck_down_gain;
+  bool log_hook_mode;
   int log_hook_start;
   int log_hook_end;
   RDCart::Type log_cart_type;

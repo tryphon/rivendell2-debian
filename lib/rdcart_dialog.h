@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.h,v 1.21 2011/08/30 23:35:43 cvs Exp $
+//      $Id: rdcart_dialog.h,v 1.21.4.1 2012/11/26 20:19:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -32,11 +32,14 @@
 
 #include <rdcae.h>
 #include <rdripc.h>
+#include <rdsystem.h>
 #include <rdsimpleplayer.h>
 #include <rdlistviewitem.h>
 #include <rdcart.h>
 #include <rdstation.h>
 #include <rdcombobox.h>
+#include <rduser.h>
+#include <rdbusydialog.h>
 
 #define RDCART_DIALOG_STEP_SIZE 1000
 
@@ -47,14 +50,16 @@ class RDCartDialog : public QDialog
   RDCartDialog(QString *filter,QString *group,QString *schedcode,
 	       int audition_card,int audition_port,
 	       unsigned start_cart,unsigned end_cart,
-	       RDCae *cae,RDRipc *ripc,RDStation *station,
+	       RDCae *cae,RDRipc *ripc,RDStation *station,RDSystem *system,
 	       const QString &edit_cmd,QWidget *parent=0,const char *name=0);
   ~RDCartDialog();
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
 
  public slots:
-  int exec(int *cartnum,RDCart::Type type,QString *svcname,int svc_quan);
+  int exec(int *cartnum,RDCart::Type type,QString *svcname,int svc_quan,
+	   const QString &username,const QString &passwd,
+	   bool *temp_allowed=NULL);
 
  private slots:
   void filterChangedData(const QString &);
@@ -66,6 +71,7 @@ class RDCartDialog : public QDialog
   void clickedData(QListViewItem *item);
   void doubleClickedData(QListViewItem *,const QPoint &,int);
   void editorData();
+  void loadFileData();
   void okData();
   void cancelData();
 
@@ -92,6 +98,7 @@ class RDCartDialog : public QDialog
   QPushButton *cart_search_button;
   QPushButton *cart_clear_button;
   QPushButton *cart_editor_button;
+  QPushButton *cart_file_button;
   QLabel *cart_group_label;
   RDComboBox *cart_group_box;
   QLabel *cart_schedcode_label;
@@ -108,6 +115,14 @@ class RDCartDialog : public QDialog
   QString cart_edit_cmd;
   RDStation::FilterMode cart_filter_mode;
   QProgressDialog *cart_progress_dialog;
+  QString cart_import_path;
+  QString cart_import_file_filter;
+  bool *cart_temp_allowed;
+  RDStation *cart_station;
+  RDSystem *cart_system;
+  QString cart_user_name;
+  QString cart_user_password;
+  RDBusyDialog *cart_busy_dialog;
 #ifndef WIN32
   RDSimplePlayer *cart_player;
 #endif  // WIN32

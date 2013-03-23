@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_gpi.cpp,v 1.17 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_gpi.cpp,v 1.17.8.1 2012/11/26 20:19:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -221,7 +221,8 @@ QSizePolicy EditGpi::sizePolicy() const
 void EditGpi::selectOnData()
 {
   int oncart=edit_onmacro_edit->text().toInt();
-  if(admin_cart_dialog->exec(&oncart,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&oncart,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     if(oncart>0) {
       RDCart *rdcart=new RDCart(oncart);
       edit_onmacro_edit->setText(QString().sprintf("%06d",oncart));
@@ -246,7 +247,8 @@ void EditGpi::clearOnData()
 void EditGpi::selectOffData()
 {
   int offcart=edit_offmacro_edit->text().toInt();
-  if(admin_cart_dialog->exec(&offcart,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&offcart,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     if(offcart>0) {
       RDCart *rdcart=new RDCart(offcart);
       edit_offmacro_edit->setText(QString().sprintf("%06d",offcart));

@@ -6,7 +6,7 @@
 ##
 ##   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.37 2010/08/04 23:07:01 cvs Exp $
+##      $Id: Makefile.am,v 1.37.8.3 2013/01/01 21:36:31 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -45,33 +45,53 @@ all:
 
 bin_PROGRAMS = rdlogedit
 
-dist_rdlogedit_SOURCES = rdlogedit.cpp rdlogedit.h globals.h\
+dist_rdlogedit_SOURCES = add_meta.cpp add_meta.h\
+                         edit_chain.cpp edit_chain.h\
                          edit_log.cpp edit_log.h\
                          edit_logline.cpp edit_logline.h\
                          edit_marker.cpp edit_marker.h\
                          edit_track.cpp edit_track.h\
-                         edit_chain.cpp edit_chain.h\
-                         add_meta.cpp add_meta.h\
-                         list_logs.cpp list_logs.h\
-                         voice_tracker.cpp voice_tracker.h\
                          import_track.cpp import_track.h\
-                         log_listview.cpp log_listview.h\
                          list_listviewitem.cpp list_listviewitem.h\
-                         list_reports.cpp list_reports.h
+                         list_reports.cpp list_reports.h\
+                         list_logs.cpp list_logs.h\
+                         log_listview.cpp log_listview.h\
+                         rdlogedit.cpp rdlogedit.h globals.h\
+                         voice_tracker.cpp voice_tracker.h
 
-nodist_rdlogedit_SOURCES = moc_rdlogedit.cpp\
-                           moc_edit_log.cpp moc_edit_logline.cpp\
-                           moc_edit_marker.cpp moc_edit_chain.cpp\
-                           moc_add_meta.cpp moc_list_logs.cpp\
-                           moc_edit_track.cpp moc_voice_tracker.cpp\
-                           moc_import_track.cpp moc_log_listview.cpp\
-                           moc_list_reports.cpp
+nodist_rdlogedit_SOURCES = moc_add_meta.cpp\
+                           moc_edit_chain.cpp\
+                           moc_edit_log.cpp\
+                           moc_edit_logline.cpp\
+                           moc_edit_marker.cpp\
+                           moc_edit_track.cpp\
+                           moc_import_track.cpp\
+                           moc_list_logs.cpp\
+                           moc_list_reports.cpp\
+                           moc_log_listview.cpp\
+                           moc_rdlogedit.cpp\
+                           moc_voice_tracker.cpp
 
 rdlogedit_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
-# rdlogedit_LDFLAGS = -static
 
-EXTRA_DIST = rdlogedit.pro rdlogedit_es.ts rdlogedit_fr.ts rdlogedit_de.ts\
-             rdlogedit_nb.ts rdlogedit_nn.ts rdlogedit_pt_BR.ts
+EXTRA_DIST = rdlogedit.pro\
+             rdlogedit_cs.ts\
+             rdlogedit_de.ts\
+             rdlogedit_es.ts\
+             rdlogedit_fr.ts\
+             rdlogedit_nb.ts\
+             rdlogedit_nn.ts\
+             rdlogedit_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.exe\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

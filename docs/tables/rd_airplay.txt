@@ -76,6 +76,7 @@ PANEL_PAUSE_ENABLED    enum('N','Y')
 BUTTON_LABEL_TEMPLATE  char(32)
 PAUSE_ENABLED          enum('N','Y')
 DEFAULT_SERVICE        char(10)          From SERVICES.NAME
+HOUR_SELECTOR_ENABLED  enum('N','Y')
 UDP_ADDR0              char(255)
 UDP_PORT0              int(10) unsigned
 UDP_STRING0            char(255)

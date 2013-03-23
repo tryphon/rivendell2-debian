@@ -1012,11 +1012,11 @@ Cartucho</translation>
     </message>
     <message>
         <source>RDLibrary - Host:</source>
-        <translation>RDLibrary - Servidor: </translation>
+        <translation type="obsolete">RDLibrary - Servidor: </translation>
     </message>
     <message>
         <source>, User:</source>
-        <translation>, Usuario:</translation>
+        <translation type="obsolete">, Usuario:</translation>
     </message>
     <message>
         <source>&amp;Rip
@@ -1095,6 +1095,14 @@ Do you still want to delete it?</source>
     <message>
         <source> Matches</source>
         <translation> hallazgos</translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

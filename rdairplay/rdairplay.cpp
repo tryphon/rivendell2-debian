@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.cpp,v 1.189 2012/02/13 19:26:16 cvs Exp $
+//      $Id: rdairplay.cpp,v 1.189.2.2 2013/01/07 15:35:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -71,6 +71,7 @@
 // Global Resources
 //
 RDStation *rdstation_conf;
+RDSystem *rdsystem_conf;
 RDAirPlayConf *rdairplay_conf;
 RDAudioPort *rdaudioport_conf;
 RDUser *rduser;
@@ -228,7 +229,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   air_config->load();
   logfile=air_config->airplayLogname();
 
-  str=QString(tr("RDAirPlay - Host:"));
+  str=QString("RDAirPlay")+" v"+VERSION+" - "+tr("Host:");
   setCaption(QString().sprintf("%s %s",(const char *)str,
 			       (const char *)air_config->stationName()));
 
@@ -262,6 +263,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Allocate Global Resources
   //
   rdstation_conf=new RDStation(air_config->stationName());
+  rdsystem_conf=new RDSystem();
   rdairplay_conf=new RDAirPlayConf(air_config->stationName(),0);
   rdairplay_previous_exit_code=rdairplay_conf->exitCode();
   rdairplay_conf->setExitCode(RDAirPlayConf::ExitDirty);
@@ -379,7 +381,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   rdcart_dialog=new RDCartDialog(&air_add_filter,&air_add_group,
 				 &air_add_schedcode,
 				 air_cue_card,air_cue_port,0,0,
-				 rdcae,rdripc,rdstation_conf,
+				 rdcae,rdripc,rdstation_conf,rdsystem_conf,
 				 rdstation_conf->editorPath(),
 				 this,"rdcart_dialog");
 
@@ -1818,7 +1820,8 @@ void MainWidget::SetCaption()
   if(log.isEmpty()) {
     log="--    ";
   }
-  setCaption(QString("RDAirPlay - Host:")+" "+air_config->stationName()+" "+
+  setCaption(QString("RDAirPlay")+" v"+VERSION+" - "+tr("Host")+": "+
+	     air_config->stationName()+" "+
 	     tr("User:")+" "+rdripc->user()+" "+
 	     tr("Log:")+" "+log.left(log.length()-4)+" "+
 	     tr("Service:")+" "+air_log[0]->serviceName());
@@ -1969,7 +1972,8 @@ void MainWidget::SetActionMode(StartButton::Mode mode)
 	if(air_panel!=NULL) {
 	  air_panel->setActionMode(RDAirPlayConf::Normal);
 	}
-	if(rdcart_dialog->exec(&air_add_cart,RDCart::All,0,0)==0) {
+	if(rdcart_dialog->exec(&air_add_cart,RDCart::All,0,0,
+			       rduser->name(),rduser->password())==0) {
 	  SetActionMode(StartButton::AddTo);
 	}
 	else {

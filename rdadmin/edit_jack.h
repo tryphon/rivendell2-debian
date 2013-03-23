@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2011 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_jack.h,v 1.2 2012/01/12 16:24:50 cvs Exp $
+//      $Id: edit_jack.h,v 1.2.4.4 2012/11/15 19:27:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,19 +24,16 @@
 #define EDIT_JACK_H
 
 #include <qdialog.h>
-#include <qlistbox.h>
+#include <qlistview.h>
 #include <qtextedit.h>
 #include <qpixmap.h>
-#include <qspinbox.h>
 #include <qcheckbox.h>
-#include <qsqldatabase.h>
 #include <qlineedit.h>
-#include <qcombobox.h>
-#include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
 
 #include <rdstation.h>
+#include <rdlistview.h>
 
 #define EDITJACK_DEFAULT_SERVERNAME QObject::tr("(default)")
 
@@ -49,6 +46,11 @@ class EditJack : public QDialog
   QSizePolicy sizePolicy() const;
 
  private slots:
+  void startJackData(bool state);
+  void addData();
+  void editData();
+  void deleteData();
+  void doubleClickedData(QListViewItem *item,const QPoint &pt,int col);
   void okData();
   void cancelData();
   
@@ -56,11 +58,19 @@ class EditJack : public QDialog
   void resizeEvent(QResizeEvent *e);
 
  private:
+  void RefreshList();
   QLabel *edit_start_jack_label;
   QCheckBox *edit_start_jack_box;
   QLabel *edit_jack_server_name_label;
   QLineEdit *edit_jack_server_name_edit;
+  QLabel *edit_jack_command_line_label;
+  QLineEdit *edit_jack_command_line_edit;
+  QLabel *edit_jack_client_label;
+  RDListView *edit_jack_client_view;
   RDStation *edit_station;
+  QPushButton *edit_add_button;
+  QPushButton *edit_edit_button;
+  QPushButton *edit_delete_button;
   QPushButton *edit_ok_button;
   QPushButton *edit_cancel_button;
 };

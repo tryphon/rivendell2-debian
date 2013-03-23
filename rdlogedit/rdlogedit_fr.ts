@@ -689,14 +689,6 @@ group for the specified service!</source>
 <context>
     <name>MainWidget</name>
     <message>
-        <source>RDLogEdit - Host</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>User: [Unknown]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Can&apos;t Connect</source>
         <translation type="unfinished"></translation>
     </message>
@@ -830,6 +822,14 @@ Continue?</source>
     <message>
         <source>This version of RDLogEdit is incompatible with the version installed on the server.
 See your system administrator for an update!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

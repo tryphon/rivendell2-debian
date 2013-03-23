@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.13 2010/08/04 23:07:02 cvs Exp $
+##      $Id: Makefile.am,v 1.13.8.2 2013/01/01 21:36:33 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -44,15 +44,31 @@ all:
 
 bin_PROGRAMS = rdgpimon
 
-dist_rdgpimon_SOURCES = rdgpimon.cpp rdgpimon.h\
-                        gpi_label.cpp gpi_label.h
+dist_rdgpimon_SOURCES = gpi_label.cpp gpi_label.h\
+                        rdgpimon.cpp rdgpimon.h
 
-nodist_rdgpimon_SOURCES = moc_rdgpimon.cpp moc_gpi_label.cpp
+nodist_rdgpimon_SOURCES = moc_gpi_label.cpp\
+                          moc_rdgpimon.cpp
 
 rdgpimon_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-EXTRA_DIST = rdgpimon.pro rdgpimon_es.ts rdgpimon_fr.ts rdgpimon_de.ts\
-             rdgpimon_nb.ts rdgpimon_nn.ts rdgpimon_pt_BR.ts
+EXTRA_DIST = rdgpimon.pro\
+             rdgpimon_cs.ts\
+             rdgpimon_de.ts\
+             rdgpimon_es.ts\
+             rdgpimon_fr.ts\
+             rdgpimon_nb.ts\
+             rdgpimon_nn.ts\
+             rdgpimon_pt_BR.ts
 
-CLEANFILES = *~ moc_* *.qm *.obj *.idb *.pdb *ilk
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*

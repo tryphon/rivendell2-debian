@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.16.4.3 2012/08/24 00:57:30 cvs Exp $
-##      $Date: 2012/08/24 00:57:30 $
+##      $Id: Makefile.am,v 1.16.4.4 2012/11/29 01:37:35 cvs Exp $
+##      $Date: 2012/11/29 01:37:35 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -47,4 +47,7 @@ EXTRA_DIST = my.cnf-master\
 
 CLEANFILES = *~
 DISTCLEANFILES = rdfeed.conf
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4
+MAINTAINERCLEANFILES = *~\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdlogedit.cpp,v 1.18 2010/09/13 15:37:12 cvs Exp $
+//      $Id: edit_rdlogedit.cpp,v 1.18.6.1 2012/11/26 20:19:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -374,7 +374,8 @@ void EditRDLogedit::selectStartData()
 {
   int cartnum=lib_startcart_edit->text().toInt();
 
-  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     lib_startcart_edit->setText(QString().sprintf("%d",cartnum));
   }
 }
@@ -383,7 +384,8 @@ void EditRDLogedit::selectStartData()
 void EditRDLogedit::selectEndData()
 {
   int cartnum=lib_endcart_edit->text().toInt();
-  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     lib_endcart_edit->setText(QString().sprintf("%d",cartnum));
   }
 }
@@ -392,7 +394,8 @@ void EditRDLogedit::selectEndData()
 void EditRDLogedit::selectRecordStartData()
 {
   int cartnum=lib_recstartcart_edit->text().toInt();
-  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     lib_recstartcart_edit->setText(QString().sprintf("%d",cartnum));
   }
 }
@@ -401,7 +404,8 @@ void EditRDLogedit::selectRecordStartData()
 void EditRDLogedit::selectRecordEndData()
 {
   int cartnum=lib_recendcart_edit->text().toInt();
-  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::Macro,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     lib_recendcart_edit->setText(QString().sprintf("%d",cartnum));
   }
 }

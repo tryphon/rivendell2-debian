@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdreport.cpp,v 1.27.4.3 2012/08/24 18:58:30 cvs Exp $
+//      $Id: rdreport.cpp,v 1.27.4.7 2013/01/22 20:59:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -29,6 +29,7 @@
 #include <rdescape_string.h>
 #include <rddb.h>
 #include <rdescape_string.h>
+#include <rddatedecode.h>
 
 RDReport::RDReport(const QString &rptname,QObject *parent,const char *name)
 {
@@ -242,7 +243,7 @@ RDReport::ErrorCode RDReport::errorCode() const
 
 
 bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
-			      RDStation *station)
+			      RDStation *station,QString *out_path)
 {
   QString sql;
   RDSqlQuery *q;
@@ -500,6 +501,10 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 	ret=ExportSoundEx(startdate,enddate,mixname);
 	break;
 
+      case RDReport::NprSoundExchange:
+	ret=ExportNprSoundEx(startdate,enddate,mixname);
+	break;
+
       case RDReport::RadioTraffic:
 	ret=ExportRadioTraffic(startdate,enddate,mixname);
 	break;
@@ -517,6 +522,10 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 	ret=ExportRadioTraffic(startdate,enddate,mixname);
 	break;
 
+      case RDReport::MusicPlayout:
+	ret=ExportMusicPlayout(startdate,enddate,mixname);
+	break;
+
       case RDReport::MusicSummary:
 	ret=ExportMusicSummary(startdate,enddate,mixname);
 	break;
@@ -525,6 +534,11 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 	return false;
 	break;
   }
+#ifdef WIN32
+  *out_path=RDDateDecode(exportPath(RDReport::Windows),startdate);
+#else
+  *out_path=RDDateDecode(exportPath(RDReport::Linux),startdate);
+#endif
   //printf("MIXDOWN TABLE: %s_SRT\n",(const char *)mixname);
   sql=QString().sprintf("drop table `%s_SRT`",(const char *)mixname);
   q=new RDSqlQuery(sql);
@@ -552,6 +566,9 @@ QString RDReport::filterText(RDReport::ExportFilter filter)
       case RDReport::SoundExchange:
 	return QObject::tr("SoundExchange Statutory License Report");
 
+      case RDReport::NprSoundExchange:
+	return QObject::tr("NPR/DS SoundExchange Report");
+
       case RDReport::RadioTraffic:
 	return QObject::tr("RadioTraffic.com Traffic Reconciliation");
 
@@ -563,6 +580,9 @@ QString RDReport::filterText(RDReport::ExportFilter filter)
 
       case RDReport::Music1:
 	return QObject::tr("Music1 Reconciliation");
+
+      case RDReport::MusicPlayout:
+	return QObject::tr("Music Playout");
 
       case RDReport::MusicSummary:
 	return QObject::tr("Music Summary");
@@ -606,11 +626,13 @@ bool RDReport::multipleDaysAllowed(RDReport::ExportFilter filter)
   case RDReport::CounterPoint:
   case RDReport::LastFilter:
   case RDReport::Music1:
+  case RDReport::MusicPlayout:
   case RDReport::WideOrbit:
     return false;
 
   case RDReport::BmiEmr:
   case RDReport::SoundExchange:
+  case RDReport::NprSoundExchange:
   case RDReport::Technical:
   case RDReport::MusicSummary:
     return true;
@@ -630,10 +652,12 @@ bool RDReport::multipleMonthsAllowed(RDReport::ExportFilter filter)
   case RDReport::CounterPoint:
   case RDReport::LastFilter:
   case RDReport::Music1:
+  case RDReport::MusicPlayout:
   case RDReport::WideOrbit:
     return false;
     
   case RDReport::SoundExchange:
+  case RDReport::NprSoundExchange:
   case RDReport::Technical:
   case RDReport::MusicSummary:
     return true;
@@ -658,6 +682,18 @@ QString RDReport::errorText(RDReport::ErrorCode code)
 	ret=QObject::tr("Unable to open report file!");
 	break;
   }
+  return ret;
+}
+
+
+QString RDReport::StringField(const QString &str) const
+{
+  QString ret="[unknown]";
+
+  if(!str.isEmpty()) {
+    ret=str;
+  }
+
   return ret;
 }
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_now_next.cpp,v 1.10 2012/02/13 19:26:14 cvs Exp $
+//      $Id: edit_now_next.cpp,v 1.10.2.1 2012/11/26 20:19:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -512,7 +512,8 @@ void EditNowNext::pluginDoubleClickedData(QListViewItem *item,const QPoint &pt,
 void EditNowNext::editNowcartData(int lognum)
 {
   int cartnum=nownext_nowcart_edit[lognum]->text().toInt();
-  if(admin_cart_dialog->exec(&cartnum,RDCart::All,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::All,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     nownext_nowcart_edit[lognum]->setText(QString().sprintf("%06d",cartnum));
   }
 }
@@ -521,7 +522,8 @@ void EditNowNext::editNowcartData(int lognum)
 void EditNowNext::editNextcartData(int lognum)
 {
   int cartnum=nownext_nextcart_edit[lognum]->text().toInt();
-  if(admin_cart_dialog->exec(&cartnum,RDCart::All,NULL,0)==0) {
+  if(admin_cart_dialog->exec(&cartnum,RDCart::All,NULL,0,
+			     admin_user->name(),admin_user->password())==0) {
     nownext_nextcart_edit[lognum]->setText(QString().sprintf("%06d",cartnum));
   }
 }

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdgroup.cpp,v 1.23 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdgroup.cpp,v 1.23.8.1 2013/01/07 13:50:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -120,6 +120,19 @@ int RDGroup::cutShelflife() const
 void RDGroup::setCutShelflife(int days) const
 {
   SetRow("CUT_SHELFLIFE",days);
+}
+
+
+bool RDGroup::deleteEmptyCarts() const
+{
+  return RDBool(RDGetSqlValue("GROUPS","NAME",group_name,"DELETE_EMPTY_CARTS",
+			    group_db).toString());
+}
+
+
+void RDGroup::setDeleteEmptyCarts(bool state) const
+{
+  SetRow("DELETE_EMPTY_CARTS",RDYesNo(state));
 }
 
 

@@ -701,11 +701,11 @@ Gruppe des ausgewählten Service!</translation>
     <name>MainWidget</name>
     <message>
         <source>RDLogEdit - Host</source>
-        <translation>RDLogEdit - Host</translation>
+        <translation type="obsolete">RDLogEdit - Host</translation>
     </message>
     <message>
         <source>User: [Unknown]</source>
-        <translation>Benutzer: [Unbekannt]</translation>
+        <translation type="obsolete">Benutzer: [Unbekannt]</translation>
     </message>
     <message>
         <source>Can&apos;t Connect</source>
@@ -844,6 +844,14 @@ Fortfahren?</translation>
     <message>
         <source>This version of RDLogEdit is incompatible with the version installed on the server.
 See your system administrator for an update!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

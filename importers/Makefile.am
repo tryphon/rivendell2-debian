@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.18.8.1 2012/07/15 22:35:54 cvs Exp $
-##      $Date: 2012/07/15 22:35:54 $
+##      $Id: Makefile.am,v 1.18.8.2 2012/11/29 01:37:35 cvs Exp $
+##      $Date: 2012/11/29 01:37:35 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -32,8 +32,28 @@ MOC = @QT_MOC@
 moc_%.cpp:	%.h
 	$(MOC) $< -o $@
 
-bin_PROGRAMS = sas_filter wings_filter rivendell_filter rdcatch_copy \
-               panel_copy nexgen_filter
+bin_PROGRAMS = nexgen_filter\
+               panel_copy\
+               rdcatch_copy\
+               rivendell_filter\
+               sas_filter\
+               wings_filter
+
+dist_nexgen_filter_SOURCES = nexgen_filter.cpp nexgen_filter.h
+nodist_nexgen_filter_SOURCES = moc_nexgen_filter.cpp
+nexgen_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+
+dist_panel_copy_SOURCES = panel_copy.cpp panel_copy.h
+nodist_panel_copy_SOURCES = moc_panel_copy.cpp
+panel_copy_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+
+dist_rdcatch_copy_SOURCES = rdcatch_copy.cpp rdcatch_copy.h
+nodist_rdcatch_copy_SOURCES = moc_rdcatch_copy.cpp
+rdcatch_copy_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+
+dist_rivendell_filter_SOURCES = rivendell_filter.cpp rivendell_filter.h
+nodist_rivendell_filter_SOURCES = moc_rivendell_filter.cpp
+rivendell_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 dist_sas_filter_SOURCES = sas_filter.cpp sas_filter.h
 nodist_sas_filter_SOURCES = moc_sas_filter.cpp
@@ -43,23 +63,14 @@ dist_wings_filter_SOURCES = wings_filter.cpp wings_filter.h
 nodist_wings_filter_SOURCES = moc_wings_filter.cpp
 wings_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
-dist_rivendell_filter_SOURCES = rivendell_filter.cpp rivendell_filter.h
-nodist_rivendell_filter_SOURCES = moc_rivendell_filter.cpp
-rivendell_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
-
-dist_nexgen_filter_SOURCES = nexgen_filter.cpp nexgen_filter.h
-nodist_nexgen_filter_SOURCES = moc_nexgen_filter.cpp
-nexgen_filter_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
-
-dist_rdcatch_copy_SOURCES = rdcatch_copy.cpp rdcatch_copy.h
-nodist_rdcatch_copy_SOURCES = moc_rdcatch_copy.cpp
-rdcatch_copy_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
-
-dist_panel_copy_SOURCES = panel_copy.cpp panel_copy.h
-nodist_panel_copy_SOURCES = moc_panel_copy.cpp
-panel_copy_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
-
 EXTRA_DIST = export_slax
 
-CLEANFILES = *~ moc_*
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 *.tar.gz moc_*
+CLEANFILES = *~\
+             moc_*
+
+MAINTAINERCLEANFILES = *~\
+                       aclocal.m4\
+                       configure\
+                       Makefile.in\
+                       moc_*\
+                       *.tar.gz

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_decks.h,v 1.15 2010/09/13 15:37:12 cvs Exp $
+//      $Id: edit_decks.h,v 1.15.6.1 2012/11/28 18:49:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -75,7 +75,6 @@ class EditDecks : public QDialog
    QComboBox *edit_play_deck_box;
    RDCardSelector *edit_record_selector;
    RDCardSelector *edit_play_selector;
-   RDCardSelector *edit_audition_selector;
    QLabel *edit_monitor_label;
    QSpinBox *edit_monitor_box;
    QLabel *edit_default_on_label;

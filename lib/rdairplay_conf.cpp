@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay_conf.cpp,v 1.35 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdairplay_conf.cpp,v 1.35.8.1 2012/11/13 23:45:09 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -362,6 +362,20 @@ QString RDAirPlayConf::defaultSvc() const
 void RDAirPlayConf::setDefaultSvc(const QString &svcname) const
 {
   SetRow("DEFAULT_SERVICE",svcname);
+}
+
+
+bool RDAirPlayConf::hourSelectorEnabled() const
+{
+  return 
+    RDBool(RDGetSqlValue(air_tablename,"ID",air_id,"HOUR_SELECTOR_ENABLED").
+	   toString());
+}
+
+
+void RDAirPlayConf::setHourSelectorEnabled(bool state) const
+{
+  SetRow("HOUR_SELECTOR_ENABLED",RDYesNo(state));
 }
 
 
