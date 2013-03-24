@@ -1,3 +1,9 @@
+rivendell (2.4.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Alban Peignier <alban@tryphon.eu>  Sun, 24 Mar 2013 09:45:13 +0100
+
 rivendell (2.2.1-1) unstable; urgency=low
 
   * Provides RLM in rivendell packages (fixes #616)
