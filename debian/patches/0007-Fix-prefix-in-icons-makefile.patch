@@ -7,7 +7,7 @@ Subject: Fix prefix in icons makefile
  1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/icons/Makefile.am b/icons/Makefile.am
-index bd322b6..a7c2332 100644
+index 7671450..75c8760 100644
 --- a/icons/Makefile.am
 +++ b/icons/Makefile.am
 @@ -31,18 +31,18 @@ install-exec-am:
@@ -58,5 +58,5 @@ index bd322b6..a7c2332 100644
 +	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
 +	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/128x128/apps/rivendell-128x128.xpm
  
- EXTRA_DIST = rivendell.res play.xpm macro.xpm\
-              fillstart.xpm fillstop.xpm\
+ EXTRA_DIST = admin.xpm\
+              blueball.xpm\

@@ -7,7 +7,7 @@ Subject: Fix prefix in rdselect makefile
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/rdselect/Makefile.am b/rdselect/Makefile.am
-index 8857131..bdc3366 100644
+index 15d6c37..f93d476 100644
 --- a/rdselect/Makefile.am
 +++ b/rdselect/Makefile.am
 @@ -35,7 +35,7 @@ moc_%.cpp:	%.h
