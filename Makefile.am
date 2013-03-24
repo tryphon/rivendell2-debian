@@ -37,7 +37,6 @@ SUBDIRS = icons\
           $(HPI_RD_OPT) $(PAM_RD_OPT) rlm\
           scripts\
           conf\
-          debian\
           docs\
           xdg\
           cae\
