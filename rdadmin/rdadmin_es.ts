@@ -1207,7 +1207,7 @@ computador para obtener los recursos de audio de dicho equipo.</translation>
     </message>
     <message>
         <source>The EndDate Offset is less than the Start Date Offset!</source>
-        <translation>¡La fecha de fin, al desplazarse, ocurre antes que la fecha de inicio!</translation>
+        <translation type="obsolete">¡La fecha de fin, al desplazarse, ocurre antes que la fecha de inicio!</translation>
     </message>
 </context>
 <context>
@@ -1856,6 +1856,45 @@ Do you still want to save?</source>
     </message>
 </context>
 <context>
+    <name>EditLiveWireGpio</name>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Ninguno</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>Edit GPIO Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Livewire Source: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPIO Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Surface Address: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid IP Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The IP address is invalid!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditMatrix</name>
     <message>
         <source>Edit Switcher</source>
@@ -2042,6 +2081,11 @@ SAS</translation>
     </message>
     <message>
         <source>RDAdmin - Edit Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LiveWire
+GPIOs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2468,6 +2512,11 @@ servicios de Rivendell en el equipo configurado para ejecutar el servicio CAE. <
     </message>
     <message>
         <source>Show Hour Selector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit
+GPIOs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4544,6 +4593,49 @@ Do you still want to delete it?</source>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
+    <name>ListLiveWireGpios</name>
+    <message>
+        <source>LiveWire GPIO Source Assignments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switchers:</source>
+        <translation type="unfinished">Suicheras:</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Editar</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Aceptar</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancelar</translation>
+    </message>
+    <message>
+        <source>[none]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Surface Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[all]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source #</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

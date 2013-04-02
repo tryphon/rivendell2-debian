@@ -55,34 +55,37 @@ dist_rdadmin_OBJECTS = add_aux_field.$(OBJEXT) add_encoder.$(OBJEXT) \
 	autofill_carts.$(OBJEXT) createdb.$(OBJEXT) \
 	edit_audios.$(OBJEXT) edit_aux_field.$(OBJEXT) \
 	edit_backup.$(OBJEXT) edit_cartslots.$(OBJEXT) \
-	edit_decks.$(OBJEXT) edit_dropbox.$(OBJEXT) \
-	edit_encoder.$(OBJEXT) edit_endpoint.$(OBJEXT) \
-	edit_feed.$(OBJEXT) edit_feed_perms.$(OBJEXT) \
-	edit_gpi.$(OBJEXT) edit_group.$(OBJEXT) edit_hostvar.$(OBJEXT) \
+	edit_channelgpios.$(OBJEXT) edit_decks.$(OBJEXT) \
+	edit_dropbox.$(OBJEXT) edit_encoder.$(OBJEXT) \
+	edit_endpoint.$(OBJEXT) edit_feed.$(OBJEXT) \
+	edit_feed_perms.$(OBJEXT) edit_gpi.$(OBJEXT) \
+	edit_group.$(OBJEXT) edit_hostvar.$(OBJEXT) \
 	edit_hotkeys.$(OBJEXT) edit_jack.$(OBJEXT) \
-	edit_jack_client.$(OBJEXT) edit_matrix.$(OBJEXT) \
-	edit_node.$(OBJEXT) edit_now_next.$(OBJEXT) \
-	edit_nownextplugin.$(OBJEXT) edit_rdairplay.$(OBJEXT) \
-	edit_rdlibrary.$(OBJEXT) edit_rdlogedit.$(OBJEXT) \
-	edit_rdpanel.$(OBJEXT) edit_replicator.$(OBJEXT) \
-	edit_report.$(OBJEXT) edit_sas_resource.$(OBJEXT) \
-	edit_schedcodes.$(OBJEXT) edit_settings.$(OBJEXT) \
-	edit_station.$(OBJEXT) edit_svc.$(OBJEXT) \
-	edit_svc_perms.$(OBJEXT) edit_ttys.$(OBJEXT) \
-	edit_user.$(OBJEXT) edit_user_perms.$(OBJEXT) \
-	edit_vguest_resource.$(OBJEXT) help_audios.$(OBJEXT) \
-	importfields.$(OBJEXT) info_dialog.$(OBJEXT) \
-	list_aux_fields.$(OBJEXT) list_dropboxes.$(OBJEXT) \
-	list_encoders.$(OBJEXT) list_endpoints.$(OBJEXT) \
-	list_feeds.$(OBJEXT) list_gpis.$(OBJEXT) list_groups.$(OBJEXT) \
-	list_hostvars.$(OBJEXT) list_matrices.$(OBJEXT) \
-	list_nodes.$(OBJEXT) list_replicator_carts.$(OBJEXT) \
-	list_replicators.$(OBJEXT) list_reports.$(OBJEXT) \
-	list_sas_resources.$(OBJEXT) list_schedcodes.$(OBJEXT) \
-	list_stations.$(OBJEXT) list_svcs.$(OBJEXT) \
-	list_users.$(OBJEXT) list_vguest_resources.$(OBJEXT) \
-	login.$(OBJEXT) mysql_login.$(OBJEXT) opendb.$(OBJEXT) \
-	rdadmin.$(OBJEXT) rename_group.$(OBJEXT) test_import.$(OBJEXT) \
+	edit_jack_client.$(OBJEXT) edit_livewiregpio.$(OBJEXT) \
+	edit_matrix.$(OBJEXT) edit_node.$(OBJEXT) \
+	edit_now_next.$(OBJEXT) edit_nownextplugin.$(OBJEXT) \
+	edit_rdairplay.$(OBJEXT) edit_rdlibrary.$(OBJEXT) \
+	edit_rdlogedit.$(OBJEXT) edit_rdpanel.$(OBJEXT) \
+	edit_replicator.$(OBJEXT) edit_report.$(OBJEXT) \
+	edit_sas_resource.$(OBJEXT) edit_schedcodes.$(OBJEXT) \
+	edit_settings.$(OBJEXT) edit_station.$(OBJEXT) \
+	edit_svc.$(OBJEXT) edit_svc_perms.$(OBJEXT) \
+	edit_ttys.$(OBJEXT) edit_user.$(OBJEXT) \
+	edit_user_perms.$(OBJEXT) edit_vguest_resource.$(OBJEXT) \
+	help_audios.$(OBJEXT) importfields.$(OBJEXT) \
+	info_dialog.$(OBJEXT) list_aux_fields.$(OBJEXT) \
+	list_dropboxes.$(OBJEXT) list_encoders.$(OBJEXT) \
+	list_endpoints.$(OBJEXT) list_feeds.$(OBJEXT) \
+	list_gpis.$(OBJEXT) list_groups.$(OBJEXT) \
+	list_hostvars.$(OBJEXT) list_livewiregpios.$(OBJEXT) \
+	list_matrices.$(OBJEXT) list_nodes.$(OBJEXT) \
+	list_replicator_carts.$(OBJEXT) list_replicators.$(OBJEXT) \
+	list_reports.$(OBJEXT) list_sas_resources.$(OBJEXT) \
+	list_schedcodes.$(OBJEXT) list_stations.$(OBJEXT) \
+	list_svcs.$(OBJEXT) list_users.$(OBJEXT) \
+	list_vguest_resources.$(OBJEXT) login.$(OBJEXT) \
+	mysql_login.$(OBJEXT) opendb.$(OBJEXT) rdadmin.$(OBJEXT) \
+	rename_group.$(OBJEXT) test_import.$(OBJEXT) \
 	view_adapters.$(OBJEXT) view_node_info.$(OBJEXT)
 nodist_rdadmin_OBJECTS = moc_add_aux_field.$(OBJEXT) \
 	moc_add_encoder.$(OBJEXT) moc_add_feed.$(OBJEXT) \
@@ -93,12 +96,13 @@ nodist_rdadmin_OBJECTS = moc_add_aux_field.$(OBJEXT) \
 	moc_add_user.$(OBJEXT) moc_autofill_carts.$(OBJEXT) \
 	moc_edit_audios.$(OBJEXT) moc_edit_aux_field.$(OBJEXT) \
 	moc_edit_backup.$(OBJEXT) moc_edit_cartslots.$(OBJEXT) \
-	moc_edit_decks.$(OBJEXT) moc_edit_dropbox.$(OBJEXT) \
-	moc_edit_encoder.$(OBJEXT) moc_edit_endpoint.$(OBJEXT) \
-	moc_edit_feed.$(OBJEXT) moc_edit_feed_perms.$(OBJEXT) \
-	moc_edit_gpi.$(OBJEXT) moc_edit_group.$(OBJEXT) \
-	moc_edit_hostvar.$(OBJEXT) moc_edit_hotkeys.$(OBJEXT) \
-	moc_edit_jack.$(OBJEXT) moc_edit_jack_client.$(OBJEXT) \
+	moc_edit_channelgpios.$(OBJEXT) moc_edit_decks.$(OBJEXT) \
+	moc_edit_dropbox.$(OBJEXT) moc_edit_encoder.$(OBJEXT) \
+	moc_edit_endpoint.$(OBJEXT) moc_edit_feed.$(OBJEXT) \
+	moc_edit_feed_perms.$(OBJEXT) moc_edit_gpi.$(OBJEXT) \
+	moc_edit_group.$(OBJEXT) moc_edit_hostvar.$(OBJEXT) \
+	moc_edit_hotkeys.$(OBJEXT) moc_edit_jack.$(OBJEXT) \
+	moc_edit_jack_client.$(OBJEXT) moc_edit_livewiregpio.$(OBJEXT) \
 	moc_edit_matrix.$(OBJEXT) moc_edit_node.$(OBJEXT) \
 	moc_edit_now_next.$(OBJEXT) moc_edit_nownextplugin.$(OBJEXT) \
 	moc_edit_rdairplay.$(OBJEXT) moc_edit_rdlibrary.$(OBJEXT) \
@@ -115,8 +119,8 @@ nodist_rdadmin_OBJECTS = moc_add_aux_field.$(OBJEXT) \
 	moc_list_encoders.$(OBJEXT) moc_list_endpoints.$(OBJEXT) \
 	moc_list_feeds.$(OBJEXT) moc_list_gpis.$(OBJEXT) \
 	moc_list_groups.$(OBJEXT) moc_list_hostvars.$(OBJEXT) \
-	moc_list_matrices.$(OBJEXT) moc_list_nodes.$(OBJEXT) \
-	moc_list_replicator_carts.$(OBJEXT) \
+	moc_list_livewiregpios.$(OBJEXT) moc_list_matrices.$(OBJEXT) \
+	moc_list_nodes.$(OBJEXT) moc_list_replicator_carts.$(OBJEXT) \
 	moc_list_replicators.$(OBJEXT) moc_list_reports.$(OBJEXT) \
 	moc_list_sas_resources.$(OBJEXT) moc_list_schedcodes.$(OBJEXT) \
 	moc_list_stations.$(OBJEXT) moc_list_svcs.$(OBJEXT) \
@@ -349,6 +353,7 @@ dist_rdadmin_SOURCES = add_aux_field.cpp add_aux_field.h\
                        edit_aux_field.cpp edit_aux_field.h\
                        edit_backup.cpp edit_backup.h\
                        edit_cartslots.cpp edit_cartslots.h\
+                       edit_channelgpios.cpp edit_channelgpios.h\
                        edit_decks.cpp edit_decks.h\
                        edit_dropbox.cpp edit_dropbox.h\
                        edit_encoder.cpp edit_encoder.h\
@@ -361,6 +366,7 @@ dist_rdadmin_SOURCES = add_aux_field.cpp add_aux_field.h\
                        edit_hotkeys.cpp edit_hotkeys.h\
                        edit_jack.cpp edit_jack.h\
                        edit_jack_client.cpp edit_jack_client.h\
+                       edit_livewiregpio.cpp edit_livewiregpio.h\
                        edit_matrix.cpp edit_matrix.h\
                        edit_node.cpp edit_node.h\
                        edit_now_next.cpp edit_now_next.h\
@@ -393,6 +399,7 @@ dist_rdadmin_SOURCES = add_aux_field.cpp add_aux_field.h\
                        list_gpis.cpp list_gpis.h\
                        list_groups.cpp list_groups.h\
                        list_hostvars.cpp list_hostvars.h\
+                       list_livewiregpios.cpp list_livewiregpios.h\
                        list_matrices.cpp list_matrices.h\
                        list_nodes.cpp list_nodes.h\
                        list_replicator_carts.cpp list_replicator_carts.h\
@@ -430,6 +437,7 @@ nodist_rdadmin_SOURCES = moc_add_aux_field.cpp\
                          moc_edit_aux_field.cpp\
                          moc_edit_backup.cpp\
                          moc_edit_cartslots.cpp\
+                         moc_edit_channelgpios.cpp\
                          moc_edit_decks.cpp\
                          moc_edit_dropbox.cpp\
                          moc_edit_encoder.cpp\
@@ -442,6 +450,7 @@ nodist_rdadmin_SOURCES = moc_add_aux_field.cpp\
                          moc_edit_hotkeys.cpp\
                          moc_edit_jack.cpp\
                          moc_edit_jack_client.cpp\
+                         moc_edit_livewiregpio.cpp\
                          moc_edit_matrix.cpp\
                          moc_edit_node.cpp\
                          moc_edit_now_next.cpp\
@@ -473,6 +482,7 @@ nodist_rdadmin_SOURCES = moc_add_aux_field.cpp\
                          moc_list_gpis.cpp\
                          moc_list_groups.cpp\
                          moc_list_hostvars.cpp\
+                         moc_list_livewiregpios.cpp\
                          moc_list_matrices.cpp\
                          moc_list_nodes.cpp\
                          moc_list_replicator_carts.cpp\
@@ -622,6 +632,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_aux_field.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_backup.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_cartslots.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_channelgpios.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_decks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_dropbox.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_encoder.Po@am__quote@
@@ -634,6 +645,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_hotkeys.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_jack.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_jack_client.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_livewiregpio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_matrix.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_node.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_now_next.Po@am__quote@
@@ -665,6 +677,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_gpis.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_groups.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_hostvars.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_livewiregpios.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_matrices.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_nodes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_replicator_carts.Po@am__quote@
@@ -694,6 +707,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_aux_field.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_backup.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_cartslots.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_channelgpios.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_decks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_dropbox.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_encoder.Po@am__quote@
@@ -706,6 +720,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_hotkeys.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_jack.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_jack_client.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_livewiregpio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_matrix.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_node.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_now_next.Po@am__quote@
@@ -737,6 +752,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_gpis.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_groups.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_hostvars.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_livewiregpios.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_matrices.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_nodes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_replicator_carts.Po@am__quote@

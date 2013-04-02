@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_dropbox.cpp,v 1.11.8.1 2012/11/26 20:19:38 cvs Exp $
+//      $Id: edit_dropbox.cpp,v 1.11.8.2 2013/02/05 16:49:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -476,19 +476,14 @@ void EditDropbox::createDatesToggledData(bool state)
 
 void EditDropbox::okData()
 {
-
+  //
   //  Validate End Date Offsets
   //
-  if (box_create_startdate_offset_spin->value() > box_create_enddate_offset_spin->value()) {
-     QMessageBox::warning(this,tr("Invalid Offsets"),
-           tr("The Create EndDate Offset is less than the Create Start Date Offset!"));
-     return;
-  }
-
-  if (box_startoffset_spin->value() > box_endoffset_spin->value()) {
-     QMessageBox::warning(this,tr("Invalid Offsets"),
-           tr("The EndDate Offset is less than the Start Date Offset!"));
-     return;
+  if(box_create_startdate_offset_spin->value()>
+     box_create_enddate_offset_spin->value()) {
+    QMessageBox::warning(this,tr("Invalid Offsets"),
+    tr("The Create EndDate Offset is less than the Create Start Date Offset!"));
+    return;
   }
 
   box_dropbox->setGroupName(box_group_name_box->currentText());

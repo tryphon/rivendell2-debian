@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.72.4.4 2013/01/01 21:36:30 cvs Exp $
+##      $Id: Makefile.am,v 1.72.4.6 2013/03/09 00:21:11 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -64,6 +64,7 @@ dist_rdadmin_SOURCES = add_aux_field.cpp add_aux_field.h\
                        edit_aux_field.cpp edit_aux_field.h\
                        edit_backup.cpp edit_backup.h\
                        edit_cartslots.cpp edit_cartslots.h\
+                       edit_channelgpios.cpp edit_channelgpios.h\
                        edit_decks.cpp edit_decks.h\
                        edit_dropbox.cpp edit_dropbox.h\
                        edit_encoder.cpp edit_encoder.h\
@@ -76,6 +77,7 @@ dist_rdadmin_SOURCES = add_aux_field.cpp add_aux_field.h\
                        edit_hotkeys.cpp edit_hotkeys.h\
                        edit_jack.cpp edit_jack.h\
                        edit_jack_client.cpp edit_jack_client.h\
+                       edit_livewiregpio.cpp edit_livewiregpio.h\
                        edit_matrix.cpp edit_matrix.h\
                        edit_node.cpp edit_node.h\
                        edit_now_next.cpp edit_now_next.h\
@@ -108,6 +110,7 @@ dist_rdadmin_SOURCES = add_aux_field.cpp add_aux_field.h\
                        list_gpis.cpp list_gpis.h\
                        list_groups.cpp list_groups.h\
                        list_hostvars.cpp list_hostvars.h\
+                       list_livewiregpios.cpp list_livewiregpios.h\
                        list_matrices.cpp list_matrices.h\
                        list_nodes.cpp list_nodes.h\
                        list_replicator_carts.cpp list_replicator_carts.h\
@@ -145,6 +148,7 @@ nodist_rdadmin_SOURCES = moc_add_aux_field.cpp\
                          moc_edit_aux_field.cpp\
                          moc_edit_backup.cpp\
                          moc_edit_cartslots.cpp\
+                         moc_edit_channelgpios.cpp\
                          moc_edit_decks.cpp\
                          moc_edit_dropbox.cpp\
                          moc_edit_encoder.cpp\
@@ -157,6 +161,7 @@ nodist_rdadmin_SOURCES = moc_add_aux_field.cpp\
                          moc_edit_hotkeys.cpp\
                          moc_edit_jack.cpp\
                          moc_edit_jack_client.cpp\
+                         moc_edit_livewiregpio.cpp\
                          moc_edit_matrix.cpp\
                          moc_edit_node.cpp\
                          moc_edit_now_next.cpp\
@@ -188,6 +193,7 @@ nodist_rdadmin_SOURCES = moc_add_aux_field.cpp\
                          moc_list_gpis.cpp\
                          moc_list_groups.cpp\
                          moc_list_hostvars.cpp\
+                         moc_list_livewiregpios.cpp\
                          moc_list_matrices.cpp\
                          moc_list_nodes.cpp\
                          moc_list_replicator_carts.cpp\

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: sas32000.cpp,v 1.14 2010/08/03 23:39:26 cvs Exp $
+//      $Id: sas32000.cpp,v 1.14.8.1 2013/03/03 22:58:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -149,7 +149,7 @@ void Sas32000::runQueue()
 }
 
 
-void Sas32000::SendCommand(RDMacro *cmd,char *format)
+void Sas32000::SendCommand(RDMacro *cmd,const char *format)
 {
   char str[8];
 

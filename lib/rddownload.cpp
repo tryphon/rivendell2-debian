@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddownload.cpp,v 1.5.4.1 2012/05/10 23:12:42 cvs Exp $
+//      $Id: rddownload.cpp,v 1.5.4.2 2013/01/30 15:03:53 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -141,6 +141,7 @@ RDDownload::ErrorCode RDDownload::runDownload(const QString &username,
   strncpy(userpwd,username+":"+password,256);
   curl_easy_setopt(curl,CURLOPT_USERPWD,userpwd);
   curl_easy_setopt(curl,CURLOPT_TIMEOUT,RD_CURL_TIMEOUT);
+  curl_easy_setopt(curl,CURLOPT_FOLLOWLOCATION,1);
   curl_easy_setopt(curl,CURLOPT_PROGRESSFUNCTION,DownloadProgressCallback);
   curl_easy_setopt(curl,CURLOPT_PROGRESSDATA,this);
   curl_easy_setopt(curl,CURLOPT_NOPROGRESS,0);

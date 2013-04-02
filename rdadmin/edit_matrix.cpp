@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_matrix.cpp,v 1.36.6.3 2012/12/10 15:40:14 cvs Exp $
+//      $Id: edit_matrix.cpp,v 1.36.6.5 2013/03/05 23:59:07 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,6 +40,7 @@
 #include "list_endpoints.h"
 #include "list_gpis.h"
 #include "list_nodes.h"
+#include "list_livewiregpios.h"
 #include "list_vguest_resources.h"
 #include "list_sas_resources.h"
 
@@ -485,10 +486,20 @@ EditMatrix::EditMatrix(RDMatrix *matrix,QWidget *parent,const char *name)
 	  this,SLOT(livewireButtonData()));
 
   //
+  //  Livewire GPIOs Button
+  //
+  edit_livewire_gpio_button=new QPushButton(this);
+  edit_livewire_gpio_button->setGeometry(125,506,80,50);
+  edit_livewire_gpio_button->setFont(bold_font);
+  edit_livewire_gpio_button->setText(tr("LiveWire\nGPIOs"));
+  connect(edit_livewire_gpio_button,SIGNAL(clicked()),
+	  this,SLOT(livewireGpioButtonData()));
+
+  //
   //  vGuest Switches Button
   //
   edit_vguestrelays_button=new QPushButton(this);
-  edit_vguestrelays_button->setGeometry(125,506,80,50);
+  edit_vguestrelays_button->setGeometry(215,506,80,50);
   edit_vguestrelays_button->setFont(bold_font);
   edit_vguestrelays_button->setText(tr("vGuest\nSwitches"));
   connect(edit_vguestrelays_button,SIGNAL(clicked()),
@@ -498,7 +509,7 @@ EditMatrix::EditMatrix(RDMatrix *matrix,QWidget *parent,const char *name)
   //  vGuest Displays Button
   //
   edit_vguestdisplays_button=new QPushButton(this);
-  edit_vguestdisplays_button->setGeometry(215,506,80,50);
+  edit_vguestdisplays_button->setGeometry(305,506,80,50);
   edit_vguestdisplays_button->setFont(bold_font);
   edit_vguestdisplays_button->setText(tr("vGuest\nDisplays"));
   connect(edit_vguestdisplays_button,SIGNAL(clicked()),
@@ -508,7 +519,7 @@ EditMatrix::EditMatrix(RDMatrix *matrix,QWidget *parent,const char *name)
   //  SAS Switches Button
   //
   edit_sasresources_button=new QPushButton(this);
-  edit_sasresources_button->setGeometry(305,506,80,50);
+  edit_sasresources_button->setGeometry(170,561,80,50);
   edit_sasresources_button->setFont(bold_font);
   edit_sasresources_button->setText(tr("SAS\nSwitches"));
   connect(edit_sasresources_button,SIGNAL(clicked()),
@@ -758,11 +769,15 @@ EditMatrix::EditMatrix(RDMatrix *matrix,QWidget *parent,const char *name)
     setEnabled(RDMatrix::controlActive(type,RDMatrix::GpisControl));
   edit_gpis_box->
     setEnabled(RDMatrix::controlActive(type,RDMatrix::GpisControl));
+  edit_gpis_box->
+    setLineStep(RDMatrix::defaultControlValue(type,RDMatrix::GpioStepSize));
 
   edit_gpos_label->
     setEnabled(RDMatrix::controlActive(type,RDMatrix::GposControl));
   edit_gpos_box->
     setEnabled(RDMatrix::controlActive(type,RDMatrix::GposControl));
+  edit_gpos_box->
+    setLineStep(RDMatrix::defaultControlValue(type,RDMatrix::GpioStepSize));
 
   edit_displays_label->
     setEnabled(RDMatrix::controlActive(type,RDMatrix::DisplaysControl));
@@ -782,6 +797,8 @@ EditMatrix::EditMatrix(RDMatrix *matrix,QWidget *parent,const char *name)
     setEnabled(RDMatrix::controlActive(type,RDMatrix::GposButtonControl));
   edit_livewire_button->
     setEnabled(RDMatrix::controlActive(type,RDMatrix::NodesButtonControl));
+  edit_livewire_gpio_button->
+    setEnabled(RDMatrix::controlActive(type,RDMatrix::LivewireGpioButtonControl));
   edit_vguestrelays_button->
     setEnabled(RDMatrix::controlActive(type,
 				       RDMatrix::VguestSwitchesButtonControl));
@@ -794,12 +811,14 @@ EditMatrix::EditMatrix(RDMatrix *matrix,QWidget *parent,const char *name)
 
   portTypeActivatedData(edit_porttype_box->currentItem());
   portType2ActivatedData(edit_porttype2_box->currentItem());
+  gpisChangedData(edit_gpis_box->value());
+  gposChangedData(edit_gpos_box->value());
 }
 
 
 QSize EditMatrix::sizeHint() const
 {
-  return QSize(420,636);
+  return QSize(420,686);
 } 
 
 
@@ -1052,13 +1071,22 @@ void EditMatrix::gposChangedData(int value)
 			     RDMatrix::GpioInputsLinkedControl)) {
     edit_inputs_box->setValue(value);
   }
-  edit_gpis_button->setEnabled(value>0);
+  edit_gpos_button->setEnabled(value>0);
 }
 
 
 void EditMatrix::livewireButtonData()
 {
   ListNodes *dialog=new ListNodes(edit_matrix,this);
+  dialog->exec();
+  delete dialog;
+}
+
+
+void EditMatrix::livewireGpioButtonData()
+{
+  ListLiveWireGpios *dialog=new ListLiveWireGpios(edit_matrix,
+		    edit_gpis_box->value()/RD_LIVEWIRE_GPIO_BUNDLE_SIZE,this);
   dialog->exec();
   delete dialog;
 }

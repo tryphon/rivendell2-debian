@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdripc.cpp,v 1.36.6.1 2012/11/16 18:10:40 cvs Exp $
+//      $Id: rdripc.cpp,v 1.36.6.2 2013/03/09 00:21:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -20,8 +20,11 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#include <qobject.h>
 #include <ctype.h>
+
+#include <qobject.h>
+#include <qapplication.h>
+
 #include <rddb.h>
 #include <rdripc.h>
 

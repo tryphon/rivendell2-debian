@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdpanel.cpp,v 1.9 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_rdpanel.cpp,v 1.9.8.1 2013/03/09 00:21:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -43,8 +43,7 @@
 #include <edit_now_next.h>
 
 
-EditRDPanel::EditRDPanel(RDStation *station,unsigned instance,
-			     QWidget *parent,const char *name)
+EditRDPanel::EditRDPanel(RDStation *station,QWidget *parent,const char *name)
   : QDialog(parent,name,true)
 {
   QString sql;
@@ -58,7 +57,7 @@ EditRDPanel::EditRDPanel(RDStation *station,unsigned instance,
   setMinimumHeight(sizeHint().height());
   setMaximumHeight(sizeHint().height());
 
-  air_conf=new RDAirPlayConf(station->name(),instance,"RDPANEL");
+  air_conf=new RDAirPlayConf(station->name(),"RDPANEL");
 
   //
   // Create Fonts
@@ -354,23 +353,23 @@ EditRDPanel::EditRDPanel(RDStation *station,unsigned instance,
       air_card_sel[i]->setDisabled(true);
     }
   }
-  air_card_sel[0]->setCard(air_conf->card(2));
-  air_card_sel[0]->setPort(air_conf->port(2));
+  air_card_sel[0]->setCard(air_conf->card(RDAirPlayConf::SoundPanel1Channel));
+  air_card_sel[0]->setPort(air_conf->port(RDAirPlayConf::SoundPanel1Channel));
 
-  air_card_sel[1]->setCard(air_conf->card(6));
-  air_card_sel[1]->setPort(air_conf->port(6));
+  air_card_sel[1]->setCard(air_conf->card(RDAirPlayConf::SoundPanel2Channel));
+  air_card_sel[1]->setPort(air_conf->port(RDAirPlayConf::SoundPanel2Channel));
 
-  air_card_sel[2]->setCard(air_conf->card(7));
-  air_card_sel[2]->setPort(air_conf->port(7));
+  air_card_sel[2]->setCard(air_conf->card(RDAirPlayConf::SoundPanel3Channel));
+  air_card_sel[2]->setPort(air_conf->port(RDAirPlayConf::SoundPanel3Channel));
 
-  air_card_sel[3]->setCard(air_conf->card(8));
-  air_card_sel[3]->setPort(air_conf->port(8));
+  air_card_sel[3]->setCard(air_conf->card(RDAirPlayConf::SoundPanel4Channel));
+  air_card_sel[3]->setPort(air_conf->port(RDAirPlayConf::SoundPanel4Channel));
 
-  air_card_sel[4]->setCard(air_conf->card(9));
-  air_card_sel[4]->setPort(air_conf->port(9));
+  air_card_sel[4]->setCard(air_conf->card(RDAirPlayConf::SoundPanel5Channel));
+  air_card_sel[4]->setPort(air_conf->port(RDAirPlayConf::SoundPanel5Channel));
 
-  air_card_sel[5]->setCard(air_conf->card(3));
-  air_card_sel[5]->setPort(air_conf->port(3));
+  air_card_sel[5]->setCard(air_conf->card(RDAirPlayConf::CueChannel));
+  air_card_sel[5]->setPort(air_conf->port(RDAirPlayConf::CueChannel));
 
   air_defaultsvc_box->insertItem(tr("[none]"));
   QString defaultsvc=air_conf->defaultSvc();
@@ -392,23 +391,33 @@ EditRDPanel::EditRDPanel(RDStation *station,unsigned instance,
   air_flash_box->setChecked(air_conf->flashPanel());
   air_panel_pause_box->setChecked(air_conf->panelPauseEnabled());
   air_label_template_edit->setText(air_conf->buttonLabelTemplate());
-  air_start_rml_edit[0]->setText(air_conf->startRml(2));
-  air_stop_rml_edit[0]->setText(air_conf->stopRml(2));
+  air_start_rml_edit[0]->
+    setText(air_conf->startRml(RDAirPlayConf::SoundPanel1Channel));
+  air_stop_rml_edit[0]->
+    setText(air_conf->stopRml(RDAirPlayConf::SoundPanel1Channel));
 
-  air_start_rml_edit[1]->setText(air_conf->startRml(6));
-  air_stop_rml_edit[1]->setText(air_conf->stopRml(6));
+  air_start_rml_edit[1]->
+    setText(air_conf->startRml(RDAirPlayConf::SoundPanel2Channel));
+  air_stop_rml_edit[1]->
+    setText(air_conf->stopRml(RDAirPlayConf::SoundPanel2Channel));
 
-  air_start_rml_edit[2]->setText(air_conf->startRml(7));
-  air_stop_rml_edit[2]->setText(air_conf->stopRml(7));
+  air_start_rml_edit[2]->
+    setText(air_conf->startRml(RDAirPlayConf::SoundPanel3Channel));
+  air_stop_rml_edit[2]->
+    setText(air_conf->stopRml(RDAirPlayConf::SoundPanel3Channel));
 
-  air_start_rml_edit[3]->setText(air_conf->startRml(8));
-  air_stop_rml_edit[3]->setText(air_conf->stopRml(8));
+  air_start_rml_edit[3]->
+    setText(air_conf->startRml(RDAirPlayConf::SoundPanel4Channel));
+  air_stop_rml_edit[3]->
+    setText(air_conf->stopRml(RDAirPlayConf::SoundPanel4Channel));
 
-  air_start_rml_edit[4]->setText(air_conf->startRml(9));
-  air_stop_rml_edit[4]->setText(air_conf->stopRml(9));
+  air_start_rml_edit[4]->
+    setText(air_conf->startRml(RDAirPlayConf::SoundPanel5Channel));
+  air_stop_rml_edit[4]->
+    setText(air_conf->stopRml(RDAirPlayConf::SoundPanel5Channel));
 
-  air_start_rml_edit[5]->setText(air_conf->startRml(3));
-  air_stop_rml_edit[5]->setText(air_conf->stopRml(3));
+  air_start_rml_edit[5]->setText(air_conf->startRml(RDAirPlayConf::CueChannel));
+  air_stop_rml_edit[5]->setText(air_conf->stopRml(RDAirPlayConf::CueChannel));
 }
 
 
@@ -442,35 +451,46 @@ void EditRDPanel::selectSkinData()
 
 void EditRDPanel::okData()
 {
-  air_conf->setStartRml(2,air_start_rml_edit[0]->text());
-  air_conf->setStopRml(2,air_stop_rml_edit[0]->text());
-  air_conf->setCard(2,air_card_sel[0]->card());
-  air_conf->setPort(2,air_card_sel[0]->port());
+  air_conf->setStartRml(RDAirPlayConf::SoundPanel1Channel,
+			air_start_rml_edit[0]->text());
+  air_conf->setStopRml(RDAirPlayConf::SoundPanel1Channel,
+		       air_stop_rml_edit[0]->text());
+  air_conf->setCard(RDAirPlayConf::SoundPanel1Channel,air_card_sel[0]->card());
+  air_conf->setPort(RDAirPlayConf::SoundPanel1Channel,air_card_sel[0]->port());
 
-  air_conf->setStartRml(6,air_start_rml_edit[1]->text());
-  air_conf->setStopRml(6,air_stop_rml_edit[1]->text());
-  air_conf->setCard(6,air_card_sel[1]->card());
-  air_conf->setPort(6,air_card_sel[1]->port());
+  air_conf->setStartRml(RDAirPlayConf::SoundPanel2Channel,
+			air_start_rml_edit[1]->text());
+  air_conf->setStopRml(RDAirPlayConf::SoundPanel2Channel,
+		       air_stop_rml_edit[1]->text());
+  air_conf->setCard(RDAirPlayConf::SoundPanel2Channel,air_card_sel[1]->card());
+  air_conf->setPort(RDAirPlayConf::SoundPanel2Channel,air_card_sel[1]->port());
 
-  air_conf->setStartRml(7,air_start_rml_edit[2]->text());
-  air_conf->setStopRml(7,air_stop_rml_edit[2]->text());
-  air_conf->setCard(7,air_card_sel[2]->card());
-  air_conf->setPort(7,air_card_sel[2]->port());
+  air_conf->setStartRml(RDAirPlayConf::SoundPanel3Channel,
+			air_start_rml_edit[2]->text());
+  air_conf->setStopRml(RDAirPlayConf::SoundPanel3Channel,
+		       air_stop_rml_edit[2]->text());
+  air_conf->setCard(RDAirPlayConf::SoundPanel3Channel,air_card_sel[2]->card());
+  air_conf->setPort(RDAirPlayConf::SoundPanel3Channel,air_card_sel[2]->port());
 
-  air_conf->setStartRml(8,air_start_rml_edit[3]->text());
-  air_conf->setStopRml(8,air_stop_rml_edit[3]->text());
-  air_conf->setCard(8,air_card_sel[3]->card());
-  air_conf->setPort(8,air_card_sel[3]->port());
+  air_conf->setStartRml(RDAirPlayConf::SoundPanel4Channel,
+			air_start_rml_edit[3]->text());
+  air_conf->setStopRml(RDAirPlayConf::SoundPanel4Channel,
+		       air_stop_rml_edit[3]->text());
+  air_conf->setCard(RDAirPlayConf::SoundPanel4Channel,air_card_sel[3]->card());
+  air_conf->setPort(RDAirPlayConf::SoundPanel4Channel,air_card_sel[3]->port());
 
-  air_conf->setStartRml(9,air_start_rml_edit[4]->text());
-  air_conf->setStopRml(9,air_stop_rml_edit[4]->text());
-  air_conf->setCard(9,air_card_sel[4]->card());
-  air_conf->setPort(9,air_card_sel[4]->port());
+  air_conf->setStartRml(RDAirPlayConf::SoundPanel5Channel,
+			air_start_rml_edit[4]->text());
+  air_conf->setStopRml(RDAirPlayConf::SoundPanel5Channel,
+		       air_stop_rml_edit[4]->text());
+  air_conf->setCard(RDAirPlayConf::SoundPanel5Channel,air_card_sel[4]->card());
+  air_conf->setPort(RDAirPlayConf::SoundPanel5Channel,air_card_sel[4]->port());
 
-  air_conf->setStartRml(3,air_start_rml_edit[5]->text());
-  air_conf->setStopRml(3,air_stop_rml_edit[5]->text());
-  air_conf->setCard(3,air_card_sel[5]->card());
-  air_conf->setPort(3,air_card_sel[5]->port());
+  air_conf->setStartRml(RDAirPlayConf::CueChannel,
+			air_start_rml_edit[5]->text());
+  air_conf->setStopRml(RDAirPlayConf::CueChannel,air_stop_rml_edit[5]->text());
+  air_conf->setCard(RDAirPlayConf::CueChannel,air_card_sel[5]->card());
+  air_conf->setPort(RDAirPlayConf::CueChannel,air_card_sel[5]->port());
   air_conf->setSkinPath(air_skin_edit->text());
   if(air_defaultsvc_box->currentItem()==0) {
     air_conf->setDefaultSvc("");

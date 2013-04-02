@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194.6.6 2012/11/28 21:44:06 cvs Exp $
+//      $Id: rd.h,v 1.194.6.7 2013/03/05 23:59:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -454,6 +454,10 @@
 #define RD_LIVEWIRE_GPIO_BUNDLE_SIZE 5
 #define RD_LIVEWIRE_DEFAULT_LOAD RDLiveWireDestination::LoadHighZ
 #define RD_LIVEWIRE_MAX_SOURCE 0x7FFF
+#define RD_LIVEWIRE_GPIO_MCAST_ADDR "239.192.255.4"
+#define RD_LIVEWIRE_GPIO_SEND_PORT 2055
+#define RD_LIVEWIRE_GPIO_RECV_PORT 2060
+#define RD_LIVEWIRE_GPIO_PULSE_WIDTH 100
 
 /*
  * Number of Carts to Include in a 'Limited' Search

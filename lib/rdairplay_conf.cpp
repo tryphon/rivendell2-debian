@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay_conf.cpp,v 1.35.8.1 2012/11/13 23:45:09 cvs Exp $
+//      $Id: rdairplay_conf.cpp,v 1.35.8.4 2013/03/13 15:18:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -19,45 +19,39 @@
 //   License along with this program; if not, write to the Free Software
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
+
+#include <qobject.h>
+
 #include <rddb.h>
 #include <rdconf.h>
 #include <rdairplay_conf.h>
 #include <rdescape_string.h>
 
-
-//
-// Global Classes
-//
-RDAirPlayConf::RDAirPlayConf(const QString &station,unsigned instance,
-			     const QString &tablename)
+RDAirPlayConf::RDAirPlayConf(const QString &station,const QString &tablename)
 {
   RDSqlQuery *q;
   QString sql;
 
   air_station=station;
-  air_instance=instance;
   air_tablename=tablename;
 
   sql=QString().
-    sprintf("select ID from %s where STATION=\"%s\" && INSTANCE=%d",
+    sprintf("select ID from %s where STATION=\"%s\"",
 	    (const char *)air_tablename,
-	    (const char *)RDEscapeString(air_station),
-	    air_instance);
+	    (const char *)RDEscapeString(air_station));
   q=new RDSqlQuery(sql);
   if(!q->first()) {
     delete q;
     sql=QString().
-      sprintf("insert into %s set STATION=\"%s\",INSTANCE=%d",
+      sprintf("insert into %s set STATION=\"%s\"",
 	      (const char *)air_tablename,
-	      (const char *)RDEscapeString(air_station),
-	      air_instance);
+	      (const char *)RDEscapeString(air_station));
     q=new RDSqlQuery(sql);
     delete q;
     sql=QString().
-      sprintf("select ID from %s where STATION=\"%s\" && INSTANCE=%d",
+      sprintf("select ID from %s where STATION=\"%s\"",
 	      (const char *)air_tablename,
-	      (const char *)RDEscapeString(air_station),
-	      air_instance);
+	      (const char *)RDEscapeString(air_station));
     q=new RDSqlQuery(sql);
     q->first();
   }
@@ -72,65 +66,161 @@ QString RDAirPlayConf::station() const
 }
 
 
-unsigned RDAirPlayConf::instance() const
+int RDAirPlayConf::card(RDAirPlayConf::Channel chan) const
 {
-  return air_instance;
+  return GetChannelValue("CARD",chan).toInt();
 }
 
 
-int RDAirPlayConf::card(int num) const
+void RDAirPlayConf::setCard(RDAirPlayConf::Channel chan,int card) const
 {
-  QString field=QString().sprintf("CARD%d",num);
-  return RDGetSqlValue(air_tablename,"ID",air_id,field).toInt();
+  SetChannelValue("CARD",chan,card);
 }
 
 
-void RDAirPlayConf::setCard(int num,int card) const
+int RDAirPlayConf::port(RDAirPlayConf::Channel chan) const
 {
-  QString field=QString().sprintf("CARD%d",num);
-  SetRow(field,card);
+  return GetChannelValue("PORT",chan).toInt();
 }
 
 
-int RDAirPlayConf::port(int num) const
+void RDAirPlayConf::setPort(RDAirPlayConf::Channel chan,int port) const
 {
-  QString field=QString().sprintf("PORT%d",num);
-  return RDGetSqlValue(air_tablename,"ID",air_id,field).toInt();
+  SetChannelValue("PORT",chan,port);
 }
 
 
-void RDAirPlayConf::setPort(int num,int port) const
+QString RDAirPlayConf::startRml(RDAirPlayConf::Channel chan) const
 {
-  QString field=QString().sprintf("PORT%d",num);
-  SetRow(field,port);
+  return GetChannelValue("START_RML",chan).toString();
 }
 
 
-QString RDAirPlayConf::startRml(int num) const
+void RDAirPlayConf::setStartRml(RDAirPlayConf::Channel chan,QString str) const
 {
-  QString field=QString().sprintf("START_RML%d",num);
-  return RDGetSqlValue(air_tablename,"ID",air_id,field).toString();
+  SetChannelValue("START_RML",chan,str);
 }
 
 
-void RDAirPlayConf::setStartRml(int num,QString str) const
+QString RDAirPlayConf::stopRml(RDAirPlayConf::Channel chan) const
 {
-  QString field=QString().sprintf("START_RML%d",num);
-  SetRow(field,str);
+  return GetChannelValue("STOP_RML",chan).toString();
 }
 
 
-QString RDAirPlayConf::stopRml(int num) const
+void RDAirPlayConf::setStopRml(RDAirPlayConf::Channel chan,QString str) const
 {
-  QString field=QString().sprintf("STOP_RML%d",num);
-  return RDGetSqlValue(air_tablename,"ID",air_id,field).toString();
+  SetChannelValue("STOP_RML",chan,str);
 }
 
 
-void RDAirPlayConf::setStopRml(int num,QString str) const
+RDAirPlayConf::GpioType RDAirPlayConf::gpioType(RDAirPlayConf::Channel chan)
+  const
 {
-  QString field=QString().sprintf("STOP_RML%d",num);
-  SetRow(field,str);
+  return (RDAirPlayConf::GpioType)GetChannelValue("GPIO_TYPE",chan).toUInt();
+}
+
+
+void RDAirPlayConf::setGpioType(RDAirPlayConf::Channel chan,GpioType type) 
+  const
+{
+  SetChannelValue("GPIO_TYPE",chan,(int)type);
+}
+
+
+int RDAirPlayConf::startGpiMatrix(RDAirPlayConf::Channel chan) const
+{
+  return GetChannelValue("START_GPI_MATRIX",chan).toInt();
+}
+
+
+void RDAirPlayConf::setStartGpiMatrix(RDAirPlayConf::Channel chan,int matrix) const
+{
+  SetChannelValue("START_GPI_MATRIX",chan,matrix);
+}
+
+
+int RDAirPlayConf::startGpiLine(RDAirPlayConf::Channel chan) const
+{
+  return GetChannelValue("START_GPI_LINE",chan).toInt();
+}
+
+
+void RDAirPlayConf::setStartGpiLine(RDAirPlayConf::Channel chan,int line) const
+{
+  SetChannelValue("START_GPI_LINE",chan,line);
+}
+
+
+int RDAirPlayConf::startGpoMatrix(RDAirPlayConf::Channel chan) const
+{
+  return GetChannelValue("START_GPO_MATRIX",chan).toInt();
+}
+
+
+void RDAirPlayConf::setStartGpoMatrix(RDAirPlayConf::Channel chan,int matrix) const
+{
+  SetChannelValue("START_GPO_MATRIX",chan,matrix);
+}
+
+
+int RDAirPlayConf::startGpoLine(RDAirPlayConf::Channel chan) const
+{
+  return GetChannelValue("START_GPO_LINE",chan).toInt();
+}
+
+
+void RDAirPlayConf::setStartGpoLine(RDAirPlayConf::Channel chan,int line) const
+{
+  SetChannelValue("START_GPO_LINE",chan,line);
+}
+
+
+int RDAirPlayConf::stopGpiMatrix(RDAirPlayConf::Channel chan) const
+{
+  return GetChannelValue("STOP_GPI_MATRIX",chan).toInt();
+}
+
+
+void RDAirPlayConf::setStopGpiMatrix(RDAirPlayConf::Channel chan,int matrix) const
+{
+  SetChannelValue("STOP_GPI_MATRIX",chan,matrix);
+}
+
+
+int RDAirPlayConf::stopGpiLine(RDAirPlayConf::Channel chan) const
+{
+  return GetChannelValue("STOP_GPI_LINE",chan).toInt();
+}
+
+
+void RDAirPlayConf::setStopGpiLine(RDAirPlayConf::Channel chan,int line) const
+{
+  SetChannelValue("STOP_GPI_LINE",chan,line);
+}
+
+
+int RDAirPlayConf::stopGpoMatrix(RDAirPlayConf::Channel chan) const
+{
+  return GetChannelValue("STOP_GPO_MATRIX",chan).toInt();
+}
+
+
+void RDAirPlayConf::setStopGpoMatrix(RDAirPlayConf::Channel chan,int matrix) const
+{
+  SetChannelValue("STOP_GPO_MATRIX",chan,matrix);
+}
+
+
+int RDAirPlayConf::stopGpoLine(RDAirPlayConf::Channel chan) const
+{
+  return GetChannelValue("STOP_GPO_LINE",chan).toInt();
+}
+
+
+void RDAirPlayConf::setStopGpoLine(RDAirPlayConf::Channel chan,int line) const
+{
+  SetChannelValue("STOP_GPO_LINE",chan,line);
 }
 
 
@@ -638,18 +728,116 @@ void RDAirPlayConf::setLogNextCart(int lognum,unsigned cartnum) const
 }
 
 
+QString RDAirPlayConf::channelText(RDAirPlayConf::Channel chan)
+{
+  QString ret=QObject::tr("Unknown");
+
+  switch(chan) {
+  case RDAirPlayConf::MainLog1Channel:
+    ret=QObject::tr("Main Log Output 1");
+    break;
+
+  case RDAirPlayConf::MainLog2Channel:
+    ret=QObject::tr("Main Log Output 2");
+    break;
+
+  case RDAirPlayConf::SoundPanel1Channel:
+    ret=QObject::tr("Sound Panel First Play Output");
+    break;
+
+  case RDAirPlayConf::CueChannel:
+    ret=QObject::tr("Audition/Cue Output");
+    break;
+
+  case RDAirPlayConf::AuxLog1Channel:
+    ret=QObject::tr("Aux Log 1 Output");
+    break;
+
+  case RDAirPlayConf::AuxLog2Channel:
+    ret=QObject::tr("Aux Log 2 Output");
+    break;
+
+  case RDAirPlayConf::SoundPanel2Channel:
+    ret=QObject::tr("Sound Panel Second Play Output");
+    break;
+
+  case RDAirPlayConf::SoundPanel3Channel:
+    ret=QObject::tr("Sound Panel Third Play Output");
+    break;
+
+  case RDAirPlayConf::SoundPanel4Channel:
+    ret=QObject::tr("Sound Panel Fourth Play Output");
+    break;
+
+  case RDAirPlayConf::SoundPanel5Channel:
+    ret=QObject::tr("Sound Panel Fifth and Later Play Output");
+    break;
+
+  case RDAirPlayConf::LastChannel:
+    break;
+  }
+
+  return ret;
+}
+
+QVariant RDAirPlayConf::GetChannelValue(const QString &param,RDAirPlayConf::Channel chan) const
+{
+  RDSqlQuery *q;
+  QString sql;
+  QVariant ret;
+
+  sql=QString("select ")+param+" from "+air_tablename+"_CHANNELS where "+
+    "(STATION_NAME=\""+RDEscapeString(air_station)+"\")&&"+
+    QString().sprintf("(INSTANCE=%u)",chan);
+  q=new RDSqlQuery(sql);
+  if(q->first()) {
+    ret=q->value(0);
+  }
+  delete q;
+
+  return ret;
+}
+
+
+void RDAirPlayConf::SetChannelValue(const QString &param,RDAirPlayConf::Channel chan,int value) const
+{
+  RDSqlQuery *q;
+  QString sql;
+
+  sql=QString("update ")+air_tablename+"_CHANNELS set "+
+    param+QString().sprintf("=%d ",value)+
+    "where (STATION_NAME=\""+RDEscapeString(air_station)+"\")&&"+
+    QString().sprintf("(INSTANCE=%d)",chan);
+  q=new RDSqlQuery(sql);
+  delete q;
+}
+
+
+void RDAirPlayConf::SetChannelValue(const QString &param,RDAirPlayConf::Channel chan,const QString &value) const
+{
+  RDSqlQuery *q;
+  QString sql;
+
+  sql=QString("update ")+air_tablename+"_CHANNELS set "+
+    param+"=\""+RDEscapeString(value)+"\" "+
+    "where (STATION_NAME=\""+RDEscapeString(air_station)+"\")&&"+
+    QString().sprintf("(INSTANCE=%d)",chan);
+  q=new RDSqlQuery(sql);
+  delete q;
+}
+
+
 void RDAirPlayConf::SetRow(const QString &param,int value) const
 {
   RDSqlQuery *q;
   QString sql;
 
   sql=QString().
-    sprintf("UPDATE %s SET %s=%d WHERE STATION=\"%s\" && INSTANCE=%d",
+    sprintf("UPDATE %s SET %s=%d WHERE STATION=\"%s\"",
 	    (const char *)air_tablename,
 	    (const char *)param,
 	    value,
-	    (const char *)air_station,
-	    air_instance);
+	    (const char *)RDEscapeString(air_station));
   q=new RDSqlQuery(sql);
   delete q;
 }
@@ -661,12 +849,11 @@ void RDAirPlayConf::SetRow(const QString &param,unsigned value) const
   QString sql;
 
   sql=QString().
-    sprintf("UPDATE %s SET %s=%u WHERE STATION=\"%s\" && INSTANCE=%d",
+    sprintf("UPDATE %s SET %s=%u WHERE STATION=\"%s\"",
 	    (const char *)air_tablename,
 	    (const char *)param,
 	    value,
-	    (const char *)air_station,
-	    air_instance);
+	    (const char *)RDEscapeString(air_station));
   q=new RDSqlQuery(sql);
   delete q;
 }
@@ -678,12 +865,11 @@ void RDAirPlayConf::SetRow(const QString &param,const QString &value) const
   QString sql;
 
   sql=QString().
-    sprintf("UPDATE %s SET %s=\"%s\" WHERE STATION=\"%s\" && INSTANCE=%d",
+    sprintf("UPDATE %s SET %s=\"%s\" WHERE STATION=\"%s\"",
 	    (const char *)air_tablename,
 	    (const char *)RDEscapeString(param),
 	    (const char *)RDEscapeString(value),
-	    (const char *)air_station,
-	    air_instance);
+	    (const char *)RDEscapeString(air_station));
   q=new RDSqlQuery(sql);
   delete q;
 }

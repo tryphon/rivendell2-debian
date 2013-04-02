@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: switcher.cpp,v 1.1.8.1 2012/08/06 00:12:07 cvs Exp $
+//      $Id: switcher.cpp,v 1.1.8.2 2013/03/03 22:58:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -19,6 +19,8 @@
 //   License along with this program; if not, write to the Free Software
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
+
+#include <syslog.h>
 
 #include <switcher.h>
 
@@ -55,4 +57,15 @@ void Switcher::executeMacroCart(unsigned cartnum)
   rml.setArgQuantity(1);
   rml.setArg(0,cartnum);
   emit rmlEcho(&rml);
+}
+
+
+void Switcher::logBytes(uint8_t *data,int len)
+{
+  QString str;
+
+  for(int i=0;i<len;i++) {
+    str+=QString().sprintf("%02X ",0xff&data[i]);
+  }
+  syslog(LOG_NOTICE,"bytes: %s",(const char *)str);
 }

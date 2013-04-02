@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlistview.h,v 1.12 2011/09/06 17:35:07 cvs Exp $
+//      $Id: rdlistview.h,v 1.12.4.1 2013/02/21 02:46:23 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,7 +35,7 @@ class RDListView : public QListView
   Q_OBJECT
 
  public:
-  enum SortType {NormalSort=0,TimeSort=1,LineSort=2};
+  enum SortType {NormalSort=0,TimeSort=1,LineSort=2,GpioSort=3};
   RDListView(QWidget *parent,const char *name=0);
   int hardSortColumn() const;
   void setHardSortColumn(int col);

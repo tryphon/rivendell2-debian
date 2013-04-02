@@ -970,10 +970,6 @@ configured to run the CAE service in order to populate the audio resources datab
         <source>The Create EndDate Offset is less than the Create Start Date Offset!</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>The EndDate Offset is less than the Start Date Offset!</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>EditEncoder</name>
@@ -1602,6 +1598,45 @@ Do you still want to save?</source>
     </message>
 </context>
 <context>
+    <name>EditLiveWireGpio</name>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit GPIO Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Livewire Source: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPIO Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Surface Address: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid IP Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The IP address is invalid!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditMatrix</name>
     <message>
         <source>Matrix Number:</source>
@@ -1773,6 +1808,11 @@ Switches</source>
     <message>
         <source>Configure
 &amp;Outputs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LiveWire
+GPIOs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2197,6 +2237,11 @@ configured to run the CAE service in order to populate the audio resources datab
     </message>
     <message>
         <source>Show Hour Selector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit
+GPIOs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4202,6 +4247,49 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ListLiveWireGpios</name>
+    <message>
+        <source>LiveWire GPIO Source Assignments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switchers:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[none]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Surface Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[all]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source #</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

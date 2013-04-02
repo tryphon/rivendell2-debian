@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_traffic.cpp,v 1.20 2010/07/29 19:32:36 cvs Exp $
+//      $Id: log_traffic.cpp,v 1.20.8.2 2013/03/09 00:21:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as

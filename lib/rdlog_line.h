@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.h,v 1.85.8.3 2012/11/28 01:57:38 cvs Exp $
+//      $Id: rdlog_line.h,v 1.85.8.4 2013/03/09 00:21:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -45,7 +45,7 @@ class RDLogLine
   enum Type {Cart=0,Marker=1,Macro=2,OpenBracket=3,CloseBracket=4,Chain=5,
 	     Track=6,MusicLink=7,TrafficLink=8,UnknownType=9};
   enum StartSource {StartUnknown=0,StartManual=1,StartPlay=2,StartSegue=3,
-		    StartTime=4,StartPanel=5,StartMacro=6};
+		    StartTime=4,StartPanel=5,StartMacro=6,StartChannel=7};
   enum PlaySource {UnknownSource=0,MainLog=1,AuxLog1=2,AuxLog2=3,SoundPanel=4,
 		   CartSlot=5};
   enum PointerSource {CartPointer=0,LogPointer=1,AutoPointer=2};

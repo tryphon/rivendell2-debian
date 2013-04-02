@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.cpp,v 1.48 2010/07/29 19:32:35 cvs Exp $
+//      $Id: edit_event.cpp,v 1.48.8.1 2013/03/09 00:21:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -541,8 +541,8 @@ void EditEvent::auditionButtonData()
   if(edit_play_deck->state()==RDPlayDeck::Playing) {
     return;
   }
-  edit_play_deck->setCard(rdairplay_conf->card(3));
-  edit_play_deck->setPort(rdairplay_conf->port(3));
+  edit_play_deck->setCard(rdairplay_conf->card(RDAirPlayConf::CueChannel));
+  edit_play_deck->setPort(rdairplay_conf->port(RDAirPlayConf::CueChannel));
   if(!edit_play_deck->setCart(edit_logline,false)) {
     return;
   }
@@ -578,7 +578,7 @@ void EditEvent::auditionButtonData()
   if(play_len>=0) {
     edit_audition_timer->start(play_len,true);
   }
-  QString rml=rdairplay_conf->startRml(3);
+  QString rml=rdairplay_conf->startRml(RDAirPlayConf::CueChannel);
   if(!rml.isEmpty()) {
     rdevent_player->exec(edit_logline->resolveWildcards(rml));
   }
@@ -953,7 +953,7 @@ void EditEvent::ClearChannel()
 			   edit_play_deck->stream())) {
     return;
   }
-  rdevent_player->exec(rdairplay_conf->stopRml(3));
+  rdevent_player->exec(rdairplay_conf->stopRml(RDAirPlayConf::CueChannel));
 }
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcardselector.h,v 1.9 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdcardselector.h,v 1.9.8.1 2013/03/22 15:11:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,6 +38,9 @@ class RDCardSelector : public QWidget
    ~RDCardSelector();
    QSize sizeHint() const;
    QSizePolicy sizePolicy() const;
+   bool isDisabled() const;
+   int id() const;
+   void setId(int id);
    QString title() const;
    void setTitle(QString title);
    int card() const;
@@ -50,6 +53,7 @@ class RDCardSelector : public QWidget
    void setMaxPorts(int card,int num);
 
   signals:
+   void settingsChanged(int id,int card,int port);
    void cardChanged(int card);
    void portChanged(int port);
 
@@ -65,6 +69,7 @@ class RDCardSelector : public QWidget
    QLabel *card_title;
    int yoffset;
    int card_max_ports[RD_MAX_CARDS];
+   int card_id;
 };
 
 

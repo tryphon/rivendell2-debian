@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: export_deltaflex.cpp,v 1.12 2010/10/18 15:45:15 cvs Exp $
+//      $Id: export_deltaflex.cpp,v 1.12.6.1 2013/02/08 21:41:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -51,7 +51,7 @@ bool RDReport::ExportDeltaflex(const QDate &startdate,const QDate &enddate,
 #endif
 
   QFile file(filename);
-  if((f=fopen((const char *)filename,"w"))==NULL) {
+  if((f=fopen((const char *)filename,"wb"))==NULL) {
     report_error_code=RDReport::ErrorCantOpen;
     return false;
   }

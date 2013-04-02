@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.cpp,v 1.195.2.11 2013/01/14 16:02:39 cvs Exp $
+//      $Id: createdb.cpp,v 1.195.2.16 2013/03/19 15:32:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -2208,6 +2208,70 @@ bool CreateDb(QString name,QString pwd)
      return false;
   }
 
+  //
+  // Create LIVEWIRE_GPIO_SLOTS table
+  //
+  sql=QString("create table if not exists LIVEWIRE_GPIO_SLOTS (")+
+    "ID int unsigned auto_increment not null primary key,"+
+    "STATION_NAME char(64) not null,"+
+    "MATRIX int not null,"+
+    "SLOT int not null,"+
+    "IP_ADDRESS char(15),"+
+    "SOURCE_NUMBER int,"+
+    "index STATION_NAME_IDX(STATION_NAME,MATRIX))";
+  if(!RunQuery(sql)) {
+     return false;
+  }
+
+  //
+  // Create RDAIRPLAY_CHANNELS table
+  //
+  sql=QString("create table if not exists RDAIRPLAY_CHANNELS (")+
+    "ID int unsigned auto_increment not null primary key,"+
+    "STATION_NAME char(64) not null,"+
+    "INSTANCE int unsigned not null,"+
+    "CARD int not null default 0,"+
+    "PORT int not null default 0,"+
+    "START_RML char(255),"+
+    "STOP_RML char(255),"+
+    "GPIO_TYPE int unsigned default 0,"+
+    "START_GPI_MATRIX int not null default -1,"+
+    "START_GPI_LINE int not null default -1,"+
+    "START_GPO_MATRIX int not null default -1,"+
+    "START_GPO_LINE int not null default -1,"+
+    "STOP_GPI_MATRIX int not null default -1,"+
+    "STOP_GPI_LINE int not null default -1,"+
+    "STOP_GPO_MATRIX int not null default -1,"+
+    "STOP_GPO_LINE int not null default -1,"+
+    "index STATION_NAME_IDX(STATION_NAME,INSTANCE))";
+  if(!RunQuery(sql)) {
+     return false;
+  }
+
+  //
+  // Create RDPANEL_CHANNELS table
+  //
+  sql=QString("create table if not exists RDPANEL_CHANNELS (")+
+    "ID int unsigned auto_increment not null primary key,"+
+    "STATION_NAME char(64) not null,"+
+    "INSTANCE int unsigned not null,"+
+    "CARD int not null default 0,"+
+    "PORT int not null default 0,"+
+    "START_RML char(255),"+
+    "STOP_RML char(255),"+
+    "GPIO_TYPE int unsigned default 0,"+
+    "START_GPI_MATRIX int not null default -1,"+
+    "START_GPI_LINE int not null default -1,"+
+    "START_GPO_MATRIX int not null default -1,"+
+    "START_GPO_LINE int not null default -1,"+
+    "STOP_GPI_MATRIX int not null default -1,"+
+    "STOP_GPI_LINE int not null default -1,"+
+    "STOP_GPO_MATRIX int not null default -1,"+
+    "STOP_GPO_LINE int not null default -1,"+
+    "index STATION_NAME_IDX(STATION_NAME,INSTANCE))";
+  if(!RunQuery(sql)) {
+     return false;
+  }
 
   return true;
 }
@@ -2269,7 +2333,7 @@ bool InitDb(QString name,QString pwd,QString station_name)
     sql=QString().sprintf("insert into STATIONS \
      (NAME,DESCRIPTION,USER_NAME,DEFAULT_NAME) \
      VALUES (\"%s\",\"%s\",\"%s\",\"%s\")",
-			  (const char *)station_name,
+			  (const char *)RDEscapeString(station_name),
 			  RD_STATION_DESCRIPTION,
 			  RD_USER_LOGIN_NAME,
 			  RD_USER_LOGIN_NAME);
@@ -2278,7 +2342,7 @@ bool InitDb(QString name,QString pwd,QString station_name)
     sql=QString().sprintf("insert into STATIONS \
      (NAME,DESCRIPTION,USER_NAME,DEFAULT_NAME,IPV4_ADDRESS) \
      VALUES (\"%s\",\"%s\",\"%s\",\"%s\",\"%d.%d.%d.%d\")",
-			  (const char *)station_name,
+			  (const char *)RDEscapeString(station_name),
 			  RD_STATION_DESCRIPTION,
 			  RD_USER_LOGIN_NAME,
 			  RD_USER_LOGIN_NAME,
@@ -2287,6 +2351,22 @@ bool InitDb(QString name,QString pwd,QString station_name)
   }
   if(!RunQuery(sql)) {
     return false;
+  }
+  for(unsigned i=0;i<10;i++) {
+    sql=QString("insert into RDAIRPLAY_CHANNELS set ")+
+      "STATION_NAME=\""+RDEscapeString(station_name)+"\","+
+      QString().sprintf("INSTANCE=%u",i);
+    if(!RunQuery(sql)) {
+      return false;
+    }
+  }
+  for(unsigned i=0;i<10;i++) {
+    sql=QString("insert into RDPANEL_CHANNELS set ")+
+      "STATION_NAME=\""+RDEscapeString(station_name)+"\","+
+      QString().sprintf("INSTANCE=%u",i);
+    if(!RunQuery(sql)) {
+      return false;
+    }
   }
 
   //
@@ -7393,6 +7473,178 @@ int UpdateDb(int ver)
     delete q;
 
     sql="alter table CUTS add index ISRC_IDX(ISRC)";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<217) {
+    sql=QString("create table if not exists LIVEWIRE_GPIO_SLOTS (")+
+      "ID int unsigned auto_increment not null primary key,"+
+      "STATION_NAME char(64) not null,"+
+      "MATRIX int not null,"+
+      "SLOT int not null,"+
+      "SOURCE_NUMBER int,"+
+      "index STATION_NAME_IDX(STATION_NAME,MATRIX))";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<218) {
+    sql=QString("alter table LIVEWIRE_GPIO_SLOTS ")+
+      "add column IP_ADDRESS char(15) after SLOT";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<219) {
+    //
+    // RDAirPlay Channels
+    //
+    sql=QString("create table if not exists RDAIRPLAY_CHANNELS (")+
+      "ID int unsigned auto_increment not null primary key,"+
+      "STATION_NAME char(64) not null,"+
+      "INSTANCE int unsigned not null,"+
+      "CARD int not null default 0,"+
+      "PORT int not null default 0,"+
+      "START_RML char(255),"+
+      "STOP_RML char(255),"+
+      "START_GPI_MATRIX int not null default -1,"+
+      "START_GPI_LINE int not null default -1,"+
+      "START_GPO_MATRIX int not null default -1,"+
+      "START_GPO_LINE int not null default -1,"+
+      "STOP_GPI_MATRIX int not null default -1,"+
+      "STOP_GPI_LINE int not null default -1,"+
+      "STOP_GPO_MATRIX int not null default -1,"+
+      "STOP_GPO_LINE int not null default -1,"+
+      "index STATION_NAME_IDX(STATION_NAME,INSTANCE))";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    for(unsigned i=0;i<10;i++) {
+      sql=QString().
+	sprintf("select STATION,CARD%u,PORT%u,START_RML%u,STOP_RML%u ",
+		i,i,i,i)+
+	"from RDAIRPLAY";
+      q=new QSqlQuery(sql);
+      while(q->next()) {
+	sql=QString("insert into RDAIRPLAY_CHANNELS set ")+
+	  "STATION_NAME=\""+RDEscapeString(q->value(0).toString())+"\","+
+	  QString().sprintf("INSTANCE=%u,",i)+
+	  QString().sprintf("CARD=%d,",q->value(1).toInt())+
+	  QString().sprintf("PORT=%d,",q->value(2).toInt())+
+	  "START_RML=\""+RDEscapeString(q->value(3).toString())+"\","+
+	  "STOP_RML=\""+RDEscapeString(q->value(4).toString())+"\"";
+	q1=new QSqlQuery(sql);
+	delete q1;
+      }
+      delete q;
+    }
+
+    //
+    // RDPanel Channels
+    //
+    sql=QString("create table if not exists RDPANEL_CHANNELS (")+
+      "ID int unsigned auto_increment not null primary key,"+
+      "STATION_NAME char(64) not null,"+
+      "INSTANCE int unsigned not null,"+
+      "CARD int not null default 0,"+
+      "PORT int not null default 0,"+
+      "START_RML char(255),"+
+      "STOP_RML char(255),"+
+      "START_GPI_MATRIX int not null default -1,"+
+      "START_GPI_LINE int not null default -1,"+
+      "START_GPO_MATRIX int not null default -1,"+
+      "START_GPO_LINE int not null default -1,"+
+      "STOP_GPI_MATRIX int not null default -1,"+
+      "STOP_GPI_LINE int not null default -1,"+
+      "STOP_GPO_MATRIX int not null default -1,"+
+      "STOP_GPO_LINE int not null default -1,"+
+      "index STATION_NAME_IDX(STATION_NAME,INSTANCE))";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    for(unsigned i=0;i<10;i++) {
+      if((i==2)||(i==3)||(i==6)||(i==7)||(i==8)||(i==9)) {
+	sql=QString().
+	  sprintf("select STATION,CARD%u,PORT%u,START_RML%u,STOP_RML%u ",
+		  i,i,i,i)+
+	  "from RDPANEL";
+	q=new QSqlQuery(sql);
+	while(q->next()) {
+	  sql=QString("insert into RDPANEL_CHANNELS set ")+
+	    "STATION_NAME=\""+RDEscapeString(q->value(0).toString())+"\","+
+	    QString().sprintf("INSTANCE=%u,",i)+
+	    QString().sprintf("CARD=%d,",q->value(1).toInt())+
+	    QString().sprintf("PORT=%d,",q->value(2).toInt())+
+	    "START_RML=\""+RDEscapeString(q->value(3).toString())+"\","+
+	    "STOP_RML=\""+RDEscapeString(q->value(4).toString())+"\"";
+	  q1=new QSqlQuery(sql);
+	  delete q1;
+	}
+	delete q;
+      }
+    }
+
+    //
+    // Clean Up RDAirPlay
+    //
+    sql="alter table RDAIRPLAY drop column INSTANCE";
+    q=new QSqlQuery(sql);
+    delete q;
+    for(unsigned i=0;i<10;i++) {
+      sql=QString().sprintf("alter table RDAIRPLAY drop column CARD%u",i);
+      q=new QSqlQuery(sql);
+      delete q;
+
+      sql=QString().sprintf("alter table RDAIRPLAY drop column PORT%u",i);
+      q=new QSqlQuery(sql);
+      delete q;
+
+      sql=QString().sprintf("alter table RDAIRPLAY drop column START_RML%u",i);
+      q=new QSqlQuery(sql);
+      delete q;
+
+      sql=QString().sprintf("alter table RDAIRPLAY drop column STOP_RML%u",i);
+      q=new QSqlQuery(sql);
+      delete q;
+    }
+    
+    //
+    // Clean Up RDPanel
+    //
+    sql="alter table RDPANEL drop column INSTANCE";
+    q=new QSqlQuery(sql);
+    delete q;
+    for(unsigned i=0;i<10;i++) {
+      if((i==2)||(i==3)||(i==6)||(i==7)||(i==8)||(i==9)) {
+	sql=QString().sprintf("alter table RDPANEL drop column CARD%u",i);
+	q=new QSqlQuery(sql);
+	delete q;
+
+	sql=QString().sprintf("alter table RDPANEL drop column PORT%u",i);
+	q=new QSqlQuery(sql);
+	delete q;
+
+	sql=QString().sprintf("alter table RDPANEL drop column START_RML%u",i);
+	q=new QSqlQuery(sql);
+	delete q;
+
+	sql=QString().sprintf("alter table RDPANEL drop column STOP_RML%u",i);
+	q=new QSqlQuery(sql);
+	delete q;
+      }
+    }
+    
+  }
+
+  if(ver<220) {
+    sql=QString("alter table RDAIRPLAY_CHANNELS add column GPIO_TYPE ")+
+      "int unsigned default 0 after STOP_RML";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table RDPANEL_CHANNELS add column GPIO_TYPE ")+
+      "int unsigned default 0 after STOP_RML";
     q=new QSqlQuery(sql);
     delete q;
   }

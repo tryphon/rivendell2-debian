@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdairplay.h,v 1.29.6.1 2012/11/13 23:45:10 cvs Exp $
+//      $Id: edit_rdairplay.h,v 1.29.6.3 2013/03/22 15:11:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -55,6 +55,8 @@ class EditRDAirPlay : public QDialog
   QSizePolicy sizePolicy() const;
   
  private slots:
+  void audioSettingsChangedData(int id,int card,int port);
+  void editGpiosData(int num);
   void exitPasswordChangedData(const QString &str);
   void logActivatedData(int lognum);
   void startModeChangedData(int mode);
@@ -70,9 +72,12 @@ class EditRDAirPlay : public QDialog
   
  private:
   RDAirPlayConf *air_conf;
-  RDCardSelector *air_card_sel[10];
-  QLineEdit *air_start_rml_edit[10];
-  QLineEdit *air_stop_rml_edit[10];
+  RDCardSelector *air_card_sel[RDAirPlayConf::LastChannel];
+  QLabel *air_start_rml_label[RDAirPlayConf::LastChannel];
+  QLineEdit *air_start_rml_edit[RDAirPlayConf::LastChannel];
+  QLabel *air_stop_rml_label[RDAirPlayConf::LastChannel];
+  QLineEdit *air_stop_rml_edit[RDAirPlayConf::LastChannel];
+  QPushButton *air_channel_button[RDAirPlayConf::LastChannel];
   QLabel *air_startup_label;
   QComboBox *air_startup_box;
   QLabel *air_segue_label;

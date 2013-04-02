@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlivewire.cpp,v 1.7 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdlivewire.cpp,v 1.7.8.1 2013/01/30 21:06:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -294,9 +294,9 @@ void RDLiveWire::connectedData()
   if(!live_password.isEmpty()) {
     str+=(" "+live_password);
   }
-  str+="\n";
+  str+="\r\n";
   live_socket->writeBlock(str,str.length());
-  live_socket->writeBlock("VER\r\n",4);
+  live_socket->writeBlock("VER\r\n",5);
 }
 
 
@@ -318,6 +318,7 @@ void RDLiveWire::readyReadData()
   char buf[RD_LIVEWIRE_MAX_CMD_LENGTH];
 
   int n=live_socket->readBlock(buf,RD_LIVEWIRE_MAX_CMD_LENGTH);
+  buf[n]=0;
   for(int i=0;i<n;i++) {
     if(buf[i]=='\n') {
       live_buf[live_ptr]=0;

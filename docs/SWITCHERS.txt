@@ -13,7 +13,8 @@ Broadcast Tools SS 4.4 Audio Switcher
 Broadcast Tools ACS 8.2 Audio Control Switcher
 Broadcast Tools SS 8.2 Audio Switcher
 Harlond Virtual Mixer
-Livewire AoIP System
+LiveWire AoIP System
+LiveWire Virtual GPIO
 Local Audio Adapter
 Logitek vGuest
 Quartz Electronics Type 1 Routing Protocol
@@ -312,7 +313,7 @@ number using GE/GI/GO RMLs.
 
 
 ----------------------------------------------------------------------------
-LIVEWIRE AoIP SYSTEM
+LiveWire AoIP SYSTEM
 
 Driver Name: Axia LiveWire
 
@@ -332,6 +333,31 @@ each node in RDAdmin->ManageHosts->Switcher/GPIO->LiveWire Nodes.  The driver
 will autodetect all other parameters from the nodes themselves.
 
 
+----------------------------------------------------------------------------
+LiveWire Virtual GPIO
+
+Driver Name: LiveWire Virtual GPIO
+
+Supported RML Commands:
+  GPI Enable ('GE')
+  GPI Set ('GI')
+  GPO Set ('GO')
+
+GENERAL NOTES:
+LiveWire is a distributed audio router and control system, with the 
+components (called 'nodes') configured and controled via TCP/IP.  More
+information can be found at http://www.axiaaudio.com/.
+
+This driver provides the same functionality as the 'virtual GPIO' device
+included with Axia's software-only driver.  As such, it should never
+be used with that driver, but when using other methods to connect audio
+to the LiveWire network (e.g. an external node or an ASI6x85 card).
+
+When configuring it, the 'IP Address' field should contain the address
+of the local interface to which the LiveWire network is attached.
+
+
+----------------------------------------------------------------------------
 Driver Name: Local Audio Adapter
 
 Supported RML Commands:

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_play.cpp,v 1.197.8.1 2012/10/09 16:42:05 cvs Exp $
+//      $Id: log_play.cpp,v 1.197.8.5 2013/03/13 17:09:55 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -111,10 +111,11 @@ LogPlay::LogPlay(RDCae *cae,int id,QSocketDevice *nn_sock,QString logname,
   // Audition Player
   //
   play_audition_line=-1;
-  if((rdairplay_conf->card(3)>=0)&&(rdairplay_conf->port(3)>=0)) {
+  if((rdairplay_conf->card(RDAirPlayConf::CueChannel)>=0)&&
+     (rdairplay_conf->port(RDAirPlayConf::CueChannel)>=0)) {
     play_audition_player=new RDSimplePlayer(rdcae,rdripc,
-					    rdairplay_conf->card(3),
-					    rdairplay_conf->port(3),
+			  rdairplay_conf->card(RDAirPlayConf::CueChannel),
+		       	  rdairplay_conf->port(RDAirPlayConf::CueChannel),
 					    0,0);
     play_audition_player->playButton()->hide();
     play_audition_player->stopButton()->hide();
@@ -344,6 +345,15 @@ bool LogPlay::play(int line,RDLogLine::StartSource src,
 }
 
 
+bool LogPlay::channelPlay(int mport)
+{
+  if(nextLine()<0) {
+    return false;
+  }
+  return play(nextLine(),RDLogLine::StartChannel,mport,false);
+}
+
+
 bool LogPlay::stop(bool all,int port,int fade)
 {
   RDLogLine *logline;
@@ -394,6 +404,27 @@ bool LogPlay::stop(int line,int fade)
     break;
   }
   return false;
+}
+
+
+bool LogPlay::channelStop(int mport)
+{
+  RDLogLine *logline;
+  int lines[TRANSPORT_QUANTITY];
+  bool ret=false;
+
+  int n=runningEvents(lines);
+  for(int i=0;i<n;i++) {
+    logline=logLine(lines[i]);
+    if((logline->cartType()==RDCart::Audio)
+       &&((RDPlayDeck *)logline->playDeck()!=NULL)) {
+      if(((RDPlayDeck *)logline->playDeck())->channel()==mport) {
+	stop(lines[i]);
+	ret=true;
+      }
+    }
+  }
+  return ret;
 }
 
 
@@ -1767,6 +1798,8 @@ bool LogPlay::StartEvent(int line,RDLogLine::TransType trans_type,
 	  rdevent_player->
 	    exec(logline->resolveWildcards(play_start_rml[aport]));
 	}
+	emit channelStarted(play_id,playdeck->channel(),
+			    playdeck->card(),playdeck->port());
 	LogLine(RDConfig::LogInfo,QString().sprintf(
 		  "started audio cart: Line: %d  Cart: %u  Cut: %u Pos: %d  Card: %d  Stream: %d  Port: %d",
 		  line,logline->cartNumber(),
@@ -1818,7 +1851,11 @@ bool LogPlay::StartEvent(int line,RDLogLine::TransType trans_type,
 	  rdripc->sendRml(rml);
 	  delete rml;
 	  emit played(line);
+	  logline->setStartTime(RDLogLine::Actual,QTime::currentTime());
 	  logline->setStatus(RDLogLine::Finished);
+	  LogTraffic(serviceName(),logName().left(logName().length()-4),
+		     logline,(RDLogLine::PlaySource)(play_id+1),
+		     RDAirPlayConf::TrafficMacro,play_onair_flag);
 	  FinishEvent(line);
 	  emit transportChanged();
 	  LogLine(RDConfig::LogInfo,QString().
@@ -1890,10 +1927,6 @@ bool LogPlay::StartEvent(int line,RDLogLine::TransType trans_type,
 	    load(QString().sprintf("LL %d %s -2!",
 				   play_id+1,
 				   (const char *)logline->markerLabel()));
-	 /* play_macro_deck->
-	    load(QString().sprintf("LL %d %s!",
-				   play_id+1,
-				   (const char *)logline->markerLabel()));*/
 	}
 	play_macro_deck->setLine(line);
 	play_macro_deck->exec();
@@ -2463,7 +2496,6 @@ bool LogPlay::GetNextPlayable(int *line,bool skip_meta,bool forced_start)
 	  return true;
         }
         else {
-//	  logline->setStatus(RDLogLine::Finished);
 	  logline->setStartTime(RDLogLine::Initial,QTime::currentTime());
 	  if((logline->transType()==RDLogLine::Stop)) {
             if((logline->cutNumber()>=0)&&(!logline->zombified())) {
@@ -2680,6 +2712,9 @@ void LogPlay::ClearChannel(int deckid)
 
   if(play_deck[deckid]->channel()>=0) {
     rdevent_player->exec(play_stop_rml[play_deck[deckid]->channel()]);
+    emit channelStopped(play_id,play_deck[deckid]->channel(),
+			play_deck[deckid]->card(),
+			play_deck[deckid]->port());
   }
   play_deck[deckid]->setChannel(-1);
 }

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmatrix.h,v 1.28.8.2 2012/12/10 15:40:14 cvs Exp $
+//      $Id: rdmatrix.h,v 1.28.8.3 2013/02/21 02:46:23 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,7 +38,7 @@ class RDMatrix
 	     BtAcs82=11,SasUsi=12,Bt16x2=13,BtSs124=14,LocalAudioAdapter=15,
 	     LogitekVguest=16,BtSs164=17,StarGuideIII=18,BtSs42=19,
 	     LiveWire=20,Quartz1=21,BtSs44=22,BtSrc8III=23,BtSrc16=24,
-	     Harlond=25,Acu1p=26,LastType=27};
+	     Harlond=25,Acu1p=26,LiveWireGpio=27,LastType=28};
   enum Endpoint {Input=0,Output=1};
   enum Mode {Stereo=0,Left=1,Right=2};
   enum VguestAttribute {VguestEngine=0,VguestDevice=1,VguestSurface=2,
@@ -58,7 +58,8 @@ class RDMatrix
 		NodesButtonControl=20,VguestSwitchesButtonControl=21,
 		VguestDisplaysButtonControl=22,SasSwitchesButtonControl=23,
 		GpiGpoLinkedControl=24,GpioInputsLinkedControl=25,
-		DynamicGpioControl=26,LastControl=27};
+		DynamicGpioControl=26,GpioStepSize=27,
+		LivewireGpioButtonControl=28,LastControl=29};
   RDMatrix(const QString &station,int matrix);
   QString station() const;
   int matrix() const;

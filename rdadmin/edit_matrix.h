@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_matrix.h,v 1.17.6.2 2012/12/10 15:40:14 cvs Exp $
+//      $Id: edit_matrix.h,v 1.17.6.3 2013/02/21 02:46:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -54,6 +54,7 @@ class EditMatrix : public QDialog
   void gpisButtonData();
   void gposButtonData();
   void livewireButtonData();
+  void livewireGpioButtonData();
   void vguestRelaysButtonData();
   void vguestDisplaysButtonData();
   void sasResourcesButtonData();
@@ -121,6 +122,7 @@ class EditMatrix : public QDialog
   QPushButton *edit_gpis_button;
   QPushButton *edit_gpos_button;
   QPushButton *edit_livewire_button;
+  QPushButton *edit_livewire_gpio_button;
   QPushButton *edit_vguestrelays_button;
   QPushButton *edit_vguestdisplays_button;
   QPushButton *edit_sasresources_button;

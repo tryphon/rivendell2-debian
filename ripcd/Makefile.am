@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.43.8.3 2012/12/11 03:49:48 cvs Exp $
+##      $Id: Makefile.am,v 1.43.8.4 2013/02/21 02:46:28 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -49,6 +49,7 @@ dist_ripcd_SOURCES = acu1p.cpp acu1p.h\
                      btsrc8iii.cpp btsrc8iii.h\
                      harlond.cpp harlond.h\
                      livewire.cpp livewire.h\
+                     livewire_gpio.cpp livewire_gpio.h\
                      local_audio.cpp local_audio.h\
                      local_gpio.cpp local_gpio.h\
                      local_macros.cpp maint_routines.cpp\
@@ -83,6 +84,7 @@ nodist_ripcd_SOURCES = moc_acu1p.cpp\
                        moc_btss82.cpp\
                        moc_harlond.cpp\
                        moc_livewire.cpp\
+                       moc_livewire_gpio.cpp\
                        moc_local_audio.cpp\
                        moc_local_gpio.cpp\
                        moc_quartz1.cpp\

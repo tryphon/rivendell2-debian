@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.cpp,v 1.53.2.1 2012/10/09 00:12:30 cvs Exp $
+//      $Id: edit_event.cpp,v 1.53.2.2 2013/03/09 00:21:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1116,7 +1116,6 @@ void EditEvent::preimportDownData()
 {
   int line;
   QListViewItem *item=event_preimport_list->selectedItem();
-  printf("HERE: %p\n",item);
   if(item==NULL) {
     return;
   }

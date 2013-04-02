@@ -7,56 +7,6 @@ FIELD NAME           TYPE              REMARKS
 ------------------------------------------------------------------------------
 ID                     int(10) unsigned  * Primary key, Auto Increment
 STATION                char(40)          Workstation, Indexed
-INSTANCE               int(10) unsigned
-CARD                   int(11)           RETIRED
-CARD0                  int(11)           None=-1, Main Log Machine Card 1
-PORT0                  int(11)           None=-1, Main Log Machine Port 1
-START_RML0             char(255)
-STOP_RML0              char(255)
-CARD1                  int(11)           None=-1, Main Log Machine Card 2
-PORT1                  int(11)           None=-1, Main Log Machine Port 2
-START_RML1             char(255)
-STOP_RML1              char(255)
-CARD2                  int(11)           None=-1, Sound Panel Card (1st play)
-PORT2                  int(11)           None=-1, Sound Panel Port
-START_RML2             char(255)
-STOP_RML2              char(255)
-CARD3                  int(11)           None=-1, Cue Card
-PORT3                  int(11)           None=-1, Cue Port
-START_RML3             char(255)
-STOP_RML3              char(255)
-CARD4                  int(11)           None=-1, Aux 1 Log Machine Card
-PORT4		       int(11)	       None=-1, Aux 1 Log Machine Port
-START_RML4             char(255)
-STOP_RML4              char(255)
-CARD5                  int(11)           None=-1, Aux 2 Log Machine Card
-PORT5		       int(11)	       None=-1, Aux 2 Log Machine Port
-START_RML5             char(255)
-STOP_RML5              char(255)
-CARD6                  int(11)           None=-1, Sound Panel Card (2nd play)
-PORT6                  int(11)           None=-1, Sound Panel Port
-START_RML6             char(255)
-STOP_RML6              char(255)
-CARD7                  int(11)           None=-1, Sound Panel Card (3rd play)
-PORT7                  int(11)           None=-1, Sound Panel Port
-START_RML7             char(255)
-STOP_RML7              char(255)
-CARD8                  int(11)           None=-1, Sound Panel Card (4th play)
-PORT8                  int(11)           None=-1, Sound Panel Port
-START_RML8             char(255)
-STOP_RML8              char(255)
-CARD9                  int(11)           None=-1, Sound Panel Card (5th play)
-PORT9                  int(11)           None=-1, Sound Panel Port
-START_RML9             char(255)
-STOP_RML9              char(255)
-STREAM0                int(11)           RETIRED
-STREAM1                int(11)           RETIRED
-STREAM2                int(11)           RETIRED
-STREAM3                int(11)           RETIRED
-STREAM5                int(11)           RETIRED
-STREAM6                int(11)           RETIRED
-STREAM7                int(11)           RETIRED
-STREAM8                int(11)           RETIRED
 SEGUE_LENGTH           int(11)
 TRANS_LENGTH           int(11)
 OP_MODE                int(11)           1=Manual, 2=Automatic

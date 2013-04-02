@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.cpp,v 1.113.4.2 2012/11/28 01:57:38 cvs Exp $
+//      $Id: rdlog_line.cpp,v 1.113.4.3 2013/03/09 00:21:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1812,6 +1812,9 @@ QString RDLogLine::startSourceText(RDLogLine::StartSource src)
 
       case RDLogLine::StartMacro:
 	return QObject::tr("Macro");
+
+      case RDLogLine::StartChannel:
+	return QObject::tr("Channel");
   }
   return QObject::tr("Unknown");
 }

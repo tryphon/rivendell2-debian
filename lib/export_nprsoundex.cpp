@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006,2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: export_nprsoundex.cpp,v 1.1.2.1 2013/01/21 12:33:53 cvs Exp $
+//      $Id: export_nprsoundex.cpp,v 1.1.2.2 2013/02/08 21:41:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -57,7 +57,7 @@ bool RDReport::ExportNprSoundEx(const QDate &startdate,const QDate &enddate,
 #else
   QString filename=RDDateDecode(exportPath(RDReport::Linux),startdate);
 #endif
-  if((f=fopen(filename,"w"))==NULL) {
+  if((f=fopen(filename,"wb"))==NULL) {
     report_error_code=RDReport::ErrorCantOpen;
     return false;
   }
@@ -65,7 +65,7 @@ bool RDReport::ExportNprSoundEx(const QDate &startdate,const QDate &enddate,
   //
   // Generate Header
   //
-  fprintf(f,"Start Time\tEnd Time\tTitle\tArtist\tAlbum\tLabel\r\n");
+  fprintf(f,"Start Time\tEnd Time\tTitle\tArtist\tAlbum\tLabel\x0d\x0a");
 
   //
   // Roll Up Records
@@ -82,7 +82,7 @@ bool RDReport::ExportNprSoundEx(const QDate &startdate,const QDate &enddate,
     fprintf(f,"%s\t",(const char *)StringField(q->value(2).toString()));
     fprintf(f,"%s\t",(const char *)StringField(q->value(3).toString()));
     fprintf(f,"%s\t",(const char *)StringField(q->value(4).toString()));
-    fprintf(f,"%s\r\n",(const char *)StringField(q->value(5).toString()));
+    fprintf(f,"%s\x0d\x0a",(const char *)StringField(q->value(5).toString()));
   }
   fclose(f);
   report_error_code=RDReport::ErrorOk;

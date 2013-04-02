@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.cpp,v 1.34 2011/12/28 21:09:46 cvs Exp $
+//      $Id: rdimport.cpp,v 1.34.4.3 2013/03/22 17:34:18 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -795,7 +795,6 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
   settings->setAutotrimLevel(import_autotrim_level/100);
   conv->setDestinationSettings(settings);
   conv->setUseMetadata(cart_created);
-
   if(import_verbose) {
     PrintLogDateTime();
     if(wavedata->title().length()==0 || ( (wavedata->title().length()>0) && (wavedata->title()[0] == '\0')) ) {
@@ -846,16 +845,6 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
     return MainObject::FileBad;
     break;
   }
-  if(wavedata->metadataFound()) {
-    if(import_autotrim_level!=0) {
-      wavedata->setStartPos(-1);
-      wavedata->setEndPos(-1);
-    }
-    if(cart_created) {
-      cart->setMetadata(wavedata);
-    }
-    cut->setMetadata(wavedata);
-  }
   cut->autoSegue(import_segue_level,import_segue_length);
   if((wavedata->title().length()==0)||
      ((wavedata->title().length()>0)&&(wavedata->title()[0] == '\0'))) {
@@ -877,6 +866,9 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
       }
       cart->setTitle(wavedata->cutId());
     }
+  }
+  if(!import_metadata_pattern.isEmpty()) {
+    cart->setTitle(wavedata->title());
   }
   if(import_startdate_offset!=0) {
     dt=cut->startDatetime(&ok);
@@ -1091,7 +1083,7 @@ bool MainObject::IsWav(int fd)
 }
 
 
-bool MainObject::FindChunk(int fd,char *chunk_name,bool *fix_needed)
+bool MainObject::FindChunk(int fd,const char *chunk_name,bool *fix_needed)
 {
   int i;
   char name[5]={0,0,0,0,0};

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.h,v 1.17 2010/09/08 20:38:01 cvs Exp $
+//      $Id: rdimport.h,v 1.17.6.1 2013/03/22 17:34:18 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -68,7 +68,7 @@ class MainObject : public QObject
   void VerifyFile(const QString &filename,unsigned *cartnum);
   RDWaveFile *FixFile(const QString &filename,RDWaveData *wavedata);
   bool IsWav(int fd);
-  bool FindChunk(int fd,char *name,bool *fix_needed);
+  bool FindChunk(int fd,const char *name,bool *fix_needed);
   bool FixChunkSizes(const QString &filename);
   bool RunPattern(const QString &pattern,const QString &filename,
 		  RDWaveData *wavedata,QString *groupname);

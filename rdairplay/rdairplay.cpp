@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.cpp,v 1.189.2.2 2013/01/07 15:35:00 cvs Exp $
+//      $Id: rdairplay.cpp,v 1.189.2.13 2013/03/22 15:11:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -264,7 +264,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   rdstation_conf=new RDStation(air_config->stationName());
   rdsystem_conf=new RDSystem();
-  rdairplay_conf=new RDAirPlayConf(air_config->stationName(),0);
+  rdairplay_conf=new RDAirPlayConf(air_config->stationName(),"RDAIRPLAY");
   rdairplay_previous_exit_code=rdairplay_conf->exitCode();
   rdairplay_conf->setExitCode(RDAirPlayConf::ExitDirty);
   air_clear_filter=rdairplay_conf->clearFilter();
@@ -277,6 +277,48 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   }
   else {
     setErasePixmap(*mainmap);
+  }
+
+  //
+  // Load GPIO Channel Configuration
+  //
+  for(unsigned i=0;i<RDAirPlayConf::LastChannel;i++) {
+    RDAirPlayConf::Channel chan=(RDAirPlayConf::Channel)i;
+    air_start_gpi_matrices[i]=rdairplay_conf->startGpiMatrix(chan);
+    air_start_gpi_lines[i]=rdairplay_conf->startGpiLine(chan)-1;
+    air_start_gpo_matrices[i]=rdairplay_conf->startGpoMatrix(chan);
+    air_start_gpo_lines[i]=rdairplay_conf->startGpoLine(chan)-1;
+    air_stop_gpi_matrices[i]=rdairplay_conf->stopGpiMatrix(chan);
+    air_stop_gpi_lines[i]=rdairplay_conf->stopGpiLine(chan)-1;
+    air_stop_gpo_matrices[i]=rdairplay_conf->stopGpoMatrix(chan);
+    air_stop_gpo_lines[i]=rdairplay_conf->stopGpoLine(chan)-1;
+    air_channel_gpio_types[i]=rdairplay_conf->gpioType(chan);
+    air_audio_channels[i]=
+      AudioChannel(rdairplay_conf->card(chan),rdairplay_conf->port(chan));
+
+    if((rdairplay_conf->card(chan)>=0)&&(rdairplay_conf->port(chan)>=0)) {
+      int achan=
+	AudioChannel(rdairplay_conf->card(chan),rdairplay_conf->port(chan));
+      if(air_channel_timers[0][achan]==NULL) {
+	air_channel_timers[0][achan]=new QTimer(this);
+	air_channel_timers[1][achan]=new QTimer(this);
+      }
+    }
+  }
+
+  //
+  // Fixup Main Log GPIO Channel Assignments
+  //
+  if(((rdairplay_conf->card(RDAirPlayConf::MainLog1Channel)==
+      rdairplay_conf->card(RDAirPlayConf::MainLog2Channel))&&
+     (rdairplay_conf->port(RDAirPlayConf::MainLog1Channel)==
+      rdairplay_conf->port(RDAirPlayConf::MainLog2Channel)))||
+     rdairplay_conf->card(RDAirPlayConf::MainLog2Channel)<0) {
+    air_start_gpi_matrices[RDAirPlayConf::MainLog2Channel]=-1;
+    air_start_gpo_matrices[RDAirPlayConf::MainLog2Channel]=-1;
+    air_stop_gpi_matrices[RDAirPlayConf::MainLog2Channel]=
+      air_stop_gpi_matrices[RDAirPlayConf::MainLog1Channel];
+    air_stop_gpo_matrices[RDAirPlayConf::MainLog2Channel]=-1;
   }
 
   //
@@ -299,6 +341,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   connect(rdripc,SIGNAL(userChanged()),this,SLOT(userData()));
   connect(rdripc,SIGNAL(rmlReceived(RDMacro *)),
 	  this,SLOT(rmlReceivedData(RDMacro *)));
+  connect(rdripc,SIGNAL(gpiStateChanged(int,int,bool)),
+	  this,SLOT(gpiStateChangedData(int,int,bool)));
 
   //
   // Macro Player
@@ -334,6 +378,10 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
     connect(air_log[i],SIGNAL(renamed()),rename_mapper,SLOT(map()));
     connect(air_log[i],SIGNAL(refreshStatusChanged(bool)),
 	    this,SLOT(refreshStatusChangedData(bool)));
+    connect(air_log[i],SIGNAL(channelStarted(int,int,int,int)),
+	    this,SLOT(logChannelStartedData(int,int,int,int)));
+    connect(air_log[i],SIGNAL(channelStopped(int,int,int,int)),
+	    this,SLOT(logChannelStoppedData(int,int,int,int)));
   }
   connect(air_log[0],SIGNAL(transportChanged()),
 	  this,SLOT(transportChangedData()));
@@ -341,15 +389,15 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Audio Channel Assignments
   //
-  air_cue_card=rdairplay_conf->card(3);
-  air_cue_port=rdairplay_conf->port(3);
+  air_cue_card=rdairplay_conf->card(RDAirPlayConf::CueChannel);
+  air_cue_port=rdairplay_conf->port(RDAirPlayConf::CueChannel);
   for(int i=0;i<3;i++) {
-    air_meter_card[i]=rdairplay_conf->card(i);
-    air_meter_port[i]=rdairplay_conf->port(i);
-    cards[i]=rdairplay_conf->card(i);
-    ports[i]=rdairplay_conf->port(i);
-    start_rmls[i]=rdairplay_conf->startRml(i);
-    stop_rmls[i]=rdairplay_conf->stopRml(i);
+    air_meter_card[i]=rdairplay_conf->card((RDAirPlayConf::Channel)i);
+    air_meter_port[i]=rdairplay_conf->port((RDAirPlayConf::Channel)i);
+    cards[i]=rdairplay_conf->card((RDAirPlayConf::Channel)i);
+    ports[i]=rdairplay_conf->port((RDAirPlayConf::Channel)i);
+    start_rmls[i]=rdairplay_conf->startRml((RDAirPlayConf::Channel)i);
+    stop_rmls[i]=rdairplay_conf->stopRml((RDAirPlayConf::Channel)i);
   }
   if(air_meter_card[1]<0) {  // Fixup disabled main log port 2 playout
     air_meter_card[1]=air_meter_card[0];
@@ -360,18 +408,18 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   air_log[0]->setChannels(cards,ports,start_rmls,stop_rmls);
 
   for(int i=0;i<2;i++) {
-    cards[i]=rdairplay_conf->card(4);
-    ports[i]=rdairplay_conf->port(4);
-    start_rmls[i]=rdairplay_conf->startRml(4);
-    stop_rmls[i]=rdairplay_conf->stopRml(4);
+    cards[i]=rdairplay_conf->card(RDAirPlayConf::AuxLog1Channel);
+    ports[i]=rdairplay_conf->port(RDAirPlayConf::AuxLog1Channel);
+    start_rmls[i]=rdairplay_conf->startRml(RDAirPlayConf::AuxLog1Channel);
+    stop_rmls[i]=rdairplay_conf->stopRml(RDAirPlayConf::AuxLog1Channel);
   }
   air_log[1]->setChannels(cards,ports,start_rmls,stop_rmls);
 
   for(int i=0;i<2;i++) {
-    cards[i]=rdairplay_conf->card(5);
-    ports[i]=rdairplay_conf->port(5);
-    start_rmls[i]=rdairplay_conf->startRml(5);
-    stop_rmls[i]=rdairplay_conf->stopRml(5);
+    cards[i]=rdairplay_conf->card(RDAirPlayConf::AuxLog2Channel);
+    ports[i]=rdairplay_conf->port(RDAirPlayConf::AuxLog2Channel);
+    start_rmls[i]=rdairplay_conf->startRml(RDAirPlayConf::AuxLog2Channel);
+    stop_rmls[i]=rdairplay_conf->stopRml(RDAirPlayConf::AuxLog2Channel);
   }
   air_log[2]->setChannels(cards,ports,start_rmls,stop_rmls);
 
@@ -601,56 +649,62 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
       delete pm;
     }
     air_panel->setPauseEnabled(rdairplay_conf->panelPauseEnabled());
-    air_panel->setCard(0,rdairplay_conf->card(2));
-    air_panel->setPort(0,rdairplay_conf->port(2));
+    air_panel->setCard(0,rdairplay_conf->card(RDAirPlayConf::SoundPanel1Channel));
+    air_panel->setPort(0,rdairplay_conf->port(RDAirPlayConf::SoundPanel1Channel));
     air_panel->setFocusPolicy(QWidget::NoFocus);
-    if((card=rdairplay_conf->card(6))<0) {
-      air_panel->setCard(1,air_panel->card(0));
-      air_panel->setPort(1,air_panel->port(0));
+    if((card=rdairplay_conf->card(RDAirPlayConf::SoundPanel2Channel))<0) {
+      air_panel->setCard(1,air_panel->card(RDAirPlayConf::MainLog1Channel));
+      air_panel->setPort(1,air_panel->port(RDAirPlayConf::MainLog1Channel));
     }
     else {
       air_panel->setCard(1,card);
-      air_panel->setPort(1,rdairplay_conf->port(6));
+      air_panel->setPort(1,rdairplay_conf->port(RDAirPlayConf::SoundPanel2Channel));
     }
-    if((card=rdairplay_conf->card(7))<0) {
-      air_panel->setCard(2,air_panel->card(1));
-      air_panel->setPort(2,air_panel->port(1));
+    if((card=rdairplay_conf->card(RDAirPlayConf::SoundPanel3Channel))<0) {
+      air_panel->setCard(2,air_panel->card(RDAirPlayConf::MainLog2Channel));
+      air_panel->setPort(2,air_panel->port(RDAirPlayConf::MainLog2Channel));
     }
     else {
       air_panel->setCard(2,card);
-      air_panel->setPort(2,rdairplay_conf->port(7));
+      air_panel->setPort(2,rdairplay_conf->port(RDAirPlayConf::SoundPanel3Channel));
     }
-    if((card=rdairplay_conf->card(8))<0) {
-      air_panel->setCard(3,air_panel->card(2));
-      air_panel->setPort(3,air_panel->port(2));
+    if((card=rdairplay_conf->card(RDAirPlayConf::SoundPanel4Channel))<0) {
+      air_panel->setCard(3,air_panel->card(RDAirPlayConf::SoundPanel1Channel));
+      air_panel->setPort(3,air_panel->port(RDAirPlayConf::SoundPanel1Channel));
     }
     else {
       air_panel->setCard(3,card);
-      air_panel->setPort(3,rdairplay_conf->port(8));
+      air_panel->setPort(3,rdairplay_conf->port(RDAirPlayConf::SoundPanel4Channel));
     }
-    if((card=rdairplay_conf->card(9))<0) {
-      air_panel->setCard(4,air_panel->card(3));
-      air_panel->setPort(4,air_panel->port(3));
+    if((card=rdairplay_conf->card(RDAirPlayConf::SoundPanel5Channel))<0) {
+      air_panel->setCard(4,air_panel->card(RDAirPlayConf::CueChannel));
+      air_panel->setPort(4,air_panel->port(RDAirPlayConf::CueChannel));
     }
     else {
       air_panel->setCard(4,card);
-      air_panel->setPort(4,rdairplay_conf->port(9));
+      air_panel->setPort(4,rdairplay_conf->
+			 port(RDAirPlayConf::SoundPanel5Channel));
     }
-    air_panel->
-      setRmls(0,rdairplay_conf->startRml(2),rdairplay_conf->stopRml(2));
-    air_panel->
-      setRmls(1,rdairplay_conf->startRml(6),rdairplay_conf->stopRml(6));
-    air_panel->
-      setRmls(2,rdairplay_conf->startRml(7),rdairplay_conf->stopRml(7));
-    air_panel->
-      setRmls(3,rdairplay_conf->startRml(8),rdairplay_conf->stopRml(8));
-    air_panel->
-      setRmls(4,rdairplay_conf->startRml(9),rdairplay_conf->stopRml(9));
+    air_panel->setRmls(0,rdairplay_conf->
+		  startRml(RDAirPlayConf::SoundPanel1Channel),
+		  rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel1Channel));
+    air_panel->setRmls(1,rdairplay_conf->
+		  startRml(RDAirPlayConf::SoundPanel2Channel),
+		  rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel2Channel));
+    air_panel->setRmls(2,rdairplay_conf->
+		  startRml(RDAirPlayConf::SoundPanel3Channel),
+		  rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel3Channel));
+    air_panel->setRmls(3,rdairplay_conf->
+		  startRml(RDAirPlayConf::SoundPanel4Channel),
+		  rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel4Channel));
+    air_panel->setRmls(4,rdairplay_conf->
+		  startRml(RDAirPlayConf::SoundPanel5Channel),
+		  rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel5Channel));
     int next_output=0;
     int channum[2];
     bool assigned=false;
-    if((air_log[0]->card(0)==air_log[0]->card(1))&&
-       (air_log[0]->port(0)==air_log[0]->port(1))) {
+    if((air_log[0]->card(0)==air_log[0]->card(RDAirPlayConf::MainLog2Channel))&&
+       (air_log[0]->port(0)==air_log[0]->port(RDAirPlayConf::MainLog2Channel))) {
       next_output=2;
       channum[0]=1;
       channum[1]=1;
@@ -664,8 +718,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
       air_panel->setOutputText(i,QString().sprintf("%d",next_output++));
       assigned=false;
       for(int j=0;j<2;j++) {
-	if((air_panel->card(i)==air_log[0]->card(j))&&
-	   (air_panel->port(i)==air_log[0]->port(j))) {
+	if((air_panel->card((RDAirPlayConf::Channel)i)==air_log[0]->card(j))&&
+	   (air_panel->port((RDAirPlayConf::Channel)i)==air_log[0]->port(j))) {
 	  air_panel->setOutputText(i,QString().sprintf("%d",channum[j]));
 	  next_output--;
 	  assigned=true;
@@ -674,8 +728,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
       }
       if(!assigned) {
 	for(int j=0;j<i;j++) {
-	  if((i!=j)&&(air_panel->card(i)==air_panel->card(j))&&
-	     (air_panel->port(i)==air_panel->port(j))) {
+	  if((i!=j)&&(air_panel->card((RDAirPlayConf::Channel)i)==air_panel->card(j))&&
+	     (air_panel->port((RDAirPlayConf::Channel)i)==air_panel->port(j))) {
 	    air_panel->setOutputText(i,air_panel->outputText(j));
 	    next_output--;
 	    j=PANEL_MAX_OUTPUTS;
@@ -689,6 +743,10 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
     connect(air_master_timer,SIGNAL(timeout()),air_panel,SLOT(tickClock()));
     connect(air_panel,SIGNAL(selectClicked(unsigned,int,int)),
 	    this,SLOT(selectClickedData(unsigned,int,int)));
+    connect(air_panel,SIGNAL(channelStarted(int,int,int)),
+	    this,SLOT(panelChannelStartedData(int,int,int)));
+    connect(air_panel,SIGNAL(channelStopped(int,int,int)),
+	    this,SLOT(panelChannelStoppedData(int,int,int)));
   }
 
   //
@@ -941,6 +999,304 @@ void MainWidget::ripcConnected(bool state)
 void MainWidget::rmlReceivedData(RDMacro *rml)
 {
   RunLocalMacros(rml);
+}
+
+
+void MainWidget::gpiStateChangedData(int matrix,int line,bool state)
+{
+  //
+  // Main Logs
+  //
+  for(unsigned i=0;i<2;i++) {
+    if(state) {
+      if((air_start_gpi_matrices[i]==matrix)&&
+	 (air_start_gpi_lines[i]==line)) {
+	if(AssertChannelLock(1,air_audio_channels[i])) {
+	  air_log[0]->channelPlay(i);
+	}
+      }
+    }
+    else {
+      if((air_stop_gpi_matrices[i]==matrix)&&
+	 (air_stop_gpi_lines[i]==line)) {
+	air_log[0]->channelStop(i);
+      }
+    }
+  }
+
+  //
+  // Aux Logs
+  //
+  for(unsigned i=4;i<6;i++) {
+    if(state) {
+      if((air_start_gpi_matrices[i]==matrix)&&
+	 (air_start_gpi_lines[i]==line)) {
+	if(air_channel_timers[0][air_audio_channels[i]]->isActive()) {
+	  air_channel_timers[0][air_audio_channels[i]]->stop();
+	}
+	else {
+	  air_channel_timers[1][air_audio_channels[i]]->
+	    start(AIR_CHANNEL_LOCKOUT_INTERVAL,true);
+	  air_log[i-3]->channelPlay(0);
+	}
+      }
+    }
+    else {
+      if((air_stop_gpi_matrices[i]==matrix)&&
+	 (air_stop_gpi_lines[i]==line)) {
+	air_log[i-3]->channelStop(0);
+      }
+    }
+  }
+
+  //
+  // Sound Panel
+  //
+  if(!state) {
+    if((air_stop_gpi_matrices[RDAirPlayConf::SoundPanel1Channel]==matrix)&&
+       (air_stop_gpi_lines[RDAirPlayConf::SoundPanel1Channel]==line)) {
+      air_panel->channelStop(0);
+    }
+    for(unsigned i=6;i<10;i++) {
+      if((air_stop_gpi_matrices[i]==matrix)&&
+	 (air_stop_gpi_lines[i]==line)) {
+	air_panel->channelStop(i-5);
+      }
+    }
+  }
+}
+
+
+void MainWidget::logChannelStartedData(int id,int mport,int card,int port)
+{
+  if(!AssertChannelLock(0,card,port)) {
+    return;
+  }
+  switch(id) {
+  case 0:  // Main Log
+    switch(mport) {
+    case 0:
+      if(air_start_gpo_matrices[RDAirPlayConf::MainLog1Channel]>=0) {
+	switch(air_channel_gpio_types[RDAirPlayConf::MainLog1Channel]) {
+	case RDAirPlayConf::LevelGpio:
+	  rdevent_player->
+	    exec(QString().sprintf("GO %d %d 1 0!",
+		      air_start_gpo_matrices[RDAirPlayConf::MainLog1Channel],
+		      air_start_gpo_lines[RDAirPlayConf::MainLog1Channel]+1));
+	  break;
+
+	case RDAirPlayConf::EdgeGpio:
+	  rdevent_player->
+	    exec(QString().sprintf("GO %d %d 1 300!",
+		      air_start_gpo_matrices[RDAirPlayConf::MainLog1Channel],
+		      air_start_gpo_lines[RDAirPlayConf::MainLog1Channel]+1));
+	  break;
+	}
+      }
+      break;
+
+    case 1:
+      if(air_start_gpo_matrices[RDAirPlayConf::MainLog2Channel]>=0) {
+	switch(air_channel_gpio_types[RDAirPlayConf::MainLog2Channel]) {
+	case RDAirPlayConf::LevelGpio:
+	  rdevent_player->
+	    exec(QString().sprintf("GO %d %d 1 0!",
+		      air_start_gpo_matrices[RDAirPlayConf::MainLog2Channel],
+		      air_start_gpo_lines[RDAirPlayConf::MainLog2Channel]+1));
+	  break;
+
+	case RDAirPlayConf::EdgeGpio:
+	  rdevent_player->
+	    exec(QString().sprintf("GO %d %d 1 300!",
+		      air_start_gpo_matrices[RDAirPlayConf::MainLog2Channel],
+		      air_start_gpo_lines[RDAirPlayConf::MainLog2Channel]+1));
+	  break;
+	}
+      }
+      break;
+    }
+    break;
+
+  case 1:  // Aux Log 1
+    if(air_start_gpo_matrices[RDAirPlayConf::AuxLog1Channel]>=0) {
+      switch(air_channel_gpio_types[RDAirPlayConf::AuxLog1Channel]) {
+      case RDAirPlayConf::LevelGpio:
+	rdevent_player->
+	  exec(QString().sprintf("GO %d %d 1 0!",
+		      air_start_gpo_matrices[RDAirPlayConf::AuxLog1Channel],
+		      air_start_gpo_lines[RDAirPlayConf::AuxLog1Channel]+1));
+	break;
+
+      case RDAirPlayConf::EdgeGpio:
+	rdevent_player->
+	  exec(QString().sprintf("GO %d %d 1 300!",
+		      air_start_gpo_matrices[RDAirPlayConf::AuxLog1Channel],
+		      air_start_gpo_lines[RDAirPlayConf::AuxLog1Channel]+1));
+	break;
+      }
+    }
+    break;
+    
+  case 2:  // Aux Log 2
+    if(air_start_gpo_matrices[RDAirPlayConf::AuxLog2Channel]>=0) {
+      switch(air_channel_gpio_types[RDAirPlayConf::AuxLog2Channel]) {
+      case RDAirPlayConf::LevelGpio:
+	rdevent_player->
+	  exec(QString().sprintf("GO %d %d 1 0!",
+		      air_start_gpo_matrices[RDAirPlayConf::AuxLog2Channel],
+		      air_start_gpo_lines[RDAirPlayConf::AuxLog2Channel]+1));
+	break;
+
+      case RDAirPlayConf::EdgeGpio:
+	rdevent_player->
+	  exec(QString().sprintf("GO %d %d 1 300!",
+		      air_start_gpo_matrices[RDAirPlayConf::AuxLog2Channel],
+		      air_start_gpo_lines[RDAirPlayConf::AuxLog2Channel]+1));
+	break;
+      }
+    }
+    break;
+  }
+}
+
+
+void MainWidget::logChannelStoppedData(int id,int mport,int card,int port)
+{
+  switch(id) {
+  case 0:  // Main Log
+    switch(mport) {
+    case 0:
+      if(air_stop_gpo_matrices[RDAirPlayConf::MainLog1Channel]>=0) {
+	switch(air_channel_gpio_types[RDAirPlayConf::MainLog1Channel]) {
+	case RDAirPlayConf::LevelGpio:
+	  rdevent_player->
+	    exec(QString().sprintf("GO %d %d 0 0!",
+		      air_stop_gpo_matrices[RDAirPlayConf::MainLog1Channel],
+		      air_stop_gpo_lines[RDAirPlayConf::MainLog1Channel]+1));
+	  break;
+
+	case RDAirPlayConf::EdgeGpio:
+	  rdevent_player->
+	    exec(QString().sprintf("GO %d %d 1 300!",
+		      air_stop_gpo_matrices[RDAirPlayConf::MainLog1Channel],
+		      air_stop_gpo_lines[RDAirPlayConf::MainLog1Channel]+1));
+	  break;
+	}
+      }
+      break;
+
+    case 1:
+      if(air_stop_gpo_matrices[RDAirPlayConf::MainLog2Channel]>=0) {
+	switch(air_channel_gpio_types[RDAirPlayConf::MainLog2Channel]) {
+	case RDAirPlayConf::LevelGpio:
+	  rdevent_player->
+	    exec(QString().sprintf("GO %d %d 0 0!",
+		      air_stop_gpo_matrices[RDAirPlayConf::MainLog2Channel],
+		      air_stop_gpo_lines[RDAirPlayConf::MainLog2Channel]+1));
+	  break;
+
+	case RDAirPlayConf::EdgeGpio:
+	  rdevent_player->
+	    exec(QString().sprintf("GO %d %d 1 300!",
+		      air_stop_gpo_matrices[RDAirPlayConf::MainLog2Channel],
+		      air_stop_gpo_lines[RDAirPlayConf::MainLog2Channel]+1));
+	  break;
+	}
+      }
+      break;
+    }
+    break;
+
+  case 1:  // Aux Log 1
+    if(air_stop_gpo_matrices[RDAirPlayConf::AuxLog1Channel]>=0) {
+      switch(air_channel_gpio_types[RDAirPlayConf::AuxLog1Channel]) {
+      case RDAirPlayConf::LevelGpio:
+	rdevent_player->
+	  exec(QString().sprintf("GO %d %d 0 0!",
+		      air_stop_gpo_matrices[RDAirPlayConf::AuxLog1Channel],
+		      air_stop_gpo_lines[RDAirPlayConf::AuxLog1Channel]+1));
+	break;
+
+      case RDAirPlayConf::EdgeGpio:
+	rdevent_player->
+	  exec(QString().sprintf("GO %d %d 1 300!",
+		      air_stop_gpo_matrices[RDAirPlayConf::AuxLog1Channel],
+		      air_stop_gpo_lines[RDAirPlayConf::AuxLog1Channel]+1));
+	break;
+      }
+    }
+    break;
+
+  case 2:  // Aux Log 2
+    if(air_stop_gpo_matrices[RDAirPlayConf::AuxLog2Channel]>=0) {
+      switch(air_channel_gpio_types[RDAirPlayConf::AuxLog2Channel]) {
+      case RDAirPlayConf::LevelGpio:
+	rdevent_player->
+	  exec(QString().sprintf("GO %d %d 0 0!",
+		      air_stop_gpo_matrices[RDAirPlayConf::AuxLog2Channel],
+		      air_stop_gpo_lines[RDAirPlayConf::AuxLog2Channel]+1));
+	break;
+
+      case RDAirPlayConf::EdgeGpio:
+	rdevent_player->
+	  exec(QString().sprintf("GO %d %d 1 300!",
+		      air_stop_gpo_matrices[RDAirPlayConf::AuxLog2Channel],
+		      air_stop_gpo_lines[RDAirPlayConf::AuxLog2Channel]+1));
+	break;
+      }
+    }
+    break;
+  }
+}
+
+
+void MainWidget::panelChannelStartedData(int mport,int card,int port)
+{
+  if(!AssertChannelLock(0,card,port)) {
+    return;
+  }
+  RDAirPlayConf::Channel chan=PanelChannel(mport);
+  if(air_start_gpo_matrices[chan]>=0) {
+    switch(air_channel_gpio_types[chan]) {
+    case RDAirPlayConf::LevelGpio:
+      rdevent_player->
+	exec(QString().sprintf("GO %d %d 1 0!",
+			       air_start_gpo_matrices[chan],
+			       air_start_gpo_lines[chan]+1));
+      break;
+
+    case RDAirPlayConf::EdgeGpio:
+      rdevent_player->
+	exec(QString().sprintf("GO %d %d 1 300!",
+			       air_start_gpo_matrices[chan],
+			       air_start_gpo_lines[chan]+1));
+      break;
+    }
+  }
+}
+
+
+void MainWidget::panelChannelStoppedData(int mport,int card,int port)
+{
+  RDAirPlayConf::Channel chan=PanelChannel(mport);
+
+  if(air_stop_gpo_matrices[chan]>=0) {
+    switch(air_channel_gpio_types[chan]) {
+    case RDAirPlayConf::LevelGpio:
+      rdevent_player->
+	exec(QString().sprintf("GO %d %d 0 0!",
+			       air_stop_gpo_matrices[chan],
+			       air_stop_gpo_lines[chan]+1));
+      break;
+
+    case RDAirPlayConf::EdgeGpio:
+      rdevent_player->
+	exec(QString().sprintf("GO %d %d 1 300!",
+			       air_stop_gpo_matrices[chan],
+			       air_stop_gpo_lines[chan]+1));
+      break;
+    }
+  }
 }
 
 
@@ -2155,4 +2511,59 @@ bool MainWidget::FirstPort(int index)
     }
   }
   return true;
+}
+
+
+bool MainWidget::AssertChannelLock(int dir,int card,int port)
+{
+  return AssertChannelLock(dir,AudioChannel(card,port));
+}
+
+
+bool MainWidget::AssertChannelLock(int dir,int achan)
+{
+  if(achan>=0) {
+    int odir=!dir;
+    if(air_channel_timers[odir][achan]->isActive()) {
+      air_channel_timers[odir][achan]->stop();
+      return false;
+    }
+    air_channel_timers[dir][achan]->start(AIR_CHANNEL_LOCKOUT_INTERVAL,true);
+    return true;
+  }
+  return false;
+}
+
+
+int MainWidget::AudioChannel(int card,int port) const
+{
+  return RD_MAX_PORTS*card+port;
+}
+
+
+RDAirPlayConf::Channel MainWidget::PanelChannel(int mport) const
+{
+  RDAirPlayConf::Channel chan=RDAirPlayConf::SoundPanel1Channel;
+  switch(mport) {
+  case 0:
+    chan=RDAirPlayConf::SoundPanel1Channel;
+    break;
+
+  case 1:
+    chan=RDAirPlayConf::SoundPanel2Channel;
+    break;
+
+  case 2:
+    chan=RDAirPlayConf::SoundPanel3Channel;
+    break;
+
+  case 3:
+    chan=RDAirPlayConf::SoundPanel4Channel;
+    break;
+
+  case 4:
+    chan=RDAirPlayConf::SoundPanel5Channel;
+    break;
+  }
+  return chan;
 }

@@ -1,6 +1,31 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.5.0 -- 04/01/2013
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   LiveWire Virtual GPIO Driver.  Added a fully native virtual GPIO
+   LiveWire driver for situations where the proprietary software
+   LiveWire/ALSA driver is not available (e.g. when using an ASI6x85
+   adapter).  See 'SWITCHERS.txt' for details.
+
+   Console Channel Control.  Added the capability to automate
+   console channel ON/OFF control bidirectionally from RDAirPlay.
+   (Configured in RDAdmin->ManageHosts->RDAirPlay).
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 220, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.4.0 -- 01/28/2013
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

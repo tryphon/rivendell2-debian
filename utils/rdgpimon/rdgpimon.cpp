@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdgpimon.cpp,v 1.14.6.1 2013/01/07 15:35:08 cvs Exp $
+//      $Id: rdgpimon.cpp,v 1.14.6.2 2013/03/13 20:10:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -65,8 +65,11 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Create Font
   //
-  QFont font("helvetica",12,QFont::Bold);
-  font.setPixelSize(12);
+  QFont font("helvetica",10,QFont::Normal);
+  font.setPixelSize(10);
+  setFont(font);
+  QFont main_font("helvetica",12,QFont::Bold);
+  main_font.setPixelSize(12);
 
   //
   // Create And Set Icon
@@ -141,7 +144,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   QLabel *label=
     new QLabel(gpi_type_box,tr("Show:"),this,"gpi_type_label");
   label->setGeometry(20,10,55,21);
-  label->setFont(font);
+  label->setFont(main_font);
   label->setAlignment(AlignRight|AlignVCenter);
   connect(gpi_type_box,SIGNAL(activated(int)),
 	  this,SLOT(matrixActivatedData(int)));
@@ -156,7 +159,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   }
   label=new QLabel(gpi_matrix_box,tr("Matrix:"),this,"gpi_matrix_label");
   label->setGeometry(220,10,55,21);
-  label->setFont(font);
+  label->setFont(main_font);
   label->setAlignment(AlignRight|AlignVCenter);
   connect(gpi_matrix_box,SIGNAL(activated(int)),
 	  this,SLOT(matrixActivatedData(int)));
@@ -196,7 +199,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   label=new QLabel(tr("Green = ON Cart"),this);
   label->setGeometry(200,sizeHint().height()-50,300,12);
-  label->setFont(font);
+  label->setFont(main_font);
   label->setAlignment(AlignLeft|AlignVCenter);
   QPalette p=palette();
   p.setColor(QPalette::Active,QColorGroup::Foreground,darkGreen);
@@ -206,7 +209,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 
   label=new QLabel(tr("Red = OFF Cart"),this);
   label->setGeometry(200,sizeHint().height()-32,300,12);
-  label->setFont(font);
+  label->setFont(main_font);
   label->setAlignment(AlignLeft|AlignVCenter);
   p.setColor(QPalette::Active,QColorGroup::Foreground,darkRed);
   p.setColor(QPalette::Inactive,QColorGroup::Foreground,darkRed);
@@ -220,7 +223,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   gpi_close_button=new QPushButton(this,"gpi_close_button");
   gpi_close_button->setGeometry(sizeHint().width()-90,sizeHint().height()-60,
 				80,50);
-  gpi_close_button->setFont(font);
+  gpi_close_button->setFont(main_font);
   gpi_close_button->setText(tr("&Close"));
   connect(gpi_close_button,SIGNAL(clicked()),this,SLOT(quitMainWidget()));
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: sas64000.h,v 1.10 2010/08/03 23:39:26 cvs Exp $
+//      $Id: sas64000.h,v 1.10.8.1 2013/03/03 23:30:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,7 +44,7 @@ class Sas64000 : public Switcher
   void processCommand(RDMacro *cmd);
 
  private:
-  void SendCommand(RDMacro *cmd,char *format);
+  void SendCommand(RDMacro *cmd,const char *format);
   RDTTYDevice *sas_device;
   int sas_inputs;
   int sas_outputs;

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,1020 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: switcher.h,v 1.1.8.1 2012/08/06 00:12:07 cvs Exp $
+//      $Id: switcher.h,v 1.1.8.2 2013/03/03 22:58:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,8 @@
 
 #ifndef SWITCHER_H
 #define SWITCHER_H
+
+#include <stdint.h>
 
 #include <qobject.h>
 
@@ -52,6 +54,7 @@ class Switcher : public QObject
 
  protected:
   void executeMacroCart(unsigned cartnum);
+  void logBytes(uint8_t *data,int len);
 };
 
 

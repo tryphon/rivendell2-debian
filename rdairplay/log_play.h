@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_play.h,v 1.90 2010/07/29 19:32:36 cvs Exp $
+//      $Id: log_play.h,v 1.90.8.2 2013/03/09 22:50:46 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -84,8 +84,10 @@ class LogPlay : public QObject,public RDLogEvent
   void auditionStop();
   bool play(int line,RDLogLine::StartSource src,
 	    int mport=-1,bool skip_meta=false);
+  bool channelPlay(int mport);
   bool stop(bool all=true,int port=0,int fade=0);
   bool stop(int line,int fade=0);
+  bool channelStop(int mport);
   bool pause(int line);
   void duckVolume(int level,int fade,int mport=-1);
   void makeNext(int line,bool refresh_status=true);
@@ -156,6 +158,8 @@ class LogPlay : public QObject,public RDLogEvent
   void runStatusChanged(bool running);
   void refreshabilityChanged(bool state);
   void refreshStatusChanged(bool active);
+  void channelStarted(int id,int mport,int card,int port);
+  void channelStopped(int id,int mport,int card,int port);
 
  private:
   bool StartEvent(int line,RDLogLine::TransType trans_type,int trans_length,
@@ -171,7 +175,6 @@ class LogPlay : public QObject,public RDLogEvent
   QTime GetNextStop(int line);
   void UpdatePostPoint();
   void UpdatePostPoint(int line);
-//  int NextPostPoint(int line,QTime *start,int *offset);
   void AdvanceActiveEvent();
   void SetTransTimer(QTime current_time=QTime(),bool stop=true);
   QString GetPortName(int card,int port);

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_station.cpp,v 1.32 2010/10/04 18:11:46 cvs Exp $
+//      $Id: add_station.cpp,v 1.32.6.1 2013/03/09 00:21:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -183,6 +183,23 @@ void AddStation::okData()
       delete q1;
     }
     delete q;
+
+    //
+    // RDAirPlay/RDPanel Channel Data
+    //
+    for(unsigned i=0;i<10;i++) {
+      sql=QString("insert into RDAIRPLAY_CHANNELS set ")+
+	"STATION_NAME=\""+RDEscapeString(add_name_edit->text())+"\","+
+	QString().sprintf("INSTANCE=%u",i);
+      q=new RDSqlQuery(sql);
+      delete q;
+
+      sql=QString("insert into RDPANEL_CHANNELS set ")+
+	"STATION_NAME=\""+RDEscapeString(add_name_edit->text())+"\","+
+	QString().sprintf("INSTANCE=%u",i);
+      q=new RDSqlQuery(sql);
+      delete q;
+    }
   }
   else {    // Use Specified Config
 
@@ -398,8 +415,7 @@ void AddStation::okData()
     //
     // Clone RDAirPlay Config
     //
-    sql=QString().sprintf("select CARD0,PORT0,CARD1,PORT1,CARD2,PORT2,\
-                           CARD3,PORT3,CARD4,PORT4,CARD5,PORT5,SEGUE_LENGTH,\
+    sql=QString().sprintf("select SEGUE_LENGTH,\
                            TRANS_LENGTH,OP_MODE,START_MODE,PIE_COUNT_LENGTH,\
                            PIE_COUNT_ENDPOINT,CHECK_TIMESYNC,STATION_PANELS,\
                            USER_PANELS,SHOW_AUX_1,SHOW_AUX_2,CLEAR_FILTER,\
@@ -408,20 +424,12 @@ void AddStation::okData()
                            UDP_ADDR1,UDP_PORT1,UDP_STRING1,UDP_ADDR2,\
                            UDP_PORT2,UDP_STRING2,DEFAULT_SERVICE,\
                            LOG_RML0,LOG_RML1,LOG_RML2,\
-                           START_RML0,STOP_RML0,START_RML1,STOP_RML1,\
-                           START_RML2,STOP_RML2,START_RML3,STOP_RML3,\
-                           START_RML4,STOP_RML4,START_RML5,STOP_RML5,\
-                           START_RML6,STOP_RML6,START_RML7,STOP_RML7,\
-                           START_RML8,STOP_RML8,START_RML9,STOP_RML9,\
                            BUTTON_LABEL_TEMPLATE,EXIT_PASSWORD from RDAIRPLAY \
-                           where (STATION=\"%s\")&&(INSTANCE=0)",
+                           where (STATION=\"%s\")",
 			  (const char *)add_exemplar_box->currentText());
     q=new RDSqlQuery(sql);
     if(q->first()) {
       sql=QString().sprintf("insert into RDAIRPLAY set\
-                             CARD0=%d,PORT0=%d,CARD1=%d,PORT1=%d,\
-                             CARD2=%d,PORT2=%d,CARD3=%d,PORT3=%d,\
-                             CARD4=%d,PORT4=%d,CARD5=%d,PORT5=%d,\
                              SEGUE_LENGTH=%d,TRANS_LENGTH=%d,OP_MODE=%d,\
                              START_MODE=%d,PIE_COUNT_LENGTH=%d,\
                              PIE_COUNT_ENDPOINT=%d,CHECK_TIMESYNC=\"%s\",\
@@ -437,26 +445,6 @@ void AddStation::okData()
                              LOG_RML0=\"%s\",\
                              LOG_RML1=\"%s\",\
                              LOG_RML2=\"%s\",\
-                             START_RML0=\"%s\",\
-                             STOP_RML0=\"%s\",\
-                             START_RML1=\"%s\",\
-                             STOP_RML1=\"%s\",\
-                             START_RML2=\"%s\",\
-                             STOP_RML2=\"%s\",\
-                             START_RML3=\"%s\",\
-                             STOP_RML3=\"%s\",\
-                             START_RML4=\"%s\",\
-                             STOP_RML4=\"%s\",\
-                             START_RML5=\"%s\",\
-                             STOP_RML5=\"%s\",\
-                             START_RML6=\"%s\",\
-                             STOP_RML6=\"%s\",\
-                             START_RML7=\"%s\",\
-                             STOP_RML7=\"%s\",\
-                             START_RML8=\"%s\",\
-                             STOP_RML8=\"%s\",\
-                             START_RML9=\"%s\",\
-                             STOP_RML9=\"%s\",\
                              BUTTON_LABEL_TEMPLATE=\"%s\",\
                              EXIT_PASSWORD=\"%s\"",
 			    q->value(0).toInt(),
@@ -465,64 +453,60 @@ void AddStation::okData()
 			    q->value(3).toInt(),
 			    q->value(4).toInt(),
 			    q->value(5).toInt(),
-			    q->value(6).toInt(),
+			    (const char *)q->value(6).toString(),
 			    q->value(7).toInt(),
 			    q->value(8).toInt(),
-			    q->value(9).toInt(),
-			    q->value(10).toInt(),
-			    q->value(11).toInt(),
-			    q->value(12).toInt(),
-			    q->value(13).toInt(),
-			    q->value(14).toInt(),
-			    q->value(15).toInt(),
-			    q->value(16).toInt(),
-			    q->value(17).toInt(),
+			    (const char *)q->value(9).toString(),
+			    (const char *)q->value(10).toString(),
+			    (const char *)q->value(11).toString(),
+			    q->value(12).toUInt(),
+			    q->value(13).toUInt(),
+			    (const char *)q->value(14).toString(),
+			    (const char *)q->value(15).toString(),
+			    (const char *)q->value(16).toString(),
+			    q->value(17).toUInt(),
 			    (const char *)q->value(18).toString(),
-			    q->value(19).toInt(),
-			    q->value(20).toInt(),
+			    (const char *)q->value(19).toString(),
+			    q->value(20).toUInt(),
 			    (const char *)q->value(21).toString(),
 			    (const char *)q->value(22).toString(),
-			    (const char *)q->value(23).toString(),
-			    q->value(24).toUInt(),
-			    q->value(25).toUInt(),
+			    q->value(23).toUInt(),
+			    (const char *)q->value(24).toString(),
+			    (const char *)add_name_edit->text(),
+			    (const char *)q->value(25).toString(),
 			    (const char *)q->value(26).toString(),
 			    (const char *)q->value(27).toString(),
 			    (const char *)q->value(28).toString(),
-			    q->value(29).toUInt(),
-			    (const char *)q->value(30).toString(),
-			    (const char *)q->value(31).toString(),
-			    q->value(32).toUInt(),
-			    (const char *)q->value(33).toString(),
-			    (const char *)q->value(34).toString(),
-			    q->value(35).toUInt(),
-			    (const char *)q->value(36).toString(),
-			    (const char *)add_name_edit->text(),
-			    (const char *)q->value(37).toString(),
-			    (const char *)q->value(38).toString(),
-			    (const char *)q->value(39).toString(),
-			    (const char *)q->value(40).toString(),
-			    (const char *)q->value(41).toString(),
-			    (const char *)q->value(42).toString(),
-			    (const char *)q->value(43).toString(),
-			    (const char *)q->value(44).toString(),
-			    (const char *)q->value(45).toString(),
-			    (const char *)q->value(46).toString(),
-			    (const char *)q->value(47).toString(),
-			    (const char *)q->value(48).toString(),
-			    (const char *)q->value(49).toString(),
-			    (const char *)q->value(50).toString(),
-			    (const char *)q->value(51).toString(),
-			    (const char *)q->value(52).toString(),
-			    (const char *)q->value(53).toString(),
-			    (const char *)q->value(54).toString(),
-			    (const char *)q->value(55).toString(),
-			    (const char *)q->value(56).toString(),
-			    (const char *)q->value(57).toString(),
-			    (const char *)q->value(58).toString(),
-			    (const char *)q->value(59).toString(),
-			    (const char *)q->value(60).toString(),
-			    (const char *)q->value(61).toString(),
-			    (const char *)q->value(62).toString());
+			    (const char *)q->value(29).toString(),
+			    (const char *)q->value(30).toString());
+      q1=new RDSqlQuery(sql);
+      delete q1;
+    }
+    delete q;
+
+    sql=QString("select INSTANCE,CARD,PORT,START_RML,STOP_RML,")+
+      "START_GPI_MATRIX,"+
+      "START_GPI_LINE,START_GPO_MATRIX,START_GPO_LINE,STOP_GPI_MATRIX,"+
+      "STOP_GPI_LINE,STOP_GPO_MATRIX,STOP_GPO_LINE from RDAIRPLAY_CHANNELS "+
+      "where STATION_NAME=\""+RDEscapeString(add_exemplar_box->currentText())+
+      "\"";
+    q=new RDSqlQuery(sql);
+    while(q->next()) {
+      sql=QString("insert into RDAIRPLAY_CHANNELS set ")+
+	"STATION_NAME=\""+RDEscapeString(add_name_edit->text())+"\","+
+	QString().sprintf("INSTANCE=%u,",q->value(0).toUInt())+
+	QString().sprintf("CARD=%d,",q->value(1).toInt())+
+	QString().sprintf("PORT=%d,",q->value(2).toInt())+
+	"START_RML=\""+RDEscapeString(q->value(3).toString())+"\","+
+	"STOP_RML=\""+RDEscapeString(q->value(4).toString())+"\","+
+	QString().sprintf("START_GPI_MATRIX=%d,",q->value(5).toInt())+
+	QString().sprintf("START_GPI_LINE=%d,",q->value(6).toInt())+
+	QString().sprintf("START_GPO_MATRIX=%d,",q->value(7).toInt())+
+	QString().sprintf("START_GPO_LINE=%d,",q->value(8).toInt())+
+	QString().sprintf("STOP_GPI_MATRIX=%d,",q->value(9).toInt())+
+	QString().sprintf("STOP_GPI_LINE=%d,",q->value(10).toInt())+
+	QString().sprintf("STOP_GPO_MATRIX=%d,",q->value(11).toInt())+
+	QString().sprintf("STOP_GPO_LINE=%d",q->value(12).toInt());
       q1=new RDSqlQuery(sql);
       delete q1;
     }
@@ -531,68 +515,58 @@ void AddStation::okData()
     //
     // Clone RDPanel Config
     //
-    sql=QString().sprintf("select CARD2,PORT2,CARD6,PORT6,\
-                           CARD7,PORT7,CARD8,PORT8,CARD9,PORT9,\
-                           STATION_PANELS,\
+    sql=QString().sprintf("select STATION_PANELS,\
                            USER_PANELS,CLEAR_FILTER,\
                            FLASH_PANEL,\
                            DEFAULT_SERVICE,\
-                           START_RML2,STOP_RML2,\
-                           START_RML6,STOP_RML6,START_RML7,STOP_RML7,\
-                           START_RML8,STOP_RML8,START_RML9,STOP_RML9,\
                            BUTTON_LABEL_TEMPLATE from RDPANEL \
-                           where (STATION=\"%s\")&&(INSTANCE=0)",
+                           where (STATION=\"%s\")",
 			  (const char *)add_exemplar_box->currentText());
     q=new RDSqlQuery(sql);
     if(q->first()) {
       sql=QString().sprintf("insert into RDPANEL set\
-                             CARD2=%d,PORT2=%d,CARD6=%d,PORT6=%d,\
-                             CARD7=%d,PORT7=%d,CARD8=%d,PORT8=%d,\
-                             CARD9=%d,PORT9=%d,\
                              STATION_PANELS=%d,\
                              USER_PANELS=%d,\
                              CLEAR_FILTER=\"%s\",\
                              FLASH_PANEL=\"%s\",\
                              STATION=\"%s\",\
                              DEFAULT_SERVICE=\"%s\",\
-                             START_RML2=\"%s\",\
-                             STOP_RML2=\"%s\",\
-                             START_RML6=\"%s\",\
-                             STOP_RML6=\"%s\",\
-                             START_RML7=\"%s\",\
-                             STOP_RML7=\"%s\",\
-                             START_RML8=\"%s\",\
-                             STOP_RML8=\"%s\",\
-                             START_RML9=\"%s\",\
-                             STOP_RML9=\"%s\",\
                              BUTTON_LABEL_TEMPLATE=\"%s\"",
 			    q->value(0).toInt(),
 			    q->value(1).toInt(),
-			    q->value(2).toInt(),
-			    q->value(3).toInt(),
-			    q->value(4).toInt(),
-			    q->value(5).toInt(),
-			    q->value(6).toInt(),
-			    q->value(7).toInt(),
-			    q->value(8).toInt(),
-			    q->value(9).toInt(),
-			    q->value(10).toInt(),
-			    q->value(11).toInt(),
-			    (const char *)q->value(12).toString(),
-			    (const char *)q->value(13).toString(),
+			    (const char *)q->value(2).toString(),
+			    (const char *)q->value(3).toString(),
 			    (const char *)add_name_edit->text(),
-			    (const char *)q->value(14).toString(),
-			    (const char *)q->value(15).toString(),
-			    (const char *)q->value(16).toString(),
-			    (const char *)q->value(17).toString(),
-			    (const char *)q->value(18).toString(),
-			    (const char *)q->value(19).toString(),
-			    (const char *)q->value(20).toString(),
-			    (const char *)q->value(21).toString(),
-			    (const char *)q->value(22).toString(),
-			    (const char *)q->value(23).toString(),
-			    (const char *)q->value(24).toString(),
-			    (const char *)q->value(25).toString());
+			    (const char *)q->value(4).toString(),
+			    (const char *)q->value(5).toString());
+      q1=new RDSqlQuery(sql);
+      delete q1;
+    }
+    delete q;
+
+    sql=QString("select INSTANCE,CARD,PORT,START_RML,STOP_RML,")+
+      "START_GPI_MATRIX,"+
+      "START_GPI_LINE,START_GPO_MATRIX,START_GPO_LINE,STOP_GPI_MATRIX,"+
+      "STOP_GPI_LINE,STOP_GPO_MATRIX,STOP_GPO_LINE from RDPANEL_CHANNELS "+
+      "where STATION_NAME=\""+RDEscapeString(add_exemplar_box->currentText())+
+      "\"";
+    q=new RDSqlQuery(sql);
+    while(q->next()) {
+      sql=QString("insert into RDPANEL_CHANNELS set ")+
+	"STATION_NAME=\""+RDEscapeString(add_name_edit->text())+"\","+
+	QString().sprintf("INSTANCE=%u,",q->value(0).toUInt())+
+	QString().sprintf("CARD=%d,",q->value(1).toInt())+
+	QString().sprintf("PORT=%d,",q->value(2).toInt())+
+	"START_RML=\""+RDEscapeString(q->value(3).toString())+"\","+
+	"STOP_RML=\""+RDEscapeString(q->value(4).toString())+"\","+
+	QString().sprintf("START_GPI_MATRIX=%d,",q->value(5).toInt())+
+	QString().sprintf("START_GPI_LINE=%d,",q->value(6).toInt())+
+	QString().sprintf("START_GPO_MATRIX=%d,",q->value(7).toInt())+
+	QString().sprintf("START_GPO_LINE=%d,",q->value(8).toInt())+
+	QString().sprintf("STOP_GPI_MATRIX=%d,",q->value(9).toInt())+
+	QString().sprintf("STOP_GPI_LINE=%d,",q->value(10).toInt())+
+	QString().sprintf("STOP_GPO_MATRIX=%d,",q->value(11).toInt())+
+	QString().sprintf("STOP_GPO_LINE=%d",q->value(12).toInt());
       q1=new RDSqlQuery(sql);
       delete q1;
     }
