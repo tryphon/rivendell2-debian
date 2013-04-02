@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.h,v 1.32.6.1 2012/07/23 20:56:20 cvs Exp $
+//      $Id: rdsound_panel.h,v 1.32.6.3 2013/03/13 16:10:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -81,6 +81,7 @@ class RDSoundPanel : public QWidget
   bool pause(RDAirPlayConf::PanelType type,int panel,int row,int col,int mport=-1);
   void stop(RDAirPlayConf::PanelType type,int panel,int row,int col,
   int mport=-1,bool pause_when_finished=false,int fade_out=0);
+  void channelStop(int mport);
   void setText(RDAirPlayConf::PanelType type,int panel,int row,int col,
 	       const QString &str);
   void setColor(RDAirPlayConf::PanelType type,int panel,int row,int col,
@@ -102,6 +103,8 @@ class RDSoundPanel : public QWidget
   void tick();
   void buttonFlash(bool state);
   void selectClicked(unsigned cartnum,int row,int col);
+  void channelStarted(int mport,int card,int port);
+  void channelStopped(int mport,int card,int port);
 
  private slots:
   void panelActivatedData(int n);

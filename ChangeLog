@@ -1,37 +1,37 @@
-2002-4-28	Fred Gleason <fredg@wava.com>
+2002-4-28 Fred Gleason <fredg@wava.com>
 	* Initial package creation
 	* Created basic structure for Core Audio Engine (ALSA).  PW and DC
 	commands work.
 	* Created 'conf' directory for sample configurations.
 	* Created 'cae.conf-sample' in 'conf' directory.
-2002-5-8       Fred Gleason <fredg@wava.com>
+2002-5-8  Fred Gleason <fredg@wava.com>
 	* Fixed up some parser logic in 'main.c'
 	* Implemented the 'CR' and 'DL' commands.
-2002-6-14       Fred Gleason <fredg@wava.com>
+2002-6-14 Fred Gleason <fredg@wava.com>
 	* Added basic read-only support in RWaveFile
 	* Started work on CartChunk read support in RWaveFile
 2002-6-16       Fred Gleason <fredg@wava.com>
 	* More work on CartChunk support
-2002-6-17       Fred Gleason <fredg@wava.com>
+2002-6-17 Fred Gleason <fredg@wava.com>
 	* More work on CartChunk support
-2002-6-18       Fred Gleason <fredg@wava.com>
+2002-6-18 Fred Gleason <fredg@wava.com>
 	* Finished basic read-only support for CartChunk in RWaveFile.
 	* Finished basic read-only support for BEXT chunk in RWaveFile.
 	* Started work on playout support (seekWave() and readWave()
 	methods in RWaveFile)
 	* Created RPlayStream class
-2002-6-22       Fred Gleason <fredg@wava.com>
+2002-6-22 Fred Gleason <fredg@wava.com>
 	* Finished basic (QTimer-based) playout support in RPlayStream
-2002-6-23       Fred Gleason <fredg@wava.com>
+2002-6-23 Fred Gleason <fredg@wava.com>
 	* Added autoconf macros for ALSA and HPI detection.
 	* Added RTransportButton, an audio transport button widget.
-2002-6-24       Fred Gleason <fredg@wava.com>
+2002-6-24 Fred Gleason <fredg@wava.com>
 	* Completed RTransportButton.
 	* Added RSoundCard, an audio card abstraction class.
-2002-6-25       Fred Gleason <fredg@wava.com>
+2002-6-25 Fred Gleason <fredg@wava.com>
 	* Added HPI support to RPlayStream.
 	* Reworked RSoundCard to be a shadow of RPvtSoundCard
-2002-6-27       Fred Gleason <fredg@wava.com>
+2002-6-27 Fred Gleason <fredg@wava.com>
 	* Rearranged the public methods in RPlayStream so to make it
 	possible to change the audio device dynamically.
 	* Added 'RSoundSelector', an audio device selector widget based on
@@ -39,23 +39,23 @@
 	* Tweaks and cleanups in the HPI code in RPlayStream
 	* Added ALSA device enumeration in RPvtSoundCard.  Still needs
 	refining.
-2002-7-1        Fred Gleason <fredg@wava.com>
+2002-7-1  Fred Gleason <fredg@wava.com>
 	* Added 'RPlayMeter', a playback audio level meter.
 	* More work on mixer support in 'RPvtSoundCard'.
-2002-7-2        Fred Gleason <fredg@wava.com>
+2002-7-2  Fred Gleason <fredg@wava.com>
 	* Completed meter & mixer support in 'RPlayStream'.
 	* Added positioning support to 'RPlayStream'.
-2002-7-3        Fred Gleason <fredg@wava.com>
+2002-7-3  Fred Gleason <fredg@wava.com>
 	* Added autofade support to 'RPvtSoundCard' and 'RPlayStream'.
 	* Moved all the enums in 'RPvtSoundCard' to 'RSoundCard'.
 	* Prettied up the layout in 'qwav'.
 	* Added 'RSlider', an audio- and touchscreen-friendly slider class.
 	* Moved all audio-related enums into 'RSoundCard'
 	* Moved all "general purpose" enums into 'Radio' in libradio.
-2002-7-8        Fred Gleason <fredg@wava.com>
+2002-7-8  Fred Gleason <fredg@wava.com>
 	* Got 'RSlider' working in 'Up' mode, for the audio faders.  Still
 	needs work for other orientations.
-2002-7-9        Fred Gleason <fredg@wava.com>
+2002-7-9  Fred Gleason <fredg@wava.com>
 	* Added 'Down' mode for 'RSlider'.
 	* Added 'Left' and 'Right' modes for 'RSlider', which is now
 	substantially complete.
@@ -63,21 +63,21 @@
 	* Added proper disable/enable support to 'RTransportButton' -i.e.
 	the widget now greys out properly when disabled.
 	* Deleted 'wavhdr.c'.  Ancient history!
-2002-7-10       Fred Gleason <fredg@wava.com>
+2002-7-10 Fred Gleason <fredg@wava.com>
 	* Moved the following widgets to 'libradio':
 	'RTransportButton', 'RPlayMeter', 'RSlider', 'RSoundCard',
 	'RPvtSoundCard', 'RPlayStream', 'RWaveFile', and 'RSoundSelector'.
-2002-7-14       Fred Gleason <fredg@wava.com>
+2002-7-14 Fred Gleason <fredg@wava.com>
 	* Fixed a bug in 'configure.in' and 'Makefile.am' that was causing
 	'make' to attempt to link ALSA and HPI even when those libraries
 	were not present.
-2002-7-15       Fred Gleason <fredg@wava.com>
+2002-7-15 Fred Gleason <fredg@wava.com>
 	* Changed 'Makefile.am' to be compatible with new libradio layout.
 	* Added a test to 'configure.in' for libradio.
-2002-7-15       Fred Gleason <fredg@wava.com>
+2002-7-15 Fred Gleason <fredg@wava.com>
 	* Changed 'qwav' to get the name of the wavefile to load via a
 	dialog box, rather than passing it on the command line.
-2002-7-16       Fred Gleason <fredg@wava.com>
+2002-7-16 Fred Gleason <fredg@wava.com>
 	* Fixed the position slider, which had been broken during the
 	changes made yesterday.
 	* Added the feature to 'qwav' where the name of the loaded WAV
@@ -87,28 +87,28 @@
 	audio was playing would cause audio to continue to play out for
 	up to several seconds after temination, and result in incorrect
 	level meter reading upon next program startup.
-2002-7-21        Fred Gleason <fredg@wava.com>
+2002-7-21 Fred Gleason <fredg@wava.com>
 	* Added Mext chunk support to 'qwav'.
-2002-7-23        Fred Gleason <fredg@wava.com>
+2002-7-23 Fred Gleason <fredg@wava.com>
 	* Renamed 'qwav.h' to 'rdplay.h'.
 	* Renamed 'qwav.cpp' to 'rdplay.cpp'.
 	* Added 'rdrecord.cpp' and 'rdrecord.h', a record application.
-2002-7-25        Fred Gleason <fredg@wava.com>
+2002-7-25 Fred Gleason <fredg@wava.com>
 	* Fixed a bug in 'rdplay.cpp' that was causing the 'Format' button
 	to display incorrect information on the MPEG Mode and MPEG Flags
 	fields.
 	* Fixed formatting of various fields in the 'Cart' button dialog
 	box.
-2002-7-26        Fred Gleason <fredg@wava.com>
+2002-7-26 Fred Gleason <fredg@wava.com>
 	* Worked on button logic in 'rdrecord' to make it more like a
 	"real" recorder.
-2002-7-29        Fred Gleason <fredg@wava.com>
+2002-7-29 Fred Gleason <fredg@wava.com>
 	* Added format settings controls to the front panel of 'rdrecord'.
 	* Added a 'Meta Data' button to 'rdrecord' to bring up a dialog
 	box to enter meta data info.
-2002-7-30        Fred Gleason <fredg@wava.com>
+2002-7-30 Fred Gleason <fredg@wava.com>
 	* Finished adding meta-data write support to RDRecord.
-2002-8-1         Fred Gleason <fredg@wava.com>
+2002-8-1 Fred Gleason <fredg@wava.com>
 	* Disabled ALSA support in 'configure.in' and 'Makefile.am'
 	* Added a 'utils' directory for utility programs.
 	* Imported 'RDPlay' and RDRecord' from the 'sndtools' package.
@@ -117,14 +117,14 @@
 	* Imported the ChangeLog from 'sndtools' into this file so as to
 	preserve the development history for RDRecord and RDPlay.
 	* Released v0.1.0.
-2002-8-2         Fred Gleason <fredg@wava.com>
+2002-8-2 Fred Gleason <fredg@wava.com>
 	* Added a 'docs' directory for documentation.
 	* Added 'cart_schema.txt' in the 'docs' directory, describing the
 	layout of the CART and CUTS tables.
 2002-8-3         Fred Gleason <fredg@wava.com>
 	* Added 'cae.h', 'cae.cpp', 'cae_socket.h' and 'cae_socket.cpp',
 	the beginnings of a new C++ based CAE implementation.
-2002-8-6         Fred Gleason <fredg@wava.com>
+2002-8-6 Fred Gleason <fredg@wava.com>
 	* Implemented the Drop Connection (DC) command in 'cae.cpp'.
 	* Implemented the Password Authenticate (PW) command in 'cae.cpp'.
 	* Implemented the Load Playback (LP) command in 'cae.cpp'.
@@ -140,13 +140,13 @@
 	* Implemented the Unload Record (UR) command in 'cae.cpp'.
 	* Implemented the Record (RD) command in 'cae.cpp'.
 	* Implemented the Stop Record (SR) command in 'cae.cpp'.
-2002-8-7         Fred Gleason <fredg@wava.com>
+2002-8-7 Fred Gleason <fredg@wava.com>
 	* Implemented the Record Start (RS) status update in 'cae.cpp'
 	* Fixed various bugs in 'cae.cpp' to make things work.
 	* Implemented the <speed> and <pitch-flag> fields in the
 	Play (PY) command in 'cae.cpp'.  The parser demands them, but
 	they currently do nothing.
-2002-8-8         Fred Gleason <fredg@wava.com>
+2002-8-8 Fred Gleason <fredg@wava.com>
 	* Created a 'docs/tables/' subdirectory to hold database table
 	layouts.
 	* Moved 'docs/cart_schema.txt' to 'docs/table/cart.txt' and split
@@ -154,7 +154,7 @@
 	* Created 'docs/table/users.txt' to document the USERS table.
 	* Created 'docs/table/services.txt' to document the SERVICES
 	table.
-2002-8-9         Fred Gleason <fredg@wava.com>
+2002-8-9  Fred Gleason <fredg@wava.com>
 	* Fixed a bug that was causing CAE to segfault when sent a
 	'DC!' command while playing a file.
 	* Implemented the <length> argument to the Play (PY) command,
@@ -163,12 +163,12 @@
 	the <speed> argument to the Play (PY) command, in corformance
 	to CAE Protocol Spec 0.5.
 	* Added a 'AllowNonstandardRates=Yes|No' diretive to 'cae.conf'.
-2002-8-19        Fred Gleason <fredg@wava.com>
+2002-8-19 Fred Gleason <fredg@wava.com>
 	* Added a check at the startup of 'cae' that will exit with an
 	error if unable to bind the configured TCP socket.
 	* Increased the maximum number of TCP connections to 'cae' to 32
 	and streamlined the signal/slot mechanism for handling them.
-2002-8-21        Fred Gleason <fredg@wava.com>
+2002-8-21 Fred Gleason <fredg@wava.com>
 	* Added a GPL comment header to 'rdplay.h'.
 2002-9-27 Fred Gleason <fredg@wava.com>
 	* Added an 'rdadmin' directory.
@@ -262,7 +262,7 @@
 2002-11-07 Fred Gleason <fredg@wava.com>
 	* Added destructors to most classes.
 	* Changed 'caed' to work with the revised 'RSoundCard' class.
-	* Changed 'rdplay' to work with the revised 'RSoundCard' class.	
+	* Changed 'rdplay' to work with the revised 'RSoundCard' class.
 	* Changed 'rdrecord' to work with the revised 'RSoundCard' class.
 	* Changed 'rdlibrary' to work with the revised 'RSoundCard' class.
 2002-11-18 Fred Gleason <fredg@wava.com>
@@ -358,7 +358,7 @@
 	* Fixed a bug in 'EditRDLibrary' that was causing 'setInputType()'
 	to write incorrect values into the database.
 2003-01-10 Fred Gleason <fredg@salemradiolabs.com>
-	* Calibrated RDLibrary, RDPlay and RDRecord to use -16 dBFS as 
+	* Calibrated RDLibrary, RDPlay and RDRecord to use -16 dBFS as
 	"reference" level.
 	* Added a level meter to the audio editor in RDLibrary.
 	* Added lines to the waveform display in RDLibrary's audio editor
@@ -518,7 +518,7 @@
 	* Added the ability to enter marker positions by typing into the
 	counter widgets in RDLibrary's audio editor.
 2003-02-12 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'edit_audio.cpp' that was causing the current 
+	* Fixed a bug in 'edit_audio.cpp' that was causing the current
 	counter readout to lose it's highlighting after a manual data
 	entry.
 	* Disabled drag and drop capability in the counters in RDLibrary's
@@ -684,7 +684,7 @@
 2003-03-03 Fred Gleason <fredg@salemradiolabs.com>
 	* Implemented the Head/Tail Audition buttons in RDCatch.
 	* Added 'PORT_TYPE', 'DEFAULT_FORMAT', 'DEFAULT_CHANNELS',
-	'DEFAULT_SAMPRATE', 'DEFAULT_BITRATE' and 'DEFAULT_THRESHOLD' 
+	'DEFAULT_SAMPRATE', 'DEFAULT_BITRATE' and 'DEFAULT_THRESHOLD'
 	fields to the 'DECKS' table, along with appropriate accessor
 	methods.
 	* Added support for the new 'DECKS' fields to RDCatch module in
@@ -773,7 +773,7 @@
 	* Fixed a bug in 'rdadmin/edit_decks.cpp' that was causing
 	incorrect values to be written to the database for Default
 	Threshold'.
-	* Fixed a bug in 'rdcatch/edit_recording.cpp' where the Threshold 
+	* Fixed a bug in 'rdcatch/edit_recording.cpp' where the Threshold
 	Trim value was not being read properly.
 	* Added level monitoring support to RDCatchd and CatchConnect.
 	* Real-time metering now works in RDCatch.
@@ -817,7 +817,7 @@
 	* Fixed a bug in 'rdcatch/rdcatch.cpp' that was causing second and
 	later decks in the monitoring area to fail to update status
 	properly.
-	* Changed the column alignment to right justified for the 'Length' 
+	* Changed the column alignment to right justified for the 'Length'
 	field in RDCatch.
 	* Fixed a bug in 'rdcatchd/rdcatchd.cpp' where a start/end date
 	offset was being applied to a recording even when start/end date
@@ -1061,7 +1061,7 @@
 	of the program will run at a time.
 	* Added a check to 'ripcd/ripcd.cpp' to ensure that only one instance
 	of the program will run at a time.
-	* Added a check to 'rdcatchd/rdcatchd.cpp' to ensure that only one 
+	* Added a check to 'rdcatchd/rdcatchd.cpp' to ensure that only one
 	instance of the program will run at a time.
 	* Added an 'RDInitializeDaemons()' function to
 	'lib/rdcheck_daemons.cpp'.
@@ -1316,7 +1316,7 @@
 	* Added 'timeType()' and 'startTime()' methods to
 	'rdairplay/loglinebox.cpp'.
 2003-09-22 Fred Gleason <fredg@salemradiolabs.com>
-	* Removed the 'id()', 'timeType()', and 'cartNumber()' methods 
+	* Removed the 'id()', 'timeType()', and 'cartNumber()' methods
 	from LogLineBox.
 	* Added a 'GetStartTime()' method to 'rdairplay/rdairplay.cpp'.
 	* Removed the 'nextStop()' method from 'lib/rdlog_event.cpp'.
@@ -1338,13 +1338,13 @@
 2003-09-25 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdairplay/rdairplay.cpp' that was causing the
 	Full Log widget to "eat" the first event played in a log.
-	* Fixed a bug in 'rdairplay/rdairplay.cpp' that was causing later 
+	* Fixed a bug in 'rdairplay/rdairplay.cpp' that was causing later
 	events to be skipped when manually starting events.
 2003-09-29 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a sound panel widget to RDAirPlay.
-	* Fixed a bug in 'rdairplay/pie_counter.cpp' that was causing the 
+	* Fixed a bug in 'rdairplay/pie_counter.cpp' that was causing the
 	pie counter to display ':00' at the end of the countdown.
-	* Fixed a bug in 'rdairplay/stop_counter.cpp' that was causing the 
+	* Fixed a bug in 'rdairplay/stop_counter.cpp' that was causing the
 	pie counter to display ':00' at the end of the countdown.
 2003-10-01 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdairplay/loglinebox.cpp' that was preventing
@@ -1384,7 +1384,7 @@
 2003-10-10 Fred Gleason <fredg@salemradiolabs.com>
 	* Added 'deck()', 'setDeck()', 'playTime()', 'setPlayTime()',
 	'cutNumber()', 'effectiveLength()', 'talkLength()',
-	'segueLength()', 'segueTail()' and 'setEvent()' methods to 
+	'segueLength()', 'segueTail()' and 'setEvent()' methods to
 	'lib/rdlog_line.cpp'.
 	* Renamed the 'button()' and 'setButton()' methods in
 	'rdairplay/audio_resources.cpp' to 'line()' and 'setLine()'.
@@ -1606,7 +1606,7 @@
 	SuSE 9.0.
 	* Adjusted the layout in 'rdlogin/rdlogin.cpp' to look good on
 	SuSE 9.0.
-	* Added 'GPITest' and 'GPOTest' applications from the 'LibRadio' 
+	* Added 'GPITest' and 'GPOTest' applications from the 'LibRadio'
 	package in 'utils/'.
 2003-12-08 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdlibrary/record_cart.cpp' that was causing
@@ -1714,7 +1714,7 @@
 	* Added a Unity4000 feed container class in
 	'ripcd/unity_feed.cpp'.
 2003-01-06 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'rdairplay/log_play.cpp' that was causing a 
+	* Fixed a bug in 'rdairplay/log_play.cpp' that was causing a
 	segfault when loading an empty log.
 	* Added a 'Sound Panel' button to RDAirPlay.
 	* Added the name of the current loaded log to each log machine's
@@ -1759,7 +1759,7 @@
 	to fail.
 	* Added a 'Type' selector to the Add Cart dialog in RDLibrary.
 	* Created an 'AudioCart' widget in 'rdlibrary/audio_cart.cpp'.
-	* Reworked the code in 'rdlibrary/rdlibrary.cpp', 
+	* Reworked the code in 'rdlibrary/rdlibrary.cpp',
 	'rdlibrary/edit_cart.cpp' and 'rdlibrary/add_cart.cpp' to provide
 	a consistent list view interface.
 	* Added an 'updateLength()' method to 'lib'rdcart.cpp'.
@@ -1803,7 +1803,7 @@
 	* Incremented the database version to 23.
 	* Removed the 'source()' and 'setSource()' methods from
 	'lib/rdrecordings.cpp'.
-	* Added 'switchSource()' and 'setSwitchSource()' methods to 
+	* Added 'switchSource()' and 'setSwitchSource()' methods to
 	'lib/rdrecordings.cpp'.
 	* Added an 'EditCartEvent' class in 'rdcatch/edit_cartevent.cpp'.
 2004-01-22 Fred Gleason <fredg@salemradiolabs.com>
@@ -1898,9 +1898,9 @@
 	fail when used with pre-4.x versions of the rpm tools.
 	* Incremented the version to v0.7.5.
 2004-01-30 Fred Gleason <fredg@salemradiolabs.com>
-	* Added a qmake configuration to allow RMLSend to be built under 
+	* Added a qmake configuration to allow RMLSend to be built under
 	Qt-Windows.
-	* Fixed a bug in 'utils/rmlsend.cpp' that was causing the title bar 
+	* Fixed a bug in 'utils/rmlsend.cpp' that was causing the title bar
 	to be obscured under Windows.
 2004-02-02 Fred Gleason <fredg@salemradiolabs.com>
 	* Increased the maximum number of GPIO lines per matrix to 96.
@@ -1920,12 +1920,12 @@
 	echos from being properly processed.
 	* Fixed a bug in 'ripcd/sas32000.cpp' that was preventing an error
 	echo when sent a 'GO' command.
-	* Added the 'GPI Set' ('GI') RML command to 
+	* Added the 'GPI Set' ('GI') RML command to
 	'docs/implemented_macros.txt'.
 	* Changed the definition of the 'GPI Enable' ('GE') command so as
 	to support only individual lines as arguments.
 	Add the 'GE' macro mneumonic to 'rdmacro.cpp'.
-	* Added the 'GPI Enable' ('GE') RML command to 
+	* Added the 'GPI Enable' ('GE') RML command to
 	'docs/implemented_macros.txt'.
 	* Added the 'Serial Output' ('SO') command to 'lib/rdmacro.cpp'.
 	* Documented the 'Serial Reset ('SY') command in 'docs/rml.sxw'.
@@ -1941,7 +1941,7 @@
 	* Added the 'Insert Serial Trap' ('SI') and 'Clear Serial Trap'
 	('SC') RML commands to 'docs/implemented_macros.txt'.
 	* Added the 'UDP Out' ('UO') RML command to 'lib/rdmacro.cpp'.
-	* Added the 'UDP Out' ('UO') RML command to 
+	* Added the 'UDP Out' ('UO') RML command to
 	'docs/implemented_macros.txt'.
 2004-02-05 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a switcher driver for the Broadcast Tools SS 8.2 Dual
@@ -1974,8 +1974,8 @@
 	* Changed the default value of all time/date values in the
 	database to NULL.
 	* Added a 'valid' parameter to the 'startDateTime()',
-	'endDateTime()', 'setStartDateTime()', 'setEndDateTime()', 
-	'startDaypart()', 'endDaypart()', 'setStartDaypart()' and 
+	'endDateTime()', 'setStartDateTime()', 'setEndDateTime()',
+	'startDaypart()', 'endDaypart()', 'setStartDaypart()' and
 	'setEndDaypart()' methods in 'lib/rdcut.cpp'.
 	* Incremented the database version to 28.
 	* Fixed a bug in 'rdcatchd/rdcatchd.cpp' that was causing
@@ -2021,7 +2021,7 @@
 	Tail and Stop Audition buttons to be incorrectly enabled/disabled.
 2004-02-17 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdcatchd/rdcatchd.cpp' that was causing a
-	completed macro event with no 'SP' commands to fail to clear it's 
+	completed macro event with no 'SP' commands to fail to clear it's
 	status from 'active' in the events list.
 	* Updated the icons in 'rdcatch/macro_xmp.cpp',
 	rdcatch/swtich_xmp.cpp' and 'rdcatch/record_xpm.cpp'.
@@ -2042,7 +2042,7 @@
 2004-02-19 Fred Gleason <fredg@salemradiolabs.com>
 	* Reworked 'cae/cae.cpp' so as to use a global 'RSoundCard'
 	object.
-	* Reworked 'rdlibrary/edit_audio.cpp' so as to use a global 
+	* Reworked 'rdlibrary/edit_audio.cpp' so as to use a global
 	'RSoundCard' object.
 	* Reworked 'utils/rdplay.cpp' so as to use a global 'RSoundCard'
 	object.
@@ -2166,7 +2166,7 @@
 	deletion of carts to fail.
 2004-04-09 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a logfile capability to ripcd(8).
-	* Fixed a bug in 'rdlibrary/add_cart.cpp' where a new cart was 
+	* Fixed a bug in 'rdlibrary/add_cart.cpp' where a new cart was
 	being created with the incorrect group membership.
 	* Incremented the version to 0.7.14.
 2004-04-12 Fred Gleason <fredg@salemradiolabs.com>
@@ -2204,8 +2204,8 @@
 	segfault when attempting to load a log containing events with
 	Random cut rotation enabled.
 2004-04-15 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'rdairplay/log_play.cpp' that was causing the 
-	'Next Event' property in RDAirPlay's log machines to fail to be 
+	* Fixed a bug in 'rdairplay/log_play.cpp' that was causing the
+	'Next Event' property in RDAirPlay's log machines to fail to be
 	reset upon loading of a new log.
 	* Fixed a bug in 'rdairplay/log_play.cpp' that was causing Macro
 	Carts to hang in the 'Playing' state.
@@ -2291,7 +2291,7 @@
 	incorrect grace time value to be loaded for log events.
 	* Fixed a bug in 'rdairplay/log_play.cpp' that was causing the
 	'Forced Segue' setting to be ignored.
-	* Fixed a bug in 'rdairplay/button_log.cpp' which all running 
+	* Fixed a bug in 'rdairplay/button_log.cpp' which all running
 	events would get scrollbars marked red, instead of just the last
 	event.
 2004-05-06 Fred Gleason <fredg@salemradiolabs.com>
@@ -2310,8 +2310,8 @@
 	* Incremented the version to 0.7.19.
 2004-05-10 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed bugs in	'rdcatch/edit_recording.cpp',
-	'rdcatch/edit_playout.cpp', 'rdcatch/edit_macroevent.cpp' and 
-	'rdcatch/edit_switchevent.cpp' where pressing the ESC key would 
+	'rdcatch/edit_playout.cpp', 'rdcatch/edit_macroevent.cpp' and
+	'rdcatch/edit_switchevent.cpp' where pressing the ESC key would
 	create a corrupt event record in the RDCatch database.
 2004-05-10 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdcatch/rdcatch.cpp' where the Scroll button
@@ -2448,7 +2448,7 @@
 	'fadeOutputVolume()', 'setInputLevel()', 'setOutputLevel()',
 	'setInputMode()', 'setOutputMode()', 'setInputVOXLevel()',
 	setInputType()', 'inputStatus()', 'enableMetering()',
-	'inputMeterUpdate()' and 'outputMeterUpdate()' methods to 
+	'inputMeterUpdate()' and 'outputMeterUpdate()' methods to
 	'lib/rdcae.cpp'.
 	* Added an 'inputStatusChanged()' signal to 'lib/rdcae.cpp'.
 	* Modified the 'RDSetMixerOutputPort()' and 'RDSetMixerPorts()'
@@ -2506,7 +2506,7 @@
 	* Modified RDLibrary to use CAE protocol v0.9.
 	* Modified RDCatchd to use CAE protocol v0.9.
 2004-06-04 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'rdcatchd/rdcatchd.cpp' that was causing active 
+	* Fixed a bug in 'rdcatchd/rdcatchd.cpp' that was causing active
 	Playout Events to not show up as active in RDCatch.
 	* Fixed a bug in 'rdcatch/rdcatch.cpp' that was causing Tail
 	Audition Playout to sporadically fail.
@@ -2539,9 +2539,9 @@
 2004-06-10 Fred Gleason <fredg@salemradiolabs.com>
 	* Transposed the values for 'RDLogLine::Stop' and
 	'RDLogLine::Segue'.
-	* Modified 'rdairplay/edit_event.cpp' to be compatible with the 
+	* Modified 'rdairplay/edit_event.cpp' to be compatible with the
 	revised RDLogLine::TransType values.
-	* Modified 'rdlogedit/edit_logline.cpp' to be compatible with the 
+	* Modified 'rdlogedit/edit_logline.cpp' to be compatible with the
 	revised RDLogLine::TransType values.
 	* Modified 'rdlogmanager/edit_event.cpp' to be compatible with the
 	revised RDLogLine::TransType values.
@@ -2590,13 +2590,13 @@
 	'rdairplay/audio_resources.cpp' and 'rdairplay/audio_resources.h'.
 2004-06-15 Fred Gleason <fredg@salemradiolabs.com>
 	* Retired the 'RDLIBRARY.INPUT_STREAM', 'RDLIBRARY.OUTPUT_STREAM',
-	'RDLIBRARY_RECORD_GPI', 'RDLIBRARY.PLAY_GPI' and 
+	'RDLIBRARY_RECORD_GPI', 'RDLIBRARY.PLAY_GPI' and
 	'RDLIBRARY_STOP_GPI' field from the database.
 	* Removed the 'Stream' field from the RDCardSelector widget in
 	'lib/rdcardselector.cpp'.
-	* Retired the 'RDAIRPLAY.CARD', 'RDAIRPLAY.STREAM0', 
-	'RDAIRPLAY.STREAM1', 'RDAIRPLAY.STREAM2', 'RDAIRPLAY.STREAM3', 
-	'RDAIRPLAY.STREAM4', 'RDAIRPLAY.STREAM5', 'RDAIRPLAY.STREAM6', 
+	* Retired the 'RDAIRPLAY.CARD', 'RDAIRPLAY.STREAM0',
+	'RDAIRPLAY.STREAM1', 'RDAIRPLAY.STREAM2', 'RDAIRPLAY.STREAM3',
+	'RDAIRPLAY.STREAM4', 'RDAIRPLAY.STREAM5', 'RDAIRPLAY.STREAM6',
 	and 'RDAIRPLAY.STREAM7' fields from the database.
 	* Added 'RDAIRPLAY.CARD0', 'RDAIRPLAY.CARD1', 'RDAIRPLAY.CARD2',
 	'RDAIRPLAY.CARD3' and 'RDAIRPLAY.CARD4' field to the database.
@@ -3150,9 +3150,9 @@
 2004-09-15 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a 'conf/crc-unity4k.sh' script.
 2004-09-16 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'cae/cae.cpp' that was reporting invalid 
+	* Fixed a bug in 'cae/cae.cpp' that was reporting invalid
 	AES sync indications.
-	* Fixed a bug in 'lib/rdcae.cpp' that was reporting invalid 
+	* Fixed a bug in 'lib/rdcae.cpp' that was reporting invalid
 	AES sync indications.
 2004-09-21 Fred Gleason <fredg@salemradiolabs.com>
 	* Added 'Left' and 'Right' configurations for LF1 in
@@ -3261,7 +3261,7 @@
 	* Fixed a bug in 'lib/rdcut_dialog.cpp' that threw a segfault fi
 	the 'OK' button was pushed with empty cart or cut lists.
 2004-11-08 Fred Gleason <fredg@salemradiolabs.com>
-	* Added sanity checks to 'cae/cae.cpp' to prevent caed segfaults 
+	* Added sanity checks to 'cae/cae.cpp' to prevent caed segfaults
 	when trying to load non-existent audio resources.
 	* Added 'RDAIRPLAY.CLEAR_FILTER' and 'RDAIRPLAY.BAR_ACTION' fields
 	to the database.
@@ -3291,8 +3291,8 @@
 	9.1.
 	* Tweaked 'rdlibrary/record_cut.cpp' for better appearance on SuSE
 	9.1.
-	* Fixed a bug in 'rdairplay/rdairplay.cpp' where the name of the 
-	log loaded into the Main Log was not being displayed on the title 
+	* Fixed a bug in 'rdairplay/rdairplay.cpp' where the name of the
+	log loaded into the Main Log was not being displayed on the title
 	bar.
 2004-11-09 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a 'RDAIRPLAY.FLASH_PANEL' field to the database.
@@ -3366,7 +3366,7 @@
 	entering of invalid SQL characters.
 	* Added a text validator to 'rdlogmanager/edit_event.cpp' to prevent
 	entering of invalid SQL characters.
-	* Added a text validator to 'rdlogmanager/edit_eventline.cpp' to 
+	* Added a text validator to 'rdlogmanager/edit_eventline.cpp' to
 	prevent	entering of invalid SQL characters.
 	* Added a text validator to 'rdadmin/login.cpp' to prevent
 	entering of invalid SQL characters.
@@ -3453,7 +3453,7 @@
 	* Incremented the database version to 59.
 	* Added 'ExtData' and 'ExtEventId' to RDSvc::ImportField in
 	'lib/rdsvc.h'.
-	* Added controls for importing Traffic Contract # and Event ID to 
+	* Added controls for importing Traffic Contract # and Event ID to
 	the EditService dialog in RDAdmin.
 	* Added columns for Traffic Contract # and Event ID to the
 	TestImport dialog in RDAdmin.
@@ -3471,7 +3471,7 @@
 	* Added code in 'rdairplay/log_play.cpp' to log event playouts in
 	the respective reconciliation table.
 2004-11-19 Fred Gleason <fredg@salemradiolabs.com>
-	* Removed the 'CAE_HANDLE' field from the _REC table database 
+	* Removed the 'CAE_HANDLE' field from the _REC table database
 	format.
 	* Added a 'LENGTH' field to the _REC table database format.
 	* Incremented the database version to 61.
@@ -3533,7 +3533,7 @@
 	* Incremented the database version to 66.
 2004-12-06 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed Windows build system.
-	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that was causing the 
+	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that was causing the
 	top window border to chopped off under Windows.
 2004-12-06 Dan Mills <dmills@spamblock.demon.co.uk>
 	* Fixed a bug in 'rdadmin/createdb.cpp' that was causing creation
@@ -3565,10 +3565,10 @@
 2004-12-08 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a '--check-db' switch to rdadmin(1).
 2004-12-08 Fred Gleason <fredg@salemradiolabs.com>
-	* Added '.RDAIRPLAY.UDP_ADDR0', 'RDAIRPLAY.UDP_PORT0', 
-	'RDAIRPLAY.UDP_STRING0', '.RDAIRPLAY.UDP_ADDR1', 
-	'RDAIRPLAY.UDP_PORT1', 'RDAIRPLAY.UDP_STRING1', 
-	'.RDAIRPLAY.UDP_ADDR2', 'RDAIRPLAY.UDP_PORT2', 
+	* Added '.RDAIRPLAY.UDP_ADDR0', 'RDAIRPLAY.UDP_PORT0',
+	'RDAIRPLAY.UDP_STRING0', '.RDAIRPLAY.UDP_ADDR1',
+	'RDAIRPLAY.UDP_PORT1', 'RDAIRPLAY.UDP_STRING1',
+	'.RDAIRPLAY.UDP_ADDR2', 'RDAIRPLAY.UDP_PORT2',
 	'RDAIRPLAY.UDP_STRING2' and 'GROUPS.ENABLE_NOW_NEXT' fields to the
 	database.
 	* Incremented the database version to 68.
@@ -3660,7 +3660,7 @@
 	* Updated 'NEWS'.
 	* Incremented the package version to 0.9.15.
 2004-12-17 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'lib/rdcut.cpp' that was causing the build to 
+	* Fixed a bug in 'lib/rdcut.cpp' that was causing the build to
 	break under Windows.
 2004-12-20 Dan Mills <dmills@spamblock.demon.co.uk>
 	* Fixed a bug in 'lib/rdairplay_conf.cpp' that was causing the
@@ -3693,12 +3693,12 @@
 	* Fixed a bug in 'utils/rdimport.cpp' that was causing imports to
 	fail.
 2005-01-04 Dan Mills <dmills@spamblock.demon.co.uk>
-	* Fixed a bug in 'rdairplay/list_log.cpp' that was causing incorrect 
+	* Fixed a bug in 'rdairplay/list_log.cpp' that was causing incorrect
 	time format to be dislpayed in the log window when in 12 hour mode.
 2005-01-04 Dan Mills <dmills@spamblock.demon.co.uk>
-	* The stop time was always displayed in 24 hr format, added code to 
-	make it do the right thing, and also cleared up a delay in updating 
-	the time of day clock when changing mode. 
+	* The stop time was always displayed in 24 hr format, added code to
+	make it do the right thing, and also cleared up a delay in updating
+	the time of day clock when changing mode.
 2005-01-05 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a 'MarkerBar' widget in 'rdairplay/marker_bar.cpp'.
 	* Moved the MarkerEdit widget from 'rdlibrary/' to 'lib/'.
@@ -3727,7 +3727,7 @@
 	* Updated the 'NEWS' file.
 	* Incremented the package version to 0.9.17.
 2005-01-19 Fred Gleason <fredg@salemradiolabs.com>
-	* Added 'MATRICES.PORT_TYPE', 'MATRICES.IP_ADDRESS' and 
+	* Added 'MATRICES.PORT_TYPE', 'MATRICES.IP_ADDRESS' and
 	'MATRICES.IP_PORT' fields to the database.
 	* Incremented the database version to 69.
 	* Added 'portType()', 'setPortType()', 'ipAddress()',
@@ -3799,12 +3799,12 @@
 	* Updated the 'NEWS' file.
 	* Incremented the package version to 0.9.20.
 2005-01-28 Dan Mills <dmills@spamblock.demon.co.uk>
-	* Fixed a segfault in rdairplay when station and user panel counts 
-	were both set to one, also fixed some other edge cases in the same 
-	area. 
+	* Fixed a segfault in rdairplay when station and user panel counts
+	were both set to one, also fixed some other edge cases in the same
+	area.
 	* Added support for 12 Hr time format to post point display. The
 	countdown is still broken when the postpoint is the other side of
-	midnight! 
+	midnight!
 2005-01-28 Fred Gleason <fredg@salemradiolabs.com>
 	* Added 'mpg123' to the 'Requires:' rule in 'rivendell.spec.in'.
 	* Created an 'RDComboBox' class in 'lib/rdcombobox.cpp'.
@@ -3825,7 +3825,7 @@
 	* Fixed a bug in 'rdairplay/log_play.cpp' where hard timed events
 	set to 'Make Next' would instead start the event if the log was
 	stopped down.
-2005-01-30 Dan Mills <dmills@spamblock.demon.co.uk>	
+2005-01-30 Dan Mills <dmills@spamblock.demon.co.uk>
 	* Minor documentation changes to the INSTALL file.
 	Added bc to the prereqs as it is used in rd_import_file.
 	Added a note about starting jackd BEFORE the rivendell daemons.
@@ -3874,7 +3874,7 @@
 	* Added code to run an exception report after generating a new log
 	in RDLogManager.
 2005-02-01 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'rdlogmanager/rdlogmanager.pro' that was causing 
+	* Fixed a bug in 'rdlogmanager/rdlogmanager.pro' that was causing
 	the build to break under Windows.
 2005-02-01 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a LogLine() call in 'LogPlay::makeNext()' in
@@ -3931,7 +3931,7 @@
 	Record Event.
 2005-03-08 Fred Gleason <fredg@salemradiolabs.com>
 	* Added	'RECORDINGS.START_TYPE','RECORDINGS.START_LENGTH',
-	'RECORDINGS.START_LINE','RECORDINGS.START_MATRIX', 
+	'RECORDINGS.START_LINE','RECORDINGS.START_MATRIX',
 	'RECORDINGS.START_OFFSET', 'RECORDINGS.END_TYPE',
 	'RECORDINGS.END_TIME','RECORDINGS.END_LENGTH','RECORDINGS.END_MATRIX',
 	and 'RECORDINGS.END_LINE' to the database.
@@ -4014,10 +4014,10 @@
 	'RDAIRPLAY', 'RDLIBRARY', 'MATRICES', 'GPIS' and 'HOSTVARS' tables
 	after deleting the host.
 2005-04-24 Dan Mills <dmills@spamblock.demon.co.uk>
-	* Applied patch from darrick to fix 0000007: cae shmctl remove 
-	block bug. Shmctl to remove a pre existing meter block left from 
-	a cae crash is called with memory key but should be called with id 
-	instead. Status set to resolved. 
+	* Applied patch from darrick to fix 0000007: cae shmctl remove
+	block bug. Shmctl to remove a pre existing meter block left from
+	a cae crash is called with memory key but should be called with id
+	instead. Status set to resolved.
 2005-04-24 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a '[Hacks]' section to rd.conf(5).
 	* Added a 'UseStreamMeters=' directive in the [Hacks] section of
@@ -4059,7 +4059,7 @@
 	* Fixed a bug in 'rdlibrary/record_cut.cpp' that was opening a
 	connection to CAE using a compiled-in password.
 2005-05-03 Fred Gleason <fredg@salemradiolabs.com>
-	* Enabled log output for inactive and non-matching DOW event list 
+	* Enabled log output for inactive and non-matching DOW event list
 	entries in /rdcatchd/rdcatchd.cpp'.
 	* Added a test for Secret Rabbit Code in 'configure.in'.
 	* Implemented on-the-fly sample rate conversion for the JACK
@@ -4080,9 +4080,9 @@
 	corrupt catch event to be created if the escape key was pressed
 	while in the Add Event dialog.
 2005-05-05 Dan Mills <dmills@spamblock.demon.co.uk>
-	* Rdlibrary now defaults the start marker to zero and the end 
-	marker to the end of the audio rather then leaving them unset. 
- 	*rdlog_line now uses the rdcart class to handle the SQL query 
+	* Rdlibrary now defaults the start marker to zero and the end
+	marker to the end of the audio rather then leaving them unset.
+ 	*rdlog_line now uses the rdcart class to handle the SQL query
 	for markers and handles unset markers gracefully.
 	* Both of these in aid of fixing bug #20.
 2005-05-06 Fred Gleason <fredg@salemradiolabs.com>
@@ -4093,8 +4093,8 @@
 	* Fixed a bug in 'cae/cae_jack.cpp' that was causing segue
 	overlaps to be abnormally short.
 2005-05-06 Dan Mills <dmills@spamblock.demon.co.uk>
-	* Fixed a bug in lib/rdsoundpanel.cpp that was causing RML PT 
-	commands to non configured buttons to crash rdairplay. 
+	* Fixed a bug in lib/rdsoundpanel.cpp that was causing RML PT
+	commands to non configured buttons to crash rdairplay.
 	Hopefully sorts out bug # 34
 2005-05-08 Dan Mills <dmills@spamblock.demon.co.uk>
 	* made CAED config error messages more helpful.
@@ -4119,7 +4119,7 @@
 	* Updated the 'SupportedCards' file.
 	* Updated the package version to 0.9.31.
 2005-05-10 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'lib/rdcut.cpp' that was causing the build to 
+	* Fixed a bug in 'lib/rdcut.cpp' that was causing the build to
 	break under Windows.
 2005-05-10 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a test for the format conversion functions in Secret
@@ -4176,8 +4176,8 @@
 	RDLogLine::loadCart() to fail to load the ENFORCE_LENGTH
 	attribute.
 2005-05-20 Fred Gleason <fredg@salemradiolabs.com>
-	* Added a sanity check to the Edit Cart dialog in RDLibrary to 
-	warn about saving carts with parameters that exceed the 
+	* Added a sanity check to the Edit Cart dialog in RDLibrary to
+	warn about saving carts with parameters that exceed the
 	timescaling limits of the system.
 	* Added logic to grey-out the 'Enforce Length' checkbox in the
 	Edit Cart dialog when editing a macro cart.
@@ -4186,7 +4186,7 @@
 2005-05-23 Fred Gleason <fredg@salemradiolabs.com>
 	* Added 'CLOCK_PERMS' and 'EVENT_PERMS' tables to the database.
 	* Incremented the database version to 74.
-	* Added a 'Service Associations' dialog box in 
+	* Added a 'Service Associations' dialog box in
 	'rdlogmanager/edit_perms.cpp'.
 	* Added a 'Filter' list in the 'List Events' dialog in
 	'rdlogmanager/list_events.cpp'.
@@ -4364,26 +4364,26 @@
 	* Added the 'tr()' wrapper to strings in 'rdlogmanager/add_event.cpp'.
 	* Added the 'tr()' wrapper to strings in 'rdlogmanager/edit_clock.cpp'.
 	* Added the 'tr()' wrapper to strings in 'rdlogmanager/edit_event.cpp'.
-	* Added the 'tr()' wrapper to strings in 
+	* Added the 'tr()' wrapper to strings in
 	'rdlogmanager/edit_eventline.cpp'.
 	* Added the 'tr()' wrapper to strings in 'rdlogmanager/edit_grid.cpp'.
 	* Added the 'tr()' wrapper to strings in 'rdlogmanager/edit_note.cpp'.
 	* Added the 'tr()' wrapper to strings in 'rdlogmanager/edit_perms.cpp'.
-	* Added the 'tr()' wrapper to strings in 
+	* Added the 'tr()' wrapper to strings in
 	'rdlogmanager/export_deltaflex.cpp'.
-	* Added the 'tr()' wrapper to strings in 
+	* Added the 'tr()' wrapper to strings in
 	'rdlogmanager/generate_log.cpp'.
-	* Added the 'tr()' wrapper to strings in 
+	* Added the 'tr()' wrapper to strings in
 	'rdlogmanager/generate_Report.cpp'.
-	* Added the 'tr()' wrapper to strings in 
+	* Added the 'tr()' wrapper to strings in
 	'rdlogmanager/import_listview.cpp'.
-	* Added the 'tr()' wrapper to strings in 
+	* Added the 'tr()' wrapper to strings in
 	'rdlogmanager/list_clocks.cpp'.
-	* Added the 'tr()' wrapper to strings in 
+	* Added the 'tr()' wrapper to strings in
 	'rdlogmanager/list_events.cpp'.
-	* Added the 'tr()' wrapper to strings in 
+	* Added the 'tr()' wrapper to strings in
 	'rdlogmanager/list_grids.cpp'.
-	* Added the 'tr()' wrapper to strings in 
+	* Added the 'tr()' wrapper to strings in
 	'rdlogmanager/rdlogmanager.cpp'.
 	* Added the 'tr()' wrapper to strings in 'utils/rdgpimon.cpp'.
 	* Added the 'tr()' wrapper to strings in 'rdlogmanager/rmlsend.cpp'.
@@ -4395,7 +4395,7 @@
 	* Added code to load translation data in 'rdlibrary/rdlibrary.cpp'.
 	* Added code to load translation data in 'rdlibrary/rdlogedit.cpp'.
 	* Added code to load translation data in 'rdlibrary/rdlogin.cpp'.
-	* Added code to load translation data in 
+	* Added code to load translation data in
 	'rdlogmanager/rdlogmanager.cpp'.
 2005-06-11 Fred Gleason <fredg@salemradiolabs.com>
 	* Cleaned up code warnings.
@@ -4407,9 +4407,9 @@
 	'rdairplay/'rdairplay.pro', which was causing a spurious error
 	message.
 2005-06-12 Dan Mills <dmills@spamblock.demon.co.uk>
-	* backed out one of the cleanups (lib/rdpanel_button.cpp) that was 
-	causing rdairplay to fail to startup with some button names. 
-	Fixed warnings by scattering a few casts around instead. 
+	* backed out one of the cleanups (lib/rdpanel_button.cpp) that was
+	causing rdairplay to fail to startup with some button names.
+	Fixed warnings by scattering a few casts around instead.
 	Mantis issue # 51.
 2005-06-11 Fred Gleason <fredg@salemradiolabs.com>
 	* Added 'helpers/rdtrans.sh' and 'helpers/rdpack.sh' utilities.
@@ -4422,7 +4422,7 @@
 	RDAdmin->ManageUsers.
 2005-06-12 Dan Mills <dmills@spamblock.demon.co.uk>
 	* Fixed uninitialised variable in the post counter class.
-	It probably did not hurt anything, but I am just trying to be 
+	It probably did not hurt anything, but I am just trying to be
 	valgrind clean.
 2005-06-12 Fred Gleason <fredg@salemradiolabs.com>
 	* Removed 'adminUsers()', 'setAdminUsers()', 'assignCarts()' and
@@ -4525,7 +4525,7 @@
 	* Rewrote RDAdmin's List Services dialog for consistent UI operation.
 	* Rewrote RDAdmin's List Hosts dialog for consistent UI operation.
 	* Rewrote RDAdmin's List Reports dialog for consistent UI operation.
-	* Rewrote RDAdmin's List Inputs/Output dialog for consistent UI 
+	* Rewrote RDAdmin's List Inputs/Output dialog for consistent UI
 	operation.
 2005-06-15 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdcatchd/rdcatchd.cpp' where the Segue, Talk,
@@ -4634,7 +4634,7 @@
 	* Fixed a bug in 'rdairplay/pie_counter.cpp' that was causing
 	extraneous blue lines to appear in the Pie Widget display.
 2005-06-29 Dan Mills <dmills@spamblock.demon.co.uk>
-	* Backed out change made on the 15th to dropping of root. 
+	* Backed out change made on the 15th to dropping of root.
 	Mantis #30, I would swear that I had committed this allready!
 	Sorry KDAR, this one goes a little deeper then I thought.
 	Mantis issue reopened.
@@ -4665,7 +4665,7 @@
 	* Fixed a bug in 'rdlogedit/edit_log.cpp' that was causing
 	external scheduler data to be propagated into copied log events.
 	* Fixed a bug in 'rdlogedit/edit_log.cpp' that was causing a
-	segfault when trying to cut or delete items containing the 
+	segfault when trying to cut or delete items containing the
 	'-- End	of log --' entry.
 	* Added checkbox controls to 'rdadmin/edit_report.cpp' to force
 	export of events originating from the traffic and/or music log to
@@ -4687,10 +4687,10 @@
 2005-07-07 Fred Gleason <fredg@salemradiolabs.com>
 	* Added an 'RDCmdCache' class in 'lib/rdcmd_cache.cpp'.
 	* Rewrote the 'RDCae' class in 'lib/rdcae.cpp' to eliminate a race
-	condition that was causing trainwreck when processing multiple 
+	condition that was causing trainwreck when processing multiple
 	'Load Play' commands.
 2005-07-07 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'rdadmin/rdadmin.cpp' that was causing the 
+	* Fixed a bug in 'rdadmin/rdadmin.cpp' that was causing the
 	database to fail to be upgraded to the proper database version
 	after a database restore.
 2005-07-07 Fred Gleason <fredg@salemradiolabs.com>
@@ -4789,8 +4789,8 @@
 	* Fixed a syntax error in 'rdairplay/pie_counter.cpp' that was
 	causing the build to break.
 2005-07-19 Dan Mills <dmills@spamblock.demon.co.uk>
-	* Modified the pie timer last seconds ring to use the PIE_COUNTS_LAST 
-	value set in rdadmin rather then a hard coded 10 seconds, this also 
+	* Modified the pie timer last seconds ring to use the PIE_COUNTS_LAST
+	value set in rdadmin rather then a hard coded 10 seconds, this also
 	appears to have fixed the problem with carts set to transition.
 2005-07-20 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'lib/rdcart.cpp' that was causing Random cut
@@ -4824,12 +4824,12 @@
 	* Added 'file:' protocol download support to rdcatchd(8).
 2005-07-22 Dan Mills <dmills@spamblock.demon.co.uk>
 	* Modified lib/rdgroup_list.cpp to match irrespective of case.
-	This fixes a problem where rdimport would import cars where the 
+	This fixes a problem where rdimport would import cars where the
 	group was a lower case vewrsion of the group in the database.
-	rdlogedit would then refuse to allow these carts to be put into a log. 
+	rdlogedit would then refuse to allow these carts to be put into a log.
 2005-07-23 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a 'RDDateTimeDecode()' function in 'lib/rddatedecode.cpp'.
-	* Implemented date/time wildcards in the URL field for RDCatch 
+	* Implemented date/time wildcards in the URL field for RDCatch
 	download events.
 2005-07-24 Fred Gleason <fredg@salemradiolabs.com>
 	* Implemented download support for http:, https: ftp: and smb:
@@ -4892,7 +4892,7 @@
 2005-07-27 Fred Gleason <fredg@salemradiolabs.com>
 	* Incremented the packages version to 0.9.46.
 2005-07-28 Dan Mills <dmills@spamblock.demon.co.uk>
-	* Modified the pie timer to use black on white for the 
+	* Modified the pie timer to use black on white for the
 	last 10 seconds and to always display the outer ring.
 2005-07-29 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'lib/rdcae.cpp' that was causing MPEG L2
@@ -4916,7 +4916,7 @@
 2005-07-29 Fred Gleason <fredg@salemradiolabs.com
 	* Fixed a bug in 'rdadmin/view_adapters.cpp' wher
 	invalid data was displayed for a host with non-initialized dat
-	resource data in RDAdmin->ManageHosts->ViewAudioResources 
+	resource data in RDAdmin->ManageHosts->ViewAudioResources
 	* Added 'RDCardSelector::maxCards()'
 	'RDCardSelector::setMaxCards()'
 	'RDCardSelector::maxPorts()' and 'RDCardSelector::setMaxPorts()
@@ -4942,45 +4942,45 @@
 	methods in 'lib/rdconfig.cpp'.
 	* Modified caed(8) in 'cae/caed.cpp' to use the 'Password=' and
 	'Driver=' directives from the [mySQL] section of rd.conf(5).
-	* Modified sas_filter(1) in 'importers/sas_filter.cpp' to use the 
+	* Modified sas_filter(1) in 'importers/sas_filter.cpp' to use the
 	RDConfig class.
-	* Modified wing_filter(1) in 'imports/wings_filter.cpp' to use 
-	the 'Password=' and 'Driver=' directives from the [mySQL] section 
+	* Modified wing_filter(1) in 'imports/wings_filter.cpp' to use
+	the 'Password=' and 'Driver=' directives from the [mySQL] section
 	of rd.conf(5).
 	* Modified RDAdmin in 'rdadmin/rdadmin.cpp' and
 	'rdadmin/opendb.cpp' to use the 'Password=' and
 	'Driver=' directives from the [mySQL] section of rd.conf(5).
-	* Modified RDAirPlay in 'rdairplay/rdairplay.cpp' to use the 
-	'Password=' and 'Driver=' directives from the [mySQL] section of 
+	* Modified RDAirPlay in 'rdairplay/rdairplay.cpp' to use the
+	'Password=' and 'Driver=' directives from the [mySQL] section of
 	rd.conf(5).
-	* Modified RDCatch in 'rdcatch/rdcatch.cpp' to use the 
-	'Password=' and 'Driver=' directives from the [mySQL] section of 
+	* Modified RDCatch in 'rdcatch/rdcatch.cpp' to use the
+	'Password=' and 'Driver=' directives from the [mySQL] section of
 	rd.conf(5).
-	* Modified RDCatchd in 'rdcatchd/rdcatchd.cpp' to use the 
-	'Password=' and 'Driver=' directives from the [mySQL] section of 
+	* Modified RDCatchd in 'rdcatchd/rdcatchd.cpp' to use the
+	'Password=' and 'Driver=' directives from the [mySQL] section of
 	rd.conf(5).
-	* Modified RDLibrary in 'rdlibrary/rdlibrary.cpp' to use the 
-	'Password=' and 'Driver=' directives from the [mySQL] section of 
+	* Modified RDLibrary in 'rdlibrary/rdlibrary.cpp' to use the
+	'Password=' and 'Driver=' directives from the [mySQL] section of
 	rd.conf(5).
-	* Modified RDLogEdit in 'rdlogedit/rdlogedit.cpp' to use the 
-	'Password=' and 'Driver=' directives from the [mySQL] section of 
+	* Modified RDLogEdit in 'rdlogedit/rdlogedit.cpp' to use the
+	'Password=' and 'Driver=' directives from the [mySQL] section of
 	rd.conf(5).
-	* Modified RDLogin in 'rdlogin/rdlogin.cpp' to use the 
-	'Password=' and 'Driver=' directives from the [mySQL] section of 
+	* Modified RDLogin in 'rdlogin/rdlogin.cpp' to use the
+	'Password=' and 'Driver=' directives from the [mySQL] section of
 	rd.conf(5).
-	* Modified RDLogManager in 'rdlogmanger/rdlogmanager.cpp' to use the 
-	'Password=' and 'Driver=' directives from the [mySQL] section of 
+	* Modified RDLogManager in 'rdlogmanger/rdlogmanager.cpp' to use the
+	'Password=' and 'Driver=' directives from the [mySQL] section of
 	rd.conf(5).
 	* Modified ripcd(8) in 'ripcd/ripcd.cpp' to use the RDConfig class.
 	* Modified sas_switch_torture(1) in 'tests/sas_switch_torture.cpp'
 	to use the RDConfig class.
 	* Modified sas_torture(1) in 'tests/sas_torture.cpp'
 	to use the RDConfig class.
-	* Modified RDGpiMon in 'utils/rdgpimon.cpp' to use the 
-	'Password=' and 'Driver=' directives from the [mySQL] section of 
+	* Modified RDGpiMon in 'utils/rdgpimon.cpp' to use the
+	'Password=' and 'Driver=' directives from the [mySQL] section of
 	rd.conf(5).
-	* Modified RDImport in 'utils/rdimport.cpp' to use the 
-	'Password=' and 'Driver=' directives from the [mySQL] section of 
+	* Modified RDImport in 'utils/rdimport.cpp' to use the
+	'Password=' and 'Driver=' directives from the [mySQL] section of
 	rd.conf(5).
 2005-08-01 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdlibrary/edit_audio.cpp' that was causing a
@@ -5064,7 +5064,7 @@
 	dialog.
 2005-08-03 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a command to 'install-init.sh' to create a
-	'/etc/sysconfig/' if needed, fixes a 'make install' bug on 
+	'/etc/sysconfig/' if needed, fixes a 'make install' bug on
 	Debian (Mantis bug #71).
 2005-08-03 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a type in 'docs/JACK.txt' (Mantis bug #73).
@@ -5131,7 +5131,7 @@
 	* Fixed a bug in 'lib/rdlog_line.cpp' that was causing Now&Next
 	data to fail for manually added events.
 2005-08-06 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'rdairplay/local_macros.cpp' that was casuing 
+	* Fixed a bug in 'rdairplay/local_macros.cpp' that was casuing
 	the 'PX' RML to fail if the log had no next event (Mantis bug
 	#54).
 2005-08-06 Fred Gleason <fredg@salemradiolabs.com>
@@ -5206,8 +5206,8 @@
 	* Fixed a bug in 'rdlogmanager/list_clock.cpp' where a Clock's
 	service permissions were not being preserved across a Rename.
 2005-08-18 Fred Gleason <fredg@salemradiolabs.com>
-	* Added code to the Logitek vGuest driver in 'ripcd/vguest.cpp' 
-	to wait a random period of time before attempting to restore 
+	* Added code to the Logitek vGuest driver in 'ripcd/vguest.cpp'
+	to wait a random period of time before attempting to restore
 	a broken vGuest connection.
 2005-08-18 Fred Gleason <fredg@salemradiolabs.com>
 	* Incremented the package version to 0.9.50.
@@ -5269,7 +5269,7 @@
 	segfaults after editing a clock.
 2005-09-20 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdlogmanager/generate_log.cpp' that was causing
-	events near midnight to fail to be imported when used with non-zero 
+	events near midnight to fail to be imported when used with non-zero
 	slop times.
 2005-09-20 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'lib/rdsvc.cpp' that was causing import events to
@@ -5437,7 +5437,7 @@
 	hard-coded audio extension types.
 2005-10-05 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a 'RDMacroEvent::stop()' class in 'lib/rdmacro_event.cpp'.
-	* Fixed a bug in rdairplay/log_play.cpp' where sending a stop to a 
+	* Fixed a bug in rdairplay/log_play.cpp' where sending a stop to a
 	macro cart was ignored (Mantis bug #52).
 2005-10-05 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdairplay/rdairplay.cpp' that was causing
@@ -5502,7 +5502,7 @@
 	* Implemented the Voice Track Marker log event type in RDAirPlay.
 	* Implemented the Voice Track Marker log event type in RDLogManager.
 2005-10-21 Fred Gleason <fredg@salemradiolabs.com>
-	* Added 'SERVICES.TRACK_GROUP', 'LOGS.SCHEDULED_TRACKS', 
+	* Added 'SERVICES.TRACK_GROUP', 'LOGS.SCHEDULED_TRACKS',
 	'LOGS.COMPLETED_TRACKS' and 'CART.OWNER' fields to the
 	database.
 	* Incremented the database version to 94.
@@ -5605,7 +5605,7 @@
 	response to a message box dialog to be ignored.
 	* Fixed a bug in 'rdadmin/rename_group.cpp' that was causing the
 	response to a message box dialog to be ignored.
-	* Added code to disable KDE dialog overriding in 
+	* Added code to disable KDE dialog overriding in
 	'rdairplay/rdairplay.cpp'.
 	* Fixed a bug in 'rdairplay/rdairplay.cpp' that was causing the
 	response to a message box dialog to be ignored.
@@ -5624,7 +5624,7 @@
 	response to a message box dialog to be ignored.
 	* Fixed a bug in 'rdlibrary/import_audio.cpp' that was causing the
 	response to a message box dialog to be ignored.
-	* Added code to disable KDE dialog overriding in 
+	* Added code to disable KDE dialog overriding in
 	'rdlibrary/rdlibrary.cpp'.
 	* Fixed a bug in 'rdlibrary/rdlibrary.cpp' that was causing the
 	response to a message box dialog to be ignored.
@@ -5632,31 +5632,31 @@
 	response to a message box dialog to be ignored.
 	* Fixed a bug in 'rdlogedit/edit_log.cpp' that was causing the
 	response to a message box dialog to be ignored.
-	* Added code to disable KDE dialog overriding in 
+	* Added code to disable KDE dialog overriding in
 	'rdlogedit/rdlogedit.cpp'.
 	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that was causing the
 	response to a message box dialog to be ignored.
-	* Added code to disable KDE dialog overriding in 
+	* Added code to disable KDE dialog overriding in
 	'rdlogin/rdlogin.cpp'.
 	* Fixed a bug in 'rdlogmanager/edit_clock.cpp' that was causing the
 	response to a message box dialog to be ignored.
 	* Fixed a bug in 'rdlogmanager/edit_event.cpp' that was causing the
 	response to a message box dialog to be ignored.
-	* Fixed a bug in 'rdlogmanager/export_deltaflex.cpp' that was 
+	* Fixed a bug in 'rdlogmanager/export_deltaflex.cpp' that was
 	causing the response to a message box dialog to be ignored.
-	* Fixed a bug in 'rdlogmanager/export_textlog.cpp' that was 
+	* Fixed a bug in 'rdlogmanager/export_textlog.cpp' that was
 	causing the response to a message box dialog to be ignored.
-	* Fixed a bug in 'rdlogmanager/generate_log.cpp' that was 
+	* Fixed a bug in 'rdlogmanager/generate_log.cpp' that was
 	causing the response to a message box dialog to be ignored.
-	* Fixed a bug in 'rdlogmanager/list_clocks.cpp' that was 
+	* Fixed a bug in 'rdlogmanager/list_clocks.cpp' that was
 	causing the response to a message box dialog to be ignored.
-	* Fixed a bug in 'rdlogmanager/list_events.cpp' that was 
+	* Fixed a bug in 'rdlogmanager/list_events.cpp' that was
 	causing the response to a message box dialog to be ignored.
-	* Added code to disable KDE dialog overriding in 
+	* Added code to disable KDE dialog overriding in
 	'rdlogmanager/rdlogmanager.cpp'.
-	* Added code to disable KDE dialog overriding in 
+	* Added code to disable KDE dialog overriding in
 	'utils/rdgpimon.cpp'.
-	* Added code to disable KDE dialog overriding in 
+	* Added code to disable KDE dialog overriding in
 	'utils/rmlsend.cpp'.
 2005-11-01 Fred Gleason <fredg@salemradiolabs.com>
 	* Added an 'xdg/' directory.
@@ -5712,11 +5712,11 @@
 	* Updated the 'NEWS' file.
 	* Incremented the package version to 0.9.56.
 2005-11-03 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'utils/rmlsend.cpp' that was causing the build to 
+	* Fixed a bug in 'utils/rmlsend.cpp' that was causing the build to
 	break under Windows.
-	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that was causing the 
+	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that was causing the
 	build to break under Windows.
-	* Fixed a bug in 'rdlogmanager/rdlogmanager.cpp' that was causing 
+	* Fixed a bug in 'rdlogmanager/rdlogmanager.cpp' that was causing
 	the build to break under Windows.
 	* Fixed a bug in 'rdlogedit/rdlogedit.pro' that was causing
 	the build to break under Windows.
@@ -5756,10 +5756,10 @@
 	report data logging.
 	* Added a 'ListSvcs' dialog in 'rdlogmanager/list_svcs.cpp'.
 	* Added a 'DeleteSvcRec' widget in
-	'rdlogmanager/delete_svc_rec.cpp', based upon the 'RDatePicker' 
+	'rdlogmanager/delete_svc_rec.cpp', based upon the 'RDatePicker'
 	class from LibRadio.
-	* Added a 'DeleteSvcRecDialog' widget in 
-	'rdlogmanager/delete_svc_rec_dialog.cpp', based upon the 
+	* Added a 'DeleteSvcRecDialog' widget in
+	'rdlogmanager/delete_svc_rec_dialog.cpp', based upon the
 	'RDatePickerDialog' class from LibRadio.
 	* Modified 'rdlogmanager/generateReport()' to use service-based
 	reconciliation data for report generation.
@@ -5942,7 +5942,7 @@
 	* Added code to hide the Tracker button in
 	'rdlogedit/rdlogedit.cpp'.
 2005-11-29 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that was causing the 
+	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that was causing the
 	build to break under Windows.
 2005-11-29 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that was causing the
@@ -6132,25 +6132,25 @@
 	* Updated the 'NEWS' file.
 	* Updated package version to 0.9.65.
 2006-01-30 Fred Gleason <fredg@salemradiolabs.com>
-	* Modified 'rivendell-suse' to work properly even in the absence of 
+	* Modified 'rivendell-suse' to work properly even in the absence of
 	a working set of LSB Init scripts.
-	* Added 'make_slack.in', 'slack-desc.in' and 'slack_doinst.sh' 
+	* Added 'make_slack.in', 'slack-desc.in' and 'slack_doinst.sh'
 	files.
 	* Added 'make slack' and 'make slax' build targets.
 2006-01-30 Fred Gleason <fredg@salemradiolabs.com>
 	* Added rdgen(1) to 'make_slack.in'.
 2006-01-30 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a 'conf/rd.conf-slax' file.
-	* Added an argument to the 'build_slack' to allow the user to 
+	* Added an argument to the 'build_slack' to allow the user to
 	specify the rd.conf(5) file to be included into the package.
-	* Fixed bug in 'make_slack.in' that was causing the menu items and 
+	* Fixed bug in 'make_slack.in' that was causing the menu items and
 	icons to fail to be included in the Slackware package.
 2006-01-30 Fred Gleason <fredg@salemradiolabs.com>
-	* Fixed bug in 'make_slack.in' that was causing the icons to fail 
+	* Fixed bug in 'make_slack.in' that was causing the icons to fail
 	to be included in the Slackware package.
 2006-01-31 Fred Gleason <fredg@salemradiolabs.com>
 	* Changed the 'AudioOwner=' entry in 'conf/rd.conf-slax' to 'salem'.
-	* Changed the default audio owner in 'importers/export_slax' to 
+	* Changed the default audio owner in 'importers/export_slax' to
 	'500'.
 2006-02-03 Fred Gleason <fredg@salemradiolabs.com>
 	* Rewrote 'scripts/rd_rip_cd' to use cdda2wav(1) as the ripper
@@ -6213,7 +6213,7 @@
 	* Fixed a bug in RDSvc::import() that was causing import of
 	traffic events with zero length to fail.
 2006-02-10 Fred Gleason <fredg@salemradiolabs.com>
-	* Added logic to RDSvc::import() in 'lib/rdsvc.cpp' and 
+	* Added logic to RDSvc::import() in 'lib/rdsvc.cpp' and
 	RDEventLine::generateLog() in 'lib/rdevent_line.cpp' to allow
 	handling of traffic import events with duplicate times.
 2006-02-13 Fred Gleason <fredg@salemradiolabs.com>
@@ -6344,7 +6344,7 @@
 2006-03-15 Fred Gleason <fredg@salemradiolabs.com>
 	* Added an 'ISRC' fields to the reconciliation table database schema.
 	* Added 'CART.USAGE_CODE', 'REPORTS.LINES_PER_PAGE',
-	'REPORTS.STATION_TYPE' and 'REPORTS.STATION_FORMAT' fields to the 
+	'REPORTS.STATION_TYPE' and 'REPORTS.STATION_FORMAT' fields to the
 	database.
 	* Incremented the database version to 104.
 	* Added a 'RDLogLine::UsageCode' enum in 'lib/rdlog_line.h'.
@@ -6402,8 +6402,8 @@
 2006-03-24 Fred Gleason <fredg@salemradiolabs.com>
 	* Added an 'RDSoftKeys' utility in 'utils/rdsoftkeys.cpp'.
 2006-03-24 Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* Add more controls to be disabled depending on the audio card 
-	selected.  Correct help text (blank to silent).  Correct card text 
+	* Add more controls to be disabled depending on the audio card
+	selected.  Correct help text (blank to silent).  Correct card text
 	to fit in text box (rdadmin / audio ports).
 2006-03-27 Fred Gleason <fredg@salemradiolabs.com>
 	* Split out the programs in 'utils/' into thier own separate
@@ -6647,7 +6647,7 @@
 	* Added a 'CUTS.VALIDITY' field to the database.
 	* Added a 'CART.VALIDITY' field to the database.
 	* Incremented the database version to 111.
-	* Implemented conditional Cart/Cut validity checking and 
+	* Implemented conditional Cart/Cut validity checking and
 	display [Mantis feature requests #84 and #134].
 2006-05-23 Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* Fixed a bug in rdlibrary.cpp to not enable the delete button unless a
@@ -6659,7 +6659,7 @@
 	* make changes to cae.cpp, re-added EchoArges for stop record.  Without
 	it, stop record does not stop for jack.
 2006-05-30 Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* make changes to cae.cpp, rdcatchd.cpp, ripcd.cpp so log file are 
+	* make changes to cae.cpp, rdcatchd.cpp, ripcd.cpp so log file are
 	created group writable (umask 0113).
 	* make changes to rdlibrary (cdripper.cpp disk_ripper.cpp
 	import_audio.cpp) so files are created group writable.
@@ -6712,8 +6712,8 @@
 	* Added code to allow event transitions without Voice Track
 	markers to be edited in 'rdlogedit/voice_tracker.cpp'.
 2006-06-13 Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* cae.cpp, undid changes from -r1.84, I had not seen Fred's 
-	corrections on -r1.82.  The EchoArgs() is now driver specific 
+	* cae.cpp, undid changes from -r1.84, I had not seen Fred's
+	corrections on -r1.82.  The EchoArgs() is now driver specific
 	and not needed at the end of Stop Record.
 2006-06-15 Fred Gleason <fredg@salemradiolabs.com>
 	* Added an XDG file for RDLogin in 'xdg/rdlogin.desktop' and
@@ -6731,9 +6731,9 @@
 	- added another signal to catch (SIGHUP)
 	- set the shared memory to be destroyed upon signal reception in the
 	SigHandler()
-	- set the shared memory to be destroyed upon the QApp commitData() 
+	- set the shared memory to be destroyed upon the QApp commitData()
 	method (called when an X session manager is exiting)
-	- set the shared memory to be destroyed upon return from the QApp 
+	- set the shared memory to be destroyed upon return from the QApp
 	exec() method.
 2006-06-16 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'rdlogedit/voice_tracker.cpp' that was causing
@@ -6895,7 +6895,7 @@
 	set.
 	* Modified 'rdairplay/log_play.cpp' to properly execute music and
 	traffic link events.
-	* Modified 'rdlogmanager/import_listview.cpp to display the 
+	* Modified 'rdlogmanager/import_listview.cpp to display the
 	revised icon set.
 2006-06-23 Fred Gleason <fredg@salemradiolabs.com>
 	* Added status indicators to the GenerateLog dialog in
@@ -7163,7 +7163,7 @@
 		 2006-06-15
 		 2006-06-27
 2006-07-18 Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* rdcatchd.cpp; remove code to "relinquish" root permissions 
+	* rdcatchd.cpp; remove code to "relinquish" root permissions
 	(not working and not used).
 2006-07-19 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'lib/rdsvc.cpp' that was causing custom
@@ -7180,16 +7180,16 @@
 2006-07-19 Fred Gleason <fredg@salemradiolabs.com>
 	* Incremented the packages version to 0.9.68kgu18.
 2006-07-19 Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* cae/cae.cpp cae/cae_jack.cpp rdcatch/rdcatch.cpp 
+	* cae/cae.cpp cae/cae_jack.cpp rdcatch/rdcatch.cpp
 	rdcatchd/rdcatchd.cpp
 	ripcd/ripcd.cpp; increased logging and checks of error conditions.
 	* Makefile.am lib/Makefile.am rdadmin/Makefile.am rdairplay/Makefile.am
 	rdcatch/Makefile.am rdlibrary/Makefile.am rdlogedit/Makefile.am
-	rdlogin/Makefile.am rdlogmanager/Makefile.am rdpanel/Makefile.am; 
+	rdlogin/Makefile.am rdlogmanager/Makefile.am rdpanel/Makefile.am;
 	modified
 	to use DESTDIR.  Change INCLUDES to use $top_srcdir instead of ".." .
 	* pam_rd/ ; add new pam_rd directory with makefile, module, and
-	corresponding documentation in docs/.  Also hooked into main 
+	corresponding documentation in docs/.  Also hooked into main
 	Makefile.am
 2006-07-19 Fred Gleason <fredg@salemradiolabs.com>
 	* Disabled build of the 'pam_rd/' directory in 'configure.in' and
@@ -7206,7 +7206,7 @@
 	DESTDIR.
 2006-07-20 Fred Gleason <fredg@salemradiolabs.com>
 	* Added 'SERVICES.TFC_LABEL_CART', 'SERVICES.TFC_TRACK_CART',
-	'SERVICES.MUS_LABEL_CART', 'SERVICES.MUS_TRACK_CART', 
+	'SERVICES.MUS_LABEL_CART', 'SERVICES.MUS_TRACK_CART',
 	'SERVICES.TFC_TITLE_OFFSET', 'SERVICES.TFC_TITLE_LENGTH',
 	'SERVICES.MUS_TITLE_OFFSET' and 'SERVICES.MUS_TITLE_LENGTH' fields
 	to the database.
@@ -7224,7 +7224,7 @@
 2006-07-21 Fred Gleason <fredg@salemradiolabs.com>
 	* Incremented the package version to 0.9.69.
 2006-07-21 12:25 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* configure.in Makefile.am; add autoconf hooks for pam_rd 
+	* configure.in Makefile.am; add autoconf hooks for pam_rd
 2006-07-24 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed bugs in 'lib/rdsvc.cpp' and 'lib/rdevent_line.cpp' that
 	were causing items in the PreImport list of Events to be dropped
@@ -7245,7 +7245,7 @@
 	currently in use by one or more RDCatch events in
 	'rdlibrary/rdlibrary.cpp'.
 2006-07-25 14:08 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* configure.in Makefile.am; use automake conditionals for the 
+	* configure.in Makefile.am; use automake conditionals for the
 	pam_rd hook.
 2006-07-26 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a confirmation dialog before pasting audio into a cut that
@@ -7253,10 +7253,10 @@
 	feature request #156].
 2006-07-26 Fred Gleason <fredg@salemradiolabs.com>
 	* Added 'SERVICES.TFC_HOURS_OFFSET', 'SERVICES.TFC_HOURS_LENGTH',
-	'SERVICES.TFC_MINUTES_OFFSET', 'SERVICES.TFC_MINUTES_LENGTH', 
-	'SERVICES.TFC_SECONDS_OFFSET', 'SERVICES.TFC_SECONDS_LENGTH', 
-	'SERVICES.MUS_HOURS_OFFSET', 'SERVICES.MUS_HOURS_LENGTH', 
-	'SERVICES.MUS_MINUTES_OFFSET', 'SERVICES.MUS_MINUTES_LENGTH', 
+	'SERVICES.TFC_MINUTES_OFFSET', 'SERVICES.TFC_MINUTES_LENGTH',
+	'SERVICES.TFC_SECONDS_OFFSET', 'SERVICES.TFC_SECONDS_LENGTH',
+	'SERVICES.MUS_HOURS_OFFSET', 'SERVICES.MUS_HOURS_LENGTH',
+	'SERVICES.MUS_MINUTES_OFFSET', 'SERVICES.MUS_MINUTES_LENGTH',
 	'SERVICES.MUS_SECONDS_OFFSET' and 'SERVICES.TFC_SECONDS_LENGTH'
 	fields to the database.
 	* Retired 'SERVICES.TFC_START_OFFSET', 'SERVICES.TFC_START_LENGTH',
@@ -7355,7 +7355,7 @@
 2006-08-09 Fred Gleason <fredg@salemradiolabs.com>
 	* Modified the 'RDLogEvent::load()' method in
 	'lib/rdlog_event.cpp' to include the 'FADEUP_POINT' and
-	'FADEDOWN_POINT' fields and disregard the 'SEGUE_GAIN' field 
+	'FADEDOWN_POINT' fields and disregard the 'SEGUE_GAIN' field
 	in determining custom transition status.
 	* Changed the default pointer source for
 	'RDLogLine::startPoint()', 'RDLogLine::endPoint()'
@@ -7632,11 +7632,11 @@
 	* Fixed a bug in 'lib/rdcart.cpp' that caused a cart to show as
 	conditionally valid even if all underlying cuts had expired.
 2006-09-29 18:45 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* lib/rdescape_string.cpp, rdescape_string.h, lib/rdreport.cpp; 
-	Correct a bug with generating reports (MIXDOWN table was not being 
-	created).  Added a new function RDEscapeStringSQLColumn() to 
-	lib/rdesacpe_string which now escapes the hostname replacing 
-	periods (and other illegal characters) with underscores.  Made use 
+	* lib/rdescape_string.cpp, rdescape_string.h, lib/rdreport.cpp;
+	Correct a bug with generating reports (MIXDOWN table was not being
+	created).  Added a new function RDEscapeStringSQLColumn() to
+	lib/rdesacpe_string which now escapes the hostname replacing
+	periods (and other illegal characters) with underscores.  Made use
 	of the new function in rdreport.cpp.
 	* rdairplay.cpp; correct comment.
 2006-10-10 Fred Gleason <fredg@salemradiolabs.com>
@@ -7668,7 +7668,7 @@
 	database.
 	* Incremented the database version to 121.
 	* Added 'RDLog::linkDatetime()', 'RDLog::setLinkDatetime()',
-	'RDLog::nextId()' and 'RDLog::setNextId()' methods in 
+	'RDLog::nextId()' and 'RDLog::setNextId()' methods in
 	'lib/rdlog.cpp'.
 	* Fixed a bug in 'lib/rdlog.cpp' that was causing updates of
 	datetime values to the database to fail.
@@ -7935,8 +7935,8 @@
 	database schema to fail to properly update services whose name
 	contained a hyphen.
 2006-11-27 11:45 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* rdadmin/rdadmin.cpp, rdpanel/rdpanel.cpp; Corrected bugs with 
-	database login using "rivendell" password instead of the SQL 
+	* rdadmin/rdadmin.cpp, rdpanel/rdpanel.cpp; Corrected bugs with
+	database login using "rivendell" password instead of the SQL
 	database password.
 2006-11-27 Fred Gleason <fredg@salemradiolabs.com>
 	* Added a section on configuring SoundExchange Statutory License
@@ -7970,7 +7970,7 @@
 	'rdlibrary/record_cut.cpp' [Mantis feature request #172].
 2006-11-29 Fred Gleason <fredg@salemradiolabs.com>
 	* Applied a patch by 'pota' on Mantis that fixed a bug in
-	'rdlibrary/disk_ripper.cpp' that was causing only the last 
+	'rdlibrary/disk_ripper.cpp' that was causing only the last
 	selected track to be correctly auto-trimmed [Mantis bug #168].
 2006-11-29 Fred Gleason <fredg@salemradiolabs.com>
 	* Fixed a bug in 'lib/rdevent_line.cpp' that was causing the
@@ -8018,14 +8018,14 @@
 	* Removed 'RDLogLine::postPoint()' and 'RDLogLine::setPostPoint()'
 	methods from 'lib/rdlog_line.cpp'.
 2006-12-07 17:30 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
-	* rdadmin/createdb.cpp; Removed extra close paren near line 709, 
-	thanks to zotz@100jamz.com and chad.scott@gmail.com for help 
+	* rdadmin/createdb.cpp; Removed extra close paren near line 709,
+	thanks to zotz@100jamz.com and chad.scott@gmail.com for help
 	identify the problem.
 2006-12-08 15:45 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* docs/ALSA.txt; updated ALSA documentation to mention global
 	/etc/asound.conf configuration file.
 2006-12-15 Fred Gleason <fredg@salemradiolabs.com>
-	* Modified the SAS USI switcher driver so as to	automatically 
+	* Modified the SAS USI switcher driver so as to	automatically
 	populate the input and output names each time the driver is
 	started.
 2006-12-15 Fred Gleason <fredg@salemradiolabs.com>
@@ -8075,17 +8075,17 @@
 	* Added 'RDAIRPLAY.EXIT_CODE', 'RDAIRPLAY.EXIT_PASSWORD',
 	'RDAIRPLAY.LOG,<n>_START_MODE', 'RDAIRPLAY.LOG,<n>_AUTO_RESTART',
 	'RDAIRPLAY.LOG<n>_LOG_NAME', 'RDAIRPLAY.LOG<n>_LOG_ID',
-	'RDAIRPLAY.LOG<n>_LOG_LINE' and 'RDAIRPLAY.LOG<n>_RUNNING' fields 
+	'RDAIRPLAY.LOG<n>_LOG_LINE' and 'RDAIRPLAY.LOG<n>_RUNNING' fields
 	to the database.
 	* Incremented the database version to 129.
 	* Added 'RDAirPlayConf::exitCode()',
-	'RDAirPlayConf::setExitCode()', 
-	'RDAirPlayConf::exitPasswordValid()', 
+	'RDAirPlayConf::setExitCode()',
+	'RDAirPlayConf::exitPasswordValid()',
 	'RDAirPlayConf::setExitPassword()', 'RDAirPlayConf::startMode()',
 	'RDAirPlayConf::setStartMode()', 'RDAirPlayConf::autoRestart()',
 	'RDAirPlayConf::setAutoRestart()','RDAirPlayConf::logName()',
-	'RDAirPlayConf::setLogName()', 'RDAirPlayConf::logId()', 
-	'RDAirPlayConf::setLogId()', 'RDAirPlayConf::logLine()', 
+	'RDAirPlayConf::setLogName()', 'RDAirPlayConf::logId()',
+	'RDAirPlayConf::setLogId()', 'RDAirPlayConf::logLine()',
 	'RDAirPlayConf::setLogLine()', 'RDAirPlayConf::currentLog()',
 	'RDAirPlayConf::setCurrentLog()', 'RDAirPlay::logRunning()' and
 	'RDAirPlay::setLogRunning()' methods in 'lib/rdairplay_conf.cpp'.
@@ -8159,70 +8159,70 @@
 	* Applied 'voice-tracker' patch from Stefan Gabriel
 	<stg@st-gabriel.de>, implements the following:
 	* Changed RD_VERSION_DATABASE to 131
-	* Added SCHED_CODES VARCHAR( 255 ) NULL DEFAULT NULL to table CART in 
+	* Added SCHED_CODES VARCHAR( 255 ) NULL DEFAULT NULL to table CART in
 	createdb.cpp
-	* Added SCHED_GROUP VARCHAR(10), TITLE_SEP INT(10) UNSIGNED, HAVE_CODE 
-	VARCHAR(10), HOR_SEP INT(10) UNSIGNED, HOR_DIST INT(10) UNSIGNED to 
+	* Added SCHED_GROUP VARCHAR(10), TITLE_SEP INT(10) UNSIGNED, HAVE_CODE
+	VARCHAR(10), HOR_SEP INT(10) UNSIGNED, HOR_DIST INT(10) UNSIGNED to
 	table EVENTS in createdb.cpp
 	* Added ARTISTSEP int(10) UNSIGNED to table CLOCKS in createdb.cpp
-	* Added new table SCHED_CODES (CODE VARCHAR(10) NOT NULL PRIMARY KEY, 
+	* Added new table SCHED_CODES (CODE VARCHAR(10) NOT NULL PRIMARY KEY,
 	DESCRIPTION VARCHAR(255)) to database in createdb.cpp
 	* Update DUCK_UP_GAIN and DUCK_DOWN_GAIN to log_LOG tables in
 	createdb.cpp
 	* Added DUCK_UP_GAIN INT DEFAULT 0 to lib/rdcreate_log.cpp
 	* Added DUCK_DOWN_GAIN INT DEFAULT 0 to lib/rdcreate_log.cpp
-	* Generate table service_STACK (SCHED_STACK_ID int unsigned not null 
-	primary key, CART int unsigned not null, ARTIST varchar(255), 
-	SCHED_CODES varchar(255), SCHEDULED_AT datetime default '1000-01-01 
+	* Generate table service_STACK (SCHED_STACK_ID int unsigned not null
+	primary key, CART int unsigned not null, ARTIST varchar(255),
+	SCHED_CODES varchar(255), SCHEDULED_AT datetime default '1000-01-01
 	00:00:00') if not present in rdlogmanager/generate_log.cpp
-	* Added code to rdsvc.cpp to delete table service_STACK when a Service 
+	* Added code to rdsvc.cpp to delete table service_STACK when a Service
 	is deleted
-	* Generate new table clock_RULES ("CODE varchar(10) not null primary 
+	* Generate new table clock_RULES ("CODE varchar(10) not null primary
 	key, MAX_ROW int unsigned, MIN_WAIT int unsigned, NOT_AFTER
 	varchar(10),
-	OR_AFTER varchar(10), OR_AFTER_II varchar(10))) if not present in 
+	OR_AFTER varchar(10), OR_AFTER_II varchar(10))) if not present in
 	lib/schedruleslist.cpp
 	* Handle table clock_RULES like clock_CLK in
 	rdlogmanager/list_clocks.cpp
 	* Added rdadmin/edit_rdadmin/schedcodes.cpp,
-	rdadmin/edit_schedcodes.h, 
-	rdadmin/list_schedcodes.cpp, rdadmin/list_schedcodes.h, 
+	rdadmin/edit_schedcodes.h,
+	rdadmin/list_schedcodes.cpp, rdadmin/list_schedcodes.h,
 	rdadmin/add_schedcodes.cpp, rdadmin/add_schedcodes.h
 	* Added Scheduler Codes Button to rdadmin
-	* Added lib/schedruleslist.cpp, lib/schedruleslist.h, 
+	* Added lib/schedruleslist.cpp, lib/schedruleslist.h,
 	lib/schedcartlist.cpp, lib/schedcartlist.h
-	* Added schedCodes(), setSchedCodes() and updateSchedCodes methods to 
+	* Added schedCodes(), setSchedCodes() and updateSchedCodes methods to
 	rdcart.cpp
-	* Added getArtistSep(), setArtistSep(), getRulesModified() and 
-	setRulesModified() methods to rdclock.cpp; added code to handle 
+	* Added getArtistSep(), setArtistSep(), getRulesModified() and
+	setRulesModified() methods to rdclock.cpp; added code to handle
 	artistsep, rules_modified in other methods of rdclock.cpp
-	* Added SchedGroup(), setSchedGroup(), HaveCode(), setHaveCode(), 
-	titleSep(), setTitleSep() methods in rdevent.cpp; insert a default 
+	* Added SchedGroup(), setSchedGroup(), HaveCode(), setHaveCode(),
+	titleSep(), setTitleSep() methods in rdevent.cpp; insert a default
 	TITLE_SEP=100 into the database table, when a new event is created
-	* Add SchedGroup(), setSchedGroup(), HaveCode(), setHaveCode(), 
+	* Add SchedGroup(), setSchedGroup(), HaveCode(), setHaveCode(),
 	titleSep(), setTitleSep() methods to rdevent_line.cpp; load
 	SCHED_GROUP, TITLE_SEP and HAVE_CODE from the EVENTS table in
 	rdevent_line.cpp
 	* Added code for scheduling to RDEventLine::generateLog()
 	* Added rdlibrary/edit_schedulercodes.cpp,
 	rdlibrary/edit_schedulercodes.h
-	* Added code to select scheduler codes for a cart in 
+	* Added code to select scheduler codes for a cart in
 	rdlibrary/edit_cart.cpp
 	* Added multi editing to rdlibrary/edit_cart.cpp
 	* Added Scheduler Codes Filter to rdlibrary.cpp
 	* Added multi selection/deleting/editing to rdlibrary.cpp
-	* Changed RDListView::keyPressEvent(), 
-	RDListView::contentsMousePressEvent() and 
+	* Changed RDListView::keyPressEvent(),
+	RDListView::contentsMousePressEvent() and
 	RDListView::contentsMouseReleaseEvent() not to ignore Ctrl during
 	mouse clicks (for multi-selection in rdlibrary)
-	* Added rdlogmanager/edit_schedrules.cpp, 
-	rdlogmanager/edit_schedrules.h, rdlogmanager/edit_schedcoderules.cpp, 
+	* Added rdlogmanager/edit_schedrules.cpp,
+	rdlogmanager/edit_schedrules.h, rdlogmanager/edit_schedcoderules.cpp,
 	rdlogmanager/edit_schedcoderules.h
 	* Added "Scheduler Code" button to edit_clock.cpp
 	* Added scheduler options to "Import From" line in edit_event.cpp
 	* Added command line mode to rdlogmanager.cpp
 	* Added command line mode to rdlogmanager/generate_log.cpp
-	* Write scheduler reports to exception report in 
+	* Write scheduler reports to exception report in
 	rdlogmanager/generate_log.cpp
 	* Added play gain support to rdcatch.cpp
 	* Added play gain support to rdlibrary/record_cut.cpp
@@ -8235,30 +8235,30 @@
 	* Added blockStartTime() method to rdlog_event.cpp
 	* Added code to handle duck_up_gain and duck_down_gain in
 	rdlog_line.cpp
-	* Fixed: Handle talk times correctly with custom start times in 
+	* Fixed: Handle talk times correctly with custom start times in
 	rdlog_line.cpp
 	* Changed rdplay_deck.cpp to handle duck gain.
 	* RDPLAYDECK_DUCKDOWN_LENGTH hardcoded to 750 ms in rdplay_deck.h
 	* RDPLAYDECK_DUCKUP_LENGTH hardcoded to 1500 ms in rdplay_deck.h
 	* Added code to support duck gain in log_play.cpp
-	* Fixed: Handle talk times correctly with custom start times in 
+	* Fixed: Handle talk times correctly with custom start times in
 	rdairplay.cpp
 	* Fixed popup menu position in rdlogedit/log_listview.cpp
 	* Added time counter to voice_tracker.cpp
 	* Added talk time counter to voice_tracker.cpp
-	* Added "Set Start Point", "Set End Point", "Set to Hook Markers" to 
+	* Added "Set Start Point", "Set End Point", "Set to Hook Markers" to
 	popup menu in voice_tracker.cpp
-	* Added waveform navigation with '<' and '>' keys and with mouse wheel 
+	* Added waveform navigation with '<' and '>' keys and with mouse wheel
 	to voice_tracker.cpp
-	* Fixed waveform display and scrolling for custom start and end points 
+	* Fixed waveform display and scrolling for custom start and end points
 	in voice_tracker.cpp
 	* Added duck gain support during playback in voice_tracker.cpp
 	* Added duck gain support during recording in voice_tracker.cpp
-	* Added code to set the duck volumes with the rubber band in 
+	* Added code to set the duck volumes with the rubber band in
 	voice_tracker.cpp
-	* Added code to show the fade and duck volume using the meter in 
+	* Added code to show the fade and duck volume using the meter in
 	voice_tracker.cpp
-	* Added auto segue during recording (like in rdairplay) to 
+	* Added auto segue during recording (like in rdairplay) to
 	voice_tracker.cpp
 	* Changed the behavior of "Do Over" for better handling of custom
 	start and end points
@@ -8266,7 +8266,7 @@
 	* Changed TRACKER_MIN_GAIN to -3000 in voice_tracker.h
 	* Set TRACKER_FORCED_SEGUE to 1000 ms in voice_tracker.h
 2007-03-13 Fred Gleason <fredg@paravelsystems.com>
-	* Applied a patch from Stefan Gabriel <stg@st-gabriel.de> to fix 
+	* Applied a patch from Stefan Gabriel <stg@st-gabriel.de> to fix
 	missing _PRE and _POST database table upgrades.
 2007-03-30 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'utils/rdimport/rdimport.cpp' that was causing
@@ -8274,7 +8274,7 @@
 2007-04-01 Stefan Gabriel <stg@st-gabriel.de>
 	* Fixed a bug in 'rdairplay/log_play.cpp': play_next_line was not
 	initialized in constructor
-2007-04-02 17:47 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-04-02 17:47 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* CODINGSTYLE; added codingstyle guidelines
 2007-04-03 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'CODINGSTYLE' to 'EXTRA_DISTS=' rule in 'Makefile.am'.
@@ -8296,22 +8296,22 @@
 2007-04-03 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'rdadmin/createdb.cpp' that caused the database
 	schema for the '*_LOGS', '*_PRE' and '*_POST' tables whose names
-	contained spaces to fail to be updated properly when moving from 
+	contained spaces to fail to be updated properly when moving from
 	DB version 130 -> 131.
 	* Incremented the database version to 133.
 2007-04-06 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed bugs in 'lib/lib.pro' and 'rdlogmanager/rdlogmanager.pro'
 	that caused the build to break under Windows.
 2007-04-17 Stefan Gabriel <stg@st-gabriel.de>
-	* Fixed bugs with log refreshing in 'rdairplay/log_play.cpp' and 
+	* Fixed bugs with log refreshing in 'rdairplay/log_play.cpp' and
 	  'rdairplay/log_play.h'
-        * Added 'RDLog *track_log' in 'rdlogedit/voice_tracker.cpp' and 
+        * Added 'RDLog *track_log' in 'rdlogedit/voice_tracker.cpp' and
 	  'rdlogedit/voice_tracker.h'.
           Added track_log->setModifiedDatetime() in 'VoiceTracker::SaveTrack()'
 	  to enable refreshing with logs changed in voice tracker.
 2007-04-28 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Modified logging in rdairplay/log_play.cpp to log cut number as well 
-	as cart when starting and stopping playback. 
+	* Modified logging in rdairplay/log_play.cpp to log cut number as well
+	as cart when starting and stopping playback.
 2007-05-08 Darrick Servis <darrick@dcn.org>
         * 'Makefile.am' and 'debian/Makefile.am' were cleaning too many files
 	thus breaking debuild.
@@ -8334,20 +8334,20 @@
 2007-05-15 Stefan Gabriel <stg@st-gabriel.de>
 	* Added autoSegue() method to lib/rdcut.cpp
 	* Added --segue-level and --segue-level options to rdimport
-2007-05-16 17:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-05-16 17:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* scripts/rd_audio_sync; applied patch from Andrew Struiksma
-	<andy@krpiradio.com> .  The script now uses a lockfile to prevent 
-	running multiple times, cleans up partial transfers, and checks 
+	<andy@krpiradio.com> .  The script now uses a lockfile to prevent
+	running multiple times, cleans up partial transfers, and checks
 	timestamps.
 2007-05-26 Stefan Gabriel <stg@st-gabriel.de>
-	* Fixed bugs in rdlogmanager/generate_log.cpp 
+	* Fixed bugs in rdlogmanager/generate_log.cpp
 	rdlogmanager/edit_clock.cpp lib/schedruleslist.cpp that could
-	cause problems with database table creation, when service 
+	cause problems with database table creation, when service
 	name/clock name contains special characters.
 2007-06-06 Fred Gleason <fredg@paravelsystems.com>
 	* Applied patch from Andrew <techstuff@kpriradio.com> that fixed
 	double default button bug in 'rdlogmanager/edit_eventline.cpp'.
-2007-06-07 11:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-06-07 11:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* configure.in, debian/Makefile.am, debian/patches/Makefile.am; added
 	configure support for the debian/patches subdir.
 2007-06-08 Fred Gleason <fredg@paravelsystems.com>
@@ -8389,34 +8389,35 @@
 2007-06-14 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'ripcd/ripcd.cpp' that was causing the build to
 	break with some versions of Qt.
-2007-06-19 12:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
-	* rdadmin/opendb.cpp; add logic to check if creating DB on a remote server
-	on the same subnet, and if so to create a MySQL user for the subnet.
+2007-06-19 12:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
+	* rdadmin/opendb.cpp; add logic to check if creating DB on a remote
+	server on the same subnet, and if so to create a MySQL user for the
+	subnet.
 2007-06-20 Stefan Gabriel <stg@st-gabriel.de>
-	* Fixed bug in cae/cae_alsa.cpp MainObject::alsaStopPlayback() and 
-          cae/cae_jack.cpp MainObject::alsaStopPlayback() that caused some cuts 
-          to be stopped after a few msecs.
-        * Fixed bug in cae/cae_jack.cpp JackProcess(): Do not stop playback 
-          in case of a ringbuffer underrun
-        * Fixed bug in lib/rdplay_deck.cpp RDPlayDeck::setCart() that cased 
-          some cuts to end to soon with random cut rotation.
-2007-06-26 12:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+	* Fixed bug in cae/cae_alsa.cpp MainObject::alsaStopPlayback() and
+        cae/cae_jack.cpp MainObject::alsaStopPlayback() that caused some cuts
+        to be stopped after a few msecs.
+        * Fixed bug in cae/cae_jack.cpp JackProcess(): Do not stop playback
+        in case of a ringbuffer underrun
+        * Fixed bug in lib/rdplay_deck.cpp RDPlayDeck::setCart() that caused
+        some cuts to end to soon with random cut rotation.
+2007-06-26 12:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* docs/SWITCHERS.txt; applied patch from Charles Sagona
-	<csagona@pittmanbroadcasting.com> .  Documented that he found the SS 8.2
-	to work at 9600 instead of 19200.
-2007-06-29 14:45 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+	<csagona@pittmanbroadcasting.com> .  Documented that he found the
+	SS 8.2 to work at 9600 instead of 19200.
+2007-06-29 14:45 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* debian/rivendell.config; increased priority of several debconf dialogs
 	so they will be seen.
 2007-06-30 Stefan Gabriel <stg@st-gabriel.de>
-	* Fixed bug in rdairplay/log_play.cpp LogPlay::StartEvent(): Carts where 
+	* Fixed bug in rdairplay/log_play.cpp LogPlay::StartEvent(): Carts where
           skipped with CHAINTO in some cases.
         * Fixed problem in rdairplay/log_play.cpp LogPlay::GetNextPlayable()
-          with the LL macro.  
-2007-07-06 12:40 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+          with the LL macro.
+2007-07-06 12:40 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdadmin/opendb.cpp; add logic to check if creating DB on localhost.
 2007-07-09 Stefan Gabriel <stg@st-gabriel.de>
-        * Added support for special characters - .utf8() with (const char *) 
-          conversions - to rdcut.cpp, rdcart.cpp, rdsound_panel.cpp, 
+        * Added support for special characters - .utf8() with (const char *)
+          conversions - to rdcut.cpp, rdcart.cpp, rdsound_panel.cpp,
           rdimport_audio.cpp, rdcart_search_text.cpp, rdimport.cpp,
           rdlibrary.cpp, rdcut_dialog.cpp, rdcart_dialog.cpp, list_reports.cpp,
           edit_event.cpp
@@ -8461,7 +8462,7 @@
 	* Fixed a bug in 'lib/rdairplay_conf.cpp' that was causing the
 	'RDAirPlayConf::setExitPassword()' method to fail to update the
 	database properly.
-	* Changed the default value of the 'RDAIRPLAY.EXIT_PASSWORD' 
+	* Changed the default value of the 'RDAIRPLAY.EXIT_PASSWORD'
 	field from NULL to "".
 	* Incremented the database version to 139.
 2007-07-11 Fred Gleason <fredg@paravelsystems.com>
@@ -8477,33 +8478,43 @@
 	* Updated the 'NEWS' file.
 	* Updated the 'README' file.
 	* Incremented the package version to 0.9.81.
-2007-07-13 10:45 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-07-13 10:45 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* debian/changelog; updated with new release.
 2007-07-15 Stefan Gabriel <stg@st-gabriel.de>
-	* fixed a bug in rdaiplay/log_play.cpp GetNextPlayable() that caused paused
-	cut fail to resume
+	* fixed a bug in rdaiplay/log_play.cpp GetNextPlayable() that caused
+	paused cut fail to resume
 2007-07-15 Stefan Gabriel <stg@st-gabriel.de>
-	* Added code to lib/rd_button_panel.cpp to enable CopyTo, AddTo and DeleteTo 
-          Sound Panel Buttons with the COPY, ADD and DELTE buttons
-	* Added code to lib/rdsound_panel.cpp to enable CopyTo, AddTo and DeleteTo 
-          Sound Panel Buttons with the COPY, ADD and DELTE buttons
-        * Changed RDBaseSearchText() (lib/rdcart_search_text.cpp) to implement AND (by space) logic when filtering
-          carts. Use quotes to search for exact phrase
-        * Added RDPanelButton::pauseWhenFinished() and RDPanelButton::setPauseWhenFinished()  
-           methods to lib/rdpanel_button.cpp
-	* Implemented "Do Not Reset When finished" in RDPanelButton::WriteKeycap()
-	* Bigger font for countdown of last 10 seconds in RDPanelButton::WriteKeycap()
-	* Added 'default: emit stateChanged(play_id,RDPlayDeck::Stopped)' to RDPlayDeck::clear()
-	* Added 'Reset All' button (visible instead of 'Setup' when 'Reset' is pressed) in lib/rdsound_panel.cpp
-	* Option to set channel when starting an audio cart in lib/rdsound_panel.cpp (for use with macro)
-	* Option to Stop or Pause only when audio is play to a specific channel in lib/rdsound_panel.cpp 
-	  (for use with macro)
-	* Option to fade out audio when stopping in lib/rdsound_panel.cpp (for use with macro)
-	* Sound buttons can stay active when they are finished or stopped until they are reseted manually 
-          in lib/rdsound_panel.cpp (for use with macro)
-        * Option to pass -1 (= 0 in macros) for col and/or row: start first loaded button that is not active 
-          in lib/rdsound_panel.cpp (for use with macro)
-        * Added RDSoundPanel::currentNumber() and RDSoundPanel::currentType() methods to lib/rdsound_panel.cpp
+	* Added code to lib/rd_button_panel.cpp to enable CopyTo, AddTo and
+	DeleteTo Sound Panel Buttons with the COPY, ADD and DELTE buttons
+	* Added code to lib/rdsound_panel.cpp to enable CopyTo, AddTo and
+	DeleteTo Sound Panel Buttons with the COPY, ADD and DELTE buttons
+        * Changed RDBaseSearchText() (lib/rdcart_search_text.cpp) to implement
+	AND (by space) logic when filterinG carts. Use quotes to search for
+	exact phrase
+        * Added RDPanelButton::pauseWhenFinished() and
+	RDPanelButton::setPauseWhenFinished() methods to lib/rdpanel_button.cpp
+	* Implemented "Do Not Reset When finished" in
+	RDPanelButton::WriteKeycap()
+	* Bigger font for countdown of last 10 seconds in
+	RDPanelButton::WriteKeycap()
+	* Added 'default: emit stateChanged(play_id,RDPlayDeck::Stopped)' to
+	RDPlayDeck::clear()
+	* Added 'Reset All' button (visible instead of 'Setup' when 'Reset'
+	is pressed) in lib/rdsound_panel.cpp
+	* Option to set channel when starting an audio cart in
+	lib/rdsound_panel.cpp (for use with macro)
+	* Option to Stop or Pause only when audio is play to a specific
+	channel in lib/rdsound_panel.cpp (for use with macro)
+	* Option to fade out audio when stopping in lib/rdsound_panel.cpp
+	(for use with macro)
+	* Sound buttons can stay active when they are finished or stopped
+	until they are reseted manually in lib/rdsound_panel.cpp (for use
+	with macro)
+        * Option to pass -1 (= 0 in macros) for col and/or row: start first
+	loaded button that is not active in lib/rdsound_panel.cpp (for use
+	with macro)
+        * Added RDSoundPanel::currentNumber() and RDSoundPanel::currentType()
+	methods to lib/rdsound_panel.cpp
         * Enabled CopyFrom playing carts in rdairplay/button_log.cpp
         * Enabled audition of playing events in rdairplay/loglinebox.cpp
         * Added mouse control of audition deck in rdairplay/edit_event.cpp
@@ -8534,7 +8545,7 @@
         * set fadeup/fadedown gain to -3000 in insertCartButtonData() in rdlogedit/edit_log.cpp
         * Added overlapData() method in rdlogedit/log_listview.cpp
         * Changed mouse wheel behaviour in rdlogedit/voice_tracker.cpp
-        * Removed all setSegueGain(0) from rdlogedit_voice_tracker.cpp 
+        * Removed all setSegueGain(0) from rdlogedit_voice_tracker.cpp
           (replaced by Overlap transition)
         * Use 3 tracks for segue changing in rdlogedit/voice_tracker.cpp (LoadTrack() method)
         * Fixed a but that cased a waveform jump in VoiceTracker::FinishTrack()
@@ -8543,39 +8554,44 @@
         * Updated call of RDTextValidator in lib/rdcart.cpp. rdlibrary/rdlibrary.cpp,
           rdlogmanager/edit_event.cpp
         * Fixed a bug with the cut gain markers in lib/rdedit_audio.cpp
-        * Changed grace time to msecs in rdairplay/edit_event.cpp, rdairplay/log_play.cpp, 
-          rdlogedit/edit_logline.cpp, 
+        * Changed grace time to msecs in rdairplay/edit_event.cpp, rdairplay/log_play.cpp,
+          rdlogedit/edit_logline.cpp,
         * Changed grace time edit in rdlogedit/edit_chain.cpp, rdlogedit/edit_marker.cpp,
           rdlogedit/edit_track.cpp
         * Changed rdaiplay/log_play.cpp: Hard Start Times with Make Next do keep a
           STOP transition
 2007-07-16 Stefan Gabriel <stg@st-gabriel.de>
         * Updated docs/rml.swx
-        * lib/rdsound_panel.cpp: Changed geometry of "All" button so it is visible in rdpanel 
+        * lib/rdsound_panel.cpp: Changed geometry of "All" button so it is
+	visible in rdpanel
 2007-07-18 Dan Mills <dmills@exponent.myzen.co.uk>
-        * Cae now reports positions in miliseconds (not samples) in the metering data.
+        * Cae now reports positions in miliseconds (not samples) in the
+	metering data.
         * cae/cae_alsa.cpp cae/cae_jack.cpp cae/cae_hpi.cpp lib/rdcae.cpp lib/rdedit_audio.cpp
-        * This work is a precursor to finally laying the tendency of the on screen timers in 
-          rdairplay to fail to match the audio. 
+        * This work is a precursor to finally laying the tendency of the
+	on screen timers in rdairplay to fail to match the audio.
 2007-07-19 Dan Mills <dmills@exponent.myzen.co.uk>
-        * Fixed Mantis 00005 (Start time calculations were broken when modifying logs in rdairplay).
-        * rdairplay/log_play.cpp::runningEvents can now take a NULL first argument.
-        * Post timer now works correctly in all the cases I have tried. 
+        * Fixed Mantis 00005 (Start time calculations were broken when
+	modifying logs in rdairplay).
+        * rdairplay/log_play.cpp::runningEvents can now take a NULL first
+	argument.
+        * Post timer now works correctly in all the cases I have tried.
         rdairplay/log_play.cpp rdairplay/log_play.h
-2007-07-20 12:40 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
-		* debian/control; added "bc" to the dependency list (used by the
-		  normalizer).
+2007-07-20 12:40 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
+	* debian/control; added "bc" to the dependency list (used by the
+	normalizer).
 2007-07-20 Stefan Gabriel <stg@st-gabriel.de>
-        * Removed debugging output from rdairplay/log_play.cpp stateChangedData()
-        * Changed edit_grace_edit from seconds to msecs in rdairplay/edit_event.cpp 
-          (that was missing in commit 2007-07-15)
+        * Removed debugging output from rdairplay/log_play.cpp
+	stateChangedData()
+        * Changed edit_grace_edit from seconds to msecs in
+	'rdairplay/edit_event.cpp' (that was missing in commit 2007-07-15)
 2007-7-20 Dan Mills <dmills@exponent.myzen.co.uk>
         * Added AC_LANG(C++) to configure.in so we run the tests with the
           right toolchain.
 2002-7-22 Dan Mills <dmills@exponent.myzen.co.uk>
         * Fixed stupid arithetic bug in lib/rdedit_audio.cpp that was causing the cursor
           to wrap around at the 65.5 seconds mark. My fault a few patches back.
-2007-08-02 12:40 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-08-02 12:40 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* debian/rivendell.config rivendell.init rivendell.postinst
 	rivendell.postrm rivendell.templates; added a debconf option asking the
 	user how they want to start the rivendell daemons (via the init scripts
@@ -8585,25 +8601,26 @@
 	reception of vGuest messages when multiple messages were bundled
 	in a single TCP packet.
 2007-08-03 Dan Mills <dmills@exponent.myzen.co.uk>
-        * Fixed a partially case sensitive comparison in rdcatch/rdcatch.cpp 
+        * Fixed a partially case sensitive comparison in rdcatch/rdcatch.cpp
         that was causing editing to fail on hosts with upper case letters in
 	their names.
 2007-08-03 Dan Mills <dmills@exponent.myzen.co.uk>
-        * lib/rdcae.cpp fixed a hard crash if the meterblock SHM segment was not found. 
-        This just improves robustness as we used to segfault without any sort of error 
-        message. 
-2007-08-09 14:35 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
-	* rdcatchd/rdcatchd.cpp; apply patch from Yuri Terleckyj <yuri@rfa.org> to
-	correct a typo on passing "fix broken formats" parameter to rdimport from
-	dropboxes.
-2007-08-16 16:30 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
-	* utils/rdimport/rdimport.cpp; correct bug with checking if CartChunk data
-	is present (isEmpty() does not return reliably as CartChunk data is filled
-	with \0 to the full field size, 64 bytes and isEmpty() does not consider
-	that empty).
+        * lib/rdcae.cpp fixed a hard crash if the meterblock SHM segment was
+	not found. This just improves robustness as we used to segfault
+	without any sort of error message.
+2007-08-09 14:35 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
+	* rdcatchd/rdcatchd.cpp; apply patch from Yuri Terleckyj <yuri@rfa.org>
+	to correct a typo on passing "fix broken formats" parameter to
+	rdimport from dropboxes.
+2007-08-16 16:30 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
+	* utils/rdimport/rdimport.cpp; correct bug with checking if
+	CartChunk data is present (isEmpty() does not return reliably
+	as CartChunk data is filled with \0 to the full field size,
+	64 bytes and isEmpty() does not consider that empty).
 2007-08-18 Stefan Gabriel <stg@st-gabriel.de>
-        * Fixed a Bug in rdairplay/log_play.cpp GetNextPlayable: Carts with no vaild cut 
-        and a STOP transition could not be started manualy or with macro.
+        * Fixed a Bug in rdairplay/log_play.cpp GetNextPlayable: Carts with
+	no vaild cut and a STOP transition could not be started manualy or
+	with macro.
 2007-08-29 Darrick Servis <darrick@dcn.org>
         *  lib/rdlog_event.cpp & rdlogedit/edit_log.cpp; added code to show
 	predicted start times for carts in loglist.
@@ -8613,14 +8630,14 @@
 2007-08-31 Fred Gleason <fredg@paravelsystems.com>
 	* Added a sanity check in 'ripcd/vguest.cpp' to prevent sending of
 	text strings longer than 60 characters to Supervisor.
-2007-08-31 12:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-08-31 12:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdadmin/add_station.cpp; increased the New Host Name field max size
 	from 20 to 64 (matching the database field capacity) (NOTE: RFC 1035
 	states domain name limit to be 255 octets or less.  If needed we
 	may have to increase this to this size in the future).
 2007-08-31 Fred Gleason <fredg@paravelsystems.com>
 	* Added an 'InsertVoice Track String' control to the 'Traffic
-	Data Import' section of the Edit Service dialog in 
+	Data Import' section of the Edit Service dialog in
 	'rdadmin/edit_svc.cpp'.
 	* Added 'Note Cart String', 'Title', 'Contract #', 'Event ID' and
 	'Annc. Type' controls to the 'Music Data Import' section of the
@@ -8631,8 +8648,8 @@
 	* Fixed a bug in 'lib/rdsvc.cpp' that was causing adjacent track
 	and break insert statements in log imports to be transposed.
 2007-09-08 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Fixed Mantis #221 bug in next stop time display when time format is changed 
-	with a stopped cart.
+	* Fixed Mantis #221 bug in next stop time display when time format
+	is changed with a stopped cart.
 2007-09-08 Dan Mills <dmills@exponent.myzen.co.uk>
 	* Fixed Mantis #215 Missing 12Hr time format display in log.
 2007-09-08 Dan Mills <dmills@exponent.myzen.co.uk>
@@ -8643,25 +8660,26 @@
 	* Fixed Mantis #213, Redlineing cuts with zero weight.
 2007-09-08 Dan Mills <dmills@exponent.myzen.co.uk>
 	* Fixed Mantis #211, Log description not updating correctly.
-2007-09-08 Darrick Servis <darrick@dcn.org> 
+2007-09-08 Darrick Servis <darrick@dcn.org>
 	* rdairplay/log_play.cpp and rdairplay/log_play.h: fixed race condition
 	where FinishEvent() was toasting hard timers.
 2007-09-09 Dan Mills <dmills@exponent.myzen.co.uk>
 	* Fixed Mantis #210, User name length was inconsistent.
-2007-09-10 18:05 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
-	* docs/tables/dropboxes.txt, lib/rd.h, lib/rddropbox.cpp, lib/rddropbox.h,
-	rdadmin/createdb.cpp, rdadmin/edit_dropbox.cpp, rdadmin/edit_dropbox.h,
-	rdcatchd/rdcatchd.cpp, utils/rdimport/rdimport.cpp,
-	utils/rdimport/rdimport.h; add option to import files and use the
+2007-09-10 18:05 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
+	* Add option in 'docs/tables/dropboxes.txt', 'lib/rd.h',
+	'lib/rddropbox.cpp', 'lib/rddropbox.h', 'rdadmin/createdb.cpp',
+	'rdadmin/edit_dropbox.cpp', 'rdadmin/edit_dropbox.h',
+	'rdcatchd/rdcatchd.cpp', 'utils/rdimport/rdimport.cpp' and
+	'utils/rdimport/rdimport.h' to import files and use the
 	CartChunk CutID field to populate Rivendell cart title.
 	- rdimport; has an option (--title-from-cartchunk-cutid) to populate the
 	cart title using the CartChunk CutID field.
 	- dropboxes; add a checkbox option to enable the above feature
 	- docs and database have been updated
 2007-09-11 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Added two snd_pcm_drop calls to the Xrun path in cae_alsa.cpp to 
+	* Added two snd_pcm_drop calls to the Xrun path in cae_alsa.cpp to
 	Attempt to improve reliibility of restart after XRun.
-2007-09-12 13:45 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-09-12 13:45 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* debian/changelog; updated with new release 0.9.82.
 2007-09-12 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'ripcd/local_macros.cpp' that was causing the
@@ -8681,7 +8699,7 @@
 2007-09-14 Fred Gleason <fredg@paravelsystems.com>
 	* Added an InstallShield configuration in 'rivendell.ism'.
 	* Renamed 'conf/rd.ini' to 'conf/rd-sample.ini'.
-2007-09-17 12:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-09-17 12:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* debian/control, debian/copyright, (R)debian/librivendell-dev.install,
 	debian/librivendell.install, debian/rules; update the debian directory for
 	the new package layout which includes libradio and librhpi as part of
@@ -8689,7 +8707,7 @@
 2007-09-17 Fred Gleason <fredg@paravelsystems.com>
 	* Updated the 'NEWS' file.
 	* Updated the package version to 0.9.82.
-2007-09-17 14:30 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-09-17 14:30 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* debian/Makefile.am; removed reference to librivendell-dev
 2007-09-18 Fred Gleason <fredg@paravelsystems.com>
 	* Applied a patch from Eliot Blennerhassett
@@ -8704,16 +8722,16 @@
 2007-09-19 Dan Mills <dmills@exponent.myzen.co.uk>
 	* Modified average length calculation in lib/rdcart.cpp
 	Mantis #197 also mentioned in #213.
-	This will need readressing as the cached time in the db 
+	This will need readressing as the cached time in the db
 	really needs to be updated periodically as cuts expire.
 2007-09-22 Dan Mills <dmills@exponent.myzen.co.uk>
 	* Big fix to make setting audioroot to places other then /var/snd
-	work correctly. Also something of a precursor to cleaning up the 
+	work correctly. Also something of a precursor to cleaning up the
 	way accesses to the config file are handled.
 2007-09-22 Dan Mills <dmills@exponent.myzen.co.uk>
 	* Fixed mantis #233, caed was crashing hard if the card had no outputs,
 	as is the case for a DVB card. Fix is a bandaid until I can get
-	the new caed in release shape. 
+	the new caed in release shape.
 2007-09-24 Fred Gleason <fredg@paravelsystems.com>
 	* Added a 'FEEDS' table to the database.
 	* Added a 'RECORDINGS.FEED_ID' field to the database.
@@ -8769,7 +8787,7 @@
 	that the time offset value is read only once from the database at
 	startup.
 2007-10-02 Fred Gleason <fredg@paravelsystems.com>
-	* Added 'FEEDS.UPLOAD_FORMAT', 'FEEDS.UPLOAD_CHANNELS',  
+	* Added 'FEEDS.UPLOAD_FORMAT', 'FEEDS.UPLOAD_CHANNELS',
 	'FEEDS.UPLOAD_SAMPRATE',  'FEEDS.UPLOAD_BITRATE',
 	'FEEDS.UPLOAD_QUALITY' and 'FEEDS.NORMALIZE_LEVEL' fields to
 	the database.
@@ -8790,7 +8808,7 @@
 	* Added 'RDPodcast::itemAuthor()', 'RDPodcast::setItemAuthor()',
 	'RDPodcast::itemComments()', 'RDPodcast::setItemAuthor()',
 	'RDPodcast::itemSourceText()', 'RDPodcast::setItemSourceText()',
-	'RDPodcast::itemSourceUrl()' and 'RDPodcast::setItemSourceUrl()' 
+	'RDPodcast::itemSourceUrl()' and 'RDPodcast::setItemSourceUrl()'
 	methods in 'lib/rdpodcast.cpp'.
 	* Added Upload Format controls to the 'EditFeed' dialog in
 	'rdadmin/edit_feed.cpp'.
@@ -8808,9 +8826,9 @@
 	'rivendell-gentoo'.
 2007-10-04 Dan Mills <dmills@exponent.myzen.co.uk>
 	* Monster patch to make database reconnection work.
-	This touches almost every .cpp file in the system. 
+	This touches almost every .cpp file in the system.
 2007-10-05 Fred Gleason <fredg@paravelsystems.com>
-	* Updated 'lib/rdfeed.cpp', 'lib/rdpodcast.cpp', 'lib/rdcart.cpp', 
+	* Updated 'lib/rdfeed.cpp', 'lib/rdpodcast.cpp', 'lib/rdcart.cpp',
 	'rdadmin/list_dropboxes.cpp', 'rdadmin/list_schedcodes.cpp',
 	'rdadmin/list_groups.cpp', 'rdairplay/local_macros.cpp',
 	'rdcastmanager/list_casts.cpp', 'rdcatchd/rdcatchd.cpp',
@@ -8877,12 +8895,12 @@
 	* Fixed a bug in 'rdadmin/edit_user.cpp' where a user's password
 	could be inadvertently cleared.
 2007-10-13 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Added logging hooks to rddb.cpp and the appropriate code to the 
+	* Added logging hooks to rddb.cpp and the appropriate code to the
 	applications to log DB trouble in the log files.
 2007-10-13 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Added caching of the timeOffset value in rdstation.cpp 
+	* Added caching of the timeOffset value in rdstation.cpp
 	This reduces the number of DB queries by a lot when logs are running.
-2007-10-15 15:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-10-15 15:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* pam_rd/pam_rd.cpp; update for RDUser::checkPassword() change of
 	interface.
 2007-10-15 18:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
@@ -8891,7 +8909,7 @@
 	* Fixed a bug in 'lib/lib.pro' that caused the build to break on
 	Windows.
 2007-10-18 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Fixed crash when setting to export audio as mp3 in 
+	* Fixed crash when setting to export audio as mp3 in
 	lib/rdexport_settings.cpp (Parameters of function in wrong order).
 2007-10-18 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'web/rdfeed/rdfeed.cpp' that was causing
@@ -8951,11 +8969,11 @@
 	* Fixed a bug in 'lib/rdcut.cpp' where importing a file with no
 	metadata was causing a database reconnect.
 2007-10-27 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Fixed bug in cae/cae.cpp where the data returned from LP on 
+	* Fixed bug in cae/cae.cpp where the data returned from LP on
 	error was in the wrong format for jack and alsa drivers.
 2007-10-28 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Modified lib/rdcardselector.cpp to do the right thing when a 
-	card has zero ports of one type of the other. 
+	* Modified lib/rdcardselector.cpp to do the right thing when a
+	card has zero ports of one type of the other.
 2007-10-28 Fred Gleason <fredg@paravelsystems.com>
 	* Added an [Alsa] section in rd.conf(5).
 	* Added 'PeriodQuantity=' and 'PeriodSize=' parameters in the
@@ -8982,22 +9000,24 @@
 	'web/rdcastmanager/rdcastmanager.cpp' where '&', '<', '>', ''' and
 	'"' were not being escaped properly.
 2007-11-03 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Fixed hardcoded database name in rdadmin/rdadmin.cpp that was stopping 
-	manual backup and restore working if the dbname was not Rivendell.
+	* Fixed hardcoded database name in rdadmin/rdadmin.cpp that was
+	stopping manual backup and restore working if the dbname was
+	not Rivendell.
 	* Fixed spurious db reconnect in lib/rdreport.cpp.
-	* Fixed misplaced brace in lib/rdplay_deck.cpp that was causing spurious 
-	stop commands to be sent to caed.
+	* Fixed misplaced brace in lib/rdplay_deck.cpp that was causing
+	spurious stop commands to be sent to caed.
 2007-11-03 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Added basic doxygen documentation system support, typing "make doxygen" in the top 
-	level of the tree will create a directory docs/programming/ with a subdirectory 
-	for each documented component. 
-	The next job is to comment the code so doxygen can give intellegent commentary.
+	* Added basic doxygen documentation system support, typing
+	"make doxygen" in the top level of the tree will create a directory
+	docs/programming/ with a subdirectory for each documented component.
+	The next job is to comment the code so doxygen can give intellegent
+	commentary.
 2007-11-06 Fred Gleason <fredg@paravelsystems.com>
 	* Modfied 'rdcatchd/rdcatchd.cpp' and 'lib/rdpodcast.cpp' so as to
-	be able to upload and download files in the root directory of FTP 
+	be able to upload and download files in the root directory of FTP
 	archives hosted on Microsoft IIS.
 2007-11-07 Fred Gleason <fredg@paravelsystems.com>
-	* Enabled the 'Lock Tables' privilege when creating the Rivendell 
+	* Enabled the 'Lock Tables' privilege when creating the Rivendell
 	database in 'rdadmin/opendb.cpp'.
 2007-11-07 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'lib/rdcddblookup.cpp' that was causing detection
@@ -9078,10 +9098,10 @@
 	database reconnects when trying to load/save data for non-existent
 	ports.
 	* Added code in 'rdlibrary/record_audio.cpp' to disable the record
-	button in the Record/Info dialog if no valid input assignment is 
+	button in the Record/Info dialog if no valid input assignment is
 	defined in RDAdmin.
 	* Added code in 'lib/rdedit_audio.cpp' to disable the transport
-	buttons in the Edit Audio dialog if no valid output assignment is 
+	buttons in the Edit Audio dialog if no valid output assignment is
 	defined in RDAdmin.
 	* Added code in 'rdcatch/rdcatch.cpp' to disable the Head and Tail
 	Audition buttons if no valid output assignment is defined in RDAdmin.
@@ -9169,7 +9189,7 @@
 	* rdlibrary/audio_cart.h, rdlibrary/edit_cart.h, rdlibrary/macro_cart.h;
 	removed unused attribute variable "rdcart_conf".
 2007-12-22 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Added error logging for setting RT scheduling, it no longer reports 
+	* Added error logging for setting RT scheduling, it no longer reports
 	sucess if there is a problem.
 2007-12-24 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'lib/rdsimpleplayer.cpp' that caused a playing
@@ -9192,7 +9212,7 @@
 2007-12-27 Fred Gleason <fredg@paravelsystems.com>
 	* Applied a fixed-size font to the free space indicator in
 	'rdlibrary/disk_bar.cpp'.
-2007-12-27 10:05 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2007-12-27 10:05 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* debian/changelog; updated in preparation for a new release 0.9.83.
 2007-12-29 Fred Gleason <fredg@paravelsystems.com>
 	* Applied a patch by Stefan Gabriel <stg@st-gabriel.de> that fixed
@@ -9239,7 +9259,7 @@
 2008-01-03 Fred Gleason <fredg@paravelsystems.com>
 	* Updated the 'NEWS' file.
 	* Updated the package version to 0.9.84.
-2008-01-04 13:00 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-01-04 13:00 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* implemented several changes to the debian directory to make install
 	of Rivendell onto Ubuntu smoother.
 	* debian/control; added jackd as a recommended dependency.
@@ -9250,7 +9270,7 @@
 	* debian/rivendell.init; modified code to create /var/run/rivendell
 	directories, regardless if starting the rivendell daemons via init
 	scripts or using pam_rd.
-2008-01-04 18:45 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-01-04 18:45 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdairplay/log_line.cpp; added check to not delete invalid log lines.
 2008-01-07 Fred Gleason <fredg@paravelsystems.com>
 	* Refactored the 'RDSoundPanel::SaveButton()' method to prevent a
@@ -9278,18 +9298,18 @@
 	* Added an '%R' wildcard for Now & Next templates to generate
 	MS-DOS style newlines --e.g. CR/LF instead of just LF -- in
 	'rdairplay/log_play.cpp'.
-2008-01-30 13:20 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-01-30 13:20 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdadmin/edit_decks.cpp; correct label misplacement (channels), and
 	correct label text clipping ("Monitor defaults...").
-2008-02-04 16:15 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-02-04 16:15 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdadmin/edit_recording.cpp; added code so newly created recordings use
 	the default station/deck number of recording channels from rdadmin.
-2008-02-15 10:55 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-02-15 10:55 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* pam_rd/pam_rd.cpp, docs/pam_rd.txt; corrected defect with pam_rd.
 	previously a user without rivendell credentials would be logged in to
 	Rivendell as the last successfully logged in user.  Now, it logs in as
 	the default user "user", and can be configured differently via pam
-	configuration files.  
+	configuration files.
 	Cleaned up code to fit CODING_STANDARDS (80 col).
 2008-02-23 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'utils/rdhpiinfo/rdhpiinfo.cpp' and
@@ -9301,18 +9321,18 @@
 	* Added code in 'utils/rddbcheck/rddbcheck.cpp' to check database
 	consistency between the 'EVENTS' and _PRE and _POST tables.
 2008-03-01 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Added code to cae/cae_jack.cpp to check ranges of port and 
+	* Added code to cae/cae_jack.cpp to check ranges of port and
 	stream parameters to avoid a crash in the card=0, port = -1 case.
 2008-03-02 Dan Mills <dmills@exponent.myzen.co.uk>
 	* Fixed crash in rdcatchd the first time it is run with a new DB.
 	lib/rdcatch_conf.cpp - attempt to free sql query twice.
 2008-03-02 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Ammended rdadmin/opendb.cpp to use QSqlQuery rather then RDSqlQuery 
+	* Ammended rdadmin/opendb.cpp to use QSqlQuery rather then RDSqlQuery
 	to avoid a problem with recursive calls in RProfile.
 2008-03-03 Fred Gleason <fredg@paravelsystems.com>
 	* Added notes in 'rivendell.sys' to indicate the options for
 	controlling jackd behavior are deprecated.
-2008-03-11 15:26 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-03-11 15:26 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdlogedit/edit_log.cpp; minor fix in parent widget hierarchy.
 2008-03-18 Fred Gleason <fredg@paravelsystems.com>
 	* Added a 'MATRICES.LAYER' field to the database.
@@ -9328,11 +9348,11 @@
 	* Fixed a typo that caused automatic source and destination
 	node names to fail in the Quartz1 driver in 'ripcd/quartz1.cpp'.
 2008-03-21 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Fixed a bug in rdlogmanager/edit_event.cpp that was causing 
-	a segfault if no configuration changes had been made to 
+	* Fixed a bug in rdlogmanager/edit_event.cpp that was causing
+	a segfault if no configuration changes had been made to
 	rdlogmanager on a new db.
 2008-03-21 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Modified rdadmin/create_db.cpp to set some minimally sane defaults 
+	* Modified rdadmin/create_db.cpp to set some minimally sane defaults
 	and default group names that should serve as an example.
 2008-03-24 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'ripcd/quartz.cpp' that transposed the source and
@@ -9374,7 +9394,7 @@
 2008-04-01 Fred Gleason <fredg@paravelsystems.com>
 	* Added translations for French (fr) and German (de).
 	* Updated the 'helpers/rdtrans.sh' script.
-2008-04-01 16:50 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-01 16:50 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* docs/tables/stations.txt lib/dbversion.h lib/rdadd_log.cpp
 	lib/rdadd_log.h lib/rdbutton_dialog.cpp lib/rdgroup_list.cpp
 	lib/rdgroup_list.h lib/rdlist_logs.cpp lib/rdlist_logs.h
@@ -9388,11 +9408,11 @@
 	rdlogmanager/list_grids.cpp rdlogmanager/list_svcs.cpp
 	rdlogmanager/rdlogmanager.cpp; added user security option for the
 	broadcast applications of rivendell, with an rdadmin to toggle this
-	behaviour on per host/station.  
+	behaviour on per host/station.
 2008-04-02 Fred Gleason <fredg@paravelsystems.com>
 	* Disabled random cut rotation in 'lib/rdcart.cpp'.
 	* Hide the 'Schedule Cuts' control in 'rdlibrary/edit_cart.cpp'.
-2008-04-02 10:50 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-02 10:50 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdadmin/edit_station.cpp; label text update.
 2008-04-02 Fred Gleason <fredg@paravelsystems.com>
 	* Changed the text of the 'No Segue Fade at Event End' control in
@@ -9402,7 +9422,7 @@
 	* Incremented the database version to 158.
 	* Removed 'RDLogLine::Overlap' from the 'RDLogLine::TransType'
 	enum in 'lib/rdlog_line.h'.
-2008-04-03 09:35 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-03 09:35 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* docs/tables/displays.txt; removed, as this table is no longer used.
 2008-04-03 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'rdairplay/log_play.cpp that was causing a
@@ -9411,7 +9431,7 @@
 2008-04-03 Fred Gleason <fredg@paravelsystems.com>
 	* Removed 'docs/tables/displays.txt' from the files list in
 	'rivendell.spec.in'.
-2008-04-03 10:50 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-03 10:50 EST Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* make_slack.in, docs/tables/Makefile.am; removed references to
 	displays.txt (rookie mistake on my part :-/ )
 2008-04-03 Fred Gleason <fredg@paravelsystems.com>
@@ -9461,20 +9481,20 @@
 	* Updated 'ToDo'.
 	* Updated 'rivendell.ism'.
 	* Incremented the package version to 1.0.0rc0.
-2008-04-10 10:05 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-10 10:05 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* debian/changelog; updated for new release.
-2008-04-15 13:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-15 13:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* docs/tables/Makefile.am; add to Makefile.am recently added table
 	documentation files.
-2008-04-16 10:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-16 10:15 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* lib/rdlist_logs.cpp; remove duplicate assignment.
-2008-04-16 16:26 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-16 16:26 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* lib/rdsound_panel.h; remove duplicate include statements.
-2008-04-17 15:25 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-17 15:25 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdadmin/list_svcs.cpp: correct comment.
-2008-04-17 16:30 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-17 16:30 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdadmin/opendb.cpp: format code to fit 80 col.
-2008-04-18 11:10 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-18 11:10 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* rdcastmanager/rdcastmanager.cpp: free cast_user if needed before
 	re-assigning.
 2008-04-20 Fred Gleason <fredg@paravelsystems.com>
@@ -9508,7 +9528,7 @@
 	* Added checks in 'rdairplay/rdairplay.cpp' and
 	'rdpanel/rdpanel.cpp' to verify that the background image is at
 	least 1024x738 before using it.
-2008-04-22 16:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org> 
+2008-04-22 16:00 EDT Federico Grau <grauf@rfa.org> <donfede@casagrau.org>
 	* pam_rd/pam_rd.cpp, rdcastmanager/rdcastmanager.cpp,
 	rdlogedit/rdlogedit.cpp: replaced string constants with global #define.
 2008-04-24 Fred Gleason <fredg@paravelsystems.com>
@@ -9576,12 +9596,12 @@
 	'rdlogmanager/generate_log.cpp'.
  	Note: Stack Tables are not linked to Logs, but to Services; they
 	are the schedulers history of selected carts.
- 	* Fixed a bug with waveform cursor and samplerate conversion in 
+ 	* Fixed a bug with waveform cursor and samplerate conversion in
  	cae/cae_hpi.cpp, cae/cae_alsa.cpp, cae/cae_jack.cpp and
  	lib/rdedit_audio.cpp
- 	* Fixed a bug in lib/rdsimpleplayer.cpp; simpleplayer played on 
+ 	* Fixed a bug in lib/rdsimpleplayer.cpp; simpleplayer played on
 	more then one port under some conditions
- 	* Fixed a bug in rdlogedit/voice_tracker.cpp: added missing 
+ 	* Fixed a bug in rdlogedit/voice_tracker.cpp: added missing
 	destructors for wavepainters wpg[i]
  	* Fixed a bug in rdlibrary/edit_cart.cpp that caused a segfault
 	when editing more than one cart.
@@ -9785,17 +9805,17 @@
 	* Added a 'Configure GPOs' button to the 'Edit Switcher' dialog in
 	'rdadmin/edit_matrix.cpp'.
 	* Added an 'RDOneShot' class in 'lib/rdoneshot.cpp'.
-	* Modified the BroadcastTools SS8.2 driver in 'ripcd/btss82.cpp' 
+	* Modified the BroadcastTools SS8.2 driver in 'ripcd/btss82.cpp'
 	to work properly with the new GPIO RMLs.
-	* Modified the BroadcastTools ACS8.2 driver in 'ripcd/btacs82.cpp' 
+	* Modified the BroadcastTools ACS8.2 driver in 'ripcd/btacs82.cpp'
 	to work properly with the new GPIO RMLs.
-	* Modified the BroadcastTools 16x2 driver in 'ripcd/bt16x2.cpp' 
+	* Modified the BroadcastTools 16x2 driver in 'ripcd/bt16x2.cpp'
 	to work properly with the new GPIO RMLs.
-	* Modified the BroadcastTools SS16.4 driver in 'ripcd/btss164.cpp' 
+	* Modified the BroadcastTools SS16.4 driver in 'ripcd/btss164.cpp'
 	to work properly with the new GPIO RMLs.
-	* Modified the BroadcastTools SS4.2 driver in 'ripcd/btss42.cpp' 
+	* Modified the BroadcastTools SS4.2 driver in 'ripcd/btss42.cpp'
 	to work properly with the new GPIO RMLs.
-	* Modified the SAS 64000gpi driver in 'ripcd/sas64000gpi.cpp' 
+	* Modified the SAS 64000gpi driver in 'ripcd/sas64000gpi.cpp'
 	to work properly with the new GPIO RMLs.
 	* Modified the SAS USI driver in 'ripcd/sasusi.cpp' to work
 	properly with the new GPIO RMLs.
@@ -9835,9 +9855,9 @@
 	* Added time length counters to the Edit Log dialog in
 	'rdlogedit/edit_log.cpp'.
 2008-10-8 Dan Mills <dmills@exponent.myzen.co.uk>
-	* Fixed segfault in rdimport when importing a .wav with both 
-	TMCentury and an APE tag. lib/rdwavefile.cpp, short circuit 
-	evaluation was the wrong way around.  
+	* Fixed segfault in rdimport when importing a .wav with both
+	TMCentury and an APE tag. lib/rdwavefile.cpp, short circuit
+	evaluation was the wrong way around.
 2008-10-10 Fred Gleason <fredg@paravelsystems.com>
 	* Added code in 'lib/rdwavefile.cpp' to read metadata from an
 	'av10' chunk (proprietary BE AudioVault format).
@@ -9923,7 +9943,7 @@
 	'rdcatchd/rdcatchd.cpp'.
 2008-11-19 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'rdcatch/edit_upload.cpp' that caused the
-	'Normal: Level' setting to be saved incorrectly. 
+	'Normal: Level' setting to be saved incorrectly.
 2008-11-19 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'lib/rdsoundpanel.cpp' that caused Hook Mode
 	playouts to be incorrect for cuts with a non-zero Start Marker
@@ -10026,7 +10046,7 @@
 	* Added a 'Remarks' control to the Edit Event dialog in
 	'rdlogmanager/edit_event.cpp' and 'rdlogmanager/edit_event.h'.
 	* Added a 'Remarks' control to the Edit Clock dialog in
-	'rdlogmanager/edit_clock.cpp' and 'rdlogmanager/edit_clock.h'.	
+	'rdlogmanager/edit_clock.cpp' and 'rdlogmanager/edit_clock.h'.
 	* Implemented purging of expired ELR data for RDMaint(1) in
 	'utils/rdmaint/rdmaint.cpp' and 'utils/rdmaint/rdmaint.h'.
 2008-11-30 Fred Gleason <fredg@paravelsystems.com>
@@ -10207,7 +10227,7 @@
 	cart filter to break when given search terms containing one or
 	more spaces.
 2009-01-30 Fred Gleason <fredg@paravelsystems.com>
-	* Added 'FEEDS.CAST_ORDER' and 'PODCASTS.EFFECTIVE_DATE' fields to 
+	* Added 'FEEDS.CAST_ORDER' and 'PODCASTS.EFFECTIVE_DATE' fields to
 	the database.
 	* Incremented the database version to 171.
 	* Added 'RDFeed:castOrder()' and 'RDFeed::setCastOrder()' methods
@@ -10369,7 +10389,7 @@
 	'RDAirPlayConf::setAuditionPreroll()' methods in
 	'lib/rdairplay_conf.cpp' and 'lib/rdairplay_conf.h'.
 	* Added a 'Display Extra Buttons/Counters' checkbox and a
-	'Audition Preroll' control to the Edit RDAirPlay dialog in 
+	'Audition Preroll' control to the Edit RDAirPlay dialog in
 	'rdadmin/edit_rdairplay.cpp' and
 	'rdadmin/edit_rdairplay.h'.
 	* Implemented run time counters in the List Log widget in
@@ -10547,7 +10567,7 @@
 	* Fixed bugs in 'rdairplay/log_play.cpp' to make the Post Point
 	Counter operate more reliably and consistently.
 2009-06-30 Fred Gleason <fredg@paravelsystems.com>
-	* Added an animated progress bar in 'icons/progressbar.gif' and 
+	* Added an animated progress bar in 'icons/progressbar.gif' and
 	'icons/progressbar.xcf'.
 	* Added 'web/rdcastmanager/rdcastmanager.js'.
 	* Added a JavaScript minification utility in 'helpers/jsmin.c'.
@@ -10596,7 +10616,7 @@
 	'rdlibrary/disk_ripper.h' to use rdaconvert(1) instead of sox(1).
 	* Fixed a bug in 'lib/rdcut_dialog.cpp' that caused the list of
 	groups to be populated in reverse alphabetical order.
-	* Removed the sox(1) dependency in 'rivendell.spec.in' and 
+	* Removed the sox(1) dependency in 'rivendell.spec.in' and
 	'debian/control'.
 2009-08-04 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'utils/rdimport/rdimport.cpp' that was causing
@@ -10605,7 +10625,7 @@
 2009-08-06 Fred Gleason <fredg@paravelsystems.com>
 	* Added a driver for the BroadcastTools SS4.4 in 'lib/rdmatrix.h',
 	'lib/rdmatrix.cpp', 'rdadmin/add_matrix.cpp',
-	'rdadmin/edit_matrix.cpp', 'rdadmin/list_matrices.cpp', 
+	'rdadmin/edit_matrix.cpp', 'rdadmin/list_matrices.cpp',
 	'ripcd/btss44.cpp', 'ripcd/btss44.h', 'ripcd/ripcd.h' and
 	'ripcd/local_macros.cpp'.
 	* Updated 'docs/SWITCHERS.txt'.
@@ -10662,8 +10682,8 @@
 	in 'rlm/rlm_liqcomp.c'.
 2009-09-02 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'rlm/rlm_ando.c', 'rlm/rlm_serial.c',
-	'rlm/rlm_xmpad.c' 'rlm/rlm_udp.c' and 'rlm/rlm_inno713.c' that 
-	caused the Log Selection value for MasterLog to be applied to 
+	'rlm/rlm_xmpad.c' 'rlm/rlm_udp.c' and 'rlm/rlm_inno713.c' that
+	caused the Log Selection value for MasterLog to be applied to
 	Aux1Log and Aux2Log as well.
 2009-09-03 Fred Gleason <fredg@paravelsystems.com>
 	* Added a 'RDLIBRARY.SRC_CONVERTER' field to the database.
@@ -10874,21 +10894,21 @@
 	schema.
 	* Changed the type of the 'START_TIME' and 'LINK_START_TIME'
 	fields in the database log format schema from 'time' to 'int'.
-	* Changed the type of the 'START_TIME' field in the database 
+	* Changed the type of the 'START_TIME' field in the database
 	clock format schema from 'time' to 'int'.
 	* Incremented the database version to 186.
-	* Modifed 'lib/rdclock.cpp', 'lib/log_event.cpp', 
+	* Modifed 'lib/rdclock.cpp', 'lib/log_event.cpp',
 	'lib/rdevent_line.cpp' and 'lib/rdcreate_log.cpp' to process the
 	new 'START_TIME' and 'LINK_START_TIME' fields correctly.
 	* Modified the Edit Log Entry dialog to display hard times to 1/10
 	second in 'rdlogedit/edit_logline.cpp'.
 	* Modified the Edit Marker dialog to display hard times to 1/10
 	second in 'rdlogedit/edit_marker.cpp'.
-	* Modified the Edit Voice Track Marker dialog to display hard 
+	* Modified the Edit Voice Track Marker dialog to display hard
 	times to 1/10 second in 'rdlogedit/edit_track.cpp'.
-	* Modified the Edit Log Chain dialog to display hard 
+	* Modified the Edit Log Chain dialog to display hard
 	times to 1/10 second in 'rdlogedit/edit_chain.cpp'.
-	* Modified the Voice Tracker dialog to display hard 
+	* Modified the Voice Tracker dialog to display hard
 	times to 1/10 second in 'rdlogedit/voice_tracker.cpp'.
 	* Modified the ListLog widget in 'rdairplay/list_log.cpp' and
 	'rdairplay/list_log.h' to display hard times to 1/10 second.
@@ -10898,12 +10918,12 @@
 	'rdairplay/edit_event.h' to display hard times to 1/10 second.
 	* Modified the Edit Clock dialog in 'rdlogmanager/edit_clock.cpp'
 	to display Start and End times to 1/10 second.
-	* Modified the Edit Event Assignment dialog in 
+	* Modified the Edit Event Assignment dialog in
 	'rdlogmanager/edit_eventline.cpp' and 'rdlogmanager/edit_eventline.h'
 	to display Start and End times to 1/10 second.
 2010-02-09 Fred Gleason <fredg@paravelsystems.com>
 	* Added 'RDImportDialog::enableAutotrim()',
-	'RDImportDialog::setAutotrimLevel()', 
+	'RDImportDialog::setAutotrimLevel()',
 	'RDImportDialog::enableNormalization()',
 	'RDImportDialog::setNormalizationLevel()' and
 	'RDImportDialog::setChannels()' methods in
@@ -11336,13 +11356,13 @@
 	'rdadmin/edit_rdlogedit.h'.
 	* Marked the 'RDLOGEDIT_CONF.SAMPRATE' field as RETIRED.
 	* Removed 'RDDeck::sampRate()' and
-	'RDDeck::setSampRate()' methods in 'lib/rddeck.cpp' and 
+	'RDDeck::setSampRate()' methods in 'lib/rddeck.cpp' and
 	'lib/rddeck.h'.
 	* Removed the 'Sample Rate:' control from the 'Edit Deck'
 	dialog in 'rdadmin/edit_decks.cpp' and 'rdadmin/edit_Decks.h'.
 	* Marked the 'DECKS.DEFAULT_SAMPRATE' field as RETIRED.
 	* Removed 'RDRecording::sampRate()' and
-	'RDRecording::setSampRate()' methods in 'lib/rdrecording.cpp' and 
+	'RDRecording::setSampRate()' methods in 'lib/rdrecording.cpp' and
 	'lib/rdrecording.h'.
 	* Marked the 'RECORDINGS.SAMPRATE' field as RETIRED.
 	* Removed the 'RDConfig::sampleRate()' method in
@@ -11368,7 +11388,7 @@
 	* Removed 'ToDo'.
 2010-06-14 Fred Gleason <fredg@paravelsystems.com>
 	* Added an 'RDPam' class in 'lib/rdpam.cpp' and 'lib/rdpam.h'.
-	* Added an 'RDSystemUser' class in 'lib/rdsystemuser.cpp' and 
+	* Added an 'RDSystemUser' class in 'lib/rdsystemuser.cpp' and
 	'lib/rdsystemuser.h'.
 	* Fixed a bug in 'lib/rdupload.cpp' and 'lib/rddownload.cpp' that
 	permitted 'file:' transfers without validating user permissions.
@@ -11395,7 +11415,7 @@
 2010-06-15 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'UPGRADING'.
 2010-06-16 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'lib/rdwavefile.cpp' that broke the Xport Import 
+	* Fixed a bug in 'lib/rdwavefile.cpp' that broke the Xport Import
 	service.
 2010-06-16 Fred Gleason <fredg@paravelsystems.com>
 	* Changed invocation order of services in the post script in
@@ -11552,7 +11572,7 @@
 	'lib/rdaudioconvert.cpp' and 'lib/rdaudioconvert.h'.
 	* Added a '--speed-ratio' switch in
 	'tests/audio_convert_test.cpp'.
-	* Modified 'web/rdxport/export.cpp' and 'rdrepld/citadelxds.cpp' 
+	* Modified 'web/rdxport/export.cpp' and 'rdrepld/citadelxds.cpp'
 	to honor enforced lengths in the Library.
 2010-07-21 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'configure.in' that failed to display an error
@@ -11769,7 +11789,7 @@
 	* Optimized position and output status update code in
 	'cae/cae.cpp'.
 2010-09-14 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'rdcatchd/batch.cpp' that caused the incorrect 
+	* Fixed a bug in 'rdcatchd/batch.cpp' that caused the incorrect
 	sample rate value to be applied when importing audio.
 2010-09-16 Fred Gleason <fredg@paravelsystems.com>
 	* Added an 'RDHPIRecordStream::samplesRecorded()' class in
@@ -11781,9 +11801,9 @@
 	build when JACK was not present.
 2010-10-04 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'cae/cae_hpi.cpp', 'cae/cae_alsa.cpp' and
-	'cae/cae_jack.cpp' that caused playback position to be reported 
+	'cae/cae_jack.cpp' that caused playback position to be reported
 	in samples instead of milliseconds.
-	* Fixed a bug in 'lib/rdedit_audio.cpp' that caused the playback 
+	* Fixed a bug in 'lib/rdedit_audio.cpp' that caused the playback
 	cursor to disappear when the transport was stopped in the EditAudio
 	dialog.
 2010-10-04 Todd Baker <bakert@rfa.org>
@@ -11794,16 +11814,16 @@
 	* Added a RDAirplay_Hotkeys class in 'lib/rdairplay_hotkeys.cpp'
 	and 'lib/rdairplay_hotkeys.h'
 	* Added 'HotKey' configuration button in 'rdadmin/edit_rdairplay.cpp'.
-	* Added 'editHotKeys()' methods in 'rdadmin/edit_rdairplay_hotkeys.cpp' 
+	* Added 'editHotKeys()' methods in 'rdadmin/edit_rdairplay_hotkeys.cpp'
 	and 'rdadmin/edit_rdairplay_hotkeys.h'.
-	* Added 'RDHOTKEYS' table creation and upgrade database code to 
+	* Added 'RDHOTKEYS' table creation and upgrade database code to
 	'rdadmin/createdb.cpp'.
 	* Added deletion of 'RDHOTKEYS' table in 'rdadmin/list_stations.cpp'.
 	* Added 'pauseButtonHotkey()' and 'stopButtonHotkey()' methods
-	in 'rdairplay/button_log.cpp' and 'rdairplay/button_log.h'.	
-	* Added 'RDHotKeyList' and 'RdHotKeys' objects to 
-	'rdairplay/rdairplay.cpp' and 'rdairplay/rdairplay.h'. 
-	* Added code to intercept keystrokes and compare/execute commands 
+	in 'rdairplay/button_log.cpp' and 'rdairplay/button_log.h'.
+	* Added 'RDHotKeyList' and 'RdHotKeys' objects to
+	'rdairplay/rdairplay.cpp' and 'rdairplay/rdairplay.h'.
+	* Added code to intercept keystrokes and compare/execute commands
 	when matching hotkeys are found in 'rdairplay/rdairplay.cpp'.
 2010-10-04 Fred Gleason <fredg@paravelsystems.com>
 	* Added code in 'rdadmin/add_station.cpp' to clone hotkey
@@ -11856,26 +11876,26 @@
 	* Added 'docs/ando_interfact.odt'.
 2010-11-24 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'lib/rdpeaksexport.cpp', 'lib/rdaudioimport.cpp',
-	'lib/rdaudioimport.cpp', '/lib/rdcart.cpp', 'lib/rddownload.cpp', 
-	'lib/rdpodcast.cpp', 'lib/rdtrimaudio.cpp' and 'lib/rdupload.cpp' 
-	that threw a 'URL using bad/illegal format or missing URL' error from 
+	'lib/rdaudioimport.cpp', '/lib/rdcart.cpp', 'lib/rddownload.cpp',
+	'lib/rdpodcast.cpp', 'lib/rdtrimaudio.cpp' and 'lib/rdupload.cpp'
+	that threw a 'URL using bad/illegal format or missing URL' error from
 	libcurl-7.15.5.
 2010-11-24 Fred Gleason <fredg@paravelsystems.com>
 	* Made FLAC support optional at build time.
 2010-11-24 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a typo in 'lib/rdwavefile.cpp'.
 2010-11-24 Fred Gleason <fredg@paravelsystems.com>
-	* Added code in 'lib/rdconfig.cpp' to handle cases where 
+	* Added code in 'lib/rdconfig.cpp' to handle cases where
 	gethostname(2) returns a FQDN instead of just the host part.
 2010-11-24 Fred Gleason <fredg@paravelsystems.com>
 	* Added support for RedHat/CentOS to the 'make rpm' target.
 2010-11-24 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'rivendell.spec.in' that placed the Apache 
+	* Fixed a bug in 'rivendell.spec.in' that placed the Apache
 	configuration in the wrong place on RedHat/CentOS.
 2010-12-03 Fred Gleason <fredg@paravelsystems.com>
 	* Added support for RedHat/CentOS in 'get_distro.sh'.
 2010-12-06 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'rivendell.spec'.in' that broke the 
+	* Fixed a bug in 'rivendell.spec'.in' that broke the
 	post-installation script on RedHat/CentOS.
 2010-12-06 Fred Gleason <fredg@paravelsystems.com>
 	* Added code in 'configure.in' to detect CDParanoia on RedHat/CentOS.
@@ -11895,21 +11915,21 @@
 2010-12-12 Fred Gleason <fredg@paravelsystems.com>
 	* Added chkconfig(8) info to 'rivendell-suse.in'.
 2010-12-12 Fred Gleason <fredg@paravelsystems.com>
-	* Added a check in 'utils/rddbcheck/rddbcheck.cpp' and 
+	* Added a check in 'utils/rddbcheck/rddbcheck.cpp' and
 	'utils/rddbcheck/rddbcheck.h' to validate audio lengths of data
 	in '/var/snd' against the values in the CUTS table.
 2010-12-12 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'rivendell-suse.in' that caused the daemons to be 
+	* Fixed a bug in 'rivendell-suse.in' that caused the daemons to be
 	assigned incorrect boot priorities on RedHat/CentOS.
 2010-12-15 Fred Gleason <fredg@paravelsystems.com>
 	* Refactored categories in the Desktop files in 'xdg/' to eliminate
 	duplicate menu appearances.
-	* Added 'X-KDE-SubstituteUID' and 'X-KDE-Username' attributes in 
+	* Added 'X-KDE-SubstituteUID' and 'X-KDE-Username' attributes in
 	'xdg/rivendell-rdhpiinfo.desktop'.
 2010-12-16 Fred Gleason <fredg@paravelsystems.com>
 	* Added chkconfig(8) entries to 'rdrepld-suse.in'.
 2010-12-17 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'lib/rdsound_panel.cpp' that allowed users without 
+	* Fixed a bug in 'lib/rdsound_panel.cpp' that allowed users without
 	the 'Configure System Panels' privilege to edit the name of system
 	panels.
 2010-12-21 Fred Gleason <fredg@paravelsystems.com>
@@ -11935,7 +11955,7 @@
 	* Modified the 'Edit Button' dialog in 'lib/rdbutton_dialog.cpp' so
 	as to utilized calculated text colors for the 'Color' button.
 2011-01-09 Fred Gleason <fredg@paravelsystems.com>
-	* Modifed 'lib/rdaudioconvert.cpp' to use SF_FORMAT_FLOAT as the 
+	* Modifed 'lib/rdaudioconvert.cpp' to use SF_FORMAT_FLOAT as the
 	stage 1->2 file format.
 	* Fixed a bug in 'lib/rdaudioconvert.cpp' that caused clipping to be
 	introduced when converting from an MPEG file containing samples with
@@ -11943,7 +11963,7 @@
 2011-01-10 Fred Gleason <fredg@paravelsystems.com>
 	* Added an 'RD_CURL_TIMEOUT' define in 'lib/rd.h'.
 2011-01-10 Fred Gleason <fredg@paravelsystems.com>
-	* Added a check in 'lib/rdaudioconvert.cpp' to detect loss of sync 
+	* Added a check in 'lib/rdaudioconvert.cpp' to detect loss of sync
 	in an MPEG bitstream.
 2011-01-10 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'ripcd/ripcd.cpp' that caused a segfault when
@@ -11961,7 +11981,7 @@
 	returned when processing files containing non-ASCII characters in
 	their name.
 2011-01-12 Fred Gleason <fredg@paravelsystems.com>
-	* Applied a patch from Bartlomiej Krajewski 
+	* Applied a patch from Bartlomiej Krajewski
 	<bartlomiej.krajewski@radiorodzina.pl> that added support for setting
 	12-play mode on an ASI 6640 in rdhpiinfo(8).
 2011-01-17 Fred Gleason <fredg@paravelsystems.com>
@@ -11970,16 +11990,16 @@
 2011-01-19 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a path error in 'scripts/rd_config'.
 2011-01-25 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'lib/rdwavefile.cpp' and 'lib/rdwavefile.h' where 
+	* Fixed a bug in 'lib/rdwavefile.cpp' and 'lib/rdwavefile.h' where
 	importation of a IEEE floating point format WAV file would result
 	in a length of '0' being stored in the database.
 2011-01-25 Fred Gleason <fredg@paravelsystems.com>
-	* Implemented a 'CopyAudio' XPort service in 
+	* Implemented a 'CopyAudio' XPort service in
 	'web/rdxport/copyaudio.cpp', 'web/rdxport/rdxport.cpp' and
 	'web/rdxport/rdxport.h'.
 	* Added a 'RDCopyAudio' class in 'lib/rdcopyaudio.cpp' and
 	'lib/rdcopyaudio.h'.
-	* Modified the 'RDCut::copyTo()' method to use the CopyAudio 
+	* Modified the 'RDCut::copyTo()' method to use the CopyAudio
 	web service.
 2011-02-11 Fred Gleason <fredg@paravelsystems.com>
 	* Added a 'RIPPER_MAX_SECTORS' compile-time variable in 'lib/rd.h'.
@@ -12026,15 +12046,15 @@
 	* Documented the ExportPeaks and TrimAudio XPort service methods in
 	'docs/xport_service.odt'.
 2011-02-17 Fred Gleason <fredg@paravelsystems.com>
-	* Implemented an AudioInfo Xport service method in 
+	* Implemented an AudioInfo Xport service method in
 	'web/rdxport/audioinfo.cpp'.
 	* Added an 'RDAudioInfo' class in 'lib/rdaudioinfo.cpp' and
 	'lib/rdaudioinfo.h'.
 	* Fixed a bug in 'lib/rdedit_audio.cpp' that made it impossible to
-	display an entire waveform when the end marker was placed near the 
+	display an entire waveform when the end marker was placed near the
 	start of the cut.
 2011-02-21 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'rdadmin/opendb.cpp' that displayed creation of a 
+	* Fixed a bug in 'rdadmin/opendb.cpp' that displayed creation of a
 	new database as an error.
 2011-03-01 Fred Gleason <fredg@paravelsystems.com>
 	* Added the ability to specify destination UDP port in the address
@@ -12079,13 +12099,13 @@
 	* Stubbed out a serial transmission path for the 'rlm_xds' plug-in in
 	'rlm/rlm_xds.c'.
 2011-04-26 Fred Gleason <fredg@paravelsystems.com>
-	* Added support for opto inputs to the SasUsi driver in 
+	* Added support for opto inputs to the SasUsi driver in
 	'ripcd/sasusi.cpp'.
 2011-05-02 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'rdlibrary/edit_cart.cpp' that threw a segfault
 	when editing multiple carts [Mantis bug #0000004].
 2011-05-02 Fred Gleason <fredg@paravelsystems.com>
-	* Applied fixes to 'rivendell-gentoo' from Emery Hemingway 
+	* Applied fixes to 'rivendell-gentoo' from Emery Hemingway
 	<emery@icmlf.net> [Mantis bug #0000010].
 2011-05-02 Fred Gleason <fredg@paravelsystems.com>
 	* Applied a patch from Andres Vahter <andres.vahter@mail.ee> to
@@ -12100,10 +12120,10 @@
 	rate value was written into the database when processing an import
 	[Mantis bug #00000009].
 2011-05-03 Fred Gleason <fredg@paravelsystems.com>
-	* Reformulated 'lib/rdwavepainter.cpp' to use pow(3) instead of 
+	* Reformulated 'lib/rdwavepainter.cpp' to use pow(3) instead of
 	pow10(3).
 2011-05-03 Fred Gleason <fredg@paravelsystems.com>
-	* Refactored 'rdlogmanager/rdlogmanager.cpp' and 
+	* Refactored 'rdlogmanager/rdlogmanager.cpp' and
 	'rdlogmanager/generate_log.cpp' to allow batch processing without an
 	active X server instance [Mantis bug #0000001].
 2011-05-04 Fred Gleason <fredg@paravelsystems.com>
@@ -12115,9 +12135,9 @@
 2011-05-05 Fred Gleason <fredg@paravelsystems.com>
 	* Added a 'TtySpeed=' directive to 'rlm/rlm_xds.c'.
 2011-05-06 Fred Gleason <fredg@paravelsystems.com>
-	* Added a 'List SAS Resources' dialog in 
+	* Added a 'List SAS Resources' dialog in
 	'rdadmin/list_sas_resources.cpp' in 'rdadmin/list_sas_resources.h'.
-	* Added an 'Edit SAS Resource' dialog in 
+	* Added an 'Edit SAS Resource' dialog in
 	'rdadmin/edit_sas_resource.cpp' in 'rdadmin/edit_sas_resource.h'.
 	* Implemented support for source on/off remote control in the SAS USI
 	driver in 'ripcd/sasusi.cpp'.
@@ -12130,7 +12150,7 @@
 	* Fixed a bug in 'lib/rdtrimaudio.cpp' that caused an Internal Error
 	when attempting to execute the TrimAudio service [Mantis bug #0000013].
 2011-05-18 Fred Gleason <fredg@paravelsystems.com>
-	* Removed deprecated HPI functions and data structures from 
+	* Removed deprecated HPI functions and data structures from
 	'rdhpi/rdhpisoundcard.cpp', 'rdhpi/rdhpisoundcard.h',
 	'rdhpi/rdhpiplaystream.cpp', 'rdhpi/rdhpiplaystream.h',
 	'rdhpi/rdhpirecrodstream.cpp', 'rdhpi/rdhpirecrodstream.h',
@@ -12157,15 +12177,15 @@
 	* Changed 'xdg/rivendell-rdhpiinfo.desktop' to require root
 	credentials before executing.
 2011-05-19 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed bugs in 'rdhpi/rdhpiplaystream.cpp', 
+	* Fixed bugs in 'rdhpi/rdhpiplaystream.cpp',
 	'rdhpi/rdhpiplaystream.h', 'rdhpi/rdhpirecordstream.cpp'
 	and 'rdhpi/rdhpirecordstream.h' that broke the build when building
 	against versions of the ASI driver prior to 3.010.00.
 2011-05-20 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'rdairplay/loglinebox.cpp' that could throw a 
+	* Fixed a bug in 'rdairplay/loglinebox.cpp' that could throw a
 	segfault when changing time modes with no log loaded.
 2011-05-20 Fred Gleason <fredg@paravelsystems.com>
-	* Added 'scripts/rd_backup_system.sh' and 
+	* Added 'scripts/rd_backup_system.sh' and
 	'scripts/rd_restore_system.sh'.
 2011-05-23 Fred Gleason <fredg@paravelsystems.com>
 	* Added '--delete' switch to the rsync(1) call in
@@ -12178,8 +12198,8 @@
 2011-05-25 Fred Gleason <fredg@paravelsystems.com>
 	* Added logging to 'ripcd/sas_use.cpp'.
 2011-05-26 Fred Gleason <fredg@paravelsystems.com>
-	* Elevated the priority of syslog messages reporting ISCI 
-	Cross-reference loading and spot uploading from LOG_DEBUG to 
+	* Elevated the priority of syslog messages reporting ISCI
+	Cross-reference loading and spot uploading from LOG_DEBUG to
 	LOG_NOTICE in 'rdrepld/citadelxds.cpp'.
 2011-05-26 Fred Gleason <fredg@paravelsystems.com>
 	* Added logging for SAS USI commands in 'ripcd/sasusi.cpp'.
@@ -12188,10 +12208,10 @@
 2011-05-27 Fred Gleason <fredg@paravelsystems.com>
 	* Added an iOS version of RMLSend in 'ios/rmlsend/'.
 2011-05-27 Fred Gleason <fredg@paravelsystems.com>
-	* Optimized the layout for CentOS/RedHat 5 in 
+	* Optimized the layout for CentOS/RedHat 5 in
 	'utils/rdgpimon/gpi_label.cpp' and 'utils/rdgpimon/gpi_label.cpp'.
 2011-05-31 Fred Gleason <fredg@paravelsystems.com>
-	* Modified RMLSend for iOS to persistently save settings between 
+	* Modified RMLSend for iOS to persistently save settings between
 	invocations.
 2011-06-01 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
@@ -12210,22 +12230,22 @@
 	* Added code to check for valid database schema in 'lib/rddb.cpp'.
 	* Added '--skip-db-check' flag to ripcd(8) in 'ripcd/ripcd.cpp'.
 	* Added '--skip-db-check' flag to rdlogin(1) in 'rdlogin/rdlogin.cpp'.
-	* Added '--skip-db-check' flag to rdlibrary(1) in 
+	* Added '--skip-db-check' flag to rdlibrary(1) in
 	'rdlibrary/rdlibrary.cpp'.
 	* Added '--skip-db-check' flag to rdcatch(1) in 'rdcatch/rdcatch.cpp'.
-	* Added '--skip-db-check' flag to rdcatchd(8) in 
+	* Added '--skip-db-check' flag to rdcatchd(8) in
 	'rdcatchd/rdcatchd.cpp'.
-	* Added '--skip-db-check' flag to rdlogedit(1) in 
+	* Added '--skip-db-check' flag to rdlogedit(1) in
 	'rdlogedit/rdlogedit.cpp'.
-	* Added '--skip-db-check' flag to rdlogmanager(1) in 
+	* Added '--skip-db-check' flag to rdlogmanager(1) in
 	'rdlogmanager/rdlogmanager.cpp'.
 	* Added '--skip-db-check' flag to rdpanel(1) in 'rdpanel/rdpanel.cpp'.
-	* Added '--skip-db-check' flag to rdairplay(1) in 
+	* Added '--skip-db-check' flag to rdairplay(1) in
 	'rdairplay/rdairplay.cpp'.
-	* Added '--skip-db-check' flag to rdcastmanager(1) in 
+	* Added '--skip-db-check' flag to rdcastmanager(1) in
 	'rdcastmanager/rdcastmanager.cpp'.
 	* Added '--skip-db-check' flag to rdrepld(8) in 'rdrepld/rdrepld.cpp'.
-	* Added '--skip-db-check' flag to rddbcheck(8) in 
+	* Added '--skip-db-check' flag to rddbcheck(8) in
 	'rddbcheck/rddbcheck.cpp'.
 	* Implemented database version skew check for 'rdcastmanager.cgi'
 	in 'web/rdcastmanager/rdcastmanager.cpp'.
@@ -12245,7 +12265,7 @@
 	format errors to not return an error.
 2011-08-30 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'lib/rdlog_event.cpp' that caused inserted events to
-	be corrupted in being added to the middle of a log 
+	be corrupted in being added to the middle of a log
 	[Mantis bug #0000017].
 2011-08-30 Fred Gleason <fredg@paravelsystems.com>
 	* Tweaked the layout of the Edit Schedule Code dialog in
@@ -12359,7 +12379,7 @@
 2011-12-21 Fred Gleason <fredg@paravelsystems.com>
 	* Removed debugging printfs from 'rlm/rlm_icecast2.c'.
 2011-12-22 Fred Gleason <fredg@paravelsystems.com>
-	* Updated notes on the SAS USI switcher driver in 
+	* Updated notes on the SAS USI switcher driver in
 	'docs/SWITCHERS.txt'.
 2011-12-22 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'rlm/rlm_icecast2.c' that caused configuration of
@@ -12378,10 +12398,10 @@
 	database error when purging an orphaned voicetrack when the parent
 	log had been deleted.
 2011-12-22 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'lib/rdlog.cpp' that caused the 
+	* Fixed a bug in 'lib/rdlog.cpp' that caused the
 	'RDLog::updateTracks()' method to set incorrect counts of completed
 	tracks [Mantis bug #0000035].
-	* Fixed a bug in 'lib/rdlog.cpp' that caused the 
+	* Fixed a bug in 'lib/rdlog.cpp' that caused the
 	'RDLog::removeTracks()' method to set fail to delete tracks
 	[Mantis bug #0000035].
 2011-12-23 Fred Gleason <fredg@paravelsystems.com>
@@ -13045,3 +13065,165 @@
 2013-01-28 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Updated the package version to 2.4.0.
+2013-01-30 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a patch from Al Davis <ad356@freeelectron.net> against
+	'lib/rddownload.cpp' to add support for 302 redirects.
+2013-01-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added sanity checks for valid start time fields when importing
+	schedule files in 'lib/rdsvc.cpp'.
+2013-01-30 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdlivewire.cpp' that broke login with a
+	Radius engine.
+2013-02-04 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'utils/rddgimport/rddgimport.cpp' that caused
+	null cart numbers to be output to the traffic file when
+	reusing an existing cart.
+2013-02-05 Fred Gleason <fredg@paravelsystems.com>
+	* Removed a spurious check for overlapping Start Date and End Date
+	Offsets in 'rdadmin/edit_dropbox.cpp'.
+2013-02-07 Fred Gleason <fredg@paravelsystems.com>
+	* Added a timer test in 'tests/timer_test.cpp' and
+	'test/timer_test.h'.
+2013-02-08 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/export_deltaflex.cpp', 'lib/export_bmiemr.cpp',
+	'lib/nprsoundex.cpp' and 'lib/export_radiotraffic.cpp',
+	that caused lines to be	generated with an extra CR at the end
+	under Windows.
+2013-02-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'RDMatrix::LiveWireGpio' value to the 'RDMatrix::Type
+	enum in 'lib/rdmatrix.cpp' and 'lib/rdmatrix.h'.
+	* Added a 'Livewire Virtual GPIO' driver in 'ripcd/livewire_gpio.cpp'
+	and 'ripcd/livewire_gpio.h'.
+	* Added a 'LIVEWIRE_GPIO_SLOTS' table to the database.
+	* Incremented the database version to 217.
+	* Added a 'RDListView::GpioSort' value to the 'RDListView::SortType'
+	enum in 'lib/rdlistview.h', 'lib/rdlistvieitem.cpp' and
+	'lib/rdlistviewitem.h'.
+	* Added a 'LiveWire GPIOs' button to the 'Edit Matrix' dialog
+	in 'rdadmin/edit_matrix.cpp' and 'rdadmin/edit_matrix.h'.
+2013-02-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added import suport for the 'SEC1', 'EOD ' and 'INT ' CartChunk
+	timers in 'lib/rdwavefile.cpp'.
+	* Fixed a bug in 'rdlibrary/audio_cart.cpp' that caused all
+	cut-level metadata to fail to be applied during importation.
+	* Fixed a bug in 'utils/rdimport/rdimport.cpp' that caused cut-level
+	metadata to be incorrectly applied.
+2013-03-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'ripcd/livewire_gpio.cpp' that caused GPI events
+	to be duplicated.
+2013-03-03 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up warnings in 'ripcd/local_gpio.cpp' and
+	'ripcd/sas64000.cpp'.
+2013-03-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'ripcd/livewire_gpio.cpp' that caused pulsed
+	GPI events to be handled incorrectly.
+2013-03-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'LIVEWIRE_GPIO_SLOTS.IP_ADDRESS' field to the
+	database.
+	* Incremented the database version to 218.
+	* Added 'IP Address' controls to the Livewire GPIO Source
+	Assignments dialog in 'rdadmin/list_livewiregpios.cpp' and
+	'rdadmin/list_livewiregpios.h', 'rdadmin/edit_livewiregpio.cpp'
+	and 'rdadmin/edit_livewiregpio.h'.
+	* Implemented the ability to filter GPIO events by surface IP
+	address in 'ripcd/livewire_gpio.cpp' and 'ripcd/livewire_gpio.h'.
+2013-03-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/log_play.cpp' that caused macro carts
+	with the asyncronous attribute set to fail to be logged for ELR.
+2013-03-06 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdadmin/edit_livewiregpio.cpp' that
+	broke the 'Source' control.
+2013-03-06 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'ripcd/livewire_gpio.cpp' that broke GPO
+	processing.
+2013-03-08 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdadmin/list_livewiregpios.cpp' that caused
+	incorrect values to be saved for the 'Surface Address'
+	parameter.
+	* Implemented the 'I' option for the 'GO' RML in
+	'ripcd/livewire_gpio.cpp'.
+	* Added an 'RDAIRPLAY_CHANNELS' table to the database.
+	* Incremented the database version to 219.
+	* Added an 'Edit Channel GPIO' dialog in
+	'rdadmin/edit_channelgpios.cpp'and 'rdadmin/edit_channelgpios.h'.
+	* Implemented channel GPIO functionality in 'rdairplay/rdairplay.cpp',
+	'rdairplay/rdairplay.h', 'rdairplay/log_play.cpp' and
+	'rdairplay/log_play.h'.
+2013-03-09 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/rdairplay.cpp' that caused channel GPIO
+	operation to be incorrect with non-symmetric configurations.
+2013-03-09 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored Channel GPIO logic to operate across multiple
+	log machines in 'rdairplay/log_play.cpp', 'rdairplay/log_play.h',
+	'rdairplay/rdairplay.cpp' and 'rdairplay/rdairplay.h'.
+2013-03-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Edit CPIOs' buttons for SoundPanel channel assignments
+	in 'rdadmin/edit_rdairplay.cpp'.
+2013-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented channel GPIO functionality for the sound panel
+	in 'lib/rdsound_panel.cpp', 'lib/rdsound_panel.h',
+	'rdairplay/rdairplay.cpp' and 'rdairplay/rdairplay.h'.
+2013-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the 'Edit GPIOs' button for the Audition / Cue channel
+	in 'rdadmin/edit_rdairplay.cpp'.
+2013-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDAIRPLAY_CHANNELS.GPIO_TYPE' and 'RDPANEL_CHANNELS.GPIO_TYPE'
+	fields to the database.
+	* Incremented the database version to 220.
+	* Added 'RDAirPlayConf::gpioType()' and 'RDAirPlayConf::setGpioType()'
+	methods in 'lib/rdairplay_conf.cpp' and 'lib/rdairplay_conf.h'.
+	* Added a 'Signalling Type' control to the 'Edit Channel GPIOs'
+	dialog in 'rdadmin/edit_channelgpios.cpp' and
+	'rdadmin/edit_channelgpios.h'.
+2013-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented GPIO channel stop for the sound panel in
+	'lib/rdsound_panel.cpp' and 'rdairplay/rdairplay.cpp'.
+2013-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/rdairplay.cpp' that caused port 2
+	channel GPO to fail.
+2013-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'rdairplay/rdairplay.conf' to remove duplicate
+	GPIO channel configuration when both Main Log outputs are
+	configured to use the same port.
+2013-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdsound_panel.cpp' that caused GPIO stop
+	events to stop the incorrect buttons.
+2013-03-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed up fonts in dropdown menus in 'utils/rmlsend/rmlsend.cpp'.
+	* Fixed up fonts in dropdown menus in 'utils/rdgpimon/rdgpimon.cpp'.
+2013-03-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdadmin/createdb.cpp' that caused incorrect
+	CARD and PORT values to be converted into schema version 220.
+2013-03-20 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/rdairplay.cpp' that caused a
+	segfault when processing an invalid channel GPIO event.
+2013-03-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/rdairplay.cpp' that caused GPIO
+	start events to be ignored when using Level signalling.
+2013-03-22 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'utils/rdimport/rdimport.cpp' that
+	metadata patterns.
+2013-03-22 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up a warning in 'utils/rdimport/rdimport.cpp'.
+2013-03-22 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a fix from Todd Baker <bakert@rfa.org>
+	for broken --use-cartchunk-cutid' switch in 'rdcatchd/rdcatchd.cpp'.
+2013-03-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'utils/rddgimport/rddgimport.cpp' that caused
+	duplicate events to be written to the traffic import file.
+2013-03-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added PNG Rivendell icons.
+2013-03-26 Fred Gleason <fredg@paravelsystems.com>
+	* Corrected invalid Encoding entry in 'xdg/rivendell-rdgpimon.desktop',
+	'xdg/rivendell-rddgimport.desktop' and
+	'xdg/rivendell-rdalsaconfig.desktop'.
+2013-03-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed up fonts in log list in 'rdlogedit/rdlogedit.cpp'.
+2013-03-29 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'xdg/rdalsaconfig-root-consolehelper',
+	'xdg/rdalsaconfig-root-pam', 'xdg/rdhpiinfo-root-consolehelper',
+	'xdg/rdhpiinfo-root-pam', 'xdg/rivendell-rdalsaconfig-root.desktop',
+	and 'xdg/rivendell-rdhpiinfo-root.desktop'.
+2013-04-01 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.5.0.

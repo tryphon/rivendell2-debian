@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.cpp,v 1.62.6.3 2012/11/26 20:19:37 cvs Exp $
+//      $Id: rdsound_panel.cpp,v 1.62.6.7 2013/03/22 15:11:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -386,6 +386,24 @@ void RDSoundPanel::stop(RDAirPlayConf::PanelType type,int panel,
                         int mport,bool pause_when_finished,int fade_out)
 {
   StopButton(type,panel,row,col,mport,pause_when_finished,fade_out);
+}
+
+
+void RDSoundPanel::channelStop(int mport)
+{
+  RDPanelButton *button=NULL;
+  RDPlayDeck *deck=NULL;
+  for(unsigned i=0;i<RD_MAX_STREAMS;i++) {
+    if((button=panel_active_buttons[i])!=NULL) {
+      if(button->outputText().toInt()==(mport+1)) {
+	if((deck=button->playDeck())!=NULL) {
+	  if(deck->state()==RDPlayDeck::Playing) {
+	    deck->stop();
+	  }
+	}
+      }
+    }
+  }
 }
 
 
@@ -986,6 +1004,8 @@ bool RDSoundPanel::PlayAudio(RDPanelButton *button,RDCart *cart,bool hookmode,in
   button->playDeck()->play(start_pos,segue_start,segue_end);
   panel_event_player->
     exec(logline.resolveWildcards(panel_start_rml[button->output()]));
+  emit channelStarted(button->output(),button->playDeck()->card(),
+		      button->playDeck()->port());
   return true;
 }
 
@@ -1592,6 +1612,8 @@ void RDSoundPanel::ClearChannel(int id)
     return;
   }
   panel_event_player->exec(panel_stop_rml[panel_active_buttons[id]->output()]);
+  emit channelStopped(panel_active_buttons[id]->output(),
+		      playdeck->card(),playdeck->port());
 }
 
 

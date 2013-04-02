@@ -321,6 +321,50 @@
         <source>Music Playout</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Main Log Output 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main Log Output 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound Panel First Play Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux Log 1 Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux Log 2 Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound Panel Second Play Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound Panel Third Play Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound Panel Fourth Play Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audition/Cue Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sound Panel Fifth and Later Play Output</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>

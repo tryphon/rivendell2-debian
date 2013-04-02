@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: export_bmiemr.cpp,v 1.10 2010/07/29 19:32:33 cvs Exp $
+//      $Id: export_bmiemr.cpp,v 1.10.8.1 2013/02/08 21:41:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -63,7 +63,7 @@ bool RDReport::ExportBmiEmr(const QDate &startdate,const QDate &enddate,
 	break;
   }
 
-  if((f=fopen((const char *)filename,"w"))==NULL) {
+  if((f=fopen((const char *)filename,"wb"))==NULL) {
     report_error_code=RDReport::ErrorCantOpen;
     return false;
   }

@@ -1213,7 +1213,7 @@ nastaveném pro běh služby CAE pro naplnění databáze se zdroji zvuku.</tran
     </message>
     <message>
         <source>The EndDate Offset is less than the Start Date Offset!</source>
-        <translation>Posun koncového data je menší než Posun počátečního data!</translation>
+        <translation type="obsolete">Posun koncového data je menší než Posun počátečního data!</translation>
     </message>
 </context>
 <context>
@@ -1850,6 +1850,45 @@ Stále ještě chcete uložit?</translation>
     </message>
 </context>
 <context>
+    <name>EditLiveWireGpio</name>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">Z&amp;rušit</translation>
+    </message>
+    <message>
+        <source>Edit GPIO Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Livewire Source: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GPIO Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Surface Address: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid IP Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The IP address is invalid!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditMatrix</name>
     <message>
         <source>Edit Switcher</source>
@@ -2037,6 +2076,11 @@ SAS</translation>
     </message>
     <message>
         <source>RDAdmin - Edit Switcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LiveWire
+GPIOs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2474,6 +2518,11 @@ nastaveném pro běh služby CAE pro naplnění databáze se zdroji zvuku.</tran
     </message>
     <message>
         <source>Show Hour Selector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit
+GPIOs</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4589,6 +4638,49 @@ Stále ještě jej chcete smazat?</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>Z&amp;rušit</translation>
+    </message>
+</context>
+<context>
+    <name>ListLiveWireGpios</name>
+    <message>
+        <source>LiveWire GPIO Source Assignments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switchers:</source>
+        <translation type="unfinished">Přepínače:</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished">&amp;Upravit</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">Z&amp;rušit</translation>
+    </message>
+    <message>
+        <source>[none]</source>
+        <translation type="unfinished">[žádný]</translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Surface Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[all]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source #</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

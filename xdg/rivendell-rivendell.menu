@@ -21,7 +21,9 @@
     <Include>
       <Filename>rivendell-rdadmin.desktop</Filename>
       <Filename>rivendell-rdalsaconfig.desktop</Filename>
+      <Filename>rivendell-rdalsaconfig-root.desktop</Filename>
       <Filename>rivendell-rdhpiinfo.desktop</Filename>
+      <Filename>rivendell-rdhpiinfo-root.desktop</Filename>
     </Include>
   </Menu>
   <Menu>
@@ -38,7 +40,6 @@
     <Include>
       <Filename>rivendell-rddgimport.desktop</Filename>
       <Filename>rivendell-rdgpimon.desktop</Filename>
-      <Filename>rivendell-rdselect.desktop</Filename>
       <Filename>rivendell-rdsoftkeys.desktop</Filename>
       <Filename>rivendell-rmlsend.desktop</Filename>
       <Filename>rivendell-rddgimport.desktop</Filename>

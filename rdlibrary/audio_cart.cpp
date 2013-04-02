@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.cpp,v 1.57 2011/02/11 23:19:43 cvs Exp $
+//      $Id: audio_cart.cpp,v 1.57.6.1 2013/02/27 21:21:53 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,6 +35,7 @@
 #include <qbuttongroup.h>
 #include <qapplication.h>
 
+#include <rdcut.h>
 #include <rdcddbrecord.h>
 #include <rddb.h>
 #include <rdwavedata.h>
@@ -578,6 +579,9 @@ void AudioCart::importCutData()
     if(rdcart_controls->user_defined_edit->text().isEmpty()) {
       rdcart_controls->user_defined_edit->setText(wavedata.userDefined());
     }
+    RDCut *cut=new RDCut(cutname);
+    cut->setMetadata(&wavedata);
+    delete cut;
   }
   if(cut_clipboard==NULL) {
     paste_cut_button->setDisabled(true);

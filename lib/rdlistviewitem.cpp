@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlistviewitem.cpp,v 1.20 2010/10/08 19:36:41 cvs Exp $
+//      $Id: rdlistviewitem.cpp,v 1.20.6.1 2013/02/21 02:46:23 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,7 @@
 //
 
 #include <qpainter.h>
+#include <qstringlist.h>
 
 #include <rdconf.h>
 #include <rdlistviewitem.h>
@@ -161,6 +162,9 @@ int RDListViewItem::compare(QListViewItem *i,int col,bool ascending) const
   int hard_column;
   int prev_length;
   int length;
+  QStringList fields;
+  QStringList prev_fields;
+
   if((hard_column=list_parent->hardSortColumn())<0) {
     switch(list_parent->columnSortType(col)) {
 	case RDListView::TimeSort:
@@ -180,6 +184,17 @@ int RDListViewItem::compare(QListViewItem *i,int col,bool ascending) const
 	  }
 	  if(line()>((RDListViewItem *)i)->line()) {
 	    return 1;
+	  }
+	  return 0;
+
+	case RDListView::GpioSort:
+	  fields=fields.split("-",text(col));
+	  prev_fields=fields.split("-",i->text(col));
+	  if(fields[0].toInt()>prev_fields[0].toInt()) {
+	    return 1;
+	  }
+	  if(fields[0].toInt()<prev_fields[0].toInt()) {
+	    return -1;
 	  }
 	  return 0;
 

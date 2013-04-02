@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddgimport.h,v 1.1.2.3 2013/01/14 16:02:40 cvs Exp $
+//      $Id: rddgimport.h,v 1.1.2.4 2013/02/05 01:35:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -77,7 +77,7 @@ class MainWidget : public QWidget
   bool LoadEvents();
   bool ImportAudio();
   bool WriteTrafficFile();
-  bool CheckSpot(const QString &isci) const;
+  bool CheckSpot(const QString &isci);
   bool ImportSpot(Event *evt);
   void ActivateBar(bool state);
   Event *GetEvent(const QString &isci);

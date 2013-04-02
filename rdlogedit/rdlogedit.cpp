@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit.cpp,v 1.77.4.3 2013/01/07 15:35:06 cvs Exp $
+//      $Id: rdlogedit.cpp,v 1.77.4.4 2013/03/26 21:58:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -264,6 +264,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   // Log List
   //
   log_log_list=new QListView(this,"log_log_list");
+  log_log_list->setFont(default_font);
   log_log_list->setAllColumnsShowFocus(true);
   log_log_list->setItemMargin(5);
   connect(log_log_list,

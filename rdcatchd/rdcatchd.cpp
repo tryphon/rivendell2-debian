@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcatchd.cpp,v 1.142 2011/06/21 22:20:44 cvs Exp $
+//      $Id: rdcatchd.cpp,v 1.142.4.1 2013/03/22 17:41:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -2593,7 +2593,7 @@ void MainObject::StartDropboxes()
       cmd+=QString().sprintf(" --to-cart=%u",q->value(4).toUInt());
     }
     if(q->value(5).toString()=="Y") {
-      cmd+=" --use_cartchunk-cutid";
+      cmd+=" --use-cartchunk-cutid";
     }
     if(q->value(6).toString()=="Y") {
       cmd+=" --title-from-cartchunk-cutid";

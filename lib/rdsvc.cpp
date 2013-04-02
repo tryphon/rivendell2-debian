@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.cpp,v 1.71.8.2 2013/01/14 16:35:58 cvs Exp $
+//      $Id: rdsvc.cpp,v 1.71.8.3 2013/01/30 16:50:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -340,9 +340,9 @@ bool RDSvc::import(ImportSource src,const QDate &date,const QString &break_str,
   char buf[RD_MAX_IMPORT_LINE_LENGTH];
   QString str_buf;
   char var_buf[RD_MAX_IMPORT_LINE_LENGTH];
-  QString hours_buf;
-  QString minutes_buf;
-  QString seconds_buf;
+  int start_hour;
+  int start_minutes;
+  int start_seconds;
   QString hours_len_buf;
   QString minutes_len_buf;
   QString seconds_len_buf;
@@ -355,6 +355,7 @@ bool RDSvc::import(ImportSource src,const QDate &date,const QString &break_str,
   QString os_flag;
   int cartlen;
   QString sql;
+  bool ok=false;
 
   //
   // Set Import Source
@@ -552,12 +553,14 @@ bool RDSvc::import(ImportSource src,const QDate &date,const QString &break_str,
       var_buf[cart_length]=0;
       cartname=QString(var_buf).stripWhiteSpace();
       if(strlen(buf)>=hours_size) {           // Get Start Hours
-	hours_buf=QString(buf).mid(hours_offset,hours_length);
-	if(strlen(buf)>=minutes_size) {           // Get Start Minutes
-	  minutes_buf=QString(buf).mid(minutes_offset,minutes_length);
-	  if(strlen(buf)>=seconds_size) {           // Get Start Seconds
-	    seconds_buf=QString(buf).mid(seconds_offset,seconds_length);
-	    if(strlen(buf)>=hours_len_size) {           // Get Length Hours
+	start_hour=QString(buf).mid(hours_offset,hours_length).toInt(&ok);
+	if(ok&&(strlen(buf)>=minutes_size)) {           // Get Start Minutes
+	  start_minutes=
+	    QString(buf).mid(minutes_offset,minutes_length).toInt(&ok);
+	  if(ok&&(strlen(buf)>=seconds_size)) {           // Get Start Seconds
+	    start_seconds=
+	      QString(buf).mid(seconds_offset,seconds_length).toInt(&ok);
+	    if(ok&&(strlen(buf)>=hours_len_size)) {     // Get Length Hours
 	      hours_len_buf=
 		QString(buf).mid(hours_len_offset,hours_len_length);
 	      if(strlen(buf)>=minutes_len_size) {       // Get Length Minutes
@@ -596,15 +599,15 @@ bool RDSvc::import(ImportSource src,const QDate &date,const QString &break_str,
 			     ((!track_cart.isEmpty())&&
 			      (cartname==track_cart))) {
 			    sql=QString().sprintf("insert into `%s` \
-                                  set ID=%d,START_HOUR=%s,START_SECS=%d,\
+                                  set ID=%d,START_HOUR=%d,START_SECS=%d,\
                                   CART_NUMBER=%u,TITLE=\"%s\",LENGTH=%d,\
                                   EXT_DATA=\"%s\",EXT_EVENT_ID=\"%s\",\
                                   EXT_ANNC_TYPE=\"%s\",EXT_CART_NAME=\"%s\"",
 						  (const char *)dest_table,
 						  line_id++,
-						  (const char *)hours_buf,
-						  60*minutes_buf.toInt()+
-						  seconds_buf.toInt(),
+						  start_hour,
+						  60*start_minutes+
+						  start_seconds,
 						  cartnum,
 						  (const char *)
 						  RDEscapeString(title),

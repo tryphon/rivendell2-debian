@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@salemradiolabs.com>
 ##
-##      $Id: Makefile.am,v 1.19.2.1 2012/11/29 01:37:35 cvs Exp $
-##      $Date: 2012/11/29 01:37:35 $
+##      $Id: Makefile.am,v 1.19.2.2 2013/03/26 21:31:37 cvs Exp $
+##      $Date: 2013/03/26 21:31:37 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -32,17 +32,17 @@ install-exec-am:
 	cp whiteball.png $(DESTDIR)@libexecdir@
 	cp progressbar.gif $(DESTDIR)@libexecdir@
 	mkdir -p @prefix@/share/icons/hicolor/16x16/apps
-	cp rivendell-16x16.xpm @prefix@/share/icons/hicolor/16x16/apps/rivendell.xpm
+	cp rivendell-16x16.png @prefix@/share/icons/hicolor/16x16/apps/rivendell.png
 	mkdir -p @prefix@/share/icons/hicolor/22x22/apps
-	cp rivendell-22x22.xpm @prefix@/share/icons/hicolor/22x22/apps/rivendell.xpm
+	cp rivendell-22x22.png @prefix@/share/icons/hicolor/22x22/apps/rivendell.png
 	mkdir -p @prefix@/share/icons/hicolor/32x32/apps
-	cp rivendell-32x32.xpm @prefix@/share/icons/hicolor/32x32/apps/rivendell.xpm
+	cp rivendell-32x32.png @prefix@/share/icons/hicolor/32x32/apps/rivendell.png
 	mkdir -p @prefix@/share/icons/hicolor/48x48/apps
-	cp rivendell-48x48.xpm @prefix@/share/icons/hicolor/48x48/apps/rivendell.xpm
+	cp rivendell-48x48.png @prefix@/share/icons/hicolor/48x48/apps/rivendell.png
 	mkdir -p @prefix@/share/icons/hicolor/64x64/apps
-	cp rivendell-64x64.xpm @prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
+	cp rivendell-64x64.png @prefix@/share/icons/hicolor/64x64/apps/rivendell.png
 	mkdir -p @prefix@/share/icons/hicolor/128x128/apps
-	cp rivendell-128x128.xpm @prefix@/share/icons/hicolor/128x128/apps/rivendell.xpm
+	cp rivendell-128x128.png @prefix@/share/icons/hicolor/128x128/apps/rivendell.png
 
 uninstall:	
 	rm -f $(DESTDIR)@libexecdir@/greencheckmark.png
@@ -51,12 +51,12 @@ uninstall:
 	rm -f $(DESTDIR)@libexecdir@/redball.png
 	rm -f $(DESTDIR)@libexecdir@/whiteball.png
 	rm -f $(DESTDIR)@libexecdir@/progressbar.gif
-	rm -f @prefix@/share/icons/hicolor/16x16/apps/rivendell.xpm
-	rm -f @prefix@/share/icons/hicolor/22x22/apps/rivendell.xpm
-	rm -f @prefix@/share/icons/hicolor/32x32/apps/rivendell.xpm
-	rm -f @prefix@/share/icons/hicolor/48x48/apps/rivendell.xpm
-	rm -f @prefix@/share/icons/hicolor/64x64/apps/rivendell.xpm
-	rm -f @prefix@/share/icons/hicolor/128x128/apps/rivendell-128x128.xpm
+	rm -f @prefix@/share/icons/hicolor/16x16/apps/rivendell.png
+	rm -f @prefix@/share/icons/hicolor/22x22/apps/rivendell.png
+	rm -f @prefix@/share/icons/hicolor/32x32/apps/rivendell.png
+	rm -f @prefix@/share/icons/hicolor/48x48/apps/rivendell.png
+	rm -f @prefix@/share/icons/hicolor/64x64/apps/rivendell.png
+	rm -f @prefix@/share/icons/hicolor/128x128/apps/rivendell-128x128.png
 
 EXTRA_DIST = admin.xpm\
              blueball.xpm\
@@ -92,11 +92,17 @@ EXTRA_DIST = admin.xpm\
              redx.xpm\
              rivendell.ico\
              rivendell.res\
+             rivendell-16x16.png\
              rivendell-16x16.xpm\
+             rivendell-22x22.png\
              rivendell-22x22.xpm\
+             rivendell-32x32.png\
              rivendell-32x32.xpm\
+             rivendell-48x48.png\
              rivendell-48x48.xpm\
+             rivendell-64x64.png\
              rivendell-64x64.xpm\
+             rivendell-128x128.png\
              rivendell-128x128.xpm\
              rml.xpm\
              rml2.xpm\

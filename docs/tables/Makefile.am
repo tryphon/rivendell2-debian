@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@salemradiolabs.com>
 ##
-##      $Id: Makefile.am,v 1.16.8.2 2012/11/17 02:20:54 cvs Exp $
-##      $Date: 2012/11/17 02:20:54 $
+##      $Id: Makefile.am,v 1.16.8.4 2013/03/09 00:21:10 cvs Exp $
+##      $Date: 2013/03/09 00:21:10 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -45,15 +45,18 @@ EXTRA_DIST = audio_perms.txt\
              groups.txt\
              isci_xreference.txt\
              jack_clients.txt\
+             livewire_gpio_slots.txt\
              log_format.txt\
              logs.txt\
              nownext_plugins.txt\
              panels.txt\
              panel_names.txt\
+             rdairplay_channels.txt\
              rd_airplay.txt\
              rd_catch.txt\
              rd_library.txt\
              rd_logedit.txt\
+             rdpanel_channels.txt\
              recordings.txt\
              repl_cart_state.txt\
              repl_cut_state.txt\

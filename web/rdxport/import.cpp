@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: import.cpp,v 1.12 2012/02/13 23:01:50 cvs Exp $
+//      $Id: import.cpp,v 1.12.2.1 2013/02/27 21:21:54 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,7 +24,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <syslog.h>
 
 #include <rdformpost.h>
 #include <rdweb.h>
@@ -134,11 +133,11 @@ void Xport::Import()
   RDAudioConvert::ErrorCode conv_err=conv->convert();
   switch(conv_err) {
   case RDAudioConvert::ErrorOk:
+    cut->checkInRecording(xport_config->stationName(),settings,msecs);
     if(use_metadata>0) {
       cart->setMetadata(conv->sourceWaveData());
       cut->setMetadata(conv->sourceWaveData());
     }
-    cut->checkInRecording(xport_config->stationName(),settings,msecs);
     if(autotrim_level!=0) {
       cut->autoTrim(RDCut::AudioBoth,100*autotrim_level);
     }

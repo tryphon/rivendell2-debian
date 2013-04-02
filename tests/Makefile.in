@@ -37,7 +37,8 @@ host_triplet = @host@
 noinst_PROGRAMS = audio_convert_test$(EXEEXT) \
 	audio_export_test$(EXEEXT) audio_import_test$(EXEEXT) \
 	datedecode_test$(EXEEXT) sas_switch_torture$(EXEEXT) \
-	sas_torture$(EXEEXT) test_pam$(EXEEXT) upload_test$(EXEEXT)
+	sas_torture$(EXEEXT) test_pam$(EXEEXT) timer_test$(EXEEXT) \
+	upload_test$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -77,6 +78,11 @@ sas_torture_DEPENDENCIES =
 dist_test_pam_OBJECTS = test_pam.$(OBJEXT)
 test_pam_OBJECTS = $(dist_test_pam_OBJECTS)
 test_pam_DEPENDENCIES =
+dist_timer_test_OBJECTS = timer_test.$(OBJEXT)
+nodist_timer_test_OBJECTS = moc_timer_test.$(OBJEXT)
+timer_test_OBJECTS = $(dist_timer_test_OBJECTS) \
+	$(nodist_timer_test_OBJECTS)
+timer_test_DEPENDENCIES =
 dist_upload_test_OBJECTS = upload_test.$(OBJEXT)
 upload_test_OBJECTS = $(dist_upload_test_OBJECTS)
 upload_test_DEPENDENCIES =
@@ -129,13 +135,15 @@ SOURCES = $(dist_audio_convert_test_SOURCES) \
 	$(dist_sas_switch_torture_SOURCES) \
 	$(nodist_sas_switch_torture_SOURCES) \
 	$(dist_sas_torture_SOURCES) $(nodist_sas_torture_SOURCES) \
-	$(dist_test_pam_SOURCES) $(dist_upload_test_SOURCES)
+	$(dist_test_pam_SOURCES) $(dist_timer_test_SOURCES) \
+	$(nodist_timer_test_SOURCES) $(dist_upload_test_SOURCES)
 DIST_SOURCES = $(dist_audio_convert_test_SOURCES) \
 	$(dist_audio_export_test_SOURCES) \
 	$(dist_audio_import_test_SOURCES) \
 	$(dist_datedecode_test_SOURCES) \
 	$(dist_sas_switch_torture_SOURCES) $(dist_sas_torture_SOURCES) \
-	$(dist_test_pam_SOURCES) $(dist_upload_test_SOURCES)
+	$(dist_test_pam_SOURCES) $(dist_timer_test_SOURCES) \
+	$(dist_upload_test_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -308,6 +316,9 @@ nodist_sas_torture_SOURCES = moc_sas_torture.cpp
 sas_torture_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 dist_test_pam_SOURCES = test_pam.cpp test_pam.h
 test_pam_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+dist_timer_test_SOURCES = timer_test.cpp timer_test.h
+nodist_timer_test_SOURCES = moc_timer_test.cpp
+timer_test_LDADD = -lqui
 dist_upload_test_SOURCES = upload_test.cpp upload_test.h
 upload_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 EXTRA_DIST = rivendell_standard.txt\
@@ -387,6 +398,9 @@ sas_torture$(EXEEXT): $(sas_torture_OBJECTS) $(sas_torture_DEPENDENCIES)
 test_pam$(EXEEXT): $(test_pam_OBJECTS) $(test_pam_DEPENDENCIES) 
 	@rm -f test_pam$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_pam_OBJECTS) $(test_pam_LDADD) $(LIBS)
+timer_test$(EXEEXT): $(timer_test_OBJECTS) $(timer_test_DEPENDENCIES) 
+	@rm -f timer_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(timer_test_OBJECTS) $(timer_test_LDADD) $(LIBS)
 upload_test$(EXEEXT): $(upload_test_OBJECTS) $(upload_test_DEPENDENCIES) 
 	@rm -f upload_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(upload_test_OBJECTS) $(upload_test_LDADD) $(LIBS)
@@ -403,9 +417,11 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/datedecode_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_sas_switch_torture.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_sas_torture.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_timer_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sas_switch_torture.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sas_torture.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_pam.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/timer_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upload_test.Po@am__quote@
 
 .cpp.o:

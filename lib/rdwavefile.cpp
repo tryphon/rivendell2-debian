@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavefile.cpp,v 1.24 2011/01/25 19:28:48 cvs Exp $
+//    $Id: rdwavefile.cpp,v 1.24.6.1 2013/02/27 21:21:53 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -2357,11 +2357,11 @@ bool RDWaveFile::GetCart(int fd)
     wave_data->setUrl(cart_url);
     wave_data->setTagText(cart_tag_text);
     for(int i=0;i<MAX_TIMERS;i++) {
-      if(cart_timer_label[i]=="SEGs") {
+      if((cart_timer_label[i]=="SEGs")||(cart_timer_label[i]=="SEC1")) {
 	wave_data->setSegueStartPos((int)(1000.0*((double)cart_timer_sample[i])/
 					  ((double)getSamplesPerSec())));
       }
-      if(cart_timer_label[i]=="SEGe") {
+      if((cart_timer_label[i]=="SEGe")||(cart_timer_label[i]=="EOD ")) {
 	wave_data->setSegueEndPos((int)(1000.0*((double)cart_timer_sample[i])/
 					((double)getSamplesPerSec())));
       }
@@ -2370,6 +2370,11 @@ bool RDWaveFile::GetCart(int fd)
 					  ((double)getSamplesPerSec())));
       }
       if(cart_timer_label[i]=="INTe") {
+	wave_data->setIntroEndPos((int)(1000.0*((double)cart_timer_sample[i])/
+					((double)getSamplesPerSec())));
+      }
+      if(cart_timer_label[i]=="INT ") {
+	wave_data->setIntroStartPos(0);
 	wave_data->setIntroEndPos((int)(1000.0*((double)cart_timer_sample[i])/
 					((double)getSamplesPerSec())));
       }

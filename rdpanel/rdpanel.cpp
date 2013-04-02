@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel.cpp,v 1.27.4.2 2013/01/07 15:35:07 cvs Exp $
+//      $Id: rdpanel.cpp,v 1.27.4.3 2013/03/09 00:21:17 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -154,7 +154,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   rdstation_conf=new RDStation(panel_config->stationName());
   rdsystem_conf=new RDSystem();
-  rdairplay_conf=new RDAirPlayConf(panel_config->stationName(),0,"RDPANEL");
+  rdairplay_conf=new RDAirPlayConf(panel_config->stationName(),"RDPANEL");
   panel_skin_pixmap=new QPixmap(rdairplay_conf->skinPath());
   if(panel_skin_pixmap->isNull()||(panel_skin_pixmap->width()<1024)||
      (panel_skin_pixmap->height()<738)) {
@@ -200,13 +200,14 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Cart Picker
   //
-  panel_cart_dialog=new RDCartDialog(&panel_filter,&panel_group,
-				     &panel_schedcode,
-				     rdairplay_conf->card(3),
-				     rdairplay_conf->port(3),
-				     0,0,panel_cae,rdripc,rdstation_conf,
-				     rdsystem_conf,rdstation_conf->editorPath(),
-				     this,"panel_cart_dialog");
+  panel_cart_dialog=
+    new RDCartDialog(&panel_filter,&panel_group,
+		     &panel_schedcode,
+		     rdairplay_conf->card(RDAirPlayConf::CueChannel),
+		     rdairplay_conf->port(RDAirPlayConf::CueChannel),
+		     0,0,panel_cae,rdripc,rdstation_conf,
+		     rdsystem_conf,rdstation_conf->editorPath(),
+		     this,"panel_cart_dialog");
 
   //
   // Sound Panel Array
@@ -235,40 +236,40 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
       delete pm;
     }
     panel_panel->setPauseEnabled(rdairplay_conf->panelPauseEnabled());
-    panel_panel->setCard(0,rdairplay_conf->card(2));
-    panel_panel->setPort(0,rdairplay_conf->port(2));
+    panel_panel->setCard(0,rdairplay_conf->card(RDAirPlayConf::SoundPanel1Channel));
+    panel_panel->setPort(0,rdairplay_conf->port(RDAirPlayConf::SoundPanel1Channel));
     panel_panel->setFocusPolicy(QWidget::NoFocus);
-    if((card=rdairplay_conf->card(6))<0) {
-      panel_panel->setCard(1,panel_panel->card(0));
-      panel_panel->setPort(1,panel_panel->port(0));
+    if((card=rdairplay_conf->card(RDAirPlayConf::SoundPanel2Channel))<0) {
+      panel_panel->setCard(1,panel_panel->card(RDAirPlayConf::MainLog1Channel));
+      panel_panel->setPort(1,panel_panel->port(RDAirPlayConf::MainLog1Channel));
     }
     else {
       panel_panel->setCard(1,card);
-      panel_panel->setPort(1,rdairplay_conf->port(6));
+      panel_panel->setPort(1,rdairplay_conf->port(RDAirPlayConf::SoundPanel2Channel));
     }
-    if((card=rdairplay_conf->card(7))<0) {
-      panel_panel->setCard(2,panel_panel->card(1));
-      panel_panel->setPort(2,panel_panel->port(1));
+    if((card=rdairplay_conf->card(RDAirPlayConf::SoundPanel3Channel))<0) {
+      panel_panel->setCard(2,panel_panel->card(RDAirPlayConf::MainLog2Channel));
+      panel_panel->setPort(2,panel_panel->port(RDAirPlayConf::MainLog2Channel));
     }
     else {
       panel_panel->setCard(2,card);
-      panel_panel->setPort(2,rdairplay_conf->port(7));
+      panel_panel->setPort(2,rdairplay_conf->port(RDAirPlayConf::SoundPanel3Channel));
     }
-    if((card=rdairplay_conf->card(8))<0) {
-      panel_panel->setCard(3,panel_panel->card(2));
-      panel_panel->setPort(3,panel_panel->port(2));
+    if((card=rdairplay_conf->card(RDAirPlayConf::SoundPanel4Channel))<0) {
+      panel_panel->setCard(3,panel_panel->card(RDAirPlayConf::SoundPanel1Channel));
+      panel_panel->setPort(3,panel_panel->port(RDAirPlayConf::SoundPanel1Channel));
     }
     else {
       panel_panel->setCard(3,card);
-      panel_panel->setPort(3,rdairplay_conf->port(8));
+      panel_panel->setPort(3,rdairplay_conf->port(RDAirPlayConf::SoundPanel4Channel));
     }
-    if((card=rdairplay_conf->card(9))<0) {
-      panel_panel->setCard(4,panel_panel->card(3));
-      panel_panel->setPort(4,panel_panel->port(3));
+    if((card=rdairplay_conf->card(RDAirPlayConf::SoundPanel5Channel))<0) {
+      panel_panel->setCard(4,panel_panel->card(RDAirPlayConf::CueChannel));
+      panel_panel->setPort(4,panel_panel->port(RDAirPlayConf::CueChannel));
     }
     else {
       panel_panel->setCard(4,card);
-      panel_panel->setPort(4,rdairplay_conf->port(9));
+      panel_panel->setPort(4,rdairplay_conf->port(RDAirPlayConf::SoundPanel5Channel));
     }
 
     //
@@ -308,15 +309,20 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
     // Set RML Strings
     //
     panel_panel->
-      setRmls(0,rdairplay_conf->startRml(2),rdairplay_conf->stopRml(2));
+      setRmls(0,rdairplay_conf->startRml(RDAirPlayConf::SoundPanel1Channel),
+	      rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel1Channel));
     panel_panel->
-      setRmls(1,rdairplay_conf->startRml(6),rdairplay_conf->stopRml(6));
+      setRmls(1,rdairplay_conf->startRml(RDAirPlayConf::SoundPanel2Channel),
+	      rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel2Channel));
     panel_panel->
-      setRmls(2,rdairplay_conf->startRml(7),rdairplay_conf->stopRml(7));
+      setRmls(2,rdairplay_conf->startRml(RDAirPlayConf::SoundPanel3Channel),
+	      rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel3Channel));
     panel_panel->
-      setRmls(3,rdairplay_conf->startRml(8),rdairplay_conf->stopRml(8));
+      setRmls(3,rdairplay_conf->startRml(RDAirPlayConf::SoundPanel4Channel),
+	      rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel4Channel));
     panel_panel->
-      setRmls(4,rdairplay_conf->startRml(9),rdairplay_conf->stopRml(9));
+      setRmls(4,rdairplay_conf->startRml(RDAirPlayConf::SoundPanel5Channel),
+	      rdairplay_conf->stopRml(RDAirPlayConf::SoundPanel5Channel));
     panel_panel->setSvcName(rdairplay_conf->defaultSvc());
     connect(rdripc,SIGNAL(userChanged()),panel_panel,SLOT(changeUser()));
     connect(panel_master_timer,SIGNAL(timeout()),

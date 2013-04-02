@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: view_node_info.cpp,v 1.3 2010/07/29 19:32:35 cvs Exp $
+//      $Id: view_node_info.cpp,v 1.3.8.1 2013/01/30 21:06:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -93,7 +93,7 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent,const char *name)
   // System Version
   //
   view_system_edit=new QLineEdit(this,"view_system_edit");
-  view_system_edit->setGeometry(135,32,40,20);
+  view_system_edit->setGeometry(135,32,70,20);
   view_system_edit->setReadOnly(true);
   label=new QLabel(view_system_edit,tr("System Version:"),
 		   this,"view_system_label");
@@ -105,11 +105,11 @@ ViewNodeInfo::ViewNodeInfo(QWidget *parent,const char *name)
   // Protocol Version
   //
   view_protocol_edit=new QLineEdit(this,"view_protocol_edit");
-  view_protocol_edit->setGeometry(305,32,40,20);
+  view_protocol_edit->setGeometry(335,32,40,20);
   view_protocol_edit->setReadOnly(true);
   label=new QLabel(view_protocol_edit,tr("Protocol Version:"),
 		   this,"view_protocol_label");
-  label->setGeometry(180,32,120,20);
+  label->setGeometry(210,32,120,20);
   label->setFont(bold_font);
   label->setAlignment(AlignRight|AlignVCenter);
 

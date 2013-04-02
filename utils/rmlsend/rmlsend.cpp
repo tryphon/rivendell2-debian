@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rmlsend.cpp,v 1.7.8.1 2013/01/07 15:35:08 cvs Exp $
+//      $Id: rmlsend.cpp,v 1.7.8.2 2013/03/13 20:10:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -86,9 +86,12 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Create Fonts
   //
-  main_font=QFont("Helvetica",12,QFont::Bold);
+  QFont font("Helvetica",10,QFont::Normal);
+  font.setPixelSize(10);
+  setFont(font);
+  QFont main_font("Helvetica",12,QFont::Bold);
   main_font.setPixelSize(12);
-  QFont label_font=QFont("Helvetica",10,QFont::Bold);
+  QFont label_font("Helvetica",10,QFont::Bold);
   label_font.setPixelSize(10);
 
   //

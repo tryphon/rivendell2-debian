@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_station.cpp,v 1.57.4.5 2012/11/28 18:49:36 cvs Exp $
+//      $Id: edit_station.cpp,v 1.57.4.6 2013/03/09 00:21:11 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -783,7 +783,7 @@ void EditStation::editAirPlayData()
 
 void EditStation::editPanelData()
 {
-  EditRDPanel *edit_conf=new EditRDPanel(station_station,0);
+  EditRDPanel *edit_conf=new EditRDPanel(station_station,this);
   edit_conf->exec();
   delete edit_conf;
 }

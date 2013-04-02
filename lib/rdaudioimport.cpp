@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioimport.cpp,v 1.12.4.1 2012/12/13 22:33:44 cvs Exp $
+//      $Id: rdaudioimport.cpp,v 1.12.4.2 2013/03/05 23:59:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <syslog.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -112,6 +113,7 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
 {
   long response_code;
   CURL *curl=NULL;
+  CURLcode curl_err;
   struct curl_httppost *first=NULL;
   struct curl_httppost *last=NULL;
   char url[1024];
@@ -185,7 +187,7 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
   //
   // Send it
   //
-  switch(curl_easy_perform(curl)) {
+  switch(curl_err=curl_easy_perform(curl)) {
   case CURLE_OK:
     break;
 
@@ -212,6 +214,10 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
     curl_easy_cleanup(curl);
     return RDAudioImport::ErrorUrlInvalid;
   }
+  /*
+    syslog(LOG_NOTICE,"CURL code: %d [%s]\n",curl_err,
+    curl_easy_strerror(curl_err));
+  */
 
   //
   // Clean up
@@ -229,6 +235,7 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
   else {
     *conv_err=RDAudioConvert::ErrorOk;
   }
+  //syslog(LOG_NOTICE,"resp code: %d\n",response_code);
   switch(response_code) {
   case 200:
     break;

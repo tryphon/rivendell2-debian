@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: local_gpio.cpp,v 1.16 2010/08/03 23:39:26 cvs Exp $
+//      $Id: local_gpio.cpp,v 1.16.8.1 2013/03/03 23:30:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -47,7 +47,7 @@ LocalGpio::LocalGpio(RDMatrix *matrix,QObject *parent,const char *name)
   //
   gpio_gpio=new RDGpio(this,"gpio_gpio");
   gpio_gpio->setDevice(matrix->gpioDevice());
-  if(gpio_open=gpio_gpio->open()) {
+  if((gpio_open=gpio_gpio->open())) {
     if(gpio_gpis==0) {
       gpio_gpio->setMode(RDGpio::Output);
     }

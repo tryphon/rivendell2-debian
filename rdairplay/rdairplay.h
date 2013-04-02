@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.h,v 1.89 2011/08/30 23:35:44 cvs Exp $
+//      $Id: rdairplay.h,v 1.89.4.6 2013/03/13 15:18:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 #define RDAIRPLAY_H
 
 #include <vector>
+#include <map>
 
 #include <qwidget.h>
 #include <qsize.h>
@@ -82,6 +83,7 @@
 #define AIR_PANEL_BUTTON_COLUMNS 5
 #define AIR_TOTAL_PORTS 3
 #define AIR_MESSAGE_FONT_QUANTITY 8
+#define AIR_CHANNEL_LOCKOUT_INTERVAL 1000
 #define METER_INTERVAL 20
 #define MASTER_TIMER_INTERVAL 100
 #define MESSAGE_WIDGET_WIDTH 410
@@ -100,6 +102,11 @@ class MainWidget : public QWidget
   void logLine(RDConfig::LogPriority prio,const QString &msg);
   void ripcConnected(bool state);
   void rmlReceivedData(RDMacro *rml);
+  void gpiStateChangedData(int matrix,int line,bool state);
+  void logChannelStartedData(int id,int mport,int card,int port);
+  void logChannelStoppedData(int id,int mport,int card,int port);
+  void panelChannelStartedData(int mport,int card,int port);
+  void panelChannelStoppedData(int mport,int card,int port);
   void logRenamedData(int log);
   void logReloadedData(int log);
   void userData();
@@ -135,6 +142,10 @@ class MainWidget : public QWidget
   bool FirstPort(int index);
   bool GetPanel(QString str,RDAirPlayConf::PanelType *type,int *panel);
   QFont MessageFont(QString str);
+  bool AssertChannelLock(int dir,int card,int port);
+  bool AssertChannelLock(int dir,int achan);
+  int AudioChannel(int card,int port) const;
+  RDAirPlayConf::Channel PanelChannel(int mport) const;
   LogPlay *air_log[RDAIRPLAY_LOG_QUANTITY];
   RDSoundPanel *air_panel;
   PostCounter *air_post_counter;
@@ -195,6 +206,17 @@ class MainWidget : public QWidget
   bool CtrlKeyHit;
   QFont air_message_fonts[AIR_MESSAGE_FONT_QUANTITY];
   QFontMetrics *air_message_metrics[AIR_MESSAGE_FONT_QUANTITY];
+  int air_audio_channels[RDAirPlayConf::LastChannel];
+  int air_start_gpi_matrices[RDAirPlayConf::LastChannel];
+  int air_start_gpi_lines[RDAirPlayConf::LastChannel];
+  int air_start_gpo_matrices[RDAirPlayConf::LastChannel];
+  int air_start_gpo_lines[RDAirPlayConf::LastChannel];
+  int air_stop_gpi_matrices[RDAirPlayConf::LastChannel];
+  int air_stop_gpi_lines[RDAirPlayConf::LastChannel];
+  int air_stop_gpo_matrices[RDAirPlayConf::LastChannel];
+  int air_stop_gpo_lines[RDAirPlayConf::LastChannel];
+  RDAirPlayConf::GpioType air_channel_gpio_types[RDAirPlayConf::LastChannel];
+  std::map<unsigned,QTimer *> air_channel_timers[2];
 };
 
 

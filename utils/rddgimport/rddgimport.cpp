@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddgimport.cpp,v 1.1.2.7 2013/01/21 14:10:19 cvs Exp $
+//      $Id: rddgimport.cpp,v 1.1.2.9 2013/03/26 21:16:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -320,6 +320,7 @@ bool MainWidget::LoadEvents()
   int length;
   QString isci;
 
+  dg_events.clear();
   if((f=fopen(dg_filename_edit->text(),"r"))==NULL) {
     QMessageBox::warning(this,tr("RDDgImport"),
 			 tr("Unable to open source file")+"["+
@@ -391,7 +392,6 @@ bool MainWidget::WriteTrafficFile()
   //
   outname=RDDateDecode(dg_svc->importPath(RDSvc::Traffic,RDSvc::Linux),
 		       dg_date_edit->date());
-  unlink(outname);  // For broken CIFS filesystems that don't honor O_TRUNC
   if((f=fopen(outname,"w"))==NULL) {
     LogMessage(tr("WARNING: Unable to open traffic output file")+" \""+
 	       outname+"\" ["+strerror(errno)+"].");
@@ -423,7 +423,7 @@ bool MainWidget::WriteTrafficFile()
 }
 
 
-bool MainWidget::CheckSpot(const QString &isci) const
+bool MainWidget::CheckSpot(const QString &isci)
 {
   QString sql;
   RDSqlQuery *q;
@@ -438,6 +438,7 @@ bool MainWidget::CheckSpot(const QString &isci) const
     "(CUTS.ISCI=\""+RDEscapeString(isci)+"\")";
   q=new RDSqlQuery(sql);
   while(q->next()) {
+    dg_carts[isci]=RDCut::cartNumber(q->value(0).toString());
     if(q->value(2).isNull()||(q->value(2).toDateTime().date()<killdate)) {
       sql="update CUTS set ";
       if(q->value(1).isNull()) {

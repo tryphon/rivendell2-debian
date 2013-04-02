@@ -202,25 +202,31 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = rivendell-configuration.directory \
-             rivendell-logtools.directory \
-             rivendell-rdadmin.desktop \
-             rivendell-rdairplay.desktop \
-             rivendell-rdalsaconfig.desktop \
-             rivendell-rdcartslots.desktop \
-             rivendell-rdcastmanager.desktop \
-             rivendell-rdcatch.desktop \
-             rivendell-rddgimport.desktop \
-             rivendell-rdgpimon.desktop \
-             rivendell-rdhpiinfo.desktop \
-             rivendell-rdlibrary.desktop \
-             rivendell-rdlogedit.desktop \
-             rivendell-rdlogin.desktop \
-             rivendell-rdlogmanager.desktop \
-             rivendell-rdpanel.desktop \
-             rivendell-rmlsend.desktop \
-             rivendell-rdsoftkeys.desktop \
-             rivendell-rivendell.directory \
+EXTRA_DIST = rdalsaconfig-root-consolehelper\
+             rdalsaconfig-root-pam\
+             rdhpiinfo-root-consolehelper\
+             rdhpiinfo-root-pam\
+             rivendell-configuration.directory\
+             rivendell-logtools.directory\
+             rivendell-rdadmin.desktop\
+             rivendell-rdairplay.desktop\
+             rivendell-rdalsaconfig.desktop\
+             rivendell-rdalsaconfig-root.desktop\
+             rivendell-rdcartslots.desktop\
+             rivendell-rdcastmanager.desktop\
+             rivendell-rdcatch.desktop\
+             rivendell-rddgimport.desktop\
+             rivendell-rdgpimon.desktop\
+             rivendell-rdhpiinfo.desktop\
+             rivendell-rdhpiinfo-root.desktop\
+             rivendell-rdlibrary.desktop\
+             rivendell-rdlogedit.desktop\
+             rivendell-rdlogin.desktop\
+             rivendell-rdlogmanager.desktop\
+             rivendell-rdpanel.desktop\
+             rivendell-rmlsend.desktop\
+             rivendell-rdsoftkeys.desktop\
+             rivendell-rivendell.directory\
              rivendell-rivendell.menu\
              rivendell-utilities.directory
 
@@ -414,7 +420,22 @@ uninstall-am:
 
 install-exec-am:	
 	mkdir -p @prefix@/share/applications
-	cp *.desktop @prefix@/share/applications/
+	cp rivendell-rdadmin.desktop @prefix@/share/applications/
+	cp rivendell-rdairplay.desktop @prefix@/share/applications/
+	cp rivendell-rdalsaconfig.desktop @prefix@/share/applications/
+	cp rivendell-rdcartslots.desktop @prefix@/share/applications/
+	cp rivendell-rdcastmanager.desktop @prefix@/share/applications/
+	cp rivendell-rdcatch.desktop @prefix@/share/applications/
+	cp rivendell-rddgimport.desktop @prefix@/share/applications/
+	cp rivendell-rdgpimon.desktop @prefix@/share/applications/
+	cp rivendell-rdhpiinfo.desktop @prefix@/share/applications/
+	cp rivendell-rdlibrary.desktop @prefix@/share/applications/
+	cp rivendell-rdlogedit.desktop @prefix@/share/applications/
+	cp rivendell-rdlogin.desktop @prefix@/share/applications/
+	cp rivendell-rdlogmanager.desktop @prefix@/share/applications/
+	cp rivendell-rdpanel.desktop @prefix@/share/applications/
+	cp rivendell-rdsoftkeys.desktop @prefix@/share/applications/
+	cp rivendell-rmlsend.desktop @prefix@/share/applications/
 	mkdir -p @prefix@/share/desktop-directories
 	cp *.directory @prefix@/share/desktop-directories/
 	mkdir -p /etc/xdg/menus/applications-merged

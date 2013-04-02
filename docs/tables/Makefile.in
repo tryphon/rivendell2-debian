@@ -224,15 +224,18 @@ EXTRA_DIST = audio_perms.txt\
              groups.txt\
              isci_xreference.txt\
              jack_clients.txt\
+             livewire_gpio_slots.txt\
              log_format.txt\
              logs.txt\
              nownext_plugins.txt\
              panels.txt\
              panel_names.txt\
+             rdairplay_channels.txt\
              rd_airplay.txt\
              rd_catch.txt\
              rd_library.txt\
              rd_logedit.txt\
+             rdpanel_channels.txt\
              recordings.txt\
              repl_cart_state.txt\
              repl_cut_state.txt\
