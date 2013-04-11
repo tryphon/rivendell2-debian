@@ -3,7 +3,7 @@ Date: Sat, 27 Aug 2011 15:33:28 +0200
 Subject: Remove debian directories from Makefile list
 
 ---
- configure.in                                       |    2 --
+ configure.in |    2 --
  1 file changed, 2 deletions(-)
 
 diff --git a/configure.in b/configure.in

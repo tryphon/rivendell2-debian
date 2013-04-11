@@ -5,8 +5,8 @@
 0005-Replace-cdda2wav-by-icedax.patch
 0006-Add-version-for-dlopened-libraries.patch
 0007-Fix-prefix-in-icons-makefile.patch
-0008-Fix-prefix-in-xdg-makefile.patch
-0009-Default-QTDIR-in-RDHotKeyList.patch
-0010-Fix-prefix-in-scripts-makefile.patch
-0011-Fix-prefix-in-rdselect-makefile.patch
-0012-Remove-debian-directory-from-Makefile.am.patch
+0008-Default-QTDIR-in-RDHotKeyList.patch
+0009-Fix-prefix-in-scripts-makefile.patch
+0010-Fix-prefix-in-rdselect-makefile.patch
+0011-Remove-debian-directory-from-Makefile.am.patch
+0012-Fix-prefix-in-xdg-makefile.patch
