@@ -13227,3 +13227,34 @@
 2013-04-01 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.5.0.
+2013-04-29 Fred Gleason <fredg@paravelsystems.com>
+	* Added an RDDelete(1) utility in 'utils/rddelete/'.
+2013-04-29 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'ChannelsPerPcm=' directive to the [Alsa] section of
+	rd.conf(5) in 'lib/rdconfig.cpp' and 'lib/rdconfig.h'.
+2013-05-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for the 'INT1' CartChunk timer in
+	'lib/rdwavefile.cpp'.
+2013-05-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for PKT files to nexgen_filter(1) in
+	'importers/nexgen_filter.cpp' and 'importers/nexgen_filter.h'.
+2013-05-14 Fred Gleason <fredg@paravelsystems.com>
+	* Modified the 'make rpm' target to work properly even when
+	no HPI support is present.
+2013-05-17 Fred Gleason <fredg@paravelsystems.com>
+	* Added casts in 'lib/rdaudioconvert.cpp' to allow building against
+	SoundTouch v1.7.1.
+	* Cleaned up a warning in 'lib/rdconf.cpp'.
+2013-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'utils/rdimport/rdimport.cpp' that broke
+	importation of start and end datetimes from cart chunk.
+2013-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdlog_event.cpp' and 'lib/rdlog.cpp'
+	that caused queries to fail when processing services whose name
+	contained a hyphon [Mantis bug #0000069].
+2013-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed various problems with Hook mode in RDCartSlots(1)
+	[Mantis bug #0000071].
+2013-05-22 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'
+	* Incremented the package version to 2.5.1.

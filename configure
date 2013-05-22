@@ -789,7 +789,6 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-RD_LIB_PATH
 RPM_ROOT
 RPMBUILD
 RPMBUILD_FOUND
@@ -804,6 +803,21 @@ LIBALSA
 LIBJACK
 HPI_RD_AM_FALSE
 HPI_RD_AM_TRUE
+HPI_FILE15
+HPI_FILE14
+HPI_FILE13
+HPI_FILE12
+HPI_FILE11
+HPI_FILE10
+HPI_FILE9
+HPI_FILE8
+HPI_FILE7
+HPI_FILE6
+HPI_FILE5
+HPI_FILE4
+HPI_FILE3
+HPI_FILE2
+HPI_FILE1
 LIBHPI
 LIB_RDLIBS
 PARANOIA_INCLUDES
@@ -814,6 +828,7 @@ QT3_MYSQL_PKG
 APACHE_CONFIG_DIR
 APACHE_PKG
 DISTRO
+RD_LIB_PATH
 ARCH
 VENDOR
 QT_MOC
@@ -2657,9 +2672,11 @@ AM_BACKSLASH='\'
 # (for the packaging system and friends)
 #
 if test ${prefix} = "NONE" ; then
+  PREFIX=/usr/local
   LOCAL_PREFIX=/usr/local
 
 else
+  PREFIX=${prefix}
   LOCAL_PREFIX=${prefix}
 
 fi
@@ -4990,13 +5007,13 @@ if test "${lt_cv_nm_interface+set}" = set; then
 else
   lt_cv_nm_interface="BSD nm"
   echo "int some_variable = 0;" > conftest.$ac_ext
-  (eval echo "\"\$as_me:4993: $ac_compile\"" >&5)
+  (eval echo "\"\$as_me:5010: $ac_compile\"" >&5)
   (eval "$ac_compile" 2>conftest.err)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4996: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
+  (eval echo "\"\$as_me:5013: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
   (eval "$NM \"conftest.$ac_objext\"" 2>conftest.err > conftest.out)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4999: output\"" >&5)
+  (eval echo "\"\$as_me:5016: output\"" >&5)
   cat conftest.out >&5
   if $GREP 'External.*some_variable' conftest.out > /dev/null; then
     lt_cv_nm_interface="MS dumpbin"
@@ -6202,7 +6219,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 6205 "configure"' > conftest.$ac_ext
+  echo '#line 6222 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -8793,11 +8810,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:8796: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:8813: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:8800: \$? = $ac_status" >&5
+   echo "$as_me:8817: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -9132,11 +9149,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:9135: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:9152: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:9139: \$? = $ac_status" >&5
+   echo "$as_me:9156: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -9237,11 +9254,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:9240: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:9257: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:9244: \$? = $ac_status" >&5
+   echo "$as_me:9261: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -9292,11 +9309,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:9295: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:9312: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:9299: \$? = $ac_status" >&5
+   echo "$as_me:9316: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -12095,7 +12112,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 12098 "configure"
+#line 12115 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12191,7 +12208,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 12194 "configure"
+#line 12211 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -14211,11 +14228,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:14214: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:14231: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:14218: \$? = $ac_status" >&5
+   echo "$as_me:14235: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -14310,11 +14327,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:14313: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:14330: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:14317: \$? = $ac_status" >&5
+   echo "$as_me:14334: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -14362,11 +14379,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:14365: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:14382: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:14369: \$? = $ac_status" >&5
+   echo "$as_me:14386: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -17457,6 +17474,15 @@ VENDOR=$ar_gcc_distro
 
 ARCH=$ar_gcc_arch
 
+if test $ar_gcc_arch = x86_64 ; then
+  LIB_PATH=$PREFIX/lib64
+  RD_LIB_PATH=lib64
+
+else
+  LIB_PATH=$PREFIX/lib
+  RD_LIB_PATH=lib
+
+fi
 
 #
 # Determine Distro
@@ -19990,19 +20016,109 @@ fi
 
 if test $HPI_FOUND ; then
   if test -z $HPI_DISABLED ; then
+    USING_HPI=yes
     cat >>confdefs.h <<\_ACEOF
 #define HPI yes
 _ACEOF
 
     LIBHPI="-lrdhpi -lhpi"
 
-    USING_HPI=yes
+    HPI_FILE1=$LIB_PATH/librdhpi-$VERSION.so
+
+    HPI_FILE2=$LIB_PATH/librdhpi.a
+
+    HPI_FILE3=$LIB_PATH/librdhpi.la
+
+    HPI_FILE4=$LIB_PATH/librdhpi.so
+
+    HPI_FILE5=$PREFIX/bin/rdhpiinfo
+
+    HPI_FILE6=$PREFIX/bin/rdhpiinfo-root
+
+    HPI_FILE7=$PREFIX/share/rivendell/rdhpi_es.qm
+
+    HPI_FILE8=$PREFIX/share/rivendell/rdhpi_cs.qm
+
+    HPI_FILE9=$PREFIX/share/rivendell/rdhpi_de.qm
+
+    HPI_FILE10=$PREFIX/share/rivendell/rdhpi_nn.qm
+
+    HPI_FILE11=$PREFIX/share/rivendell/rdhpi_nb.qm
+
+    HPI_FILE12=$PREFIX/share/rivendell/rdhpi_pt_BR.qm
+
+    HPI_FILE13=$PREFIX/share/applications/rivendell-rdhpiinfo-root.desktop
+
+    HPI_FILE14=/etc/pam.d/rdhpiinfo-root
+
+    HPI_FILE15=/etc/security/console.apps/rdhpiinfo-root
+
   else
     LIBHPI=""
+
+    HPI_FILE1=""
+
+    HPI_FILE2=""
+
+    HPI_FILE3=""
+
+    HPI_FILE4=""
+
+    HPI_FILE5=""
+
+    HPI_FILE6=""
+
+    HPI_FILE7=""
+
+    HPI_FILE8=""
+
+    HPI_FILE9=""
+
+    HPI_FILE10=""
+
+    HPI_FILE11=""
+
+    HPI_FILE12=""
+
+    HPI_FILE13=""
+
+    HPI_FILE14=""
+
+    HPI_FILE15=""
 
   fi
 else
   LIBHPI=""
+
+  HPI_FILE1=""
+
+  HPI_FILE2=""
+
+  HPI_FILE3=""
+
+  HPI_FILE4=""
+
+  HPI_FILE5=""
+
+  HPI_FILE6=""
+
+  HPI_FILE7=""
+
+  HPI_FILE8=""
+
+  HPI_FILE9=""
+
+  HPI_FILE10=""
+
+  HPI_FILE11=""
+
+  HPI_FILE12=""
+
+  HPI_FILE13=""
+
+  HPI_FILE14=""
+
+  HPI_FILE15=""
 
 fi
  if test "$USING_HPI" = yes; then
@@ -20363,15 +20479,8 @@ else
   VENDOR=suse
 
 fi
-if test $ar_gcc_arch = x86_64 ; then
-  RD_LIB_PATH=lib64
 
-else
-  RD_LIB_PATH=lib
-
-fi
-
-ac_config_files="$ac_config_files rivendell.spec Makefile make_slack slack-desc rivendell-suse rdrepld-suse conf/rd-bin.conf icons/Makefile helpers/Makefile lib/rdpaths.h lib/Makefile rdhpi/Makefile rlm/Makefile cae/Makefile utils/Makefile utils/rdgen/Makefile utils/rmlsend/Makefile utils/rdgpimon/Makefile utils/rdimport/Makefile utils/sas_shim/Makefile utils/rdsoftkeys/Makefile utils/rddbcheck/Makefile utils/rdalsaconfig/Makefile utils/rddgimport/Makefile utils/rdhpiinfo/Makefile utils/rdpurgecasts/Makefile utils/rdchunk/Makefile utils/rdmaint/Makefile utils/rdpopup/Makefile utils/rdcollect/Makefile utils/rdcheckcuts/Makefile web/Makefile web/rdfeed/Makefile web/rdcastmanager/Makefile web/rdxport/Makefile web/tests/Makefile conf/Makefile docs/Makefile docs/tables/Makefile docs/examples/Makefile debian/Makefile debian/patches/Makefile xdg/Makefile rdadmin/Makefile scripts/Makefile ripcd/Makefile rdlogin/Makefile rdlibrary/Makefile rdcatch/Makefile rdcatchd/Makefile rdlogedit/Makefile rdlogmanager/Makefile rdairplay/Makefile rdpanel/Makefile rdcartslots/Makefile rdcastmanager/Makefile rdselect/Makefile rdmonitor/Makefile rdrepld/Makefile tests/Makefile importers/Makefile ios/Makefile ios/rmlsend/Makefile ios/rmlsend/Classes/Makefile ios/rmlsend/RMLSend.xcodeproj/Makefile pam_rd/Makefile"
+ac_config_files="$ac_config_files rivendell.spec Makefile make_slack slack-desc rivendell-suse rdrepld-suse conf/rd-bin.conf icons/Makefile helpers/Makefile lib/rdpaths.h lib/Makefile rdhpi/Makefile rlm/Makefile cae/Makefile utils/Makefile utils/rddelete/Makefile utils/rdgen/Makefile utils/rmlsend/Makefile utils/rdgpimon/Makefile utils/rdimport/Makefile utils/sas_shim/Makefile utils/rdsoftkeys/Makefile utils/rddbcheck/Makefile utils/rdalsaconfig/Makefile utils/rddgimport/Makefile utils/rdhpiinfo/Makefile utils/rdpurgecasts/Makefile utils/rdchunk/Makefile utils/rdmaint/Makefile utils/rdpopup/Makefile utils/rdcollect/Makefile utils/rdcheckcuts/Makefile web/Makefile web/rdfeed/Makefile web/rdcastmanager/Makefile web/rdxport/Makefile web/tests/Makefile conf/Makefile docs/Makefile docs/tables/Makefile docs/examples/Makefile debian/Makefile debian/patches/Makefile xdg/Makefile rdadmin/Makefile scripts/Makefile ripcd/Makefile rdlogin/Makefile rdlibrary/Makefile rdcatch/Makefile rdcatchd/Makefile rdlogedit/Makefile rdlogmanager/Makefile rdairplay/Makefile rdpanel/Makefile rdcartslots/Makefile rdcastmanager/Makefile rdselect/Makefile rdmonitor/Makefile rdrepld/Makefile tests/Makefile importers/Makefile ios/Makefile ios/rmlsend/Makefile ios/rmlsend/Classes/Makefile ios/rmlsend/RMLSend.xcodeproj/Makefile pam_rd/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -21418,6 +21527,7 @@ do
     "rlm/Makefile") CONFIG_FILES="$CONFIG_FILES rlm/Makefile" ;;
     "cae/Makefile") CONFIG_FILES="$CONFIG_FILES cae/Makefile" ;;
     "utils/Makefile") CONFIG_FILES="$CONFIG_FILES utils/Makefile" ;;
+    "utils/rddelete/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rddelete/Makefile" ;;
     "utils/rdgen/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdgen/Makefile" ;;
     "utils/rmlsend/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rmlsend/Makefile" ;;
     "utils/rdgpimon/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdgpimon/Makefile" ;;

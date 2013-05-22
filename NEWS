@@ -1,6 +1,28 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.5.1 -- 05/22/2013
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   Mass Object Deletion.  Added an rddelete(1) command-line tool to
+   aid in the mass deletion of carts and logs.  Do rddelete --help
+   for more information.
+
+   NexGen Importer.  Added PKT file support to nexgen_filter(1).
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 220, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.5.0 -- 04/01/2013
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

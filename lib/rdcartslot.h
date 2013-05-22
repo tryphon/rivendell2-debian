@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.h,v 1.8.2.5 2012/11/26 20:19:36 cvs Exp $
+//      $Id: rdcartslot.h,v 1.8.2.6 2013/05/21 19:04:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -88,6 +88,7 @@ class RDCartSlot : public QWidget
   void optionsData();
   void stateChangedData(int id,RDPlayDeck::State state);
   void positionData(int id,int msecs);
+  void hookEndData(int id);
   void timescalingSupportedData(int card,bool state);
 
  private:

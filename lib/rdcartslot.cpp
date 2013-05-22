@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.cpp,v 1.13.2.10 2012/11/30 16:14:59 cvs Exp $
+//      $Id: rdcartslot.cpp,v 1.13.2.11 2013/05/21 19:04:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -84,6 +84,7 @@ RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
 	  this,SLOT(stateChangedData(int,RDPlayDeck::State)));
   connect(slot_deck,SIGNAL(position(int,int)),
 	  this,SLOT(positionData(int,int)));
+  connect(slot_deck,SIGNAL(hookEnd(int)),this,SLOT(hookEndData(int)));
   connect(slot_cae,SIGNAL(timescalingSupported(int,bool)),
 	  this,SLOT(timescalingSupportedData(int,bool)));
 
@@ -268,7 +269,12 @@ bool RDCartSlot::play()
   bool ret=false;
   if(slot_logline->cartNumber()!=0) {
     if(slot_deck->setCart(slot_logline,true)) {
-      slot_deck->play(0);
+      if(slot_options->hookMode()&&(slot_logline->hookStartPoint()>=0)) {
+	slot_deck->playHook();
+      }
+      else {
+	slot_deck->play(0);
+      }
       LogPlayout(RDAirPlayConf::TrafficStart);
       ret=true;
     }
@@ -521,6 +527,14 @@ void RDCartSlot::stateChangedData(int id,RDPlayDeck::State state)
 void RDCartSlot::positionData(int id,int msecs)
 {
   slot_box->setTimer(msecs);
+}
+
+
+void RDCartSlot::hookEndData(int id)
+{
+  if(slot_options->hookMode()) {
+    stop();
+  }
 }
 
 

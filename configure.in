@@ -5,8 +5,8 @@ dnl Use autoconf to process this into a configure script
 dnl
 dnl   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 dnl
-dnl      $Id: configure.in,v 1.247.6.8 2013/01/07 15:34:58 cvs Exp $
-dnl      $Date: 2013/01/07 15:34:58 $
+dnl      $Id: configure.in,v 1.247.6.10 2013/05/14 22:47:24 cvs Exp $
+dnl      $Date: 2013/05/14 22:47:24 $
 dnl
 dnl   This program is free software; you can redistribute it and/or modify
 dnl   it under the terms of the GNU General Public License version 2 as
@@ -32,8 +32,10 @@ m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 # (for the packaging system and friends)
 #
 if test ${prefix} = "NONE" ; then
+  PREFIX=/usr/local
   AC_SUBST(LOCAL_PREFIX,/usr/local)
 else
+  PREFIX=${prefix}
   AC_SUBST(LOCAL_PREFIX,${prefix})
 fi
 
@@ -93,6 +95,13 @@ fi
 AR_GCC_TARGET()
 AC_SUBST(VENDOR,$ar_gcc_distro)
 AC_SUBST(ARCH,$ar_gcc_arch)
+if test $ar_gcc_arch = x86_64 ; then
+  LIB_PATH=$PREFIX/lib64
+  AC_SUBST(RD_LIB_PATH,lib64)
+else
+  LIB_PATH=$PREFIX/lib
+  AC_SUBST(RD_LIB_PATH,lib)
+fi
 
 #
 # Determine Distro
@@ -225,14 +234,59 @@ AC_CHECK_HEADER(jack/jack.h,[JACK_FOUND=yes],[])
 AC_CHECK_HEADER(alsa/asoundlib.h,[ALSA_FOUND=yes],[])
 if test $HPI_FOUND ; then
   if test -z $HPI_DISABLED ; then
+    USING_HPI=yes
     AC_DEFINE(HPI,yes)
     AC_SUBST(LIBHPI,"-lrdhpi -lhpi")
-    USING_HPI=yes
+    AC_SUBST(HPI_FILE1,$LIB_PATH/librdhpi-$VERSION.so)
+    AC_SUBST(HPI_FILE2,$LIB_PATH/librdhpi.a)
+    AC_SUBST(HPI_FILE3,$LIB_PATH/librdhpi.la)
+    AC_SUBST(HPI_FILE4,$LIB_PATH/librdhpi.so)
+    AC_SUBST(HPI_FILE5,$PREFIX/bin/rdhpiinfo)
+    AC_SUBST(HPI_FILE6,$PREFIX/bin/rdhpiinfo-root)
+    AC_SUBST(HPI_FILE7,$PREFIX/share/rivendell/rdhpi_es.qm)
+    AC_SUBST(HPI_FILE8,$PREFIX/share/rivendell/rdhpi_cs.qm)
+    AC_SUBST(HPI_FILE9,$PREFIX/share/rivendell/rdhpi_de.qm)
+    AC_SUBST(HPI_FILE10,$PREFIX/share/rivendell/rdhpi_nn.qm)
+    AC_SUBST(HPI_FILE11,$PREFIX/share/rivendell/rdhpi_nb.qm)
+    AC_SUBST(HPI_FILE12,$PREFIX/share/rivendell/rdhpi_pt_BR.qm)
+    AC_SUBST(HPI_FILE13,$PREFIX/share/applications/rivendell-rdhpiinfo-root.desktop)
+    AC_SUBST(HPI_FILE14,/etc/pam.d/rdhpiinfo-root)
+    AC_SUBST(HPI_FILE15,/etc/security/console.apps/rdhpiinfo-root)
   else 
     AC_SUBST(LIBHPI,"")
+    AC_SUBST(HPI_FILE1,"")
+    AC_SUBST(HPI_FILE2,"")
+    AC_SUBST(HPI_FILE3,"")
+    AC_SUBST(HPI_FILE4,"")
+    AC_SUBST(HPI_FILE5,"")
+    AC_SUBST(HPI_FILE6,"")
+    AC_SUBST(HPI_FILE7,"")
+    AC_SUBST(HPI_FILE8,"")
+    AC_SUBST(HPI_FILE9,"")
+    AC_SUBST(HPI_FILE10,"")
+    AC_SUBST(HPI_FILE11,"")
+    AC_SUBST(HPI_FILE12,"")
+    AC_SUBST(HPI_FILE13,"")
+    AC_SUBST(HPI_FILE14,"")
+    AC_SUBST(HPI_FILE15,"")
   fi
 else
   AC_SUBST(LIBHPI,"")
+  AC_SUBST(HPI_FILE1,"")
+  AC_SUBST(HPI_FILE2,"")
+  AC_SUBST(HPI_FILE3,"")
+  AC_SUBST(HPI_FILE4,"")
+  AC_SUBST(HPI_FILE5,"")
+  AC_SUBST(HPI_FILE6,"")
+  AC_SUBST(HPI_FILE7,"")
+  AC_SUBST(HPI_FILE8,"")
+  AC_SUBST(HPI_FILE9,"")
+  AC_SUBST(HPI_FILE10,"")
+  AC_SUBST(HPI_FILE11,"")
+  AC_SUBST(HPI_FILE12,"")
+  AC_SUBST(HPI_FILE13,"")
+  AC_SUBST(HPI_FILE14,"")
+  AC_SUBST(HPI_FILE15,"")
 fi
 AM_CONDITIONAL([HPI_RD_AM], [test "$USING_HPI" = yes])
 
@@ -337,11 +391,6 @@ else
   AC_SUBST(RPM_ROOT,/usr/src/packages)
   AC_SUBST(VENDOR,suse)
 fi 
-if test $ar_gcc_arch = x86_64 ; then
-  AC_SUBST(RD_LIB_PATH,lib64)
-else
-  AC_SUBST(RD_LIB_PATH,lib)
-fi
 
 AC_CONFIG_FILES([rivendell.spec \
     Makefile \
@@ -358,6 +407,7 @@ AC_CONFIG_FILES([rivendell.spec \
     rlm/Makefile \
     cae/Makefile \
     utils/Makefile \
+    utils/rddelete/Makefile \
     utils/rdgen/Makefile \
     utils/rmlsend/Makefile \
     utils/rdgpimon/Makefile \

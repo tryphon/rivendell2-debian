@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog.cpp,v 1.23 2011/12/22 23:58:51 cvs Exp $
+//      $Id: rdlog.cpp,v 1.23.4.1 2013/05/21 16:44:56 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -37,7 +37,7 @@ RDLog::RDLog(const QString &name,bool create)
 
   if(create) {
     sql=QString().sprintf("select NAME from LOGS where \
-(NAME=\"%s\")",(const char *)log_name);
+(NAME=\"%s\")",(const char *)RDEscapeString(log_name));
     q=new RDSqlQuery(sql);
     if(q->size()!=1) {
       delete q;
@@ -278,19 +278,21 @@ void RDLog::updateLinkQuantity(RDLog::Source src) const
   RDSqlQuery *q;
   switch(src) {
       case RDLog::SourceMusic:
-	sql=QString().sprintf("select ID from %s where TYPE=%d",
+	sql=QString().sprintf("select ID from `%s` where TYPE=%d",
 			      (const char *)logname,RDLogLine::MusicLink);
 	q=new RDSqlQuery(sql);
 	sql=QString().sprintf("update LOGS set MUSIC_LINKS=%d where \
-                               NAME=\"%s\"",q->size(),(const char *)log_name);
+                               NAME=\"%s\"",q->size(),
+			      (const char *)RDEscapeStringSQLColumn(log_name));
 	break;
 
       case RDLog::SourceTraffic:
-	sql=QString().sprintf("select ID from %s where TYPE=%d",
+	sql=QString().sprintf("select ID from `%s` where TYPE=%d",
 			      (const char *)logname,RDLogLine::TrafficLink);
 	q=new RDSqlQuery(sql);
 	sql=QString().sprintf("update LOGS set TRAFFIC_LINKS=%d where \
-                               NAME=\"%s\"",q->size(),(const char *)log_name);
+                               NAME=\"%s\"",q->size(),
+			      (const char *)RDEscapeStringSQLColumn(log_name));
 	break;
 
       default:
@@ -353,7 +355,7 @@ bool RDLog::isReady() const
   sql=QString().sprintf("select MUSIC_LINKS,MUSIC_LINKED,TRAFFIC_LINKS,\
                          TRAFFIC_LINKED,SCHEDULED_TRACKS,COMPLETED_TRACKS \
                          from LOGS where NAME=\"%s\"",
-			(const char *)log_name);
+			(const char *)RDEscapeString(log_name));
   q=new RDSqlQuery(sql);
   if(q->first()) {
     ret=((q->value(0).toInt()==0)||(q->value(1).toString()=="Y"))&&
@@ -379,7 +381,7 @@ bool RDLog::remove(RDStation *station,RDUser *user) const
   q=new RDSqlQuery(sql);
   delete q;
   sql=QString().sprintf("delete from LOGS where (NAME=\"%s\" && TYPE=0)",
-			(const char *)log_name);
+			(const char *)RDEscapeString(log_name));
   q=new RDSqlQuery(sql);
   delete q;
   return true;
@@ -396,7 +398,7 @@ void RDLog::updateTracks()
   
   name.replace(" ","_");
   sql=QString().sprintf("select NUMBER from CART where OWNER=\"%s\"",
-			(const char *)log_name);
+			(const char *)RDEscapeString(log_name));
   q=new RDSqlQuery(sql);
   completed=q->size();
   delete q;
@@ -411,7 +413,7 @@ void RDLog::updateTracks()
   sql=QString().sprintf("update LOGS set SCHEDULED_TRACKS=%d,\
                          COMPLETED_TRACKS=%u where NAME=\"%s\"",
 			scheduled,completed,
-			(const char *)log_name);
+			(const char *)RDEscapeString(log_name));
   q=new RDSqlQuery(sql);
   delete q;
 }
@@ -552,7 +554,7 @@ void RDLog::SetRow(const QString &param,int value) const
   sql=QString().sprintf("UPDATE LOGS SET %s=%d WHERE NAME=\"%s\"",
 			(const char *)param,
 			value,
-			(const char *)log_name);
+			(const char *)RDEscapeString(log_name));
   q=new RDSqlQuery(sql);
   delete q;
 }

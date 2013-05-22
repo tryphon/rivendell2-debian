@@ -71,6 +71,7 @@ LogXloadDebugData=No
 ; (It should seldom be necessary to tweak these)
 PeriodQuantity=4
 PeriodSize=1024
+ChannelsPerPcm=-1  ; -1 = use values autodetected from ALSA
 
 ; [SoftKeys]
 ;

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2003-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdplay_deck.cpp,v 1.85.8.4 2012/12/05 00:05:51 cvs Exp $
+//      $Id: rdplay_deck.cpp,v 1.85.8.5 2013/05/21 19:04:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -395,6 +395,7 @@ void RDPlayDeck::play(unsigned pos,int segue_start,int segue_end,
 		      int duck_up_end)
 {
   int fadeup;
+  play_hook_mode=false;
   play_cut_gain=play_cut->playGain();
 
   play_ducked=0;
@@ -479,6 +480,13 @@ void RDPlayDeck::play(unsigned pos,int segue_start,int segue_end,
   play_start_time=QTime::currentTime();
   StartTimers(pos);
   play_state=RDPlayDeck::Playing;
+}
+
+
+void RDPlayDeck::playHook()
+{
+  play(play_point_value[RDPlayDeck::Hook][0]-play_audio_point[0]);
+  play_hook_mode=true;
 }
 
 
@@ -670,7 +678,12 @@ void RDPlayDeck::positionTimerData()
   if(play_current_position<0) {       // Handle crossing midnight!
     play_current_position+=86400000;
   }
-  emit position(play_id,play_current_position);
+  if(play_hook_mode) {
+    emit position(play_id,play_current_position-(play_point_value[RDPlayDeck::Hook][0]-play_audio_point[0]));
+  }
+  else {
+    emit position(play_id,play_current_position);
+  }
 }
 
 

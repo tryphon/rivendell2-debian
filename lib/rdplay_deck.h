@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdplay_deck.h,v 1.36 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdplay_deck.h,v 1.36.8.1 2013/05/21 19:04:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -70,6 +70,7 @@ class RDPlayDeck : public QObject
 
  public slots:
   void play(unsigned pos,int segue_start=-1,int segue_end=-1,int duck_up_end=0);
+  void playHook();
   void pause();
   void stop();
  // void stop(int interval);

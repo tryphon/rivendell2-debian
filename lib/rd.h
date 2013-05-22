@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194.6.7 2013/03/05 23:59:05 cvs Exp $
+//      $Id: rd.h,v 1.194.6.8 2013/04/29 22:03:23 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -179,6 +179,11 @@
  * Maximum number of SoundPanels of a given type
  */
 #define MAX_PANELS 50
+
+/*
+ * Maximum Cart Number
+ */
+#define RD_MAX_CART_NUMBER 999999
 
 /*
  * In negative 1/100ths of a dB
