@@ -39,7 +39,7 @@ index a9854bb..b8e5ab0 100644
  	 "MAD decoder library not found, MPEG L2 decoding not supported");
      return false;
 diff --git a/lib/rdaudioconvert.cpp b/lib/rdaudioconvert.cpp
-index 4125622..22acfdc 100644
+index 3e705e2..b73f215 100644
 --- a/lib/rdaudioconvert.cpp
 +++ b/lib/rdaudioconvert.cpp
 @@ -68,9 +68,9 @@ RDAudioConvert::RDAudioConvert(const QString &station_name,

@@ -1,26 +1,29 @@
 From: Alban Peignier <alban@tryphon.eu>
-Date: Sun, 28 Aug 2011 16:21:59 +0200
+Date: Wed, 22 May 2013 19:57:40 +0200
 Subject: No lib64 for rd_lib_path
 
 ---
- configure.in |    7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ configure.in |   10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index dd0063d..5cfe10e 100644
+index 19aa42e..d842a4e 100644
 --- a/configure.in
 +++ b/configure.in
-@@ -337,11 +337,8 @@ else
-   AC_SUBST(RPM_ROOT,/usr/src/packages)
-   AC_SUBST(VENDOR,suse)
- fi 
+@@ -95,13 +95,9 @@ fi
+ AR_GCC_TARGET()
+ AC_SUBST(VENDOR,$ar_gcc_distro)
+ AC_SUBST(ARCH,$ar_gcc_arch)
 -if test $ar_gcc_arch = x86_64 ; then
+-  LIB_PATH=$PREFIX/lib64
 -  AC_SUBST(RD_LIB_PATH,lib64)
 -else
+-  LIB_PATH=$PREFIX/lib
 -  AC_SUBST(RD_LIB_PATH,lib)
 -fi
++
 +# Always use lib debian/ubuntu
 +AC_SUBST(RD_LIB_PATH,lib)
  
- AC_CONFIG_FILES([rivendell.spec \
-     Makefile \
+ #
+ # Determine Distro
