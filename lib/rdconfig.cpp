@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdconfig.cpp,v 1.24.6.4 2012/12/13 22:33:44 cvs Exp $
+//      $Id: rdconfig.cpp,v 1.24.6.5 2013/05/06 22:07:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -226,6 +226,12 @@ int RDConfig::alsaPeriodSize() const
 }
 
 
+int RDConfig::alsaChannelsPerPcm() const
+{
+  return conf_alsa_channels_per_pcm;
+}
+
+
 QString RDConfig::stationName() const
 {
   return conf_station_name;
@@ -436,6 +442,7 @@ void RDConfig::load()
     profile->intValue("Alsa","PeriodQuantity",RD_ALSA_DEFAULT_PERIOD_QUANTITY);
   conf_alsa_period_size=
     profile->intValue("Alsa","PeriodSize",RD_ALSA_DEFAULT_PERIOD_SIZE);
+  conf_alsa_channels_per_pcm=profile->intValue("Alsa","ChannelsPerPcm",-1);
   conf_ripcd_logname=profile->stringValue("Ripcd","Logfile","");
   conf_airplay_logname=profile->stringValue("RDAirPlay","Logfile","");
   conf_catchd_logname=profile->stringValue("RDCatchd","Logfile","");
@@ -493,6 +500,7 @@ void RDConfig::clear()
   conf_log_xload_debug_data=false;
   conf_alsa_period_quantity=RD_ALSA_DEFAULT_PERIOD_QUANTITY;
   conf_alsa_period_size=RD_ALSA_DEFAULT_PERIOD_SIZE;
+  conf_alsa_channels_per_pcm=-1;
   conf_station_name="";
   conf_password="";
   conf_audio_owner="";

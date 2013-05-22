@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 1996-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdconf.cpp,v 1.15.4.2 2012/07/16 23:25:38 cvs Exp $
+//    $Id: rdconf.cpp,v 1.15.4.3 2013/05/17 14:27:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -209,10 +209,6 @@ int GetIniLine(FILE *cIniName,char *cIniBuffer)		/* read a line from the ini fil
   for(i=0;i<BUFFER_SIZE-1;i++) {
     cIniBuffer[i]=getc(cIniName);
     switch(cIniBuffer[i]) {
-      
-    case EOF:
-      cIniBuffer[i]=0;
-      return EOF;
       
     case 10:
       cIniBuffer[i]=0;

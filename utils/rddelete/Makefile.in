@@ -34,8 +34,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = rdrepld$(EXEEXT)
-subdir = rdrepld
+bin_PROGRAMS = rddelete$(EXEEXT)
+subdir = utils/rddelete
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
@@ -47,11 +47,10 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-dist_rdrepld_OBJECTS = rdrepld.$(OBJEXT) replconfig.$(OBJEXT) \
-	replfactory.$(OBJEXT) citadelxds.$(OBJEXT)
-nodist_rdrepld_OBJECTS = moc_rdrepld.$(OBJEXT)
-rdrepld_OBJECTS = $(dist_rdrepld_OBJECTS) $(nodist_rdrepld_OBJECTS)
-rdrepld_DEPENDENCIES =
+dist_rddelete_OBJECTS = rddelete.$(OBJEXT)
+nodist_rddelete_OBJECTS = moc_rddelete.$(OBJEXT)
+rddelete_OBJECTS = $(dist_rddelete_OBJECTS) $(nodist_rddelete_OBJECTS)
+rddelete_DEPENDENCIES =
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
 am__v_lt_0 = --silent
@@ -97,8 +96,8 @@ am__v_CCLD_0 = @echo "  CCLD  " $@;
 AM_V_GEN = $(am__v_GEN_$(V))
 am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
 am__v_GEN_0 = @echo "  GEN   " $@;
-SOURCES = $(dist_rdrepld_SOURCES) $(nodist_rdrepld_SOURCES)
-DIST_SOURCES = $(dist_rdrepld_SOURCES)
+SOURCES = $(dist_rddelete_SOURCES) $(nodist_rddelete_SOURCES)
+DIST_SOURCES = $(dist_rddelete_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -267,20 +266,24 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -Wall @QT_CXXFLAGS@
+AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
 INCLUDES = -I$(top_srcdir)/lib
 MOC = @QT_MOC@
-dist_rdrepld_SOURCES = globals.h\
-                       rdrepld.cpp rdrepld.h \
-                       replconfig.cpp replconfig.h\
-                       replfactory.cpp replfactory.h\
-                       citadelxds.cpp citadelxds.h
+dist_rddelete_SOURCES = rddelete.cpp rddelete.h
+nodist_rddelete_SOURCES = moc_rddelete.cpp
+rddelete_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+CLEANFILES = *~\
+             *.idb\
+             *ilk\
+             *.obj\
+             *.pdb\
+             *.qm\
+             moc_*
 
-nodist_rdrepld_SOURCES = moc_rdrepld.cpp
-rdrepld_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
-CLEANFILES = *~ moc_*
-DISTCLEANFILES = moc_*
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4 moc_* *.tar.gz
+MAINTAINERCLEANFILES = *~\
+                       Makefile.in\
+                       moc_*
+
 all: all-am
 
 .SUFFIXES:
@@ -294,9 +297,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu rdrepld/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu utils/rddelete/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu rdrepld/Makefile
+	  $(AUTOMAKE) --gnu utils/rddelete/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -358,9 +361,9 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-rdrepld$(EXEEXT): $(rdrepld_OBJECTS) $(rdrepld_DEPENDENCIES) 
-	@rm -f rdrepld$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(rdrepld_OBJECTS) $(rdrepld_LDADD) $(LIBS)
+rddelete$(EXEEXT): $(rddelete_OBJECTS) $(rddelete_DEPENDENCIES) 
+	@rm -f rddelete$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(rddelete_OBJECTS) $(rddelete_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -368,11 +371,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/citadelxds.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdrepld.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdrepld.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/replconfig.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/replfactory.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rddelete.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rddelete.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -515,7 +515,6 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
-	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -608,7 +607,7 @@ uninstall-am: uninstall-binPROGRAMS
 	uninstall-binPROGRAMS
 
 
-# QT's Meta Object Compiler (moc)
+# The dependency for qt's Meta Object Compiler (moc)
 moc_%.cpp:	%.h
 	$(MOC) $< -o $@
 

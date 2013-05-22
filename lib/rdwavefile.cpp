@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavefile.cpp,v 1.24.6.1 2013/02/27 21:21:53 cvs Exp $
+//    $Id: rdwavefile.cpp,v 1.24.6.2 2013/05/10 21:29:20 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -2373,7 +2373,7 @@ bool RDWaveFile::GetCart(int fd)
 	wave_data->setIntroEndPos((int)(1000.0*((double)cart_timer_sample[i])/
 					((double)getSamplesPerSec())));
       }
-      if(cart_timer_label[i]=="INT ") {
+      if((cart_timer_label[i]=="INT ")||(cart_timer_label[i]=="INT1")) {
 	wave_data->setIntroStartPos(0);
 	wave_data->setIntroEndPos((int)(1000.0*((double)cart_timer_sample[i])/
 					((double)getSamplesPerSec())));

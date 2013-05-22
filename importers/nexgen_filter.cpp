@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: nexgen_filter.cpp,v 1.1.2.6 2012/10/15 17:24:04 cvs Exp $
+//      $Id: nexgen_filter.cpp,v 1.1.2.7 2013/05/10 22:46:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -28,6 +28,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdint.h>
+#include <errno.h>
 
 #include <qapplication.h>
 #include <qstringlist.h>
@@ -65,6 +67,7 @@ MainObject::MainObject(QObject *parent,const char *name)
 
   filter_cart_offset=0;
   filter_normalization_level=0;
+  filter_verbose=false;
 
   //
   // Read Command Options
@@ -78,6 +81,10 @@ MainObject::MainObject(QObject *parent,const char *name)
       xml_files.push_back(cmd->key(i));
     }
     else {
+      if(cmd->key(i)=="--verbose") {
+	filter_verbose=true;
+	cmd->setProcessed(i,true);
+      }
       if(cmd->key(i)=="--group") {
 	group_name=cmd->value(i);
 	cmd->setProcessed(i,true);
@@ -167,20 +174,18 @@ MainObject::MainObject(QObject *parent,const char *name)
 	    (const char *)group_name);
     exit(256);
   }
-  if(audio_dir.isEmpty()) {
-    fprintf(stderr,"nexgen_filter: missing audio directory\n");
-    exit(256);
-  }
   filter_audio_dir=new QDir(audio_dir);
-  if(!filter_audio_dir->exists()) {
-    fprintf(stderr,"nexgen_filter: audio directory \"%s\" does not exist\n",
-	    (const char *)audio_dir);
-    exit(256);
-  }
-  if(!filter_audio_dir->isReadable()) {
-    fprintf(stderr,"nexgen_filter: audio directory \"%s\" is not readable\n",
-	    (const char *)audio_dir);
-    exit(256);
+  if(!audio_dir.isEmpty()) {
+    if(!filter_audio_dir->exists()) {
+      fprintf(stderr,"nexgen_filter: audio directory \"%s\" does not exist\n",
+	      (const char *)audio_dir);
+      exit(256);
+    }
+    if(!filter_audio_dir->isReadable()) {
+      fprintf(stderr,"nexgen_filter: audio directory \"%s\" is not readable\n",
+	      (const char *)audio_dir);
+      exit(256);
+    }
   }
 
   //
@@ -209,7 +214,18 @@ MainObject::MainObject(QObject *parent,const char *name)
   // Main Loop
   //
   for(unsigned i=0;i<xml_files.size();i++) {
-    ProcessXmlFile(xml_files[i]);
+    if(IsXmlFile(xml_files[i])) {
+      if(audio_dir.isEmpty()) {
+	fprintf(stderr,"unable to process \"%s\" [no --audio-dir specified]\n",
+		(const char *)xml_files[i]);
+      }
+      else {
+	ProcessXmlFile(xml_files[i]);
+      }
+    }
+    else {
+      ProcessArchive(xml_files[i]);
+    }
   }
 
   //
@@ -221,7 +237,95 @@ MainObject::MainObject(QObject *parent,const char *name)
 }
 
 
-void MainObject::ProcessXmlFile(const QString &xml)
+void MainObject::ProcessArchive(const QString &filename)
+{
+  int fd_in=-1;
+  int fd_out=-1;
+  char tempdir[PATH_MAX];
+  char *data=NULL;
+  QString dir;
+  char header[105];
+  uint32_t len;
+  QString xmlfile;
+  QString wavfile;
+  QStringList files;
+  struct stat stat;
+  blksize_t blksize=1024;
+  ssize_t n=0;
+
+  //
+  // Allocate Default Buffer
+  //
+  data=(char *)malloc(1024);
+
+  //
+  // Create temporary directory
+  //
+  snprintf(tempdir,PATH_MAX,"%s/XXXXXX",(const char *)RDTempDir());
+  if(mkdtemp(tempdir)==NULL) {
+    return;
+  }
+  dir=tempdir;
+
+  //
+  // Open Archive
+  //
+  if((fd_in=open(filename,O_RDONLY))<0) {
+    return;
+  }
+
+  //
+  // Write Out File Components
+  //
+  while((read(fd_in,header,104)==104)&&(strncmp(header,"FR:",3)==0)) {
+    files.push_back(dir+"/"+RDGetBasePart(QString(header+3).replace("\\","/")));
+    if(files.back().right(4).lower()==".xml") {
+      xmlfile=files.back();
+    }
+    if(files.back().right(4).lower()==".wav") {
+      wavfile=files.back();
+    }
+    len=((0xFF&header[103])<<24)+((0xFF&header[102])<<16)+
+      ((0xFF&header[101])<<8)+(0xFF&header[100]);
+    if((fd_out=open(files.back(),O_CREAT|O_WRONLY|O_TRUNC,S_IRUSR|S_IWUSR))<0) {
+      fprintf(stderr,"unable to write temporary file \"%s\" [%s].\n",
+	      (const char *)files.back(),strerror(errno));
+      return;
+    }
+    if(fstat(fd_out,&stat)==0) {
+      blksize=stat.st_blksize;
+      data=(char *)realloc(data,blksize);
+    }
+    for(uint32_t i=blksize;i<len;i+=blksize) {
+      n=read(fd_in,data,blksize);
+      write(fd_out,data,n);
+    }
+    n=read(fd_in,data,len%blksize);
+    write(fd_out,data,n);
+    close(fd_out);
+  }
+  close(fd_in);
+
+  //
+  // Run Import
+  //
+  if((!xmlfile.isEmpty())&&(!wavfile.isEmpty())) {
+    ProcessXmlFile(xmlfile,wavfile,filename);
+  }
+
+  //
+  // Clean Up
+  //
+  for(unsigned i=0;i<files.size();i++) {
+    unlink(files[i]);
+  }
+  rmdir(tempdir);
+  free(data);
+}
+
+
+void MainObject::ProcessXmlFile(const QString &xml,const QString &wavname,
+				const QString &arcname)
 {
   RDCart *cart=NULL;
   RDCut *cut=NULL;
@@ -238,6 +342,9 @@ void MainObject::ProcessXmlFile(const QString &xml)
     fprintf(stderr,"unable to parse XML file \"%s\"\n",(const char *)xml);
     WriteReject(xml);
     return;
+  }
+  if(!wavname.isEmpty()) {
+    filename=wavname;
   }
 
   //
@@ -270,25 +377,29 @@ void MainObject::ProcessXmlFile(const QString &xml)
   //
   // Import Audio
   //
-  printf("Importing cart %06d",cartnum);
+  Print(QString().sprintf("Importing cart %06d",cartnum));
   if(!data.title().isEmpty()) {
-    printf(" [%s",(const char *)data.title());
+    Print(QString().sprintf(" [%s",(const char *)data.title()));
     if(!data.artist().isEmpty()) {
-      printf("/%s",(const char *)data.artist());
+      Print(QString().sprintf("/%s",(const char *)data.artist()));
     }
-    printf("]");
+    Print(QString().sprintf("]"));
   }
-  printf(" from %s ...",(const char *)filename);
-  fflush(stdout);
+  if(arcname.isEmpty()) {
+    Print(QString().sprintf(" from %s ...",(const char *)filename));
+  }
+  else {
+    Print(QString().sprintf(" from %s ...",(const char *)arcname));
+  }
   if(system(QString().sprintf("rdimport --autotrim-level=0 --normalization-level=%d --to-cart=%d ",
 			      filter_normalization_level,cartnum)+
 	    filter_group->name()+" "+filter_temp_audiofile)!=0) {
-    printf(" aborted.\n");
+    Print(QString().sprintf(" aborted.\n"));
     fprintf(stderr,"import of \"%s\" failed\n",(const char *)filename);
     WriteReject(xml);
     return;
   }
-  printf(" done.\n");
+  Print(QString().sprintf(" done.\n"));
   unlink(filter_temp_audiofile);
 
   //
@@ -554,6 +665,33 @@ QString MainObject::SwapCase(const QString &str) const
     parts[parts.size()-1]=parts[parts.size()-1].lower();
   }
   return parts.join(".");
+}
+
+
+bool MainObject::IsXmlFile(const QString &filename)
+{
+  int fd=-1;
+  char data[10];
+
+  if((fd=open(filename,O_RDONLY))<0) {
+    return false;
+  }
+  if(read(fd,data,8)!=8) {
+    close(fd);
+    return false;
+  }
+  close(fd);
+  data[8]=0;
+  return strncmp(data,"<XMLDAT>",8)==0;
+}
+
+
+void MainObject::Print(const QString &msg) const
+{
+  if(filter_verbose) {
+    printf("%s",(const char *)msg);
+    fflush(stdout);
+  }
 }
 
 

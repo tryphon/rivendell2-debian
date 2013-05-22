@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdconfig.h,v 1.18.8.4 2012/11/14 01:18:28 cvs Exp $
+//      $Id: rdconfig.h,v 1.18.8.5 2013/05/06 22:07:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -47,6 +47,7 @@ class RDConfig
   enum LogPriority {LogEmerg=LOG_EMERG,LogAlert=LOG_ALERT,LogCrit=LOG_CRIT,
 		    LogErr=LOG_ERR,LogWarning=LOG_WARNING,LogNotice=LOG_NOTICE,
 		    LogInfo=LOG_INFO,LogDebug=LOG_DEBUG};
+
 #endif  // WIN32
   RDConfig();
   RDConfig(QString filename);
@@ -66,6 +67,7 @@ class RDConfig
   void log(const QString &module,LogPriority prio,const QString &msg);
   int alsaPeriodQuantity() const;
   int alsaPeriodSize() const;
+  int alsaChannelsPerPcm() const;
   QString stationName() const;
   QString password() const;
   QString audioOwner() const;
@@ -115,6 +117,7 @@ class RDConfig
   bool conf_log_xload_debug_data;
   int conf_alsa_period_quantity;
   int conf_alsa_period_size;
+  int conf_alsa_channels_per_pcm;
   QString conf_station_name;
   QString conf_password;
   QString conf_audio_owner;

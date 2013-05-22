@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioconvert.cpp,v 1.14.2.2 2012/12/13 22:33:44 cvs Exp $
+//      $Id: rdaudioconvert.cpp,v 1.14.2.3 2013/05/17 14:27:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -866,8 +866,8 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage2Convert(const QString &srcfile,
     // Speed
     //
     if(st_conv!=NULL) {
-      st_conv->putSamples(pcm[2],n);
-      n=st_conv->receiveSamples(pcm[2],STAGE2_BUFFER_SIZE/dst_info.channels);
+      st_conv->putSamples((soundtouch::SAMPLETYPE *)pcm[2],n);
+      n=st_conv->receiveSamples((soundtouch::SAMPLETYPE *)pcm[2],STAGE2_BUFFER_SIZE/dst_info.channels);
     }
 
     //
@@ -894,7 +894,8 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage2Convert(const QString &srcfile,
   if(st_conv!=NULL) {
     st_conv->flush();
     while((n=st_conv->
-	   receiveSamples(pcm[2],STAGE2_BUFFER_SIZE/dst_info.channels))>0) {
+	   receiveSamples((soundtouch::SAMPLETYPE *)pcm[2],
+			  STAGE2_BUFFER_SIZE/dst_info.channels))>0) {
       if(sf_writef_float(dst_sf,pcm[2],n)!=n) {
 	for(unsigned i=0;i<3;i++) {
 	  if(free_pcm[i]) {

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.cpp,v 1.101.4.2 2012/11/13 23:45:09 cvs Exp $
+//      $Id: rdlog_event.cpp,v 1.101.4.3 2013/05/21 16:44:56 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -120,7 +120,7 @@ int RDLogEvent::load()
   // Get the service name
   //
   sql=QString().sprintf("select SERVICE from LOGS where NAME=\"%s\"",
-			(const char *)log_name.left(log_name.length()-4));
+	     (const char *)RDEscapeString(log_name.left(log_name.length()-4)));
   q=new RDSqlQuery(sql);
   if(q->next()) {
     log_service_name=q->value(0).toString();
@@ -176,23 +176,23 @@ int RDLogEvent::load()
   // 57 - LOG.DUCK_UP_GAIN         58 - LOG.DUCK_DOWN_GAIN
   // 59 - CART.START_DATETIME      60 - CART.END_DATETIME
   //
-  sql=QString().sprintf("select %s.ID,%s.CART_NUMBER,\
-%s.START_TIME,%s.TIME_TYPE,%s.TRANS_TYPE,%s.START_POINT,\
-%s.END_POINT,%s.SEGUE_START_POINT,%s.SEGUE_END_POINT,\
+  sql=QString().sprintf("select `%s`.ID,`%s`.CART_NUMBER,\
+`%s`.START_TIME,`%s`.TIME_TYPE,`%s`.TRANS_TYPE,`%s`.START_POINT,\
+`%s`.END_POINT,`%s`.SEGUE_START_POINT,`%s`.SEGUE_END_POINT,\
 CART.TYPE,CART.GROUP_NAME,CART.TITLE,CART.ARTIST,CART.ALBUM,CART.YEAR,\
 CART.LABEL,CART.CLIENT,CART.AGENCY,CART.USER_DEFINED,\
 CART.FORCED_LENGTH,CART.CUT_QUANTITY,CART.LAST_CUT_PLAYED,CART.PLAY_ORDER,\
-CART.ENFORCE_LENGTH,CART.PRESERVE_PITCH ,%s.TYPE,%s.COMMENT,\
-%s.LABEL,%s.GRACE_TIME,%s.POST_POINT,%s.SOURCE,\
-%s.EXT_START_TIME,%s.EXT_LENGTH,%s.EXT_DATA,%s.EXT_EVENT_ID,\
-%s.EXT_ANNC_TYPE,%s.EXT_CART_NAME,CART.ASYNCRONOUS,%s.FADEUP_POINT,\
-%s.FADEUP_GAIN,%s.FADEDOWN_POINT,%s.FADEDOWN_GAIN,%s.SEGUE_GAIN,\
+CART.ENFORCE_LENGTH,CART.PRESERVE_PITCH ,`%s`.TYPE,`%s`.COMMENT,\
+`%s`.LABEL,`%s`.GRACE_TIME,`%s`.POST_POINT,`%s`.SOURCE,\
+`%s`.EXT_START_TIME,`%s`.EXT_LENGTH,`%s`.EXT_DATA,`%s`.EXT_EVENT_ID,\
+`%s`.EXT_ANNC_TYPE,`%s`.EXT_CART_NAME,CART.ASYNCRONOUS,`%s`.FADEUP_POINT,\
+`%s`.FADEUP_GAIN,`%s`.FADEDOWN_POINT,`%s`.FADEDOWN_GAIN,`%s`.SEGUE_GAIN,\
 CART.PUBLISHER,CART.COMPOSER,CART.USAGE_CODE,CART.AVERAGE_SEGUE_LENGTH,\
-%s.LINK_EVENT_NAME,%s.LINK_START_TIME,%s.LINK_LENGTH,%s.LINK_ID, \
-%s.LINK_EMBEDDED,%s.ORIGIN_USER,%s.ORIGIN_DATETIME,CART.VALIDITY, \
-%s.LINK_START_SLOP,%s.LINK_END_SLOP, \
-%s.DUCK_UP_GAIN,%s.DUCK_DOWN_GAIN,CART.START_DATETIME,CART.END_DATETIME \
-from %s left join CART on %s.CART_NUMBER=CART.NUMBER order by COUNT",
+`%s`.LINK_EVENT_NAME,`%s`.LINK_START_TIME,`%s`.LINK_LENGTH,`%s`.LINK_ID, \
+`%s`.LINK_EMBEDDED,`%s`.ORIGIN_USER,`%s`.ORIGIN_DATETIME,CART.VALIDITY, \
+`%s`.LINK_START_SLOP,`%s`.LINK_END_SLOP, \
+`%s`.DUCK_UP_GAIN,`%s`.DUCK_DOWN_GAIN,CART.START_DATETIME,CART.END_DATETIME \
+from `%s` left join CART on `%s`.CART_NUMBER=CART.NUMBER order by COUNT",
 				(const char *)log_name,
 				(const char *)log_name,
 				(const char *)log_name,
@@ -457,7 +457,7 @@ void RDLogEvent::save(bool update_tracks,int line)
   }
   if(line<0) {
     if(exists()) {
-      sql=QString().sprintf("drop table %s",(const char *)log_name);
+      sql=QString().sprintf("drop table `%s`",(const char *)log_name);
       q=new RDSqlQuery(sql);
       delete q;
     }
@@ -467,7 +467,7 @@ void RDLogEvent::save(bool update_tracks,int line)
     }
   }
   else {
-    sql=QString().sprintf("delete from %s where COUNT=%d",
+    sql=QString().sprintf("delete from `%s` where COUNT=%d",
 			  (const char *)log_name,line);
     q=new RDSqlQuery(sql);
     delete q;
@@ -1048,7 +1048,7 @@ void RDLogEvent::SaveLine(int line)
 {
   QString sql;
   RDSqlQuery *q;
-  sql=QString().sprintf("insert into %s set ID=%d,COUNT=%d,\
+  sql=QString().sprintf("insert into `%s` set ID=%d,COUNT=%d,\
                          CART_NUMBER=%u,START_TIME=%d,TIME_TYPE=%d,\
                          TRANS_TYPE=%d,START_POINT=%d,END_POINT=%d,\
                          SEGUE_START_POINT=%d,SEGUE_END_POINT=%d,TYPE=%d,\
