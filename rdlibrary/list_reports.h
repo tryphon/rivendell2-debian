@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_reports.h,v 1.6 2011/10/27 15:23:26 cvs Exp $
+//      $Id: list_reports.h,v 1.6.4.1 2013/09/12 23:26:10 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,8 @@
 
 #include <qdialog.h>
 #include <qcombobox.h>
+#include <qcheckbox.h>
+#include <qlabel.h>
 #include <qsqldatabase.h>
 
 #include <rdsvc.h>
@@ -42,14 +44,19 @@ class ListReports : public QDialog
  QSizePolicy sizePolicy() const;
  
  private slots:
+  void typeActivatedData(int index);
   void generateData();
   void closeData();
 
  private:
   void GenerateCartReport(QString *report);
   void GenerateCutReport(QString *report);
-  void GenerateCartDump(QString *report);
+  void GenerateCartDumpFixed(QString *report,bool prepend_names);
+  void GenerateCartDumpCsv(QString *report,bool prepend_names);
+  QLabel *list_reports_label;
   QComboBox *list_reports_box;
+  QCheckBox *list_fieldnames_check;
+  QLabel *list_fieldnames_label;
   QString list_filter;
   QString list_type_filter;
   QString list_group;

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: colors.h,v 1.37.4.1 2012/11/26 20:19:40 cvs Exp $
+//      $Id: colors.h,v 1.37.4.2 2013/07/05 21:07:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -95,14 +95,5 @@
 #define POSTPOINT_EARLY_COLOR yellow
 #define POSTPOINT_ONTIME_COLOR green
 #define POSTPOINT_LATE_COLOR red
-
-//
-// Event Editor
-//
-#define EVENT_EDITOR_KNOB_COLOR blue
-#define EVENT_EDITOR_PLAY_MARKER black
-#define EVENT_EDITOR_START_MARKER red
-#define EVENT_EDITOR_BUTTON_FLASH_PERIOD 200
-
 
 #endif  // COLORS_H

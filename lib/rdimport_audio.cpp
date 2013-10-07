@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport_audio.cpp,v 1.27 2011/12/23 22:04:11 cvs Exp $
+//      $Id: rdimport_audio.cpp,v 1.27.4.1 2013/10/02 18:25:12 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -625,6 +625,7 @@ void RDImportAudio::Export()
   //
   StartBar();
   RDCut *cut=new RDCut(import_cutname);
+  import_settings->setNormalizationLevel(import_normalize_spin->value());
   import_export_conv=new RDAudioExport(import_station,this);
   import_export_conv->setCartNumber(cut->cartNumber());
   import_export_conv->setCutNumber(cut->cutNumber());

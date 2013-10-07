@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdslotbox.h,v 1.3.2.2 2012/11/16 18:10:40 cvs Exp $
+//      $Id: rdslotbox.h,v 1.3.2.3 2013/07/05 22:44:17 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -57,7 +57,7 @@ class RDSlotBox : public QWidget
   void setStatusLine(const QString &str);
   void setTimer(int msecs);
   void clear();
-  void setBarMode(RDSlotBox::BarMode);
+  void setBarMode(bool changed);
   void updateMeters(short levels[2]);
 
  signals:

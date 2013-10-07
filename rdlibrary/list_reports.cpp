@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_reports.cpp,v 1.11.4.3 2013/01/16 02:01:19 cvs Exp $
+//      $Id: list_reports.cpp,v 1.11.4.4 2013/09/12 23:26:10 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,7 +22,6 @@
 
 #include <qdialog.h>
 #include <qpushbutton.h>
-#include <qlabel.h>
 
 #include <rddb.h>
 #include <rdconf.h>
@@ -67,13 +66,28 @@ ListReports::ListReports(const QString &filter,const QString &type_filter,
   list_reports_box->setGeometry(50,10,sizeHint().width()-60,19);
   list_reports_box->insertItem(tr("Cart Report"));
   list_reports_box->insertItem(tr("Cut Report"));
-  list_reports_box->insertItem(tr("Cart Data Dump"));
-  QLabel *list_reports_label=
-    new QLabel(list_reports_box,tr("Type:"),
-	       this,"list_reports_label");
+  list_reports_box->insertItem(tr("Cart Data Dump (fixed width)"));
+  list_reports_box->insertItem(tr("Cart Data Dump (CSV)"));
+  list_reports_label=new QLabel(list_reports_box,tr("Type:"),this);
   list_reports_label->setGeometry(10,10,35,19);
   list_reports_label->setFont(font);
   list_reports_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+  connect(list_reports_box,SIGNAL(activated(int)),
+	  this,SLOT(typeActivatedData(int)));
+
+  //
+  // Field Names Checkbox
+  //
+  list_fieldnames_check=new QCheckBox(this);
+  list_fieldnames_check->setGeometry(55,34,15,15);
+  list_fieldnames_check->setChecked(true);
+  list_fieldnames_check->setDisabled(true);
+  list_fieldnames_label=
+    new QLabel(list_fieldnames_check,tr("Prepend Field Names"),this);
+  list_fieldnames_label->setGeometry(75,32,sizeHint().width()-75,19);
+  list_fieldnames_label->setFont(font);
+  list_fieldnames_label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
+  list_fieldnames_label->setDisabled(true);
 
   //
   //  Generate Button
@@ -105,13 +119,20 @@ ListReports::~ListReports()
 
 QSize ListReports::sizeHint() const
 {
-  return QSize(350,110);
+  return QSize(350,130);
 } 
 
 
 QSizePolicy ListReports::sizePolicy() const
 {
   return QSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+}
+
+
+void ListReports::typeActivatedData(int index)
+{
+  list_fieldnames_check->setEnabled((index==2)||(index==3));
+  list_fieldnames_label->setEnabled((index==2)||(index==3));
 }
 
 
@@ -128,8 +149,12 @@ void ListReports::generateData()
 	GenerateCutReport(&report);
 	break;
 
-      case 2:  // Cart Data Dump
-	GenerateCartDump(&report);
+      case 2:  // Cart Data Dump (fixed)
+	GenerateCartDumpFixed(&report,list_fieldnames_check->isChecked());
+	break;
+
+      case 3:  // Cart Data Dump (CSV)
+	GenerateCartDumpCsv(&report,list_fieldnames_check->isChecked());
 	break;
 
       default:
@@ -508,7 +533,7 @@ void ListReports::GenerateCutReport(QString *report)
 }
 
 
-void ListReports::GenerateCartDump(QString *report)
+void ListReports::GenerateCartDumpFixed(QString *report,bool prepend_names)
 {
   QString sql;
   RDSqlQuery *q;
@@ -518,21 +543,26 @@ void ListReports::GenerateCartDump(QString *report)
     schedcode=list_schedcode;
   }
 
-  *report="CART  |";
-  *report+="CUT|";
-  *report+="GROUP_NAME|";
-  *report+="TITLE                                                                                                                                                                                                                                                          |";
-  *report+="ARTIST                                                                                                                                                                                                                                                         |";
-  *report+="ALBUM                                                                                                                                                                                                                                                          |";
-  *report+="YEAR|";
-  *report+="ISRC        |";
-  *report+="LABEL                                                           |";
-  *report+="CLIENT                                                          |";
-  *report+="AGENCY                                                          |";
-  *report+="PUBLISHER                                                       |";
-  *report+="COMPOSER                                                        |";
-  *report+="USER_DEFINED                                                                                                                                                                                                                                                   |";
-  *report+="LENGTH   |\n";
+  //
+  // Prepend Field Names
+  //
+  if(prepend_names) {
+    *report="CART  |";
+    *report+="CUT|";
+    *report+="GROUP_NAME|";
+    *report+="TITLE                                                                                                                                                                                                                                                          |";
+    *report+="ARTIST                                                                                                                                                                                                                                                         |";
+    *report+="ALBUM                                                                                                                                                                                                                                                          |";
+    *report+="YEAR|";
+    *report+="ISRC        |";
+    *report+="LABEL                                                           |";
+    *report+="CLIENT                                                          |";
+    *report+="AGENCY                                                          |";
+    *report+="PUBLISHER                                                       |";
+    *report+="COMPOSER                                                        |";
+    *report+="USER_DEFINED                                                                                                                                                                                                                                                   |";
+    *report+="LENGTH   |\n";
+  }
 
   //
   // Generate Rows
@@ -650,4 +680,69 @@ void ListReports::GenerateCartDump(QString *report)
   }
 
   delete q;
+}
+
+
+void ListReports::GenerateCartDumpCsv(QString *report,bool prepend_names)
+{
+  QString sql;
+  RDSqlQuery *q;
+  QString schedcode="";
+
+  if(list_schedcode!=tr("ALL")) {
+    schedcode=list_schedcode;
+  }
+
+  //
+  // Prepend Field Names
+  //
+  if(prepend_names) {
+    *report="CART,CUT,GROUP_NAME,TITLE,ARTIST,ALBUM,YEAR,ISRC,ISCI,LABEL,";
+    *report+="CLIENT,AGENCY,PUBLISHER,COMPOSER,USER_DEFINED,LENGTH\n";
+  }
+
+  //
+  // Generate Rows
+  //
+  if(list_type_filter.isEmpty()) {
+    return;
+  }
+  sql="select CUTS.CUT_NAME,CART.GROUP_NAME,CART.TITLE,CART.ARTIST,CART.ALBUM,\
+       CART.YEAR,CUTS.ISRC,CUTS.ISCI,CART.LABEL,CART.CLIENT,CART.AGENCY,\
+       CART.PUBLISHER,CART.COMPOSER,CART.USER_DEFINED,CUTS.LENGTH from CART \
+       join CUTS on CART.NUMBER=CUTS.CART_NUMBER";
+  if(list_group==QString("ALL")) {
+    sql+=QString().
+      sprintf(" where %s && %s order by CUTS.CUT_NAME",
+	      (const char *)RDAllCartSearchText(list_filter,schedcode,
+						lib_user->name(),true).utf8(),
+	      (const char *)list_type_filter);
+  }
+  else {
+    sql+=QString().
+      sprintf(" where %s && %s order by CUTS.CUT_NAME",
+	      (const char *)RDCartSearchText(list_filter,list_group,
+					     schedcode,true).utf8(),
+	      (const char *)list_type_filter);
+  }
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    *report+=QString().sprintf("%u,",RDCut::cartNumber(q->value(0).toString()));
+    *report+=QString().sprintf("%u,",RDCut::cutNumber(q->value(0).toString()));
+    *report+="\""+q->value(1).toString()+"\",";
+    *report+="\""+q->value(2).toString()+"\",";
+    *report+="\""+q->value(3).toString()+"\",";
+    *report+="\""+q->value(4).toString()+"\",";
+    *report+="\""+q->value(5).toString()+"\",";
+    *report+="\""+q->value(6).toString()+"\",";
+    *report+="\""+q->value(7).toString()+"\",";
+    *report+="\""+q->value(8).toString()+"\",";
+    *report+="\""+q->value(9).toString()+"\",";
+    *report+="\""+q->value(10).toString()+"\",";
+    *report+="\""+q->value(11).toString()+"\",";
+    *report+="\""+q->value(12).toString()+"\",";
+    *report+="\""+q->value(13).toString()+"\",";
+    *report+="\""+RDGetTimeLength(q->value(14).toInt(),false,false)+"\",";
+    *report+="\n";
+  }
 }

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cae_alsa.cpp,v 1.48.6.4 2013/05/06 22:07:57 cvs Exp $
+//      $Id: cae_alsa.cpp,v 1.48.6.5 2013/06/26 23:18:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1461,7 +1461,12 @@ bool MainObject::AlsaStartCaptureDevice(QString &dev,int card,snd_pcm_t *pcm)
   //
   // Channels
   //
-  alsa_capture_format[card].channels=rd_config->channels()*RD_MAX_PORTS;
+  if(rd_config->alsaChannelsPerPcm()<0) {
+    alsa_capture_format[card].channels=rd_config->channels()*RD_MAX_PORTS;
+  }
+  else {
+    alsa_capture_format[card].channels=rd_config->alsaChannelsPerPcm();
+  }
   snd_pcm_hw_params_set_channels_near(pcm,hwparams,
 				      &alsa_capture_format[card].channels);
   alsa_play_format[card].capture_channels=alsa_capture_format[card].channels;

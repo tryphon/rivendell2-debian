@@ -1066,5 +1066,13 @@ therefore only existing transitions will be editable.</source>
         <source>Save segue changes?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>RDLogEdit - Voice Tracker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This cart cannot contain any additional cuts!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

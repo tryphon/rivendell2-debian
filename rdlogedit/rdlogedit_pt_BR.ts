@@ -1074,5 +1074,13 @@ Assim sendo, somente transições existentes serão editáveis.</translation>
         <source>Audio Deletion Error!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>RDLogEdit - Voice Tracker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This cart cannot contain any additional cuts!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: voice_tracker.cpp,v 1.84 2012/02/13 20:45:51 cvs Exp $
+//      $Id: voice_tracker.cpp,v 1.84.2.1 2013/06/28 15:00:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -3926,6 +3926,8 @@ void VoiceTracker::LogLine(const QString &line)
 
 bool VoiceTracker::InitTrack()
 {
+  int cutnum;
+
   track_recording=false;
   track_record_ran=false;
   track_recording_pos=0;
@@ -3951,9 +3953,12 @@ bool VoiceTracker::InitTrack()
   if(edit_track_cuts[1]!=NULL) {
     delete edit_track_cuts[1];
   }
-  edit_track_cuts[1]=new RDCut(edit_track_cart->number(),
-			       edit_track_cart->addCut(edit_format,
-						  edit_bitrate,edit_chans));
+  if((cutnum=edit_track_cart->addCut(edit_format,edit_bitrate,edit_chans))<0) {
+    QMessageBox::warning(this,tr("RDLogEdit - Voice Tracker"),
+			 tr("This cart cannot contain any additional cuts!"));
+    return false;
+  }
+  edit_track_cuts[1]=new RDCut(edit_track_cart->number(),cutnum);
   switch(edit_format) {
       case 0:
 	edit_coding=RDCae::Pcm16;

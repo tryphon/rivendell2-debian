@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: vguest.cpp,v 1.36 2010/08/03 23:39:26 cvs Exp $
+//      $Id: vguest.cpp,v 1.36.8.1 2013/06/26 23:18:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -515,8 +515,8 @@ void VGuest::DispatchCommand(char *cmd,int len,int id)
   QString str;
   int linenum;
 
-  // LogLine(RDConfig::LogNotice,
-  //QString().sprintf("RCVD: %s",(const char *)RenderCommand(cmd,len)));
+  //  LogLine(RDConfig::LogNotice,
+  //  QString().sprintf("RCVD: %s",(const char *)RenderCommand(cmd,len)));
 
   switch(0xFF&cmd[2]) {
       case 0xF9:   // Username/Password Query

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: commandline_ops.cpp,v 1.1.2.3 2013/01/22 20:59:39 cvs Exp $
+//      $Id: commandline_ops.cpp,v 1.1.2.5 2013/08/09 14:28:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -23,6 +23,7 @@
 #include <stdlib.h>
 
 #include <qapplication.h>
+#include <qfile.h>
 
 #include <rdsvc.h>
 #include <rddatedecode.h>
@@ -134,8 +135,15 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
     log->removeTracks(rdstation_conf,rduser);
     svc->clearLogLinks(RDSvc::Traffic,start_date,logname);
     svc->clearLogLinks(RDSvc::Music,start_date,logname);
-    svc->linkLog(RDSvc::Music,start_date,logname,&report);
-    printf("%s\n",(const char*)report);
+    if(svc->linkLog(RDSvc::Music,start_date,logname,&report)) {
+      printf("%s\n",(const char*)report);
+    }
+    else {
+      fprintf(stderr,
+	      "rdlogmanager: unable to open music schedule file at \"%s\"\n",
+	      (const char *)svc->importFilename(RDSvc::Music,start_date));
+      exit(256);
+    }
   }
 
   //
@@ -148,8 +156,14 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
     }
     report="";
     svc->clearLogLinks(RDSvc::Traffic,start_date,logname);
-    svc->linkLog(RDSvc::Traffic,start_date,logname,&report);
-    printf("%s\n",(const char*)report);
+    if(svc->linkLog(RDSvc::Traffic,start_date,logname,&report)) {
+      printf("%s\n",(const char*)report);
+    }
+    else {
+      fprintf(stderr,
+	      "rdlogmanager: unable to open traffic schedule file at \"%s\"\n",
+	      (const char *)svc->importFilename(RDSvc::Traffic,start_date));
+    }
   }
 
   //
@@ -167,7 +181,7 @@ int RunReportOperation(int argc,char *argv[],const QString &rptname,
   unsigned schema=0;
   QString out_path;
 
-  QApplication a(argc,argv,true);
+  QApplication a(argc,argv,false);
 
   if(end_offset<start_offset) {
     fprintf(stderr,

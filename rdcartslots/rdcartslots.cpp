@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslots.cpp,v 1.8.2.7 2012/11/28 21:44:08 cvs Exp $
+//      $Id: rdcartslots.cpp,v 1.8.2.8 2013/07/05 22:44:17 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -139,7 +139,7 @@ MainWidget::MainWidget(QWidget *parent)
   panel_player=new RDEventPlayer(panel_ripc,this);
 
   //
-  // Cart Picker
+  // Dialogs
   //
   panel_cart_dialog=new RDCartDialog(&panel_filter,&panel_group,
 				     &panel_schedcode,
@@ -149,6 +149,9 @@ MainWidget::MainWidget(QWidget *parent)
 				     panel_system,panel_station->editorPath(),
 				     this);
   panel_slot_dialog=new RDSlotDialog(tr("RDCartSlots"),this);
+  panel_cue_dialog=new RDCueEditDialog(panel_cae,panel_station->cueCard(),
+				       panel_station->cuePort(),
+				       tr("RDCartSlots"),this);
 
   //
   // Cart Slots
@@ -159,8 +162,8 @@ MainWidget::MainWidget(QWidget *parent)
       panel_slots.
 	push_back(new RDCartSlot(panel_slots.size(),panel_ripc,panel_cae,
 				 panel_station,panel_svcs_dialog,
-				 panel_slot_dialog,
-				 panel_cart_dialog,tr("RDCartSlots"),this));
+				 panel_slot_dialog,panel_cart_dialog,
+				 panel_cue_dialog,tr("RDCartSlots"),this));
       panel_slots.back()->
 	setGeometry(10+i*(panel_slots.back()->sizeHint().width()+10),
 		    10+j*(panel_slots.back()->sizeHint().height()+5),

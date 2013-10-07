@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdconfig.cpp,v 1.24.6.5 2013/05/06 22:07:57 cvs Exp $
+//      $Id: rdconfig.cpp,v 1.24.6.6 2013/10/03 15:11:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -292,6 +292,12 @@ bool RDConfig::useStreamMeters() const
 }
 
 
+bool RDConfig::disableMaintChecks() const
+{
+  return conf_disable_maint_checks;
+}
+
+
 unsigned RDConfig::channels() const
 {
   return conf_channels;
@@ -447,6 +453,8 @@ void RDConfig::load()
   conf_airplay_logname=profile->stringValue("RDAirPlay","Logfile","");
   conf_catchd_logname=profile->stringValue("RDCatchd","Logfile","");
   conf_use_stream_meters=profile->boolValue("Hacks","UseStreamMeters",false);
+  conf_disable_maint_checks=
+    profile->boolValue("Hacks","DisableMaintChecks",false);
   conf_channels=profile->intValue("Format","Channels",RD_DEFAULT_CHANNELS);
 #ifndef WIN32
   if((user=getpwnam(profile->stringValue("Identity","AudioOwner")))!=NULL) {
@@ -517,6 +525,7 @@ void RDConfig::clear()
   conf_jack_ports[0].clear();
   conf_jack_ports[1].clear();
   conf_use_stream_meters=false;
+  conf_disable_maint_checks=false;
   conf_channels=RD_DEFAULT_CHANNELS;
 #ifndef WIN32
   conf_uid=65535;

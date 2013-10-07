@@ -47,19 +47,19 @@
     </message>
     <message>
         <source>&amp;Audition</source>
-        <translation>&amp;Poslech</translation>
+        <translation type="obsolete">&amp;Poslech</translation>
     </message>
     <message>
         <source>&amp;Pause</source>
-        <translation>P&amp;ozastavit</translation>
+        <translation type="obsolete">P&amp;ozastavit</translation>
     </message>
     <message>
         <source>&amp;Stop</source>
-        <translation>Za&amp;stavit</translation>
+        <translation type="obsolete">Za&amp;stavit</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation>Začátek</translation>
+        <translation type="obsolete">Začátek</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -71,15 +71,15 @@
     </message>
     <message>
         <source>Edit Marker</source>
-        <translation>Upravit značku</translation>
+        <translation type="unfinished">Upravit značku</translation>
     </message>
     <message>
         <source>Edit Track</source>
-        <translation>Upravit stopu</translation>
+        <translation type="unfinished">Upravit stopu</translation>
     </message>
     <message>
         <source>Edit Log Track</source>
-        <translation>Upravit stopu zápisu</translation>
+        <translation type="unfinished">Upravit stopu zápisu</translation>
     </message>
     <message>
         <source>Transition If Previous Cart Ends Before</source>
@@ -87,7 +87,7 @@
     </message>
     <message>
         <source>End</source>
-        <translation>Konec</translation>
+        <translation type="obsolete">Konec</translation>
     </message>
     <message>
         <source>Duplicate Start Time</source>

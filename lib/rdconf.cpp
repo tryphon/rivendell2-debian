@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 1996-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdconf.cpp,v 1.15.4.3 2013/05/17 14:27:44 cvs Exp $
+//    $Id: rdconf.cpp,v 1.15.4.5 2013/06/20 20:40:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -1186,4 +1186,46 @@ bool RDModulesActive()
   cmds.push_back("rddbcheck");
   cmds.push_back("rdgpimon");
   return RDProcessActive(cmds);
+}
+
+
+QByteArray RDStringToData(const QString &str)
+{
+  QByteArray ret;
+#ifndef WIN32
+  int istate=0;
+  QString hexcode="";
+
+  for(unsigned i=0;i<str.length();i++) {
+    switch(istate) {
+    case 0:
+      if((str.at(i)=='%')&&(i<(str.length()-2))) {
+	hexcode="";
+	istate=1;
+      }
+      else {
+	ret.resize(ret.size()+1);
+	ret[ret.size()-1]=str.at(i);
+      }
+      break;
+
+    case 1:
+      hexcode=str.at(i);
+      istate=2;
+      break;
+
+    case 2:
+      hexcode+=str.at(i);
+      ret.resize(ret.size()+1);
+      ret[ret.size()-1]=0xFF&hexcode.toUInt(NULL,16);
+      istate=0;
+      break;
+
+    default:
+      istate=0;
+      break;
+    }
+  }
+#endif  // WIN32
+  return ret;
 }

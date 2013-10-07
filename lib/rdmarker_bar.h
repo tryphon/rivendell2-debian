@@ -1,10 +1,10 @@
-// marker_bar.h
+// rdmarker_bar.h
 //
-// A marker widget for the EditEvent dialog.
+// A marker widget for the RDCueEdit widget.
 //
-//   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2002-2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: marker_bar.h,v 1.7 2010/07/29 19:32:36 cvs Exp $
+//      $Id: rdmarker_bar.h,v 1.1.2.1 2013/07/05 21:07:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -21,21 +21,20 @@
 //
 
 
-#ifndef MARKER_BAR_H
-#define MARKER_BAR_H
+#ifndef RDMARKER_BAR_H
+#define RDMARKER_BAR_H
 
 #include <qlabel.h>
 #include <qpixmap.h>
 
-#include <colors.h>
+#include <rd.h>
 
-
-class MarkerBar : public QLabel
+class RDMarkerBar : public QLabel
 {
   Q_OBJECT
  public:
   enum Marker {Play=0,Start=1,End=2,MaxSize=3};
-  MarkerBar(QWidget *parent=0,const char *name=0);
+  RDMarkerBar(QWidget *parent=0,const char *name=0);
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
 
@@ -47,7 +46,7 @@ class MarkerBar : public QLabel
 
  private:
   void DrawMap();
-  int marker_pos[MarkerBar::MaxSize];
+  int marker_pos[RDMarkerBar::MaxSize];
   int marker_length;
 };
 

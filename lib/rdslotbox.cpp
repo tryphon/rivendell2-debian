@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdslotbox.cpp,v 1.5.2.3 2012/11/28 16:12:05 cvs Exp $
+//      $Id: rdslotbox.cpp,v 1.5.2.4 2013/07/05 22:44:17 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -468,36 +468,13 @@ void RDSlotBox::clear()
 }
 
 
-void RDSlotBox::setBarMode(RDSlotBox::BarMode mode)
+void RDSlotBox::setBarMode(bool changed)
 {
-  switch(mode) {
-      case RDSlotBox::Transitioning:
-	if(line_logline!=NULL) {
-	  if(line_logline->playPositionChanged()) {
-	    line_position_bar->setPalette(line_changed_play_palette);
-	  }
-	  else {
-	    line_position_bar->setPalette(line_unchanged_play_palette);
-	  }
-	}
-	else {
-	  line_position_bar->setPalette(line_unchanged_play_palette);
-	}
-	break;
-
-      case RDSlotBox::Stopping:
-	if(line_logline!=NULL) {
-	  if(line_logline->playPositionChanged()) {
-	    line_position_bar->setPalette(line_changed_stop_palette);
-	  }
-	  else {
-	    line_position_bar->setPalette(line_unchanged_stop_palette);
-	  }
-	}
-	else {
-	  line_position_bar->setPalette(line_unchanged_stop_palette);
-	}
-	break;
+  if(changed) {
+    line_position_bar->setPalette(line_changed_stop_palette);
+  }
+  else {
+    line_position_bar->setPalette(line_unchanged_stop_palette);
   }
 }
 

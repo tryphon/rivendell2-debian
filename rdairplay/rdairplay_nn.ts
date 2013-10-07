@@ -51,19 +51,19 @@
     </message>
     <message>
         <source>&amp;Audition</source>
-        <translation>&amp;Lytt</translation>
+        <translation type="obsolete">&amp;Lytt</translation>
     </message>
     <message>
         <source>&amp;Pause</source>
-        <translation>&amp;Pause</translation>
+        <translation type="obsolete">&amp;Pause</translation>
     </message>
     <message>
         <source>&amp;Stop</source>
-        <translation>&amp;Stopp</translation>
+        <translation type="obsolete">&amp;Stopp</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation>Start</translation>
+        <translation type="obsolete">Start</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -75,23 +75,19 @@
     </message>
     <message>
         <source>Edit Marker</source>
-        <translation>Rediger markør</translation>
+        <translation type="unfinished">Rediger markør</translation>
     </message>
     <message>
         <source>Edit Track</source>
-        <translation>Rediger spor</translation>
+        <translation type="unfinished">Rediger spor</translation>
     </message>
     <message>
         <source>Edit Log Track</source>
-        <translation>Rediger loggspor</translation>
+        <translation type="unfinished">Rediger loggspor</translation>
     </message>
     <message>
         <source>Transition If Previous Cart Ends Before</source>
         <translation>Overtoning viss førre korga endar før</translation>
-    </message>
-    <message>
-        <source>End</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Duplicate Start Time</source>

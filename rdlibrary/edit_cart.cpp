@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cart.cpp,v 1.74 2012/02/13 20:54:27 cvs Exp $
+//      $Id: edit_cart.cpp,v 1.74.2.1 2013/06/28 15:00:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -94,9 +94,12 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
   // Create Default Audio Cut
   //
   if(new_cart&&((rdcart_cart->type()==RDCart::Audio))) {
-    rdcart_cart->addCut(rdlibrary_conf->defaultFormat(),
-			rdlibrary_conf->defaultBitrate(),
-			rdlibrary_conf->defaultChannels());
+    if(rdcart_cart->addCut(rdlibrary_conf->defaultFormat(),
+			   rdlibrary_conf->defaultBitrate(),
+			   rdlibrary_conf->defaultChannels())<0) {
+      QMessageBox::warning(this,tr("RDLibrary - Edit Cart"),
+			   tr("This cart cannot contain any additional cuts!"));
+    }
   }
 
   //

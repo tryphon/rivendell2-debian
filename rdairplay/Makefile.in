@@ -51,19 +51,18 @@ dist_rdairplay_OBJECTS = button_log.$(OBJEXT) edit_event.$(OBJEXT) \
 	hourselector.$(OBJEXT) list_log.$(OBJEXT) list_logs.$(OBJEXT) \
 	local_macros.$(OBJEXT) log_play.$(OBJEXT) \
 	log_traffic.$(OBJEXT) loglinebox.$(OBJEXT) \
-	marker_bar.$(OBJEXT) mode_display.$(OBJEXT) nownext.$(OBJEXT) \
-	pie_counter.$(OBJEXT) post_counter.$(OBJEXT) \
-	rdairplay.$(OBJEXT) rlmhost.$(OBJEXT) start_button.$(OBJEXT) \
-	stop_counter.$(OBJEXT) wall_clock.$(OBJEXT)
+	mode_display.$(OBJEXT) nownext.$(OBJEXT) pie_counter.$(OBJEXT) \
+	post_counter.$(OBJEXT) rdairplay.$(OBJEXT) rlmhost.$(OBJEXT) \
+	start_button.$(OBJEXT) stop_counter.$(OBJEXT) \
+	wall_clock.$(OBJEXT)
 nodist_rdairplay_OBJECTS = moc_button_log.$(OBJEXT) \
 	moc_edit_event.$(OBJEXT) moc_hourselector.$(OBJEXT) \
 	moc_list_log.$(OBJEXT) moc_list_logs.$(OBJEXT) \
 	moc_log_play.$(OBJEXT) moc_loglinebox.$(OBJEXT) \
-	moc_marker_bar.$(OBJEXT) moc_mode_display.$(OBJEXT) \
-	moc_pie_counter.$(OBJEXT) moc_post_counter.$(OBJEXT) \
-	moc_rdairplay.$(OBJEXT) moc_rlmhost.$(OBJEXT) \
-	moc_start_button.$(OBJEXT) moc_stop_counter.$(OBJEXT) \
-	moc_wall_clock.$(OBJEXT)
+	moc_mode_display.$(OBJEXT) moc_pie_counter.$(OBJEXT) \
+	moc_post_counter.$(OBJEXT) moc_rdairplay.$(OBJEXT) \
+	moc_rlmhost.$(OBJEXT) moc_start_button.$(OBJEXT) \
+	moc_stop_counter.$(OBJEXT) moc_wall_clock.$(OBJEXT)
 rdairplay_OBJECTS = $(dist_rdairplay_OBJECTS) \
 	$(nodist_rdairplay_OBJECTS)
 rdairplay_DEPENDENCIES =
@@ -298,7 +297,6 @@ dist_rdairplay_SOURCES = button_log.cpp button_log.h\
                          log_play.cpp log_play.h\
                          log_traffic.cpp log_traffic.h\
                          loglinebox.cpp loglinebox.h\
-                         marker_bar.cpp marker_bar.h\
                          mode_display.cpp mode_display.h\
                          nownext.cpp\
                          pie_counter.cpp pie_counter.h\
@@ -316,7 +314,6 @@ nodist_rdairplay_SOURCES = moc_button_log.cpp\
                            moc_list_logs.cpp\
                            moc_log_play.cpp\
                            moc_loglinebox.cpp\
-                           moc_marker_bar.cpp\
                            moc_mode_display.cpp\
                            moc_pie_counter.cpp\
                            moc_post_counter.cpp\
@@ -444,7 +441,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/log_play.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/log_traffic.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/loglinebox.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/marker_bar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_button_log.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_event.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_hourselector.Po@am__quote@
@@ -452,7 +448,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_logs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_log_play.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_loglinebox.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_marker_bar.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_mode_display.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_pie_counter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_post_counter.Po@am__quote@

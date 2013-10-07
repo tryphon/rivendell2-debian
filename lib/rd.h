@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194.6.8 2013/04/29 22:03:23 cvs Exp $
+//      $Id: rd.h,v 1.194.6.10 2013/07/05 21:07:27 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -184,6 +184,11 @@
  * Maximum Cart Number
  */
 #define RD_MAX_CART_NUMBER 999999
+
+/*
+ * Maximum Cut Number
+ */
+#define RD_MAX_CUT_NUMBER 999
 
 /*
  * In negative 1/100ths of a dB
@@ -409,6 +414,15 @@
  * RDAirPlay Log Machines
  */
 #define RDAIRPLAY_LOG_QUANTITY 3
+
+/*
+ * Cue Editor Colors
+ */
+#define RD_CUEEDITOR_KNOB_COLOR blue
+#define RD_CUEEDITOR_PLAY_MARKER black
+#define RD_CUEEDITOR_START_MARKER red
+#define RD_CUEEDITOR_BUTTON_FLASH_PERIOD 200
+#define RD_CUEEDITOR_AUDITION_PREROLL 5000
 
 /*
  * Log Colors

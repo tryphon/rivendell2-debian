@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2007 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: lib.pro,v 1.36.8.9 2013/01/22 18:25:35 cvs Exp $
+#      $Id: lib.pro,v 1.36.8.11 2013/07/05 22:44:15 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -131,6 +131,8 @@ x11 {
   SOURCES += rdcheck_daemons.cpp
   SOURCES += rdcheck_version.cpp
   SOURCES += rdcmd_cache.cpp
+  SOURCES += rdcueedit.cpp
+  SOURCES += rdcueeditdialog.cpp
   SOURCES += rdcut_dialog.cpp
   SOURCES += rdcut_path.cpp
   SOURCES += rddeck.cpp
@@ -256,6 +258,8 @@ x11 {
   HEADERS += rdcheck_daemons.h
   HEADERS += rdcheck_version.h
   HEADERS += rdcmd_cache.h
+  HEADERS += rdcueedit.h
+  HEADERS += rdcueeditdialog.h
   HEADERS += rdcut_dialog.h
   HEADERS += rdcut_path.h
   HEADERS += rddeck.h
