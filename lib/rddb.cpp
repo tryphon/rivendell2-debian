@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2007 Dan Mills <dmills@exponent.myzen.co.uk>
 //
-//      $Id: rddb.cpp,v 1.13.4.1 2012/05/21 20:49:26 cvs Exp $
+//      $Id: rddb.cpp,v 1.13.4.2 2013/07/30 15:34:49 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -80,10 +80,14 @@ QSqlDatabase *RDInitDb (unsigned *schema,QString *error)
 RDSqlQuery::RDSqlQuery (const QString &query, QSqlDatabase *dbase):
   QSqlQuery (query,dbase)
 {
+  //  printf("lastQuery: %s\n",(const char *)lastQuery());
+
   // With any luck, by the time we get here, we have already done the biz...
   unsigned schema;
   if (!isActive()){ //DB Offline?
-    QString err=QObject::tr("invalid SQL or failed DB connection:")+" "+query;
+    QString err=QObject::tr("invalid SQL or failed DB connection")+
+      +"["+lastError().text()+"]: "+query;
+
     fprintf(stderr,"%s\n",(const char *)err);
 #ifndef WIN32
     syslog(LOG_ERR,(const char *)err);

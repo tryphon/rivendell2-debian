@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 1996-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdconf.h,v 1.10.6.1 2012/07/16 23:25:38 cvs Exp $
+//    $Id: rdconf.h,v 1.10.6.2 2013/06/20 20:00:09 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -36,6 +36,7 @@
 #include <qdatetime.h>
 #include <qcolor.h>
 #include <qstringlist.h>
+#include <qcstring.h>
 
 /* Function Prototypes */
 int GetPrivateProfileBool(const char *,const char *,const char *,bool);
@@ -111,5 +112,6 @@ QColor RDGetTextColor(const QColor &background_color);
 bool RDProcessActive(const QString &cmd);
 bool RDProcessActive(const QStringList &cmds);
 bool RDModulesActive();
+QByteArray RDStringToData(const QString &str);
 
 #endif   // RDCONF_H

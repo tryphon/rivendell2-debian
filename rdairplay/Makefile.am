@@ -4,7 +4,7 @@
 ##
 ## (C) 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.48.8.3 2013/01/01 21:36:30 cvs Exp $
+##      $Id: Makefile.am,v 1.48.8.4 2013/07/05 21:07:28 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -55,7 +55,6 @@ dist_rdairplay_SOURCES = button_log.cpp button_log.h\
                          log_play.cpp log_play.h\
                          log_traffic.cpp log_traffic.h\
                          loglinebox.cpp loglinebox.h\
-                         marker_bar.cpp marker_bar.h\
                          mode_display.cpp mode_display.h\
                          nownext.cpp\
                          pie_counter.cpp pie_counter.h\
@@ -74,7 +73,6 @@ nodist_rdairplay_SOURCES = moc_button_log.cpp\
                            moc_list_logs.cpp\
                            moc_log_play.cpp\
                            moc_loglinebox.cpp\
-                           moc_marker_bar.cpp\
                            moc_mode_display.cpp\
                            moc_pie_counter.cpp\
                            moc_post_counter.cpp\

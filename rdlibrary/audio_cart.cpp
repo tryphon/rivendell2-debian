@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.cpp,v 1.57.6.1 2013/02/27 21:21:53 cvs Exp $
+//      $Id: audio_cart.cpp,v 1.57.6.3 2013/07/03 19:16:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -279,12 +279,16 @@ QSizePolicy AudioCart::sizePolicy() const
 
 void AudioCart::addCutData()
 {
-  QString next_name=QString().
-    sprintf("%06d_%03d",
-	    rdcart_cart->number(),
-	    rdcart_cart->addCut(rdlibrary_conf->defaultFormat(),
-				rdlibrary_conf->defaultBitrate(),
-				rdlibrary_conf->defaultChannels()));
+  QString next_name=RDCut::cutName(rdcart_cart->number(),
+		 rdcart_cart->addCut(rdlibrary_conf->defaultFormat(),
+				     rdlibrary_conf->defaultBitrate(),
+				     rdlibrary_conf->defaultChannels()));
+  if(next_name.isEmpty()) {
+    QMessageBox::warning(this,tr("RDLibrary - Edit Cart"),
+			 tr("This cart cannot contain any additional cuts!"));
+    return;
+  }
+
   RDListViewItem *item=new RDListViewItem(rdcart_cut_list);
   item->setText(11,next_name);
   UpdateCutCount();
@@ -487,6 +491,7 @@ void AudioCart::ripCutData()
   int track;
   QString cutname;
   RDListViewItem *item=(RDListViewItem *)rdcart_cut_list->selectedItem();
+  QString title;
 
   if(item==NULL) {
     return;
@@ -494,10 +499,11 @@ void AudioCart::ripCutData()
   cutname=item->text(11);
   RDCddbRecord *rec=new RDCddbRecord();
   CdRipper *ripper=new CdRipper(cutname,rec,rdlibrary_conf);
-  if((track=ripper->exec())>=0) {
-    if(rdcart_controls->title_edit->text().isEmpty()||
-       (rdcart_controls->title_edit->text()==tr("[new cart]"))) {
-      rdcart_controls->title_edit->setText(rec->trackTitle(track));
+  if((track=ripper->exec(&title))>=0) {
+    if((rdcart_controls->title_edit->text().isEmpty()||
+	(rdcart_controls->title_edit->text()==tr("[new cart]")))&&
+       (!title.isEmpty())) {
+      rdcart_controls->title_edit->setText(title);
     }
     if(rdcart_controls->artist_edit->text().isEmpty()) {
       rdcart_controls->artist_edit->setText(rec->discArtist());

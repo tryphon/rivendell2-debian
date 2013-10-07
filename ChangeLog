@@ -13258,3 +13258,102 @@
 2013-05-22 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'
 	* Incremented the package version to 2.5.1.
+2013-06-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcuts.cpp' that caused talk markers to
+	be imported incorrectly via rdimport(1).
+2013-06-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDStringToData()' function in 'lib/rdconf.cpp'
+	and 'lib/rdconf.h'.
+	* Documented binary escape syntax in 'docs/rml.sxw'.
+	* Implemented binary escape syntax for the the 'Serial Out'
+	['SO'] and 'UDP Out' ['UO'] RMLs in 'ripcd/local_macros.cpp'.
+2013-06-20 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a '--delete-cuts' switch for nexgen_filter(1)
+	in 'importers/nexgen_filter.cpp' and 'importers/nextgen_filter.h'.
+2013-06-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'cae/cae_alsa.cpp' that caused the 'ChannelsPerPcm='
+	parameter in rd.conf(5) to be ignored when starting capture devices.
+2013-06-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDMatrix::Am16' value to the 'RDMatrix::Type' enum
+	in 'lib/rdmatrix.cpp' and 'lib/rdmatrix.h'.
+	* Added a driver for the 360 Systems AM16 Audio Crosspoint Switcher
+	in 'ripcd/am16.cpp' and 'ripcd/am16.h'.
+	* Updated 'docs/SWITCHERS.txt'.
+2013-06-28 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcart.cpp' that broke new cut creation when
+	the cut number reached 999'.
+	* Added an 'RD_MAX_CUT_NUMBER' define in 'lib/rd.h'.
+	* Added a check for failure to create a new cut in
+	'rdlibrary/audio_cart.cpp', 'rdlibrary/edit_cart.cpp',
+	'rdlogedit/voice_tracker.cpp' and 'utils/rdimport/rdimport.cpp'.
+2013-07-03 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Updated the package version to 2.5.2.
+2013-07-03 Fred Gleason <fredg@paravelsystems.com>
+	* Added an overloaded 'RDCdRipp::rip()' method in
+	'lib/rdcdripper.cpp' and 'lib/rdcdripper.h'.
+	* Added multi-track rip support to the 'Rip CD' dialog in
+	'rdlibrary/cdripper.cpp' and 'rdlibrary/cdripper.h'.
+2013-07-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogedit/edit_log.cpp' that allowed access
+	to the 'Edit Log Entry' dialog even when Arrange Log privilege
+	was denied.
+2013-07-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcartslot.cpp' that broke ELR logging
+	for cart slot playouts in Cart Deck mode.
+2013-07-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDCueEdit' widget in 'lib/rdcueedit.cpp' and
+	'lib/rdcueedit.h'.
+	* Added an 'RDMarkerBar' wdiget in 'lib/rdmarker_bar.cpp'
+	and 'lib/rdmarker_bar.h'.
+2013-07-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'Edit Cue Point' dialog in 'lib/rdeditcuedialog.cpp'
+	and 'lib/rdeditcuedialog.h'.
+	* Added the ability to set custom start and end points in
+	'lib/rdcartslot.cpp', 'lib/rdcartslot.h', 'lib/rdslotbox.cpp',
+	'lib/rdslotbox.h', 'rdcartslots/rdcartslots.cpp' and
+	'rdcartslots/rdcartslots.h'.
+2013-07-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdsvc.cpp' that caused music and traffic
+	merges to erroneously report success when executed from the
+	command line interface of RDLogManager(1).
+2013-07-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added a description of the error when logging SQL errors in
+	'lib/rddb.cpp'.
+2013-07-30 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdsvc.cpp' that performed invalid SQL
+	inserts when processing track and break strings when importing
+	schedules.
+2013-08-09 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogmanager/commandline_ops.cpp' that caused
+	an error when attempting to generate a report with the CLI
+	interface when no X server was available.
+2013-09-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'rlm_spinitron_plus' RLM in 'rlm/rlm_spinitron_plus.c'.
+	* Renamed the 'Cart Data Dump' report to 'Cart Data Dump (fixed width)"
+	in 'rdlibrary/list_reports.cpp'.
+	* Added a 'Cart Data Dump (CSV)' report in 'rdlibrary/list_reports.cpp'
+	and 'rdlibrary/list_reports.h'.
+	* Added a 'Prepend Field Names' checkbox to the List Reports dialog
+	in 'rdlibrary/list_reports.cpp' and 'rdlibrary/list_reports.h'.
+2013-09-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'log_mode' field to the 'rlm_log' struct in 'rlm/rlm.h'.
+	* Added 'RLM_LOGMODE_LIVEASSIST', 'RLM_LOGMODE_AUTOMATIC' and
+	'RLM_LOGMODE_MANUAL' defines in 'rlm/rlm.h'.
+	* Incremented 'RLM_VERSION' to 13 in 'rlm/rlm.h'.
+	* Updated the 'rlm_test' RLM in 'rlm/rlm_test.c' to use the
+	'rlm_log->log_mode' field.
+2013-09-12 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a 'PlaylistMode=' directive in the configuration
+	file for the 'rlm_spinitron_plus' RLM in 'rlm/rlm_spinitron_plus.c'.
+2013-10-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'web/rdxport/export.cpp' that broke level
+	normalization for audio exports.
+	* Fixed a bug in 'lib/rdimport_audio.cpp' that broke level
+	normalization for audio exports.
+2013-10-03 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'DisableMaintChecks=' parameter to the [Hacks] section
+	of rd.conf(5).
+2013-10-04 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.5.3.

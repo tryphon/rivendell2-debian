@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.h,v 1.25 2010/07/29 19:32:35 cvs Exp $
+//      $Id: edit_event.h,v 1.25.8.1 2013/07/05 21:07:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,8 +40,8 @@
 #include <rdmarker_edit.h>
 #include <rdpushbutton.h>
 #include <rdtimeedit.h>
+#include <rdcueedit.h>
 
-#include <marker_bar.h>
 #include <log_play.h>
 
 class EditEvent : public QDialog
@@ -60,45 +60,18 @@ class EditEvent : public QDialog
   void timeChangedData(const QTime &);
   void timeToggledData(bool state);
   void graceClickedData(int id);
-  void sliderPressedData();
-  void sliderReleasedData();
-  void sliderChangedData(int pos);
-  void auditionButtonData();
-  void pauseButtonData();
-  void stopButtonData();
-  void stateChangedData(int id,RDPlayDeck::State state);
-  void positionData(int id,int msecs);
-  void startClickedData();
-  void endClickedData();
-  void auditionTimerData();
   void okData();
   void cancelData();
-  virtual void wheelEvent(QWheelEvent *e);
-  virtual void mousePressEvent(QMouseEvent *e);
-  void keyPressEvent(QKeyEvent *e);
-  void keyReleaseEvent(QKeyEvent *e);
 
  protected:
   void closeEvent(QCloseEvent *e);
 
  private:
-  void SetStartMode(bool state);
-  void SetEndMode(bool state);
-  void ShowAudioControls(bool state);
-  void Playing(int id);
-  void Paused(int id);
-  void Stopped(int id);
-  void UpdateCounters();
-  void ClearChannel();
   LogPlay *edit_log;
   RDLogLine *edit_logline;
   int edit_line;
-  RDPlayDeck *edit_play_deck;
   RDTimeEdit *edit_time_edit;
-  RDSlider *edit_slider;
   bool edit_time_changed;
-  QLabel *edit_up_label;
-  QLabel *edit_down_label;
   QCheckBox *edit_timetype_box;
   QLabel *edit_timetype_label;
   QButtonGroup *edit_grace_group;
@@ -108,26 +81,12 @@ class EditEvent : public QDialog
   QLabel *edit_transtype_label;
   QCheckBox *edit_overlap_box;
   QLabel *edit_overlap_label;
+  RDCueEdit *edit_cue_edit;
   QFont normal_font;
-  RDTransportButton *edit_audition_button;
-  RDTransportButton *edit_pause_button;
-  RDTransportButton *edit_stop_button;
   QPushButton *edit_ok_button;
   QPushButton *edit_cancel_button;
   int edit_height;
-  bool edit_slider_pressed;
-  QPalette edit_play_color;
-  QPalette edit_start_color;
-  int edit_start_pos;
-  QLabel *edit_position_label;
-  MarkerBar *edit_position_bar;
-  RDPushButton *edit_start_button;
-  RDPushButton *edit_end_button;
-  bool edit_shift_pressed;
-  bool edit_right_click_stop;
-  QTimer *edit_audition_timer;
 };
 
 
-#endif
-
+#endif  // EDIT_EVENT_H

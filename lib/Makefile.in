@@ -85,11 +85,12 @@ dist_librd_la_OBJECTS = export_bmiemr.lo export_deltaflex.lo \
 	rdcheck_version.lo rdclock.lo rdcmd_cache.lo rdcmd_switch.lo \
 	rdcodetrap.lo rdcombobox.lo rdconf.lo rdconfig.lo \
 	rdcopyaudio.lo rdcreate_log.lo rdcreateauxfieldstable.lo \
-	rdcut.lo rdcut_dialog.lo rdcut_path.lo rddatedecode.lo \
-	rddatedialog.lo rddatepicker.lo rddb.lo rddbheartbeat.lo \
-	rddebug.lo rddeck.lo rddelete.lo rddownload.lo rddropbox.lo \
-	rdedit_audio.lo rdedit_panel_name.lo rdencoder.lo \
-	rdencoderlist.lo rdescape_string.lo rdevent.lo rdevent_line.lo \
+	rdcueedit.lo rdcueeditdialog.lo rdcut.lo rdcut_dialog.lo \
+	rdcut_path.lo rddatedecode.lo rddatedialog.lo rddatepicker.lo \
+	rddb.lo rddbheartbeat.lo rddebug.lo rddeck.lo rddelete.lo \
+	rddownload.lo rddropbox.lo rdedit_audio.lo \
+	rdedit_panel_name.lo rdencoder.lo rdencoderlist.lo \
+	rdescape_string.lo rdevent.lo rdevent_line.lo \
 	rdevent_player.lo rdexception_dialog.lo \
 	rdexport_settings_dialog.lo rdfeed.lo rdfeedlog.lo \
 	rdformpost.lo rdflacdecode.lo rdgain_envelope.lo rdget_ath.lo \
@@ -101,7 +102,7 @@ dist_librd_la_OBJECTS = export_bmiemr.lo export_deltaflex.lo \
 	rdlist_logs.lo rdlistsvcs.lo rdlistview.lo rdlistviewitem.lo \
 	rdlivewire.lo rdlivewiredestination.lo rdlivewiresource.lo \
 	rdlog.lo rdlogedit_conf.lo rdlog_event.lo rdlog_line.lo \
-	rdmacro.lo rdmacro_event.lo rdmarker_button.lo \
+	rdmacro.lo rdmacro_event.lo rdmarker_bar.lo rdmarker_button.lo \
 	rdmarker_edit.lo rdmatrix.lo rdmeteraverage.lo rdmixer.lo \
 	rdmonitor_config.lo rdnownext.lo rdoneshot.lo rdpam.lo \
 	rdpanel_button.lo rdpasswd.lo rdplay_deck.lo rdplaymeter.lo \
@@ -125,9 +126,10 @@ nodist_librd_la_OBJECTS = moc_rdadd_cart.lo moc_rdadd_log.lo \
 	moc_rdcardselector.lo moc_rdcart_dialog.lo moc_rdcartslot.lo \
 	moc_rdcatch_connect.lo moc_rdcddblookup.lo moc_rdcdplayer.lo \
 	moc_rdcdripper.lo moc_rdcodetrap.lo moc_rdcombobox.lo \
-	moc_rdcut_dialog.lo moc_rddatedialog.lo moc_rddatepicker.lo \
-	moc_rddb.lo moc_rddbheartbeat.lo moc_rddelete.lo \
-	moc_rddownload.lo moc_rdedit_audio.lo moc_rdedit_panel_name.lo \
+	moc_rdcueedit.lo moc_rdcueeditdialog.lo moc_rdcut_dialog.lo \
+	moc_rddatedialog.lo moc_rddatepicker.lo moc_rddb.lo \
+	moc_rddbheartbeat.lo moc_rddelete.lo moc_rddownload.lo \
+	moc_rdedit_audio.lo moc_rdedit_panel_name.lo \
 	moc_rdevent_player.lo moc_rdexception_dialog.lo \
 	moc_rdexport_settings_dialog.lo moc_rdfeed.lo moc_rdget_ath.lo \
 	moc_rdgetpasswd.lo moc_rdgpio.lo moc_rdgpioselector.lo \
@@ -136,13 +138,13 @@ nodist_librd_la_OBJECTS = moc_rdadd_cart.lo moc_rdadd_log.lo \
 	moc_rdlicense.lo moc_rdlineedit.lo moc_rdlist_groups.lo \
 	moc_rdlist_logs.lo moc_rdlistselector.lo moc_rdlistsvcs.lo \
 	moc_rdlistview.lo moc_rdlivewire.lo moc_rdmacro_event.lo \
-	moc_rdmarker_edit.lo moc_rdoneshot.lo moc_rdpanel_button.lo \
-	moc_rdpasswd.lo moc_rdplay_deck.lo moc_rdplaymeter.lo \
-	moc_rdpushbutton.lo moc_rdripc.lo moc_rdsegmeter.lo \
-	moc_rdsimpleplayer.lo moc_rdslider.lo moc_rdsocket.lo \
-	moc_rdsound_panel.lo moc_rdslotbox.lo moc_rdslotdialog.lo \
-	moc_rdstereometer.lo moc_rdsvc.lo moc_rdtimeedit.lo \
-	moc_rdtimeengine.lo moc_rdtransportbutton.lo \
+	moc_rdmarker_bar.lo moc_rdmarker_edit.lo moc_rdoneshot.lo \
+	moc_rdpanel_button.lo moc_rdpasswd.lo moc_rdplay_deck.lo \
+	moc_rdplaymeter.lo moc_rdpushbutton.lo moc_rdripc.lo \
+	moc_rdsegmeter.lo moc_rdsimpleplayer.lo moc_rdslider.lo \
+	moc_rdsocket.lo moc_rdsound_panel.lo moc_rdslotbox.lo \
+	moc_rdslotdialog.lo moc_rdstereometer.lo moc_rdsvc.lo \
+	moc_rdtimeedit.lo moc_rdtimeengine.lo moc_rdtransportbutton.lo \
 	moc_rdtrimaudio.lo moc_rdupload.lo moc_schedcartlist.lo \
 	moc_schedruleslist.lo
 librd_la_OBJECTS = $(dist_librd_la_OBJECTS) $(nodist_librd_la_OBJECTS)
@@ -421,6 +423,8 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdcopyaudio.cpp rdcopyaudio.h\
                         rdcreate_log.cpp rdcreate_log.h\
                         rdcreateauxfieldstable.cpp rdcreateauxfieldstable.h\
+                        rdcueedit.cpp rdcueedit.h\
+                        rdcueeditdialog.cpp rdcueeditdialog.h\
                         rdcut.cpp rdcut.h\
                         rdcut_dialog.cpp rdcut_dialog.h\
                         rdcut_path.cpp rdcut_path.h\
@@ -482,6 +486,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdlog_line.cpp rdlog_line.h\
                         rdmacro.cpp rdmacro.h\
                         rdmacro_event.cpp rdmacro_event.h\
+                        rdmarker_bar.cpp rdmarker_bar.h\
                         rdmarker_button.cpp rdmarker_button.h\
                         rdmarker_edit.cpp rdmarker_edit.h\
                         rdmatrix.cpp rdmatrix.h\
@@ -566,6 +571,8 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rdcdripper.cpp\
                           moc_rdcodetrap.cpp\
                           moc_rdcombobox.cpp\
+                          moc_rdcueedit.cpp\
+                          moc_rdcueeditdialog.cpp\
                           moc_rdcut_dialog.cpp\
                           moc_rddatedialog.cpp\
                           moc_rddatepicker.cpp\
@@ -598,6 +605,7 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rdlistview.cpp\
                           moc_rdlivewire.cpp\
                           moc_rdmacro_event.cpp\
+                          moc_rdmarker_bar.cpp\
                           moc_rdmarker_edit.cpp\
                           moc_rdoneshot.cpp\
                           moc_rdpanel_button.cpp\
@@ -759,6 +767,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdcdripper.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdcodetrap.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdcombobox.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdcueedit.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdcueeditdialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdcut_dialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rddatedialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rddatepicker.Plo@am__quote@
@@ -791,6 +801,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdlistview.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdlivewire.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdmacro_event.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdmarker_bar.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdmarker_edit.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdoneshot.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdpanel_button.Plo@am__quote@
@@ -855,6 +866,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdcopyaudio.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdcreate_log.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdcreateauxfieldstable.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdcueedit.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdcueeditdialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdcut.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdcut_dialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdcut_path.Plo@am__quote@
@@ -915,6 +928,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdlogedit_conf.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdmacro.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdmacro_event.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdmarker_bar.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdmarker_button.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdmarker_edit.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdmatrix.Plo@am__quote@

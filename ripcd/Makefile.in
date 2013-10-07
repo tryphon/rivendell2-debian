@@ -47,25 +47,26 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-dist_ripcd_OBJECTS = acu1p.$(OBJEXT) bt10x1.$(OBJEXT) bt16x1.$(OBJEXT) \
-	bt16x2.$(OBJEXT) bt8x2.$(OBJEXT) btacs82.$(OBJEXT) \
-	btss124.$(OBJEXT) btss164.$(OBJEXT) btss42.$(OBJEXT) \
-	btss44.$(OBJEXT) btss82.$(OBJEXT) btsrc16.$(OBJEXT) \
-	btsrc8iii.$(OBJEXT) harlond.$(OBJEXT) livewire.$(OBJEXT) \
-	livewire_gpio.$(OBJEXT) local_audio.$(OBJEXT) \
-	local_gpio.$(OBJEXT) local_macros.$(OBJEXT) \
-	maint_routines.$(OBJEXT) loaddrivers.$(OBJEXT) \
-	quartz1.$(OBJEXT) ripcd.$(OBJEXT) ripcd_connection.$(OBJEXT) \
-	ripcd_socket.$(OBJEXT) sas32000.$(OBJEXT) sas64000.$(OBJEXT) \
-	sas64000gpi.$(OBJEXT) sasusi.$(OBJEXT) starguide3.$(OBJEXT) \
-	starguide_feed.$(OBJEXT) switcher.$(OBJEXT) \
-	unity4000.$(OBJEXT) unity_feed.$(OBJEXT) vguest.$(OBJEXT)
-nodist_ripcd_OBJECTS = moc_acu1p.$(OBJEXT) moc_bt10x1.$(OBJEXT) \
-	moc_bt16x1.$(OBJEXT) moc_bt16x2.$(OBJEXT) moc_bt8x2.$(OBJEXT) \
-	moc_btacs82.$(OBJEXT) moc_btsrc16.$(OBJEXT) \
-	moc_btsrc8iii.$(OBJEXT) moc_btss124.$(OBJEXT) \
-	moc_btss164.$(OBJEXT) moc_btss42.$(OBJEXT) \
-	moc_btss44.$(OBJEXT) moc_btss82.$(OBJEXT) \
+dist_ripcd_OBJECTS = acu1p.$(OBJEXT) am16.$(OBJEXT) bt10x1.$(OBJEXT) \
+	bt16x1.$(OBJEXT) bt16x2.$(OBJEXT) bt8x2.$(OBJEXT) \
+	btacs82.$(OBJEXT) btss124.$(OBJEXT) btss164.$(OBJEXT) \
+	btss42.$(OBJEXT) btss44.$(OBJEXT) btss82.$(OBJEXT) \
+	btsrc16.$(OBJEXT) btsrc8iii.$(OBJEXT) harlond.$(OBJEXT) \
+	livewire.$(OBJEXT) livewire_gpio.$(OBJEXT) \
+	local_audio.$(OBJEXT) local_gpio.$(OBJEXT) \
+	local_macros.$(OBJEXT) maint_routines.$(OBJEXT) \
+	loaddrivers.$(OBJEXT) quartz1.$(OBJEXT) ripcd.$(OBJEXT) \
+	ripcd_connection.$(OBJEXT) ripcd_socket.$(OBJEXT) \
+	sas32000.$(OBJEXT) sas64000.$(OBJEXT) sas64000gpi.$(OBJEXT) \
+	sasusi.$(OBJEXT) starguide3.$(OBJEXT) starguide_feed.$(OBJEXT) \
+	switcher.$(OBJEXT) unity4000.$(OBJEXT) unity_feed.$(OBJEXT) \
+	vguest.$(OBJEXT)
+nodist_ripcd_OBJECTS = moc_am16.$(OBJEXT) moc_acu1p.$(OBJEXT) \
+	moc_bt10x1.$(OBJEXT) moc_bt16x1.$(OBJEXT) moc_bt16x2.$(OBJEXT) \
+	moc_bt8x2.$(OBJEXT) moc_btacs82.$(OBJEXT) \
+	moc_btsrc16.$(OBJEXT) moc_btsrc8iii.$(OBJEXT) \
+	moc_btss124.$(OBJEXT) moc_btss164.$(OBJEXT) \
+	moc_btss42.$(OBJEXT) moc_btss44.$(OBJEXT) moc_btss82.$(OBJEXT) \
 	moc_harlond.$(OBJEXT) moc_livewire.$(OBJEXT) \
 	moc_livewire_gpio.$(OBJEXT) moc_local_audio.$(OBJEXT) \
 	moc_local_gpio.$(OBJEXT) moc_quartz1.$(OBJEXT) \
@@ -295,6 +296,7 @@ AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
 INCLUDES = -I$(top_srcdir)/lib
 MOC = @QT_MOC@
 dist_ripcd_SOURCES = acu1p.cpp acu1p.h\
+                     am16.cpp am16.h\
                      bt10x1.cpp bt10x1.h\
                      bt16x1.cpp bt16x1.h\
                      bt16x2.cpp bt16x2.h\
@@ -329,7 +331,8 @@ dist_ripcd_SOURCES = acu1p.cpp acu1p.h\
                      unity_feed.cpp unity_feed.h\
                      vguest.cpp vguest.h
 
-nodist_ripcd_SOURCES = moc_acu1p.cpp\
+nodist_ripcd_SOURCES = moc_am16.cpp\
+                       moc_acu1p.cpp\
                        moc_bt10x1.cpp\
                        moc_bt16x1.cpp\
                        moc_bt16x2.cpp\
@@ -459,6 +462,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/acu1p.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/am16.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bt10x1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bt16x1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bt16x2.Po@am__quote@
@@ -480,6 +484,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/local_macros.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/maint_routines.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_acu1p.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_am16.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_bt10x1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_bt16x1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_bt16x2.Po@am__quote@

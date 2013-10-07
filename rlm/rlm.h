@@ -80,7 +80,7 @@ extern "C" {
 /*
  * RLM Interface Version
  */
-#define RLM_VERSION 12
+#define RLM_VERSION 13
 
 /*
  * Available Timers
@@ -111,6 +111,14 @@ extern "C" {
 #define RLM_CARTTYPE_MACRO 2
 
 /*
+ * Log Machine Modes
+ * (for use in the 'rlm_mode' field of the 'rlm_log' struct)
+ */
+#define RLM_LOGMODE_LIVEASSIST 1
+#define RLM_LOGMODE_AUTOMATIC 2
+#define RLM_LOGMODE_MANUAL 3
+
+/*
  * Service data structure
  */
   struct rlm_svc {
@@ -126,7 +134,8 @@ extern "C" {
     char log_name[65];         /* Log name */
     uint32_t log_mach;         /* Log machine number, 0=Main, 1=Aux 1, 2=Aux2 */
     char log_onair;            /* On-air flag, 0=False, 1=True */
-    char reserved[1978];       /* Reserved for future use */
+    uint32_t log_mode;         /* Log machine mode, 1=LiveAssist, 2=Automatic, 3=Manual */
+    char reserved[1974];       /* Reserved for future use */
   };
 
 /*

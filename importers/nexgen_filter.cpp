@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: nexgen_filter.cpp,v 1.1.2.7 2013/05/10 22:46:33 cvs Exp $
+//      $Id: nexgen_filter.cpp,v 1.1.2.8 2013/06/20 20:24:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -66,6 +66,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   char tempdir[PATH_MAX];
 
   filter_cart_offset=0;
+  filter_delete_cuts=false;
   filter_normalization_level=0;
   filter_verbose=false;
 
@@ -103,6 +104,10 @@ MainObject::MainObject(QObject *parent,const char *name)
 	  fprintf(stderr,"nexgen_filter: --cart-offset must be an integer\n");
 	  exit(256);
 	}
+	cmd->setProcessed(i,true);
+      }
+      if(cmd->key(i)=="--delete-cuts") {
+	filter_delete_cuts=true;
 	cmd->setProcessed(i,true);
       }
       if(cmd->key(i)=="--normalization-level") {
@@ -334,6 +339,7 @@ void MainObject::ProcessXmlFile(const QString &xml,const QString &wavname,
   int cartnum;
   QString sql;
   RDSqlQuery *q;
+  QString delete_cuts_switch="";
 
   //
   // Read Metadata
@@ -391,9 +397,13 @@ void MainObject::ProcessXmlFile(const QString &xml,const QString &wavname,
   else {
     Print(QString().sprintf(" from %s ...",(const char *)arcname));
   }
+  if(filter_delete_cuts) {
+    delete_cuts_switch="--delete-cuts ";
+  }
   if(system(QString().sprintf("rdimport --autotrim-level=0 --normalization-level=%d --to-cart=%d ",
 			      filter_normalization_level,cartnum)+
-	    filter_group->name()+" "+filter_temp_audiofile)!=0) {
+	    +delete_cuts_switch+filter_group->name()+" "+
+	    filter_temp_audiofile)!=0) {
     Print(QString().sprintf(" aborted.\n"));
     fprintf(stderr,"import of \"%s\" failed\n",(const char *)filename);
     WriteReject(xml);

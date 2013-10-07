@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.cpp,v 1.76.6.6 2013/02/27 21:21:53 cvs Exp $
+//      $Id: rdcut.cpp,v 1.76.6.8 2013/06/28 15:00:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -991,7 +991,7 @@ void RDCut::setMetadata(RDWaveData *data) const
       }
     }
     if(data->introEndPos()>=0) {
-      if(data->introEndPos()>data->endPos()) {
+      if((data->introEndPos()>data->endPos())&&(data->endPos()!=-1)) {
 	sql+=QString().sprintf("TALK_END_POINT=%d,",data->endPos());
       }
       else {
@@ -1411,6 +1411,10 @@ void RDCut::disconnect(QObject *receiver,const char *member) const
 
 QString RDCut::cutName(unsigned cartnum,unsigned cutnum)
 {
+  if((cartnum<1)||(cartnum>RD_MAX_CART_NUMBER)||
+     (cutnum<1)||(cutnum>RD_MAX_CUT_NUMBER)) {
+    return QString();
+  }
   return QString().sprintf("%06u_%03u",cartnum,cutnum);
 }
 

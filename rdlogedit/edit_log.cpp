@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.cpp,v 1.91 2010/09/08 20:38:00 cvs Exp $
+//      $Id: edit_log.cpp,v 1.91.6.2 2013/07/03 19:57:56 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -344,12 +344,14 @@ EditLog::EditLog(QString logname,vector<RDLogLine> *clipboard,
   edit_log_list->setColumnAlignment(12,Qt::AlignHCenter);
   edit_log_list->addColumn(tr("COUNT"));
   edit_log_list->setColumnAlignment(13,Qt::AlignHCenter);
-  connect(edit_log_list,SIGNAL(doubleClicked(QListViewItem *)),
-	  this,SLOT(doubleClickData(QListViewItem *)));
+  if(editing_allowed) {
+    connect(edit_log_list,SIGNAL(doubleClicked(QListViewItem *)),
+	    this,SLOT(doubleClickData(QListViewItem *)));
+  }
   connect(edit_log_list,SIGNAL(clicked(QListViewItem *)),
-	  this,SLOT(clickedData(QListViewItem *)));
+  	  this,SLOT(clickedData(QListViewItem *)));
   connect(edit_log_list,SIGNAL(selectionChanged()),
-	  this,SLOT(selectionChangedData()));
+  	  this,SLOT(selectionChangedData()));
 
   //
   //  Insert Cart Button

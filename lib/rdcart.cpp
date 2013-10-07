@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.cpp,v 1.72 2012/01/12 16:24:50 cvs Exp $
+//      $Id: rdcart.cpp,v 1.72.4.1 2013/06/28 15:00:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1074,8 +1074,11 @@ int RDCart::addCut(unsigned format,unsigned bitrate,unsigned chans,
 {
   RDSqlQuery *q;
   QString sql;
+  int next;
 
-  int next=GetNextFreeCut();
+  if((next=GetNextFreeCut())<0) {
+    return -1;
+  }
   QString next_name=QString().sprintf("%06d_%03d",cart_number,next);
   if(desc.isEmpty()) {
     desc=QString().sprintf("Cut %03d",next);
@@ -1324,18 +1327,24 @@ int RDCart::GetNextFreeCut() const
 {
   RDSqlQuery *q;
   QString sql;
-  unsigned num=1;
 
   sql=QString().sprintf("select CUT_NAME from CUTS where CART_NUMBER=%d\
                          order by CUT_NAME",
 			cart_number);
   q=new RDSqlQuery(sql);
-  if(q->last()) {
-    sscanf(((const char *)q->value(0).toString())+7,"%d",&num);
-    num++;
+  for(int i=1;i<=RD_MAX_CUT_NUMBER;i++) {
+    if(q->next()) {
+      if(q->value(0).toString()!=RDCut::cutName(cart_number,i)) {
+	delete q;
+	return i;
+      }
+    }
+    else {
+      delete q;
+      return i;
+    }
   }
-  delete q;
-  return num;
+  return -1;
 }
 
 

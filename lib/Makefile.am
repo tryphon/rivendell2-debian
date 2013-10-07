@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.132.4.11 2013/01/22 18:25:35 cvs Exp $
+##      $Id: Makefile.am,v 1.132.4.13 2013/07/05 22:44:14 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -101,6 +101,8 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdcopyaudio.cpp rdcopyaudio.h\
                         rdcreate_log.cpp rdcreate_log.h\
                         rdcreateauxfieldstable.cpp rdcreateauxfieldstable.h\
+                        rdcueedit.cpp rdcueedit.h\
+                        rdcueeditdialog.cpp rdcueeditdialog.h\
                         rdcut.cpp rdcut.h\
                         rdcut_dialog.cpp rdcut_dialog.h\
                         rdcut_path.cpp rdcut_path.h\
@@ -162,6 +164,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdlog_line.cpp rdlog_line.h\
                         rdmacro.cpp rdmacro.h\
                         rdmacro_event.cpp rdmacro_event.h\
+                        rdmarker_bar.cpp rdmarker_bar.h\
                         rdmarker_button.cpp rdmarker_button.h\
                         rdmarker_edit.cpp rdmarker_edit.h\
                         rdmatrix.cpp rdmatrix.h\
@@ -247,6 +250,8 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rdcdripper.cpp\
                           moc_rdcodetrap.cpp\
                           moc_rdcombobox.cpp\
+                          moc_rdcueedit.cpp\
+                          moc_rdcueeditdialog.cpp\
                           moc_rdcut_dialog.cpp\
                           moc_rddatedialog.cpp\
                           moc_rddatepicker.cpp\
@@ -279,6 +284,7 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rdlistview.cpp\
                           moc_rdlivewire.cpp\
                           moc_rdmacro_event.cpp\
+                          moc_rdmarker_bar.cpp\
                           moc_rdmarker_edit.cpp\
                           moc_rdoneshot.cpp\
                           moc_rdpanel_button.cpp\

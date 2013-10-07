@@ -288,10 +288,6 @@
         <translation type="unfinished">Não foi possível abrir o Relatório!</translation>
     </message>
     <message>
-        <source>invalid SQL or failed DB connection:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Music Summary</source>
         <translation type="unfinished"></translation>
     </message>
@@ -377,6 +373,10 @@
     </message>
     <message>
         <source>Sound Panel Fifth and Later Play Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>invalid SQL or failed DB connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -766,6 +766,44 @@ Cor</translation>
     <message>
         <source>Importing</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RDCueEdit</name>
+    <message>
+        <source>&amp;Audition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End</source>
+        <translation type="unfinished">Fim</translation>
+    </message>
+</context>
+<context>
+    <name>RDCueEditDialog</name>
+    <message>
+        <source>Set Cue Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Cancelar</translation>
     </message>
 </context>
 <context>

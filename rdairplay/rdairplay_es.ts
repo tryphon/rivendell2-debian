@@ -39,19 +39,19 @@
     </message>
     <message>
         <source>&amp;Audition</source>
-        <translation>Escuc&amp;har</translation>
+        <translation type="obsolete">Escuc&amp;har</translation>
     </message>
     <message>
         <source>&amp;Pause</source>
-        <translation>&amp;Pausar</translation>
+        <translation type="obsolete">&amp;Pausar</translation>
     </message>
     <message>
         <source>&amp;Stop</source>
-        <translation>&amp;Parar</translation>
+        <translation type="obsolete">&amp;Parar</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation>Iniciar</translation>
+        <translation type="obsolete">Iniciar</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -63,7 +63,7 @@
     </message>
     <message>
         <source>Edit Marker</source>
-        <translation>Editar marcador</translation>
+        <translation type="unfinished">Editar marcador</translation>
     </message>
     <message>
         <source>Transition If Previous Cart Ends Before</source>
@@ -71,11 +71,11 @@
     </message>
     <message>
         <source>Edit Track</source>
-        <translation>Editar pista</translation>
+        <translation type="unfinished">Editar pista</translation>
     </message>
     <message>
         <source>Edit Log Track</source>
-        <translation>Editar Pista del Log</translation>
+        <translation type="unfinished">Editar Pista del Log</translation>
     </message>
     <message>
         <source>Start Transition Type:</source>
@@ -87,7 +87,7 @@
     </message>
     <message>
         <source>End</source>
-        <translation>Fin</translation>
+        <translation type="obsolete">Fin</translation>
     </message>
     <message>
         <source>Duplicate Start Time</source>

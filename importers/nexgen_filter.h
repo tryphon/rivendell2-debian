@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: nexgen_filter.h,v 1.1.2.4 2013/05/10 22:46:33 cvs Exp $
+//      $Id: nexgen_filter.h,v 1.1.2.5 2013/06/20 20:24:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,7 +36,7 @@
 #include <rdgroup.h>
 #include <rdwavedata.h>
 
-#define NEXGEN_FILTER_USAGE "[options] <xml-file>|<pkt-file> [...]\n\nImport audio from a Prophet NexGen system, using metadata contained in\none or more XML files.  Options are:\n\n--group=<group-name>\n     The Rivendell group to use.  This option is mandatory and has no default.\n\n--audio-dir=<path>\n     The full path to the directory containing the audio files.  This option\n     is ignored when importing PKT files, but mandatory for importing\n     using XML data.  It has no default.\n\n--reject-dir=<path>\n     The full path to the directory in which to place copies of XML files\n     which were unable to be processed.  Default is '/dev/null'.\n\n--cart-offset=<offset>\n     Apply integer <offset> to the NexGen cart number before importing.\n     Default is '0'.\n\n--normalization-level=<level>\n     The level to use for normalizing the audio, in dBFS.  Specifying '0'\n     will turn off normalization.  Default is '0'.\n\n--verbose\n     Print status messages as files are processed.\n\n<xml-file> [..]\n     Filespec for XML file(s) containing import metadata.\n\n"
+#define NEXGEN_FILTER_USAGE "[options] <xml-file>|<pkt-file> [...]\n\nImport audio from a Prophet NexGen system, using metadata contained in\none or more XML files.  Options are:\n\n--group=<group-name>\n     The Rivendell group to use.  This option is mandatory and has no default.\n\n--audio-dir=<path>\n     The full path to the directory containing the audio files.  This option\n     is ignored when importing PKT files, but mandatory for importing\n     using XML data.  It has no default.\n\n--reject-dir=<path>\n     The full path to the directory in which to place copies of XML files\n     which were unable to be processed.  Default is '/dev/null'.\n\n--cart-offset=<offset>\n     Apply integer <offset> to the NexGen cart number before importing.\n     Default is '0'.\n\n--delete-cuts\n     If the destination cart already exists, delete any existing cuts\n     within it before importing.\n\n--normalization-level=<level>\n     The level to use for normalizing the audio, in dBFS.  Specifying '0'\n     will turn off normalization.  Default is '0'.\n\n--verbose\n     Print status messages as files are processed.\n\n<xml-file> [..]\n     Filespec for XML file(s) containing import metadata.\n\n"
 
 class MainObject : public QObject
 {
@@ -65,6 +65,7 @@ class MainObject : public QObject
   QDir *filter_temp_dir;
   QString filter_temp_audiofile;
   int filter_cart_offset;
+  bool filter_delete_cuts;
   int filter_normalization_level;
   RDStation *filter_rdstation;
   RDRipc *filter_ripc;

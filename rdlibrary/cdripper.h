@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cdripper.h,v 1.14 2010/07/29 19:32:36 cvs Exp $
+//      $Id: cdripper.h,v 1.14.8.1 2013/07/03 19:16:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -26,7 +26,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <qdialog.h>
-#include <qlistview.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qprogressbar.h>
@@ -42,6 +41,7 @@
 #include <rdcdplayer.h>
 #include <rdcddbrecord.h>
 #include <rdcddblookup.h>
+#include <rdlistview.h>
 
 #include <rdlibrary_conf.h>
 
@@ -59,6 +59,9 @@ class CdRipper : public QDialog
    ~CdRipper();
    QSize sizeHint() const;
    QSizePolicy sizePolicy() const;
+
+  public slots:
+   int exec(QString *title);
 
   private slots:
    void trackSelectionChangedData();
@@ -84,10 +87,12 @@ class CdRipper : public QDialog
    RDCddbRecord *rip_cddb_record;
    RDCddbLookup *rip_cddb_lookup;
    RDCut *rip_cut;
-   QListView *rip_track_list;
+   RDListView *rip_track_list;
    QPushButton *rip_rip_button;
    bool rip_rip_aborted;
    QPushButton *rip_close_button;
+   QString *rip_title;
+   QComboBox *rip_title_box;
    QLineEdit *rip_album_edit;
    QLineEdit *rip_artist_edit;
    QTextEdit *rip_other_edit;
@@ -102,7 +107,7 @@ class CdRipper : public QDialog
    QLabel *rip_normalize_label;
    QLabel *rip_normalize_unit;
    QComboBox *rip_channels_box;
-   int rip_track;
+   int rip_track[2];
    QCheckBox *rip_autotrim_box;
    QSpinBox *rip_autotrim_spin;
    QLabel *rip_autotrim_label;

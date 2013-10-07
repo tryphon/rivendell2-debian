@@ -107,6 +107,9 @@ Channels=2
 ; the following line:
 ; UseStreamMeters=Yes
 
+; Completely disable maintenance checks on this host.
+; DisableMaintChecks=Yes
+
 ;
 ; Log Generation (old method, deprecated)
 ;

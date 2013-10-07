@@ -2,7 +2,7 @@
 ##
 ## An example Makefile for building Rivendell Loadable Modules
 ##
-##   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
+##   (C) Copyright 2008-2013 Fred Gleason <fredg@paravelsystems.com>
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU Library General Public License 
@@ -26,6 +26,7 @@ OBJS = rlm_ando.rlm\
        rlm_padpoint.rlm\
        rlm_serial.rlm\
        rlm_shoutcast1.rlm\
+       rlm_spinitron_plus.rlm\
        rlm_spottrap.rlm\
        rlm_test.rlm\
        rlm_twitter.rlm\

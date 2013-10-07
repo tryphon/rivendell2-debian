@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: export.cpp,v 1.6.2.1 2012/09/06 20:39:10 cvs Exp $
+//      $Id: export.cpp,v 1.6.2.2 2013/10/02 18:25:12 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -135,13 +135,13 @@ void Xport::Export()
   settings->setSampleRate(sample_rate);
   settings->setBitRate(bit_rate);
   settings->setQuality(quality);
+  settings->setNormalizationLevel(normalization_level);
   RDAudioConvert *conv=new RDAudioConvert(xport_config->stationName());
   conv->setSourceFile(RDCut::pathName(cartnum,cutnum));
   conv->setDestinationFile(tmpfile);
   conv->setDestinationSettings(settings);
   conv->setDestinationWaveData(wavedata);
   conv->setRange(start_point,end_point);
-  syslog(LOG_NOTICE,"ratio: %6.3f",speed_ratio);
   conv->setSpeedRatio(speed_ratio);
   switch(conv_err=conv->convert()) {
   case RDAudioConvert::ErrorOk:

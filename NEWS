@@ -1,6 +1,59 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.5.3 -- 10/04/2013
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   Multitrack Rip Support.  It is now possible to rip multiple CD tracks
+   into a single cut using the single cut ripper in RDLibrary.
+
+   RDCartSlot Enhancements.  It is now possible to set custom 'one off'
+   Start and End cuepoints for events.
+
+   Spinitron Integration.  A 'spinitron_plus' RLM has been added that can
+   be used to log PAD data to the Spinitron playlist service
+   (http://www.spinitron.com), as well as a cart data export that can be
+   used to populate Spinitron MusicDB libraries.  See the Spinitron
+   'Automation Integration' document for details.
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 220, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
+v2.5.2 -- 07/03/2013
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   Binary Escape Codes.  It is now possible to craft messages for the
+   'Serial Out' ['SO'] and 'UDP Out' ['UO'] RMLs containing arbitrary
+   binary sequences.  See the 'BINARY DATA' section of 'docs/rml.sxw'
+   for details.
+
+   New Switcher Device.  A switcher driver has been added for the
+   360 Systems AM16 Audio Crosspoint Switcher.  See 'docs/SWITCHERS.txt'
+   for details.
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 220, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.5.1 -- 05/22/2013
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

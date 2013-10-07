@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.16.4.4 2012/11/29 01:37:35 cvs Exp $
-##      $Date: 2012/11/29 01:37:35 $
+##      $Id: Makefile.am,v 1.16.4.5 2013/09/12 23:26:09 cvs Exp $
+##      $Date: 2013/09/12 23:26:09 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -39,6 +39,7 @@ EXTRA_DIST = my.cnf-master\
              rlm_padpoint.conf\
              rlm_serial.conf\
              rlm_shoutcast1.conf\
+             rlm_spinitron_plus.conf\
              rlm_spottrap.conf\
              rlm_twitter.conf\
              rlm_udp.conf\

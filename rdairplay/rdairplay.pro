@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdairplay.pro,v 1.8.4.2 2013/01/01 21:36:30 cvs Exp $
+#      $Id: rdairplay.pro,v 1.8.4.3 2013/07/05 21:07:29 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -31,7 +31,6 @@ x11 {
   SOURCES += log_play.cpp
   SOURCES += log_traffic.cpp
   SOURCES += loglinebox.cpp
-  SOURCES += marker_bar.cpp
   SOURCES += mode_display.cpp
   SOURCES += pie_counter.cpp
   SOURCES += post_counter.cpp
@@ -51,7 +50,6 @@ x11 {
   HEADERS += log_play.h
   HEADERS += log_traffic.h
   HEADERS += loglinebox.h
-  HEADERS += marker_bar.h
   HEADERS += mode_display.h
   HEADERS += pie_counter.h
   HEADERS += post_counter.h

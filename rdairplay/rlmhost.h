@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rlmhost.h,v 1.6 2011/05/04 18:09:06 cvs Exp $
+//      $Id: rlmhost.h,v 1.6.6.1 2013/09/13 00:00:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -32,6 +32,7 @@
 
 #include <rdttydevice.h>
 #include <rdlog_line.h>
+#include <rdairplay_conf.h>
 #include "../rlm/rlm.h"
 
 class RLMHost : public QObject
@@ -44,7 +45,8 @@ class RLMHost : public QObject
   QString pluginPath() const;
   QString pluginArg() const;
   void sendEvent(const QString &svcname,const QString &logname,
-		 int lognum,RDLogLine **loglines,bool onair);
+		 int lognum,RDLogLine **loglines,bool onair,
+		 RDAirPlayConf::OpMode mode);
   bool load();
   void unload();
   static void loadMetadata(const RDLogLine *logline,struct rlm_pad *pad);

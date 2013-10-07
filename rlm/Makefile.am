@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.7.4.4 2012/11/29 01:37:37 cvs Exp $
+##      $Id: Makefile.am,v 1.7.4.5 2013/09/12 23:26:11 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -32,6 +32,7 @@ RLM_MODULES=rlm_ando.rlm\
             rlm_padpoint.rlm\
             rlm_serial.rlm\
             rlm_shoutcast1.rlm\
+            rlm_spinitron_plus.rlm\
             rlm_spottrap.rlm\
             rlm_test.rlm\
             rlm_twitter.rlm\
@@ -64,6 +65,7 @@ EXTRA_DIST = Makefile-example\
              rlm_padpoint.c\
              rlm_serial.c\
              rlm_shoutcast1.c\
+             rlm_spinitron_plus.c\
              rlm_spottrap.c\
              rlm_test.c\
              rlm_twitter.c\

@@ -2,6 +2,7 @@
 
 The following devices are supported as switchers under Rivendell:
 
+360 Systems AM-16/B Audio Crosspoint Switcher
 Broadcast Tools 10x1 Audio Switcher
 Broadcast Tools 16x1 Audio Switcher
 Broadcast Tools 16x2 Audio Switcher
@@ -26,6 +27,30 @@ StarGuide III Satellite Receiver
 Wegener Unity4000 DVB Satellite Receiver
 
 See the sections below for notes on each specific model.
+
+----------------------------------------------------------------------------
+360 SYSTEMS AM-16/B AUDIO CROSSPOINT SWITCHER
+
+Driver Name: 360 Systems AM-16/B
+
+Supported RML Commands:
+  Switch Take ('ST')
+
+GENERAL NOTES:
+Control is done by means of MIDI connections to the 'MIDI IN' and
+'MIDI OUT' ports on the back of the unit, with the appropriate MIDI device
+specified in the 'Device:' field in RDAdmin->ManageHosts->Switchers/GPIO.
+The following settings should be configured on the AM-16/B:
+
+       Control Port Type: MIDI (jumper JMP1)
+       Program Send: OFF
+       Receive Channel: o (Omni mode)
+       Memory Protect: OFF
+
+The driver uses MIDI programs '0' and '1' on the AM-16/B when processing
+crosspoint changes; anything previously saved in those programs will
+be overwritten!
+
 
 ----------------------------------------------------------------------------
 BROADCAST TOOLS 10x1
