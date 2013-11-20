@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_gpis.cpp,v 1.13 2010/07/29 19:32:34 cvs Exp $
+//      $Id: list_gpis.cpp,v 1.13.8.1 2013/11/17 04:27:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -160,7 +160,7 @@ ListGpis::ListGpis(RDMatrix *matrix,RDMatrix::GpioType type,
 			list_matrix->matrix(),
 			(const char *)list_tablename);
   q=new RDSqlQuery(sql);
-  if(list_matrix->type()==RDMatrix::LiveWire) {
+  if(list_matrix->type()==RDMatrix::LiveWireLwrpAudio) {
     while(q->next()) {
       l=new QListViewItem(list_list_view);
       l->setText(0,QString().sprintf("%05d",q->value(0).toInt()));

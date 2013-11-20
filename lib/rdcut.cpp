@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.cpp,v 1.76.6.8 2013/06/28 15:00:34 cvs Exp $
+//      $Id: rdcut.cpp,v 1.76.6.9 2013/11/13 23:36:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -808,7 +808,7 @@ void RDCut::logPlayout() const
 
 
 bool RDCut::copyTo(RDStation *station,RDUser *user,
-		   const QString &cutname) const
+		   const QString &cutname,RDConfig *config) const
 {
 #ifdef WIN32
   return false;
@@ -880,7 +880,7 @@ bool RDCut::copyTo(RDStation *station,RDUser *user,
   //
   // Copy the Audio
   //
-  RDCopyAudio *conv=new RDCopyAudio(station);
+  RDCopyAudio *conv=new RDCopyAudio(station,config);
   conv->setSourceCartNumber(cart_number);
   conv->setSourceCutNumber(cut_number);
   conv->setDestinationCartNumber(RDCut::cartNumber(cutname));

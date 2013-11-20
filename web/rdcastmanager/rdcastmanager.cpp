@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcastmanager.cpp,v 1.14 2011/09/09 20:23:28 cvs Exp $
+//      $Id: rdcastmanager.cpp,v 1.14.4.1 2013/11/13 23:36:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1620,7 +1620,7 @@ void MainObject::PostEpisode()
   RDFeed::Error err;
   RDFeed *feed=new RDFeed(cast_feed_id,this);
   int cast_id=feed->postFile(station,media_file,&err,
-			     cast_config->logXloadDebugData());
+			     cast_config->logXloadDebugData(),cast_config);
   delete feed;
   delete station;
   if(err!=RDFeed::ErrorOk) {

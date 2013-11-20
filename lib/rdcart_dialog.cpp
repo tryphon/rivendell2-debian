@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.cpp,v 1.48.4.4 2012/12/03 17:54:38 cvs Exp $
+//      $Id: rdcart_dialog.cpp,v 1.48.4.6 2013/11/15 18:24:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -55,7 +55,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
 			   int audition_card,int audition_port,
 			   unsigned start_cart,unsigned end_cart,RDCae *cae,
 			   RDRipc *ripc,RDStation *station,RDSystem *system,
-			   const QString &edit_cmd,
+			   RDConfig *config,const QString &edit_cmd,
 			   QWidget *parent,const char *name)
   : QDialog(parent,name,true)
 {
@@ -67,6 +67,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
 
   cart_station=station;
   cart_system=system;
+  cart_config=config;
   cart_cartnum=NULL;
   cart_type=RDCart::All;
   cart_group=group;
@@ -209,25 +210,36 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   cart_cart_label->setFont(button_font);
   cart_cart_list->addColumn("");
   cart_cart_list->setColumnAlignment(0,Qt::AlignHCenter);
+
   cart_cart_list->addColumn(tr("NUMBER"));
   cart_cart_list->setColumnAlignment(1,Qt::AlignHCenter);
+
   cart_cart_list->addColumn(tr("LENGTH"));
   cart_cart_list->setColumnAlignment(2,Qt::AlignRight);
+  cart_cart_list->setColumnSortType(2,RDListView::TimeSort);
+
   cart_cart_list->addColumn(tr("TITLE"),200);
   cart_cart_list->setColumnAlignment(3,Qt::AlignLeft);
   cart_cart_list->setColumnWidthMode(3,QListView::Manual);
+
   cart_cart_list->addColumn(tr("ARTIST"));
   cart_cart_list->setColumnAlignment(4,Qt::AlignLeft);
+
   cart_cart_list->addColumn(tr("GROUP"));
   cart_cart_list->setColumnAlignment(5,Qt::AlignLeft);
+
   cart_cart_list->addColumn(tr("CLIENT"));
   cart_cart_list->setColumnAlignment(6,Qt::AlignLeft);
+
   cart_cart_list->addColumn(tr("AGENCY"));
   cart_cart_list->setColumnAlignment(7,Qt::AlignLeft);
+
   cart_cart_list->addColumn(tr("USER DEF"));
   cart_cart_list->setColumnAlignment(8,Qt::AlignLeft);
+
   cart_cart_list->addColumn(tr("START"));
   cart_cart_list->setColumnAlignment(9,Qt::AlignLeft);
+
   cart_cart_list->addColumn(tr("END"));
   cart_cart_list->setColumnAlignment(10,Qt::AlignLeft);
 
@@ -574,7 +586,7 @@ void RDCartDialog::loadFileData()
     // Import Audio
     //
     cart_busy_dialog->show(tr("Importing"),tr("Importing..."));
-    conv=new RDAudioImport(cart_station,this);
+    conv=new RDAudioImport(cart_station,cart_config,this);
     conv->setCartNumber(cartnum);
     conv->setCutNumber(1);
     conv->setSourceFile(filename);

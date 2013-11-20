@@ -34,6 +34,7 @@ int rlm_udp_devs;
 char *rlm_udp_addresses;
 uint16_t *rlm_udp_ports;
 char *rlm_udp_formats;
+int *rlm_udp_encodings;
 int *rlm_udp_masters;
 int *rlm_udp_aux1s;
 int *rlm_udp_aux2s;
@@ -78,6 +79,7 @@ void rlm_udp_RLMStart(void *ptr,const char *arg)
   rlm_udp_addresses=NULL;
   rlm_udp_ports=NULL;
   rlm_udp_formats=NULL;
+  rlm_udp_encodings=NULL;
   rlm_udp_masters=NULL;
   rlm_udp_aux1s=NULL;
   rlm_udp_aux2s=NULL;
@@ -98,10 +100,15 @@ void rlm_udp_RLMStart(void *ptr,const char *arg)
     rlm_udp_formats=realloc(rlm_udp_formats,(rlm_udp_devs+1)*256);
     strncpy(rlm_udp_formats+256*rlm_udp_devs,
 	    RLMGetStringValue(ptr,arg,section,"FormatString",""),256);
+    rlm_udp_encodings=realloc(rlm_udp_encodings,
+			    (rlm_udp_devs+1)*sizeof(int));
+    rlm_udp_encodings[rlm_udp_devs]=
+      RLMGetIntegerValue(ptr,arg,section,"Encoding",RLM_ENCODE_NONE);
     rlm_udp_masters=realloc(rlm_udp_masters,
 			    (rlm_udp_devs+1)*sizeof(int));
     rlm_udp_masters[rlm_udp_devs]=
       rlm_udp_GetLogStatus(ptr,arg,section,"MasterLog");
+
     rlm_udp_aux1s=realloc(rlm_udp_aux1s,
 			  (rlm_udp_devs+1)*sizeof(int));
     rlm_udp_aux1s[rlm_udp_devs]=
@@ -125,6 +132,7 @@ void rlm_udp_RLMFree(void *ptr)
   free(rlm_udp_addresses);
   free(rlm_udp_ports);
   free(rlm_udp_formats);
+  free(rlm_udp_encodings);
   free(rlm_udp_masters);
   free(rlm_udp_aux1s);
   free(rlm_udp_aux2s);
@@ -159,7 +167,9 @@ void rlm_udp_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
 	break;
     }
     if((flag==1)||((flag==2)&&(log->log_onair!=0))) {
-      const char *str=RLMResolveNowNext(ptr,now,next,rlm_udp_formats+256*i);
+      const char *str=
+	RLMResolveNowNextEncoded(ptr,now,next,rlm_udp_formats+256*i,
+				 rlm_udp_encodings[i]);
       RLMSendUdp(ptr,rlm_udp_addresses+i*16,rlm_udp_ports[i],str,strlen(str));
       snprintf(msg,1500,"rlm_udp: sending pad update: \"%s\"",
 	       (const char *)str);

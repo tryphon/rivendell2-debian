@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: datedecode_test.cpp,v 1.1.2.2 2012/05/10 23:12:43 cvs Exp $
+//      $Id: datedecode_test.cpp,v 1.1.2.3 2013/10/16 21:14:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -41,7 +41,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   // Read Command Options
   //
   RDCmdSwitch *cmd=
-    new RDCmdSwitch(qApp->argc(),qApp->argv(),"audio_convert_test",
+    new RDCmdSwitch(qApp->argc(),qApp->argv(),"datedecode_test",
 		    DATEDECODE_TEST_USAGE);
   for(unsigned i=0;i<cmd->keys();i++) {
     if(cmd->key(i)=="--date") {

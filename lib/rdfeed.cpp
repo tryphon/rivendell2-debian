@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdfeed.cpp,v 1.17.2.1 2012/12/13 22:33:44 cvs Exp $
+//      $Id: rdfeed.cpp,v 1.17.2.2 2013/11/13 23:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -530,7 +530,8 @@ QString RDFeed::audioUrl(RDFeed::MediaLinkMode mode,
 
 
 unsigned RDFeed::postCut(RDUser *user,RDStation *station,
-			 const QString &cutname,Error *err,bool log_debug)
+			 const QString &cutname,Error *err,bool log_debug,
+			 RDConfig *config)
 {
   QString tmpfile;
   QString destfile;
@@ -554,7 +555,7 @@ unsigned RDFeed::postCut(RDUser *user,RDStation *station,
     *err=RDFeed::ErrorCannotOpenFile;
     return 0;
   }
-  RDAudioExport *conv=new RDAudioExport(station,this);
+  RDAudioExport *conv=new RDAudioExport(station,config,this);
   conv->setCartNumber(cut->cartNumber());
   conv->setCutNumber(cut->cutNumber());
   conv->setDestinationFile(tmpfile);
@@ -636,7 +637,7 @@ unsigned RDFeed::postCut(RDUser *user,RDStation *station,
 
 
 unsigned RDFeed::postFile(RDStation *station,const QString &srcfile,Error *err,
-			  bool log_debug)
+			  bool log_debug,RDConfig *config)
 {
   QString sql;
   RDSqlQuery *q;

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003, 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cdripper.cpp,v 1.41.4.1 2013/07/03 19:16:26 cvs Exp $
+//      $Id: cdripper.cpp,v 1.41.4.2 2013/11/13 23:36:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -480,7 +480,7 @@ void CdRipper::ripTrackButtonData()
   }
   switch((ripper_err=ripper->rip(rip_track[0],rip_track[1]))) {
   case RDCdRipper::ErrorOk:
-    conv=new RDAudioImport(rdstation_conf,this);
+    conv=new RDAudioImport(rdstation_conf,lib_config,this);
     conv->setSourceFile(tmpfile);
     conv->setCartNumber(rip_cut->cartNumber());
     conv->setCutNumber(rip_cut->cutNumber());

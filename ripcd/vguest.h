@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: vguest.h,v 1.17 2010/08/03 23:39:26 cvs Exp $
+//      $Id: vguest.h,v 1.17.8.1 2013/11/06 01:32:31 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,12 +44,14 @@
 #define VGUEST_DEFAULT_SURFACE_NUMBER 1
 #define VGUEST_DEFAULT_PORT 10212
 #define VGUEST_MAX_TEXT_LENGTH 60
+#define VGUEST_PING_INTERVAL 15000
 
 class VGuest : public Switcher
 {
  Q_OBJECT
  public:
   VGuest(RDMatrix *matrix,QObject *parent=0,const char *name=0);
+  ~VGuest();
   RDMatrix::Type type();
   unsigned gpiQuantity();
   unsigned gpoQuantity();
@@ -64,10 +66,13 @@ class VGuest : public Switcher
   void readyReadData(int id);
   void errorData(int err,int id);
   void gpioOneshotData(void *data);
+  void pingData(int id);
+  void pingResponseData(int id);
 
  private:
   void SendCommand(char *str,int len);
   void DispatchCommand(char *cmd,int len,int id);
+  void MetadataCommand(char *cmd,int len,int id);
   int GetRelay(int enginenum,int devicenum,int surfacenum,int relaynum);
   int GetHoldoff();
   QString RenderCommand(char *cmd,int len);
@@ -90,7 +95,12 @@ class VGuest : public Switcher
   int vguest_cmd_length[2];
   int vguest_cmd_ptr[2];
   char vguest_cmd_buffer[2][VGUEST_MAX_COMMAND_LENGTH];
+  QSignalMapper *vguest_ping_mapper;
+  QTimer *vguest_ping_timer[2];
+  QSignalMapper *vguest_ping_response_mapper;
+  QTimer *vguest_ping_response_timer[2];
   QTimer *vguest_reconnect_timer[2];
+  bool vguest_error_notified[2];
   RDMatrix::PortType vguest_porttype[2];
   std::vector<int>vguest_input_engine_nums;
   std::vector<int>vguest_input_device_nums;

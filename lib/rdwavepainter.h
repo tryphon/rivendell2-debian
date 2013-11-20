@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdwavepainter.h,v 1.10 2010/09/13 23:14:26 cvs Exp $
+//      $Id: rdwavepainter.h,v 1.10.6.1 2013/11/13 23:36:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 
 #include <qpainter.h>
 
+#include <rdconfig.h>
 #include <rdpeaksexport.h>
 #include <rdstation.h>
 #include <rduser.h>
@@ -35,8 +36,8 @@ class RDWavePainter : public QPainter
  public:
   enum Channel {Mono=0,Left=1,Right=2};
   RDWavePainter(const QPaintDevice *pd,RDCut *cut,RDStation *station,
-		RDUser *user);
-  RDWavePainter(RDStation *station,RDUser *user);
+		RDUser *user,RDConfig *config);
+  RDWavePainter(RDStation *station,RDUser *user,RDConfig *config);
   ~RDWavePainter();
   void nameWave(RDCut *cut);
   bool begin(const QPaintDevice *pd,RDCut *cut);
@@ -53,6 +54,7 @@ class RDWavePainter : public QPainter
   RDCut *wave_cut;
   RDStation *wave_station;
   RDUser *wave_user;
+  RDConfig *wave_config;
   RDPeaksExport *wave_peaks;
   unsigned wave_sample_rate;
   unsigned wave_channels;

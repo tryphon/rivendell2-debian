@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdfeed_script.cpp,v 1.5 2011/09/09 20:23:28 cvs Exp $
+//      $Id: rdfeed_script.cpp,v 1.5.4.1 2013/10/16 21:14:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -261,13 +261,13 @@ void MainObject::ServeLink(const char *keyname,int cast_id,bool count)
 QString MainObject::ResolveChannelWildcards(RDSqlQuery *chan_q)
 {
   QString ret=chan_q->value(10).toString();
-  ret.replace("%TITLE%",RDEscapeWebString(chan_q->value(0).toString()));
-  ret.replace("%DESCRIPTION%",RDEscapeWebString(chan_q->value(1).toString()));
-  ret.replace("%CATEGORY%",RDEscapeWebString(chan_q->value(2).toString()));
-  ret.replace("%LINK%",RDEscapeWebString(chan_q->value(3).toString()));
-  ret.replace("%COPYRIGHT%",RDEscapeWebString(chan_q->value(4).toString()));
-  ret.replace("%WEBMASTER%",RDEscapeWebString(chan_q->value(5).toString()));
-  ret.replace("%LANGUAGE%",RDEscapeWebString(chan_q->value(6).toString()));
+  ret.replace("%TITLE%",RDXmlEscape(chan_q->value(0).toString()));
+  ret.replace("%DESCRIPTION%",RDXmlEscape(chan_q->value(1).toString()));
+  ret.replace("%CATEGORY%",RDXmlEscape(chan_q->value(2).toString()));
+  ret.replace("%LINK%",RDXmlEscape(chan_q->value(3).toString()));
+  ret.replace("%COPYRIGHT%",RDXmlEscape(chan_q->value(4).toString()));
+  ret.replace("%WEBMASTER%",RDXmlEscape(chan_q->value(5).toString()));
+  ret.replace("%LANGUAGE%",RDXmlEscape(chan_q->value(6).toString()));
   ret.replace("%BUILD_DATE%",chan_q->value(7).toDateTime().
 	      toString("ddd, d MMM yyyy hh:mm:ss ")+"GMT");
   ret.replace("%PUBLISH_DATE%",chan_q->value(8).toDateTime().
@@ -283,21 +283,21 @@ QString MainObject::ResolveItemWildcards(const QString &keyname,
 {
   RDFeed *feed=new RDFeed(keyname);
   QString ret=chan_q->value(11).toString();
-  ret.replace("%ITEM_TITLE%",RDEscapeWebString(item_q->value(0).toString()));
+  ret.replace("%ITEM_TITLE%",RDXmlEscape(item_q->value(0).toString()));
   ret.replace("%ITEM_DESCRIPTION%",
-	      RDEscapeWebString(item_q->value(1).toString()));
+	      RDXmlEscape(item_q->value(1).toString()));
   ret.replace("%ITEM_CATEGORY%",
-	      RDEscapeWebString(item_q->value(2).toString()));
-  ret.replace("%ITEM_LINK%",RDEscapeWebString(item_q->value(3).toString()));
-  ret.replace("%ITEM_AUTHOR%",RDEscapeWebString(item_q->value(4).toString()));
+	      RDXmlEscape(item_q->value(2).toString()));
+  ret.replace("%ITEM_LINK%",RDXmlEscape(item_q->value(3).toString()));
+  ret.replace("%ITEM_AUTHOR%",RDXmlEscape(item_q->value(4).toString()));
   ret.replace("%ITEM_SOURCE_TEXT%",
-	      RDEscapeWebString(item_q->value(5).toString()));
+	      RDXmlEscape(item_q->value(5).toString()));
   ret.replace("%ITEM_SOURCE_URL%",
-	      RDEscapeWebString(item_q->value(6).toString()));
+	      RDXmlEscape(item_q->value(6).toString()));
   ret.replace("%ITEM_COMMENTS%",
-	      RDEscapeWebString(item_q->value(7).toString()));
+	      RDXmlEscape(item_q->value(7).toString()));
   ret.replace("%ITEM_AUDIO_URL%",
-	      (const char *)RDEscapeWebString(feed->
+	      (const char *)RDXmlEscape(feed->
 	        audioUrl(RDFeed::LinkCounted,server_name,
 			 item_q->value(12).toUInt())));
   ret.replace("%ITEM_AUDIO_LENGTH%",item_q->value(9).toString());
@@ -342,7 +342,7 @@ QString MainObject::ResolveAuxWildcards(QString xml,QString keyname,
   while(q1->next()) {
     q->next();
     xml.replace(q->value(0).toString(),
-		RDEscapeWebString(q1->value(0).toString()));
+		RDXmlEscape(q1->value(0).toString()));
   }
   delete q1;
   delete q;

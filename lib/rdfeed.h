@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdfeed.h,v 1.9 2011/06/02 20:41:01 cvs Exp $
+//      $Id: rdfeed.h,v 1.9.4.1 2013/11/13 23:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -23,6 +23,7 @@
 #include <qsqldatabase.h>
 #include <qobject.h>
 
+#include <rdconfig.h>
 #include <rduser.h>
 #include <rdstation.h>
 #include <rdsettings.h>
@@ -109,9 +110,10 @@ class RDFeed : public QObject
   QString audioUrl(RDFeed::MediaLinkMode mode,const QString &cgi_hostname,
 		   unsigned cast_id);
   unsigned postCut(RDUser *user,RDStation *station,
-		   const QString &cutname,Error *err,bool log_debug);
+		   const QString &cutname,Error *err,bool log_debug,
+		   RDConfig *config);
   unsigned postFile(RDStation *station,const QString &srcfile,Error *err,
-		    bool log_debug);
+		    bool log_debug,RDConfig *config);
   int totalPostSteps() const;
   static QString errorString(RDFeed::Error err);
 

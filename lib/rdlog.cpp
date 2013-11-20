@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog.cpp,v 1.23.4.1 2013/05/21 16:44:56 cvs Exp $
+//      $Id: rdlog.cpp,v 1.23.4.6 2013/11/13 23:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,7 @@
 #include <rdlog.h>
 #include <rdlog_line.h>
 #include <rdescape_string.h>
+#include <rdweb.h>
 
 //
 // Global Classes
@@ -367,14 +368,14 @@ bool RDLog::isReady() const
 }
 
 
-bool RDLog::remove(RDStation *station,RDUser *user) const
+bool RDLog::remove(RDStation *station,RDUser *user,RDConfig *config) const
 {
   QString sql;
   RDSqlQuery *q;
   QString name=log_name;
 
   name.replace(" ","_");
-  if(removeTracks(station,user)<0) {
+  if(removeTracks(station,user,config)<0) {
     return false;
   }
   sql=QString().sprintf("drop table `%s_LOG`",(const char *)name);
@@ -419,7 +420,7 @@ void RDLog::updateTracks()
 }
 
 
-int RDLog::removeTracks(RDStation *station,RDUser *user) const
+int RDLog::removeTracks(RDStation *station,RDUser *user,RDConfig *config) const
 {
   QString sql;
   RDSqlQuery *q;
@@ -433,7 +434,7 @@ int RDLog::removeTracks(RDStation *station,RDUser *user) const
   q=new RDSqlQuery(sql);
   while(q->next()) {
     cart=new RDCart(q->value(0).toUInt());
-    if(!cart->remove(station,user)) {
+    if(!cart->remove(station,user,config)) {
       delete cart;
       return -1;
     }
@@ -443,6 +444,54 @@ int RDLog::removeTracks(RDStation *station,RDUser *user) const
   delete q;
 
   return count;
+}
+
+
+RDLogEvent *RDLog::createLogEvent() const
+{
+  QString logname=name()+"_LOG";
+  logname.replace(" ","_");
+  return new RDLogEvent(logname);
+}
+
+
+
+QString RDLog::xml() const
+{
+  QString sql;
+  RDSqlQuery *q;
+  QString ret;
+#ifndef WIN32
+  sql=QString("select NAME,SERVICE,DESCRIPTION,ORIGIN_USER,")+
+    "ORIGIN_DATETIME,LINK_DATETIME,MODIFIED_DATETIME,"+
+    "AUTO_REFRESH,START_DATE,END_DATE,SCHEDULED_TRACKS,COMPLETED_TRACKS,"+
+    "MUSIC_LINKS,MUSIC_LINKED,TRAFFIC_LINKS,TRAFFIC_LINKED,NEXT_ID "+
+    "from LOGS where NAME=\""+RDEscapeString(log_name)+"\"";
+
+  q=new RDSqlQuery(sql);
+  if(q->first()) {
+    ret+="  <log>\n";
+    ret+="   "+RDXmlField("name",log_name);
+    ret+="   "+RDXmlField("serviceName",q->value(1).toString());
+    ret+="   "+RDXmlField("description",q->value(2).toString());
+    ret+="   "+RDXmlField("originUserName",q->value(3).toString());
+    ret+="   "+RDXmlField("originDatetime",q->value(4).toDateTime());
+    ret+="   "+RDXmlField("linkDatetime",q->value(5).toDateTime());
+    ret+="   "+RDXmlField("modifiedDatetime",q->value(6).toDateTime());
+    ret+="   "+RDXmlField("autoRefresh",RDBool(q->value(7).toString()));
+    ret+="   "+RDXmlField("startDate",q->value(8).toDate());
+    ret+="   "+RDXmlField("endDate",q->value(9).toDate());
+    ret+="   "+RDXmlField("scheduledTracks",q->value(10).toInt());
+    ret+="   "+RDXmlField("completedTracks",q->value(11).toInt());
+    ret+="   "+RDXmlField("musicLinks",q->value(12).toInt());
+    ret+="   "+RDXmlField("musicLinked",RDBool(q->value(13).toString()));
+    ret+="   "+RDXmlField("trafficLinks",q->value(14).toInt());
+    ret+="   "+RDXmlField("trafficLinked",RDBool(q->value(15).toString()));
+    ret+="  </log>\n";
+  }
+  delete q;
+#endif  // WIN32
+  return ret;
 }
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddgimport.cpp,v 1.1.2.9 2013/03/26 21:16:01 cvs Exp $
+//      $Id: rddgimport.cpp,v 1.1.2.10 2013/11/13 23:36:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -517,7 +517,7 @@ bool MainWidget::ImportSpot(Event *evt)
 				addDays(RDDGIMPORT_KILLDATE_OFFSET),
 				QTime(23,59,59)),true);
   
-  conv=new RDAudioImport(dg_station,this);
+  conv=new RDAudioImport(dg_station,dg_config,this);
   conv->setCartNumber(dg_carts[evt->isci()]);
   conv->setCutNumber(cutnum);
   conv->setSourceFile(audiofile);

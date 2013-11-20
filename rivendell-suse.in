@@ -4,7 +4,7 @@
 ##
 ##    (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: rivendell-suse.in,v 1.16 2011/09/06 16:13:59 cvs Exp $
+##      $Id: rivendell-suse.in,v 1.16.4.1 2013/11/13 18:30:57 cvs Exp $
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of version 2 of the GNU General Public License as
@@ -67,9 +67,13 @@ function StartDaemons {
   ipcrm -M 0x5005 2> /dev/null
   @LOCAL_PREFIX@/bin/caed 2> /dev/null
   sleep 1
-  @LOCAL_PREFIX@/bin/ripcd 2> /dev/null
-  sleep 1
-  @LOCAL_PREFIX@/bin/rdcatchd 2> /dev/null
+  if test -x @LOCAL_PREFIX@/bin/ripcd ; then
+    @LOCAL_PREFIX@/bin/ripcd 2> /dev/null
+    sleep 1
+  fi
+  if test -x @LOCAL_PREFIX@/bin/rdcatchd ; then
+    @LOCAL_PREFIX@/bin/rdcatchd 2> /dev/null
+  fi
 }
 
 
@@ -143,14 +147,14 @@ if [ ! -x @LOCAL_PREFIX@/bin/caed ] ; then
   echo "caed not installed"
   exit 5
 fi
-if [ ! -x @LOCAL_PREFIX@/bin/ripcd ] ; then
-  echo "ripcd not installed"
-  exit 5
-fi
-if [ ! -x @LOCAL_PREFIX@/bin/rdcatchd ] ; then
-  echo "rdcatchd not installed"
-  exit 5
-fi
+#if [ ! -x @LOCAL_PREFIX@/bin/ripcd ] ; then
+#  echo "ripcd not installed"
+#  exit 5
+#fi
+#if [ ! -x @LOCAL_PREFIX@/bin/rdcatchd ] ; then
+#  echo "rdcatchd not installed"
+#  exit 5
+#fi
 
 # Check for existence of needed config file and read it
 if [ ! -r /etc/rd.conf ] ; then
@@ -225,6 +229,9 @@ case "$1" in
     silent-status)
 	if test -f /var/run/rivendell/caed.pid ; then
 	    if test -d /proc/`cat /var/run/rivendell/caed.pid` ; then
+		if test ! -x @LOCAL_PREFIX@/bin/ripcd ; then
+		    exit 0
+		fi
 		if test -f /var/run/rivendell/ripcd.pid ; then
 		    if test -d /proc/`cat /var/run/rivendell/ripcd.pid` ; then
 			if test -f /var/run/rivendell/rdcatchd.pid ; then

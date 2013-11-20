@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: disk_ripper.cpp,v 1.30 2011/12/23 22:04:11 cvs Exp $
+//      $Id: disk_ripper.cpp,v 1.30.4.1 2013/11/13 23:36:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -773,7 +773,7 @@ void DiskRipper::RipTrack(int track,QString cutname,QString title)
   ripper->setDestinationFile(tmpfile);
   switch((ripper_err=ripper->rip(rip_track_number-1))) {
   case RDCdRipper::ErrorOk:
-    conv=new RDAudioImport(rdstation_conf,this);
+    conv=new RDAudioImport(rdstation_conf,lib_config,this);
     conv->setSourceFile(tmpfile);
     conv->setCartNumber(cut->cartNumber());
     conv->setCutNumber(cut->cutNumber());

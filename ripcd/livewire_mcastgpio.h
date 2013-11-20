@@ -1,10 +1,10 @@
-// livewire.h
+// livewire_mcastgpio.h
 //
-// A Rivendell virtual GPIO driver for LiveWire networks.
+// A Rivendell multicast GPIO driver for LiveWire networks.
 //
 //   (C) Copyright 2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: livewire_gpio.h,v 1.1.2.4 2013/03/05 23:59:10 cvs Exp $
+//      $Id: livewire_mcastgpio.h,v 1.1.2.1 2013/11/17 03:40:27 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -20,8 +20,8 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#ifndef LIVEWIRE_GPIO_H
-#define LIVEWIRE_GPIO_H
+#ifndef LIVEWIRE_MCASTGPIO_H
+#define LIVEWIRE_MCASTGPIO_H
 
 #include <stdint.h>
 #include <sys/socket.h>
@@ -43,12 +43,12 @@
 
 #include <switcher.h>
 
-class LiveWireGpio : public Switcher
+class LiveWireMcastGpio : public Switcher
 {
  Q_OBJECT
  public:
-  LiveWireGpio(RDMatrix *matrix,QObject *parent=0,const char *name=0);
-  ~LiveWireGpio();
+  LiveWireMcastGpio(RDMatrix *matrix,QObject *parent=0,const char *name=0);
+  ~LiveWireMcastGpio();
   RDMatrix::Type type();
   unsigned gpiQuantity();
   unsigned gpoQuantity();
@@ -74,7 +74,8 @@ class LiveWireGpio : public Switcher
   int livewire_matrix;
   unsigned livewire_gpios;
   QHostAddress livewire_interface_addr;
-  int livewire_gpio_socket;
+  int livewire_gpio_read_socket;
+  int livewire_gpio_write_socket;
   QSocketNotifier *livewire_gpio_notify;
   std::map<int,int> livewire_source_numbers;
   std::map<int,QHostAddress> livewire_surface_addresses;
@@ -88,4 +89,4 @@ class LiveWireGpio : public Switcher
 };
 
 
-#endif  // LIVEWIRE_GPIO_H
+#endif  // LIVEWIRE_MCASTGPIO_H

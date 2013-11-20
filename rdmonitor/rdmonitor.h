@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmonitor.h,v 1.1.2.5 2012/10/22 23:09:39 cvs Exp $
+//      $Id: rdmonitor.h,v 1.1.2.6 2013/11/08 03:57:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -31,13 +31,17 @@
 #include <qsizepolicy.h>
 #include <qlabel.h>
 #include <qtimer.h>
+#include <qdesktopwidget.h>
 #include <qfontmetrics.h>
-#include <qpopupmenu.h>
 
 #include <rdconfig.h>
 #include <rdmonitor_config.h>
 
-#include <status_tip.h>
+#include "positiondialog.h"
+#include "status_tip.h"
+
+#define RDSELECT_WIDTH 400
+#define RDSELECT_HEIGHT 300
 
 class MainWidget : public QWidget
 {
@@ -48,7 +52,6 @@ class MainWidget : public QWidget
 
  private slots:
   void validate();
-  void selectPositionData(int pos);
   void quitMainWidget();
 
  protected:
@@ -59,14 +62,21 @@ class MainWidget : public QWidget
 
  private:
   void SetSummaryState(bool state);
-  void SetPosition(RDMonitorConfig *mon,RDMonitorConfig::Position pos);
+  void SetPosition();
   QLabel *mon_name_label;
   QLabel *mon_green_label;
   QLabel *mon_red_label;
   QTimer *mon_validate_timer;
   QFontMetrics *mon_metrics;
+  PositionDialog *mon_position_dialog;
+  int mon_dialog_x;
+  int mon_dialog_y;
+  int mon_rdselect_x;
+  int mon_rdselect_y;
   StatusTip *mon_tooltip;
-  QPopupMenu *mon_menu;
+  QDesktopWidget *mon_desktop_widget;
+  RDMonitorConfig *mon_config;
+  RDConfig *mon_rdconfig;
 };
 
 

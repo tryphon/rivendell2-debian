@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.h,v 1.36.6.1 2012/11/13 23:45:09 cvs Exp $
+//      $Id: rdlog_event.h,v 1.36.6.3 2013/10/15 19:32:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,7 +44,7 @@ class RDLogEvent
    QString logName() const;
    void setLogName(QString logname);
    QString serviceName() const;
-   int load();
+   int load(bool track_ptrs=false);
    void save(bool update_tracks=true,int line=-1);
    int validate(QString *report,const QDate &date);
    void clear();
@@ -58,8 +58,8 @@ class RDLogEvent
    int lengthToStop(int from_line,QTime *sched_time=NULL);
    bool blockLength(int *nominal_length,int *actual_length,int line);
    QTime blockStartTime(int line);
-   RDLogLine *logLine(int line);
-   RDLogLine *loglineById(int id);
+   RDLogLine *logLine(int line) const;
+   RDLogLine *loglineById(int id) const;
    int lineById(int id) const;
    int lineByStartHour(int hour,RDLogLine::StartTimeType type) const;
    int lineByStartHour(int hour) const;
@@ -68,6 +68,7 @@ class RDLogEvent
    void removeCustomTransition(int line);
    int nextId() const;
    int nextLinkId() const;
+   QString xml() const;
 
   private:
    void SaveLine(int line);

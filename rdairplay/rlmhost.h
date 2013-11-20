@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rlmhost.h,v 1.6.6.1 2013/09/13 00:00:15 cvs Exp $
+//      $Id: rlmhost.h,v 1.6.6.3 2013/11/05 20:16:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 
 #include <vector>
 
+#include <qdatetime.h>
 #include <qstring.h>
 #include <qsocketdevice.h>
 #include <qsocketnotifier.h>
@@ -49,7 +50,8 @@ class RLMHost : public QObject
 		 RDAirPlayConf::OpMode mode);
   bool load();
   void unload();
-  static void loadMetadata(const RDLogLine *logline,struct rlm_pad *pad);
+  static void loadMetadata(const RDLogLine *logline,struct rlm_pad *pad,
+			   const QDateTime &start_datetime=QDateTime());
   static void saveMetadata(const struct rlm_pad *pad,RDLogLine *logline);
  private slots:
   void timerData(int timernum);
@@ -79,6 +81,11 @@ class RLMHost : public QObject
 			    int len);
   friend void RLMCloseSerial(void *ptr,int handle);
   friend const char *RLMDateTime(int offset_msecs,const char *format);
+  friend const char *RLMResolveNowNextEncoded(void *ptr,
+					      const struct rlm_pad *now,
+					      const struct rlm_pad *next,
+					      const char *format,
+					      int encoding);
   friend const char *RLMResolveNowNext(void *ptr,
 				       const struct rlm_pad *now,
 				       const struct rlm_pad *next,

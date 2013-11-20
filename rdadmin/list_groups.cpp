@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_groups.cpp,v 1.27 2010/09/08 20:37:58 cvs Exp $
+//      $Id: list_groups.cpp,v 1.27.6.1 2013/11/13 23:36:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -263,7 +263,7 @@ void ListGroups::deleteData()
   RDCart *cart;
   while(q->next()) {
     cart=new RDCart(q->value(0).toUInt());
-    cart->remove(admin_station,admin_user);
+    cart->remove(admin_station,admin_user,admin_config);
     delete cart;
   }
   delete q;

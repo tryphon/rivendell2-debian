@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioexport.cpp,v 1.8 2011/12/23 23:07:00 cvs Exp $
+//      $Id: rdaudioexport.cpp,v 1.8.4.1 2013/11/13 23:36:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -53,11 +53,12 @@ int ExportProgressCallback(void *clientp,double dltotal,double dlnow,
 }
 
 
-RDAudioExport::RDAudioExport(RDStation *station,
+RDAudioExport::RDAudioExport(RDStation *station,RDConfig *config,
 			     QObject *parent,const char *name)
   : QObject(parent,name)
 {
   conv_station=station;
+  conv_config=config;
   conv_cart_number=0;
   conv_cut_number=0;
   conv_start_point=-1;
@@ -147,7 +148,7 @@ RDAudioExport::ErrorCode RDAudioExport::runExport(const QString &username,
   // otherwise some versions of LibCurl will throw a 'bad/illegal format' 
   // error.
   //
-  strncpy(url,conv_station->webServiceUrl(),1024);
+  strncpy(url,conv_station->webServiceUrl(conv_config),1024);
   curl_easy_setopt(curl,CURLOPT_URL,url);
   curl_easy_setopt(curl,CURLOPT_WRITEDATA,f);
   curl_easy_setopt(curl,CURLOPT_POST,1);

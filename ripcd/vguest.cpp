@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: vguest.cpp,v 1.36.8.1 2013/06/26 23:18:41 cvs Exp $
+//      $Id: vguest.cpp,v 1.36.8.3 2013/11/07 23:00:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,6 +36,12 @@ VGuest::VGuest(RDMatrix *matrix,QObject *parent,const char *name)
   QString sql;
   RDSqlQuery *q;
   int n;
+
+  for(int i=0;i<2;i++) {
+    vguest_device[i]=NULL;
+    vguest_socket[i]=NULL;
+    vguest_error_notified[i]=false;
+  }
 
   //
   // Get Matrix Parameters
@@ -160,6 +166,26 @@ VGuest::VGuest(RDMatrix *matrix,QObject *parent,const char *name)
   delete q;
 
   //
+  // Ping Timers
+  //
+  vguest_ping_mapper=new QSignalMapper(this);
+  connect(vguest_ping_mapper,SIGNAL(mapped(int)),this,SLOT(pingData(int)));
+  vguest_ping_response_mapper=new QSignalMapper(this);
+  connect(vguest_ping_response_mapper,SIGNAL(mapped(int)),
+	  this,SLOT(pingResponseData(int)));
+  for(int i=0;i<2;i++) {
+    vguest_ping_timer[i]=new QTimer(this);
+    vguest_ping_mapper->setMapping(vguest_ping_timer[i],i);
+    connect(vguest_ping_timer[i],SIGNAL(timeout()),
+	    vguest_ping_mapper,SLOT(map()));
+
+    vguest_ping_response_timer[i]=new QTimer(this);
+    vguest_ping_response_mapper->setMapping(vguest_ping_timer[i],i);
+    connect(vguest_ping_response_timer[i],SIGNAL(timeout()),
+	    vguest_ping_response_mapper,SLOT(map()));
+  }
+
+  //
   // Reconnection Timer
   //
   QSignalMapper *reconnect_mapper=new QSignalMapper(this);
@@ -208,6 +234,23 @@ VGuest::VGuest(RDMatrix *matrix,QObject *parent,const char *name)
 		this,SLOT(errorData(int,int)));
 	ipConnect(i);
       }
+    }
+  }
+}
+
+
+VGuest::~VGuest()
+{
+  delete vguest_gpio_oneshot;
+  for(int i=0;i<2;i++) {
+    delete vguest_reconnect_timer[i];
+    delete vguest_ping_response_timer[i];
+    delete vguest_ping_timer[i];
+    if(vguest_device[i]!=NULL) {
+      delete vguest_device[i];
+    }
+    if(vguest_socket[i]!=NULL) {
+      delete vguest_socket[i];
     }
   }
 }
@@ -399,13 +442,18 @@ void VGuest::connectedData(int id)
 void VGuest::connectionClosedData(int id)
 {
   int interval=GetHoldoff();
-  LogLine(RDConfig::LogNotice,QString().
-	  sprintf("Connection to vGuest device at %s:%d closed, attempting reconnect, holdoff = %d mS",
-			    (const char *)vguest_ipaddress[id].toString(),
-			    vguest_ipport[id],interval));
+  if(!vguest_error_notified[id]) {
+    LogLine(RDConfig::LogNotice,QString().
+	    sprintf("Connection to vGuest device at %s:%d closed, attempting reconnect",
+		    (const char *)vguest_ipaddress[id].toString(),
+		    vguest_ipport[id]));
+    vguest_error_notified[id]=true;
+  }
   if(vguest_stop_cart[id]>0) {
     ExecuteMacroCart(vguest_stop_cart[id]);
   }
+  vguest_ping_timer[id]->stop();
+  vguest_ping_response_timer[id]->stop();
   vguest_reconnect_timer[id]->start(interval,true);
 }
 
@@ -418,29 +466,49 @@ void VGuest::readyReadData(int id)
   while((n=vguest_socket[id]->readBlock(buffer,255))>0) {
     for(int i=0;i<n;i++) {
       switch(vguest_istate[id]) {
-	  case 0:   // STX Command Start
-	    if(buffer[i]==0x02) {
-	      vguest_istate[id]=1;
-	    }
-	    break;
+      case 0:   // STX Command Start
+	switch(buffer[i]) {
+	case 0x02:
+	  vguest_istate[id]=1;
+	  break;
 
-	  case 1:   // Command Length
-	    vguest_cmd_length[id]=buffer[i];
-	    vguest_cmd_buffer[id][0]=2;
-	    vguest_cmd_buffer[id][1]=buffer[i];
-	    vguest_cmd_ptr[id]=2;
-	    vguest_istate[id]=2;
-	    break;
+	case 0x04:
+	  vguest_istate[id]=11;
+	  break;
+	}
+	break;
 
-	  case 2:   // Command Body
-	    vguest_cmd_buffer[id][vguest_cmd_ptr[id]++]=buffer[i];
-	    if(vguest_cmd_ptr[id]==(vguest_cmd_length[id]+2)) {
-	      DispatchCommand(vguest_cmd_buffer[id],vguest_cmd_length[id]+2,
-			      id);
-	      vguest_istate[id]=0;
-	    }
-	    break;
+      case 1:   // LP2 Command Length
+	vguest_cmd_length[id]=buffer[i];
+	vguest_cmd_buffer[id][0]=2;
+	vguest_cmd_buffer[id][1]=buffer[i];
+	vguest_cmd_ptr[id]=2;
+	vguest_istate[id]=2;
+	break;
 
+      case 2:   // LP2 Command Body
+	vguest_cmd_buffer[id][vguest_cmd_ptr[id]++]=buffer[i];
+	if(vguest_cmd_ptr[id]==(vguest_cmd_length[id]+2)) {
+	  DispatchCommand(vguest_cmd_buffer[id],vguest_cmd_length[id]+2,id);
+	  vguest_istate[id]=0;
+	}
+	break;
+
+      case 11:   // Metadata Command Length
+	vguest_cmd_length[id]=buffer[i];
+	vguest_cmd_buffer[id][0]=2;
+	vguest_cmd_buffer[id][1]=buffer[i];
+	vguest_cmd_ptr[id]=2;
+	vguest_istate[id]=12;
+	break;
+
+      case 12:   // LP2 Command Body
+	vguest_cmd_buffer[id][vguest_cmd_ptr[id]++]=buffer[i];
+	if(vguest_cmd_ptr[id]==(vguest_cmd_length[id]+2)) {
+	  MetadataCommand(vguest_cmd_buffer[id],vguest_cmd_length[id]+2,id);
+	  vguest_istate[id]=0;
+	}
+	break;
       }
     }
   }
@@ -454,25 +522,34 @@ void VGuest::errorData(int err,int id)
   switch((QSocket::Error)err) {
       case QSocket::ErrConnectionRefused:
 	interval=GetHoldoff();
-	LogLine(RDConfig::LogNotice,QString().sprintf(
-	 "Connection to vGuest device at %s:%d refused, attempting reconnect, holdoff = %d mS",
-	 (const char *)vguest_ipaddress[id].toString(),
-	 vguest_ipport[id],interval));
+	if(!vguest_error_notified[id]) {
+	  LogLine(RDConfig::LogNotice,QString().sprintf(
+		 "Connection to vGuest device at %s:%d refused, attempting reconnect",
+		 (const char *)vguest_ipaddress[id].toString(),
+		 vguest_ipport[id]));
+	  vguest_error_notified[id]=true;
+	}
 	vguest_reconnect_timer[id]->start(interval,true);
 	break;
 
       case QSocket::ErrHostNotFound:
-	LogLine(RDConfig::LogWarning,QString().sprintf(
-	  "Error on connection to vGuest device at %s:%d: Host Not Found",
-	  (const char *)vguest_ipaddress[id].toString(),
-	  vguest_ipport[id]));
+	if(!vguest_error_notified[id]) {
+	  LogLine(RDConfig::LogWarning,QString().sprintf(
+	    "Error on connection to vGuest device at %s:%d: Host Not Found",
+	    (const char *)vguest_ipaddress[id].toString(),
+	    vguest_ipport[id]));
+	  vguest_error_notified[id]=true;
+	}
 	break;
 
       case QSocket::ErrSocketRead:
-	LogLine(RDConfig::LogWarning,QString().sprintf(
-	  "Error on connection to vGuest device at %s:%d: Socket Read Error",
-	  (const char *)vguest_ipaddress[id].toString(),
-	  vguest_ipport[id]));
+	if(!vguest_error_notified[id]) {
+	  LogLine(RDConfig::LogWarning,QString().sprintf(
+	    "Error on connection to vGuest device at %s:%d: Socket Read Error",
+	    (const char *)vguest_ipaddress[id].toString(),
+	    vguest_ipport[id]));
+	  vguest_error_notified[id]=true;
+	}
 	break;
   }
 }
@@ -482,6 +559,27 @@ void VGuest::gpioOneshotData(void *data)
 {
   emit gpiChanged(vguest_matrix,(long)data,false);
   emit gpoChanged(vguest_matrix,(long)data,false);
+}
+
+
+void VGuest::pingData(int id)
+{
+  char buffer[VGUEST_MAX_COMMAND_LENGTH];
+
+  buffer[0]=0x04;
+  buffer[1]=0x01;
+  buffer[2]=0x03;   // LPCore Connection Ping
+  vguest_socket[id]->writeBlock(buffer,3);
+  vguest_ping_response_timer[id]->start(VGUEST_PING_INTERVAL,true);
+}
+
+
+void VGuest::pingResponseData(int id)
+{
+  vguest_socket[id]->clearPendingData();
+  vguest_socket[id]->close();
+  LogLine(RDConfig::LogWarning,"vGuest connection to "+
+	  vguest_ipaddress[id].toString()+" timed out, restarting connection");
 }
 
 
@@ -519,112 +617,137 @@ void VGuest::DispatchCommand(char *cmd,int len,int id)
   //  QString().sprintf("RCVD: %s",(const char *)RenderCommand(cmd,len)));
 
   switch(0xFF&cmd[2]) {
-      case 0xF9:   // Username/Password Query
-	buffer[0]=0x02;
-	buffer[1]=0x22;
-	buffer[2]=0xF9;
-	buffer[3]=VGUEST_ID_BYTE;
-	sprintf(buffer+4,"%s%s",
-		(const char *)vguest_username[id],
-		(const char *)vguest_password[id]);
-	SendCommand(buffer,36);
-	break;
+  case 0xF9:   // Username/Password Query
+    buffer[0]=0x02;
+    buffer[1]=0x22;
+    buffer[2]=0xF9;
+    buffer[3]=VGUEST_ID_BYTE;
+    sprintf(buffer+4,"%s%s",
+	    (const char *)vguest_username[id],
+	    (const char *)vguest_password[id]);
+    SendCommand(buffer,36);
+    break;
 
-      case 0xF0:   // Connect Status
-	switch(0xFF&cmd[3]) {
-	    case 0x0A:  // Valid connection
-	    case 0x14:
-	      LogLine(RDConfig::LogInfo,QString().sprintf(
-			"connection to vGuest device at %s:%d established",
-			(const char *)vguest_ipaddress[id].toString(),
-			vguest_ipport[id]));
-	      if(vguest_start_cart[id]>0) {
-		ExecuteMacroCart(vguest_start_cart[id]);
-	      }
-	      break;
+  case 0xF0:   // Connect Status
+    switch(0xFF&cmd[3]) {
+    case 0x0A:  // Valid connection
+    case 0x14:
+      LogLine(RDConfig::LogInfo,QString().sprintf(
+	      "connection to vGuest device at %s:%d established",
+	      (const char *)vguest_ipaddress[id].toString(),
+	      vguest_ipport[id]));
+      vguest_error_notified[id]=false;
+      if(vguest_start_cart[id]>0) {
+	ExecuteMacroCart(vguest_start_cart[id]);
+      }
+      if(vguest_socket[id]!=NULL) {
+	buffer[0]=0x04;
+	buffer[1]=0x01;
+	buffer[2]=0x03;   // LPCore Connection Ping
+	vguest_socket[id]->writeBlock(buffer,3);
+      }
+      break;
 
-	    case 0x0B:  // Invalid Username
-	    case 0x15:
-	      LogLine(RDConfig::LogWarning,QString().sprintf(
+    case 0x0B:  // Invalid Username
+    case 0x15:
+      LogLine(RDConfig::LogWarning,QString().sprintf(
 	      "connection to vGuest device at %s:%d refused: username invalid",
-			(const char *)vguest_ipaddress[id].toString(),
-			vguest_ipport[id]));
-	      vguest_socket[id]->close();
-	      connectionClosedData(id);
-	      break;
-
-	    case 0x0C:  // Invalid Password
-	    case 0x16:
-	      LogLine(RDConfig::LogWarning,QString().sprintf(
+	      (const char *)vguest_ipaddress[id].toString(),
+	      vguest_ipport[id]));
+      vguest_socket[id]->close();
+      connectionClosedData(id);
+      break;
+      
+    case 0x0C:  // Invalid Password
+    case 0x16:
+      LogLine(RDConfig::LogWarning,QString().sprintf(
 	      "connection to vGuest device at %s:%d refused: password invalid",
-			(const char *)vguest_ipaddress[id].toString(),
-			vguest_ipport[id]));
-	      vguest_socket[id]->close();
-	      connectionClosedData(id);
-	      break;
+	      (const char *)vguest_ipaddress[id].toString(),
+	      vguest_ipport[id]));
+      vguest_socket[id]->close();
+      connectionClosedData(id);
+      break;
 
-	    case 0x0D:  // No vGuest Permission
-	    case 0x17:
-	      LogLine(RDConfig::LogWarning,QString().sprintf(
-	  "connection to vGuest device at %s:%d refused: no vGuest permission",
-			(const char *)vguest_ipaddress[id].toString(),
-			vguest_ipport[id]));
-	      vguest_socket[id]->close();
-	      connectionClosedData(id);
-	      break;
+    case 0x0D:  // No vGuest Permission
+    case 0x17:
+      LogLine(RDConfig::LogWarning,QString().sprintf(
+	   "connection to vGuest device at %s:%d refused: no vGuest permission",
+	   (const char *)vguest_ipaddress[id].toString(),
+	   vguest_ipport[id]));
+      vguest_socket[id]->close();
+      connectionClosedData(id);
+      break;
 
-	    case 0x0E:  // No Profile
-	    case 0x18:
-	      LogLine(RDConfig::LogWarning,QString().sprintf(
-	   "connection to vGuest device at %s:%d refused: no profile assigned",
-			(const char *)vguest_ipaddress[id].toString(),
-			vguest_ipport[id]));
-	      vguest_socket[id]->close();
-	      connectionClosedData(id);
-	      break;
-	}
-	break;
+    case 0x0E:  // No Profile
+    case 0x18:
+      LogLine(RDConfig::LogWarning,QString().sprintf(
+	    "connection to vGuest device at %s:%d refused: no profile assigned",
+	    (const char *)vguest_ipaddress[id].toString(),
+	    vguest_ipport[id]));
+      vguest_socket[id]->close();
+      connectionClosedData(id);
+      break;
+    }
+    break;
 
-      case 0x52:   // Turn On
-	if((linenum=GetRelay(0xFF&cmd[3],256*(0xFF&cmd[4])+(0xFF&cmd[5]),
-			     0xFF&cmd[6],0xFF&cmd[7]))>=0) {
-	  emit gpiChanged(vguest_matrix,linenum,true);
-	  emit gpoChanged(vguest_matrix,linenum,true);
-	}
-	else {
-	  LogLine(RDConfig::LogDebug,QString().
-		  sprintf("unhandled vGuest command received: %s",
-			  (const char *)RenderCommand(cmd,len)));
-	}
-	break;
+  case 0x52:   // Turn On
+    if((linenum=GetRelay(0xFF&cmd[3],256*(0xFF&cmd[4])+(0xFF&cmd[5]),
+			 0xFF&cmd[6],0xFF&cmd[7]))>=0) {
+      emit gpiChanged(vguest_matrix,linenum,true);
+      emit gpoChanged(vguest_matrix,linenum,true);
+    }
+    else {
+      LogLine(RDConfig::LogDebug,QString().
+	      sprintf("unhandled vGuest command received: %s",
+		      (const char *)RenderCommand(cmd,len)));
+    }
+    break;
 
-      case 0x53:   // Turn Off
-	if((linenum=GetRelay(0xFF&cmd[3],256*(0xFF&cmd[4])+(0xFF&cmd[5]),
-			     0xFF&cmd[6],0xFF&cmd[7]))>=0) {
-	  emit gpiChanged(vguest_matrix,linenum,false);
-	  emit gpoChanged(vguest_matrix,linenum,false);
-	}
-	else {
-	  LogLine(RDConfig::LogDebug,QString().
-		  sprintf("unhandled vGuest command received: %s",
-			  (const char *)RenderCommand(cmd,len)));
-	}
-	break;
+  case 0x53:   // Turn Off
+    if((linenum=GetRelay(0xFF&cmd[3],256*(0xFF&cmd[4])+(0xFF&cmd[5]),
+			 0xFF&cmd[6],0xFF&cmd[7]))>=0) {
+      emit gpiChanged(vguest_matrix,linenum,false);
+      emit gpoChanged(vguest_matrix,linenum,false);
+    }
+    else {
+      LogLine(RDConfig::LogDebug,QString().
+	      sprintf("unhandled vGuest command received: %s",
+		      (const char *)RenderCommand(cmd,len)));
+    }
+    break;
 
-      case 0x54:   // Input Assign
-	break;
+  case 0x54:   // Input Assign
+    break;
+    
+  case 0x55:   // Input Mode
+    break;
+    
+  case 0x56:   // Fader Level
+    break;
+    
+  default:
+    LogLine(RDConfig::LogDebug,QString().
+	    sprintf("unrecognized vGuest command received: %s",
+		    (const char *)RenderCommand(cmd,len)));
+    break;
+  }
+}
 
-      case 0x55:   // Input Mode
-	break;
 
-      case 0x56:   // Fader Level
-	break;
-
-      default:
-	LogLine(RDConfig::LogDebug,QString().
-		sprintf("unrecognized vGuest command received: %s",
-			(const char *)RenderCommand(cmd,len)));
-	break;
+void VGuest::MetadataCommand(char *cmd,int len,int id)
+{
+  switch(0xFF&cmd[2]) {
+  case 0x03:   // Connection Ping
+    if(vguest_ping_response_timer[id]->isActive()) {
+      vguest_ping_response_timer[id]->stop();
+    }
+    else {
+      LogLine(RDConfig::LogDebug,"vGuest system at "+
+	      vguest_ipaddress[id].toString()+
+	      " understands ping, activating timeout monitoring");
+    }
+    vguest_ping_timer[id]->start(VGUEST_PING_INTERVAL,true);
+    break;
   }
 }
 

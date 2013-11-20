@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmonitor_config.h,v 1.1.2.1 2012/10/22 17:49:33 cvs Exp $
+//      $Id: rdmonitor_config.h,v 1.1.2.2 2013/11/08 03:57:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -32,14 +32,23 @@ class RDMonitorConfig
 		 LowerLeft=3,LowerCenter=4,LowerRight=5,
 		 LastPosition=6};
   RDMonitorConfig();
+  int screenNumber() const;
+  void setScreenNumber(int screen);
   Position position() const;
   void setPosition(RDMonitorConfig::Position pos);
+  int xOffset() const;
+  void setXOffset(int offset);
+  int yOffset() const;
+  void setYOffset(int offset);
   bool load();
   bool save();
   void clear();
   static QString positionText(Position pos);
 
  private:
+  int mon_screen_number;
+  int mon_x_offset;
+  int mon_y_offset;
   Position mon_position;
   QString mon_filename;
 };

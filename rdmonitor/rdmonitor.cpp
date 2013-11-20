@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmonitor.cpp,v 1.1.2.9 2012/10/23 14:47:48 cvs Exp $
+//      $Id: rdmonitor.cpp,v 1.1.2.11 2013/11/11 20:34:27 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -32,6 +32,7 @@
 #include <qtextcodec.h>
 #include <qtranslator.h>
 #include <qpainter.h>
+#include <qprocess.h>
 #include <qdir.h>
 #include <qsignalmapper.h>
 #include <qsqldatabase.h>
@@ -60,6 +61,10 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   :QWidget(parent,name,Qt::WStyle_Customize|Qt::WStyle_NoBorder|Qt::WStyle_StaysOnTop|WX11BypassWM)
 {
   QString str;
+  mon_dialog_x=0;
+  mon_dialog_y=0;
+  mon_rdselect_x=0;
+  mon_rdselect_y=0;
 
   //
   // Read Command Options
@@ -85,15 +90,16 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   setIcon(QPixmap(rivendell_xpm));
 
   //
-  // Right Button Menu
+  // Dialogs
   //
-  mon_menu=new QPopupMenu(this);
-  mon_menu->setCheckable(true);
-  connect(mon_menu,SIGNAL(activated(int)),this,SLOT(selectPositionData(int)));
-  for(int i=0;i<RDMonitorConfig::LastPosition;i++) {
-    mon_menu->
-     insertItem(RDMonitorConfig::positionText((RDMonitorConfig::Position)i),i);
-  }
+  mon_rdconfig=new RDConfig();
+  mon_rdconfig->load();
+  mon_desktop_widget=new QDesktopWidget();
+  mon_config=new RDMonitorConfig();
+  mon_config->load();
+  mon_position_dialog=new PositionDialog(mon_desktop_widget,mon_config,this);
+  mon_position_dialog->setGeometry(0,0,mon_position_dialog->sizeHint().width(),
+				   mon_position_dialog->sizeHint().height());
 
   //
   // Name Label
@@ -120,6 +126,9 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   mon_validate_timer->start(5000);
 
   mon_tooltip=new StatusTip(this);
+
+  mon_name_label->setText(mon_rdconfig->label());
+  SetPosition();
 }
 
 
@@ -139,43 +148,25 @@ void MainWidget::validate()
   //
   // Get Configurations
   //
-  RDConfig *config=new RDConfig();
-  config->load();
-  RDMonitorConfig *mon=new RDMonitorConfig();
-  mon->load();
-  mon_name_label->setText(config->label());
-  SetPosition(mon,mon->position());
+  mon_name_label->setText(mon_rdconfig->label());
+  //  SetPosition();
 
   //
   // Check Audio Store
   //
-  snd_ok=RDAudioStoreValid(config);
+  snd_ok=RDAudioStoreValid(mon_rdconfig);
 
   //
   // Check Database
   //
-  db_ok=RDDbValid(config,&schema);
+  db_ok=RDDbValid(mon_rdconfig,&schema);
 
   //
   // Record Results
   //
-  mon_tooltip->setStatus(QRect(0,0,size().width(),size().height()),db_ok,schema,snd_ok);
+  mon_tooltip->
+    setStatus(QRect(0,0,size().width(),size().height()),db_ok,schema,snd_ok);
   SetSummaryState(db_ok&&(schema==RD_VERSION_DATABASE)&&snd_ok);
-
-  delete mon;
-  delete config;
-}
-
-
-void MainWidget::selectPositionData(int pos)
-{
-  RDMonitorConfig::Position position=(RDMonitorConfig::Position)pos;
-  RDMonitorConfig *mon=new RDMonitorConfig();
-  mon->load();
-  if(position!=mon->position()) {
-    SetPosition(mon,position);
-    delete mon;
-  }
 }
 
 
@@ -192,11 +183,13 @@ void MainWidget::mousePressEvent(QMouseEvent *e)
     return;
   }
   e->accept();
-  mon_menu->setGeometry(geometry().x()+e->pos().x()+2,
-			geometry().y()+e->pos().y(),
-			mon_menu->sizeHint().width(),
-			mon_menu->sizeHint().height());
-  mon_menu->exec();
+  mon_position_dialog->setGeometry(mon_dialog_x,mon_dialog_y,
+				   mon_position_dialog->sizeHint().width(),
+				   mon_position_dialog->sizeHint().height());
+  if(mon_position_dialog->exec()==0) {
+    mon_config->save();
+    SetPosition();
+  }
 }
 
 
@@ -211,7 +204,8 @@ void MainWidget::mouseDoubleClickEvent(QMouseEvent *e)
   dir.setFilter(QDir::Files|QDir::Readable);
   dir.setNameFilter("*.conf");
   if(dir.entryList().size()>1) {
-    system("rdselect");
+    system(QString().sprintf("rdselect -geometry +%d+%d",
+			     mon_rdselect_x,mon_rdselect_y));
     validate();
   }
 }
@@ -248,47 +242,119 @@ void MainWidget::SetSummaryState(bool state)
 }
 
 
-void MainWidget::SetPosition(RDMonitorConfig *mon,
-			     RDMonitorConfig::Position pos)
+void MainWidget::SetPosition()
 {
   int width=mon_metrics->width(mon_name_label->text())+40;
-  QDesktopWidget *dw=qApp->desktop();
-  switch(pos) {
+  QRect geo=mon_desktop_widget->screenGeometry(mon_config->screenNumber());
+  QRect main_geo=mon_desktop_widget->geometry();
+  int x=0;
+  int dx=mon_config->xOffset();
+  int y=0;
+  int dy=mon_config->yOffset();
+  int dw=mon_position_dialog->size().width()+30;
+  int dh=mon_position_dialog->size().height()+30;
+
+  switch(mon_config->position()) {
   case RDMonitorConfig::UpperLeft:
-    setGeometry(0,0,width,RDMONITOR_HEIGHT);
+    x=geo.x()+dx;
+    y=geo.y()+dy;
     break;
 
   case RDMonitorConfig::UpperCenter:
-    setGeometry((dw->size().width()-width)/2,0,width,RDMONITOR_HEIGHT);
+    x=geo.x()+(geo.width()-width)/2;
+    y=geo.y()+dy;
     break;
 
   case RDMonitorConfig::UpperRight:
-    setGeometry(dw->size().width()-width,0,width,RDMONITOR_HEIGHT);
+    x=geo.x()-dx+geo.width()-width;
+    y=geo.y()+dy;
     break;
 
   case RDMonitorConfig::LowerLeft:
-    setGeometry(0,dw->size().height()-RDMONITOR_HEIGHT,width,RDMONITOR_HEIGHT);
+    x=geo.x()+dx;
+    y=geo.y()-dy+geo.height()-RDMONITOR_HEIGHT;
     break;
 
   case RDMonitorConfig::LowerCenter:
-    setGeometry((dw->size().width()-width)/2,
-		dw->size().height()-RDMONITOR_HEIGHT,width,RDMONITOR_HEIGHT);
+    x=geo.x()+(geo.width()-width)/2;
+    y=geo.y()-dy+geo.height()-RDMONITOR_HEIGHT;
     break;
 
   case RDMonitorConfig::LowerRight:
-    setGeometry(dw->size().width()-width,
-		dw->size().height()-RDMONITOR_HEIGHT,width,RDMONITOR_HEIGHT);
+    x=geo.x()-dx+geo.width()-width;
+    y=geo.y()-dy+geo.height()-RDMONITOR_HEIGHT;
     break;
 
   case RDMonitorConfig::LastPosition:
     break;
   }
-  for(unsigned i=0;i<mon_menu->count();i++) {
-    mon_menu->setItemChecked(i,false);
+
+  //
+  // Ensure sane values
+  //
+  if(x<0) {
+    x=0;
   }
-  mon_menu->setItemChecked(pos,true);
-  mon->setPosition(pos);
-  mon->save();
+  if(x>(main_geo.width()-width)) {
+    x=main_geo.width()-width;
+  }
+  if(y<0) {
+    y=0;
+  }
+  if(y>(main_geo.height()-RDMONITOR_HEIGHT)) {
+    y=main_geo.height()-RDMONITOR_HEIGHT;
+  }
+
+  //
+  // Set the dialog position
+  //
+  switch(mon_config->position()) {
+  case RDMonitorConfig::UpperLeft:
+    mon_dialog_x=x;
+    mon_rdselect_x=x;
+    mon_dialog_y=y+RDMONITOR_HEIGHT;
+    mon_rdselect_y=y+RDMONITOR_HEIGHT;
+    break;
+
+  case RDMonitorConfig::UpperCenter:
+    mon_dialog_x=x+(width-dw)/2;
+    mon_dialog_y=y+RDMONITOR_HEIGHT;
+    mon_rdselect_x=x+(width-RDSELECT_WIDTH)/2;
+    mon_rdselect_y=y+RDMONITOR_HEIGHT;
+    break;
+
+  case RDMonitorConfig::UpperRight:
+    mon_dialog_x=x+width-dw;
+    mon_dialog_y=y+RDMONITOR_HEIGHT;
+    mon_rdselect_x=x+width-RDSELECT_WIDTH;
+    mon_rdselect_y=y+RDMONITOR_HEIGHT;
+    break;
+
+  case RDMonitorConfig::LowerLeft:
+    mon_dialog_x=x;
+    mon_rdselect_x=x;
+    mon_dialog_y=y-dh;
+    mon_rdselect_y=y-RDSELECT_HEIGHT-30;
+    break;
+
+  case RDMonitorConfig::LowerCenter:
+    mon_dialog_x=x+(width-dw)/2;
+    mon_dialog_y=y-dh;
+    mon_rdselect_x=x+(width-RDSELECT_WIDTH)/2;
+    mon_rdselect_y=y-RDSELECT_HEIGHT-30;
+    break;
+
+  case RDMonitorConfig::LowerRight:
+    mon_dialog_x=x+width-dw;
+    mon_rdselect_x=x+width-RDSELECT_WIDTH;
+    mon_dialog_y=y-dh;
+    mon_rdselect_y=y-RDSELECT_HEIGHT-30;
+    break;
+
+  case RDMonitorConfig::LastPosition:
+    break;
+  }
+  setGeometry(x,y,width,RDMONITOR_HEIGHT);
 }
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.h,v 1.26.8.1 2013/01/07 12:31:07 cvs Exp $
+//      $Id: rdsvc.h,v 1.26.8.2 2013/10/11 22:00:52 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -89,6 +89,7 @@ class RDSvc : public QObject
 		     const QString &logname);
   void create(const QString exemplar) const;
   void remove() const;
+  QString xml() const;
   static QString timeString(int hour,int secs);
 
  signals:

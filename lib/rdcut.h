@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.h,v 1.44.6.1 2012/08/02 20:37:58 cvs Exp $
+//      $Id: rdcut.h,v 1.44.6.2 2013/11/13 23:36:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,7 @@
 #include <qsignal.h>
 #include <qobject.h>
 
+#include <rdconfig.h>
 #include <rdwavedata.h>
 #include <rdsettings.h>
 #include <rdstation.h>
@@ -122,7 +123,8 @@ class RDCut
   int effectiveStart() const;
   int effectiveEnd() const;
   void logPlayout() const;
-  bool copyTo(RDStation *station,RDUser *user,const QString &cutname) const;
+  bool copyTo(RDStation *station,RDUser *user,const QString &cutname,
+	      RDConfig *config) const;
   void getMetadata(RDWaveData *data) const;
   void setMetadata(RDWaveData *data) const;
   QString xml() const;

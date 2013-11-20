@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.h,v 1.8.2.8 2013/07/05 22:44:16 cvs Exp $
+//      $Id: rdcartslot.h,v 1.8.2.9 2013/11/13 23:36:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -55,7 +55,7 @@ class RDCartSlot : public QWidget
  Q_OBJECT
  public:
   RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
-	     RDListSvcs *svcs_dialog,RDSlotDialog *slot_dialog,
+	     RDConfig *config,RDListSvcs *svcs_dialog,RDSlotDialog *slot_dialog,
 	     RDCartDialog *cart_dialog,RDCueEditDialog *cue_dialog,
 	     const QString &caption,QWidget *parent=0);
   ~RDCartSlot();
@@ -114,6 +114,7 @@ class RDCartSlot : public QWidget
   RDRipc *slot_ripc;
   RDCae *slot_cae;
   RDStation *slot_station;
+  RDConfig *slot_config;
   RDListSvcs *slot_svcs_dialog;
   RDSlotDialog *slot_slot_dialog;
   RDCartDialog *slot_cart_dialog;

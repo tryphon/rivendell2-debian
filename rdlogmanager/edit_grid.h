@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_grid.h,v 1.8 2010/07/29 19:32:37 cvs Exp $
+//      $Id: edit_grid.h,v 1.8.8.1 2013/10/11 17:16:49 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,6 +44,7 @@ class EditGrid : public QDialog
 
  private slots:
   void hourButtonData(int id);
+  void allHourButtonData();
   void rightHourButtonData(int id,const QPoint &pt);
   void aboutToShowData();
   void editClockData();

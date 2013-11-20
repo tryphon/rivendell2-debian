@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: commandline_ops.cpp,v 1.1.2.5 2013/08/09 14:28:26 cvs Exp $
+//      $Id: commandline_ops.cpp,v 1.1.2.6 2013/11/13 23:36:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -91,7 +91,7 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
   // Generate Log
   //
   if(gen_log) {
-    log->removeTracks(rdstation_conf,rduser);
+    log->removeTracks(rdstation_conf,rduser,config);
     srand(QTime::currentTime().msec());
     sql=RDCreateStackTableSql(svcname_table);
     q=new RDSqlQuery(sql);
@@ -132,7 +132,7 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
       return 256;
     }
     report="";
-    log->removeTracks(rdstation_conf,rduser);
+    log->removeTracks(rdstation_conf,rduser,config);
     svc->clearLogLinks(RDSvc::Traffic,start_date,logname);
     svc->clearLogLinks(RDSvc::Music,start_date,logname);
     if(svc->linkLog(RDSvc::Music,start_date,logname,&report)) {

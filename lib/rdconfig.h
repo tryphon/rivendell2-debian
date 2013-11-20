@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdconfig.h,v 1.18.8.6 2013/10/03 15:11:32 cvs Exp $
+//      $Id: rdconfig.h,v 1.18.8.7 2013/11/13 23:36:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -79,6 +79,8 @@ class RDConfig
   QString audioStoreMountSource() const;
   QString audioStoreMountType() const;
   QString audioStoreMountOptions() const;
+  QString audioStoreCaeHostname() const;
+  QString audioStoreXportHostname() const;
   QString ripcdLogname() const;
   QString airplayLogname() const;
   QString catchdLogname() const;
@@ -129,6 +131,8 @@ class RDConfig
   QString conf_audio_store_mount_source;
   QString conf_audio_store_mount_type;
   QString conf_audio_store_mount_options;
+  QString conf_audio_store_xport_hostname;
+  QString conf_audio_store_cae_hostname;
   QString conf_ripcd_logname;
   QString conf_airplay_logname;
   QString conf_catchd_logname;

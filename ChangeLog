@@ -11771,8 +11771,8 @@
 	the basis of CAE service redirection.
 2010-09-13 Fred Gleason <fredg@paravelsystems.com>
 	* Documented an 'Export Peaks' web service in 'docs/web_api.ods'.
-	* Added a 'RDEXPORT_COMMAND_EXPORT_PEAKS' web command code in
-	'lib/rdexport_ineterface.h'.
+	* Added a 'RDXPORT_COMMAND_EXPORT_PEAKS' web command code in
+	'lib/rdxport_interface.h'.
 	* Implemented the 'ExportPeaks' web service in
 	'web/rdxport/rdxport.cpp', 'web/rdxport/rdxport.h'. and
 	'web/rdxport/exportpeaks.cpp'.
@@ -13357,3 +13357,159 @@
 2013-10-04 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.5.3.
+2013-10-11 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a patch from Max Goldstein <ops@wmfo.org> that added
+	a 'Clear All' button to the Edit Grid dialog in
+	'rdlogmanager/edit_grid.cpp' and 'rdlogmanager/edit_grid.h'.
+2013-10-11 Fred Gleason <fredg@paravelsystems.com>
+	* Corrected misspellings of 'RDXPORT' as 'RDEXPORT' in
+	'docs/web_api.odt'.
+	* Documented a 'ListLogs' command in 'docs/web_api.odt'.
+	* Added 'RDXPORT_LISTLOGS_COMMAND' in 'lib/rdxport_interface.h'.
+	* Added an 'RDLog::xml()' method in 'lib/rdlog.cpp' and 'lib/rdlog.h'.
+	* Implemented the 'ListLogs' command in 'web/rdxport/logs.cpp'.
+2013-10-11 Fred Gleason <fredg@paravelsystems.com>
+	* Documented a 'ListServices' command in 'docs/web_api.odt'.
+	* Added 'RDXPORT_LISTSERVICES_COMMAND' in 'lib/rdxport_interface.h'.
+	* Added an 'RDSvc::xml()' method in 'lib/rdsvc.cpp' and 'lib/rdsvc.h'.
+	* Implemented the 'ListServices' command in 'web/rdxport/services.cpp'.
+2013-10-12 Fred Gleason <fredg@paravelsystems.com>
+	* Corrected command value for the 'ListLogs' service in
+	'docs/web_api.odt'.
+2013-10-13 Fred Gleason <fredg@paravelsystems.com>
+	* Documented a 'ListLog' command in 'docs/web_api.odt'.
+	* Added 'RDXPORT_LISTLOG_COMMAND' in 'lib/rdxport_interface.h'.
+	* Added an 'RDLogEvent::xml()' method in 'lib/rdlog_event.cpp'
+	and 'lib/rdlog_event.h'.
+	* Added an 'RDLogLine::xml()' method in 'lib/rdlog_line.cpp'
+	and 'lib/rdlog_line.h'.
+	* Implemented the 'ListLog' command in 'web/rdxport/services.cpp'.
+2013-10-15 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in the 'ListLog' command implementation in
+	'lib/rdlog_line.cpp'.
+2013-10-16 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a buffer overflow bug in 'rlm/rlm_filewrite.c'.
+2013-10-16 Fred Gleason <fredg@paravelsystems.com>
+	* Defined an 'RLMResolveNowNextEncoded()' function in 'rlm/rlm.h'.
+	* Added 'RLM_ENCODE_NONE', 'RLM_ENCODE_XML' and 'RLM_ENCODE_URL'
+	defines in 'rlm/rlm.h'.
+	* Incremented 'RLM_VERSION' in 'rlm/rlm.h' to 14.
+	* Added variable field encoding to the 'RDResolveNowNext()'
+	function in 'lib/rdnownext.cpp' and 'lib/rdnownext.h'.
+	* Removed the 'RDEscapeWebString()' function from 'lib/rdweb.cpp'
+	and 'lib/rdweb.h'.
+	* Added 'RDUrlEscape()' and 'RDUrlUnescape()' functions in
+	'lib/rdweb.cpp' and 'lib/rdweb.h'.
+	* Added a 'stringcode_test' test harness in
+	'tests/stringcode_test.cpp' and 'tests/stringcode_test.h'.
+	* Added support for an 'Encoding=' parameter for
+	'conf/rlm_udp.conf' in 'rlm/rlm_udp.c'.
+2013-10-16 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for an 'Encoding=' parameter for
+	'conf/rlm_filewrite.conf' in 'rlm/rlm_filewrite.c'.
+	* Added support for an 'Encoding=' parameter for
+	'conf/rlm_serial.conf' in 'rlm/rlm_serial.c'.
+2013-10-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'cutNumber' field to the XML schema for the 'ListLog'
+	method.
+2013-10-29 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdexportpeaks.cpp' that caused a
+	peaks download error when creating voicetracks using MPEG L2
+	format.
+2013-10-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'originUser' and 'originDateTime' fields to the XML schema
+	for the 'ListLog' method.
+2013-10-31 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdlog_line.cpp' that broke the build
+	under Windows.
+2013-10-31 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdsvc.cpp' that broke the build
+	under Windows.
+2013-11-01 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'
+	* Incremented the package version to 2.5.4.
+2013-11-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'rlm_start_msec', 'rlm_start_sec', 'rlm_start_min',
+	'rlm_start_hour', 'rlm_start_day', 'rlm_start_mon' and
+	'rlm_start_year' fields to the 'rlm_pad' struct in 'rlm/rlm.h'.
+	* Incremented 'RLM_VERSION' to 15 in 'rlm/rlm.h'.
+	* Updated 'rlm/rlm_filewrite.c' to use the start_time fields.
+	* Updated 'rlm/rlm_test.c' to use the start_time fields.
+	* Updated 'rlm/rlm_serial.c' to use the start_time fields.
+	* Updated 'rlm/rlm_udp.c' to use the start_time fields.
+2013-11-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for the LPCore 'Connection Ping' command
+	in 'ripcd/vguest.cpp' and 'ripcd/vguest.h'.
+	* Removed repetitious syslog error messages from the vGuest
+	driver in 'ripcd/vguest.cpp' and 'ripcd/vguest.h'.
+2013-11-07 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'ripcd/vguest.cpp' that threw a segfault
+	when destroying a driver instance.
+2013-11-07 Fred Gleason <fredg@paravelsystems.com>
+	* Modified RDMonitor to support positioning on multi-head displays.
+2013-11-09 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'ripcd/livewire_gpio.cpp' and 'ripcd/livewire_gpio.h'
+	so as not to require a static multicast route to be able to send
+	GPO commands.
+2013-11-11 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'rdmonitor/rdmonitor.cpp' so as to employ unsigned
+	X and Y offset values.
+2013-11-11 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdimport_audio.cpp' that caused the origin
+	host name to be set incorrectly when using a non-localhost value
+	for HTTP Xport value when importing audio in RDLibrary.
+2013-11-11 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'utils/rdimport/rdimport.cpp' that caused the origin
+	host name to be set incorrectly when using a non-localhost value
+	for HTTP Xport value when importing audio in RDImport.
+2013-11-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--create-db=hostname=' parameter for RDAdmin in
+	'rdadmin/rdadmin.cpp' and 'rdadmin/createdb.cpp'.
+2013-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored RPM packaging to split the 'rivendell' package into
+	'rivendell' and 'rivendell-base'.
+	* Modified 'rivendell-suse.in' to detect state properly when
+	using only caed(8).
+2013-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added '[RDSelect]' configuration source to the 'HTTP Xport' and
+	'Core Audio Engine' controls in the Edit Host dialog in RDAdmin.
+2013-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Debugged RDSelect configuration sources for Xport and CAE
+	services.
+2013-11-15 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcart_dialog.cpp' that caused carts to
+	be listed by alphabetical order rather than by time length when
+	sorting by the 'Length' column.
+2013-11-15 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the name of the 'Livewire Virtual GPIO' driver to
+	'Livewire Multicast GPIO' in 'lib/rdmatrix.cpp'.
+2013-11-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Livewire Virtual GPIO' driver listing in
+	'lib/rdmatrix.cpp' and 'lib/rdmatrix.h'.
+	* Implemented a 'Livewire Virtual GPIO' driver in
+	'ripcd/livewire_virtual.cpp' and 'ripcd/livewire_virtual.h'.
+2013-11-16 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed the 'LiveWire Virtual GPIO' driver to 'LiveWire LWRP GPIO'
+	in 'lib/rdmatrix.cpp'.
+	* Renamed 'ripcd/livewire_virtual.cpp' to
+	'ripcd/livewire_lwrpgpio.cpp'.
+	* Renamed 'ripcd/livewire_virtual.h' to
+	'ripcd/livewire_lwrpgpio.h'.
+2013-11-17 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed the 'LiveWire' driver to 'LiveWire LWRP Audio'
+	in 'lib/rdmatrix.cpp'.
+	* Renamed 'ripcd/livewire.cpp' to 'ripcd/livewire_lwrpaudio.cpp'.
+	* Renamed 'ripcd/livewire.h' to 'ripcd/livewire_lwrpaudio.h'.
+	* Removed GPIO functionality from 'ripcd/livewire_lwrpaudio.cpp'
+	and 'ripcd/livewire_lwrpaudio.h'.
+	* Updated 'docs/SWITCHERS.txt'.
+2013-11-18 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdstation.cpp' that broke the build under
+	Windows.
+2013-11-19 Fred Gleason <fredg@paravelsystems.com>
+	* Removed a typo in 'conf/rd.conf-sample' that caused the
+	'ChannelsPerPcm=' directive in the [Alsa] section to be
+	read incorrectly.
+2013-11-19 Fred Gleason <fredg@paravelsystems.com>
+	* Updates 'NEWS'.
+	* Incremented the package version to 2.5.5.

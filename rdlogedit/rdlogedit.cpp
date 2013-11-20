@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit.cpp,v 1.77.4.4 2013/03/26 21:58:28 cvs Exp $
+//      $Id: rdlogedit.cpp,v 1.77.4.5 2013/11/13 23:36:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -214,7 +214,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
 				   rdlogedit_conf->outputPort(),
 				   rdlogedit_conf->startCart(),
 				   rdlogedit_conf->endCart(),
-				   NULL,NULL,rdstation_conf,rdsystem,"",
+				   NULL,NULL,rdstation_conf,rdsystem,
+				   log_config,"",
 				   this,"log_cart_dialog");
 #else
   log_cart_dialog=new RDCartDialog(&log_filter,&log_group,&log_schedcode,
@@ -222,8 +223,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
 				   rdlogedit_conf->outputPort(),
 				   rdlogedit_conf->startCart(),
 				   rdlogedit_conf->endCart(),
-				   rdcae,rdripc,rdstation_conf,rdsystem,"",
-				   this,"log_cart_dialog");
+				   rdcae,rdripc,rdstation_conf,rdsystem,
+				   log_config,"",this,"log_cart_dialog");
 #endif
 
   //
@@ -518,7 +519,7 @@ void MainWidget::deleteData()
 	return;
       }
     }
-    if(!log->remove(rdstation_conf,rduser)) {
+    if(!log->remove(rdstation_conf,rduser,log_config)) {
       QMessageBox::warning(this,tr("RDLogEdit"),
 			   tr("Unable to delete log, audio deletion error!"));
       delete log;

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmonitor_config.cpp,v 1.1.2.1 2012/10/22 17:49:33 cvs Exp $
+//      $Id: rdmonitor_config.cpp,v 1.1.2.2 2013/11/08 03:57:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,6 +39,18 @@ RDMonitorConfig::RDMonitorConfig()
 }
 
 
+int RDMonitorConfig::screenNumber() const
+{
+  return mon_screen_number;
+}
+
+
+void RDMonitorConfig::setScreenNumber(int screen)
+{
+  mon_screen_number=screen;
+}
+
+
 RDMonitorConfig::Position RDMonitorConfig::position() const
 {
   return mon_position;
@@ -51,14 +63,41 @@ void RDMonitorConfig::setPosition(RDMonitorConfig::Position pos)
 }
 
 
+int RDMonitorConfig::xOffset() const
+{
+  return mon_x_offset;
+}
+
+
+void RDMonitorConfig::setXOffset(int offset)
+{
+  mon_x_offset=offset;
+}
+
+
+int RDMonitorConfig::yOffset() const
+{
+  return mon_y_offset;
+}
+
+
+void RDMonitorConfig::setYOffset(int offset)
+{
+  mon_y_offset=offset;
+}
+
+
 bool RDMonitorConfig::load()
 {
   RDProfile *p=new RDProfile();
   if(!p->setSource(mon_filename)) {
     return false;
   }
+  mon_screen_number=p->intValue("Monitor","ScreenNumber",0);
   mon_position=(RDMonitorConfig::Position)
     p->intValue("Monitor","Position",(int)RDMonitorConfig::UpperLeft);
+  mon_x_offset=p->intValue("Monitor","XOffset",0);
+  mon_y_offset=p->intValue("Monitor","YOffset",0);
   delete p;
   return true;
 }
@@ -72,7 +111,10 @@ bool RDMonitorConfig::save()
     return false;
   }
   fprintf(f,"[Monitor]\n");
+  fprintf(f,"ScreenNumber=%d\n",mon_screen_number);
   fprintf(f,"Position=%u\n",mon_position);
+  fprintf(f,"XOffset=%d\n",mon_x_offset);
+  fprintf(f,"YOffset=%d\n",mon_y_offset);
   fprintf(f,"\n");
 
   fclose(f);
@@ -82,7 +124,10 @@ bool RDMonitorConfig::save()
 
 void RDMonitorConfig::clear()
 {
+  mon_screen_number=0;
   mon_position=RDMonitorConfig::UpperLeft;
+  mon_x_offset=0;
+  mon_y_offset=0;
 }
 
 

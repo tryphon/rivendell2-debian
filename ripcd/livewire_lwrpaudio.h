@@ -1,10 +1,10 @@
-// livewire.h
+// livewire_lwrpaudio.h
 //
-// A Rivendell switcher driver for LiveWire networks.
+// A Rivendell LWRP audio switcher driver for LiveWire networks.
 //
-//   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2002-2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: livewire.h,v 1.7 2010/08/03 23:39:26 cvs Exp $
+//      $Id: livewire_lwrpaudio.h,v 1.1.2.1 2013/11/17 04:27:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -20,8 +20,8 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#ifndef LIVEWIRE_H
-#define LIVEWIRE_H
+#ifndef LIVEWIRE_LWRPAUDIO_H
+#define LIVEWIRE_LWRPAUDIO_H
 
 #include <vector>
 
@@ -37,40 +37,30 @@
 
 #include <switcher.h>
 
-class LiveWire : public Switcher
+class LiveWireLwrpAudio : public Switcher
 {
  Q_OBJECT
  public:
-  LiveWire(RDMatrix *matrix,QObject *parent=0,const char *name=0);
-  ~LiveWire();
+  LiveWireLwrpAudio(RDMatrix *matrix,QObject *parent=0,const char *name=0);
+  ~LiveWireLwrpAudio();
   RDMatrix::Type type();
   unsigned gpiQuantity();
   unsigned gpoQuantity();
   bool primaryTtyActive();
   bool secondaryTtyActive();
   void processCommand(RDMacro *cmd);
-  void sendGpi();
-  void sendGpo();
 
  private slots:
   void nodeConnectedData(unsigned id);
   void sourceChangedData(unsigned id,RDLiveWireSource *src);
   void destinationChangedData(unsigned id,RDLiveWireDestination *dst);
-  void gpoConfigChangedData(unsigned id,unsigned slot,unsigned chan);
-  void gpiChangedData(unsigned id,unsigned slot,unsigned line,bool state);
-  void gpoChangedData(unsigned id,unsigned slot,unsigned line,bool state);
   void watchdogStateChangedData(unsigned id,const QString &msg);
-  void gpiOneshotData(void *data);
-  void gpoOneshotData(void *data);
 
  private:
-  void CreateGpioEntry(const QString &tablename,int chan);
   QString livewire_stationname;
-  RDOneShot *livewire_gpi_oneshot;
-  RDOneShot *livewire_gpo_oneshot;
   int livewire_matrix;
   std::vector<RDLiveWire *> livewire_nodes;
 };
 
 
-#endif  // LIVEWIRE_H
+#endif  // LIVEWIRE_LWRPAUDIO_H

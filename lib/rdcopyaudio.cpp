@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcopyaudio.cpp,v 1.3 2012/01/12 16:24:50 cvs Exp $
+//      $Id: rdcopyaudio.cpp,v 1.3.4.1 2013/11/13 23:36:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,9 +38,10 @@
 #include <rdformpost.h>
 #include <rdcopyaudio.h>
 
-RDCopyAudio::RDCopyAudio(RDStation *station)
+RDCopyAudio::RDCopyAudio(RDStation *station,RDConfig *config)
 {
   conv_station=station;
+  conv_config=config;
   conv_source_cart_number=0;
   conv_source_cut_number=0;
   conv_destination_cart_number=0;
@@ -99,7 +100,7 @@ RDCopyAudio::ErrorCode RDCopyAudio::runCopy(const QString &username,
   // otherwise some versions of LibCurl will throw a 'bad/illegal format' 
   // error.
   //
-  strncpy(url,conv_station->webServiceUrl(),1024);
+  strncpy(url,conv_station->webServiceUrl(conv_config),1024);
   curl_easy_setopt(curl,CURLOPT_URL,url);
   curl_easy_setopt(curl,CURLOPT_POST,1);
   curl_easy_setopt(curl,CURLOPT_POSTFIELDS,(const char *)post);

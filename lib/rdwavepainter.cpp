@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdwavepainter.cpp,v 1.13 2012/01/12 16:24:50 cvs Exp $
+//      $Id: rdwavepainter.cpp,v 1.13.4.2 2013/11/13 23:36:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -32,22 +32,24 @@
 
 
 RDWavePainter::RDWavePainter(const QPaintDevice *pd,RDCut *cut,
-			     RDStation *station,RDUser *user)
+			     RDStation *station,RDUser *user,RDConfig *config)
   : QPainter(pd)
 {
   wave_cut=cut;
   wave_station=station;
   wave_user=user;
+  wave_config=config;
   wave_peaks=NULL;
   LoadWave();
 }
 
 
-RDWavePainter::RDWavePainter(RDStation *station,RDUser *user)
+RDWavePainter::RDWavePainter(RDStation *station,RDUser *user,RDConfig *config)
 {
   wave_cut=NULL;
   wave_station=station;
   wave_user=user;
+  wave_config=config;
   wave_peaks=NULL;
 }
 
@@ -231,21 +233,13 @@ void RDWavePainter::drawWaveByMsecs(int x,int w,int startmsecs,int endmsecs,
 
 void RDWavePainter::LoadWave()
 {
-  RDPeaksExport::ErrorCode peaks_err;
-
   wave_sample_rate=wave_cut->sampleRate();
   wave_channels=wave_cut->channels();
   if(wave_peaks!=NULL) {
     delete wave_peaks;
   }
-  wave_peaks=new RDPeaksExport(wave_station);
+  wave_peaks=new RDPeaksExport(wave_station,wave_config);
   wave_peaks->setCartNumber(wave_cut->cartNumber());
   wave_peaks->setCutNumber(wave_cut->cutNumber());
-  if((peaks_err=wave_peaks->runExport(wave_user->name(),
-		  wave_user->password()))!=RDPeaksExport::ErrorOk) {
-      QMessageBox::warning(NULL,QObject::tr("Rivendell Web Service"),
-		  QObject::tr("Unable to download peak data, error was:\n\"")+
-			   RDPeaksExport::errorText(peaks_err)+"\".");
-    return;
-  }
+  wave_peaks->runExport(wave_user->name(),wave_user->password());
 }

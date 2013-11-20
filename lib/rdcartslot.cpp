@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.cpp,v 1.13.2.13 2013/07/05 22:44:16 cvs Exp $
+//      $Id: rdcartslot.cpp,v 1.13.2.14 2013/11/13 23:36:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -23,14 +23,16 @@
 #include <qpainter.h>
 #include <qbitmap.h>
 
+#include "rdconfig.h"
 #include "rdconf.h"
 #include "rdescape_string.h"
 #include "rdcart.h"
 #include "rdcartslot.h"
 
 RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
-		       RDListSvcs *svcs_dialog,RDSlotDialog *slot_dialog,
-		       RDCartDialog *cart_dialog,RDCueEditDialog *cue_dialog,
+		       RDConfig *config,RDListSvcs *svcs_dialog,
+		       RDSlotDialog *slot_dialog,RDCartDialog *cart_dialog,
+		       RDCueEditDialog *cue_dialog,
 		       const QString &caption,QWidget *parent)
   : QWidget(parent)
 {
@@ -38,6 +40,7 @@ RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
   slot_ripc=ripc;
   slot_cae=cae;
   slot_station=station;
+  slot_config=config;
   slot_svcs_dialog=svcs_dialog;
   slot_slot_dialog=slot_dialog;
   slot_cart_dialog=cart_dialog;
@@ -697,7 +700,7 @@ void RDCartSlot::ClearTempCart()
   if(slot_temp_cart) {
     cart=new RDCart(slot_logline->cartNumber());
     if(cart->exists()) {
-      cart->remove(slot_station,slot_user);
+      cart->remove(slot_station,slot_user,slot_config);
     }
     slot_temp_cart=false;
     delete cart;

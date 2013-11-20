@@ -771,19 +771,6 @@ void RDLogoutSession(long int session_id,const QHostAddress &addr)
 }
 
 
-QString RDEscapeWebString(const QString &str)
-{
-  QString ret=str;
-  ret.replace("&","&amp;");
-  ret.replace("`","&apos;");
-  ret.replace("'","&apos;");
-  ret.replace(">","&gt;");
-  ret.replace("<","&lt;");
-  ret.replace("\"","&quot;");
-  return ret;
-}
-
-
 bool RDParsePost(std::map<QString,QString> *vars)
 {
   std::map<QString,QString> headers;
@@ -895,53 +882,99 @@ bool RDParsePost(std::map<QString,QString> *vars)
 }
 
 
-QString RDXmlField(const QString &tag,const QString &value)
+QString RDXmlField(const QString &tag,const QString &value,const QString &attrs)
 {
-  return QString("<")+tag+">"+RDXmlEscape(value)+"</"+tag+">\n";
-}
+  QString str="";
 
-
-QString RDXmlField(const QString &tag,const char *value)
-{
-  return RDXmlField(tag,QString(value));
-}
-
-
-QString RDXmlField(const QString &tag,const int value)
-{
-  return QString("<")+tag+">"+QString().sprintf("%d",value)+"</"+tag+">\n";
-}
-
-
-QString RDXmlField(const QString &tag,const unsigned value)
-{
-  return QString("<")+tag+">"+QString().sprintf("%u",value)+"</"+tag+">\n";
-}
-
-
-QString RDXmlField(const QString &tag,const bool value)
-{
-  if(value) {
-    return QString("<")+tag+">true</"+tag+">\n";
+  if(!attrs.isEmpty()) {
+    str=" "+attrs;
   }
-  return QString("<")+tag+">false</"+tag+">\n";
+  return QString("<")+tag+str+">"+RDXmlEscape(value)+"</"+tag+">\n";
 }
 
 
-QString RDXmlField(const QString &tag,const QDateTime &value)
+QString RDXmlField(const QString &tag,const char *value,const QString &attrs)
 {
-  return QString("<")+tag+">"+RDWebDateTime(value)+"</"+tag+">\n";
+  return RDXmlField(tag,QString(value),attrs);
 }
 
 
-QString RDXmlField(const QString &tag,const QTime &value)
+QString RDXmlField(const QString &tag,const int value,const QString &attrs)
 {
-  return QString("<")+tag+">"+value.toString("hh:mm:ss")+"</"+tag+">\n";
+  QString str="";
+
+  if(!attrs.isEmpty()) {
+    str=" "+attrs;
+  }
+  return QString("<")+tag+str+">"+QString().sprintf("%d",value)+"</"+tag+">\n";
+}
+
+
+QString RDXmlField(const QString &tag,const unsigned value,const QString &attrs)
+{
+  QString str="";
+
+  if(!attrs.isEmpty()) {
+    str=" "+attrs;
+  }
+  return QString("<")+tag+str+">"+QString().sprintf("%u",value)+"</"+tag+">\n";
+}
+
+
+QString RDXmlField(const QString &tag,const bool value,const QString &attrs)
+{
+  QString str="";
+
+  if(!attrs.isEmpty()) {
+    str=" "+attrs;
+  }
+  if(value) {
+    return QString("<")+tag+str+">true</"+tag+">\n";
+  }
+  return QString("<")+tag+str+">false</"+tag+">\n";
+}
+
+
+QString RDXmlField(const QString &tag,const QDateTime &value,
+		   const QString &attrs)
+{
+  QString str="";
+
+  if(!attrs.isEmpty()) {
+    str=" "+attrs;
+  }
+  if(value.isValid()) {
+    return QString("<")+tag+str+">"+RDWebDateTime(value)+"</"+tag+">\n";
+  }
+  return RDXmlField(tag);
+}
+
+
+QString RDXmlField(const QString &tag,const QTime &value,const QString &attrs)
+{
+  QString str="";
+
+  if(!attrs.isEmpty()) {
+    str=" "+attrs;
+  }
+  if(value.isValid()&&(!value.isNull())) {
+    return QString("<")+tag+str+">"+value.toString("hh:mm:ss")+"</"+tag+">\n";
+  }
+  return RDXmlField(tag);
+}
+
+
+QString RDXmlField(const QString &tag)
+{
+  return QString("<")+tag+"/>\n";
 }
 
 
 QString RDXmlEscape(const QString &str)
 {
+  /*
+   * Escape a string in accordance with XML-1.0
+   */
   QString ret=str;
   ret.replace("&","&amp;");
   ret.replace("<","&lt;");
@@ -954,12 +987,62 @@ QString RDXmlEscape(const QString &str)
 
 QString RDXmlUnescape(const QString &str)
 {
+  /*
+   * Unescape a string in accordance with XML-1.0
+   */
   QString ret=str;
   ret.replace("&amp;","&");
   ret.replace("&lt;","<");
   ret.replace("&gt;",">");
   ret.replace("&apos;","'");
   ret.replace("&quot;","\"");
+  return ret;
+}
+
+
+QString RDUrlEscape(const QString &str)
+{
+  /*
+   * Escape a string in accordance with RFC 2396 Section 2.4
+   */
+  QString ret=str;
+
+  ret.replace("%","%25");
+  ret.replace(" ","%20");
+  ret.replace("<","%3C");
+  ret.replace(">","%3E");
+  ret.replace("#","%23");
+  ret.replace("\"","%22");
+  ret.replace("{","%7B");
+  ret.replace("}","%7D");
+  ret.replace("|","%7C");
+  ret.replace("\\","%5C");
+  ret.replace("^","%5E");
+  ret.replace("[","%5B");
+  ret.replace("]","%5D");
+  ret.replace("~","%7E");
+
+  return ret;
+}
+
+
+QString RDUrlUnescape(const QString &str)
+{
+  /*
+   * Unescape a string in accordance with RFC 2396 Section 2.4
+   */
+  QString ret="";
+
+  for(unsigned i=0;i<str.length();i++) {
+    if((str.at(i)=="%")&&(i<str.length()-2)) {
+      ret+=QString().sprintf("%c",str.mid(i+1,2).toInt(NULL,16));
+      i+=2;
+    }
+    else {
+      ret+=str.at(i);
+    }
+  }
+
   return ret;
 }
 

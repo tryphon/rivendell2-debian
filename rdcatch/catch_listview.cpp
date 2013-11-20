@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: catch_listview.cpp,v 1.5 2010/09/13 23:14:26 cvs Exp $
+//      $Id: catch_listview.cpp,v 1.5.6.1 2013/11/13 23:36:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -58,7 +58,8 @@ void CatchListView::editAudioMenuData()
   RDCart *rdcart=new RDCart(catch_cutname.left(6).toUInt());
   RDEditAudio *edit=
     new RDEditAudio(rdcart,catch_cutname,catch_cae,catch_user,rdstation_conf,
-		    catch_audition_card,catch_audition_port,1500,-400,this);
+		    catch_config,catch_audition_card,catch_audition_port,
+		    1500,-400,this);
   if(edit->exec()!=-1) {
     rdcart->updateLength();
   }

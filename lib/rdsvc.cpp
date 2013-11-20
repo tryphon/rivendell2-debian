@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.cpp,v 1.71.8.5 2013/07/30 22:45:49 cvs Exp $
+//      $Id: rdsvc.cpp,v 1.71.8.8 2013/10/31 15:37:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,7 @@
 #include <rdlog.h>
 #include <rddb.h>
 #include <rdescape_string.h>
+#include <rdweb.h>
 
 //
 // Global Classes
@@ -1390,14 +1391,36 @@ void RDSvc::remove() const
   q=new RDSqlQuery(sql);
   delete q;
 
-  sql=QString().sprintf("drop table %s_STACK",(const char *)tablename);
+  sql=QString().sprintf("drop table `%s_STACK`",(const char *)tablename);
   q=new RDSqlQuery(sql);
   delete q;
 
   sql=QString().sprintf("delete from LOGS where SERVICE=\"%s\"",
-			(const char *)svc_name);
+			(const char *)RDEscapeString(svc_name));
   q=new RDSqlQuery(sql);
   delete q;
+}
+
+
+QString RDSvc::xml() const
+{
+  QString sql;
+  RDSqlQuery *q;
+  QString ret;
+#ifndef WIN32
+  sql="select DESCRIPTION from SERVICES where NAME=\""+
+    RDEscapeString(svc_name)+"\"";
+
+  q=new RDSqlQuery(sql);
+  if(q->first()) {
+    ret+="  <service>\n";
+    ret+="   "+RDXmlField("name",svc_name);
+    ret+="   "+RDXmlField("description",q->value(0).toString());
+    ret+="  </service>\n";
+  }
+  delete q;
+#endif  // WIN32
+  return ret;
 }
 
 

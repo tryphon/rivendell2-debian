@@ -30,6 +30,8 @@ Driver=QMYSQL3
 MountSource=
 MountType=
 MountOptions=defaults
+CaeHostname=
+XportHostname=
 
 [Logs]
 ; Set the method to be used for logging.  Possible values are:
@@ -71,7 +73,7 @@ LogXloadDebugData=No
 ; (It should seldom be necessary to tweak these)
 PeriodQuantity=4
 PeriodSize=1024
-ChannelsPerPcm=-1  ; -1 = use values autodetected from ALSA
+ChannelsPerPcm=-1
 
 ; [SoftKeys]
 ;

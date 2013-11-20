@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdstation.cpp,v 1.30.4.3 2012/11/28 21:44:06 cvs Exp $
+//      $Id: rdstation.cpp,v 1.30.4.6 2013/11/18 15:48:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -107,10 +107,29 @@ void RDStation::setAddress(QHostAddress addr) const
 }
 
 
+QHostAddress RDStation::httpAddress(RDConfig *config) const
+{
+  QHostAddress addr;
+  
+  addr.setAddress("127.0.0.1");
+  if(httpStation()!="localhost") {
+    if(httpStation()==RD_RDSELECT_LABEL) {
+      addr.setAddress(config->audioStoreXportHostname());
+    }
+    else {
+      addr.setAddress(RDGetSqlValue("STATIONS","NAME",httpStation(),
+				    "IPV4_ADDRESS").toString());
+    }
+  }
+
+  return addr;
+}
+
+
 QString RDStation::httpStation() const
 {
-  return RDGetSqlValue("STATIONS","NAME",station_name,"HTTP_STATION").
-    toString();
+  return
+    RDGetSqlValue("STATIONS","NAME",station_name,"HTTP_STATION").toString();
 }
 
 
@@ -122,8 +141,27 @@ void RDStation::setHttpStation(const QString &str)
 
 QString RDStation::caeStation() const
 {
-  return RDGetSqlValue("STATIONS","NAME",station_name,"CAE_STATION").
-    toString();
+  return
+    RDGetSqlValue("STATIONS","NAME",station_name,"CAE_STATION").toString();
+}
+
+
+QHostAddress RDStation::caeAddress(RDConfig *config) const
+{
+  QHostAddress addr;
+
+  addr.setAddress("127.0.0.1");
+  if(caeStation()!="localhost") {
+    if(caeStation()==RD_RDSELECT_LABEL) {
+      addr.setAddress(config->audioStoreCaeHostname());
+    }
+    else {
+      addr.setAddress(RDGetSqlValue("STATIONS","NAME",caeStation(),
+				    "IPV4_ADDRESS").toString());
+    }
+  }
+
+  return addr;
 }
 
 
@@ -133,23 +171,10 @@ void RDStation::setCaeStation(const QString &str)
 }
 
 
-QString RDStation::webServiceUrl() const
+QString RDStation::webServiceUrl(RDConfig *config) const
 {
-  QString sql;
-  RDSqlQuery *q;
-  QString addr="localhost";
-
-  if(httpStation()=="localhost") {
-    return QString("http://localhost/rd-bin/rdxport.cgi");
-  }
-  sql=QString().sprintf("select IPV4_ADDRESS from STATIONS where NAME=\"%s\"",
-			(const char *)RDEscapeString(httpStation()));
-  q=new RDSqlQuery(sql);
-  if(q->first()) {
-    addr=q->value(0).toString();
-  }
-  delete q;
-  return QString("http://")+addr+"/rd-bin/rdxport.cgi";
+  return QString("http://")+httpAddress(config).toString()+
+    "/rd-bin/rdxport.cgi";
 }
 
 

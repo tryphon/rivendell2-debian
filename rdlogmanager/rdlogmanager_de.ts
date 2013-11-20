@@ -588,6 +588,11 @@ einem bereits existierendem Event.</translation>
         <source>Clear Hour</source>
         <translation>Stunde löschen</translation>
     </message>
+    <message>
+        <source>Change
+&amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditNote</name>

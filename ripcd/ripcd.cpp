@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: ripcd.cpp,v 1.77.4.2 2013/10/03 15:11:32 cvs Exp $
+//      $Id: ripcd.cpp,v 1.77.4.3 2013/11/17 04:27:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -773,18 +773,10 @@ void MainObject::SendGpi(int ch,int matrix)
   if(ripcd_switcher[matrix]==NULL) {
     return;
   }
-  switch(ripcd_switcher[matrix]->type()) {
-    case RDMatrix::LiveWire:
-      ripcd_switcher[matrix]->sendGpi();
-      break;
-
-    default:
-      for(unsigned i=0;i<ripcd_switcher[matrix]->gpiQuantity();i++) {
-	EchoCommand(ch,QString().sprintf("GI %d %d %d %d!",
-					 matrix,i,ripcd_gpi_state[matrix][i],
-					 ripcd_gpi_mask[matrix][i]));
-      }
-      break;
+  for(unsigned i=0;i<ripcd_switcher[matrix]->gpiQuantity();i++) {
+    EchoCommand(ch,QString().sprintf("GI %d %d %d %d!",
+				     matrix,i,ripcd_gpi_state[matrix][i],
+				     ripcd_gpi_mask[matrix][i]));
   }
 }
 
@@ -794,18 +786,10 @@ void MainObject::SendGpo(int ch,int matrix)
   if(ripcd_switcher[matrix]==NULL) {
     return;
   }
-  switch(ripcd_switcher[matrix]->type()) {
-    case RDMatrix::LiveWire:
-      ripcd_switcher[matrix]->sendGpo();
-      break;
-
-    default:
-      for(unsigned i=0;i<ripcd_switcher[matrix]->gpoQuantity();i++) {
-	EchoCommand(ch,QString().sprintf("GO %d %d %d %d!",
-					 matrix,i,ripcd_gpo_state[matrix][i],
-					 ripcd_gpo_mask[matrix][i]));
-      }
-      break;
+  for(unsigned i=0;i<ripcd_switcher[matrix]->gpoQuantity();i++) {
+    EchoCommand(ch,QString().sprintf("GO %d %d %d %d!",
+				     matrix,i,ripcd_gpo_state[matrix][i],
+				     ripcd_gpo_mask[matrix][i]));
   }
 }
 

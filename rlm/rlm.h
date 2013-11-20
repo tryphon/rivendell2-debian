@@ -2,7 +2,7 @@
  *
  * The Rivendell Loadable Module Interface
  *
- *   (C) Copyright 2008-2011 Fred Gleason <fredg@paravelsystems.com>
+ *   (C) Copyright 2008-2013 Fred Gleason <fredg@paravelsystems.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2 as
@@ -80,7 +80,7 @@ extern "C" {
 /*
  * RLM Interface Version
  */
-#define RLM_VERSION 13
+#define RLM_VERSION 15
 
 /*
  * Available Timers
@@ -117,6 +117,14 @@ extern "C" {
 #define RLM_LOGMODE_LIVEASSIST 1
 #define RLM_LOGMODE_AUTOMATIC 2
 #define RLM_LOGMODE_MANUAL 3
+
+/*
+ * Data Encodings
+ * (for use in the RLMResolveNowNextEncoded() function).
+ */
+#define RLM_ENCODE_NONE 0
+#define RLM_ENCODE_XML 1
+#define RLM_ENCODE_URL 2
 
 /*
  * Service data structure
@@ -161,7 +169,14 @@ extern "C" {
     char rlm_ext_eventid[33];  /* Event ID, from external scheduler */
     char rlm_ext_data[33];     /* Data, from external scheduler */
     char rlm_ext_annctype[1];  /* Announcement Type, from external scheduler */
-    char reserved[561];        /* Reserved for future use */
+    int32_t rlm_start_msec;    /* Event start time, milliseconds part */
+    int32_t rlm_start_sec;     /* Event start time, seconds part */
+    int32_t rlm_start_min;     /* Event start time, minutes part */
+    int32_t rlm_start_hour;    /* Event start time, hours part */
+    int32_t rlm_start_day;     /* Event start date, day of month part */
+    int32_t rlm_start_mon;     /* Event start date, month of year part */
+    int32_t rlm_start_year;    /* Event start date, year part */
+    char reserved[533];        /* Reserved for future use */
   };
   
 /*
@@ -248,7 +263,53 @@ extern "C" {
   const char *RLMDateTime(void *ptr,int offset_msecs,const char *format);
 
 /*
- * Resolve standard Rivendell Now & Next wildcards.
+ * Resolve standard Rivendell Now & Next wildcards, with the possiblity
+ * to encode the PAD fields.
+ *
+ * Returns a pointer to a null-terminated string resulting from resolving
+ * the 'standard' Rivendell Now & Next wildcards in accordance with the
+ * data values in the <now> and <next> parameters.  The following wildcards
+ * are supported:
+ *
+ *  Now  Next  Field
+ *  ----------------------------------------------
+ *   %n   %N   The Rivendell cart number
+ *   %h   %H   Event length (in milliseconds)
+ *   %g   %G   The Rivendell group name
+ *   %t   %T   Title
+ *   %a   %A   Artist
+ *   %l   %L   Album
+ *   %y   %Y   Year
+ *   %b   %B   Record Label
+ *   %c   %C   Client
+ *   %e   %E   Agency
+ *   %m   %M   Composer
+ *   %p   %P   Publisher
+ *   %u   %U   User Definied
+ *   %D(<dt>)  The current date/time, formatted according to <dt>.  <dt>
+ *             can be any of the wildcards supported by the RLMDateTime()
+ *             function (see above).
+ *
+ * Additionally, an encoding can be specified to allow PAD fields to be
+ * escaped for a particular format.  Available encodings are:
+ *
+ *  RLM_ENCODE_NONE - Perform no character escaping.
+ *  RLM_ENCODE_XML - Escape reserved characters as per XML-v1.0
+ *  RLM_ENCODE_URL - Escape reserved characters as per RFC 2396 Section 2.4
+ *
+ * RETURNS: A pointer to a null terminated string.  This string is statically
+ * allocated, and may be reused in subsequent calls to the utility functions.
+ */
+  const char *RLMResolveNowNextEncoded(void *ptr,const struct rlm_pad *now,
+				       const struct rlm_pad *next,
+				       const char *format,int encoding);
+
+/*
+ * Resolve standard Rivendell Now & Next wildcards
+ *
+ * (NOTE: This function is deprecated, and included merely to keep old code
+ *  working.  It should *not* be used in new code.  For a better alternative,
+ *  see the RLMResolveNowNextEncoded() function above).
  *
  * Returns a pointer to a null-terminated string resulting from resolving
  * the 'standard' Rivendell Now & Next wildcards in accordance with the
@@ -276,6 +337,7 @@ extern "C" {
  */
   const char *RLMResolveNowNext(void *ptr,const struct rlm_pad *now,
 				const struct rlm_pad *next,const char *format);
+
   void RLMLog(void *ptr,int prio,const char *msg);
   void RLMStartTimer(void *ptr,int timernum,int msecs,int mode);
   void RLMStopTimer(void *ptr,int timernum);

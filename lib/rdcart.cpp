@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.cpp,v 1.72.4.1 2013/06/28 15:00:33 cvs Exp $
+//      $Id: rdcart.cpp,v 1.72.4.3 2013/11/13 23:36:31 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1104,7 +1104,7 @@ int RDCart::addCut(unsigned format,unsigned bitrate,unsigned chans,
 }
 
 
-bool RDCart::removeAllCuts(RDStation *station,RDUser *user)
+bool RDCart::removeAllCuts(RDStation *station,RDUser *user,RDConfig *config)
 {
   QString sql;
   RDSqlQuery *q;
@@ -1113,7 +1113,7 @@ bool RDCart::removeAllCuts(RDStation *station,RDUser *user)
 			cart_number);
   q=new RDSqlQuery(sql);
   while(q->next()) {
-    if(!removeCut(station,user,q->value(0).toString())) {
+    if(!removeCut(station,user,q->value(0).toString(),config)) {
       delete q;
       return false;
     }
@@ -1124,7 +1124,8 @@ bool RDCart::removeAllCuts(RDStation *station,RDUser *user)
 }
 
 
-bool RDCart::removeCut(RDStation *station,RDUser *user,const QString &cutname)
+bool RDCart::removeCut(RDStation *station,RDUser *user,const QString &cutname,
+		       RDConfig *config)
 {
   if(!exists()) {
     return true;
@@ -1135,7 +1136,7 @@ bool RDCart::removeCut(RDStation *station,RDUser *user,const QString &cutname)
   QString filename;
 
   filename = RDCut::pathName(cutname); 
-  if(!removeCutAudio(station,user,cutname)) {
+  if(!removeCutAudio(station,user,cutname,config)) {
     return false;
   }
   sql=QString().sprintf("delete from REPL_CUT_STATE where CUT_NAME=\"%s\"",
@@ -1154,7 +1155,7 @@ bool RDCart::removeCut(RDStation *station,RDUser *user,const QString &cutname)
 
 
 bool RDCart::removeCutAudio(RDStation *station,RDUser *user,
-			    const QString &cutname) const
+			    const QString &cutname,RDConfig *config) const
 {
   bool ret=true;
 #ifndef WIN32
@@ -1186,7 +1187,7 @@ bool RDCart::removeCutAudio(RDStation *station,RDUser *user,
     // otherwise some versions of LibCurl will throw a 'bad/illegal format' 
     // error.
     //
-    strncpy(url,station->webServiceUrl(),1024);
+    strncpy(url,station->webServiceUrl(config),1024);
     curl_easy_setopt(curl,CURLOPT_URL,url);
     curl_easy_setopt(curl,CURLOPT_POST,1);
     curl_easy_setopt(curl,CURLOPT_POSTFIELDS,(const char *)post);
@@ -1220,7 +1221,7 @@ bool RDCart::create(const QString &groupname,RDCart::Type type)
 }
 
 
-bool RDCart::remove(RDStation *station,RDUser *user) const
+bool RDCart::remove(RDStation *station,RDUser *user,RDConfig *config) const
 {
   QString sql;
   RDSqlQuery *q;
@@ -1231,7 +1232,7 @@ bool RDCart::remove(RDStation *station,RDUser *user) const
 			  cart_number);
     q=new RDSqlQuery(sql);
     while(q->next()) {
-      if(!removeCutAudio(station,user,q->value(0).toString())) {
+      if(!removeCutAudio(station,user,q->value(0).toString(),config)) {
 	delete q;
 	return false;
       }
@@ -1302,6 +1303,29 @@ QString RDCart::usageText(RDCart::UsageCode usage)
 	break;
   }
   return QObject::tr("Unknown");  
+}
+
+
+QString RDCart::typeText(RDCart::Type type)
+{
+  QString ret=QObject::tr("Unknown");
+
+  switch(type) {
+  case RDCart::All:
+    ret=QObject::tr("All");
+    break;
+
+  case RDCart::Audio:
+    ret=QObject::tr("Audio");
+    break;
+
+  case RDCart::Macro:
+    ret=QObject::tr("Macro");
+    break;
+
+  }
+
+  return ret;
 }
 
 

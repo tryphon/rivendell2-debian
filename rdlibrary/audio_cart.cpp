@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.cpp,v 1.57.6.3 2013/07/03 19:16:25 cvs Exp $
+//      $Id: audio_cart.cpp,v 1.57.6.4 2013/11/13 23:36:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -345,7 +345,8 @@ void AudioCart::deleteCutData()
       paste_cut_button->setDisabled(true);
     }
   }
-  if(!rdcart_cart->removeCut(rdstation_conf,lib_user,item->text(11))) {
+  if(!rdcart_cart->removeCut(rdstation_conf,lib_user,item->text(11),
+			     lib_config)) {
     QMessageBox::warning(this,tr("RDLibrary"),tr("Unable to delete audio!"));
     return;
   }
@@ -421,7 +422,7 @@ void AudioCart::pasteCutData()
     }
   }
   cut_clipboard->connect(this,SLOT(copyProgressData(const QVariant &)));
-  cut_clipboard->copyTo(rdstation_conf,lib_user,item->text(11));
+  cut_clipboard->copyTo(rdstation_conf,lib_user,item->text(11),lib_config);
   cut_clipboard->disconnect(this,SLOT(copyProgressData(const QVariant &)));
   rdcart_cart->updateLength(rdcart_controls->enforce_length_box->isChecked(),
 			    QTime().msecsTo(rdcart_controls->
@@ -448,8 +449,8 @@ void AudioCart::editCutData()
   }
   RDEditAudio *edit=
     new RDEditAudio(rdcart_cart,cutname,rdcae,lib_user,rdstation_conf,
-		    rdlibrary_conf->outputCard(),rdlibrary_conf->outputPort(),
-		    rdlibrary_conf->tailPreroll(),
+		    lib_config,rdlibrary_conf->outputCard(),
+		    rdlibrary_conf->outputPort(),rdlibrary_conf->tailPreroll(),
 		    rdlibrary_conf->trimThreshold(),this);
   if(edit->exec()!=-1) {
     emit cartDataChanged();

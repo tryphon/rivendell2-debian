@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.cpp,v 1.91.6.2 2013/07/03 19:57:56 cvs Exp $
+//      $Id: edit_log.cpp,v 1.91.6.3 2013/11/13 23:36:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1683,7 +1683,7 @@ bool EditLog::DeleteTracks()
   RDCart *cart;
   for(unsigned i=0;i<edit_deleted_tracks.size();i++) {
     cart=new RDCart(edit_deleted_tracks[i]);
-    if(!cart->remove(rdstation_conf,rduser)) {
+    if(!cart->remove(rdstation_conf,rduser,log_config)) {
       delete cart;
       return false;
     }

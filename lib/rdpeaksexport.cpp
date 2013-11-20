@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpeaksexport.cpp,v 1.6.4.3 2012/12/13 22:33:44 cvs Exp $
+//      $Id: rdpeaksexport.cpp,v 1.6.4.5 2013/11/13 23:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -65,10 +65,11 @@ RDPeaksExport::~RDPeaksExport()
 }
 
 
-RDPeaksExport::RDPeaksExport(RDStation *station,
+RDPeaksExport::RDPeaksExport(RDStation *station,RDConfig *config,
 			     QObject *parent,const char *name)
 {
   conv_station=station;
+  conv_config=config;
   conv_cart_number=0;
   conv_cut_number=0;
   conv_energy_data=NULL;
@@ -118,7 +119,7 @@ RDPeaksExport::ErrorCode RDPeaksExport::runExport(const QString &username,
   // otherwise some versions of LibCurl will throw a 'bad/illegal format' 
   // error.
   //
-  strncpy(url,conv_station->webServiceUrl(),1024);
+  strncpy(url,conv_station->webServiceUrl(conv_config),1024);
   curl_easy_setopt(curl,CURLOPT_URL,url);
   curl_easy_setopt(curl,CURLOPT_POST,1);
   curl_easy_setopt(curl,CURLOPT_POSTFIELDS,(const char *)post);
@@ -172,7 +173,7 @@ RDPeaksExport::ErrorCode RDPeaksExport::runExport(const QString &username,
 
 QString RDPeaksExport::errorText(RDPeaksExport::ErrorCode err)
 {
-  QString ret=QString().sprintf("Uknown Error [%u]",err);
+  QString ret=QString().sprintf("Unknown Error [%u]",err);
 
   switch(err) {
   case RDPeaksExport::ErrorOk:

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.h,v 1.85.8.4 2013/03/09 00:21:11 cvs Exp $
+//      $Id: rdlog_line.h,v 1.85.8.6 2013/10/15 19:32:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -246,10 +246,12 @@ class RDLogLine
 		bool timescale,RDLogLine::TransType type=RDLogLine::NoTrans,
 		int len=-1);
   void refreshPointers();
+  QString xml(int line) const;
   static QString resolveWildcards(unsigned cartnum,const QString &pattern);
   static QString startSourceText(RDLogLine::StartSource src);
   static QString transText(RDLogLine::TransType trans);
   static QString typeText(RDLogLine::Type type);
+  static QString timeTypeText(RDLogLine::TimeType type);
   static QString sourceText(RDLogLine::Source src);
 
  private:

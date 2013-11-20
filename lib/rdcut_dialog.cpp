@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut_dialog.cpp,v 1.31.4.1 2012/10/09 00:12:29 cvs Exp $
+//      $Id: rdcut_dialog.cpp,v 1.31.4.2 2013/11/15 18:24:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -193,9 +193,11 @@ RDCutDialog::RDCutDialog(QString *cutname,RDStation *station,RDSystem *system,
   cut_cart_list->addColumn("");
   cut_cart_list->setColumnAlignment(0,Qt::AlignHCenter);
   cut_cart_list->addColumn(tr("NUMBER"));
+
   cut_cart_list->setColumnAlignment(1,Qt::AlignHCenter);
   cut_cart_list->addColumn(tr("TITLE"));
   cut_cart_list->setColumnAlignment(2,Qt::AlignLeft);
+
   cut_cart_list->addColumn(tr("GROUP"));
   cut_cart_list->setColumnAlignment(3,Qt::AlignCenter);
 
@@ -211,6 +213,7 @@ RDCutDialog::RDCutDialog(QString *cutname,RDStation *station,RDSystem *system,
   label->setFont(label_font);
   cut_cut_list->addColumn(tr("DESCRIPTION"));
   cut_cut_list->setColumnAlignment(0,Qt::AlignLeft);
+
   cut_cut_list->addColumn(tr("NUMBER"));
   cut_cut_list->setColumnAlignment(1,Qt::AlignLeft);
 

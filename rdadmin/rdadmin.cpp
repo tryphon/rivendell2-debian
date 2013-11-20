@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadmin.cpp,v 1.72.4.2 2013/01/07 15:34:58 cvs Exp $
+//      $Id: rdadmin.cpp,v 1.72.4.4 2013/11/13 23:36:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -82,6 +82,7 @@ QString admin_admin_username;
 QString admin_admin_password;
 QString admin_admin_hostname;
 QString admin_admin_dbname;
+QString admin_create_db_hostname;
 bool admin_skip_backup=false;
 QString admin_backup_filename="";
 
@@ -206,7 +207,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   admin_cart_dialog=new RDCartDialog(&admin_filter,&admin_group,
 				     &admin_schedcode,-1,-1,0,0,NULL,
-				     rdripc,admin_station,admin_system,"",
+				     rdripc,admin_station,admin_system,
+				     admin_config,"",
 				     this,"admin_cart_dialog");
 
   //
@@ -597,9 +599,13 @@ int cmdline_main(int argc,char *argv[])
   //
   // Open Database
   //
+  QString station_name=admin_config->stationName();
+  if(!admin_create_db_hostname.isEmpty()) {
+    station_name=admin_create_db_hostname;
+  }
   if(!OpenDb(admin_config->mysqlDbname(),admin_config->mysqlUsername(),
 	     admin_config->mysqlPassword(),admin_config->mysqlHostname(),
-	     admin_config->stationName(),false)) {
+	     station_name,false)) {
     return 1;
   }
 
@@ -632,6 +638,10 @@ int main(int argc,char *argv[])
     }
     if(cmd->key(i)=="--mysql-admin-dbname") {
       admin_admin_dbname=cmd->value(i);
+      cmd->setProcessed(i,true);
+    }
+    if(cmd->key(i)=="--create-db-hostname") {
+      admin_create_db_hostname=cmd->value(i);
       cmd->setProcessed(i,true);
     }
     if(cmd->key(i)=="--backup-filename") {

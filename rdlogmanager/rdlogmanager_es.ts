@@ -590,6 +590,11 @@ un evento ya existente.</translation>
         <source>Clear Hour</source>
         <translation>Limpiar tortas</translation>
     </message>
+    <message>
+        <source>Change
+&amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditNote</name>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdedit_audio.cpp,v 1.26.6.1 2012/05/07 23:31:59 cvs Exp $
+//      $Id: rdedit_audio.cpp,v 1.26.6.2 2013/11/13 23:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,13 +35,15 @@
 #include <rdtrimaudio.h>
 
 RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
-			 RDStation *station,int card,int port,int preroll,
+			 RDStation *station,RDConfig *config,int card,
+			 int port,int preroll,
 			 int trim_level,QWidget *parent,const char *name)
   : QDialog(parent,name,true)
 {
   edit_cae=cae;
   edit_station=station;
   edit_user=user;
+  edit_config=config;
   edit_card=card;
   edit_port=port;
   edit_stream=-1;
@@ -111,7 +113,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
 	  this,SLOT(positionData(int,unsigned)));
   edit_cae->loadPlay(edit_card,edit_cut->cutName(),&edit_stream,&edit_handle);
   RDSetMixerOutputPort(edit_cae,edit_card,edit_stream,edit_port);
-  RDAudioInfo *info=new RDAudioInfo(station,this);
+  RDAudioInfo *info=new RDAudioInfo(station,edit_config,this);
   RDAudioInfo::ErrorCode audio_err;
   info->setCartNumber(RDCut::cartNumber(cut_name));
   info->setCutNumber(RDCut::cutNumber(cut_name));
@@ -773,7 +775,7 @@ RDEditAudio::RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
   //
   // The Wave Forms
   //
-  edit_peaks=new RDPeaksExport(station,this);
+  edit_peaks=new RDPeaksExport(station,config,this);
   RDPeaksExport::ErrorCode conv_err;
   edit_peaks->setCartNumber(RDCut::cartNumber(cut_name));
   edit_peaks->setCutNumber(RDCut::cutNumber(cut_name));
@@ -1527,7 +1529,7 @@ void RDEditAudio::trimHeadData()
 {
   RDEditAudio::CuePoints point;
   RDTrimAudio::ErrorCode conv_err;
-  RDTrimAudio *conv=new RDTrimAudio(edit_station,this);
+  RDTrimAudio *conv=new RDTrimAudio(edit_station,edit_config,this);
   conv->setCartNumber(edit_cut->cartNumber());
   conv->setCutNumber(edit_cut->cutNumber());
   conv->setTrimLevel(100*edit_trim_box->value());
@@ -1556,7 +1558,7 @@ void RDEditAudio::trimTailData()
 {
   RDEditAudio::CuePoints point;
   RDTrimAudio::ErrorCode conv_err;
-  RDTrimAudio *conv=new RDTrimAudio(edit_station,this);
+  RDTrimAudio *conv=new RDTrimAudio(edit_station,edit_config,this);
   conv->setCartNumber(edit_cut->cartNumber());
   conv->setCutNumber(edit_cut->cutNumber());
   conv->setTrimLevel(100*edit_trim_box->value());

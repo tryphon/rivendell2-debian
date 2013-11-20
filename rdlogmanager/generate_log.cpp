@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: generate_log.cpp,v 1.37 2011/05/03 19:46:29 cvs Exp $
+//      $Id: generate_log.cpp,v 1.37.6.1 2013/11/13 23:36:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -358,7 +358,7 @@ void GenerateLog::createData()
       }
     }
   }
-  log->removeTracks(rdstation_conf,rduser);
+  log->removeTracks(rdstation_conf,rduser,log_config);
 
   //
   // Scheduler
@@ -442,7 +442,7 @@ void GenerateLog::musicData()
 	return;
       }
     }
-    log->removeTracks(rdstation_conf,rduser);
+    log->removeTracks(rdstation_conf,rduser,log_config);
     svc->clearLogLinks(RDSvc::Traffic,gen_date_edit->date(),logname);
     svc->clearLogLinks(RDSvc::Music,gen_date_edit->date(),logname);
   }

@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.6.6.1 2012/11/29 01:37:38 cvs Exp $
+##      $Id: Makefile.am,v 1.6.6.3 2013/10/11 22:00:52 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -40,7 +40,9 @@ dist_rdxport_cgi_SOURCES = audioinfo.cpp\
                            export.cpp\
                            exportpeaks.cpp\
                            import.cpp\
+                           logs.cpp\
                            rdxport.cpp rdxport.h\
+                           services.cpp\
                            trimaudio.cpp
 
 rdxport_cgi_LDADD = @LIB_RDLIBS@ -lsndfile @LIBVORBIS@
