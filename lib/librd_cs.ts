@@ -289,7 +289,7 @@
     </message>
     <message>
         <source>invalid SQL or failed DB connection:</source>
-        <translation>Neplatné SQL nebo nepodařilo připojit k DB:</translation>
+        <translation type="obsolete">Neplatné SQL nebo nepodařilo připojit k DB:</translation>
     </message>
     <message>
         <source>Music Summary</source>
@@ -377,6 +377,10 @@
     </message>
     <message>
         <source>Sound Panel Fifth and Later Play Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>invalid SQL or failed DB connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -767,6 +771,44 @@ ze &amp;souboru</translation>
     <message>
         <source>Importing</source>
         <translation>Zavádí se</translation>
+    </message>
+</context>
+<context>
+    <name>RDCueEdit</name>
+    <message>
+        <source>&amp;Audition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End</source>
+        <translation type="unfinished">Konec</translation>
+    </message>
+</context>
+<context>
+    <name>RDCueEditDialog</name>
+    <message>
+        <source>Set Cue Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Zrušit</translation>
     </message>
 </context>
 <context>

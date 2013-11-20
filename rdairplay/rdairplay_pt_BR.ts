@@ -51,23 +51,23 @@
     </message>
     <message>
         <source>&amp;Audition</source>
-        <translation>&amp;Audição</translation>
+        <translation type="obsolete">&amp;Audição</translation>
     </message>
     <message>
         <source>&amp;Pause</source>
-        <translation>&amp;Pause</translation>
+        <translation type="obsolete">&amp;Pause</translation>
     </message>
     <message>
         <source>&amp;Stop</source>
-        <translation>&amp;Pare</translation>
+        <translation type="obsolete">&amp;Pare</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation>Início</translation>
+        <translation type="obsolete">Início</translation>
     </message>
     <message>
         <source>End</source>
-        <translation>Fim</translation>
+        <translation type="obsolete">Fim</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -79,15 +79,15 @@
     </message>
     <message>
         <source>Edit Marker</source>
-        <translation>Editar Marcador</translation>
+        <translation type="unfinished">Editar Marcador</translation>
     </message>
     <message>
         <source>Edit Track</source>
-        <translation>Editar Pista</translation>
+        <translation type="unfinished">Editar Pista</translation>
     </message>
     <message>
         <source>Edit Log Track</source>
-        <translation>Editar Pista da Lista</translation>
+        <translation type="unfinished">Editar Pista da Lista</translation>
     </message>
     <message>
         <source>Transition If Previous Cart Ends Before</source>

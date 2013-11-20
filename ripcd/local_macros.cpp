@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: local_macros.cpp,v 1.60 2012/02/13 18:05:06 cvs Exp $
+//      $Id: local_macros.cpp,v 1.60.2.1 2013/06/20 20:00:09 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 #include <sys/wait.h>
 
 #include <rd.h>
+#include <rdconf.h>
 #include <rdmatrix.h>
 #include <rdtty.h>
 #include <rduser.h>
@@ -208,6 +209,7 @@ void MainObject::RunLocalMacros(RDMacro *rml)
   char bin_buf[RD_RML_MAX_LENGTH];
   int d;
   RDMatrix::GpioType gpio_type;
+  QByteArray data;
 
   rml->generateString(logstr,RD_RML_MAX_LENGTH-1);
   LogLine(RDConfig::LogInfo,QString().sprintf("received rml: \'%s\' from %s",
@@ -699,7 +701,8 @@ void MainObject::RunLocalMacros(RDMacro *rml)
     default:
       break;
     }
-    ripcd_tty_dev[tty_port]->writeBlock((const char *)str,str.length());
+    data=RDStringToData(str);
+    ripcd_tty_dev[tty_port]->writeBlock((const char *)data,data.size());
     rml->acknowledge(true);
     sendRml(rml);
     return;
@@ -870,7 +873,8 @@ void MainObject::RunLocalMacros(RDMacro *rml)
     LogLine(RDConfig::LogDebug,QString().
 	    sprintf("Sending \"%s\" to %s:%d",(const char *)str,
 		    (const char *)addr.toString(),rml->arg(1).toInt()));
-    ripcd_rml_send->writeBlock((const char *)str,str.length(),addr,
+    data=RDStringToData(str);
+    ripcd_rml_send->writeBlock((const char *)data,data.size(),addr,
 			       (Q_UINT16)(rml->arg(1).toInt()));
     if(rml->echoRequested()) {
       rml->acknowledge(true);

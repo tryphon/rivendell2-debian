@@ -1073,5 +1073,13 @@ sólo podrás editar transiciones ya existentes.</translation>
         <source>Save segue changes?</source>
         <translation>¿Guardar cambios en Segue?</translation>
     </message>
+    <message>
+        <source>RDLogEdit - Voice Tracker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This cart cannot contain any additional cuts!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

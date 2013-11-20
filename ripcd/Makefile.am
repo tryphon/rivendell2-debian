@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.43.8.4 2013/02/21 02:46:28 cvs Exp $
+##      $Id: Makefile.am,v 1.43.8.5 2013/06/28 00:33:34 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -35,6 +35,7 @@ moc_%.cpp:	%.h
 bin_PROGRAMS = ripcd
 
 dist_ripcd_SOURCES = acu1p.cpp acu1p.h\
+                     am16.cpp am16.h\
                      bt10x1.cpp bt10x1.h\
                      bt16x1.cpp bt16x1.h\
                      bt16x2.cpp bt16x2.h\
@@ -69,7 +70,8 @@ dist_ripcd_SOURCES = acu1p.cpp acu1p.h\
                      unity_feed.cpp unity_feed.h\
                      vguest.cpp vguest.h
 
-nodist_ripcd_SOURCES = moc_acu1p.cpp\
+nodist_ripcd_SOURCES = moc_am16.cpp\
+                       moc_acu1p.cpp\
                        moc_bt10x1.cpp\
                        moc_bt16x1.cpp\
                        moc_bt16x2.cpp\

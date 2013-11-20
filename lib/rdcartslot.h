@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.h,v 1.8.2.6 2013/05/21 19:04:44 cvs Exp $
+//      $Id: rdcartslot.h,v 1.8.2.8 2013/07/05 22:44:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -47,6 +47,7 @@
 #include <rdslotbox.h>
 #include <rdslotdialog.h>
 #include <rdslotoptions.h>
+#include <rdcueeditdialog.h>
 #include <rdlistsvcs.h>
 
 class RDCartSlot : public QWidget
@@ -55,8 +56,8 @@ class RDCartSlot : public QWidget
  public:
   RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
 	     RDListSvcs *svcs_dialog,RDSlotDialog *slot_dialog,
-	     RDCartDialog *cart_dialog,const QString &caption,
-	     QWidget *parent=0);
+	     RDCartDialog *cart_dialog,RDCueEditDialog *cue_dialog,
+	     const QString &caption,QWidget *parent=0);
   ~RDCartSlot();
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
@@ -84,6 +85,7 @@ class RDCartSlot : public QWidget
 
  private slots:
   void startData();
+  void doubleClickedData();
   void loadData();
   void optionsData();
   void stateChangedData(int id,RDPlayDeck::State state);
@@ -95,7 +97,7 @@ class RDCartSlot : public QWidget
   void InitializeOptions();
   unsigned SelectCart(const QString &svcname,unsigned msecs);
   void SetInput(bool state);
-  void LogPlayout(RDAirPlayConf::TrafficAction action);
+  void LogPlayout(RDPlayDeck::State state);
   void ClearTempCart();
   QPushButton *slot_start_button;
   QPushButton *slot_load_button;
@@ -115,6 +117,7 @@ class RDCartSlot : public QWidget
   RDListSvcs *slot_svcs_dialog;
   RDSlotDialog *slot_slot_dialog;
   RDCartDialog *slot_cart_dialog;
+  RDCueEditDialog *slot_cue_dialog;
   QString slot_caption;
   QPalette slot_ready_color;
   QPalette slot_playing_color;

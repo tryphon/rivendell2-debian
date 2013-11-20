@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: ripcd.cpp,v 1.77.4.1 2013/01/01 21:36:33 cvs Exp $
+//      $Id: ripcd.cpp,v 1.77.4.2 2013/10/03 15:11:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -245,7 +245,12 @@ MainObject::MainObject(QObject *parent,const char *name)
   ripcd_maint_timer=new QTimer(this,"ripcd_maint_timer");
   connect(ripcd_maint_timer,SIGNAL(timeout()),this,SLOT(checkMaintData()));
   int interval=GetMaintInterval();
-  ripcd_maint_timer->start(interval);
+  if(!ripcd_config->disableMaintChecks()) {
+    ripcd_maint_timer->start(interval);
+  }
+  else {
+    log(RDConfig::LogInfo,"maintenance checks disabled on this host!");
+  }
 
   LogLine(RDConfig::LogInfo,"started");
 }

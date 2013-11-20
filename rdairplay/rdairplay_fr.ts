@@ -46,27 +46,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>&amp;Audition</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Pause</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Stop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transition If Previous Cart Ends Before</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate Start Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An event is already scheduled with this start time!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -79,22 +75,6 @@
     </message>
     <message>
         <source>Edit Log Track</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Transition If Previous Cart Ends Before</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>End</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Duplicate Start Time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>An event is already scheduled with this start time!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

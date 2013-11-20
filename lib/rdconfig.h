@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdconfig.h,v 1.18.8.5 2013/05/06 22:07:58 cvs Exp $
+//      $Id: rdconfig.h,v 1.18.8.6 2013/10/03 15:11:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -85,6 +85,7 @@ class RDConfig
   int jackConnections() const;
   QString jackPort(int num,int endpt) const;
   bool useStreamMeters() const;
+  bool disableMaintChecks() const;
   QString caeLogfile() const;
   bool enableMixerLogging() const;
   unsigned channels() const;
@@ -132,6 +133,7 @@ class RDConfig
   QString conf_airplay_logname;
   QString conf_catchd_logname;
   bool conf_use_stream_meters;
+  bool conf_disable_maint_checks;
   std::vector<QString> conf_jack_ports[2];
   unsigned conf_channels;
 #ifndef WIN32

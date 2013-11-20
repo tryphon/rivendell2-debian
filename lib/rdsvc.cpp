@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.cpp,v 1.71.8.3 2013/01/30 16:50:22 cvs Exp $
+//      $Id: rdsvc.cpp,v 1.71.8.5 2013/07/30 22:45:49 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -404,6 +404,13 @@ bool RDSvc::import(ImportSource src,const QDate &date,const QString &break_str,
   delete q;
 
   //
+  // Open Source File
+  //
+  if((infile=fopen(RDDateDecode(infilename,date),"r"))==NULL) {
+    return false;
+  }
+
+  //
   // Run Preimport Command
   //
   if(!preimport_cmd.isEmpty()) {
@@ -502,9 +509,11 @@ bool RDSvc::import(ImportSource src,const QDate &date,const QString &break_str,
   //
   // Setup Data Source and Destination
   //
+  /*
   if((infile=fopen(RDDateDecode(infilename,date),"r"))==NULL) {
     return false;
   }
+  */
   sql=QString().sprintf("drop table `%s`",(const char *)dest_table);
   QSqlQuery *qq;          // Use QSqlQuery so we don't generate a 
   qq=new QSqlQuery(sql);  // spurious error message.
@@ -693,7 +702,7 @@ bool RDSvc::import(ImportSource src,const QDate &date,const QString &break_str,
 	    break_first=true;
 	    insert_found=true;
 	  }
-	  q=new RDSqlQuery(sql);
+	  //	  q=new RDSqlQuery(sql);
 	}
       }
       if(!track_str.isEmpty()) {
@@ -704,7 +713,7 @@ bool RDSvc::import(ImportSource src,const QDate &date,const QString &break_str,
 	    track_first=true;
 	    insert_found=true;
 	  }
-	  q=new RDSqlQuery(sql);
+	  //	  q=new RDSqlQuery(sql);
 	}
       }
     }
@@ -872,7 +881,9 @@ bool RDSvc::linkLog(RDSvc::ImportSource src,const QDate &date,
 			(const char *)RDEscapeStringSQLColumn(svc_name),
 			(const char *)date.toString("yyyyMMdd"));
   import_name.replace(" ","_");
-  import(src,date,breakString(),trackString(src),import_name);
+  if(!import(src,date,breakString(),trackString(src),import_name)) {
+    return false;
+  }
 
   //
   // Calculate Source
@@ -994,7 +1005,7 @@ bool RDSvc::linkLog(RDSvc::ImportSource src,const QDate &date,
   q=new RDSqlQuery(sql);
   delete q;
 
-  return false;
+  return true;
 }
 
 

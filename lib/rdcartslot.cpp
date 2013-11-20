@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.cpp,v 1.13.2.11 2013/05/21 19:04:44 cvs Exp $
+//      $Id: rdcartslot.cpp,v 1.13.2.13 2013/07/05 22:44:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -30,8 +30,8 @@
 
 RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
 		       RDListSvcs *svcs_dialog,RDSlotDialog *slot_dialog,
-		       RDCartDialog *cart_dialog,const QString &caption,
-		       QWidget *parent)
+		       RDCartDialog *cart_dialog,RDCueEditDialog *cue_dialog,
+		       const QString &caption,QWidget *parent)
   : QWidget(parent)
 {
   slot_number=slotnum;
@@ -41,6 +41,7 @@ RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
   slot_svcs_dialog=svcs_dialog;
   slot_slot_dialog=slot_dialog;
   slot_cart_dialog=cart_dialog;
+  slot_cue_dialog=cue_dialog;
   slot_caption=caption;
 
   slot_svc_names=NULL;
@@ -101,11 +102,11 @@ RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
   // Slot Box
   //
   slot_box=new RDSlotBox(this);
-  slot_box->setBarMode(RDSlotBox::Stopping);
+  slot_box->setBarMode(false);
   slot_box->setGeometry(5+sizeHint().height(),0,
 			slot_box->sizeHint().width(),
 			slot_box->sizeHint().height());
-  connect(slot_box,SIGNAL(doubleClicked()),this,SLOT(loadData()));
+  connect(slot_box,SIGNAL(doubleClicked()),this,SLOT(doubleClickedData()));
 
   //
   // Load Button
@@ -224,6 +225,7 @@ void RDCartSlot::setCart(RDCart *cart,int break_len)
     slot_logline->setTimescalingActive(slot_timescaling_active);
     slot_logline->setEvent(0,RDLogLine::Play,true,break_len);
     slot_box->setCart(slot_logline);
+    slot_box->setBarMode(false);
   }
 }
 
@@ -273,9 +275,10 @@ bool RDCartSlot::play()
 	slot_deck->playHook();
       }
       else {
-	slot_deck->play(0);
+	slot_deck->play(slot_logline->playPosition());
       }
-      LogPlayout(RDAirPlayConf::TrafficStart);
+      slot_logline->setStartTime(RDLogLine::Actual,QTime::currentTime());
+      //      LogPlayout(RDAirPlayConf::TrafficStart);
       ret=true;
     }
   }
@@ -295,7 +298,7 @@ bool RDCartSlot::stop()
   if(slot_logline->cartNumber()!=0) {
     slot_stop_requested=true;
     slot_deck->stop();
-    LogPlayout(RDAirPlayConf::TrafficStop);
+    //    LogPlayout(RDAirPlayConf::TrafficStop);
     ret=true;
   }
   return ret;
@@ -401,6 +404,20 @@ void RDCartSlot::startData()
 }
 
 
+void RDCartSlot::doubleClickedData()
+{
+  if(slot_logline->cartNumber()==0) {
+    loadData();
+  }
+  else {
+    if(slot_cue_dialog->exec(slot_logline)==0) {
+      slot_box->setBarMode(true);
+      slot_box->setCart(slot_logline);
+    }
+  }
+}
+
+
 void RDCartSlot::loadData()
 {
   int cartnum;
@@ -453,6 +470,7 @@ void RDCartSlot::stateChangedData(int id,RDPlayDeck::State state)
 
   switch(state) {
   case RDPlayDeck::Playing:
+    LogPlayout(state);
     slot_start_button->
       setEnabled(slot_options->mode()==RDSlotOptions::CartDeckMode);
     slot_start_button->setPalette(slot_playing_color);
@@ -462,6 +480,7 @@ void RDCartSlot::stateChangedData(int id,RDPlayDeck::State state)
 
   case RDPlayDeck::Stopped:
   case RDPlayDeck::Finished:
+    LogPlayout(state);
     slot_start_button->
       setEnabled(slot_options->mode()==RDSlotOptions::CartDeckMode);
     slot_start_button->setPalette(slot_ready_color);
@@ -469,6 +488,7 @@ void RDCartSlot::stateChangedData(int id,RDPlayDeck::State state)
     slot_options_button->setEnabled(true);
     slot_box->setTimer(0);
     slot_box->updateMeters(lvls);
+    slot_box->setCart(slot_logline);
     switch(slot_options->mode()) {
     case RDSlotOptions::CartDeckMode:
       if(!slot_stop_requested) {
@@ -506,7 +526,7 @@ void RDCartSlot::stateChangedData(int id,RDPlayDeck::State state)
 	unload();
 	slot_box->setService(slot_svcname);
 	slot_box->setStatusLine(tr("Waiting for break..."));
-	LogPlayout(RDAirPlayConf::TrafficFinish);
+	//	LogPlayout(RDAirPlayConf::TrafficFinish);
       }
       break;
 
@@ -548,6 +568,8 @@ void RDCartSlot::timescalingSupportedData(int card,bool state)
 
 void RDCartSlot::InitializeOptions()
 {
+  slot_svcname=slot_options->service();
+
   switch(slot_options->mode()) {
   case RDSlotOptions::CartDeckMode:
     if(slot_options->cartNumber()>0) {
@@ -556,7 +578,6 @@ void RDCartSlot::InitializeOptions()
     break;
 
   case RDSlotOptions::BreakawayMode:
-    slot_svcname=slot_options->service();
     slot_box->setService(slot_svcname);
     slot_box->setStatusLine(tr("Waiting for break..."));
     break;
@@ -606,16 +627,19 @@ void RDCartSlot::SetInput(bool state)
 }
 
 
-void RDCartSlot::LogPlayout(RDAirPlayConf::TrafficAction action)
+void RDCartSlot::LogPlayout(RDPlayDeck::State state)
 {
-  if(action==RDAirPlayConf::TrafficStart) {
+  if(state==RDPlayDeck::Playing) {
     RDCut *cut=new RDCut(slot_logline->cutName());
     cut->logPlayout();
     delete cut;
-    action=RDAirPlayConf::TrafficStart;
   }
-  if(slot_options->mode()!=RDSlotOptions::BreakawayMode) {
+  if((state!=RDPlayDeck::Stopped)&&(state!=RDPlayDeck::Finished)) {
     return;
+  }
+  RDAirPlayConf::TrafficAction action=RDAirPlayConf::TrafficFinish;
+  if(state==RDPlayDeck::Stopped) {
+    action=RDAirPlayConf::TrafficStop;
   }
   QString sql;
   RDSqlQuery *q;
@@ -664,9 +688,7 @@ void RDCartSlot::LogPlayout(RDAirPlayConf::TrafficAction action)
     "ISCI=\""+RDEscapeString(slot_logline->isci())+"\"";
   q=new RDSqlQuery(sql);
   delete q;
-
 }
-
 
 void RDCartSlot::ClearTempCart()
 {

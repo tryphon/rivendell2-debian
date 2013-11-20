@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.h,v 1.17.6.1 2013/03/22 17:34:18 cvs Exp $
+//      $Id: rdimport.h,v 1.17.6.2 2013/06/28 15:00:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -60,7 +60,7 @@ class MainObject : public QObject
   void userData();
 
  private:
-  enum Result {Success=0,FileBad=1,NoCart=2};
+  enum Result {Success=0,FileBad=1,NoCart=2,NoCut=3};
   void RunDropBox();
   void ProcessFileList(const QString &flist);
   void ProcessFileEntry(const QString &entry);

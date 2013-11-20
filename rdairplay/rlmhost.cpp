@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rlmhost.cpp,v 1.7 2011/05/04 18:09:06 cvs Exp $
+//      $Id: rlmhost.cpp,v 1.7.6.1 2013/09/13 00:00:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -76,7 +76,8 @@ QString RLMHost::pluginArg() const
 
 
 void RLMHost::sendEvent(const QString &svcname,const QString &logname,
-			int lognum,RDLogLine **loglines,bool onair)
+			int lognum,RDLogLine **loglines,bool onair,
+			RDAirPlayConf::OpMode mode)
 {
   if(plugin_pad_data_sent_sym!=NULL) {
     struct rlm_svc *svc=new struct rlm_svc;
@@ -87,19 +88,28 @@ void RLMHost::sendEvent(const QString &svcname,const QString &logname,
     RDSvc *service=new RDSvc(svcname);
     if(!svcname.isEmpty()) {
       sprintf(svc->svc_name,"%s",(const char *)svcname.left(255));
-    }
-    if(!svcname.isEmpty()) {
       if(!service->programCode().isEmpty()) {
 	sprintf(svc->svc_pgmcode,"%s",(const char *)service->programCode());
       }
+      else {
+	svc->svc_pgmcode[0]=0;
+      }
+    }
+    else {
+      svc->svc_name[0]=0;
+      svc->svc_pgmcode[0]=0;
     }
     delete service;
     memset(log,0,sizeof(log));
     if(!logname.isEmpty()) {
       sprintf(log->log_name,"%s",(const char *)logname.left(64));
     }
+    else {
+      log->log_name[0]=0;
+    }
     log->log_mach=lognum;
     log->log_onair=onair;
+    log->log_mode=mode;
     RLMHost::loadMetadata(loglines[0],now);
     RLMHost::loadMetadata(loglines[1],next); 
     plugin_pad_data_sent_sym(this,svc,log,now,next);
@@ -305,7 +315,7 @@ int RLMOpenSerial(void *ptr,const char *port,int speed,int parity,
 void RLMSendSerial(void *ptr,int handle,const char *data,int len)
 {
   RLMHost *host=(RLMHost *)ptr;
-  if((handle<0)||(handle>=host->plugin_tty_devices.size())) {
+  if((handle<0)||(handle>=(int)host->plugin_tty_devices.size())) {
     return;
   }
   host->plugin_tty_devices[handle]->writeBlock(data,len);

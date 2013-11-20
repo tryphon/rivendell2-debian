@@ -73,6 +73,19 @@ void rlm_test_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
   else {
     printf(" OnAir = true\n");
   }
+  switch(log->log_mode) {
+  case RLM_LOGMODE_LIVEASSIST:
+    printf(" Mode = Live Assist\n");
+    break;
+
+  case RLM_LOGMODE_AUTOMATIC:
+    printf(" Mode = Automatic\n");
+    break;
+
+  case RLM_LOGMODE_MANUAL:
+    printf(" Mode = Manual\n");
+    break;
+  }
   switch(log->log_mach) {
     case 0:
       printf(" -- On Main Log ---------------------------------------------\n");

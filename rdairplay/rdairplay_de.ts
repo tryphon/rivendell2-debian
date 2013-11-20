@@ -47,19 +47,19 @@
     </message>
     <message>
         <source>&amp;Audition</source>
-        <translation>&amp;Anhören</translation>
+        <translation type="obsolete">&amp;Anhören</translation>
     </message>
     <message>
         <source>&amp;Pause</source>
-        <translation>&amp;Pause</translation>
+        <translation type="obsolete">&amp;Pause</translation>
     </message>
     <message>
         <source>&amp;Stop</source>
-        <translation>&amp;Stop</translation>
+        <translation type="obsolete">&amp;Stop</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation>Start</translation>
+        <translation type="obsolete">Start</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -71,15 +71,15 @@
     </message>
     <message>
         <source>Edit Marker</source>
-        <translation>Marker editieren</translation>
+        <translation type="unfinished">Marker editieren</translation>
     </message>
     <message>
         <source>Edit Track</source>
-        <translation>Track editieren</translation>
+        <translation type="unfinished">Track editieren</translation>
     </message>
     <message>
         <source>Edit Log Track</source>
-        <translation>Log-Track editieren</translation>
+        <translation type="unfinished">Log-Track editieren</translation>
     </message>
     <message>
         <source>Transition If Previous Cart Ends Before</source>
@@ -87,7 +87,7 @@
     </message>
     <message>
         <source>End</source>
-        <translation>Ende</translation>
+        <translation type="obsolete">Ende</translation>
     </message>
     <message>
         <source>Duplicate Start Time</source>

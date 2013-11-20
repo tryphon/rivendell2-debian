@@ -179,6 +179,14 @@ Você quer proceder?</translation>
         <source>No audio is present in the cut!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This cart cannot contain any additional cuts!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RDLibrary - Edit Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CdRipper</name>
@@ -329,6 +337,14 @@ Rip</source>
     </message>
     <message>
         <source>Rip Track</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Title:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[none]</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -714,6 +730,14 @@ limits of the system!  Do you still want to save?</source>
         <translation>Uma ou mais durações de Conteúdos excedem a escala de tempo
 limite do sistema!   Você ainda quer salvar?</translation>
     </message>
+    <message>
+        <source>RDLibrary - Edit Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This cart cannot contain any additional cuts!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditMacro</name>
@@ -814,10 +838,6 @@ limite do sistema!   Você ainda quer salvar?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cart Data Dump</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Type:</source>
         <translation type="unfinished">Tipo:</translation>
     </message>
@@ -832,6 +852,18 @@ limite do sistema!   Você ainda quer salvar?</translation>
     <message>
         <source>ALL</source>
         <translation type="unfinished">TODOS</translation>
+    </message>
+    <message>
+        <source>Cart Data Dump (fixed width)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cart Data Dump (CSV)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prepend Field Names</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

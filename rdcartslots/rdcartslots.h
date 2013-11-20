@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslots.h,v 1.5.2.4 2012/11/28 21:44:08 cvs Exp $
+//      $Id: rdcartslots.h,v 1.5.2.5 2013/07/05 22:44:18 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,6 +39,7 @@
 #include <rdcartslot.h>
 #include <rdcart_dialog.h>
 #include <rdslotdialog.h>
+#include <rdcueeditdialog.h>
 #include <rdlistsvcs.h>
 
 //
@@ -81,6 +82,7 @@ class MainWidget : public QWidget
   std::vector<RDCartSlot *> panel_slots;
   RDCartDialog *panel_cart_dialog;
   RDSlotDialog *panel_slot_dialog;
+  RDCueEditDialog *panel_cue_dialog;
   RDListSvcs *panel_svcs_dialog;
 };
 

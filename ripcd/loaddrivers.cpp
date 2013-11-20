@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loaddrivers.cpp,v 1.1.8.3 2013/02/21 02:46:28 cvs Exp $
+//      $Id: loaddrivers.cpp,v 1.1.8.4 2013/06/28 00:33:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -51,6 +51,7 @@
 #include <harlond.h>
 #include <acu1p.h>
 #include <livewire_gpio.h>
+#include <am16.h>
 
 bool MainObject::LoadSwitchDriver(int matrix_num)
 {
@@ -159,6 +160,10 @@ bool MainObject::LoadSwitchDriver(int matrix_num)
 
   case RDMatrix::LiveWireGpio:
     ripcd_switcher[matrix_num]=new LiveWireGpio(matrix,this);
+    break;
+
+  case RDMatrix::Am16:
+    ripcd_switcher[matrix_num]=new Am16(matrix,this);
     break;
 
   default:

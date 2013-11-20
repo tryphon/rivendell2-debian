@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcdripper.h,v 1.2.8.1 2012/08/30 14:15:57 cvs Exp $
+//      $Id: rdcdripper.h,v 1.2.8.2 2013/07/03 19:16:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,6 +40,7 @@ class RDCdRipper : public QObject
   void setDestinationFile(const QString &filename);
   int totalSteps() const;
   RDCdRipper::ErrorCode rip(int track);
+  RDCdRipper::ErrorCode rip(int first_track,int last_track);
   static QString errorText(RDCdRipper::ErrorCode err);
 
  public slots:

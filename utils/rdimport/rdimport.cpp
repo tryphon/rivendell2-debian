@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.cpp,v 1.34.4.4 2013/05/21 15:50:58 cvs Exp $
+//      $Id: rdimport.cpp,v 1.34.4.5 2013/06/28 15:00:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -775,6 +775,11 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
   }
   int cutnum=
     cart->addCut(import_format,import_bitrate,import_channels);
+  if(cutnum<0) {
+    fprintf(stderr,"rdimport: no free cuts available in cart %06u\n",*cartnum);
+    delete cart;
+    return MainObject::NoCut;
+  }
   RDCut *cut=new RDCut(QString().sprintf("%06u_%03d",*cartnum,cutnum));
   RDAudioImport *conv=new RDAudioImport(import_station,this);
   conv->setCartNumber(cart->number());
@@ -975,6 +980,7 @@ void MainObject::VerifyFile(const QString &filename,unsigned *cartnum)
 	      break;
 	      
 	    case MainObject::NoCart:
+	    case MainObject::NoCut:
 	      (*ci)->pass=0;
 	      (*ci)->checked=true;
 	      break;

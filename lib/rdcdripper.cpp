@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcdripper.cpp,v 1.4.6.1 2012/12/13 22:33:44 cvs Exp $
+//      $Id: rdcdripper.cpp,v 1.4.6.2 2013/07/03 19:16:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -64,6 +64,12 @@ int RDCdRipper::totalSteps() const
 
 RDCdRipper::ErrorCode RDCdRipper::rip(int track)
 {
+  return rip(track,track);
+}
+
+
+RDCdRipper::ErrorCode RDCdRipper::rip(int first_track,int last_track)
+{
   SNDFILE *sf_dst=NULL;
   SF_INFO sf_dst_info;
   cdrom_drive *drive;
@@ -87,12 +93,13 @@ RDCdRipper::ErrorCode RDCdRipper::rip(int track)
   if((err=cdda_open(drive))!=0) {
     return RDCdRipper::ErrorNoDisc;
   }
-  if(track>=cdda_tracks(drive)) {
+  if((first_track>=cdda_tracks(drive))||(last_track>=cdda_tracks(drive))||
+     (last_track<first_track)) {
     cdda_close(drive);
     return RDCdRipper::ErrorNoTrack;
   }
-  start=cdda_track_firstsector(drive,track+1);
-  end=cdda_track_lastsector(drive,track+1);
+  start=cdda_track_firstsector(drive,first_track+1);
+  end=cdda_track_lastsector(drive,last_track+1);
   step_size=(end-start)/4;
   step=0;
 
@@ -101,7 +108,7 @@ RDCdRipper::ErrorCode RDCdRipper::rip(int track)
   //
   memset(&sf_dst_info,0,sizeof(sf_dst_info));
   sf_dst_info.format=SF_FORMAT_WAV|SF_FORMAT_PCM_32;
-  sf_dst_info.channels=cdda_track_channels(drive,track+1);
+  sf_dst_info.channels=cdda_track_channels(drive,first_track+1);
   sf_dst_info.samplerate=44100;
   if((sf_dst=sf_open(conv_dst_filename,SFM_WRITE,&sf_dst_info))==NULL) {
     cdda_close(drive);
