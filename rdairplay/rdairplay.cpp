@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.cpp,v 1.189.2.13 2013/03/22 15:11:51 cvs Exp $
+//      $Id: rdairplay.cpp,v 1.189.2.14 2013/11/13 23:36:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -430,7 +430,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 				 &air_add_schedcode,
 				 air_cue_card,air_cue_port,0,0,
 				 rdcae,rdripc,rdstation_conf,rdsystem_conf,
-				 rdstation_conf->editorPath(),
+				 air_config,rdstation_conf->editorPath(),
 				 this,"rdcart_dialog");
 
   //

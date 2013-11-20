@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_endpoints.cpp,v 1.18 2010/07/29 19:32:34 cvs Exp $
+//      $Id: list_endpoints.cpp,v 1.18.8.1 2013/11/17 04:27:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -130,7 +130,7 @@ ListEndpoints::ListEndpoints(RDMatrix *matrix,RDMatrix::Endpoint endpoint,
       }
       break;
       
-    case RDMatrix::LiveWire:
+    case RDMatrix::LiveWireLwrpAudio:
       list_readonly=true;
       list_list_view->addColumn(tr("NODE"));
       list_list_view->setColumnAlignment(2,Qt::AlignHCenter);
@@ -235,7 +235,7 @@ ListEndpoints::ListEndpoints(RDMatrix *matrix,RDMatrix::Endpoint endpoint,
 	}
 	break;
 
-    case RDMatrix::LiveWire:
+    case RDMatrix::LiveWireLwrpAudio:
 	sql=QString().sprintf("select NUMBER,NAME,NODE_HOSTNAME,NODE_SLOT \
                                from %s where STATION_NAME=\"%s\" && \
                                MATRIX=%d order by NUMBER",
@@ -254,7 +254,7 @@ ListEndpoints::ListEndpoints(RDMatrix *matrix,RDMatrix::Endpoint endpoint,
 	break;
   }
   q=new RDSqlQuery(sql);
-  if(list_matrix->type()==RDMatrix::LiveWire) {
+  if(list_matrix->type()==RDMatrix::LiveWireLwrpAudio) {
     while(q->next()) {
       l=new QListViewItem(list_list_view); 
       l->setText(0,QString().sprintf("%05d",q->value(0).toInt()));

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: carts.cpp,v 1.8.2.1 2012/10/09 00:12:30 cvs Exp $
+//      $Id: carts.cpp,v 1.8.2.2 2013/11/13 23:36:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -416,7 +416,7 @@ void Xport::RemoveCart()
     delete cart;
     XmlExit("No such cart",404);
   }
-  if(!cart->remove(NULL,NULL)) {
+  if(!cart->remove(NULL,NULL,xport_config)) {
     delete cart;
     XmlExit("Unable to delete cart",500);
   }
@@ -761,7 +761,8 @@ void Xport::RemoveCut()
     delete cart;
     XmlExit("No such cart",404);
   }
-  if(!cart->removeCut(NULL,NULL,RDCut::cutName(cart_number,cut_number))) {
+  if(!cart->removeCut(NULL,NULL,RDCut::cutName(cart_number,cut_number),
+		      xport_config)) {
     delete cart;
     XmlExit("No such cut",404);
   }

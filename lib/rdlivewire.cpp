@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlivewire.cpp,v 1.7.8.1 2013/01/30 21:06:04 cvs Exp $
+//      $Id: rdlivewire.cpp,v 1.7.8.2 2013/11/17 02:03:19 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -198,6 +198,7 @@ void RDLiveWire::gpiSet(int slot,int line,unsigned interval)
     live_gpi_timers[slot*RD_LIVEWIRE_GPIO_BUNDLE_SIZE+line]->
       start(interval,true);
   }
+  emit gpiChanged(live_id,slot,line,true);
 }
 
 
@@ -224,6 +225,7 @@ void RDLiveWire::gpiReset(int slot,int line,unsigned interval)
     live_gpi_timers[slot*RD_LIVEWIRE_GPIO_BUNDLE_SIZE+line]->
       start(interval,true);
   }
+  emit gpiChanged(live_id,slot,line,false);
 }
 
 
@@ -250,6 +252,7 @@ void RDLiveWire::gpoSet(int slot,int line,unsigned interval)
     live_gpo_timers[slot*RD_LIVEWIRE_GPIO_BUNDLE_SIZE+line]->
       start(interval,true);
   }
+  emit gpoChanged(live_id,slot,line,true);
 }
 
 
@@ -276,6 +279,7 @@ void RDLiveWire::gpoReset(int slot,int line,unsigned interval)
     live_gpo_timers[slot*RD_LIVEWIRE_GPIO_BUNDLE_SIZE+line]->
       start(interval,true);
   }
+  emit gpoChanged(live_id,slot,line,false);
 }
 
 
@@ -375,7 +379,7 @@ void RDLiveWire::gpiTimeoutData(int id)
   int chan=id/RD_LIVEWIRE_GPIO_BUNDLE_SIZE;
   int line=id%RD_LIVEWIRE_GPIO_BUNDLE_SIZE;
 
-  QString cmd=QString().sprintf("GPI %d CMD:\"GPI %d ",chan+1,chan+1);
+  QString cmd=QString().sprintf("GPI %d ",chan+1);
   for(int i=0;i<RD_LIVEWIRE_GPIO_BUNDLE_SIZE;i++) {
     if(i==line) {
       if(live_gpi_states[chan][i]) {
@@ -394,9 +398,10 @@ void RDLiveWire::gpiTimeoutData(int id)
       }
     }
   }
-  cmd+="\"\n";
+  cmd+="\"\r\n";
   live_socket->writeBlock(cmd,cmd.length());
   live_gpi_states[chan][line]=!live_gpi_states[chan][line];
+  emit gpiChanged(live_id,chan,line,live_gpi_states[chan][line]);
 }
 
 
@@ -427,6 +432,7 @@ void RDLiveWire::gpoTimeoutData(int id)
   cmd+="\r\n";
   live_socket->writeBlock(cmd,cmd.length());
   live_gpo_states[chan][line]=!live_gpo_states[chan][line];
+  emit gpoChanged(live_id,chan,line,live_gpo_states[chan][line]);
 }
 
 
@@ -524,7 +530,7 @@ void RDLiveWire::ReadVersion(const QString &cmd)
 	  live_channels=value.right(value.length()-delimiter-1).toInt();
 	}
 	if(live_sources>0) {
-	  live_socket->writeBlock("SRC\n",4);
+	  live_socket->writeBlock("SRC\r\n",5);
 	}
       }
       if(tag=="NDST") {
@@ -537,7 +543,7 @@ void RDLiveWire::ReadVersion(const QString &cmd)
 	  live_channels=value.right(value.length()-delimiter-1).toInt();
 	}
 	if(live_destinations>0) {
-	  live_socket->writeBlock("DST\n",4);
+	  live_socket->writeBlock("DST\r\n",5);
 	}
       }
       if(tag=="NGPI") {
@@ -558,7 +564,7 @@ void RDLiveWire::ReadVersion(const QString &cmd)
 	  }	
 	}
 	if(live_gpis>0) {
-	  live_socket->writeBlock("ADD GPI\n",8);
+	  live_socket->writeBlock("ADD GPI\r\n",9);
 	}
       }
       if(tag=="NGPO") {
@@ -579,8 +585,8 @@ void RDLiveWire::ReadVersion(const QString &cmd)
 	  }
 	}
 	if(live_gpos>0) {
-	  live_socket->writeBlock("CFG GPO\n",8);
-	  live_socket->writeBlock("ADD GPO\n",8);
+	  live_socket->writeBlock("CFG GPO\r\n",9);
+	  live_socket->writeBlock("ADD GPO\r\n",9);
 	}
       }
     }

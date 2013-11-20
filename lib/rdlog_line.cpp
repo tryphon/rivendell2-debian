@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.cpp,v 1.113.4.3 2013/03/09 00:21:11 cvs Exp $
+//      $Id: rdlog_line.cpp,v 1.113.4.8 2013/10/31 15:18:42 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -32,7 +32,7 @@
 #include <rdlog_line.h>
 #include <rdcut.h>
 #include <rdmacro_event.h>
-
+#include <rdweb.h>
 
 RDLogLine::RDLogLine()
 {
@@ -1781,6 +1781,98 @@ void RDLogLine::refreshPointers()
 }
 
 
+QString RDLogLine::xml(int line) const
+{
+  QString ret;
+#ifndef WIN32
+  ret+="  <logLine>\n";
+  ret+="    "+RDXmlField("line",line);
+  ret+="    "+RDXmlField("id",id());
+  ret+="    "+RDXmlField("type",RDLogLine::typeText(type()));
+  ret+="    "+RDXmlField("cartType",RDCart::typeText(cartType()));
+  ret+="    "+RDXmlField("cartNumber",cartNumber());
+  ret+="    "+RDXmlField("cutNumber",cutNumber());
+  ret+="    "+RDXmlField("groupName",groupName());
+  ret+="    "+RDXmlField("groupColor",groupColor().name());
+  ret+="    "+RDXmlField("title",title());
+  ret+="    "+RDXmlField("artist",artist());
+  ret+="    "+RDXmlField("publisher",publisher());
+  ret+="    "+RDXmlField("composer",composer());
+  ret+="    "+RDXmlField("album",album());
+  ret+="    "+RDXmlField("label",label());
+  if(year().isValid()) {
+    ret+="    "+RDXmlField("year",year().year());
+  }
+  else {
+    ret+="    "+RDXmlField("year");
+  }
+  ret+="    "+RDXmlField("client",client());
+  ret+="    "+RDXmlField("agency",agency());
+  ret+="    "+RDXmlField("userDefined",userDefined());
+  ret+="    "+RDXmlField("usageCode",usageCode());
+  ret+="    "+RDXmlField("enforceLength",enforceLength());
+  ret+="    "+RDXmlField("forcedLength",RDGetTimeLength(forcedLength(),true));
+  ret+="    "+RDXmlField("evergreen",evergreen());
+  ret+="    "+RDXmlField("source",RDLogLine::sourceText(source()));
+  ret+="    "+RDXmlField("timeType",RDLogLine::timeTypeText(timeType()));
+  if(startTime(RDLogLine::Logged).isValid()&&
+     (!startTime(RDLogLine::Logged).isNull())) {
+    ret+="    "+RDXmlField("startTime",startTime(RDLogLine::Logged).
+			   toString("hh:mm:ss.zzz"));
+  }
+  else {
+    ret+="    "+RDXmlField("startTime");
+  }
+  ret+="    "+RDXmlField("transitionType",RDLogLine::transText(transType()));
+  ret+="    "+RDXmlField("cutQuantity",cutQuantity());
+  ret+="    "+RDXmlField("lastCutPlayed",lastCutPlayed());
+  ret+="    "+RDXmlField("markerComment",markerComment());
+  ret+="    "+RDXmlField("markerLabel",markerLabel());
+
+  ret+="    "+RDXmlField("originUser",originUser());
+  ret+="    "+RDXmlField("originDateTime",originDateTime());
+  ret+="    "+RDXmlField("startPoint",startPoint(RDLogLine::CartPointer),
+			 "src=\"cart\"");
+  ret+="    "+RDXmlField("startPoint",startPoint(RDLogLine::LogPointer),
+			 "src=\"log\"");
+  ret+="    "+RDXmlField("endPoint",endPoint(RDLogLine::CartPointer),
+			 "src=\"cart\"");
+  ret+="    "+RDXmlField("endPoint",endPoint(RDLogLine::LogPointer),
+			 "src=\"log\"");
+  ret+="    "+RDXmlField("segueStartPoint",
+			 segueStartPoint(RDLogLine::CartPointer),
+			 "src=\"cart\"");
+  ret+="    "+RDXmlField("segueStartPoint",
+			 segueStartPoint(RDLogLine::LogPointer),"src=\"log\"");
+  ret+="    "+RDXmlField("segueEndPoint",
+			 segueEndPoint(RDLogLine::CartPointer),
+			 "src=\"cart\"");
+  ret+="    "+RDXmlField("segueEndPoint",
+			 segueEndPoint(RDLogLine::LogPointer),"src=\"log\"");
+  ret+="    "+RDXmlField("segueGain",segueGain());
+  ret+="    "+RDXmlField("fadeupPoint",
+			 fadeupPoint(RDLogLine::CartPointer),"src=\"cart\"");
+  ret+="    "+RDXmlField("fadeupPoint",
+			 fadeupPoint(RDLogLine::LogPointer),"src=\"log\"");
+  ret+="    "+RDXmlField("fadeupGain",fadeupGain());
+  ret+="    "+RDXmlField("fadedownPoint",
+			 fadedownPoint(RDLogLine::CartPointer),"src=\"cart\"");
+  ret+="    "+RDXmlField("fadedownPoint",
+			 fadedownPoint(RDLogLine::LogPointer),"src=\"log\"");
+  ret+="    "+RDXmlField("duckUpGain",duckUpGain());
+  ret+="    "+RDXmlField("duckDownGain",duckDownGain());
+  ret+="    "+RDXmlField("talkStartPoint",talkStartPoint());
+  ret+="    "+RDXmlField("talkEndPoint",talkEndPoint());
+  ret+="    "+RDXmlField("hookMode",hookMode());
+  ret+="    "+RDXmlField("hookStartPoint",hookStartPoint());
+  ret+="    "+RDXmlField("hookEndPoint",hookEndPoint());
+
+  ret+="  </logLine>\n";
+#endif  // WIN32
+  return ret;
+}
+
+
 QString RDLogLine::resolveWildcards(unsigned cartnum,const QString &pattern)
 {
   RDLogLine logline;
@@ -1871,6 +1963,24 @@ QString RDLogLine::typeText(RDLogLine::Type type)
 	return QObject::tr("Unknown");
   }
   return QObject::tr("Unknown");
+}
+
+
+QString RDLogLine::timeTypeText(RDLogLine::TimeType type)
+{
+  QString ret=QObject::tr("Unknown");
+
+  switch(type) {
+  case RDLogLine::Relative:
+    ret=QObject::tr("Relative");
+    break;
+
+  case RDLogLine::Hard:
+    ret=QObject::tr("Hard");
+    break;
+  }
+
+  return ret;
 }
 
 

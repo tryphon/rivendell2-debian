@@ -588,6 +588,11 @@ existující událostí.</translation>
         <source>Clear Hour</source>
         <translation>Smazat hodiny</translation>
     </message>
+    <message>
+        <source>Change
+&amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditNote</name>

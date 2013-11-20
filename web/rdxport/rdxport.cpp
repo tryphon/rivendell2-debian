@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdxport.cpp,v 1.10 2012/02/13 23:01:50 cvs Exp $
+//      $Id: rdxport.cpp,v 1.10.2.3 2013/10/14 04:23:54 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -217,6 +217,18 @@ Xport::Xport(QObject *parent,const char *name)
 
   case RDXPORT_COMMAND_AUDIOINFO:
     AudioInfo();
+    break;
+
+  case RDXPORT_COMMAND_LISTLOGS:
+    ListLogs();
+    break;
+
+  case RDXPORT_COMMAND_LISTLOG:
+    ListLog();
+    break;
+
+  case RDXPORT_COMMAND_LISTSERVICES:
+    ListServices();
     break;
 
   default:

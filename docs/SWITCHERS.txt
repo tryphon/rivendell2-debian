@@ -14,8 +14,9 @@ Broadcast Tools SS 4.4 Audio Switcher
 Broadcast Tools ACS 8.2 Audio Control Switcher
 Broadcast Tools SS 8.2 Audio Switcher
 Harlond Virtual Mixer
-LiveWire AoIP System
-LiveWire Virtual GPIO
+LiveWire LWRP Audio
+LiveWire LWRP GPIO
+LiveWire Multicast GPIO
 Local Audio Adapter
 Logitek vGuest
 Quartz Electronics Type 1 Routing Protocol
@@ -338,30 +339,35 @@ number using GE/GI/GO RMLs.
 
 
 ----------------------------------------------------------------------------
-LiveWire AoIP SYSTEM
+LiveWire LWRP Audio
 
-Driver Name: Axia LiveWire
+Driver Name: LiveWire LWRP Audio
 
 Supported RML Commands:
   Switch Take ('ST')
-  GPI Enable ('GE')
-  GPI Set ('GI')
-  GPO Set ('GO')
 
 GENERAL NOTES:
 LiveWire is a distributed audio router and control system, with the 
 components (called 'nodes') configured and controled via TCP/IP.  More
 information can be found at http://www.axiaaudio.com/.
 
-Configuration is merely a matter of entering the IP address and password for
-each node in RDAdmin->ManageHosts->Switcher/GPIO->LiveWire Nodes.  The driver
-will autodetect all other parameters from the nodes themselves.
+This driver can be used to create and remove connections between audio
+sources and destinations via LiveWire Routing Protocol (LWRP).
+
+Configuration is a matter of entering the IP address, password and base
+output number for each node in 
+RDAdmin->ManageHosts->Switcher/GPIO->LiveWire Nodes.  The driver
+will autodetect all other parameters from the nodes themselves.  The
+resulting constellation of nodes can be controled with the 'Switch Take'
+['ST'] RML by specifying the LiveWire source stream number as the <input>
+parameter and the the base output number+the slot number-1 for the <output>
+parameter.
 
 
 ----------------------------------------------------------------------------
-LiveWire Virtual GPIO
+LiveWire LWRP GPIO
 
-Driver Name: LiveWire Virtual GPIO
+Driver Name: LiveWire LWRP GPIO
 
 Supported RML Commands:
   GPI Enable ('GE')
@@ -373,13 +379,41 @@ LiveWire is a distributed audio router and control system, with the
 components (called 'nodes') configured and controled via TCP/IP.  More
 information can be found at http://www.axiaaudio.com/.
 
-This driver provides the same functionality as the 'virtual GPIO' device
-included with Axia's software-only driver.  As such, it should never
-be used with that driver, but when using other methods to connect audio
-to the LiveWire network (e.g. an external node or an ASI6x85 card).
+This driver can be used to control LiveWire's GPIO subsystem by means of
+the LiveWire Routing Protocol (LWRP) with both physical as well as 'virtual'
+GPIO devices.
+
+Only two items need to be specified in the configuration: the IP address
+of the device to control and the 'Layer', with 'V' specifying a virtual
+GPIO device and 'D' specifying an actual physical one.  The driver
+will autodetect all other parameters (e.g. the number of input and output
+lines) from the device itself.
+
+
+----------------------------------------------------------------------------
+LiveWire Multicast GPIO
+
+Driver Name: LiveWire Multicast GPIO
+
+Supported RML Commands:
+  GPI Enable ('GE')
+  GPI Set ('GI')
+  GPO Set ('GO')
+
+GENERAL NOTES:
+LiveWire is a distributed audio router and control system, with the 
+components (called 'nodes') configured and controled via TCP/IP.  More
+information can be found at http://www.axiaaudio.com/.
+
+This driver provides the ability to access GPIO functions from LiveWire-
+enabled control surfaces for setups that lack a virtual GPIO device --e.g.
+when interfacing audio directly to a LiveWire node without using a native
+LiveWire software audio driver or audio adapter.
 
 When configuring it, the 'IP Address' field should contain the address
-of the local interface to which the LiveWire network is attached.
+of the local interface to which the LiveWire network is attached, while
+the 'LiveWire GPIOs' list should be populated with the stream number - GPIO
+line associations to be used.
 
 
 ----------------------------------------------------------------------------

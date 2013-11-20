@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmaint.cpp,v 1.9.4.3 2013/01/07 13:50:23 cvs Exp $
+//      $Id: rdmaint.cpp,v 1.9.4.4 2013/11/13 23:36:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -167,7 +167,8 @@ void MainObject::PurgeCuts()
     q1=new RDSqlQuery(sql);
     while(q1->next()) {
       RDCart *cart=new RDCart(q1->value(0).toUInt());
-      if(cart->removeCut(maint_station,maint_user,q1->value(1).toString())) {
+      if(cart->removeCut(maint_station,maint_user,q1->value(1).toString(),
+			 maint_config)) {
 	maint_config->
 	  log("rdmaint",RDConfig::LogInfo,QString().sprintf("purged cut %s",
 			(const char *)q1->value(1).toString()));
@@ -183,7 +184,7 @@ void MainObject::PurgeCuts()
 			      q1->value(0).toUInt());
 	q2=new RDSqlQuery(sql);
 	if(!q2->first()) {
-	  cart->remove(maint_station,maint_user);
+	  cart->remove(maint_station,maint_user,maint_config);
 	  maint_config->
 	    log("rdmaint",RDConfig::LogInfo,QString().
 		sprintf("deleted purged cart %06u",cart->number()));
@@ -213,7 +214,7 @@ void MainObject::PurgeLogs()
       log("rdmain",RDConfig::LogInfo,QString().sprintf("purged log %s",
 		       (const char *)q->value(0).toString()));
     RDLog *log=new RDLog(q->value(0).toString());
-    log->remove(maint_station,maint_user);
+    log->remove(maint_station,maint_user,maint_config);
     delete log;
   }
   delete q;

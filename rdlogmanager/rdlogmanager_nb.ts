@@ -597,6 +597,11 @@ ei anna hending som finst frå før.</translation>
         <source>Clear Hour</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Change
+&amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditNote</name>

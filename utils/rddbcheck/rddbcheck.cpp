@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddbcheck.cpp,v 1.18 2011/12/22 23:22:35 cvs Exp $
+//      $Id: rddbcheck.cpp,v 1.18.4.1 2013/11/13 23:36:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -254,7 +254,7 @@ void MainObject::CheckOrphanedTracks()
       fflush(NULL);
       if(UserResponse()) {
 	RDCart *cart=new RDCart(q->value(0).toUInt());
-	cart->remove(check_station,check_user);
+	cart->remove(check_station,check_user,rdconfig);
 	delete cart;
 	RDLog *log=new RDLog(q->value(2).toString());
 	if(log->exists()) {

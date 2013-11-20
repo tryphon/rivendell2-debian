@@ -590,6 +590,11 @@ evento existente.</translation>
         <source>&amp;Close</source>
         <translation>&amp;Fechar</translation>
     </message>
+    <message>
+        <source>Change
+&amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditNote</name>

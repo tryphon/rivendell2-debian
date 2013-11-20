@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.1.2.3 2013/01/01 21:36:31 cvs Exp $
+##      $Id: Makefile.am,v 1.1.2.4 2013/11/08 03:57:14 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -45,10 +45,12 @@ all:
 
 bin_PROGRAMS = rdmonitor
 
-dist_rdmonitor_SOURCES = rdmonitor.cpp rdmonitor.h\
+dist_rdmonitor_SOURCES = positiondialog.cpp positiondialog.h\
+                         rdmonitor.cpp rdmonitor.h\
                          status_tip.cpp status_tip.h
 
-nodist_rdmonitor_SOURCES = moc_rdmonitor.cpp
+nodist_rdmonitor_SOURCES = moc_positiondialog.cpp\
+                           moc_rdmonitor.cpp
 
 rdmonitor_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 

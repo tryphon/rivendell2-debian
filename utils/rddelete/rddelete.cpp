@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddelete.cpp,v 1.1.2.1 2013/04/29 22:03:23 cvs Exp $
+//      $Id: rddelete.cpp,v 1.1.2.2 2013/11/13 23:36:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -250,7 +250,7 @@ void MainObject::DeleteCarts()
 	  }
 	}
 	else {
-	  if(cart->remove(del_station,del_user)) {
+	  if(cart->remove(del_station,del_user,del_config)) {
 	    if(del_verbose) {
 	      printf("deleted cart %06u [%s]\n",cartnum,(const char *)title);
 	    }
@@ -290,7 +290,7 @@ void MainObject::DeleteLogs()
 	  }
 	}
 	else {
-	  if(log->remove(del_station,del_user)) {
+	  if(log->remove(del_station,del_user,del_config)) {
 	    if(del_verbose) {
 	      printf("deleted log \"%s\"\n",(const char *)logname);
 	    }

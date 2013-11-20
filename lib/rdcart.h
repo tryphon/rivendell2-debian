@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.h,v 1.39 2010/09/08 20:37:58 cvs Exp $
+//      $Id: rdcart.h,v 1.39.6.2 2013/11/13 23:36:31 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,7 @@
 
 #include <qdatetime.h>
 
+#include <rdconfig.h>
 #include <rdwavedata.h>
 
 #include <rdcut.h>
@@ -126,15 +127,17 @@ class RDCart
   void writeTimestamp();
   int addCut(unsigned format,unsigned bitrate,unsigned chans,
 	     const QString &isci="",QString desc="");
-  bool removeAllCuts(RDStation *station,RDUser *user);
-  bool removeCut(RDStation *station,RDUser *user,const QString &cutname);
+  bool removeAllCuts(RDStation *station,RDUser *user,RDConfig *config);
+  bool removeCut(RDStation *station,RDUser *user,const QString &cutname,
+		 RDConfig *config);
   bool removeCutAudio(RDStation *station,RDUser *user,
-		      const QString &cutname) const;
+		      const QString &cutname,RDConfig *config) const;
   bool create(const QString &groupname,RDCart::Type type);
-  bool remove(RDStation *station,RDUser *user) const;
+  bool remove(RDStation *station,RDUser *user,RDConfig *config) const;
   static bool exists(unsigned cartnum);
   static QString playOrderText(RDCart::PlayOrder order);
   static QString usageText(RDCart::UsageCode usage);
+  static QString typeText(RDCart::Type type);
   
  private:
   QString GetNextCut(RDSqlQuery *q) const;

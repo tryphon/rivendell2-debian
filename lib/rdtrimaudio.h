@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdtrimaudio.h,v 1.1 2010/10/05 12:20:08 cvs Exp $
+//      $Id: rdtrimaudio.h,v 1.1.6.1 2013/11/13 23:36:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 
 #include <qobject.h>
 
+#include <rdconfig.h>
 #include <rdstation.h>
 
 class RDTrimAudio : public QObject
@@ -33,7 +34,8 @@ class RDTrimAudio : public QObject
  public:
   enum ErrorCode {ErrorOk=0,ErrorInternal=5,ErrorUrlInvalid=7,
 		  ErrorService=8,ErrorInvalidUser=9};
-  RDTrimAudio(RDStation *station,QObject *parent=0,const char *name=0);
+  RDTrimAudio(RDStation *station,RDConfig *config,QObject *parent=0,
+	      const char *name=0);
   int startPoint() const;
   int endPoint() const;
   void setCartNumber(unsigned cartnum);
@@ -47,6 +49,7 @@ class RDTrimAudio : public QObject
   bool ParseXml(const QString &xml);
   int ParsePoint(const QString &tag,const QString &xml);
   RDStation *conv_station;
+  RDConfig *conv_config;
   unsigned conv_cart_number;
   unsigned conv_cut_number;
   int conv_trim_level;

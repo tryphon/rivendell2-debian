@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rlmhost.cpp,v 1.7.6.1 2013/09/13 00:00:14 cvs Exp $
+//      $Id: rlmhost.cpp,v 1.7.6.4 2013/11/05 20:16:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -80,6 +80,7 @@ void RLMHost::sendEvent(const QString &svcname,const QString &logname,
 			RDAirPlayConf::OpMode mode)
 {
   if(plugin_pad_data_sent_sym!=NULL) {
+    QDateTime now_dt(QDate::currentDate(),QTime::currentTime());
     struct rlm_svc *svc=new struct rlm_svc;
     struct rlm_log *log=new struct rlm_log;
     struct rlm_pad *now=new struct rlm_pad;
@@ -110,7 +111,7 @@ void RLMHost::sendEvent(const QString &svcname,const QString &logname,
     log->log_mach=lognum;
     log->log_onair=onair;
     log->log_mode=mode;
-    RLMHost::loadMetadata(loglines[0],now);
+    RLMHost::loadMetadata(loglines[0],now,now_dt);
     RLMHost::loadMetadata(loglines[1],next); 
     plugin_pad_data_sent_sym(this,svc,log,now,next);
     delete next;
@@ -152,8 +153,11 @@ void RLMHost::unload()
 }
 
 
-void RLMHost::loadMetadata(const RDLogLine *logline,struct rlm_pad *pad)
+void RLMHost::loadMetadata(const RDLogLine *logline,struct rlm_pad *pad,
+			   const QDateTime &start_datetime)
 {
+  QDateTime now(QDate::currentDate(),QTime::currentTime());
+
   if(pad==NULL) {
     return;
   }
@@ -217,6 +221,33 @@ void RLMHost::loadMetadata(const RDLogLine *logline,struct rlm_pad *pad)
       sprintf(pad->rlm_ext_annctype,"%s",
 	      (const char *)logline->extAnncType().left(32));
     }
+    if(start_datetime.isValid()) {
+      pad->rlm_start_msec=start_datetime.time().msec();
+      pad->rlm_start_sec=start_datetime.time().second();
+      pad->rlm_start_min=start_datetime.time().minute();
+      pad->rlm_start_hour=start_datetime.time().hour();
+      pad->rlm_start_day=start_datetime.date().day();
+      pad->rlm_start_mon=start_datetime.date().month();
+      pad->rlm_start_year=start_datetime.date().year();
+    }
+    else {
+      QTime start_time=logline->startTime(RDLogLine::Predicted);
+      if(start_time.isNull()) {
+	start_time=logline->startTime(RDLogLine::Imported);
+      }
+      if(!start_time.isNull()) {
+	if(start_time<now.time()) {  // Crossing midnight
+	  now=now.addDays(1);
+	}
+      }
+      pad->rlm_start_msec=start_time.msec();
+      pad->rlm_start_sec=start_time.second();
+      pad->rlm_start_min=start_time.minute();
+      pad->rlm_start_hour=start_time.hour();
+      pad->rlm_start_day=now.date().day();
+      pad->rlm_start_mon=now.date().month();
+      pad->rlm_start_year=now.date().year();
+    }
   }
 }
 
@@ -245,6 +276,18 @@ void RLMHost::saveMetadata(const struct rlm_pad *pad,RDLogLine *logline)
   logline->setAlbum(pad->rlm_album);
   logline->setIsrc(pad->rlm_isrc);
   logline->setIsci(pad->rlm_isci);
+  if((pad->rlm_start_year>0)&&(pad->rlm_start_mon>0)&&(pad->rlm_start_day)) {
+    logline->setStartDatetime(QDateTime(QDate(pad->rlm_start_year,
+					      pad->rlm_start_mon,
+					      pad->rlm_start_day),
+					QTime(pad->rlm_start_hour,
+					      pad->rlm_start_min,
+					      pad->rlm_start_sec,
+					      pad->rlm_start_msec)));
+  }
+  else {
+    logline->setStartDatetime(QDateTime());
+  }
 }
 
 
@@ -345,8 +388,9 @@ const char *RLMDateTime(void *ptr,int offset_msecs,const char *format)
 }
 
 
-const char *RLMResolveNowNext(void *ptr,const struct rlm_pad *now,
-			      const struct rlm_pad *next,const char *format)
+const char *RLMResolveNowNextEncoded(void *ptr,const struct rlm_pad *now,
+				     const struct rlm_pad *next,
+				     const char *format,int encoding)
 {
   RLMHost *host=(RLMHost *)ptr;
   RDLogLine *loglines[2];
@@ -356,12 +400,19 @@ const char *RLMResolveNowNext(void *ptr,const struct rlm_pad *now,
   loglines[1]=new RDLogLine();
   RLMHost::saveMetadata(now,loglines[0]);
   RLMHost::saveMetadata(next,loglines[1]);
-  RDResolveNowNext(&str,loglines);
+  RDResolveNowNext(&str,loglines,encoding);
   strncpy(host->plugin_value_string,str,1024);
   delete loglines[1];
   delete loglines[0];
 
   return host->plugin_value_string;
+}
+
+
+const char *RLMResolveNowNext(void *ptr,const struct rlm_pad *now,
+			      const struct rlm_pad *next,const char *format)
+{
+  return RLMResolveNowNextEncoded(ptr,now,next,format,RLM_ENCODE_NONE);
 }
 
 

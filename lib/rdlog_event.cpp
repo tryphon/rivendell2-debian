@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.cpp,v 1.101.4.3 2013/05/21 16:44:56 cvs Exp $
+//      $Id: rdlog_event.cpp,v 1.101.4.7 2013/10/31 00:26:49 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -108,7 +108,7 @@ QString RDLogEvent::serviceName() const
 }
 
 
-int RDLogEvent::load()
+int RDLogEvent::load(bool track_ptrs)
 {
   RDLogLine line;
   RDSqlQuery *q1;
@@ -442,6 +442,43 @@ from `%s` left join CART on `%s`.CART_NUMBER=CART.NUMBER order by COUNT",
   delete q;
 
   LoadNowNext();
+
+  if(track_ptrs) {
+    //
+    // Load default cart pointers for "representative" cuts.  This is
+    // really only useful when setting up a voice tracker.
+    //
+    for(int i=0;i<size();i++) {
+      RDLogLine *ll=logLine(i);
+      if(ll->cartType()==RDCart::Audio) {
+	sql=QString("select START_POINT,END_POINT,")+
+	  "SEGUE_START_POINT,SEGUE_END_POINT,"+
+	  "TALK_START_POINT,TALK_END_POINT,"
+	  "HOOK_START_POINT,HOOK_END_POINT,"+
+	  "FADEUP_POINT,FADEDOWN_POINT,CUT_NAME,"+
+	  "ORIGIN_NAME,ORIGIN_DATETIME from CUTS "+
+	  QString().sprintf("where CART_NUMBER=%u ",ll->cartNumber())+
+	  "order by CUT_NAME";
+	q=new RDSqlQuery(sql);
+	if(q->first()) {
+	  ll->setStartPoint(q->value(0).toInt(),RDLogLine::CartPointer);
+	  ll->setEndPoint(q->value(1).toInt(),RDLogLine::CartPointer);
+	  ll->setSegueStartPoint(q->value(2).toInt(),RDLogLine::CartPointer);
+	  ll->setSegueEndPoint(q->value(3).toInt(),RDLogLine::CartPointer);
+	  ll->setTalkStartPoint(q->value(4).toInt());
+	  ll->setTalkEndPoint(q->value(5).toInt());
+	  ll->setHookStartPoint(q->value(6).toInt());
+	  ll->setHookEndPoint(q->value(7).toInt());
+	  ll->setFadeupPoint(q->value(8).toInt(),RDLogLine::CartPointer);
+	  ll->setFadedownPoint(q->value(9).toInt(),RDLogLine::CartPointer);
+	  ll->setCutNumber(RDCut::cutNumber(q->value(10).toString()));
+	  ll->setOriginUser(q->value(11).toString());
+	  ll->setOriginDateTime(q->value(12).toDateTime());
+	}
+	delete q;
+      }
+    }
+  }
 
   return log_line.size();
 }
@@ -907,7 +944,7 @@ QTime RDLogEvent::blockStartTime(int line)
 }
 
 
-RDLogLine *RDLogEvent::logLine(int line)
+RDLogLine *RDLogEvent::logLine(int line) const
 {
   if((line<0)||((unsigned)line>=log_line.size())) {
     return NULL;
@@ -916,7 +953,7 @@ RDLogLine *RDLogEvent::logLine(int line)
 }
 
 
-RDLogLine *RDLogEvent::loglineById(int id)
+RDLogLine *RDLogEvent::loglineById(int id) const
 {
   for(int i=0;i<size();i++) {
     if(log_line[i]->id()==id) {
@@ -1041,6 +1078,20 @@ int RDLogEvent::nextLinkId() const
     }
   }
   return id+1;
+}
+
+
+QString RDLogEvent::xml() const
+{
+  QString ret;
+
+  ret+="<logList>\n";
+  for(int i=0;i<size();i++) {
+    ret+=logLine(i)->xml(i);
+  }
+  ret+="</logList>\n";
+
+  return ret;
 }
 
 

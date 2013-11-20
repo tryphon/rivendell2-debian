@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdnownext.cpp,v 1.3 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdnownext.cpp,v 1.3.8.2 2013/11/05 20:16:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -20,9 +20,62 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#include <rdnownext.h>
+#include <vector>
 
-void RDResolveNowNext(QString *str,RDLogLine **loglines)
+#include <qdatetime.h>
+
+#include <rdnownext.h>
+#include <rdweb.h>
+
+void RDResolveNowNextDateTime(QString *str,const QString &code,
+			      const QDateTime &dt)
+{
+  int ptr=0;
+  std::vector<QString> dts;
+
+  while((ptr=str->find(code,ptr))>=0) {
+    for(unsigned i=ptr+3;i<str->length();i++) {
+      if(str->at(i)==')') {
+	dts.push_back(str->mid(ptr+3,i-ptr-3));
+	ptr+=(i-ptr-3);
+	break;
+      }
+    }
+  }
+  if(dt.isValid()&&(!dt.time().isNull())) {
+    for(unsigned i=0;i<dts.size();i++) {
+      str->replace(code+dts[i]+")",dt.toString(dts[i]));
+    }
+  }
+  else {
+    for(unsigned i=0;i<dts.size();i++) {
+      str->replace(code+dts[i]+")","");
+    }
+  }
+}
+
+
+QString RDResolveNowNextEncode(const QString &str,int encoding)
+{
+  QString ret=str;
+  
+  switch(encoding) {
+  case RLM_ENCODE_NONE:
+    break;
+
+  case RLM_ENCODE_XML:
+    ret=RDXmlEscape(str);
+    break;
+
+  case RLM_ENCODE_URL:
+    ret=RDUrlEscape(str);
+    break;
+  }
+
+  return ret;
+}
+
+void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding)
 {
   //
   // NOW PLAYING Event
@@ -30,17 +83,21 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines)
   if(loglines[0]!=NULL) {
     str->replace("%n",QString().sprintf("%06u",loglines[0]->cartNumber()));
     str->replace("%h",QString().sprintf("%d",loglines[0]->effectiveLength()));
-    str->replace("%g",loglines[0]->groupName());
-    str->replace("%t",loglines[0]->title());
-    str->replace("%a",loglines[0]->artist());
-    str->replace("%l",loglines[0]->album());
+    str->replace("%g",RDResolveNowNextEncode(loglines[0]->groupName(),
+					     encoding));
+    str->replace("%t",RDResolveNowNextEncode(loglines[0]->title(),encoding));
+    str->replace("%a",RDResolveNowNextEncode(loglines[0]->artist(),encoding));
+    str->replace("%l",RDResolveNowNextEncode(loglines[0]->album(),encoding));
     str->replace("%y",loglines[0]->year().toString("yyyy"));
-    str->replace("%b",loglines[0]->label());
-    str->replace("%c",loglines[0]->client());
-    str->replace("%e",loglines[0]->agency());
-    str->replace("%m",loglines[0]->composer());
-    str->replace("%p",loglines[0]->publisher());
-    str->replace("%u",loglines[0]->userDefined());
+    str->replace("%b",RDResolveNowNextEncode(loglines[0]->label(),encoding));
+    str->replace("%c",RDResolveNowNextEncode(loglines[0]->client(),encoding));
+    str->replace("%e",RDResolveNowNextEncode(loglines[0]->agency(),encoding));
+    str->replace("%m",RDResolveNowNextEncode(loglines[0]->composer(),encoding));
+    str->replace("%p",RDResolveNowNextEncode(loglines[0]->publisher(),
+					     encoding));
+    str->replace("%u",RDResolveNowNextEncode(loglines[0]->userDefined(),
+					     encoding));
+    RDResolveNowNextDateTime(str,"%d(",loglines[0]->startDatetime());
   }
   else {   // No NOW PLAYING Event
     str->replace("%n","");
@@ -56,6 +113,7 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines)
     str->replace("%m","");
     str->replace("%p","");
     str->replace("%u","");
+    RDResolveNowNextDateTime(str,"%d(",QDateTime());
   }
 
   //
@@ -64,17 +122,21 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines)
   if(loglines[1]!=NULL) {
     str->replace("%N",QString().sprintf("%06u",loglines[1]->cartNumber()));
     str->replace("%H",QString().sprintf("%d",loglines[1]->effectiveLength()));
-    str->replace("%G",loglines[1]->groupName());
-    str->replace("%T",loglines[1]->title());
-    str->replace("%A",loglines[1]->artist());
-    str->replace("%L",loglines[1]->album());
+    str->replace("%G",RDResolveNowNextEncode(loglines[1]->groupName(),
+					     encoding));
+    str->replace("%T",RDResolveNowNextEncode(loglines[1]->title(),encoding));
+    str->replace("%A",RDResolveNowNextEncode(loglines[1]->artist(),encoding));
+    str->replace("%L",RDResolveNowNextEncode(loglines[1]->album(),encoding));
     str->replace("%Y",loglines[1]->year().toString("yyyy"));
-    str->replace("%B",loglines[1]->label());
-    str->replace("%C",loglines[1]->client());
-    str->replace("%E",loglines[1]->agency());
-    str->replace("%M",loglines[1]->composer());
-    str->replace("%P",loglines[1]->publisher());
-    str->replace("%U",loglines[1]->userDefined());
+    str->replace("%B",RDResolveNowNextEncode(loglines[1]->label(),encoding));
+    str->replace("%C",RDResolveNowNextEncode(loglines[1]->client(),encoding));
+    str->replace("%E",RDResolveNowNextEncode(loglines[1]->agency(),encoding));
+    str->replace("%M",RDResolveNowNextEncode(loglines[1]->composer(),encoding));
+    str->replace("%P",RDResolveNowNextEncode(loglines[1]->publisher(),
+					     encoding));
+    str->replace("%U",RDResolveNowNextEncode(loglines[1]->userDefined(),
+					     encoding));
+    RDResolveNowNextDateTime(str,"%D(",loglines[1]->startDatetime());
   }
   else {   // No NEXT Event
     str->replace("%N","");
@@ -90,8 +152,9 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines)
     str->replace("%M","");
     str->replace("%P","");
     str->replace("%U","");
+    RDResolveNowNextDateTime(str,"%D(",QDateTime());
   }
   str->replace("%%","%");
-  str->replace("%r","\n");
-  str->replace("%R","\r\n");
+  str->replace("\\r","\n");
+  str->replace("\\n","\r\n");
 }

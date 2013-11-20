@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdconfig.cpp,v 1.24.6.6 2013/10/03 15:11:32 cvs Exp $
+//      $Id: rdconfig.cpp,v 1.24.6.7 2013/11/13 23:36:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -105,6 +105,19 @@ QString RDConfig::audioStoreMountOptions() const
 {
   return conf_audio_store_mount_options;
 }
+
+
+QString RDConfig::audioStoreCaeHostname() const
+{
+  return conf_audio_store_cae_hostname;
+}
+
+
+QString RDConfig::audioStoreXportHostname() const
+{
+  return conf_audio_store_xport_hostname;
+}
+
 
 QString RDConfig::mysqlHostname() const
 {
@@ -410,6 +423,10 @@ void RDConfig::load()
   conf_audio_store_mount_options=
     profile->stringValue("AudioStore","MountOptions",
 			 RD_DEFAULT_AUDIO_STORE_MOUNT_OPTIONS);
+  conf_audio_store_cae_hostname=
+    profile->stringValue("AudioStore","CaeHostname","localhost");
+  conf_audio_store_xport_hostname=
+    profile->stringValue("AudioStore","XportHostname","localhost");
 
   conf_audio_root=
     profile->stringValue("Cae","AudioRoot",RD_AUDIO_ROOT);
@@ -519,6 +536,8 @@ void RDConfig::clear()
   conf_audio_store_mount_source="";
   conf_audio_store_mount_type="";
   conf_audio_store_mount_options=RD_DEFAULT_AUDIO_STORE_MOUNT_OPTIONS;
+  conf_audio_store_xport_hostname="";
+  conf_audio_store_cae_hostname="";
   conf_ripcd_logname="";
   conf_airplay_logname="";
   conf_catchd_logname="";

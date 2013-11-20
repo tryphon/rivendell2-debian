@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdtrimaudio.cpp,v 1.6.4.1 2012/12/13 22:33:45 cvs Exp $
+//      $Id: rdtrimaudio.cpp,v 1.6.4.2 2013/11/13 23:36:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -47,11 +47,12 @@ size_t RDTrimAudioCallback(void *ptr,size_t size,size_t nmemb,void *userdata)
 }
 
 
-RDTrimAudio::RDTrimAudio(RDStation *station,
+RDTrimAudio::RDTrimAudio(RDStation *station,RDConfig *config,
 			     QObject *parent,const char *name)
   : QObject(parent,name)
 {
   conv_station=station;
+  conv_config=config;
   conv_cart_number=0;
   conv_cut_number=0;
   conv_start_point=-1;
@@ -116,7 +117,7 @@ RDTrimAudio::ErrorCode RDTrimAudio::runTrim(const QString &username,
   // otherwise some versions of LibCurl will throw a 'bad/illegal format' 
   // error.
   //
-  strncpy(url,conv_station->webServiceUrl(),1024);
+  strncpy(url,conv_station->webServiceUrl(conv_config),1024);
   curl_easy_setopt(curl,CURLOPT_URL,url);
   curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,RDTrimAudioCallback);
   curl_easy_setopt(curl,CURLOPT_WRITEDATA,&conv_xml);

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loaddrivers.cpp,v 1.1.8.4 2013/06/28 00:33:34 cvs Exp $
+//      $Id: loaddrivers.cpp,v 1.1.8.8 2013/11/17 04:27:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,39 +25,48 @@
 #include <ripcd.h>
 #include <switcher.h>
 #include <globals.h>
-#include <local_gpio.h>
-#include <sas32000.h>
-#include <sas64000.h>
-#include <unity4000.h>
+#include <acu1p.h>
+#include <am16.h>
 #include <bt10x1.h>
-#include <sas64000gpi.h>
-#include <btss82.h>
 #include <bt16x1.h>
+#include <bt16x2.h>
 #include <bt8x2.h>
 #include <btacs82.h>
-#include <sasusi.h>
-#include <bt16x2.h>
-#include <btss124.h>
-#include <local_audio.h>
-#include <vguest.h>
-#include <btss164.h>
-#include <starguide3.h>
-#include <btss42.h>
-#include <livewire.h>
-#include <quartz1.h>
-#include <btss44.h>
-#include <btsrc8iii.h>
 #include <btsrc16.h>
+#include <btsrc8iii.h>
+#include <btss124.h>
+#include <btss164.h>
+#include <btss42.h>
+#include <btss44.h>
+#include <btss82.h>
 #include <harlond.h>
-#include <acu1p.h>
-#include <livewire_gpio.h>
-#include <am16.h>
+#include <livewire_lwrpaudio.h>
+#include <livewire_lwrpgpio.h>
+#include <livewire_mcastgpio.h>
+#include <local_audio.h>
+#include <local_gpio.h>
+#include <quartz1.h>
+#include <sas32000.h>
+#include <sas64000.h>
+#include <sas64000gpi.h>
+#include <sasusi.h>
+#include <starguide3.h>
+#include <unity4000.h>
+#include <vguest.h>
 
 bool MainObject::LoadSwitchDriver(int matrix_num)
 {
   RDMatrix *matrix=new RDMatrix(rdstation->name(),matrix_num);
 
   switch(matrix->type()) {
+  case RDMatrix::Acu1p:
+    ripcd_switcher[matrix_num]=new Acu1p(matrix,this);
+    break;
+
+  case RDMatrix::Am16:
+    ripcd_switcher[matrix_num]=new Am16(matrix,this);
+    break;
+
   case RDMatrix::Bt10x1:
     ripcd_switcher[matrix_num]=new Bt10x1(matrix,this);
     break;
@@ -106,8 +115,20 @@ bool MainObject::LoadSwitchDriver(int matrix_num)
     ripcd_switcher[matrix_num]=new BtSs82(matrix,this);
     break;
 
-  case RDMatrix::LiveWire:
-    ripcd_switcher[matrix_num]=new LiveWire(matrix,this);
+  case RDMatrix::Harlond:
+    ripcd_switcher[matrix_num]=new Harlond(matrix,this);
+    break;
+
+  case RDMatrix::LiveWireLwrpAudio:
+    ripcd_switcher[matrix_num]=new LiveWireLwrpAudio(matrix,this);
+    break;
+
+  case RDMatrix::LiveWireMcastGpio:
+    ripcd_switcher[matrix_num]=new LiveWireMcastGpio(matrix,this);
+    break;
+
+  case RDMatrix::LiveWireLwrpGpio:
+    ripcd_switcher[matrix_num]=new LiveWireLwrpGpio(matrix,this);
     break;
 
   case RDMatrix::LocalAudioAdapter:
@@ -116,6 +137,10 @@ bool MainObject::LoadSwitchDriver(int matrix_num)
 
   case RDMatrix::LocalGpio:
     ripcd_switcher[matrix_num]=new LocalGpio(matrix,this);
+    break;
+
+  case RDMatrix::LogitekVguest:
+    ripcd_switcher[matrix_num]=new VGuest(matrix,this);
     break;
 
   case RDMatrix::Quartz1:
@@ -144,26 +169,6 @@ bool MainObject::LoadSwitchDriver(int matrix_num)
 
   case RDMatrix::Unity4000:
     ripcd_switcher[matrix_num]=new Unity4000(matrix,this);
-    break;
-
-  case RDMatrix::LogitekVguest:
-    ripcd_switcher[matrix_num]=new VGuest(matrix,this);
-    break;
-
-  case RDMatrix::Harlond:
-    ripcd_switcher[matrix_num]=new Harlond(matrix,this);
-    break;
-
-  case RDMatrix::Acu1p:
-    ripcd_switcher[matrix_num]=new Acu1p(matrix,this);
-    break;
-
-  case RDMatrix::LiveWireGpio:
-    ripcd_switcher[matrix_num]=new LiveWireGpio(matrix,this);
-    break;
-
-  case RDMatrix::Am16:
-    ripcd_switcher[matrix_num]=new Am16(matrix,this);
     break;
 
   default:

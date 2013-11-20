@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel.cpp,v 1.27.4.3 2013/03/09 00:21:17 cvs Exp $
+//      $Id: rdpanel.cpp,v 1.27.4.4 2013/11/13 23:36:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -206,7 +206,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 		     rdairplay_conf->card(RDAirPlayConf::CueChannel),
 		     rdairplay_conf->port(RDAirPlayConf::CueChannel),
 		     0,0,panel_cae,rdripc,rdstation_conf,
-		     rdsystem_conf,rdstation_conf->editorPath(),
+		     rdsystem_conf,panel_config,rdstation_conf->editorPath(),
 		     this,"panel_cart_dialog");
 
   //

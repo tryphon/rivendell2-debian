@@ -1,6 +1,66 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.5.5 -- 11/19/2013
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   RLM API Extension.  Added new fields to the 'rlm_pad' struct to
+   allow plug-ins to determine actual and predicted start times for events.
+
+   RDMonitor Enhancements.  Extended RDMonitor to allow proper positioning
+   on multi-head displays.
+
+   LiveWire Switcher Driver Changes.  The switcher drivers for LiveWire
+   have been refactored into three separate drivers:
+      LWRP Audio - Allows switching of audio routes on LiveWire devices.
+
+      LWRP GPIO - Allows monitoring and control of LiveWire GPIO devices
+      via LWRP (both virtual and direct).
+
+      Multicast GPIO - Allows monitoring and control of LiveWire console
+      GPIO without the need for a virtual LWRP device.
+
+   See 'SWITCHERS.txt' for details.
+
+   RDSelect Enhancements.  Added support for specifying CAE and RDXport
+   service assignments via RDSelect configurations.
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 220, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
+v2.5.4 -- 11/01/2013
+
+If upgrading from a v1.x version of Rivendell, be sure to read the
+'UPGRADING' file before proceeding for important information.
+
+Changes:
+   RLM API Extension.  A RLMResolveNowNextEncoded() function has been
+   added to the RLM API to provide efficient support for generating XML
+   and URL encoded data in plug-ins.
+
+   Voice Tracker Fixes.  Corrected a bug in the voice tracker that caused
+   peak data errors when employing MPEG encoding on voice tracks.
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 220, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.5.3 -- 10/04/2013
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

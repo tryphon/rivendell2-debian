@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: voice_tracker.cpp,v 1.84.2.1 2013/06/28 15:00:36 cvs Exp $
+//      $Id: voice_tracker.cpp,v 1.84.2.2 2013/11/13 23:36:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -850,7 +850,7 @@ void VoiceTracker::recordData()
   track_event_player->exec(record_start_macro);
   edit_wave_name[1]=RDCut::pathName(edit_track_cuts[1]->cutName());
   wpg[1]=new RDWavePainter(edit_wave_map[1],edit_track_cuts[1],
-			   rdstation_conf,rduser);
+			   rdstation_conf,rduser,log_config);
   wpg[1]->end();
   rdcae->record(edit_input_card,edit_input_port,0,0);
   track_record_ran=true;
@@ -1017,7 +1017,7 @@ void VoiceTracker::resetData()
     edit_logline[1]->setForcedLength(0);
     edit_logline[1]->clearTrackData(RDLogLine::AllTrans);
     track_log_event->removeCustomTransition(edit_track_line[1]);
-    if(!edit_track_cart->remove(rdstation_conf,rduser)) {
+    if(!edit_track_cart->remove(rdstation_conf,rduser,log_config)) {
       QMessageBox::warning(this,tr("RDLogEdit"),tr("Audio Deletion Error!"));
     }
     delete edit_track_cart;
@@ -1242,7 +1242,7 @@ void VoiceTracker::editAudioData()
   RDCart *rdcart=new RDCart(edit_logline[edit_rightclick_track]->cartNumber());
   RDEditAudio *edit=
     new RDEditAudio(rdcart,edit_logline[edit_rightclick_track]->cutName(),
-		    rdcae,rduser,rdstation_conf,edit_output_card,
+		    rdcae,rduser,rdstation_conf,log_config,edit_output_card,
 		    edit_output_port,edit_tail_preroll,
 		    edit_threshold_level,this);
   if(edit->exec()!=-1) {
@@ -2229,7 +2229,7 @@ void VoiceTracker::LoadTrack(int line)
            delete wpg[i];
         }
 	wpg[i]=new RDWavePainter(edit_wave_map[i],edit_track_cuts[i],
-				 rdstation_conf,rduser);
+				 rdstation_conf,rduser,log_config);
 	wpg[i]->end();
       }
     }

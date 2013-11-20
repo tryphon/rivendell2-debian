@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.cpp,v 1.117.4.2 2013/01/07 15:35:04 cvs Exp $
+//      $Id: rdlibrary.cpp,v 1.117.4.3 2013/11/13 23:36:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -592,7 +592,7 @@ void MainWidget::addData()
   EditCart *cart=new EditCart(cart_num,&lib_import_path,true,this);
   if(cart->exec() <0) {
     RDCart *rdcart=new RDCart(cart_num);
-    rdcart->remove(rdstation_conf,lib_user);
+    rdcart->remove(rdstation_conf,lib_user,lib_config);
     delete rdcart;
   } 
   else {
@@ -738,7 +738,7 @@ Do you still want to delete it?"),item->text(1).toUInt());
   }
   if(del_flag && item->text(17).isEmpty()) {
     RDCart *rdcart=new RDCart(item->text(1).toUInt());
-    if(!rdcart->remove(rdstation_conf,lib_user)) {
+    if(!rdcart->remove(rdstation_conf,lib_user,lib_config)) {
       QMessageBox::warning(this,tr("RDLibrary"),tr("Unable to delete audio!"));
       return;
     }

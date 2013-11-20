@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdstation.h,v 1.24.4.3 2012/11/28 21:44:06 cvs Exp $
+//      $Id: rdstation.h,v 1.24.4.5 2013/11/14 02:04:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -20,11 +20,13 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
+#ifndef RDSTATION_H
+#define RDSTATION_H
+
 #include <qsqldatabase.h>
 #include <qhostaddress.h>
 
-#ifndef RDSTATION_H
-#define RDSTATION_H
+#include <rdconfig.h>
 
 class RDStation
 {
@@ -54,11 +56,13 @@ class RDStation
   void setDefaultName(QString name) const;
   QHostAddress address() const;
   void setAddress(QHostAddress addr) const;
+  QHostAddress httpAddress(RDConfig *config) const;
   QString httpStation() const;
   void setHttpStation(const QString &str);
+  QHostAddress caeAddress(RDConfig *config) const;
   QString caeStation() const;
   void setCaeStation(const QString &str);
-  QString webServiceUrl() const;
+  QString webServiceUrl(RDConfig *config) const;
   int timeOffset();
   void setTimeOffset(int msecs);
   QString backupPath() const;

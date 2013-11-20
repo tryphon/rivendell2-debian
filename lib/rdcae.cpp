@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcae.cpp,v 1.59.4.3 2012/11/30 16:14:59 cvs Exp $
+//      $Id: rdcae.cpp,v 1.59.4.5 2013/11/14 02:04:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -101,26 +101,14 @@ RDCae::~RDCae() {
 
 void RDCae::connectHost()
 {
-  QString sql;
-  RDSqlQuery *q;
   int count=10;
-  QHostAddress addr;
+  //  QHostAddress addr;
   QTimer *timer=new QTimer(this,"read_timer");
+
   connect(timer,SIGNAL(timeout()),this,SLOT(readyData()));
   timer->start(CAE_POLL_INTERVAL);
-
-  addr.setAddress("127.0.0.1");
-  if(cae_station->caeStation()!="localhost") {
-    sql=QString().sprintf("select IPV4_ADDRESS from STATIONS where NAME=\"%s\"",
-			  (const char *)RDEscapeString(cae_station->
-						       caeStation()));
-    q=new RDSqlQuery(sql);
-    if(q->first()) {
-      addr.setAddress(q->value(0).toString());
-    }
-    delete q;
-  }
-  while((!cae_socket->connect(addr,CAED_TCP_PORT))&&(--count>0)) {
+  while((!cae_socket->connect(cae_station->caeAddress(cae_config),
+			      CAED_TCP_PORT))&&(--count>0)) {
     usleep(100000);
   } 
   usleep(100000);

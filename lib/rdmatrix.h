@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmatrix.h,v 1.28.8.4 2013/06/28 00:33:33 cvs Exp $
+//      $Id: rdmatrix.h,v 1.28.8.8 2013/11/17 04:27:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -37,8 +37,9 @@ class RDMatrix
 	     Unity4000=5,BtSs82=6,Bt10x1=7,Sas64000Gpi=8,Bt16x1=9,Bt8x2=10,
 	     BtAcs82=11,SasUsi=12,Bt16x2=13,BtSs124=14,LocalAudioAdapter=15,
 	     LogitekVguest=16,BtSs164=17,StarGuideIII=18,BtSs42=19,
-	     LiveWire=20,Quartz1=21,BtSs44=22,BtSrc8III=23,BtSrc16=24,
-	     Harlond=25,Acu1p=26,LiveWireGpio=27,Am16=28,LastType=29};
+	     LiveWireLwrpAudio=20,Quartz1=21,BtSs44=22,BtSrc8III=23,BtSrc16=24,
+	     Harlond=25,Acu1p=26,LiveWireMcastGpio=27,Am16=28,
+	     LiveWireLwrpGpio=29,LastType=30};
   enum Endpoint {Input=0,Output=1};
   enum Mode {Stereo=0,Left=1,Right=2};
   enum VguestAttribute {VguestEngine=0,VguestDevice=1,VguestSurface=2,

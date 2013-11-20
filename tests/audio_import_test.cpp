@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_import_test.cpp,v 1.5 2011/12/23 22:04:11 cvs Exp $
+//      $Id: audio_import_test.cpp,v 1.5.4.1 2013/11/13 23:36:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -140,7 +140,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   }
 
   RDStation *station=new RDStation(rdconfig->stationName());
-  RDAudioImport *conv=new RDAudioImport(station,this);
+  RDAudioImport *conv=new RDAudioImport(station,rdconfig,this);
   conv->setCartNumber(cart_number);
   conv->setCutNumber(cut_number);
   conv->setSourceFile(source_filename);

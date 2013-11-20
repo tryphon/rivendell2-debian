@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: switcher.cpp,v 1.1.8.2 2013/03/03 22:58:22 cvs Exp $
+//      $Id: switcher.cpp,v 1.1.8.3 2013/11/16 01:06:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,9 @@
 
 #include <syslog.h>
 
+#include <rddb.h>
+#include <rdescape_string.h>
+
 #include <switcher.h>
 
 #include <globals.h>
@@ -29,11 +32,25 @@
 Switcher::Switcher(RDMatrix *matrix,QObject *parent,const char *name)
   : QObject(parent,name)
 {
+  switcher_station_name=matrix->station();
+  switcher_matrix_number=matrix->matrix();
 }
 
 
 Switcher::~Switcher()
 {
+}
+
+
+QString Switcher::stationName() const
+{
+  return switcher_station_name;
+}
+
+
+int Switcher::matrixNumber() const
+{
+  return switcher_matrix_number;
 }
 
 
@@ -68,4 +85,28 @@ void Switcher::logBytes(uint8_t *data,int len)
     str+=QString().sprintf("%02X ",0xff&data[i]);
   }
   syslog(LOG_NOTICE,"bytes: %s",(const char *)str);
+}
+
+
+void Switcher::insertGpioEntry(bool is_gpo,int line)
+{
+  QString sql;
+  RDSqlQuery *q;
+  QString table="GPIS";
+
+  if(is_gpo) {
+    table="GPOS";
+  }
+  sql="select ID from "+table+" where (STATION_NAME=\""+
+    RDEscapeString(stationName())+"\")&&"+
+    QString().sprintf("(MATRIX=%u)&&(NUMBER=%d)",matrixNumber(),line);
+  q=new RDSqlQuery(sql);
+  if(!q->first()) {
+    delete q;
+    sql="insert into "+table+" set STATION_NAME=\""+
+      RDEscapeString(stationName())+"\","+
+      QString().sprintf("MATRIX=%u,NUMBER=%d",matrixNumber(),line);
+    q=new RDSqlQuery(sql);
+  }
+  delete q;
 }

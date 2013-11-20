@@ -37,6 +37,7 @@ int rlm_filewrite_devs;
 char *rlm_filewrite_filenames;
 int *rlm_filewrite_appends;
 char *rlm_filewrite_formats;
+int *rlm_filewrite_encodings;
 int *rlm_filewrite_masters;
 int *rlm_filewrite_aux1s;
 int *rlm_filewrite_aux2s;
@@ -111,6 +112,7 @@ void rlm_filewrite_RLMStart(void *ptr,const char *arg)
   rlm_filewrite_filenames=NULL;
   rlm_filewrite_appends=NULL;
   rlm_filewrite_formats=NULL;
+  rlm_filewrite_encodings=NULL;
   rlm_filewrite_masters=NULL;
   rlm_filewrite_aux1s=NULL;
   rlm_filewrite_aux2s=NULL;
@@ -137,6 +139,11 @@ void rlm_filewrite_RLMStart(void *ptr,const char *arg)
 			    (rlm_filewrite_devs+1)*sizeof(int));
     rlm_filewrite_masters[rlm_filewrite_devs]=
       rlm_filewrite_GetLogStatus(ptr,arg,section,"MasterLog");
+
+    rlm_filewrite_encodings=realloc(rlm_filewrite_encodings,
+			    (rlm_filewrite_devs+1)*sizeof(int));
+    rlm_filewrite_encodings[rlm_filewrite_devs]=
+      RLMGetIntegerValue(ptr,arg,section,"Encoding",RLM_ENCODE_NONE);
     rlm_filewrite_aux1s=realloc(rlm_filewrite_aux1s,
 			  (rlm_filewrite_devs+1)*sizeof(int));
     rlm_filewrite_aux1s[rlm_filewrite_devs]=
@@ -161,6 +168,7 @@ void rlm_filewrite_RLMFree(void *ptr)
   free(rlm_filewrite_filenames);
   free(rlm_filewrite_appends);
   free(rlm_filewrite_formats);
+  free(rlm_filewrite_encodings);
   free(rlm_filewrite_masters);
   free(rlm_filewrite_aux1s);
   free(rlm_filewrite_aux2s);
@@ -193,8 +201,9 @@ void rlm_filewrite_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
 	break;
     }
     if((flag==1)||((flag==2)&&(log->log_onair!=0))) {
-      strncpy(str,RLMResolveNowNext(ptr,now,next,
-				    rlm_filewrite_formats+256*i),256);
+      strncpy(str,RLMResolveNowNextEncoded(ptr,now,next,
+					   rlm_filewrite_formats+256*i,
+					   rlm_filewrite_encodings[i]),1024);
       rlm_filewrite_ProcessString(str);
       if(rlm_filewrite_appends[i]==0) {
 	f=fopen(rlm_filewrite_filenames+256*i,"w");

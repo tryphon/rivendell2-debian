@@ -50,7 +50,8 @@ PROGRAMS = $(libexec_PROGRAMS)
 dist_rdxport_cgi_OBJECTS = audioinfo.$(OBJEXT) carts.$(OBJEXT) \
 	copyaudio.$(OBJEXT) deleteaudio.$(OBJEXT) groups.$(OBJEXT) \
 	export.$(OBJEXT) exportpeaks.$(OBJEXT) import.$(OBJEXT) \
-	rdxport.$(OBJEXT) trimaudio.$(OBJEXT)
+	logs.$(OBJEXT) rdxport.$(OBJEXT) services.$(OBJEXT) \
+	trimaudio.$(OBJEXT)
 rdxport_cgi_OBJECTS = $(dist_rdxport_cgi_OBJECTS)
 rdxport_cgi_DEPENDENCIES =
 AM_V_lt = $(am__v_lt_$(V))
@@ -279,7 +280,9 @@ dist_rdxport_cgi_SOURCES = audioinfo.cpp\
                            export.cpp\
                            exportpeaks.cpp\
                            import.cpp\
+                           logs.cpp\
                            rdxport.cpp rdxport.h\
+                           services.cpp\
                            trimaudio.cpp
 
 rdxport_cgi_LDADD = @LIB_RDLIBS@ -lsndfile @LIBVORBIS@
@@ -391,7 +394,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/exportpeaks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/groups.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/import.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/logs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdxport.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/services.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/trimaudio.Po@am__quote@
 
 .cpp.o:

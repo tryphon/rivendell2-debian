@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog.h,v 1.16 2010/09/08 20:37:58 cvs Exp $
+//      $Id: rdlog.h,v 1.16.6.4 2013/11/13 23:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,8 @@
 
 #include <qsqldatabase.h>
 
+#include <rdconfig.h>
+#include <rdlog_event.h>
 #include <rduser.h>
 #include <rdstation.h>
 
@@ -73,9 +75,11 @@ class RDLog
    int nextId() const;
    void setNextId(int id) const;
    bool isReady() const;
-   bool remove(RDStation *station,RDUser *user) const;
+   bool remove(RDStation *station,RDUser *user,RDConfig *config) const;
    void updateTracks();
-   int removeTracks(RDStation *station,RDUser *user) const;
+   int removeTracks(RDStation *station,RDUser *user,RDConfig *config) const;
+   RDLogEvent *createLogEvent() const;
+   QString xml() const;
 
   private:
    int GetIntValue(const QString &field) const;

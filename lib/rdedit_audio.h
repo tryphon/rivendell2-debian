@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdedit_audio.h,v 1.9.6.1 2012/05/07 23:31:59 cvs Exp $
+//      $Id: rdedit_audio.h,v 1.9.6.2 2013/11/13 23:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -37,6 +37,7 @@
 #include <qnamespace.h>
 #include <qcheckbox.h>
 
+#include <rdconfig.h>
 #include <rdmarker_edit.h>
 #include <rdtransportbutton.h>
 #include <rdstereometer.h>
@@ -76,7 +77,8 @@ class RDEditAudio : public QDialog
   Q_OBJECT
  public:
   RDEditAudio(RDCart *cart,QString cut_name,RDCae *cae,RDUser *user,
-	      RDStation *station,int card,int port,int preroll,int trim_level,
+	      RDStation *station,RDConfig *config,int card,int port,
+	      int preroll,int trim_level,
 	      QWidget *parent=0,const char *name=0);
   ~RDEditAudio();
   QSize sizeHint() const;
@@ -222,6 +224,7 @@ class RDEditAudio : public QDialog
   RDCae *edit_cae;
   RDStation *edit_station;
   RDUser *edit_user;
+  RDConfig *edit_config;
 };
 
 

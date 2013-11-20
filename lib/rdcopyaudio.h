@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcopyaudio.h,v 1.1 2011/01/25 19:28:48 cvs Exp $
+//      $Id: rdcopyaudio.h,v 1.1.6.1 2013/11/13 23:36:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -23,6 +23,7 @@
 #ifndef RDCOPYAUDIO_H
 #define RDCOPYAUDIO_H
 
+#include <rdconfig.h>
 #include <rdstation.h>
 
 class RDCopyAudio
@@ -30,7 +31,7 @@ class RDCopyAudio
  public:
   enum ErrorCode {ErrorOk=0,ErrorNoCart=1,ErrorInternal=5,ErrorUrlInvalid=7,
 		  ErrorService=8,ErrorInvalidUser=9};
-  RDCopyAudio(RDStation *station);
+  RDCopyAudio(RDStation *station,RDConfig *config);
   void setSourceCartNumber(unsigned cartnum);
   void setSourceCutNumber(unsigned cutnum);
   void setDestinationCartNumber(unsigned cartnum);
@@ -41,6 +42,7 @@ class RDCopyAudio
 
  private:
   RDStation *conv_station;
+  RDConfig *conv_config;
   unsigned conv_source_cart_number;
   unsigned conv_source_cut_number;
   unsigned conv_destination_cart_number;

@@ -2,9 +2,9 @@
 ##
 ## Automake.am for rivendell/web/tests
 ##
-##   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
+##   (C) Copyright 2010,2013 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.6.6.1 2012/11/29 01:37:38 cvs Exp $
+##      $Id: Makefile.am,v 1.6.6.4 2013/10/14 04:23:55 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -39,6 +39,9 @@ install-exec-am:
 	cp listcuts.html $(DESTDIR)@libexecdir@
 	cp listgroup.html $(DESTDIR)@libexecdir@
 	cp listgroups.html $(DESTDIR)@libexecdir@
+	cp listlog.html $(DESTDIR)@libexecdir@
+	cp listlogs.html $(DESTDIR)@libexecdir@
+	cp listservices.html $(DESTDIR)@libexecdir@
 	cp removecart.html $(DESTDIR)@libexecdir@
 	cp removecut.html $(DESTDIR)@libexecdir@
 	cp trimaudio.html $(DESTDIR)@libexecdir@
@@ -59,6 +62,9 @@ uninstall:
 	rm -f $(DESTDIR)@libexecdir@/listcuts.html
 	rm -f $(DESTDIR)@libexecdir@/listgroup.html
 	rm -f $(DESTDIR)@libexecdir@/listgroups.html
+	rm -f $(DESTDIR)@libexecdir@/listlog.html
+	rm -f $(DESTDIR)@libexecdir@/listlogs.html
+	rm -f $(DESTDIR)@libexecdir@/listservices.html
 	rm -f $(DESTDIR)@libexecdir@/removecart.html
 	rm -f $(DESTDIR)@libexecdir@/removecut.html
 	rm -f $(DESTDIR)@libexecdir@/trimaudio.html
@@ -78,6 +84,9 @@ EXTRA_DIST = addcart.html\
              listcuts.html\
              listgroup.html\
              listgroups.html\
+             listlog.html\
+             listlogs.html\
+             listservices.html\
              removecart.html\
              removecut.html\
              trimaudio.html

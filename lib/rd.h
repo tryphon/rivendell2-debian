@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194.6.10 2013/07/05 21:07:27 cvs Exp $
+//      $Id: rd.h,v 1.194.6.11 2013/11/13 23:36:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -251,6 +251,12 @@
  */
 #define RD_SERVICE_NAME "Production"
 #define RD_SERVICE_DESCRIPTION "Default Audio Service"
+
+/*
+ * RDSelect Label
+ * (Used for the RDSelect entry in RDAdmin->ManageHosts)
+ */
+#define RD_RDSELECT_LABEL "[RDSelect]"
 
 /*
  * Default Maximum POST Length (bytes)

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpeaksexport.h,v 1.1 2010/09/13 23:14:26 cvs Exp $
+//      $Id: rdpeaksexport.h,v 1.1.6.1 2013/11/13 23:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 
 #include <qobject.h>
 
+#include <rdconfig.h>
 #include <rdstation.h>
 #include <rdsettings.h>
 
@@ -34,7 +35,8 @@ class RDPeaksExport
   enum ErrorCode {ErrorOk=0,ErrorNoSource=2,
 		  ErrorInternal=5,ErrorUrlInvalid=7,
 		  ErrorService=8,ErrorInvalidUser=9,ErrorAborted=10};
-  RDPeaksExport(RDStation *station,QObject *parent=0,const char *name=0);
+  RDPeaksExport(RDStation *station,RDConfig *config,QObject *parent=0,
+		const char *name=0);
   ~RDPeaksExport();
   void setCartNumber(unsigned cartnum);
   void setCutNumber(unsigned cutnum);
@@ -47,6 +49,7 @@ class RDPeaksExport
 
  private:
   RDStation *conv_station;
+  RDConfig *conv_config;
   unsigned conv_cart_number;
   unsigned conv_cut_number;
   unsigned short *conv_energy_data;

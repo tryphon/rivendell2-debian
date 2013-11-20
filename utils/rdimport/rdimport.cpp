@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.cpp,v 1.34.4.5 2013/06/28 15:00:36 cvs Exp $
+//      $Id: rdimport.cpp,v 1.34.4.7 2013/11/13 23:36:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -781,7 +781,7 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
     return MainObject::NoCut;
   }
   RDCut *cut=new RDCut(QString().sprintf("%06u_%03d",*cartnum,cutnum));
-  RDAudioImport *conv=new RDAudioImport(import_station,this);
+  RDAudioImport *conv=new RDAudioImport(import_station,import_config,this);
   conv->setCartNumber(cart->number());
   conv->setCutNumber(cutnum);
   conv->setSourceFile(wavefile->getName());
@@ -829,10 +829,10 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
 	    (const char *)filename.utf8());
     fflush(stderr);
     if(cart_created) {
-      cart->remove(import_station,import_user);
+      cart->remove(import_station,import_user,import_config);
     }
     else {
-      cart->removeCut(import_station,import_user,cut->cutName());
+      cart->removeCut(import_station,import_user,cut->cutName(),import_config);
     }
     delete cut;
     delete cart;
@@ -897,7 +897,7 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
       cut->setEndDatetime(dt.addDays(import_enddate_offset),true);
     }
   }
-  if (import_create_dates)  {
+  if(import_create_dates)  {
     dt=cut->startDatetime(&ok);
     if (!ok){
       dt=QDateTime(QDate::currentDate(), QTime(0,0,0));
@@ -909,6 +909,7 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
       cut->setEndDatetime(dt.addDays(import_create_enddate_offset),true);
     }
   }
+  cut->setOriginName(import_station->name());
   delete settings;
   delete conv;
   delete cut;
@@ -1381,7 +1382,7 @@ void MainObject::DeleteCuts(unsigned cartnum)
   }
   unsigned dev;
   RDCart *cart=new RDCart(cartnum);
-  cart->removeAllCuts(import_station,import_user);
+  cart->removeAllCuts(import_station,import_user,import_config);
   cart->updateLength();
   cart->resetRotation();
   cart->calculateAverageLength(&dev);

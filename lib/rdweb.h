@@ -68,18 +68,26 @@ extern long int RDAuthenticateLogin(const QString &username,
 extern QString RDAuthenticateSession(long int session_id,
 				     const QHostAddress &addr);
 extern void RDLogoutSession(long int session_id,const QHostAddress &addr);
-extern QString RDEscapeWebString(const QString &str);
-
 extern bool RDParsePost(std::map<QString,QString> *vars);
-extern QString RDXmlField(const QString &tag,const QString &value);
-extern QString RDXmlField(const QString &tag,const char *value);
-extern QString RDXmlField(const QString &tag,const int value);
-extern QString RDXmlField(const QString &tag,const unsigned value);
-extern QString RDXmlField(const QString &tag,const bool value);
-extern QString RDXmlField(const QString &tag,const QDateTime &value);
-extern QString RDXmlField(const QString &tag,const QTime &value);
+extern QString RDXmlField(const QString &tag,const QString &value,
+			  const QString &attrs="");
+extern QString RDXmlField(const QString &tag,const char *value,
+			  const QString &attrs="");
+extern QString RDXmlField(const QString &tag,const int value,
+			  const QString &attrs="");
+extern QString RDXmlField(const QString &tag,const unsigned value,
+			  const QString &attrs="");
+extern QString RDXmlField(const QString &tag,const bool value,
+			  const QString &attrs="");
+extern QString RDXmlField(const QString &tag,const QDateTime &value,
+			  const QString &attrs="");
+extern QString RDXmlField(const QString &tag,const QTime &value,
+			  const QString &attrs="");
+extern QString RDXmlField(const QString &tag);
 extern QString RDXmlEscape(const QString &str);
 extern QString RDXmlUnescape(const QString &str);
+extern QString RDUrlEscape(const QString &str);
+extern QString RDUrlUnescape(const QString &str);
 extern QString RDWebDateTime(const QDateTime &datetime);
 extern QDateTime RDGetWebDateTime(const QString &str);
 extern QTime RDGetWebTime(const QString &str);

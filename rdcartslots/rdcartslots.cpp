@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslots.cpp,v 1.8.2.8 2013/07/05 22:44:17 cvs Exp $
+//      $Id: rdcartslots.cpp,v 1.8.2.9 2013/11/13 23:36:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -146,7 +146,8 @@ MainWidget::MainWidget(QWidget *parent)
 				     panel_station->cueCard(),
 				     panel_station->cuePort(),
 				     0,0,panel_cae,panel_ripc,panel_station,
-				     panel_system,panel_station->editorPath(),
+				     panel_system,panel_config,
+				     panel_station->editorPath(),
 				     this);
   panel_slot_dialog=new RDSlotDialog(tr("RDCartSlots"),this);
   panel_cue_dialog=new RDCueEditDialog(panel_cae,panel_station->cueCard(),
@@ -161,7 +162,7 @@ MainWidget::MainWidget(QWidget *parent)
     for(int j=0;j<panel_station->cartSlotRows();j++) {
       panel_slots.
 	push_back(new RDCartSlot(panel_slots.size(),panel_ripc,panel_cae,
-				 panel_station,panel_svcs_dialog,
+				 panel_station,panel_config,panel_svcs_dialog,
 				 panel_slot_dialog,panel_cart_dialog,
 				 panel_cue_dialog,tr("RDCartSlots"),this));
       panel_slots.back()->

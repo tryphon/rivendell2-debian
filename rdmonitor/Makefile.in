@@ -47,8 +47,10 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-dist_rdmonitor_OBJECTS = rdmonitor.$(OBJEXT) status_tip.$(OBJEXT)
-nodist_rdmonitor_OBJECTS = moc_rdmonitor.$(OBJEXT)
+dist_rdmonitor_OBJECTS = positiondialog.$(OBJEXT) rdmonitor.$(OBJEXT) \
+	status_tip.$(OBJEXT)
+nodist_rdmonitor_OBJECTS = moc_positiondialog.$(OBJEXT) \
+	moc_rdmonitor.$(OBJEXT)
 rdmonitor_OBJECTS = $(dist_rdmonitor_OBJECTS) \
 	$(nodist_rdmonitor_OBJECTS)
 rdmonitor_DEPENDENCIES =
@@ -270,10 +272,13 @@ top_srcdir = @top_srcdir@
 AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
 INCLUDES = -I$(top_srcdir)/lib
 MOC = @QT_MOC@
-dist_rdmonitor_SOURCES = rdmonitor.cpp rdmonitor.h\
+dist_rdmonitor_SOURCES = positiondialog.cpp positiondialog.h\
+                         rdmonitor.cpp rdmonitor.h\
                          status_tip.cpp status_tip.h
 
-nodist_rdmonitor_SOURCES = moc_rdmonitor.cpp
+nodist_rdmonitor_SOURCES = moc_positiondialog.cpp\
+                           moc_rdmonitor.cpp
+
 rdmonitor_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 EXTRA_DIST = rdmonitor.pro\
              rdmonitor_cs.ts\
@@ -382,7 +387,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_positiondialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdmonitor.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/positiondialog.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdmonitor.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/status_tip.Po@am__quote@
 

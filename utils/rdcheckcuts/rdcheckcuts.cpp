@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcheckcuts.cpp,v 1.1.2.2 2012/10/22 19:40:00 cvs Exp $
+//      $Id: rdcheckcuts.cpp,v 1.1.2.3 2013/11/13 23:36:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -123,7 +123,7 @@ bool MainObject::ValidateGroup(const QString &groupname,
   QString sql;
   RDSqlQuery *q;
   RDStation *station=new RDStation(cut_config->stationName());
-  RDAudioInfo *info=new RDAudioInfo(station);
+  RDAudioInfo *info=new RDAudioInfo(station,cut_config);
   RDAudioInfo::ErrorCode err_code;
   
   sql=QString("select CUTS.CUT_NAME,CUTS.CART_NUMBER,CUTS.LENGTH ")+

@@ -33,6 +33,7 @@
 int rlm_serial_devs;
 int *rlm_serial_handles;
 char *rlm_serial_formats;
+int *rlm_serial_encodings;
 int *rlm_serial_masters;
 int *rlm_serial_aux1s;
 int *rlm_serial_aux2s;
@@ -80,6 +81,7 @@ void rlm_serial_RLMStart(void *ptr,const char *arg)
   rlm_serial_devs=0;
   rlm_serial_handles=NULL;
   rlm_serial_formats=NULL;
+  rlm_serial_encodings=NULL;
   rlm_serial_masters=NULL;
   rlm_serial_aux1s=NULL;
   rlm_serial_aux2s=NULL;
@@ -105,6 +107,10 @@ void rlm_serial_RLMStart(void *ptr,const char *arg)
 				 (rlm_serial_devs+1)*sizeof(int));
       rlm_serial_masters[rlm_serial_devs]=
 	rlm_serial_GetLogStatus(ptr,arg,section,"MasterLog");
+      rlm_serial_encodings=realloc(rlm_serial_encodings,
+				 (rlm_serial_devs+1)*sizeof(int));
+      rlm_serial_encodings[rlm_serial_devs]=
+	RLMGetIntegerValue(ptr,arg,section,"Encoding",RLM_ENCODE_NONE);
       rlm_serial_aux1s=realloc(rlm_serial_aux1s,
 				 (rlm_serial_devs+1)*sizeof(int));
       rlm_serial_aux1s[rlm_serial_devs]=
@@ -136,6 +142,7 @@ void rlm_serial_RLMFree(void *ptr)
   }
   free(rlm_serial_handles);
   free(rlm_serial_formats);
+  free(rlm_serial_encodings);
   free(rlm_serial_masters);
   free(rlm_serial_aux1s);
   free(rlm_serial_aux2s);
@@ -170,7 +177,9 @@ void rlm_serial_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
 	break;
     }
     if((flag==1)||((flag==2)&&(log->log_onair!=0))) {
-      const char *str=RLMResolveNowNext(ptr,now,next,rlm_serial_formats+256*i);
+      const char *str=
+	RLMResolveNowNextEncoded(ptr,now,next,rlm_serial_formats+256*i,
+				 rlm_serial_encodings[i]);
       RLMSendSerial(ptr,rlm_serial_handles[i],str,strlen(str));
       snprintf(msg,1500,"rlm_serial: sending pad update: \"%s\"",
 	       (const char *)str);

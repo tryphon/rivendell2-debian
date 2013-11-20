@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.14.8.3 2013/02/07 18:22:06 cvs Exp $
+##      $Id: Makefile.am,v 1.14.8.4 2013/10/16 21:14:37 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -37,6 +37,7 @@ noinst_PROGRAMS = audio_convert_test\
                   datedecode_test\
                   sas_switch_torture\
                   sas_torture\
+                  stringcode_test\
                   test_pam\
                   timer_test\
                   upload_test
@@ -60,6 +61,9 @@ sas_switch_torture_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 dist_sas_torture_SOURCES = sas_torture.cpp sas_torture.h
 nodist_sas_torture_SOURCES = moc_sas_torture.cpp
 sas_torture_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+
+dist_stringcode_test_SOURCES = stringcode_test.cpp stringcode_test.h
+stringcode_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 
 dist_test_pam_SOURCES = test_pam.cpp test_pam.h
 test_pam_LDADD = @LIB_RDLIBS@ @LIBVORBIS@

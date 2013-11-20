@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogmanager.cpp,v 1.43.4.1 2012/08/13 18:25:21 cvs Exp $
+//      $Id: rdlogmanager.cpp,v 1.43.4.2 2013/11/13 23:36:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -76,6 +76,7 @@ RDStation *rdstation_conf;
 RDUser *rduser;
 RDRipc *rdripc;
 RDCae *rdcae;
+RDConfig *log_config;
 QString *event_filter;
 QString *clock_filter;
 bool skip_db_check=false;

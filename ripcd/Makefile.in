@@ -52,23 +52,24 @@ dist_ripcd_OBJECTS = acu1p.$(OBJEXT) am16.$(OBJEXT) bt10x1.$(OBJEXT) \
 	btacs82.$(OBJEXT) btss124.$(OBJEXT) btss164.$(OBJEXT) \
 	btss42.$(OBJEXT) btss44.$(OBJEXT) btss82.$(OBJEXT) \
 	btsrc16.$(OBJEXT) btsrc8iii.$(OBJEXT) harlond.$(OBJEXT) \
-	livewire.$(OBJEXT) livewire_gpio.$(OBJEXT) \
-	local_audio.$(OBJEXT) local_gpio.$(OBJEXT) \
-	local_macros.$(OBJEXT) maint_routines.$(OBJEXT) \
-	loaddrivers.$(OBJEXT) quartz1.$(OBJEXT) ripcd.$(OBJEXT) \
-	ripcd_connection.$(OBJEXT) ripcd_socket.$(OBJEXT) \
-	sas32000.$(OBJEXT) sas64000.$(OBJEXT) sas64000gpi.$(OBJEXT) \
-	sasusi.$(OBJEXT) starguide3.$(OBJEXT) starguide_feed.$(OBJEXT) \
-	switcher.$(OBJEXT) unity4000.$(OBJEXT) unity_feed.$(OBJEXT) \
-	vguest.$(OBJEXT)
+	livewire_lwrpaudio.$(OBJEXT) livewire_lwrpgpio.$(OBJEXT) \
+	livewire_mcastgpio.$(OBJEXT) local_audio.$(OBJEXT) \
+	local_gpio.$(OBJEXT) local_macros.$(OBJEXT) \
+	maint_routines.$(OBJEXT) loaddrivers.$(OBJEXT) \
+	quartz1.$(OBJEXT) ripcd.$(OBJEXT) ripcd_connection.$(OBJEXT) \
+	ripcd_socket.$(OBJEXT) sas32000.$(OBJEXT) sas64000.$(OBJEXT) \
+	sas64000gpi.$(OBJEXT) sasusi.$(OBJEXT) starguide3.$(OBJEXT) \
+	starguide_feed.$(OBJEXT) switcher.$(OBJEXT) \
+	unity4000.$(OBJEXT) unity_feed.$(OBJEXT) vguest.$(OBJEXT)
 nodist_ripcd_OBJECTS = moc_am16.$(OBJEXT) moc_acu1p.$(OBJEXT) \
 	moc_bt10x1.$(OBJEXT) moc_bt16x1.$(OBJEXT) moc_bt16x2.$(OBJEXT) \
 	moc_bt8x2.$(OBJEXT) moc_btacs82.$(OBJEXT) \
 	moc_btsrc16.$(OBJEXT) moc_btsrc8iii.$(OBJEXT) \
 	moc_btss124.$(OBJEXT) moc_btss164.$(OBJEXT) \
 	moc_btss42.$(OBJEXT) moc_btss44.$(OBJEXT) moc_btss82.$(OBJEXT) \
-	moc_harlond.$(OBJEXT) moc_livewire.$(OBJEXT) \
-	moc_livewire_gpio.$(OBJEXT) moc_local_audio.$(OBJEXT) \
+	moc_harlond.$(OBJEXT) moc_livewire_lwrpaudio.$(OBJEXT) \
+	moc_livewire_lwrpgpio.$(OBJEXT) \
+	moc_livewire_mcastgpio.$(OBJEXT) moc_local_audio.$(OBJEXT) \
 	moc_local_gpio.$(OBJEXT) moc_quartz1.$(OBJEXT) \
 	moc_ripcd.$(OBJEXT) moc_ripcd_socket.$(OBJEXT) \
 	moc_sas32000.$(OBJEXT) moc_sas64000.$(OBJEXT) \
@@ -310,8 +311,9 @@ dist_ripcd_SOURCES = acu1p.cpp acu1p.h\
                      btsrc16.cpp btsrc16.h\
                      btsrc8iii.cpp btsrc8iii.h\
                      harlond.cpp harlond.h\
-                     livewire.cpp livewire.h\
-                     livewire_gpio.cpp livewire_gpio.h\
+                     livewire_lwrpaudio.cpp livewire_lwrpaudio.h\
+                     livewire_lwrpgpio.cpp livewire_lwrpgpio.h\
+                     livewire_mcastgpio.cpp livewire_mcastgpio.h\
                      local_audio.cpp local_audio.h\
                      local_gpio.cpp local_gpio.h\
                      local_macros.cpp maint_routines.cpp\
@@ -346,8 +348,9 @@ nodist_ripcd_SOURCES = moc_am16.cpp\
                        moc_btss44.cpp\
                        moc_btss82.cpp\
                        moc_harlond.cpp\
-                       moc_livewire.cpp\
-                       moc_livewire_gpio.cpp\
+                       moc_livewire_lwrpaudio.cpp\
+                       moc_livewire_lwrpgpio.cpp\
+                       moc_livewire_mcastgpio.cpp\
                        moc_local_audio.cpp\
                        moc_local_gpio.cpp\
                        moc_quartz1.cpp\
@@ -476,8 +479,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btss44.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btss82.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/harlond.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/livewire.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/livewire_gpio.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/livewire_lwrpaudio.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/livewire_lwrpgpio.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/livewire_mcastgpio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/loaddrivers.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/local_audio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/local_gpio.Po@am__quote@
@@ -498,8 +502,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btss44.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btss82.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_harlond.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_livewire.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_livewire_gpio.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_livewire_lwrpaudio.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_livewire_lwrpgpio.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_livewire_mcastgpio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_local_audio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_local_gpio.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_quartz1.Po@am__quote@

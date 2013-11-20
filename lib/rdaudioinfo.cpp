@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2011 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioinfo.cpp,v 1.3.4.2 2012/12/13 22:33:44 cvs Exp $
+//      $Id: rdaudioinfo.cpp,v 1.3.4.3 2013/11/13 23:36:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -47,11 +47,12 @@ size_t RDAudioInfoCallback(void *ptr,size_t size,size_t nmemb,void *userdata)
 }
 
 
-RDAudioInfo::RDAudioInfo(RDStation *station,
+RDAudioInfo::RDAudioInfo(RDStation *station,RDConfig *config,
 			     QObject *parent,const char *name)
   : QObject(parent,name)
 {
   conv_station=station;
+  conv_config=config;
   conv_cart_number=0;
   conv_cut_number=0;
   conv_format=RDWaveFile::Pcm16;
@@ -130,7 +131,7 @@ RDAudioInfo::ErrorCode RDAudioInfo::runInfo(const QString &username,
   // otherwise some versions of LibCurl will throw a 'bad/illegal format' 
   // error.
   //
-  strncpy(url,conv_station->webServiceUrl(),1024);
+  strncpy(url,conv_station->webServiceUrl(conv_config),1024);
   curl_easy_setopt(curl,CURLOPT_URL,url);
   curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,RDAudioInfoCallback);
   curl_easy_setopt(curl,CURLOPT_WRITEDATA,&conv_xml);

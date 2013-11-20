@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.h,v 1.21.4.1 2012/11/26 20:19:36 cvs Exp $
+//      $Id: rdcart_dialog.h,v 1.21.4.2 2013/11/13 23:36:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,7 @@
 #include <qcheckbox.h>
 
 #include <rdcae.h>
+#include <rdconfig.h>
 #include <rdripc.h>
 #include <rdsystem.h>
 #include <rdsimpleplayer.h>
@@ -51,7 +52,8 @@ class RDCartDialog : public QDialog
 	       int audition_card,int audition_port,
 	       unsigned start_cart,unsigned end_cart,
 	       RDCae *cae,RDRipc *ripc,RDStation *station,RDSystem *system,
-	       const QString &edit_cmd,QWidget *parent=0,const char *name=0);
+	       RDConfig *config,const QString &edit_cmd,QWidget *parent=0,
+	       const char *name=0);
   ~RDCartDialog();
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
@@ -120,6 +122,7 @@ class RDCartDialog : public QDialog
   bool *cart_temp_allowed;
   RDStation *cart_station;
   RDSystem *cart_system;
+  RDConfig *cart_config;
   QString cart_user_name;
   QString cart_user_password;
   RDBusyDialog *cart_busy_dialog;

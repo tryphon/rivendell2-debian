@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_casts.cpp,v 1.18 2011/09/09 20:23:28 cvs Exp $
+//      $Id: list_casts.cpp,v 1.18.4.1 2013/11/13 23:36:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -261,7 +261,7 @@ void ListCasts::addCartData()
   delete cd;
   RDFeed::Error err;
   unsigned cast_id=list_feed->postCut(cast_user,rdstation_conf,cutname,&err,
-				      config->logXloadDebugData());
+				      config->logXloadDebugData(),config);
   if(err!=RDFeed::ErrorOk) {
     QMessageBox::warning(this,tr("Posting Error"),RDFeed::errorString(err));
     return;
@@ -285,7 +285,7 @@ void ListCasts::addFileData()
   }
   RDFeed::Error err;
   unsigned cast_id=list_feed->postFile(rdstation_conf,srcfile,&err,
-				       config->logXloadDebugData());
+				       config->logXloadDebugData(),config);
   if(err!=RDFeed::ErrorOk) {
     QMessageBox::warning(this,tr("Posting Error"),RDFeed::errorString(err));
     return;

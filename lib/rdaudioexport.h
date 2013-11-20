@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioexport.h,v 1.4 2011/12/23 22:04:11 cvs Exp $
+//      $Id: rdaudioexport.h,v 1.4.4.1 2013/11/13 23:36:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 
 #include <qobject.h>
 
+#include <rdconfig.h>
 #include <rdstation.h>
 #include <rdsettings.h>
 #include <rdaudioconvert.h>
@@ -37,7 +38,8 @@ class RDAudioExport : public QObject
 		  ErrorNoDestination=3,ErrorInternal=5,ErrorUrlInvalid=7,
 		  ErrorService=8,ErrorInvalidUser=9,ErrorAborted=10,
 		  ErrorConverter=11};
-  RDAudioExport(RDStation *station,QObject *parent=0,const char *name=0);
+  RDAudioExport(RDStation *station,RDConfig *config,QObject *parent=0,
+		const char *name=0);
   void setCartNumber(unsigned cartnum);
   void setCutNumber(unsigned cutnum);
   void setDestinationFile(const QString &filename);
@@ -59,6 +61,7 @@ class RDAudioExport : public QObject
 
  private:
   RDStation *conv_station;
+  RDConfig *conv_config;
   unsigned conv_cart_number;
   unsigned conv_cut_number;
   QString conv_dst_filename;

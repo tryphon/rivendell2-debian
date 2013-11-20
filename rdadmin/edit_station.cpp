@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_station.cpp,v 1.57.4.6 2013/03/09 00:21:11 cvs Exp $
+//      $Id: edit_station.cpp,v 1.57.4.7 2013/11/13 23:36:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -555,7 +555,9 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   station_maint_box->setChecked(station_station->systemMaint());
 
   station_http_station_box->insertItem("localhost");
+  station_http_station_box->insertItem(RD_RDSELECT_LABEL);
   station_cae_station_box->insertItem("localhost");
+  station_cae_station_box->insertItem(RD_RDSELECT_LABEL);
   sql=QString().sprintf("select NAME from STATIONS \
                          where NAME!=\"%s\" order by NAME",
 			(const char *)RDEscapeString(sname));
@@ -573,6 +575,14 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
     }
   }
   delete q;
+  for(int i=0;i<station_http_station_box->count();i++) {
+    if(station_http_station_box->text(i)==station_station->httpStation()) {
+      station_http_station_box->setCurrentItem(i);
+    }
+    if(station_cae_station_box->text(i)==station_station->caeStation()) {
+      station_cae_station_box->setCurrentItem(i);
+    }
+  }
 }
 
 

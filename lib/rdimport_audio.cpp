@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport_audio.cpp,v 1.27.4.1 2013/10/02 18:25:12 cvs Exp $
+//      $Id: rdimport_audio.cpp,v 1.27.4.3 2013/11/13 23:36:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -555,7 +555,7 @@ void RDImportAudio::Import()
   //
   StartBar();
   RDCut *cut=new RDCut(import_cutname);
-  import_import_conv=new RDAudioImport(import_station,this);
+  import_import_conv=new RDAudioImport(import_station,import_config,this);
   import_import_conv->setCartNumber(cut->cartNumber());
   import_import_conv->setCutNumber(cut->cutNumber());
   import_import_conv->setSourceFile(import_in_filename_edit->text());
@@ -581,6 +581,9 @@ void RDImportAudio::Import()
       wave->closeWave();
       delete wave;
     }
+    cut->setOriginName(import_station->name());
+    cut->
+      setOriginDatetime(QDateTime(QDate::currentDate(),QTime::currentTime()));
     QMessageBox::information(this,tr("Import Complete"),
 			     tr("Import complete!"));
     break;
@@ -626,7 +629,7 @@ void RDImportAudio::Export()
   StartBar();
   RDCut *cut=new RDCut(import_cutname);
   import_settings->setNormalizationLevel(import_normalize_spin->value());
-  import_export_conv=new RDAudioExport(import_station,this);
+  import_export_conv=new RDAudioExport(import_station,import_config,this);
   import_export_conv->setCartNumber(cut->cartNumber());
   import_export_conv->setCutNumber(cut->cutNumber());
   import_export_conv->setDestinationFile(import_dest_filename);
