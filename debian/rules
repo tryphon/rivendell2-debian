@@ -17,9 +17,8 @@
 export DH_OPTIONS
 
 %:
-	dh $@ 
+	dh $@
 
 override_dh_auto_configure:
 	[ -x ./autogen.sh ] && ./autogen.sh
-	dh_auto_configure -- --with-Qt-dir=/usr/share/qt3
-
+	dh_auto_configure -- --with-Qt-dir=/usr/share/qt3 CXXFLAGS="-Wl,--no-as-needed"
