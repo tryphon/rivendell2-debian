@@ -10,3 +10,4 @@
 0010-Remove-debian-directory-from-Makefile.am.patch
 0011-Fix-prefix-in-xdg-makefile.patch
 0012-No-lib64-for-rd_lib_path.patch
+0013-Add-pthread-to-link-caed.patch

@@ -1,0 +1,46 @@
+From: Alban Peignier <alban@tryphon.eu>
+Date: Fri, 29 Nov 2013 09:21:10 +0100
+Subject: Add pthread to link caed
+
+---
+ cae/Makefile.am | 3 ++-
+ cae/Makefile.in | 5 +++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/cae/Makefile.am b/cae/Makefile.am
+index 93e176f..c6154cc 100644
+--- a/cae/Makefile.am
++++ b/cae/Makefile.am
+@@ -46,7 +46,8 @@ caed_LDADD = @LIB_RDLIBS@\
+              @LIBHPI@\
+              @LIBJACK@\
+              @LIBSRC@\
+-             @LIBVORBIS@
++             @LIBVORBIS@\
++             -lpthread
+ 
+ CLEANFILES = *~\
+              moc_*
+diff --git a/cae/Makefile.in b/cae/Makefile.in
+index 87e63db..84774b7 100644
+--- a/cae/Makefile.in
++++ b/cae/Makefile.in
+@@ -284,7 +284,8 @@ caed_LDADD = @LIB_RDLIBS@\
+              @LIBHPI@\
+              @LIBJACK@\
+              @LIBSRC@\
+-             @LIBVORBIS@
++             @LIBVORBIS@\
++             -lpthread
+ 
+ CLEANFILES = *~\
+              moc_*
+@@ -369,7 +370,7 @@ clean-binPROGRAMS:
+ 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
+ 	echo " rm -f" $$list; \
+ 	rm -f $$list
+-caed$(EXEEXT): $(caed_OBJECTS) $(caed_DEPENDENCIES) 
++caed$(EXEEXT): $(caed_OBJECTS) $(caed_DEPENDENCIES)
+ 	@rm -f caed$(EXEEXT)
+ 	$(AM_V_CXXLD)$(CXXLINK) $(caed_OBJECTS) $(caed_LDADD) $(LIBS)
+ 
