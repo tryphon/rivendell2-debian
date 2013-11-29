@@ -45,7 +45,8 @@ caed_LDADD = @LIB_RDLIBS@\
              @LIBHPI@\
              @LIBJACK@\
              @LIBSRC@\
-             @LIBVORBIS@
+             @LIBVORBIS@\
+             -lpthread
 
 CLEANFILES = *~\
              moc_*
