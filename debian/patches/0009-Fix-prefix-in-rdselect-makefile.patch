@@ -3,7 +3,7 @@ Date: Sat, 27 Oct 2012 11:21:21 +0200
 Subject: Fix prefix in rdselect makefile
 
 ---
- rdselect/Makefile.am |    2 +-
+ rdselect/Makefile.am | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/rdselect/Makefile.am b/rdselect/Makefile.am

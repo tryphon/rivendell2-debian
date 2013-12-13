@@ -3,7 +3,7 @@ Date: Thu, 17 May 2012 13:22:18 +0200
 Subject: Fix prefix in icons makefile
 
 ---
- icons/Makefile.am |   36 ++++++++++++++++++------------------
+ icons/Makefile.am | 36 ++++++++++++++++++------------------
  1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/icons/Makefile.am b/icons/Makefile.am

@@ -3,7 +3,7 @@ Date: Sat, 27 Oct 2012 10:43:41 +0200
 Subject: Fix prefix in scripts makefile
 
 ---
- scripts/Makefile.am |    6 +++---
+ scripts/Makefile.am | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/Makefile.am b/scripts/Makefile.am

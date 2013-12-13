@@ -3,8 +3,8 @@ Date: Sun, 30 Oct 2011 19:49:31 +0100
 Subject: Add version for dlopened libraries
 
 ---
- cae/cae.cpp            |    6 +++---
- lib/rdaudioconvert.cpp |    6 +++---
+ cae/cae.cpp            | 6 +++---
+ lib/rdaudioconvert.cpp | 6 +++---
  2 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/cae/cae.cpp b/cae/cae.cpp

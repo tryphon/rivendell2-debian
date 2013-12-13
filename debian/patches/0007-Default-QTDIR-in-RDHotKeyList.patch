@@ -3,12 +3,12 @@ Date: Sat, 23 Jun 2012 10:51:08 +0200
 Subject: Default QTDIR in RDHotKeyList
 
 ---
- lib/Makefile.am      |    2 +-
- lib/rdhotkeylist.cpp |    5 +++--
+ lib/Makefile.am      | 2 +-
+ lib/rdhotkeylist.cpp | 5 +++--
  2 files changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/lib/Makefile.am b/lib/Makefile.am
-index 0e23ca5..b05e096 100644
+index 3f4ee16..ccbc551 100644
 --- a/lib/Makefile.am
 +++ b/lib/Makefile.am
 @@ -22,7 +22,7 @@

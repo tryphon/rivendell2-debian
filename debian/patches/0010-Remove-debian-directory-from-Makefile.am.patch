@@ -3,7 +3,7 @@ Date: Sun, 24 Mar 2013 10:33:03 +0100
 Subject: Remove debian directory from Makefile.am
 
 ---
- Makefile.am |    1 -
+ Makefile.am | 1 -
  1 file changed, 1 deletion(-)
 
 diff --git a/Makefile.am b/Makefile.am

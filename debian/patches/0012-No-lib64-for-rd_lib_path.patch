@@ -3,11 +3,11 @@ Date: Wed, 22 May 2013 19:57:40 +0200
 Subject: No lib64 for rd_lib_path
 
 ---
- configure.in |   10 +++-------
+ configure.in | 10 +++-------
  1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 19aa42e..d842a4e 100644
+index 2e993f6..31fe64b 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -95,13 +95,9 @@ fi
