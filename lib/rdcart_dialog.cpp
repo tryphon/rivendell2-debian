@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.cpp,v 1.48.4.6 2013/11/15 18:24:08 cvs Exp $
+//      $Id: rdcart_dialog.cpp,v 1.48.4.7 2013/12/11 23:30:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -228,20 +228,26 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   cart_cart_list->addColumn(tr("GROUP"));
   cart_cart_list->setColumnAlignment(5,Qt::AlignLeft);
 
-  cart_cart_list->addColumn(tr("CLIENT"));
+  cart_cart_list->addColumn(tr("COMPOSER"));
   cart_cart_list->setColumnAlignment(6,Qt::AlignLeft);
 
-  cart_cart_list->addColumn(tr("AGENCY"));
+  cart_cart_list->addColumn(tr("CONDUCTOR"));
   cart_cart_list->setColumnAlignment(7,Qt::AlignLeft);
 
-  cart_cart_list->addColumn(tr("USER DEF"));
+  cart_cart_list->addColumn(tr("CLIENT"));
   cart_cart_list->setColumnAlignment(8,Qt::AlignLeft);
 
-  cart_cart_list->addColumn(tr("START"));
+  cart_cart_list->addColumn(tr("AGENCY"));
   cart_cart_list->setColumnAlignment(9,Qt::AlignLeft);
 
-  cart_cart_list->addColumn(tr("END"));
+  cart_cart_list->addColumn(tr("USER DEF"));
   cart_cart_list->setColumnAlignment(10,Qt::AlignLeft);
+
+  cart_cart_list->addColumn(tr("START"));
+  cart_cart_list->setColumnAlignment(11,Qt::AlignLeft);
+
+  cart_cart_list->addColumn(tr("END"));
+  cart_cart_list->setColumnAlignment(12,Qt::AlignLeft);
 
   //
   // Audition Player
@@ -732,6 +738,7 @@ void RDCartDialog::RefreshCarts()
   if(cart_type==RDCart::All) {
     sql=QString().sprintf("select CART.NUMBER,CART.TITLE,CART.ARTIST,\
                            CART.CLIENT,CART.AGENCY,CART.USER_DEFINED,\
+                           CART.COMPOSER,CART.CONDUCTOR,\
                            CART.START_DATETIME,CART.END_DATETIME,CART.TYPE,\
                            CART.FORCED_LENGTH,CART.GROUP_NAME,GROUPS.COLOR \
                            from CART left join GROUPS \
@@ -742,6 +749,7 @@ void RDCartDialog::RefreshCarts()
   else {
     sql=QString().sprintf("select CART.NUMBER,CART.TITLE,CART.ARTIST,\
                            CART.CLIENT,CART.AGENCY,CART.USER_DEFINED,\
+                           CART.COMPOSER,CART.CONDUCTOR,\
                            CART.START_DATETIME,CART.END_DATETIME,CART.TYPE,\
                            CART.FORCED_LENGTH,CART.GROUP_NAME,GROUPS.COLOR \
                            from CART left join GROUPS \
@@ -761,8 +769,8 @@ void RDCartDialog::RefreshCarts()
   cart_progress_dialog->setProgress(0);
   while(q->next()) {
     l=new RDListViewItem(cart_cart_list);
-    l->setId(q->value(8).toUInt());
-    switch((RDCart::Type)q->value(8).toUInt()) {
+    l->setId(q->value(10).toUInt());
+    switch((RDCart::Type)q->value(10).toUInt()) {
 	case RDCart::Audio:
 	  l->setPixmap(0,*cart_playout_map);
 	  break;
@@ -775,22 +783,24 @@ void RDCartDialog::RefreshCarts()
 	  break;
     }
     l->setText(1,QString().sprintf("%06d",q->value(0).toUInt())); // Number
-    l->setText(2,RDGetTimeLength(q->value(9).toInt(),false,true)); // Length
+    l->setText(2,RDGetTimeLength(q->value(11).toInt(),false,true)); // Length
     l->setText(3,q->value(1).toString());                       // Title
     l->setText(4,q->value(2).toString());                       // Artist
-    l->setText(5,q->value(10).toString());                      // Group
-    l->setTextColor(5,q->value(11).toString(),QFont::Bold);
-    l->setText(6,q->value(3).toString());                       // Client
-    l->setText(7,q->value(4).toString());                       // Agency
-    l->setText(8,q->value(5).toString());                       // User Defined
-    if(!q->value(6).toDate().isNull()) {
-      l->setText(9,q->value(6).toDate().toString("MM/dd/yyyy"));  // Start Date
-    }
+    l->setText(5,q->value(12).toString());                      // Group
+    l->setText(6,q->value(6).toString());                      // Composer
+    l->setText(7,q->value(7).toString());                      // Conductor
+    l->setTextColor(5,q->value(13).toString(),QFont::Bold);
+    l->setText(8,q->value(3).toString());                       // Client
+    l->setText(9,q->value(4).toString());                       // Agency
+    l->setText(10,q->value(5).toString());                       // User Defined
     if(!q->value(8).toDate().isNull()) {
-      l->setText(10,q->value(7).toDate().toString("MM/dd/yyyy"));  // End Date
+      l->setText(11,q->value(8).toDate().toString("MM/dd/yyyy"));  // Start Date
+    }
+    if(!q->value(10).toDate().isNull()) {
+      l->setText(12,q->value(9).toDate().toString("MM/dd/yyyy"));  // End Date
     }
     else {
-      l->setText(10,"TFN");
+      l->setText(12,"TFN");
     }
     if(*cart_cartnum==q->value(0).toInt()) {
       active_item=l;

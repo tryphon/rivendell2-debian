@@ -3,7 +3,7 @@
 ##    The Rivendell Radio Automation System
 ##    Copyright (C) 2002-2010  Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: rivendell.spec.in,v 1.98.4.24 2013/11/13 18:30:57 cvs Exp $
+##      $Id: rivendell.spec.in,v 1.98.4.25 2013/12/03 23:34:33 cvs Exp $
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of version 2 of the GNU General Public License as
@@ -133,6 +133,7 @@ ln -s /usr/bin/consolehelper $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdalsaconfig-root
 cp utils/rdcheckcuts/.libs/rdcheckcuts $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rdcollect/.libs/rdcollect $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rddgimport/.libs/rddgimport $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp utils/rddiscimport/.libs/rddiscimport $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rdgen/rdgen $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rdgpimon/.libs/rdgpimon $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 if test -f rdhpi/.libs/librdhpi-@VERSION@.so ; then
@@ -300,6 +301,7 @@ cp xdg/rivendell-rdcartslots.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applica
 cp xdg/rivendell-rdcastmanager.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 cp xdg/rivendell-rdcatch.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 cp xdg/rivendell-rddgimport.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
+cp xdg/rivendell-rddiscimport.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 cp xdg/rivendell-rdgpimon.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 if test -f rdhpi/.libs/librdhpi-@VERSION@.so ; then
   cp xdg/rivendell-rdhpiinfo-root.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
@@ -730,7 +732,9 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/bin/rdcatch_copy
 @LOCAL_PREFIX@/bin/panel_copy
 @LOCAL_PREFIX@/bin/rddgimport
+@LOCAL_PREFIX@/bin/rddiscimport
 @LOCAL_PREFIX@/share/applications/rivendell-rddgimport.desktop
+@LOCAL_PREFIX@/share/applications/rivendell-rddiscimport.desktop
 %doc docs/WINGS_FILTER.txt
 %doc docs/RIVENDELL_FILTER.txt
 %doc docs/NEXGEN_FILTER.txt
@@ -776,6 +780,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Dec 03 2013 Fred Gleason <fredg@paravelsystems.com>
+-- Added RDDiscImport(1).
 * Tue Nov 13 2013 Fred Gleason <fredg@paravelsystems.com>
 -- Split application library and caed(8) into a 'rivendell-base' subpackage.
 * Tue Aug 26 2013 Fred Gleason <fredg@paravelsystems.com>

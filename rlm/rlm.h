@@ -80,7 +80,7 @@ extern "C" {
 /*
  * RLM Interface Version
  */
-#define RLM_VERSION 15
+#define RLM_VERSION 16
 
 /*
  * Available Timers
@@ -176,7 +176,9 @@ extern "C" {
     int32_t rlm_start_day;     /* Event start date, day of month part */
     int32_t rlm_start_mon;     /* Event start date, month of year part */
     int32_t rlm_start_year;    /* Event start date, year part */
-    char reserved[533];        /* Reserved for future use */
+    char rlm_conductor[65];    /* Cart 'conductor' field */
+    char rlm_song_id[33];      /* Cart 'songId' field */
+    char reserved[435];        /* Reserved for future use */
   };
   
 /*
@@ -285,6 +287,8 @@ extern "C" {
  *   %e   %E   Agency
  *   %m   %M   Composer
  *   %p   %P   Publisher
+ *   %r   %R   Conductor
+ *   %s   %S   Song ID
  *   %u   %U   User Definied
  *   %D(<dt>)  The current date/time, formatted according to <dt>.  <dt>
  *             can be any of the wildcards supported by the RLMDateTime()
@@ -330,6 +334,8 @@ extern "C" {
  *   %e   %E   Agency
  *   %m   %M   Composer
  *   %p   %P   Publisher
+ *   %r   %R   Conductor
+ *   %s   %S   Song ID
  *   %u   %U   User Definied
  *
  * RETURNS: A pointer to a null terminated string.  This string is statically

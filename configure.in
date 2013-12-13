@@ -5,8 +5,8 @@ dnl Use autoconf to process this into a configure script
 dnl
 dnl   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 dnl
-dnl      $Id: configure.in,v 1.247.6.10 2013/05/14 22:47:24 cvs Exp $
-dnl      $Date: 2013/05/14 22:47:24 $
+dnl      $Id: configure.in,v 1.247.6.11 2013/12/03 23:34:33 cvs Exp $
+dnl      $Date: 2013/12/03 23:34:33 $
 dnl
 dnl   This program is free software; you can redistribute it and/or modify
 dnl   it under the terms of the GNU General Public License version 2 as
@@ -417,6 +417,7 @@ AC_CONFIG_FILES([rivendell.spec \
     utils/rddbcheck/Makefile \
     utils/rdalsaconfig/Makefile \
     utils/rddgimport/Makefile \
+    utils/rddiscimport/Makefile \
     utils/rdhpiinfo/Makefile \
     utils/rdpurgecasts/Makefile \
     utils/rdchunk/Makefile \

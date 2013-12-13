@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 1996-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdconf.cpp,v 1.15.4.5 2013/06/20 20:40:41 cvs Exp $
+//    $Id: rdconf.cpp,v 1.15.4.7 2013/12/05 19:31:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -1011,6 +1011,15 @@ QString RDTempDir()
   }
   return QString("/tmp");
 #endif  // WIN32
+}
+
+
+QString RDTempFile()
+{
+#ifndef WIN32
+  return QString(tmpnam(NULL));
+#endif  // WIN32
+  return QString();
 }
 
 

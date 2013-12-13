@@ -736,6 +736,22 @@ Notes</source>
         <source>This cart cannot contain any additional cuts!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cond&amp;uctor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Song &amp;ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Beats per Minute:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditMacro</name>
@@ -1007,7 +1023,7 @@ starten</translation>
     </message>
     <message>
         <source>PLAY ORDER</source>
-        <translation>ABSPIELREIHENFOLGE</translation>
+        <translation type="obsolete">ABSPIELREIHENFOLGE</translation>
     </message>
     <message>
         <source>ENFORCE LENGTH</source>
@@ -1089,11 +1105,11 @@ verwendet. Trotzdem löschen?</translation>
     </message>
     <message>
         <source>Sequence</source>
-        <translation>Sequenz</translation>
+        <translation type="obsolete">Sequenz</translation>
     </message>
     <message>
         <source>Random</source>
-        <translation>Zufall</translation>
+        <translation type="obsolete">Zufall</translation>
     </message>
     <message>
         <source>TFN</source>
@@ -1133,6 +1149,18 @@ verwendet. Trotzdem löschen?</translation>
     </message>
     <message>
         <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>COMPOSER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CONDUCTOR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PUBLISHER</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

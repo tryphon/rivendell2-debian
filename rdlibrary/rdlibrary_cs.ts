@@ -748,6 +748,22 @@ poznámky</translation>
         <source>This cart cannot contain any additional cuts!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cond&amp;uctor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Song &amp;ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Beats per Minute:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditMacro</name>
@@ -1019,7 +1035,7 @@ vozík</translation>
     </message>
     <message>
         <source>PLAY ORDER</source>
-        <translation>POŘADÍ PŘEHRÁVÁNÍ</translation>
+        <translation type="obsolete">POŘADÍ PŘEHRÁVÁNÍ</translation>
     </message>
     <message>
         <source>ENFORCE LENGTH</source>
@@ -1112,11 +1128,11 @@ Přesto smazat?</translation>
     </message>
     <message>
         <source>Sequence</source>
-        <translation>Sekvence</translation>
+        <translation type="obsolete">Sekvence</translation>
     </message>
     <message>
         <source>Random</source>
-        <translation>Náhodný</translation>
+        <translation type="obsolete">Náhodný</translation>
     </message>
     <message>
         <source>TFN</source>
@@ -1156,6 +1172,18 @@ Přesto smazat?</translation>
     </message>
     <message>
         <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>COMPOSER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CONDUCTOR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PUBLISHER</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

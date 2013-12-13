@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.cpp,v 1.113.4.8 2013/10/31 15:18:42 cvs Exp $
+//      $Id: rdlog_line.cpp,v 1.113.4.10 2013/12/12 21:45:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -113,6 +113,8 @@ void RDLogLine::clear()
   log_year=QDate();
   log_isci="";
   log_label="";
+  log_conductor="";
+  log_song_id="";
   log_client="";
   log_agency="";
   log_outcue="";
@@ -813,6 +815,30 @@ void RDLogLine::setLabel(const QString &label)
 }
 
 
+QString RDLogLine::conductor() const
+{
+  return log_conductor;
+}
+
+
+void RDLogLine::setConductor(const QString &cond)
+{
+  log_conductor=cond;
+}
+
+
+QString RDLogLine::songId() const
+{
+  return log_song_id;
+}
+
+
+void RDLogLine::setSongId(const QString &id)
+{
+  log_song_id=id;
+}
+
+
 QString RDLogLine::client() const
 {
   return log_client;
@@ -1443,6 +1469,8 @@ QString RDLogLine::resolveWildcards(QString pattern)
   pattern.replace("%l",album());
   pattern.replace("%y",year().toString("yyyy"));
   pattern.replace("%b",label());
+  pattern.replace("%r",conductor());
+  pattern.replace("%s",songId());
   pattern.replace("%c",client());
   pattern.replace("%e",agency());
   pattern.replace("%m",composer());
@@ -1675,7 +1703,8 @@ void RDLogLine::loadCart(int cartnum,RDLogLine::TransType next_type,int mach,
   QString sql=QString().sprintf("select CART.TYPE,CART.GROUP_NAME,CART.TITLE,\
                                  CART.ARTIST,CART.ALBUM,CART.YEAR,CART.ISRC,\
                                  CART.LABEL,CART.CLIENT,CART.AGENCY,\
-                                 CART.USER_DEFINED,CART.FORCED_LENGTH,\
+                                 CART.USER_DEFINED,CART.CONDUCTOR,CART.SONG_ID,\
+                                 CART.FORCED_LENGTH,\
                                  CART.CUT_QUANTITY,CART.LAST_CUT_PLAYED,\
                                  CART.PLAY_ORDER,CART.START_DATETIME,\
                                  CART.END_DATETIME,CART.ENFORCE_LENGTH,\
@@ -1717,27 +1746,29 @@ void RDLogLine::loadCart(int cartnum,RDLogLine::TransType next_type,int mach,
   log_client=q->value(8).toString();
   log_agency=q->value(9).toString();
   log_user_defined=q->value(10).toString();
-  log_cut_quantity=q->value(12).toUInt();
-  log_last_cut_played=q->value(13).toUInt();
-  log_play_order=(RDCart::PlayOrder)q->value(14).toInt();
-  log_start_datetime=q->value(15).toDateTime();
-  log_end_datetime=q->value(16).toDateTime();
-  log_preserve_pitch=RDBool(q->value(18).toString());
+  log_conductor=q->value(11).toString();
+  log_song_id=q->value(12).toString();
+  log_cut_quantity=q->value(14).toUInt();
+  log_last_cut_played=q->value(15).toUInt();
+  log_play_order=(RDCart::PlayOrder)q->value(16).toInt();
+  log_start_datetime=q->value(17).toDateTime();
+  log_end_datetime=q->value(18).toDateTime();
+  log_preserve_pitch=RDBool(q->value(20).toString());
   if(len<0) {
-    log_forced_length=q->value(11).toUInt();
-    log_enforce_length=RDBool(q->value(17).toString());
+    log_forced_length=q->value(13).toUInt();
+    log_enforce_length=RDBool(q->value(19).toString());
   }
   else {
     log_forced_length=len;
     log_enforce_length=true;
   }
-  log_now_next_enabled=RDBool(q->value(19).toString());
-  log_asyncronous=RDBool(q->value(20).toString());
-  log_publisher=q->value(21).toString();
-  log_composer=q->value(22).toString();
-  log_usage_code=(RDCart::UsageCode)q->value(23).toInt();
-  log_average_segue_length=q->value(24).toInt();
-  log_group_color=QColor(q->value(25).toString());
+  log_now_next_enabled=RDBool(q->value(21).toString());
+  log_asyncronous=RDBool(q->value(22).toString());
+  log_publisher=q->value(23).toString();
+  log_composer=q->value(24).toString();
+  log_usage_code=(RDCart::UsageCode)q->value(25).toInt();
+  log_average_segue_length=q->value(26).toInt();
+  log_group_color=QColor(q->value(27).toString());
   log_play_source=RDLogLine::UnknownSource;
   if(type!=RDLogLine::NoTrans) {
     log_trans_type=type;

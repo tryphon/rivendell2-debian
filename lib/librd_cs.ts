@@ -395,6 +395,10 @@
         <source>Hard</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>NaturalLog Reconciliation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>
@@ -783,6 +787,14 @@ ze &amp;souboru</translation>
     <message>
         <source>Importing</source>
         <translation>Zavádí se</translation>
+    </message>
+    <message>
+        <source>COMPOSER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CONDUCTOR</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

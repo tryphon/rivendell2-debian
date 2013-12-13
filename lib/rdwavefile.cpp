@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavefile.cpp,v 1.24.6.2 2013/05/10 21:29:20 cvs Exp $
+//    $Id: rdwavefile.cpp,v 1.24.6.3 2013/12/05 17:37:48 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -280,6 +280,7 @@ bool RDWaveFile::openWave(RDWaveData *data)
 	GetList(wave_file.handle());
 	GetScot(wave_file.handle());
 	GetAv10(wave_file.handle());
+	GetAir1(wave_file.handle());
 	break;
 
       case RDWaveFile::Mpeg:
@@ -1967,6 +1968,12 @@ bool RDWaveFile::getScotChunk() const
 }
 
 
+bool RDWaveFile::getAIR1Chunk() const
+{
+  return AIR1_chunk;
+}
+
+
 
 RDWaveFile::Type RDWaveFile::GetType(int fd)
 {
@@ -2745,6 +2752,36 @@ bool RDWaveFile::GetAv10(int fd)
     }
   }
 
+  return true;
+}
+
+
+bool RDWaveFile::GetAir1(int fd)
+{
+  //
+  // The 'AIR1' chunk is used by AirForce systems for metadata storage
+  //
+  unsigned chunk_size;
+
+  /*
+   * Load the chunk
+   */
+  if(!GetChunk(fd,"AIR1",&chunk_size,AIR1_chunk_data,AIR1_CHUNK_SIZE)) {
+    return false;
+  }
+  AIR1_chunk_data[2047]=0;
+  if(wave_data!=NULL) {
+    wave_data->setTitle(cutString((char *)AIR1_chunk_data,0x102,27).
+			stripWhiteSpace());
+    wave_data->setArtist(cutString((char *)AIR1_chunk_data,0x147,27).
+			stripWhiteSpace());
+    wave_data->setAlbum(cutString((char *)AIR1_chunk_data,0x163,27).
+			stripWhiteSpace());
+    wave_data->setReleaseYear(cutString((char *)AIR1_chunk_data,0x17F,4).
+			      toInt());
+    wave_data->setMetadataFound(true);
+  }
+  AIR1_chunk=true;
   return true;
 }
 

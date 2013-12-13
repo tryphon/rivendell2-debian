@@ -110,6 +110,8 @@ void rlm_test_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
   printf("          Title: %s\n",now->rlm_title);
   printf("         Artist: %s\n",now->rlm_artist);
   printf("          Label: %s\n",now->rlm_label);
+  printf("      Conductor: %s\n",now->rlm_conductor);
+  printf("         SongId: %s\n",now->rlm_song_id);
   printf("         Client: %s\n",now->rlm_client);
   printf("         Agency: %s\n",now->rlm_agency);
   printf("       Composer: %s\n",now->rlm_comp);
@@ -132,6 +134,8 @@ void rlm_test_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
   printf("          Title: %s\n",next->rlm_title);
   printf("         Artist: %s\n",next->rlm_artist);
   printf("          Label: %s\n",next->rlm_label);
+  printf("      Conductor: %s\n",next->rlm_conductor);
+  printf("         SongId: %s\n",next->rlm_song_id);
   printf("         Client: %s\n",next->rlm_client);
   printf("         Agency: %s\n",next->rlm_agency);
   printf("       Composer: %s\n",next->rlm_comp);

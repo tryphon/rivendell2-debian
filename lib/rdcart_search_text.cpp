@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_search_text.cpp,v 1.21.4.1 2012/10/09 00:12:29 cvs Exp $
+//      $Id: rdcart_search_text.cpp,v 1.21.4.2 2013/12/11 20:54:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,8 +39,11 @@ if(edit_filter.isEmpty()) {
       (CART.AGENCY like \"%%%s%%\")||(CART.ALBUM like \"%%%s%%\")||\
       (CART.LABEL like \"%%%s%%\")||(CART.NUMBER like \"%%%s%%\")||\
       (CART.PUBLISHER like \"%%%s%%\")||(CART.COMPOSER like \"%%%s%%\")||\
+      (CART.CONDUCTOR like \"%%%s%%\")||(CART.SONG_ID like \"%%%s%%\")||\
       (CART.USER_DEFINED like \"%%%s%%\")",
   			   (const char *)search_string.utf8(),
+			   (const char *)search_string.utf8(),
+			   (const char *)search_string.utf8(),
 			   (const char *)search_string.utf8(),
 			   (const char *)search_string.utf8(),
 			   (const char *)search_string.utf8(),
@@ -93,7 +96,10 @@ else {
       (CART.AGENCY like \"%%%s%%\")||(CART.ALBUM like \"%%%s%%\")||	\
       (CART.LABEL like \"%%%s%%\")||(CART.NUMBER like \"%%%s%%\")||	\
       (CART.PUBLISHER like \"%%%s%%\")||(CART.COMPOSER like \"%%%s%%\")|| \
+      (CART.CONDUCTOR like \"%%%s%%\")||(CART.SONG_ID like \"%%%s%%\")|| \
       (CART.USER_DEFINED like \"%%%s%%\")",
+				    (const char *)search.utf8(),
+				    (const char *)search.utf8(),
 				    (const char *)search.utf8(),
 				    (const char *)search.utf8(),
 				    (const char *)search.utf8(),

@@ -736,6 +736,22 @@ Notes</source>
         <source>This cart cannot contain any additional cuts!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cond&amp;uctor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Song &amp;ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Beats per Minute:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditMacro</name>
@@ -1007,7 +1023,7 @@ korg</translation>
     </message>
     <message>
         <source>PLAY ORDER</source>
-        <translation>SPELEREKKJEFYLGJE</translation>
+        <translation type="obsolete">SPELEREKKJEFYLGJE</translation>
     </message>
     <message>
         <source>ENFORCE LENGTH</source>
@@ -1089,11 +1105,11 @@ Vil du sletta ho likevel?</translation>
     </message>
     <message>
         <source>Sequence</source>
-        <translation>Rekkjefylgje</translation>
+        <translation type="obsolete">Rekkjefylgje</translation>
     </message>
     <message>
         <source>Random</source>
-        <translation>Tilfeldig</translation>
+        <translation type="obsolete">Tilfeldig</translation>
     </message>
     <message>
         <source>TFN</source>
@@ -1133,6 +1149,18 @@ Vil du sletta ho likevel?</translation>
     </message>
     <message>
         <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>COMPOSER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CONDUCTOR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PUBLISHER</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

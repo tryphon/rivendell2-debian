@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.h,v 1.39.6.2 2013/11/13 23:36:31 cvs Exp $
+//      $Id: rdcart.h,v 1.39.6.4 2013/12/11 18:51:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -66,6 +66,8 @@ class RDCart
   QString schedCodes() const;
   void setSchedCodes(const QString &sched_codes) const;
   void updateSchedCodes(const QString &add_codes,const QString &remove_codes) const;
+  QString conductor() const;
+  void setConductor(const QString &cond);
   QString label() const;
   void setLabel(const QString &label);
   QString client() const;
@@ -78,6 +80,10 @@ class RDCart
   void setComposer(const QString &composer);
   QString userDefined() const;
   void setUserDefined(const QString &string);
+  QString songId() const;
+  void setSongId(const QString &id);
+  unsigned beatsPerMinute() const;
+  void setBeatsPerMinute(unsigned bpm);
   RDCart::UsageCode usageCode() const;
   void setUsageCode(RDCart::UsageCode code);
   QString notes() const;
@@ -119,7 +125,7 @@ class RDCart
   void setMacros(const QString &cmds) const;
   bool validateLengths(int len) const;
   void getMetadata(RDWaveData *data) const;
-  void setMetadata(RDWaveData *data);
+  void setMetadata(const RDWaveData *data);
   QString xml(bool include_cuts) const;
   void updateLength();
   void updateLength(bool enforce_length,unsigned length);

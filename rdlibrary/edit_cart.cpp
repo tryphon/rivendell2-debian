@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cart.cpp,v 1.74.2.1 2013/06/28 15:00:34 cvs Exp $
+//      $Id: edit_cart.cpp,v 1.74.2.2 2013/12/11 18:51:48 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -347,103 +347,144 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
   // Scheduler Codes
   //
   QPushButton *sched_codes_button=new QPushButton(this,"sched_codes_button");
-  sched_codes_button->setGeometry(470,110,150,21);
+  sched_codes_button->setGeometry(470,106,150,28);
   sched_codes_button->setDefault(true);
   sched_codes_button->setFont(button_font);
   sched_codes_button->setText(tr("Scheduler Codes"));
   connect(sched_codes_button,SIGNAL(clicked()),this,SLOT(schedCodesData()));
  
   //
+  // Song ID
+  //
+  rdcart_controls.song_id_edit=new QLineEdit(this);
+  rdcart_controls.song_id_edit->setGeometry(135,135,240,21);
+  rdcart_controls.song_id_edit->setFont(line_edit_font);
+  rdcart_controls.song_id_edit->setMaxLength(32);
+  QLabel *rdcart_song_id_label=
+    new QLabel(rdcart_controls.song_id_edit,tr("Song &ID:"),this);
+  rdcart_song_id_label->setGeometry(10,135,120,21);
+  rdcart_song_id_label->setFont(button_font);
+  rdcart_song_id_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+
+  //
+  // Beats per Minute
+  //
+  rdcart_controls.bpm_spin=new QSpinBox(this);
+  rdcart_controls.bpm_spin->setGeometry(515,135,100,21);
+  rdcart_controls.bpm_spin->setFont(line_edit_font);
+  rdcart_controls.bpm_spin->setRange(0,200);
+  rdcart_controls.bpm_spin->setSpecialValueText(tr("Unknown"));
+  QLabel *rdcart_bpm_label=
+    new QLabel(rdcart_controls.bpm_spin,tr("&Beats per Minute:"),this);
+  rdcart_bpm_label->setGeometry(390,135,120,21);
+  rdcart_bpm_label->setFont(button_font);
+  rdcart_bpm_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+
+  //
   // Cart Album
   //
   rdcart_controls.album_edit=new QLineEdit(this,"rdcart_album_edit");
-  rdcart_controls.album_edit->setGeometry(135,134,480,21);
+  rdcart_controls.album_edit->setGeometry(135,158,480,21);
   rdcart_controls.album_edit->setFont(line_edit_font);
-  rdcart_controls.album_edit->setMaxLength(255);
+  rdcart_controls.album_edit->setMaxLength(64);
   QLabel *rdcart_album_label=new QLabel(rdcart_controls.album_edit,tr("Al&bum:"),this,
 				       "rdcart_album_label");
-  rdcart_album_label->setGeometry(10,136,120,19);
+  rdcart_album_label->setGeometry(10,158,120,21);
   rdcart_album_label->setFont(button_font);
-  rdcart_album_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_album_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
   // Cart Label
   // 
   rdcart_controls.label_edit=new QLineEdit(this,"rdcart_label_edit");
-  rdcart_controls.label_edit->setGeometry(135,158,480,21);
+  rdcart_controls.label_edit->setGeometry(135,182,480,21);
   rdcart_controls.label_edit->setFont(line_edit_font);
   rdcart_controls.label_edit->setMaxLength(64);
   QLabel *rdcart_label_label=new QLabel(rdcart_controls.label_edit,tr("Re&cord Label:"),
 					this,"rdcart_label_label");
-  rdcart_label_label->setGeometry(10,160,120,19);
+  rdcart_label_label->setGeometry(10,182,120,21);
   rdcart_label_label->setFont(button_font);
-  rdcart_label_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_label_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
   // Cart Client
   //
   rdcart_controls.client_edit=new QLineEdit(this,"rdcart_client_edit");
-  rdcart_controls.client_edit->setGeometry(135,182,480,21);
+  rdcart_controls.client_edit->setGeometry(135,206,480,21);
   rdcart_controls.client_edit->setFont(line_edit_font);
   rdcart_controls.client_edit->setMaxLength(64);
   QLabel *rdcart_client_label=new QLabel(rdcart_controls.label_edit,tr("C&lient:"),this,
 				       "rdcart_client_label");
-  rdcart_client_label->setGeometry(10,184,120,19);
+  rdcart_client_label->setGeometry(10,206,120,21);
   rdcart_client_label->setFont(button_font);
-  rdcart_client_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_client_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
   // Cart Agency
   //
   rdcart_controls.agency_edit=new QLineEdit(this,"rdcart_agency_edit");
-  rdcart_controls.agency_edit->setGeometry(135,206,480,23);
+  rdcart_controls.agency_edit->setGeometry(135,230,480,21);
   rdcart_controls.agency_edit->setFont(line_edit_font);
   rdcart_controls.agency_edit->setMaxLength(64);
   QLabel *rdcart_agency_label=new QLabel(rdcart_controls.label_edit,tr("A&gency:"),this,
 				       "rdcart_agency_label");
-  rdcart_agency_label->setGeometry(10,209,120,19);
+  rdcart_agency_label->setGeometry(10,230,120,21);
   rdcart_agency_label->setFont(button_font);
-  rdcart_agency_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_agency_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
   // Cart Publisher
   //
   rdcart_controls.publisher_edit=new QLineEdit(this,"rdcart_publisher_edit");
-  rdcart_controls.publisher_edit->setGeometry(135,231,480,23);
+  rdcart_controls.publisher_edit->setGeometry(135,254,480,21);
   rdcart_controls.publisher_edit->setFont(line_edit_font);
   rdcart_controls.publisher_edit->setMaxLength(64);
   QLabel *rdcart_publisher_label=new QLabel(rdcart_controls.label_edit,
 					    tr("&Publisher:"),this,
 					    "rdcart_publisher_label");
-  rdcart_publisher_label->setGeometry(10,233,120,19);
+  rdcart_publisher_label->setGeometry(10,254,120,21);
   rdcart_publisher_label->setFont(button_font);
-  rdcart_publisher_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_publisher_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
   // Cart Composer
   //
   rdcart_controls.composer_edit=new QLineEdit(this,"rdcart_composer_edit");
-  rdcart_controls.composer_edit->setGeometry(135,256,480,23);
+  rdcart_controls.composer_edit->setGeometry(135,278,480,21);
   rdcart_controls.composer_edit->setFont(line_edit_font);
   rdcart_controls.composer_edit->setMaxLength(64);
   QLabel *rdcart_composer_label=new QLabel(rdcart_controls.label_edit,
 					   tr("Compos&er:"),this,
 					   "rdcart_composer_label");
-  rdcart_composer_label->setGeometry(10,258,120,19);
+  rdcart_composer_label->setGeometry(10,278,120,21);
   rdcart_composer_label->setFont(button_font);
-  rdcart_composer_label->setAlignment(AlignRight|ShowPrefix);
+  rdcart_composer_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
+  //
+  // Cart Conductor
+  //
+  rdcart_controls.conductor_edit=new QLineEdit(this,"rdcart_conductor_edit");
+  rdcart_controls.conductor_edit->setGeometry(135,302,480,21);
+  rdcart_controls.conductor_edit->setFont(line_edit_font);
+  rdcart_controls.conductor_edit->setMaxLength(255);
+  QLabel *rdcart_conductor_label=
+    new QLabel(rdcart_controls.label_edit,tr("Cond&uctor:"),this,
+	       "rdcart_conductor_label");
+  rdcart_conductor_label->setGeometry(10,302,120,21);
+  rdcart_conductor_label->setFont(button_font);
+  rdcart_conductor_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+ 
   //
   // Cart User Defined
   //
-  rdcart_controls.user_defined_edit=new QLineEdit(this,"rdcart_user_defined_edit");
-  rdcart_controls.user_defined_edit->setGeometry(135,281,480,21);
+  rdcart_controls.user_defined_edit=new QLineEdit(this);
+  rdcart_controls.user_defined_edit->setGeometry(135,325,480,21);
   rdcart_controls.user_defined_edit->setFont(line_edit_font);
   rdcart_controls.user_defined_edit->setMaxLength(255);
   QLabel *rdcart_user_defined_label=
     new QLabel(rdcart_controls.label_edit,tr("&User Defined:"),this,
 	       "rdcart_user_defined_label");
-  rdcart_user_defined_label->setGeometry(10,281,120,21);
+  rdcart_user_defined_label->setGeometry(10,325,120,21);
   rdcart_user_defined_label->setFont(button_font);
   rdcart_user_defined_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
  
@@ -451,14 +492,14 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
   // Synchronous Scheduling Policy
   //
   rdcart_syncronous_box=new QCheckBox(this,"rdcart_syncronous_box");
-  rdcart_syncronous_box->setGeometry(135,307,15,15);
+  rdcart_syncronous_box->setGeometry(135,351,15,15);
   connect(rdcart_syncronous_box,SIGNAL(toggled(bool)),
 	  this,SLOT(asyncronousToggledData(bool)));
   rdcart_syncronous_box->hide();
   QLabel *rdcart_syncronous_label=new QLabel(rdcart_syncronous_box,
 					    tr("Execute Asynchronously"),this,
 					    "rdcart_syncronous_label");
-  rdcart_syncronous_label->setGeometry(155,307,200,19);
+  rdcart_syncronous_label->setGeometry(155,351,200,19);
   rdcart_syncronous_label->setFont(button_font);
   rdcart_syncronous_label->setAlignment(AlignLeft|ShowPrefix);
   rdcart_syncronous_label->hide();
@@ -467,7 +508,8 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
   // Notes Button
   //
   rdcart_notes_button=new QPushButton(this,"rdcart_notes_button");
-  rdcart_notes_button->setGeometry(360,304,80,50);
+  //  rdcart_notes_button->setGeometry(360,304,80,50);
+  rdcart_notes_button->setGeometry(10,sizeHint().height()-60,80,50);
   rdcart_notes_button->setFont(button_font);
   rdcart_notes_button->setText(tr("&Edit\nNotes"));
   connect(rdcart_notes_button,SIGNAL(clicked()),this,SLOT(notesData()));
@@ -492,7 +534,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
 					rdcart_import_path,new_cart,
 					this,"rdcart_audio_cart");
 	rdcart_audio_cart->
-	  setGeometry(0,356,rdcart_audio_cart->sizeHint().width(),
+	  setGeometry(0,378,rdcart_audio_cart->sizeHint().width(),
 		      rdcart_audio_cart->sizeHint().height());
 	connect(rdcart_audio_cart,SIGNAL(cartDataChanged()),
 		this,SLOT(cartDataChangedData()));
@@ -502,7 +544,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
       case RDCart::Macro:
 	rdcart_macro_cart=new MacroCart(rdcart_cart,this,"rdcart_macro_cart");
 	rdcart_macro_cart->
-	  setGeometry(0,356,rdcart_macro_cart->sizeHint().width(),
+	  setGeometry(0,378,rdcart_macro_cart->sizeHint().width(),
 		      rdcart_macro_cart->sizeHint().height());
 	connect(rdcart_macro_cart,SIGNAL(lengthChanged(unsigned)),
 		this,SLOT(lengthChangedData(unsigned)));
@@ -554,17 +596,6 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
     if(rdcart_group_box->count() == 0)
     {
       PopulateGroupList();
-      /*
-      QString sql=
-	QString().sprintf("select GROUP_NAME from USER_PERMS \
-                           where USER_NAME=\"%s\" order by GROUP_NAME",
-			  (const char *)lib_user->name());
-      RDSqlQuery *q=new RDSqlQuery(sql);
-      while(q->next()) {
-	rdcart_group_box->insertItem(q->value(0).toString());
-      }
-      delete q;
-      */
       for(int i=0;i<rdcart_group_box->count();i++) {
 	if(rdcart_group_box->text(i)==rdcart_cart->groupName()) {
 	  rdcart_group_box->setCurrentItem(i);
@@ -622,11 +653,14 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
     }
     sched_codes=rdcart_cart->schedCodes();
     rdcart_controls.artist_edit->setText(rdcart_cart->artist());
+    rdcart_controls.song_id_edit->setText(rdcart_cart->songId());
+    rdcart_controls.bpm_spin->setValue(rdcart_cart->beatsPerMinute());
     rdcart_controls.album_edit->setText(rdcart_cart->album());
     rdcart_controls.label_edit->setText(rdcart_cart->label());
     rdcart_controls.client_edit->setText(rdcart_cart->client());
     rdcart_controls.agency_edit->setText(rdcart_cart->agency());
     rdcart_controls.publisher_edit->setText(rdcart_cart->publisher());
+    rdcart_controls.conductor_edit->setText(rdcart_cart->conductor());
     rdcart_controls.composer_edit->setText(rdcart_cart->composer());
     rdcart_controls.user_defined_edit->setText(rdcart_cart->userDefined());
     rdcart_usage_box->setCurrentItem((int)rdcart_cart->usageCode());
@@ -639,13 +673,6 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
     if(rdcart_group_box->count() == 0) {
       rdcart_group_box->insertItem("");
       PopulateGroupList();
-      /*
-      RDSqlQuery *q=new RDSqlQuery("select NAME from GROUPS");
-      while(q->next()) {
-        rdcart_group_box->insertItem(q->value(0).toString());
-      }
-      delete q;
-      */
       rdcart_group_box->setCurrentItem(0);
     }
     rdcart_usage_box->setCurrentItem(0);
@@ -666,12 +693,14 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
   rdcart_syncronous_box->setEnabled(modification_allowed);
   rdcart_controls.title_edit->setReadOnly(!modification_allowed);
   rdcart_controls.artist_edit->setReadOnly(!modification_allowed);
+  rdcart_controls.song_id_edit->setReadOnly(!modification_allowed);
   rdcart_controls.album_edit->setReadOnly(!modification_allowed);
   rdcart_controls.year_edit->setReadOnly(!modification_allowed);
   rdcart_controls.label_edit->setReadOnly(!modification_allowed);
   rdcart_controls.client_edit->setReadOnly(!modification_allowed);
   rdcart_controls.agency_edit->setReadOnly(!modification_allowed);
   rdcart_controls.publisher_edit->setReadOnly(!modification_allowed);
+  rdcart_controls.conductor_edit->setReadOnly(!modification_allowed);
   rdcart_controls.composer_edit->setReadOnly(!modification_allowed);
   rdcart_controls.user_defined_edit->setReadOnly(!modification_allowed);
   rdcart_start_date_edit->setReadOnly(!modification_allowed);
@@ -688,7 +717,12 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
     rdcart_controls.enforce_length_box->setEnabled(modification_allowed);
     }
   }
-  if(!modification_allowed) {
+  if(modification_allowed) {
+    rdcart_controls.bpm_spin->setRange(0,200);
+  }
+  else {
+    rdcart_controls.bpm_spin->
+      setRange(rdcart_cart->beatsPerMinute(),rdcart_cart->beatsPerMinute());
     rdcart_controls.forced_length_edit->hide();
     rdcart_forced_length_ledit->show();
   }
@@ -811,11 +845,14 @@ void EditCart::okData()
     }
     rdcart_cart->setSchedCodes(sched_codes);
     rdcart_cart->setArtist(rdcart_controls.artist_edit->text());
+    rdcart_cart->setSongId(rdcart_controls.song_id_edit->text());
+    rdcart_cart->setBeatsPerMinute(rdcart_controls.bpm_spin->value());
     rdcart_cart->setAlbum(rdcart_controls.album_edit->text());
     rdcart_cart->setLabel(rdcart_controls.label_edit->text());
     rdcart_cart->setClient(rdcart_controls.client_edit->text());
     rdcart_cart->setAgency(rdcart_controls.agency_edit->text());
     rdcart_cart->setPublisher(rdcart_controls.publisher_edit->text());
+    rdcart_cart->setConductor(rdcart_controls.conductor_edit->text());
     rdcart_cart->setComposer(rdcart_controls.composer_edit->text());
     rdcart_cart->setUserDefined(rdcart_controls.user_defined_edit->text());
     rdcart_cart->

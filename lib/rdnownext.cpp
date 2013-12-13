@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdnownext.cpp,v 1.3.8.2 2013/11/05 20:16:41 cvs Exp $
+//      $Id: rdnownext.cpp,v 1.3.8.4 2013/12/11 22:32:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -85,9 +85,13 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding)
     str->replace("%h",QString().sprintf("%d",loglines[0]->effectiveLength()));
     str->replace("%g",RDResolveNowNextEncode(loglines[0]->groupName(),
 					     encoding));
-    str->replace("%t",RDResolveNowNextEncode(loglines[0]->title(),encoding));
+    str->replace("%t",
+		 RDResolveNowNextEncode(loglines[0]->title(),encoding));
     str->replace("%a",RDResolveNowNextEncode(loglines[0]->artist(),encoding));
     str->replace("%l",RDResolveNowNextEncode(loglines[0]->album(),encoding));
+    str->replace("%r",RDResolveNowNextEncode(loglines[0]->conductor(),
+					     encoding));
+    str->replace("%s",RDResolveNowNextEncode(loglines[0]->songId(),encoding));
     str->replace("%y",loglines[0]->year().toString("yyyy"));
     str->replace("%b",RDResolveNowNextEncode(loglines[0]->label(),encoding));
     str->replace("%c",RDResolveNowNextEncode(loglines[0]->client(),encoding));
@@ -106,6 +110,8 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding)
     str->replace("%t","");
     str->replace("%a","");
     str->replace("%l","");
+    str->replace("%r","");
+    str->replace("%s","");
     str->replace("%y","");
     str->replace("%b","");
     str->replace("%c","");
@@ -127,6 +133,9 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding)
     str->replace("%T",RDResolveNowNextEncode(loglines[1]->title(),encoding));
     str->replace("%A",RDResolveNowNextEncode(loglines[1]->artist(),encoding));
     str->replace("%L",RDResolveNowNextEncode(loglines[1]->album(),encoding));
+    str->replace("%R",RDResolveNowNextEncode(loglines[1]->conductor(),
+					     encoding));
+    str->replace("%S",RDResolveNowNextEncode(loglines[1]->songId(),encoding));
     str->replace("%Y",loglines[1]->year().toString("yyyy"));
     str->replace("%B",RDResolveNowNextEncode(loglines[1]->label(),encoding));
     str->replace("%C",RDResolveNowNextEncode(loglines[1]->client(),encoding));
@@ -145,6 +154,8 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding)
     str->replace("%T","");
     str->replace("%A","");
     str->replace("%L","");
+    str->replace("%R","");
+    str->replace("%S","");
     str->replace("%Y","");
     str->replace("%B","");
     str->replace("%C","");

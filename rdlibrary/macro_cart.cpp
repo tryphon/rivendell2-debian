@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: macro_cart.cpp,v 1.13 2010/07/29 19:32:36 cvs Exp $
+//      $Id: macro_cart.cpp,v 1.13.8.1 2013/12/11 18:51:49 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -106,7 +106,7 @@ MacroCart::MacroCart(RDCart *cart,QWidget *parent,const char *name)
   rdcart_events->load(rdcart_cart->macros());
 
   rdcart_macro_list=new QListView(this,"rdcart_macro_list");
-  rdcart_macro_list->setGeometry(100,0,430,230);
+  rdcart_macro_list->setGeometry(100,0,430,sizeHint().height());
   rdcart_macro_list->setAllColumnsShowFocus(true);
   rdcart_macro_list->setItemMargin(5);
   rdcart_macro_list->setSorting(0);
@@ -169,7 +169,7 @@ MacroCart::MacroCart(RDCart *cart,QWidget *parent,const char *name)
 
 QSize MacroCart::sizeHint() const
 {
-  return QSize(640,250);
+  return QSize(640,290);
 } 
 
 

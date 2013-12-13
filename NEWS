@@ -1,6 +1,33 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.6.0 -- 12/13/2013
+
+Changes:
+   RDDiscImport Utility.  A utility has been added for bulk importation
+   of material from audio CDs using external metadata.
+
+   Audio Importation Enhancements.  Added support for reading metadata
+   from WAV files containing 'AIR1' metadata chunks.
+
+   NaturalLog Support.  Added a log import preset and reconciliation report
+   for the 'NaturalLog' traffic system.
+
+   New Library Metadata Fields.  Added Library metadata fields for
+   'Conductor', 'Song ID' and 'Beats per Minute'.
+
+   New RDImport Option.  Added a '--set-user-defined' option to RDImport.
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 224, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.5.5 -- 11/19/2013
 
 If upgrading from a v1.x version of Rivendell, be sure to read the

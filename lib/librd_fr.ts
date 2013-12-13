@@ -377,6 +377,10 @@
         <source>Hard</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>NaturalLog Reconciliation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>
@@ -721,6 +725,14 @@ Color</source>
     </message>
     <message>
         <source>Importing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>COMPOSER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CONDUCTOR</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

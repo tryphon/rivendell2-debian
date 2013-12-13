@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rlmhost.cpp,v 1.7.6.4 2013/11/05 20:16:41 cvs Exp $
+//      $Id: rlmhost.cpp,v 1.7.6.5 2013/12/11 22:32:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -200,6 +200,13 @@ void RLMHost::loadMetadata(const RDLogLine *logline,struct rlm_pad *pad,
     if(!logline->userDefined().isEmpty()) {
       sprintf(pad->rlm_userdef,"%s",
 	      (const char *)logline->userDefined().left(255));
+    }
+    if(!logline->conductor().isEmpty()) {
+      sprintf(pad->rlm_conductor,"%s",
+	      (const char *)logline->conductor().left(64));
+    }
+    if(!logline->songId().isEmpty()) {
+      sprintf(pad->rlm_song_id,"%s",(const char *)logline->songId().left(32));
     }
     if(!logline->album().isEmpty()) {
       sprintf(pad->rlm_album,"%s",(const char *)logline->album().left(255));

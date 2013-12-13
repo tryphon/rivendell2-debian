@@ -1209,6 +1209,10 @@ computador para obtener los recursos de audio de dicho equipo.</translation>
         <source>The EndDate Offset is less than the Start Date Offset!</source>
         <translation type="obsolete">¡La fecha de fin, al desplazarse, ocurre antes que la fecha de inicio!</translation>
     </message>
+    <message>
+        <source>&amp;User Defined:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEncoder</name>
@@ -4165,6 +4169,10 @@ Are you sure you want to continue?</source>
     <message>
         <source>[none]</source>
         <translation>[ninguno]</translation>
+    </message>
+    <message>
+        <source>User Defined</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

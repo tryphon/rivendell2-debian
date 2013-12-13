@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.1 2011/02/11 21:13:40 cvs Exp $
-##      $Date: 2011/02/11 21:13:40 $
+##      $Id: Makefile.am,v 1.1.6.1 2013/12/10 21:25:49 cvs Exp $
+##      $Date: 2013/12/10 21:25:49 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -26,6 +26,7 @@ EXTRA_DIST = 0320090805.tfc\
              0320090805.elr\
              0320090805.cpi\
              0320090805.vti\
+             080509T3.LOG\
              cart_report.asc
 
 CLEANFILES = *~

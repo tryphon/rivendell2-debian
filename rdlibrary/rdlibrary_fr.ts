@@ -645,6 +645,22 @@ Notes</source>
         <source>This cart cannot contain any additional cuts!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cond&amp;uctor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Song &amp;ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Beats per Minute:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditMacro</name>
@@ -913,10 +929,6 @@ Cart</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PLAY ORDER</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>ENFORCE LENGTH</source>
         <translation type="unfinished"></translation>
     </message>
@@ -992,14 +1004,6 @@ Do you still want to delete it?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Sequence</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Random</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>TFN</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1029,6 +1033,18 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>COMPOSER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CONDUCTOR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PUBLISHER</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

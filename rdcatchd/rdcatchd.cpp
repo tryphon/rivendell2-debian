@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcatchd.cpp,v 1.142.4.1 2013/03/22 17:41:40 cvs Exp $
+//      $Id: rdcatchd.cpp,v 1.142.4.2 2013/12/11 20:17:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -2577,7 +2577,7 @@ void MainObject::StartDropboxes()
                          METADATA_PATTERN,FIX_BROKEN_FORMATS,LOG_PATH,\
                          DELETE_SOURCE,STARTDATE_OFFSET,ENDDATE_OFFSET,ID,\
                          IMPORT_CREATE_DATES,CREATE_STARTDATE_OFFSET,\
-                         CREATE_ENDDATE_OFFSET \
+                         CREATE_ENDDATE_OFFSET,SET_USER_DEFINED \
                          from DROPBOXES where STATION_NAME=\"%s\"",
 			(const char *)catch_config->stationName());
   q=new RDSqlQuery(sql);
@@ -2616,6 +2616,9 @@ void MainObject::StartDropboxes()
 			     q->value(16).toInt());
       cmd+=QString().sprintf(" --create-enddate-offset=%d",
 			     q->value(17).toInt());
+    }
+    if(!q->value(18).toString().isEmpty()) {
+      cmd+=" --set-user-defined="+RDEscapeString(q->value(18).toString());
     }
     cmd+=QString().sprintf(" --startdate-offset=%d",q->value(12).toInt());
     cmd+=QString().sprintf(" --enddate-offset=%d",q->value(13).toInt());

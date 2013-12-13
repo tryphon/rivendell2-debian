@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdchunk.cpp,v 1.3 2010/07/29 19:32:39 cvs Exp $
+//    $Id: rdchunk.cpp,v 1.3.8.1 2013/12/05 17:37:48 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -170,6 +170,14 @@ void MainWidget::createChunkButtons()
     levl_button->show();
     yptr+=30;
     connect(levl_button,SIGNAL(clicked()),this,SLOT(displayLevl()));
+  }
+  if(wavefile->getAIR1Chunk()) {
+    AIR1_button=new QPushButton(this,"AIR1");
+    AIR1_button->setText("AIR1");
+    AIR1_button->setGeometry(xptr,yptr,80,25);
+    AIR1_button->show();
+    yptr+=30;
+    connect(AIR1_button,SIGNAL(clicked()),this,SLOT(displayAIR1()));
   }
   y_chunk_button=yptr;
   wave_chunk_label->show();
@@ -685,6 +693,11 @@ void MainWidget::displayLevl()
    output.append(wavefile->getLevlTimestamp().toString("MM-dd-yyyy hh:mm:ss"));
 
   QMessageBox::information(this,tr("LEVL Chunk"),output);
+}
+
+
+void MainWidget::displayAIR1()
+{
 }
 
 

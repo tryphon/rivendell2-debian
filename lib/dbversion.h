@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: dbversion.h,v 1.34.4.15 2013/03/13 15:18:05 cvs Exp $
+//      $Id: dbversion.h,v 1.34.4.19 2013/12/11 20:17:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -26,7 +26,7 @@
 /*
  * Current Database Version
  */
-#define RD_VERSION_DATABASE 220
+#define RD_VERSION_DATABASE 224
 
 
 #endif  // DBVERSION_H

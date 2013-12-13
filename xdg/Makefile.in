@@ -231,6 +231,7 @@ EXTRA_DIST = rdalsaconfig-root-consolehelper\
              rivendell-rdcastmanager.desktop\
              rivendell-rdcatch.desktop\
              rivendell-rddgimport.desktop\
+             rivendell-rddiscimport.desktop\
              rivendell-rdgpimon.desktop\
              rivendell-rdhpiinfo.desktop\
              rivendell-rdhpiinfo-root.desktop\
@@ -442,6 +443,7 @@ install-exec-am:
 	cp rivendell-rdcastmanager.desktop @prefix@/share/applications/
 	cp rivendell-rdcatch.desktop @prefix@/share/applications/
 	cp rivendell-rddgimport.desktop @prefix@/share/applications/
+	cp rivendell-rddiscimport.desktop @prefix@/share/applications/
 	cp rivendell-rdgpimon.desktop @prefix@/share/applications/
 	cp rivendell-rdhpiinfo.desktop @prefix@/share/applications/
 	cp rivendell-rdlibrary.desktop @prefix@/share/applications/
