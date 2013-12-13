@@ -3,17 +3,18 @@ Date: Wed, 10 Apr 2013 19:31:59 +0200
 Subject: Fix prefix in xdg makefile
 
 ---
- xdg/Makefile.am |   48 ++++++++++++++++++++++++------------------------
- 1 file changed, 24 insertions(+), 24 deletions(-)
+ xdg/Makefile.am | 54 +++++++++++++++++++++++++++---------------------------
+ 1 file changed, 27 insertions(+), 27 deletions(-)
 
 diff --git a/xdg/Makefile.am b/xdg/Makefile.am
-index 6c33ec6..e0841b2 100644
+index 194511c..e715dae 100644
 --- a/xdg/Makefile.am
 +++ b/xdg/Makefile.am
-@@ -22,32 +22,32 @@
+@@ -21,34 +21,34 @@
+ ##
  ## Use automake to process this into a Makefile.in
  
- install-exec-am:	
+-install-exec-am:	
 -	mkdir -p @prefix@/share/applications
 -	cp rivendell-rdadmin.desktop @prefix@/share/applications/
 -	cp rivendell-rdairplay.desktop @prefix@/share/applications/
@@ -22,6 +23,7 @@ index 6c33ec6..e0841b2 100644
 -	cp rivendell-rdcastmanager.desktop @prefix@/share/applications/
 -	cp rivendell-rdcatch.desktop @prefix@/share/applications/
 -	cp rivendell-rddgimport.desktop @prefix@/share/applications/
+-	cp rivendell-rddiscimport.desktop @prefix@/share/applications/
 -	cp rivendell-rdgpimon.desktop @prefix@/share/applications/
 -	cp rivendell-rdhpiinfo.desktop @prefix@/share/applications/
 -	cp rivendell-rdlibrary.desktop @prefix@/share/applications/
@@ -35,6 +37,7 @@ index 6c33ec6..e0841b2 100644
 -	cp *.directory @prefix@/share/desktop-directories/
 -	mkdir -p /etc/xdg/menus/applications-merged
 -	cp *.menu /etc/xdg/menus/applications-merged/
++install-exec-am:
 +	mkdir -p $(DESTDIR)@prefix@/share/applications
 +	cp rivendell-rdadmin.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rdairplay.desktop $(DESTDIR)@prefix@/share/applications/
@@ -43,6 +46,7 @@ index 6c33ec6..e0841b2 100644
 +	cp rivendell-rdcastmanager.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rdcatch.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rddgimport.desktop $(DESTDIR)@prefix@/share/applications/
++	cp rivendell-rddiscimport.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rdgpimon.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rdhpiinfo.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rdlibrary.desktop $(DESTDIR)@prefix@/share/applications/
@@ -57,10 +61,11 @@ index 6c33ec6..e0841b2 100644
 +	mkdir -p $(DESTDIR)/etc/xdg/menus/applications-merged
 +	cp *.menu $(DESTDIR)/etc/xdg/menus/applications-merged/
  
- uninstall:	
+-uninstall:	
 -	rm -f @prefix@/share/applications/rivendell-*.desktop
 -	rm -f @prefix@/share/desktop-directories/rivendell-*.directory
 -	rm -f /etc/xdg/menus/applications-merged/rivendell-*.menu
++uninstall:
 +	rm -f $(DESTDIR)@prefix@/share/applications/rivendell-*.desktop
 +	rm -f $(DESTDIR)@prefix@/share/desktop-directories/rivendell-*.directory
 +	rm -f $(DESTDIR)/etc/xdg/menus/applications-merged/rivendell-*.menu
