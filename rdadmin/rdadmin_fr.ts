@@ -970,6 +970,10 @@ configured to run the CAE service in order to populate the audio resources datab
         <source>The Create EndDate Offset is less than the Create Start Date Offset!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;User Defined:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEncoder</name>
@@ -3824,6 +3828,10 @@ Are you sure you want to continue?</source>
     </message>
     <message>
         <source>[none]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User Defined</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

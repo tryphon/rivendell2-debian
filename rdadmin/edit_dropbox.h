@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_dropbox.h,v 1.5 2010/07/29 19:32:34 cvs Exp $
+//      $Id: edit_dropbox.h,v 1.5.8.1 2013/12/11 20:17:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -66,6 +66,7 @@ class EditDropbox : public QDialog
   QCheckBox *box_delete_cuts_box;
   QLabel *box_delete_cuts_label;
   QLineEdit *box_metadata_pattern_edit;
+  QLineEdit *box_user_defined_edit;
   QLineEdit *box_log_path_edit;
   QCheckBox *box_delete_source_box;
   QCheckBox *box_normalization_box;

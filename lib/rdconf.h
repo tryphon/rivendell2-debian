@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 1996-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdconf.h,v 1.10.6.2 2013/06/20 20:00:09 cvs Exp $
+//    $Id: rdconf.h,v 1.10.6.3 2013/12/03 23:34:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -101,6 +101,7 @@ bool RDTimeSynced();
 QString RDTruncateAfterWord(QString str,int word,bool add_dots=false);
 QString RDHomeDir();
 QString RDTempDir();
+QString RDTempFile();
 QString RDTimeZoneName(const QDateTime &datetime);
 QString RDDowCode(int dow);
 QDateTime RDLocalToUtc(const QDateTime &localdatetime);

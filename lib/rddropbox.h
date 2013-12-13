@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddropbox.h,v 1.6 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rddropbox.h,v 1.6.8.1 2013/12/11 20:17:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -55,6 +55,8 @@ class RDDropbox
   void setDeleteSource(bool state) const;
   QString metadataPattern() const;
   void setMetadataPattern(const QString &str) const;
+  QString userDefined() const;
+  void setUserDefined(const QString &str) const;
   int startdateOffset() const;
   void setStartdateOffset(int offset) const;
   int enddateOffset() const;

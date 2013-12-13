@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rduser.cpp,v 1.26 2010/07/29 19:32:34 cvs Exp $
+//      $Id: rduser.cpp,v 1.26.8.1 2013/12/03 23:34:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -398,6 +398,24 @@ bool RDUser::groupAuthorized(const QString &group_name)
   q=new RDSqlQuery(sql);
   ret=q->first();
   delete q;
+  return ret;
+}
+
+
+QStringList RDUser::groups() const
+{
+  QString sql;
+  RDSqlQuery *q;
+  QStringList ret;
+
+  sql=QString("select GROUP_NAME from USER_PERMS where ")+
+    "USER_NAME=\""+RDEscapeString(user_name)+"\" order by GROUP_NAME";
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    ret.push_back(q->value(0).toString());
+  }
+  delete q;
+
   return ret;
 }
 

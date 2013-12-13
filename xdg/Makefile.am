@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.11.2.6 2013/03/29 17:06:56 cvs Exp $
+##      $Id: Makefile.am,v 1.11.2.7 2013/12/03 23:34:38 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -30,6 +30,7 @@ install-exec-am:
 	cp rivendell-rdcastmanager.desktop @prefix@/share/applications/
 	cp rivendell-rdcatch.desktop @prefix@/share/applications/
 	cp rivendell-rddgimport.desktop @prefix@/share/applications/
+	cp rivendell-rddiscimport.desktop @prefix@/share/applications/
 	cp rivendell-rdgpimon.desktop @prefix@/share/applications/
 	cp rivendell-rdhpiinfo.desktop @prefix@/share/applications/
 	cp rivendell-rdlibrary.desktop @prefix@/share/applications/
@@ -63,6 +64,7 @@ EXTRA_DIST = rdalsaconfig-root-consolehelper\
              rivendell-rdcastmanager.desktop\
              rivendell-rdcatch.desktop\
              rivendell-rddgimport.desktop\
+             rivendell-rddiscimport.desktop\
              rivendell-rdgpimon.desktop\
              rivendell-rdhpiinfo.desktop\
              rivendell-rdhpiinfo-root.desktop\

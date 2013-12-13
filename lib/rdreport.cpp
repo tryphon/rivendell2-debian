@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdreport.cpp,v 1.27.4.7 2013/01/22 20:59:39 cvs Exp $
+//      $Id: rdreport.cpp,v 1.27.4.8 2013/12/10 21:25:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -493,6 +493,7 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 	ret=ExportBmiEmr(startdate,enddate,mixname);
 	break;
 
+      case RDReport::NaturalLog:
       case RDReport::Technical:
 	ret=ExportTechnical(startdate,enddate,mixname);
 	break;
@@ -551,47 +552,50 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 QString RDReport::filterText(RDReport::ExportFilter filter)
 {
   switch(filter) {
-      case RDReport::CbsiDeltaFlex:
-	return QObject::tr("CBSI DeltaFlex Traffic Reconciliation v2.01");
+  case RDReport::CbsiDeltaFlex:
+    return QObject::tr("CBSI DeltaFlex Traffic Reconciliation v2.01");
 
-      case RDReport::TextLog:
-	return QObject::tr("Text Log");
+  case RDReport::TextLog:
+    return QObject::tr("Text Log");
 
-      case RDReport::BmiEmr:
-	return QObject::tr("ASCAP/BMI Electronic Music Report");
+  case RDReport::BmiEmr:
+    return QObject::tr("ASCAP/BMI Electronic Music Report");
 
-      case RDReport::Technical:
-	return QObject::tr("Technical Playout Report");
+  case RDReport::Technical:
+    return QObject::tr("Technical Playout Report");
 
-      case RDReport::SoundExchange:
-	return QObject::tr("SoundExchange Statutory License Report");
+  case RDReport::SoundExchange:
+    return QObject::tr("SoundExchange Statutory License Report");
 
-      case RDReport::NprSoundExchange:
-	return QObject::tr("NPR/DS SoundExchange Report");
+  case RDReport::NprSoundExchange:
+    return QObject::tr("NPR/DS SoundExchange Report");
 
-      case RDReport::RadioTraffic:
-	return QObject::tr("RadioTraffic.com Traffic Reconciliation");
+  case RDReport::RadioTraffic:
+    return QObject::tr("RadioTraffic.com Traffic Reconciliation");
 
-      case RDReport::VisualTraffic:
-	return QObject::tr("VisualTraffic Reconciliation");
+  case RDReport::VisualTraffic:
+    return QObject::tr("VisualTraffic Reconciliation");
 
-      case RDReport::CounterPoint:
-	return QObject::tr("CounterPoint Traffic Reconciliation");
+  case RDReport::CounterPoint:
+    return QObject::tr("CounterPoint Traffic Reconciliation");
 
-      case RDReport::Music1:
-	return QObject::tr("Music1 Reconciliation");
+  case RDReport::Music1:
+    return QObject::tr("Music1 Reconciliation");
 
-      case RDReport::MusicPlayout:
-	return QObject::tr("Music Playout");
+  case RDReport::MusicPlayout:
+    return QObject::tr("Music Playout");
 
-      case RDReport::MusicSummary:
-	return QObject::tr("Music Summary");
+  case RDReport::MusicSummary:
+    return QObject::tr("Music Summary");
 
-      case RDReport::WideOrbit:
-	return QObject::tr("WideOrbit Traffic Reconciliation");
+  case RDReport::NaturalLog:
+    return QObject::tr("NaturalLog Reconciliation");
 
-      default:
-	return QObject::tr("Unknown");
+  case RDReport::WideOrbit:
+    return QObject::tr("WideOrbit Traffic Reconciliation");
+
+  default:
+    return QObject::tr("Unknown");
   }
   return QObject::tr("Unknown");
 }
@@ -600,17 +604,17 @@ QString RDReport::filterText(RDReport::ExportFilter filter)
 QString RDReport::stationTypeText(RDReport::StationType type)
 {
   switch(type) {
-      case RDReport::TypeOther:
-	return QObject::tr("Other");
+  case RDReport::TypeOther:
+    return QObject::tr("Other");
 
-      case RDReport::TypeAm:
-	return QObject::tr("AM");
+  case RDReport::TypeAm:
+    return QObject::tr("AM");
 
-      case RDReport::TypeFm:
-	return QObject::tr("FM");
+  case RDReport::TypeFm:
+    return QObject::tr("FM");
 
-      default:
-	break;
+  default:
+    break;
   }
   return QObject::tr("Unknown");
 }
@@ -627,6 +631,7 @@ bool RDReport::multipleDaysAllowed(RDReport::ExportFilter filter)
   case RDReport::LastFilter:
   case RDReport::Music1:
   case RDReport::MusicPlayout:
+  case RDReport::NaturalLog:
   case RDReport::WideOrbit:
     return false;
 
@@ -653,6 +658,7 @@ bool RDReport::multipleMonthsAllowed(RDReport::ExportFilter filter)
   case RDReport::LastFilter:
   case RDReport::Music1:
   case RDReport::MusicPlayout:
+  case RDReport::NaturalLog:
   case RDReport::WideOrbit:
     return false;
     

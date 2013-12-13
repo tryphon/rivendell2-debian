@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.cpp,v 1.34.4.7 2013/11/13 23:36:39 cvs Exp $
+//      $Id: rdimport.cpp,v 1.34.4.8 2013/12/11 19:38:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -76,6 +76,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   import_delete_source=false;
   import_delete_cuts=false;
   import_drop_box=false;
+  import_set_user_defined="";
   import_stdin_specified=false;
   import_startdate_offset=0;
   import_enddate_offset=0;
@@ -157,6 +158,9 @@ MainObject::MainObject(QObject *parent,const char *name)
       if(import_persistent_dropbox_id<0) {
 	import_delete_source=true;
       }
+    }
+    if(import_cmd->key(i)=="--set-user-defined") {
+      import_set_user_defined=import_cmd->value(i);
     }
     if(import_cmd->key(i)=="--metadata-pattern") {
       import_metadata_pattern=import_cmd->value(i);
@@ -404,6 +408,10 @@ MainObject::MainObject(QObject *parent,const char *name)
     }
     else {
       printf(" DropBox mode is OFF\n");
+    }
+    if(!import_set_user_defined.isEmpty()) {
+      printf(" Setting the User Defined field to \"%s\"\n",
+	     (const char *)import_set_user_defined);
     }
     if(!import_metadata_pattern.isEmpty()) {
       printf(" Using metadata pattern: %s\n",
@@ -910,6 +918,9 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
     }
   }
   cut->setOriginName(import_station->name());
+  if(!import_set_user_defined.isEmpty()) {
+    cart->setUserDefined(import_set_user_defined);
+  }
   delete settings;
   delete conv;
   delete cut;
@@ -1273,6 +1284,16 @@ bool MainObject::RunPattern(const QString &pattern,const QString &filename,
 	    wavedata->setMetadataFound(true);
 	    break;
 
+	  case 'r':
+	    wavedata->setConductor(value);
+	    wavedata->setMetadataFound(true);
+	    break;
+
+	  case 's':
+	    wavedata->setTmciSongId(value);
+	    wavedata->setMetadataFound(true);
+	    break;
+
 	  case 't':
 	    wavedata->setTitle(value);
 	    wavedata->setMetadataFound(true);
@@ -1346,6 +1367,8 @@ bool MainObject::VerifyPattern(const QString &pattern)
 	case 'm':
 	case 'n':
 	case 'p':
+	case 'r':
+	case 's':
 	case 't':
 	case 'u':
 	case '%':

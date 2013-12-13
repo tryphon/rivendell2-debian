@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_dropboxes.cpp,v 1.7 2010/07/29 19:32:34 cvs Exp $
+//      $Id: list_dropboxes.cpp,v 1.7.8.1 2013/12/11 20:17:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -118,6 +118,8 @@ ListDropboxes::ListDropboxes(const QString &stationname,
   list_dropboxes_view->setColumnAlignment(7,Qt::AlignCenter);
   list_dropboxes_view->addColumn(tr("Fix Broken Formats"));
   list_dropboxes_view->setColumnAlignment(8,Qt::AlignCenter);
+  list_dropboxes_view->addColumn(tr("User Defined"));
+  list_dropboxes_view->setColumnAlignment(9,Qt::AlignVCenter|Qt::AlignLeft);
   connect(list_dropboxes_view,
 	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
 	  this,
@@ -235,7 +237,8 @@ void ListDropboxes::RefreshList()
                          DROPBOXES.AUTOTRIM_LEVEL,\
                          DROPBOXES.TO_CART,DROPBOXES.USE_CARTCHUNK_ID,\
                          DROPBOXES.DELETE_CUTS,DROPBOXES.METADATA_PATTERN,\
-                         DROPBOXES.FIX_BROKEN_FORMATS,GROUPS.COLOR \
+                         DROPBOXES.FIX_BROKEN_FORMATS,\
+                         DROPBOXES.SET_USER_DEFINED,GROUPS.COLOR \
                          from DROPBOXES left join GROUPS on \
                          DROPBOXES.GROUP_NAME=GROUPS.NAME \
                          where DROPBOXES.STATION_NAME=\"%s\"",
@@ -259,7 +262,8 @@ void ListDropboxes::RefreshItem(RDListViewItem *item)
                          DROPBOXES.AUTOTRIM_LEVEL,\
                          DROPBOXES.TO_CART,DROPBOXES.USE_CARTCHUNK_ID,\
                          DROPBOXES.DELETE_CUTS,DROPBOXES.METADATA_PATTERN,\
-                         DROPBOXES.FIX_BROKEN_FORMATS,GROUPS.COLOR \
+                         DROPBOXES.FIX_BROKEN_FORMATS,\
+                         DROPBOXES.SET_USER_DEFINED,GROUPS.COLOR \
                          from DROPBOXES left join GROUPS on \
                          DROPBOXES.GROUP_NAME=GROUPS.NAME \
                          where DROPBOXES.ID=%d",item->id());
@@ -275,7 +279,7 @@ void ListDropboxes::WriteItem(RDListViewItem *item,RDSqlQuery *q)
 {
   item->setId(q->value(0).toInt());
   item->setText(0,q->value(1).toString());
-  item->setTextColor(0,q->value(10).toString(),QFont::Bold);
+  item->setTextColor(0,q->value(11).toString(),QFont::Bold);
   item->setText(1,q->value(2).toString());
   if(q->value(3).toInt()<0) {
     item->setText(2,QString().sprintf("%d",q->value(3).toInt()/100));
@@ -304,4 +308,5 @@ void ListDropboxes::WriteItem(RDListViewItem *item,RDSqlQuery *q)
     item->setText(7,q->value(8).toString());
   }
   item->setText(8,q->value(9).toString());
+  item->setText(9,q->value(10).toString());
 }

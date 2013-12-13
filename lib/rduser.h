@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rduser.h,v 1.22 2010/07/29 19:32:34 cvs Exp $
+//      $Id: rduser.h,v 1.22.8.1 2013/12/03 23:34:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -82,6 +82,7 @@ class RDUser
   bool deletePodcast() const;
   void setDeletePodcast(bool priv) const;
   bool groupAuthorized(const QString &group_name);
+  QStringList groups() const;
   bool cartAuthorized(unsigned cartnum) const;
 
   /** Check a default service to ensure it is valid for the current user.

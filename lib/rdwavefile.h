@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavefile.h,v 1.10 2011/01/25 16:28:30 cvs Exp $
+//    $Id: rdwavefile.h,v 1.10.6.1 2013/12/05 17:37:48 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -78,6 +78,7 @@ using namespace std;
 #define LEVL_CHUNK_SIZE 128
 #define SCOT_CHUNK_SIZE 424
 #define AV10_CHUNK_SIZE 512
+#define AIR1_CHUNK_SIZE 2048
 
 //
 // Maximum Header Size for ATX Files
@@ -1029,6 +1030,8 @@ class RDWaveFile
    **/
    bool getScotChunk() const;
 
+   bool getAIR1Chunk() const;
+
    double getNormalizeLevel() const;
    void setNormalizeLevel(double level);
 
@@ -1052,6 +1055,7 @@ class RDWaveFile
    bool GetList(int);
    bool GetScot(int);
    bool GetAv10(int);
+   bool GetAir1(int);
    bool ReadListElement(unsigned char *buffer,unsigned *offset,unsigned size);
    bool ReadTmcMetadata(int);
    void ReadTmcTag(const QString tag,const QString value);
@@ -1209,6 +1213,10 @@ class RDWaveFile
    QTime scot_start_time;
    QDate scot_end_date;
    QTime scot_end_time;
+
+   bool AIR1_chunk;
+   unsigned char AIR1_chunk_data[AIR1_CHUNK_SIZE];
+
    double normalize_level; 
    
    bool av10_chunk;

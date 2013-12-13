@@ -1215,6 +1215,10 @@ nastaveném pro běh služby CAE pro naplnění databáze se zdroji zvuku.</tran
         <source>The EndDate Offset is less than the Start Date Offset!</source>
         <translation type="obsolete">Posun koncového data je menší než Posun počátečního data!</translation>
     </message>
+    <message>
+        <source>&amp;User Defined:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEncoder</name>
@@ -4210,6 +4214,10 @@ Jste si jistý, že chcete pokračovat?</translation>
     <message>
         <source>[none]</source>
         <translation>[žádný]</translation>
+    </message>
+    <message>
+        <source>User Defined</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

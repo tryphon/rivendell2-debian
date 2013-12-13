@@ -13513,3 +13513,122 @@
 2013-11-19 Fred Gleason <fredg@paravelsystems.com>
 	* Updates 'NEWS'.
 	* Incremented the package version to 2.5.5.
+2013-12-02 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the default value of the 'RDLIBRARY.TRIM_THRESHOLD' field
+	from -3000 to 0.
+	* Incremented the database version to 221.
+2013-12-03 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDUser::groups()' method in 'lib/rduser.cpp' and
+	'lib/rduser.h'.
+	* Added an 'RDDiscImport' utility in 'utils/rddiscimport/'.
+2013-12-04 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'utils/rddiscimport/rddiscimport.cpp' that
+	caused the first CD track to fail to appear on the track list.
+	* Fixed a bug in 'utils/rddiscimport/rddiscimport.cpp' that
+	caused the 'Disc ID' field to be disabled after resizing the
+	application window.
+2013-12-04 Fred Gleason <fredg@paravelsystems.com>
+	* Added a sanity check in 'RDCut::getMetadata()' to ensure that
+	segue position data is consistent when dealing with cuts
+	with undefined lengths.
+	* Added code to lock GUI elements when performing rips in
+	'utils/rddiscimport.cpp'.
+2013-12-04 Fred Gleason <fredg@paravelsystems.com>
+	* Added the ability to double-click track entries to disable
+	ripping in 'utils/rddiscimport.cpp'.
+2013-12-04 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'User Defined' control in
+	'utils/rddiscimport/rddiscimport.cpp'and
+	'utils/rddiscimport/rddiscimport.h'.
+2013-12-04 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for 'Client' and 'Agency' header fields in
+	'utils/rddiscimport/metarecord.cpp',
+	'utils/rddiscimport/metarecord.h',
+	'utils/rddiscimport/metalibrary.cpp' and
+	'utils/rddiscimport/metalibrary.h'.
+2013-12-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for reading metadta from 'AIR1' chunks in WAV
+	files in 'lib/rdwavefile.cpp' and 'lib/rdwavefile.h'.
+2013-12-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdconf.cpp' that broke the build under
+	Windows.
+2013-12-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'utils/rddiscimport/rddiscimport.cpp' that
+	threw a segfault when starting with an invalid CDROM device
+	specified.
+2013-12-07 Fred Gleason <fredg@paravelsystems.com>
+	* Documented the 'AudioInfo' RDXport command call in
+	'docs/webapi.odt'.
+2013-12-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added support in 'utils/rddiscimport/rddiscimport.cpp' for
+	CDs with null tracks.
+2013-12-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added a NaturalLog log file format in 'docs/scheduler_formats.ods'.
+	* Added a sample file for NaturalLog in 'docs/examples/080509T3.LOG'
+	* Added a 'NaturalLog' import template to the 'IMPORT_TEMPLATES'
+	table.
+	* Incremented the database version to 222.
+	* Added a report called 'NaturalLog Reconciliation' in
+	'lib/rdreport.cpp' and 'lib/rdreport.h'.
+2013-12-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'CART.CONDUCTOR' field to the database.
+	* Added a 'CART.SONG_ID' field to the database.
+	* Added a 'CART.BPM' field to the database.
+	* Incremented the database version to 223.
+	* Added 'RDCart::conductor()', 'RDCart::setConductor()',
+	'RDCart::songId()', 'RDCart::setSongId()', 'RDCart::beatsPerMinute()',
+	and 'RDCart::setBeatsPerMinute()' methods in 'lib/rdcart.cpp' and
+	'lib/rdcart.h'.
+	* Added 'RDWaveData::conductor()' and 'RDWaveData::setConductor()'
+	methods in 'lib/rdwavedata.cpp' and 'lib/rdwavedata.h'.
+	* Added 'Conductor', 'Song ID' and 'Beats per Minute' controls to
+	the Edit Cart dialog in 'rdlibrary/edit_cart.cpp' and
+	'rdlibrary/edit_cart.h'.
+2013-12-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added '%r' ['Conductor'] and '%s' ['Song ID'] wildcards for
+	the '--metadata-pattern=' switch for rdimport(1) in
+	'utils/rdimport/rdimport.cpp' and 'utils/rdimport/rdimport.h'.
+	* Added a '--set-user-defined=' switch for rdimport(1) in
+	'utils/rdimport/rdimport.cpp' and 'utils/rdimport/rdimport.h'.
+2013-12-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'DROPBOXES.SET_USER_DEFINED' field to the database.
+	* Incremented the database version to 224.
+	* Added 'RDDropbox::userDefined()' and 'RDDropbox::setUserDefined()'
+	methods in 'lib/rddropbox.cpp' and 'lib/rddropbox.h'.
+	* Added a 'User Defined' control to the Edit Dropbox dialog in
+	'rdadmin/edit_dropbox.cpp' and 'rdadmin/edit_dropbox.h'.
+	* Added a 'User Defined' column to the List Dropboxes dialog
+	in 'rdadmin/list_dropboxes.cpp' and 'rdadmin/list_dropboxes.h'.
+2013-12-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'CART.CONDUCTOR' and 'CART.SONG_ID' fields to the search
+	fields in 'lib/rdcart_search_text.cpp'.
+2013-12-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDLogLine::conductor()', 'RDLogLine::setConductor()',
+	'RDLogLine::songId()' and 'RDLogLine::setSongId()' methods in
+	'lib/rdlog_line.cpp' and 'lib/rdlog_line.h'.
+	* Added 'rlm_conductor' and 'rlm_song_id' fields to the 'rlm_pad'
+	struct in 'rlm/rlm.h'.
+	* Incremented 'RLM_VERSION' to 16 in 'rlm/rlm.h'.
+	* Added '%r' and '%R' wildcards for 'conductor' in
+	'lib/rdnownext.cpp'.
+	* Added '%s' and '%S' wildcards for 'song ID' in
+	'lib/rdnownext.cpp'.
+2013-12-11 Fred Gleason <fredg@paravelsystems.com>
+	* Updated sample RLM configuration files in 'conf/' to reflect
+	new '%r', '%R', '%s' and '%S' wildcards.
+2013-12-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Composer' and 'Conductor' columns to the Select Cart dialog
+	in 'lib/rdcart_dialog.cpp'.
+2013-12-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Composer', 'Conductor' and 'Publisher' columns to the
+	RDLibrary Cart List in 'rdlibrary/rdlibrary.cpp'.
+	* Removed the 'Play Order' column from the RDLibrary Cart List
+	in 'rdlibrary/rdlibrary.cpp'.
+2013-12-11 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlibrary/rdlibrary.cpp' that caused the Group
+	entry in the Cart List to be incorrect after editing a cart.
+2013-12-12 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'lib/rdlog_line.cpp' that broke timescaling.
+2013-12-13 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.6.0.

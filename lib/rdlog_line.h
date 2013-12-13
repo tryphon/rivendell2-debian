@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.h,v 1.85.8.6 2013/10/15 19:32:45 cvs Exp $
+//      $Id: rdlog_line.h,v 1.85.8.7 2013/12/11 22:32:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -144,6 +144,10 @@ class RDLogLine
   void setIsci(const QString &string);
   QString label() const;
   void setLabel(const QString &label);
+  QString conductor() const;
+  void setConductor(const QString &cond);
+  QString songId() const;
+  void setSongId(const QString &id);
   QString client() const;
   void setClient(const QString &client);
   QString agency() const;
@@ -294,6 +298,8 @@ class RDLogLine
   QString log_isci;
   QDate log_year;
   QString log_label;
+  QString log_conductor;
+  QString log_song_id;
   QString log_client;
   QString log_agency;
   QString log_outcue;

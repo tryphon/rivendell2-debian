@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.cpp,v 1.76.6.9 2013/11/13 23:36:32 cvs Exp $
+//      $Id: rdcut.cpp,v 1.76.6.10 2013/12/04 20:46:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1014,7 +1014,12 @@ void RDCut::setMetadata(RDWaveData *data) const
     }
     if(data->segueEndPos()>=0) {
       if(data->segueEndPos()>data->endPos()) {
-	sql+=QString().sprintf("SEGUE_END_POINT=%d,",data->endPos());
+	if(data->endPos()<0) {
+	  sql+=QString().sprintf("SEGUE_END_POINT=%d,",data->segueStartPos()+1);
+	}
+	else {
+	  sql+=QString().sprintf("SEGUE_END_POINT=%d,",data->endPos());
+	}
       }
       else {
 	sql+=QString().sprintf("SEGUE_END_POINT=%d,",data->segueEndPos());

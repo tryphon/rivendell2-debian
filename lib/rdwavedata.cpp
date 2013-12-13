@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.cpp,v 1.4.8.2 2012/09/12 14:36:18 cvs Exp $
+//    $Id: rdwavedata.cpp,v 1.4.8.3 2013/12/11 18:51:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -75,6 +75,18 @@ QString RDWaveData::album() const
 void RDWaveData::setAlbum(const QString &str)
 {
   data_album=str;
+}
+
+
+QString RDWaveData::conductor() const
+{
+  return data_conductor;
+}
+
+
+void RDWaveData::setConductor(const QString &str)
+{
+  data_conductor=str;
 }
 
 
@@ -576,6 +588,7 @@ void RDWaveData::clear()
   data_title="";
   data_artist="";
   data_album="";
+  data_conductor="";
   data_label="";
   data_release_year=0;
   data_client="";

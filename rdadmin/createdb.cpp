@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.cpp,v 1.195.2.16 2013/03/19 15:32:16 cvs Exp $
+//      $Id: createdb.cpp,v 1.195.2.20 2013/12/11 20:17:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -536,6 +536,29 @@ void UpdateImportFormats()
          DATA_LENGTH=32";
   q=new QSqlQuery(sql);
   delete q;
+
+  sql="insert into IMPORT_TEMPLATES set\
+         NAME=\"NaturalLog\",\
+         CART_OFFSET=9,\
+         CART_LENGTH=6,\
+         TITLE_OFFSET=19,\
+         TITLE_LENGTH=40,\
+         HOURS_OFFSET=0,\
+         HOURS_LENGTH=2,\
+         MINUTES_OFFSET=3,\
+         MINUTES_LENGTH=2,\
+         SECONDS_OFFSET=6,\
+         SECONDS_LENGTH=2,\
+         LEN_HOURS_OFFSET=61,\
+         LEN_HOURS_LENGTH=2,\
+         LEN_MINUTES_OFFSET=64,\
+         LEN_MINUTES_LENGTH=2,\
+         LEN_SECONDS_OFFSET=67,\
+         LEN_SECONDS_LENGTH=2,\
+         DATA_OFFSET=0,\
+         DATA_LENGTH=0";
+  q=new QSqlQuery(sql);
+  delete q;
 }
 
 
@@ -666,12 +689,15 @@ bool CreateDb(QString name,QString pwd)
       ALBUM CHAR(255),\
       YEAR DATE,\
       ISRC CHAR(12),\
+      CONDUCTOR CHAR(64),\
       LABEL CHAR(64),\
       CLIENT CHAR(64),\
       AGENCY CHAR(64),\
       PUBLISHER CHAR(64),\
       COMPOSER CHAR(64),\
       USER_DEFINED CHAR(255),\
+      SONG_ID CHAR(32),\
+      BPM int unsigned default 0,\
       USAGE_CODE int default 0,\
       FORCED_LENGTH INT UNSIGNED,\
       AVERAGE_LENGTH int unsigned,\
@@ -696,12 +722,14 @@ bool CreateDb(QString name,QString pwd)
       INDEX TITLE_IDX (TITLE),\
       INDEX ARTIST_IDX (ARTIST),\
       INDEX ALBUM_IDX (ALBUM),\
+      INDEX CONDUCTOR_IDX (CONDUCTOR),\
       INDEX LABEL_IDX (LABEL),\
       INDEX CLIENT_IDX (CLIENT),\
       INDEX AGENCY_IDX (AGENCY),\
       INDEX PUBLISHER_IDX (PUBLISHER),\
       INDEX COMPOSER_IDX (COMPOSER),\
       INDEX USER_DEFINED_IDX (USER_DEFINED),\
+      INDEX SONG_ID_IDX (SONG_ID),\
       INDEX OWNER_IDX (OWNER),\
       index METADATA_DATETIME_IDX (METADATA_DATETIME))");
   if(!RunQuery(sql)) {
@@ -947,7 +975,7 @@ bool CreateDb(QString name,QString pwd)
       OUTPUT_STREAM INT DEFAULT 0,\
       OUTPUT_PORT INT DEFAULT 0,\
       VOX_THRESHOLD INT DEFAULT -5000,\
-      TRIM_THRESHOLD INT DEFAULT -3000,\
+      TRIM_THRESHOLD INT DEFAULT 0,\
       RECORD_GPI INT DEFAULT -1,\
       PLAY_GPI INT DEFAULT -1,\
       STOP_GPI INT DEFAULT -1,\
@@ -1700,6 +1728,7 @@ bool CreateDb(QString name,QString pwd)
         IMPORT_CREATE_DATES enum('N','Y') default 'N',\
         CREATE_STARTDATE_OFFSET int default 0,\
         CREATE_ENDDATE_OFFSET int default 0,\
+        SET_USER_DEFINED char(255),\
         index STATION_NAME_IDX (STATION_NAME))";
   if(!RunQuery(sql)) {
 	  return false;
@@ -7645,6 +7674,66 @@ int UpdateDb(int ver)
 
     sql=QString("alter table RDPANEL_CHANNELS add column GPIO_TYPE ")+
       "int unsigned default 0 after STOP_RML";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<221) {
+    sql="alter table RDLIBRARY modify column TRIM_THRESHOLD int default 0";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<222) {
+    sql="insert into IMPORT_TEMPLATES set\
+         NAME=\"NaturalLog\",\
+         CART_OFFSET=9,\
+         CART_LENGTH=6,\
+         TITLE_OFFSET=19,\
+         TITLE_LENGTH=40,\
+         HOURS_OFFSET=0,\
+         HOURS_LENGTH=2,\
+         MINUTES_OFFSET=3,\
+         MINUTES_LENGTH=2,\
+         SECONDS_OFFSET=6,\
+         SECONDS_LENGTH=2,\
+         LEN_HOURS_OFFSET=61,\
+         LEN_HOURS_LENGTH=2,\
+         LEN_MINUTES_OFFSET=64,\
+         LEN_MINUTES_LENGTH=2,\
+         LEN_SECONDS_OFFSET=67,\
+         LEN_SECONDS_LENGTH=2,\
+         DATA_OFFSET=0,\
+         DATA_LENGTH=0";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<223) {
+    sql="alter table CART add column CONDUCTOR char(64) after LABEL";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="alter table CART add index CONDUCTOR_IDX(CONDUCTOR)";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="alter table CART add column SONG_ID char(32) after USER_DEFINED";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="alter table CART add index SONG_ID_IDX(SONG_ID)";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql="alter table CART add column BPM int unsigned default 0 after SONG_ID";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<224) {
+    sql=QString("alter table DROPBOXES add column SET_USER_DEFINED char(255) ")+
+      "after CREATE_ENDDATE_OFFSET";
     q=new QSqlQuery(sql);
     delete q;
   }

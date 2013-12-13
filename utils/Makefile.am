@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.54.8.4 2013/04/29 22:03:23 cvs Exp $
+##      $Id: Makefile.am,v 1.54.8.5 2013/12/03 23:34:34 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License as
@@ -36,6 +36,7 @@ SUBDIRS = $(ALSACONFIG_RD_OPT)\
           rdchunk\
           rdcollect\
           rddelete\
+          rddiscimport\
           rdgen\
           rdgpimon\
           rdimport\

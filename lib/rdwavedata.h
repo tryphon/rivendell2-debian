@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.h,v 1.5.8.2 2012/09/12 14:36:18 cvs Exp $
+//    $Id: rdwavedata.h,v 1.5.8.3 2013/12/11 18:51:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -40,6 +40,8 @@ class RDWaveData
   void setArtist(const QString &str);
   QString album() const;
   void setAlbum(const QString &str);
+  QString conductor() const;
+  void setConductor(const QString &str);
   QString label() const;
   void setLabel(const QString &str);
   int releaseYear() const;
@@ -129,6 +131,7 @@ class RDWaveData
   QString data_title;
   QString data_artist;
   QString data_album;
+  QString data_conductor;
   QString data_label;
   int data_release_year;
   QString data_client;

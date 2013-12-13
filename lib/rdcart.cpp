@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.cpp,v 1.72.4.3 2013/11/13 23:36:31 cvs Exp $
+//      $Id: rdcart.cpp,v 1.72.4.5 2013/12/11 18:51:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -308,6 +308,19 @@ void RDCart::setLabel(const QString &label)
 }
 
 
+QString RDCart::conductor() const
+{
+  return RDGetSqlValue("CART","NUMBER",cart_number,"CONDUCTOR").toString();
+}
+
+
+void RDCart::setConductor(const QString &cond)
+{
+  SetRow("CONDUCTOR",cond);
+  metadata_changed=true;
+}
+
+
 QString RDCart::client() const
 {
   return RDGetSqlValue("CART","NUMBER",cart_number,"CLIENT").toString();
@@ -372,6 +385,32 @@ QString RDCart::userDefined() const
 void RDCart::setUserDefined(const QString &string)
 {
   SetRow("USER_DEFINED",string);
+  metadata_changed=true;
+}
+
+
+QString RDCart::songId() const
+{
+  return RDGetSqlValue("CART","NUMBER",cart_number,"SONG_ID").toString();
+}
+
+
+void RDCart::setSongId(const QString &id)
+{
+  SetRow("SONG_ID",id);
+  metadata_changed=true;
+}
+
+
+unsigned RDCart::beatsPerMinute() const
+{
+  return RDGetSqlValue("CART","NUMBER",cart_number,"BPM").toUInt();
+}
+
+
+void RDCart::setBeatsPerMinute(unsigned bpm)
+{
+  SetRow("BPM",bpm);
   metadata_changed=true;
 }
 
@@ -704,7 +743,8 @@ void RDCart::getMetadata(RDWaveData *data) const
   RDSqlQuery *q;
 
   sql=QString().sprintf("select TITLE,ARTIST,ALBUM,YEAR,LABEL,CLIENT,\
-                         AGENCY,PUBLISHER,COMPOSER,USER_DEFINED\
+                         AGENCY,PUBLISHER,COMPOSER,USER_DEFINED,\
+                         CONDUCTOR,SONG_ID,BPM \
                          from CART where NUMBER=%u",cart_number);
   q=new RDSqlQuery(sql);
   if(q->first()) {
@@ -718,13 +758,16 @@ void RDCart::getMetadata(RDWaveData *data) const
     data->setPublisher(q->value(7).toString());
     data->setComposer(q->value(8).toString());
     data->setUserDefined(q->value(9).toString());
+    data->setConductor(q->value(10).toString());
+    data->setTmciSongId(q->value(11).toString());
+    data->setBeatsPerMinute(q->value(12).toUInt());
     data->setMetadataFound(true);
   }
   delete q;
 }
 
 
-void RDCart::setMetadata(RDWaveData *data)
+void RDCart::setMetadata(const RDWaveData *data)
 {
   QString sql="update CART set ";
   if(!data->title().isEmpty()) {
@@ -746,6 +789,10 @@ void RDCart::setMetadata(RDWaveData *data)
     sql+=QString().sprintf("LABEL=\"%s\",",(const char *)
 			   RDEscapeString(data->label()).utf8());
   }
+  if(!data->conductor().isEmpty()) {
+    sql+=QString().sprintf("CONDUCTOR=\"%s\",",(const char *)
+			   RDEscapeString(data->conductor()).utf8());
+  }
   if(!data->client().isEmpty()) {
     sql+=QString().sprintf("CLIENT=\"%s\",",(const char *)
 			   RDEscapeString(data->client()).utf8());
@@ -765,6 +812,13 @@ void RDCart::setMetadata(RDWaveData *data)
   if(!data->userDefined().isEmpty()) {
     sql+=QString().sprintf("USER_DEFINED=\"%s\",",(const char *)
 			   RDEscapeString(data->userDefined()).utf8());
+  }
+  if(!data->tmciSongId().isEmpty()) {
+    sql+=QString().sprintf("SONG_ID=\"%s\",",(const char *)
+			   RDEscapeString(data->tmciSongId()).utf8());
+  }
+  if(data->beatsPerMinute()>0) {
+    sql+=QString().sprintf("BPM=%u,",data->beatsPerMinute());
   }
   if(sql.right(1)==",") {
     sql=sql.left(sql.length()-1);

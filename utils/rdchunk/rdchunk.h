@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdchunk.h,v 1.3 2010/07/29 19:32:39 cvs Exp $
+//    $Id: rdchunk.h,v 1.3.8.1 2013/12/05 17:37:48 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -56,6 +56,7 @@ class MainWidget : public QWidget
    void displayBext();
    void displayMext();
    void displayLevl();
+   void displayAIR1();
 
   private:
    void createChunkButtons();
@@ -74,6 +75,7 @@ class MainWidget : public QWidget
    QPushButton *bext_button;
    QPushButton *mext_button;
    QPushButton *levl_button;
+   QPushButton *AIR1_button;
    QLabel *wave_chunk_label;
    int play_port;
 };

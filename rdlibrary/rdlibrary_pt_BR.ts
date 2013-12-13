@@ -738,6 +738,22 @@ limite do sistema!   Você ainda quer salvar?</translation>
         <source>This cart cannot contain any additional cuts!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Cond&amp;uctor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Song &amp;ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Beats per Minute:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditMacro</name>
@@ -1013,7 +1029,7 @@ Cartão</translation>
     </message>
     <message>
         <source>PLAY ORDER</source>
-        <translation>ORDEM DE EXECUÇÃO</translation>
+        <translation type="obsolete">ORDEM DE EXECUÇÃO</translation>
     </message>
     <message>
         <source>ENFORCE LENGTH</source>
@@ -1095,11 +1111,11 @@ Você ainda quer deletá-lo?</translation>
     </message>
     <message>
         <source>Sequence</source>
-        <translation>Sequência</translation>
+        <translation type="obsolete">Sequência</translation>
     </message>
     <message>
         <source>Random</source>
-        <translation>Randômico</translation>
+        <translation type="obsolete">Randômico</translation>
     </message>
     <message>
         <source>TFN</source>
@@ -1135,6 +1151,18 @@ Você ainda quer deletá-lo?</translation>
     </message>
     <message>
         <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>COMPOSER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CONDUCTOR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PUBLISHER</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

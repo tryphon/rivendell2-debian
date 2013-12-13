@@ -14,12 +14,15 @@ ARTIST               char(255)         Index
 ALBUM                char(255)         Name of release album
 YEAR                 date              Year of release
 ISRC                 char(12)          RETIRED as of DB v100
+CONDUCTOR            char(64)
 LABEL                char(64)          Release Record Label 
 CLIENT               char(64)          Index
 AGENCY               char(64)          Index
 PUBLISHER            char(64)          Index
 COMPOSER             char(64)          Index
 USER_DEFINED         char(255)         For use by local user
+SONG_ID              char(32)
+BPM                  int(10) unsigned  Beats per minute
 USAGE_CODE           int(11)           0=Feature, 1=Theme Open,
                                        2=Theme Close, 3=Theme Open/Close,
                                        4=Background, 5=Comm/Promo
