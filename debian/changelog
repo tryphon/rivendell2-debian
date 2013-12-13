@@ -1,3 +1,9 @@
+rivendell (2.6.0-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Alban Peignier <alban@tryphon.eu>  Fri, 13 Dec 2013 18:53:49 +0100
+
 rivendell (2.5.5-2) unstable; urgency=low
 
   * Debian/Ubuntu rebuild
