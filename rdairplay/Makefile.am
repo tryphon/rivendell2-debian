@@ -4,7 +4,7 @@
 ##
 ## (C) 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.48.8.4 2013/07/05 21:07:28 cvs Exp $
+##      $Id: Makefile.am,v 1.48.8.5 2013/12/28 00:00:33 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -49,6 +49,7 @@ dist_rdairplay_SOURCES = button_log.cpp button_log.h\
                          edit_event.cpp edit_event.h\
                          globals.h\
                          hourselector.cpp hourselector.h\
+                         lib_listview.cpp lib_listview.h\
                          list_log.cpp list_log.h\
                          list_logs.cpp list_logs.h\
                          local_macros.cpp colors.h\
@@ -69,6 +70,7 @@ dist_rdairplay_SOURCES = button_log.cpp button_log.h\
 nodist_rdairplay_SOURCES = moc_button_log.cpp\
                            moc_edit_event.cpp\
                            moc_hourselector.cpp\
+                           moc_lib_listview.cpp\
                            moc_list_log.cpp\
                            moc_list_logs.cpp\
                            moc_log_play.cpp\

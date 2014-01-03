@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.132.4.13 2013/07/05 22:44:14 cvs Exp $
+##      $Id: Makefile.am,v 1.132.4.15 2013/12/30 20:37:00 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -81,6 +81,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdcart.cpp rdcart.h\
                         rdcart_dialog.cpp rdcart_dialog.h\
                         rdcart_search_text.cpp rdcart_search_text.h\
+                        rdcartdrag.cpp rdcartdrag.h\
                         rdcartslot.cpp rdcartslot.h\
                         rdcastsearch.cpp rdcastsearch.h\
                         rdcatch_conf.cpp rdcatch_conf.h\
@@ -118,6 +119,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rddropbox.cpp rddropbox.h\
                         rdedit_audio.cpp rdedit_audio.h\
                         rdedit_panel_name.cpp rdedit_panel_name.h\
+                        rdemptycart.cpp rdemptycart.h\
                         rdencoder.cpp rdencoder.h\
                         rdencoderlist.cpp rdencoderlist.h\
                         rdescape_string.cpp rdescape_string.h\
@@ -261,6 +263,7 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rddownload.cpp\
                           moc_rdedit_audio.cpp\
                           moc_rdedit_panel_name.cpp\
+                          moc_rdemptycart.cpp\
                           moc_rdevent_player.cpp\
                           moc_rdexception_dialog.cpp\
                           moc_rdexport_settings_dialog.cpp\

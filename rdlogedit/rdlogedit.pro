@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2004 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlogedit.pro,v 1.17.2.2 2013/01/01 21:36:31 cvs Exp $
+#      $Id: rdlogedit.pro,v 1.17.2.3 2013/12/27 22:12:29 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -33,6 +33,7 @@ win32 {
 }
 
 SOURCES += add_meta.cpp
+SOURCES += drop_listview.cpp
 SOURCES += edit_chain.cpp
 SOURCES += edit_log.cpp
 SOURCES += edit_logline.cpp
@@ -47,6 +48,7 @@ x11 {
 }
 
 HEADERS += add_meta.h
+HEADERS += drop_listview.h
 HEADERS += edit_chain.h
 HEADERS += edit_log.h
 HEADERS += edit_logline.h

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.cpp,v 1.62.6.7 2013/03/22 15:11:50 cvs Exp $
+//      $Id: rdsound_panel.cpp,v 1.62.6.10 2013/12/30 18:20:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -318,43 +318,6 @@ void RDSoundPanel::setSvcName(const QString &svcname)
 }
 
 
-void RDSoundPanel::setButton(RDAirPlayConf::PanelType type,int panel,
-			   int row,int col,unsigned cartnum)
-{
-  QString str;
-
-  RDPanelButton *button=
-    panel_buttons[PanelOffset(type,panel)]->panelButton(row,col);
-  if(button->playDeck()!=NULL) {
-    return;
-  }
-  button->clear();
-  if(cartnum>0) {
-    button->setCart(cartnum);
-    RDCart *cart=new RDCart(cartnum);
-    if(cart->exists()) {
-      button->
-	setText(RDLogLine::resolveWildcards(cartnum,panel_label_template));
-      button->setLength(false,cart->forcedLength());
-      if(cart->averageHookLength()>0) {
-	button->setLength(true,cart->averageHookLength());
-      }
-      else {
-	button->setLength(true,cart->forcedLength());
-      }
-      button->setHookMode(panel_playmode_box->currentItem()==1);
-      button->setActiveLength(button->length(button->hookMode()));
-    }
-    else {
-      str=QString(tr("Cart"));
-      button->setText(QString().sprintf("%s %06u",(const char *)str,cartnum));
-    }
-    delete cart;
-  }
-  SaveButton(type,panel,row,col);
-}
-
-
 void RDSoundPanel::setLogfile(QString filename)
 {
   panel_logfile=filename;
@@ -531,6 +494,69 @@ int RDSoundPanel::currentNumber() const
 RDAirPlayConf::PanelType RDSoundPanel::currentType() const
 {
    return panel_type;
+}
+
+
+void RDSoundPanel::setButton(RDAirPlayConf::PanelType type,int panel,
+			   int row,int col,unsigned cartnum)
+{
+  QString str;
+
+  RDPanelButton *button=
+    panel_buttons[PanelOffset(type,panel)]->panelButton(row,col);
+  if(button->playDeck()!=NULL) {
+    return;
+  }
+  button->clear();
+  if(cartnum>0) {
+    button->setCart(cartnum);
+    RDCart *cart=new RDCart(cartnum);
+    if(cart->exists()) {
+      button->
+	setText(RDLogLine::resolveWildcards(cartnum,panel_label_template));
+      button->setLength(false,cart->forcedLength());
+      if(cart->averageHookLength()>0) {
+	button->setLength(true,cart->averageHookLength());
+      }
+      else {
+	button->setLength(true,cart->forcedLength());
+      }
+      button->setHookMode(panel_playmode_box->currentItem()==1);
+      switch(cart->type()) {
+      case RDCart::Audio:
+	if(button->length(button->hookMode())==0) {
+	  button->setActiveLength(-1);
+	}
+	else {
+	  button->setActiveLength(button->length(button->hookMode()));
+	}
+	break;
+
+      case RDCart::Macro:
+	button->setActiveLength(cart->forcedLength());
+	break;
+
+      case RDCart::All:
+	break;
+      }
+    }
+    else {
+      str=QString(tr("Cart"));
+      button->setText(QString().sprintf("%s %06u",(const char *)str,cartnum));
+    }
+    delete cart;
+  }
+  SaveButton(type,panel,row,col);
+}
+
+
+void RDSoundPanel::acceptCartDrop(int row,int col,unsigned cartnum,
+				  const QColor &color)
+{
+  setButton(panel_type,panel_number,row,col,cartnum);
+  if(color.isValid()&&(color.name()!="#000000")) {
+    setColor(panel_type,panel_number,row,col,color);
+  }
 }
 
 
@@ -1148,7 +1174,7 @@ void RDSoundPanel::LoadPanels()
   // Load Buttons
   //
   for(int i=0;i<panel_station_panels;i++) {
-    panel_buttons.push_back(new RDButtonPanel(panel_button_columns,
+    panel_buttons.push_back(new RDButtonPanel(panel_type,i,panel_button_columns,
 					      panel_button_rows,
 					      panel_station,panel_flash,this));
     for(int j=0;j<panel_button_rows;j++) {
@@ -1162,7 +1188,7 @@ void RDSoundPanel::LoadPanels()
     LoadPanel(RDAirPlayConf::StationPanel,i);
   }
   for(int i=0;i<panel_user_panels;i++) {
-    panel_buttons.push_back(new RDButtonPanel(panel_button_columns,
+    panel_buttons.push_back(new RDButtonPanel(panel_type,i,panel_button_columns,
 					      panel_button_rows,
 					      panel_station,panel_flash,this));
     for(int j=0;j<panel_button_rows;j++) {
@@ -1200,7 +1226,7 @@ void RDSoundPanel::LoadPanel(RDAirPlayConf::PanelType type,int panel)
 
   QString sql=QString().sprintf("select %s.ROW_NO,%s.COLUMN_NO,\
     %s.LABEL,%s.CART,%s.DEFAULT_COLOR,CART.FORCED_LENGTH,\
-    CART.AVERAGE_HOOK_LENGTH \
+    CART.AVERAGE_HOOK_LENGTH,CART.TYPE \
     from %s left join CART on %s.CART=CART.NUMBER\
     where %s.TYPE=%d && %s.OWNER=\"%s\" && %s.PANEL_NO=%d\
     order by %s.COLUMN_NO,%s.ROW_NO",
@@ -1242,9 +1268,23 @@ void RDSoundPanel::LoadPanel(RDAirPlayConf::PanelType type,int panel)
 	  setActiveLength(q->value(6).toInt());
       }
       else {
-	panel_buttons[offset]->
-	  panelButton(q->value(0).toInt(),q->value(1).toInt())->
-	  setActiveLength(q->value(5).toInt());
+	if(q->value(7).toInt()==RDCart::Macro) {
+	  panel_buttons[offset]->
+	    panelButton(q->value(0).toInt(),q->value(1).toInt())->
+	    setActiveLength(q->value(5).toInt());
+	}
+	else {
+	  if(q->value(5).toInt()>0) {
+	    panel_buttons[offset]->
+	      panelButton(q->value(0).toInt(),q->value(1).toInt())->
+	      setActiveLength(q->value(5).toInt());
+	  }
+	  else {
+	    panel_buttons[offset]->
+	      panelButton(q->value(0).toInt(),q->value(1).toInt())->
+	      setActiveLength(-1);
+	  }
+	}
       }
       if(q->value(4).toString().isEmpty()) {
 	panel_buttons[offset]->

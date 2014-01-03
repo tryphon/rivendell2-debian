@@ -13632,3 +13632,118 @@
 2013-12-13 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.6.0.
+2013-12-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed code in 'rivendell.spec.in' to allow building on SuSE.
+2013-12-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rivendell.spec.in' that broke the 'make rpm'
+	target on EL6.
+2013-12-15 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdlibrary/edit_cart.cpp' that broke
+	multi-cart editing.
+2013-12-17 Karl Koscher <supersat@uwave.fm>
+       * Fixed a small buffer overflow issue with ISRC/ISCI metadata
+       in RLMHost.
+2013-12-20 Fred Gleason <fredg@paravelsystems.com>
+	* Increased CAE_MAX_CONNECTIONS to 128 in 'lib/rd.h'.
+2013-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/edit_rdpanel.cpp' and 'lib/edit_rdpanel.cpp'
+	that provided incorrect channel assignment contraints when using
+	remote CAE services.
+2013-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/edit_rdcartslots.cpp' and
+	'lib/edit_rdcartslots.cpp' that provided incorrect channel assignment
+	contraints when using remote CAE services.
+2013-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'lib/rdpanel_button.cpp' and 'lib/rdsound_panel.cpp'
+	so as to display 'No Audio' in the length field of a button when
+	the underlying audio is unavailable.
+2013-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'rdlibrary/macro_cart.cpp' and
+	'rdlibrary/edit_macro.cpp' so that double-clicking on the
+	'End of Cart' marker adds a new RML line.
+	* Added code in 'rdlibrary/macro_cart.cpp' and
+	'rdlibrary/edit_macro.cpp' so a new RML line is selected by
+	default in the Edit Macro dialog.
+2013-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Increased size of the 'Edit Macro' dialog in
+	'rdlibrary/edit_macro.cpp'.
+2013-12-26 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'rdlibrary/audio_cart.cpp' and 'rdlibrary/audio_cart.h'
+	to allow deletion of multiple cuts simultaneously.
+2013-12-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdmonitor/rdmonitor.cpp' that broke host updates.
+2013-12-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added a desktop entry for RDMonitor.
+2013-12-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDCartDrag' class in 'lib/rdcartdrag.cpp' and
+	'lib/rdcartdrag.h'.
+	* Modified RDLogManager to use RDCartDrag for dragging and dropping
+	carts.
+	* Added an 'Allow Cart Dragging' control to the RDLibrary main window
+	in 'rdlibrary/rdlibrary.cpp' and 'rdlibrary/rdlibrary.h'.
+	* Added support for dragging carts into the Edit Log dialog
+	in 'rdlogedit/edit_log.cpp' and 'rdlogedit/edit_log.h'.
+2013-12-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for dragging carts into the Full Log and Button
+	Log widgets in RDAirPlay.
+2013-12-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for dragging carts into SoundPanel buttons in
+	'lib/rdsound_panel.cpp, 'lib/rdsound_panel.h',
+	'lib/rdpanel_button.cpp', 'lib/rdpanel_button.h',
+	'lib/rdbutton_panel.cpp' and 'lib/rdbutton_panel.h'.
+2013-12-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for dragging carts from SoundPanel buttons in
+	'lib/rdpanel_button.cpp' and 'lib/rdpanel_button.h'.
+2013-12-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for dragging carts from the Button Log in
+	'rdairplay/loglinebox.cpp' and 'rdairplay/loglinebox.h'.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added drag icon support when dragging from SoundPanel buttons
+	in 'lib/rdcartdrag.cpp'.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for dropping carts into Cart Slots in
+	'lib/rdcartslot.cpp', 'lib/rdcartslot.h', 'lib/rdslotbox.cpp' and
+	'lib/rdslotbox.h'.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for dragging carts from Cart Slots in
+	'lib/rdslotbox.cpp' and 'lib/rdslotbox.h'.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added button color when dragging and dropping carts.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added trash can icons in 'icons/trashcan-16x16.xpm' and
+	'icons/trashcan-32x32.xpm'.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added the ability to clear a SoundPanel button by dropping an
+	empty cart in 'lib/rdpanel_button.cpp' and 'lib/rdsound_panel.cpp'.
+	* Added the ability to delete a log line by dropping an empty cart
+	in 'rdairplay/rdairplay.cpp'.
+	* Added the ability to unload a cart slot by dropping an empty cart
+	in 'lib/rdcartslot.cpp'.
+	* Added the ability to remove an entry from the pre- or post-import
+	list in RDLogManager's Edit Event dialog by dropping an empty cart
+	in 'rdlogmanager/edit_event.cpp'.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added an empty cart source to the RDLogManager Edit Event dialog
+	in 'rdlogmanager/edit_event.cpp'.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added an empty cart source to RDAirPlay in 'rdairplay/rdairplay.cpp'.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added an empty cart source to RDPanel in 'rdpanel/rdpanel.cpp'.
+2013-12-30 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcartdrag.cpp' and 'lib/rdcartdrag.h' that
+	broke the build under Windows.
+	* Fixed the library layout in RDLogManager's Edit Event dialog
+	under Windows.
+2013-12-31 Sebastien Leblanc <leblancsebas@gmail.com>
+	* Fixed a bug in 'lib/rdcart.cpp' that broke compatibility with
+	MariaDB.
+2013-12-31 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'rdairplay/loglinebox.cpp' and
+	'rdairplay/loglinebox.h' to prevent dropping carts onto
+	active events.
+2013-12-31 Fred Gleason <fredg@paravelsystems.com>
+	* Adjusted the position of the 'Allow Dragging' control in
+	'rdlibrary/rdlibrary.cpp'.
+2013-01-02 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.6.1.

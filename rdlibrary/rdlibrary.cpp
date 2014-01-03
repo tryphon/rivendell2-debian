@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.cpp,v 1.117.4.5 2013/12/12 02:07:51 cvs Exp $
+//      $Id: rdlibrary.cpp,v 1.117.4.7 2013/12/31 22:49:48 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -281,6 +281,18 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 	  this,SLOT(groupActivatedData(const QString &)));
 
   //
+  // Show Allow Cart Drags Checkbox
+  //
+  lib_allowdrag_box=new QCheckBox(this);
+  lib_allowdrag_box->setChecked(false);
+  lib_allowdrag_label=
+    new QLabel(lib_allowdrag_box,tr("Allow Cart Dragging"),this);
+  lib_allowdrag_label->setFont(button_font);
+  lib_allowdrag_label->setAlignment(AlignVCenter|AlignLeft);
+  connect(lib_allowdrag_box,SIGNAL(stateChanged(int)),
+	  this,SLOT(dragsChangedData(int)));
+
+  //
   // Show Audio Carts Checkbox
   //
   lib_showaudio_box=new QCheckBox(this,"lib_showaudio_box");
@@ -333,7 +345,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Cart List
   //
-  lib_cart_list=new RDListView(this,"lib_cart_list");
+  lib_cart_list=new LibListView(this,"lib_cart_list");
   lib_cart_list->setFont(default_font);
   lib_cart_list->setAllColumnsShowFocus(true);
   lib_cart_list->setItemMargin(5);
@@ -824,21 +836,21 @@ void MainWidget::cartClickedData(QListViewItem *item)
   
   if(del_count>0) {
     lib_delete_button->setEnabled(lib_user->deleteCarts());
-    } 
+  } 
   else {
     lib_delete_button->setEnabled(false);
   }
   if(sel_count>1) {
-  	if(del_count==0) {
+    if(del_count==0) {
       lib_edit_button->setEnabled(false);
-  	  }
+    }
     else {
       lib_edit_button->setEnabled(lib_user->modifyCarts());
-      }
-    } 
+    }
+  } 
   else {
     lib_edit_button->setEnabled(true);
-    }
+  }
 }
 
 
@@ -857,6 +869,17 @@ void MainWidget::audioChangedData(int state)
 void MainWidget::macroChangedData(int state)
 {
   filterChangedData("");
+}
+
+
+void MainWidget::dragsChangedData(int state)
+{
+  if(state) {
+    lib_cart_list->setSelectionMode(QListView::Single);
+  }
+  else {
+    lib_cart_list->setSelectionMode(QListView::Extended);
+  }
 }
 
 
@@ -891,6 +914,8 @@ void MainWidget::resizeEvent(QResizeEvent *e)
   lib_group_label->setGeometry(10,40,55,20);
   lib_codes_box->setGeometry(330,40,120,20);
   lib_codes_label->setGeometry(195,40,130,20);
+  lib_allowdrag_box->setGeometry(470,42,15,15);
+  lib_allowdrag_label->setGeometry(490,40,130,20);
   lib_showaudio_box->setGeometry(70,67,15,15);
   lib_showaudio_label->setGeometry(90,65,130,20);
   lib_showmacro_box->setGeometry(230,67,15,15);

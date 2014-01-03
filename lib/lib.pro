@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2007 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: lib.pro,v 1.36.8.11 2013/07/05 22:44:15 cvs Exp $
+#      $Id: lib.pro,v 1.36.8.13 2013/12/30 20:37:00 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -47,6 +47,7 @@ SOURCES += rdbusydialog.cpp
 SOURCES += rdcart.cpp
 SOURCES += rdcart_dialog.cpp
 SOURCES += rdcart_search_text.cpp
+SOURCES += rdcartdrag.cpp
 SOURCES += rdclock.cpp
 SOURCES += rdcmd_switch.cpp
 SOURCES += rdcombobox.cpp
@@ -61,6 +62,7 @@ SOURCES += rddb.cpp
 SOURCES += rddbheartbeat.cpp
 SOURCES += rddebug.cpp
 SOURCES += rddropbox.cpp
+SOURCES += rdemptycart.cpp
 SOURCES += rdencoder.cpp
 SOURCES += rdencoderlist.cpp
 SOURCES += rdescape_string.cpp
@@ -176,6 +178,7 @@ HEADERS += rdcae.h
 HEADERS += rdcart.h
 HEADERS += rdcart_dialog.h
 HEADERS += rdcart_search_text.h
+HEADERS += rdcartdrag.h
 HEADERS += rdclock.h
 HEADERS += rdcmd_switch.h
 HEADERS += rdcombobox.h
@@ -190,6 +193,7 @@ HEADERS += rddb.h
 HEADERS += rddbheartbeat.h
 HEADERS += rddebug.h
 HEADERS += rddropbox.h
+HEADERS += rdemptycart.h
 HEADERS += rdencoder.h
 HEADERS += rdencoderlist.h
 HEADERS += rdescape_string.h

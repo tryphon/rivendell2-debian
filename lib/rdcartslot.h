@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.h,v 1.8.2.9 2013/11/13 23:36:32 cvs Exp $
+//      $Id: rdcartslot.h,v 1.8.2.10 2013/12/30 17:07:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -92,6 +92,7 @@ class RDCartSlot : public QWidget
   void positionData(int id,int msecs);
   void hookEndData(int id);
   void timescalingSupportedData(int card,bool state);
+  void cartDroppedData(unsigned cartnum);
 
  private:
   void InitializeOptions();

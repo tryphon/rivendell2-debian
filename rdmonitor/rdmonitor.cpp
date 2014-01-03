@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmonitor.cpp,v 1.1.2.11 2013/11/11 20:34:27 cvs Exp $
+//      $Id: rdmonitor.cpp,v 1.1.2.12 2013/12/26 22:46:56 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -148,8 +148,8 @@ void MainWidget::validate()
   //
   // Get Configurations
   //
+  mon_rdconfig->load();
   mon_name_label->setText(mon_rdconfig->label());
-  //  SetPosition();
 
   //
   // Check Audio Store
@@ -167,6 +167,7 @@ void MainWidget::validate()
   mon_tooltip->
     setStatus(QRect(0,0,size().width(),size().height()),db_ok,schema,snd_ok);
   SetSummaryState(db_ok&&(schema==RD_VERSION_DATABASE)&&snd_ok);
+  SetPosition();
 }
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.cpp,v 1.189.2.14 2013/11/13 23:36:35 cvs Exp $
+//      $Id: rdairplay.cpp,v 1.189.2.17 2013/12/30 21:02:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -761,18 +761,20 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
     air_log_list[i]->hide();
     connect(air_log_list[i],SIGNAL(selectClicked(int,int,RDLogLine::Status)),
 	    this,SLOT(selectClickedData(int,int,RDLogLine::Status)));
+    connect(air_log_list[i],SIGNAL(cartDropped(int,int,RDLogLine *)),
+	    this,SLOT(cartDroppedData(int,int,RDLogLine *)));
   }
 
   //
-  // Full Log Button
+  // Full Log Buttons
   //
   QSignalMapper *mapper=new QSignalMapper(this,"log_mapper");
   connect(mapper,SIGNAL(mapped(int)),this,SLOT(fullLogButtonData(int)));
   for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
     air_log_button[i]=new QPushButton(this);
-    air_log_button[i]->setGeometry(610+i*137,sizeHint().height()-65,127,60);
+    air_log_button[i]->setGeometry(647+i*123,sizeHint().height()-65,118,60);
     air_log_button[i]->setFont(button_font);
- air_log_button[i]->setFocusPolicy(QWidget::NoFocus);
+    air_log_button[i]->setFocusPolicy(QWidget::NoFocus);
     mapper->setMapping(air_log_button[i],i);
     connect(air_log_button[i],SIGNAL(clicked()),mapper,SLOT(map()));
   }
@@ -787,14 +789,20 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   }
 
   //
+  // Empty Cart
+  //
+  air_empty_cart=new RDEmptyCart(this);
+  air_empty_cart->setGeometry(520,sizeHint().height()-51,32,32);
+
+  //
   // SoundPanel Button
   //
   air_panel_button=new QPushButton(this,"air_panel_button");
-  air_panel_button->setGeometry(520,sizeHint().height()-65,80,60);
+  air_panel_button->setGeometry(562,sizeHint().height()-65,80,60);
   air_panel_button->setFont(button_font);
   air_panel_button->setText(tr("Sound\nPanel"));
   air_panel_button->setPalette(active_color);
- air_panel_button->setFocusPolicy(QWidget::NoFocus);
+  air_panel_button->setFocusPolicy(QWidget::NoFocus);
   connect(air_panel_button,SIGNAL(clicked()),this,SLOT(panelButtonData()));
   if (rdairplay_conf->panels(RDAirPlayConf::StationPanel) || 
       rdairplay_conf->panels(RDAirPlayConf::UserPanel)){
@@ -824,6 +832,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   }
   connect(air_button_list,SIGNAL(selectClicked(int,int,RDLogLine::Status)),
 	  this,SLOT(selectClickedData(int,int,RDLogLine::Status)));
+  connect(air_button_list,SIGNAL(cartDropped(int,int,RDLogLine *)),
+	  this,SLOT(cartDroppedData(int,int,RDLogLine *)));
 
   //
   // Set Startup Mode
@@ -1736,6 +1746,30 @@ void MainWidget::selectClickedData(unsigned cartnum,int row,int col)
 
       default:
 	break;
+  }
+}
+
+
+void MainWidget::cartDroppedData(int id,int line,RDLogLine *ll)
+{
+  if(ll->cartNumber()==0) {
+    air_log[id]->remove(line,1);
+  }
+  else {
+    if(line<0) {
+      air_log[id]->
+	insert(air_log[id]->size(),ll->cartNumber(),RDLogLine::Play);
+      air_log[id]->logLine(air_log[id]->size()-1)->
+	setTransType(rdairplay_conf->defaultTransType());
+      air_log_list[id]->refresh(air_log[id]->size()-1);
+    }
+    else {
+      air_log[id]->
+	insert(line,ll->cartNumber(),air_log[id]->nextTransType(line));
+      air_log[id]->logLine(line)->
+	setTransType(rdairplay_conf->defaultTransType());
+      air_log_list[id]->refresh(line);
+    }
   }
 }
 

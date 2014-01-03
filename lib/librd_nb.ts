@@ -1892,6 +1892,13 @@ Sjekk eksportoppsettet ditt og prøv att.</translation>
     </message>
 </context>
 <context>
+    <name>RDPanelButton</name>
+    <message>
+        <source>No Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>RDPasswd</name>
     <message>
         <source>Change Password</source>

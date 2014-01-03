@@ -51,16 +51,17 @@ dist_rdlibrary_OBJECTS = audio_cart.$(OBJEXT) cart_tip.$(OBJEXT) \
 	cdripper.$(OBJEXT) disk_bar.$(OBJEXT) disk_gauge.$(OBJEXT) \
 	disk_ripper.$(OBJEXT) edit_cart.$(OBJEXT) edit_macro.$(OBJEXT) \
 	edit_notes.$(OBJEXT) edit_schedulercodes.$(OBJEXT) \
-	filter.$(OBJEXT) list_reports.$(OBJEXT) macro_cart.$(OBJEXT) \
-	rdlibrary.$(OBJEXT) record_cut.$(OBJEXT) \
+	filter.$(OBJEXT) lib_listview.$(OBJEXT) list_reports.$(OBJEXT) \
+	macro_cart.$(OBJEXT) rdlibrary.$(OBJEXT) record_cut.$(OBJEXT) \
 	validate_cut.$(OBJEXT)
 nodist_rdlibrary_OBJECTS = moc_audio_cart.$(OBJEXT) \
 	moc_cdripper.$(OBJEXT) moc_disk_gauge.$(OBJEXT) \
 	moc_disk_ripper.$(OBJEXT) moc_edit_cart.$(OBJEXT) \
 	moc_edit_macro.$(OBJEXT) moc_edit_notes.$(OBJEXT) \
 	moc_edit_schedulercodes.$(OBJEXT) moc_filter.$(OBJEXT) \
-	moc_list_reports.$(OBJEXT) moc_macro_cart.$(OBJEXT) \
-	moc_rdlibrary.$(OBJEXT) moc_record_cut.$(OBJEXT)
+	moc_lib_listview.$(OBJEXT) moc_list_reports.$(OBJEXT) \
+	moc_macro_cart.$(OBJEXT) moc_rdlibrary.$(OBJEXT) \
+	moc_record_cut.$(OBJEXT)
 rdlibrary_OBJECTS = $(dist_rdlibrary_OBJECTS) \
 	$(nodist_rdlibrary_OBJECTS)
 rdlibrary_DEPENDENCIES =
@@ -128,6 +129,7 @@ AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CONSOLEHELPER_RDALSACONFIG = @CONSOLEHELPER_RDALSACONFIG@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
@@ -217,6 +219,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+USERMODE_PKG = @USERMODE_PKG@
 VENDOR = @VENDOR@
 VERSION = @VERSION@
 WIN32_PATH = @WIN32_PATH@
@@ -295,6 +298,7 @@ dist_rdlibrary_SOURCES = audio_cart.cpp audio_cart.h\
                          edit_schedulercodes.cpp edit_schedulercodes.h\
                          filter.cpp filter.h\
                          globals.h\
+                         lib_listview.cpp lib_listview.h\
                          list_reports.cpp list_reports.h\
                          macro_cart.cpp macro_cart.h\
                          rdlibrary.cpp rdlibrary.h\
@@ -310,6 +314,7 @@ nodist_rdlibrary_SOURCES = moc_audio_cart.cpp\
                            moc_edit_notes.cpp\
                            moc_edit_schedulercodes.cpp \
                            moc_filter.cpp\
+                           moc_lib_listview.cpp\
                            moc_list_reports.cpp\
                            moc_macro_cart.cpp\
                            moc_rdlibrary.cpp\
@@ -434,6 +439,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_notes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_schedulercodes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/filter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lib_listview.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_reports.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/macro_cart.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_audio_cart.Po@am__quote@
@@ -445,6 +451,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_notes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_schedulercodes.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_filter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_lib_listview.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_reports.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_macro_cart.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdlibrary.Po@am__quote@

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.h,v 1.89.4.6 2013/03/13 15:18:06 cvs Exp $
+//      $Id: rdairplay.h,v 1.89.4.8 2013/12/30 21:02:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -50,6 +50,7 @@
 #include <rdconfig.h>
 #include <rd.h>
 #include <rdttydevice.h>
+#include <rdemptycart.h>
 
 #include <log_play.h>
 #include <loglinebox.h>
@@ -119,6 +120,7 @@ class MainWidget : public QWidget
   void modeButtonData();
   void selectClickedData(int id,int line,RDLogLine::Status status);
   void selectClickedData(unsigned cartnum,int row,int col);
+  void cartDroppedData(int id,int line,RDLogLine *ll);
   void meterData();
   void masterTimerData();
   void transportChangedData();
@@ -217,6 +219,7 @@ class MainWidget : public QWidget
   int air_stop_gpo_lines[RDAirPlayConf::LastChannel];
   RDAirPlayConf::GpioType air_channel_gpio_types[RDAirPlayConf::LastChannel];
   std::map<unsigned,QTimer *> air_channel_timers[2];
+  RDEmptyCart *air_empty_cart;
 };
 
 

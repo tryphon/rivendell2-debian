@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel.cpp,v 1.27.4.4 2013/11/13 23:36:38 cvs Exp $
+//      $Id: rdpanel.cpp,v 1.27.4.5 2013/12/30 21:11:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -334,7 +334,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   panel_stereo_meter=new RDStereoMeter(this,"panel_stereo_meter");
   panel_stereo_meter->
-    setGeometry(40,
+    setGeometry(20,
 		sizeHint().height()-panel_stereo_meter->sizeHint().height()-7,
 		panel_stereo_meter->sizeHint().width(),
 		panel_stereo_meter->sizeHint().height());
@@ -343,6 +343,12 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   if(panel_config->useStreamMeters()) {
     panel_stereo_meter->hide();
   }
+
+  //
+  // Empty Cart
+  //
+  panel_empty_cart=new RDEmptyCart(this);
+  panel_empty_cart->setGeometry(373,sizeHint().height()-52,32,32);
 
   rdripc->connectHost("localhost",RIPCD_TCP_PORT,panel_config->password());
 

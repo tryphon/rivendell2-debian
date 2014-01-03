@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cart.cpp,v 1.74.2.2 2013/12/11 18:51:48 cvs Exp $
+//      $Id: edit_cart.cpp,v 1.74.2.3 2013/12/16 02:50:46 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -867,7 +867,7 @@ void EditCart::okData()
     while(it->current()) {
       if (it->current()->isSelected()) {  
         RDListViewItem *item=(RDListViewItem *)it->current();
-        if(item->text(17).isEmpty()) {
+        if(item->text(19).isEmpty()) {
 	  
           rdcart_cart_medit=new RDCart(item->text(1).toUInt());
 	  

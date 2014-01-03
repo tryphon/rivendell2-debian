@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@salemradiolabs.com>
 ##
-##      $Id: Makefile.am,v 1.19.2.2 2013/03/26 21:31:37 cvs Exp $
-##      $Date: 2013/03/26 21:31:37 $
+##      $Id: Makefile.am,v 1.19.2.3 2013/12/30 19:56:11 cvs Exp $
+##      $Date: 2013/12/30 19:56:11 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -115,6 +115,8 @@ EXTRA_DIST = admin.xpm\
              track.xpm\
              track_cart.xpm\
              traffic.xpm\
+             trashcan-16x16.xpm\
+             trashcan-32x32.xpm\
              upload.xpm\
              user.xpm\
              whiteball.png\

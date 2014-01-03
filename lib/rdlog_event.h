@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.h,v 1.36.6.3 2013/10/15 19:32:45 cvs Exp $
+//      $Id: rdlog_event.h,v 1.36.6.4 2013/12/27 22:12:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -59,6 +59,7 @@ class RDLogEvent
    bool blockLength(int *nominal_length,int *actual_length,int line);
    QTime blockStartTime(int line);
    RDLogLine *logLine(int line) const;
+   void setLogLine(int line,RDLogLine *ll);
    RDLogLine *loglineById(int id) const;
    int lineById(int id) const;
    int lineByStartHour(int hour,RDLogLine::StartTimeType type) const;

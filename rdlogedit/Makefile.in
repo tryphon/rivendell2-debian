@@ -47,20 +47,20 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-dist_rdlogedit_OBJECTS = add_meta.$(OBJEXT) edit_chain.$(OBJEXT) \
-	edit_log.$(OBJEXT) edit_logline.$(OBJEXT) \
+dist_rdlogedit_OBJECTS = add_meta.$(OBJEXT) drop_listview.$(OBJEXT) \
+	edit_chain.$(OBJEXT) edit_log.$(OBJEXT) edit_logline.$(OBJEXT) \
 	edit_marker.$(OBJEXT) edit_track.$(OBJEXT) \
 	import_track.$(OBJEXT) list_listviewitem.$(OBJEXT) \
 	list_reports.$(OBJEXT) list_logs.$(OBJEXT) \
 	log_listview.$(OBJEXT) rdlogedit.$(OBJEXT) \
 	voice_tracker.$(OBJEXT)
 nodist_rdlogedit_OBJECTS = moc_add_meta.$(OBJEXT) \
-	moc_edit_chain.$(OBJEXT) moc_edit_log.$(OBJEXT) \
-	moc_edit_logline.$(OBJEXT) moc_edit_marker.$(OBJEXT) \
-	moc_edit_track.$(OBJEXT) moc_import_track.$(OBJEXT) \
-	moc_list_logs.$(OBJEXT) moc_list_reports.$(OBJEXT) \
-	moc_log_listview.$(OBJEXT) moc_rdlogedit.$(OBJEXT) \
-	moc_voice_tracker.$(OBJEXT)
+	moc_drop_listview.$(OBJEXT) moc_edit_chain.$(OBJEXT) \
+	moc_edit_log.$(OBJEXT) moc_edit_logline.$(OBJEXT) \
+	moc_edit_marker.$(OBJEXT) moc_edit_track.$(OBJEXT) \
+	moc_import_track.$(OBJEXT) moc_list_logs.$(OBJEXT) \
+	moc_list_reports.$(OBJEXT) moc_log_listview.$(OBJEXT) \
+	moc_rdlogedit.$(OBJEXT) moc_voice_tracker.$(OBJEXT)
 rdlogedit_OBJECTS = $(dist_rdlogedit_OBJECTS) \
 	$(nodist_rdlogedit_OBJECTS)
 rdlogedit_DEPENDENCIES =
@@ -128,6 +128,7 @@ AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CONSOLEHELPER_RDALSACONFIG = @CONSOLEHELPER_RDALSACONFIG@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
@@ -217,6 +218,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+USERMODE_PKG = @USERMODE_PKG@
 VENDOR = @VENDOR@
 VERSION = @VERSION@
 WIN32_PATH = @WIN32_PATH@
@@ -283,6 +285,7 @@ AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
 INCLUDES = -I$(top_srcdir)/lib
 MOC = @QT_MOC@
 dist_rdlogedit_SOURCES = add_meta.cpp add_meta.h\
+                         drop_listview.cpp drop_listview.h\
                          edit_chain.cpp edit_chain.h\
                          edit_log.cpp edit_log.h\
                          edit_logline.cpp edit_logline.h\
@@ -297,6 +300,7 @@ dist_rdlogedit_SOURCES = add_meta.cpp add_meta.h\
                          voice_tracker.cpp voice_tracker.h
 
 nodist_rdlogedit_SOURCES = moc_add_meta.cpp\
+                           moc_drop_listview.cpp\
                            moc_edit_chain.cpp\
                            moc_edit_log.cpp\
                            moc_edit_logline.cpp\
@@ -420,6 +424,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/add_meta.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/drop_listview.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_chain.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_log.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_logline.Po@am__quote@
@@ -431,6 +436,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_reports.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/log_listview.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_add_meta.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_drop_listview.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_chain.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_log.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_logline.Po@am__quote@

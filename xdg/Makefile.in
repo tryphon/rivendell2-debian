@@ -66,6 +66,7 @@ AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CONSOLEHELPER_RDALSACONFIG = @CONSOLEHELPER_RDALSACONFIG@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
@@ -155,6 +156,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+USERMODE_PKG = @USERMODE_PKG@
 VENDOR = @VENDOR@
 VERSION = @VERSION@
 WIN32_PATH = @WIN32_PATH@
@@ -239,6 +241,7 @@ EXTRA_DIST = rdalsaconfig-root-consolehelper\
              rivendell-rdlogedit.desktop\
              rivendell-rdlogin.desktop\
              rivendell-rdlogmanager.desktop\
+             rivendell-rdmonitor.desktop\
              rivendell-rdpanel.desktop\
              rivendell-rmlsend.desktop\
              rivendell-rdsoftkeys.desktop\
@@ -450,6 +453,7 @@ install-exec-am:
 	cp rivendell-rdlogedit.desktop @prefix@/share/applications/
 	cp rivendell-rdlogin.desktop @prefix@/share/applications/
 	cp rivendell-rdlogmanager.desktop @prefix@/share/applications/
+	cp rivendell-rdmonitor.desktop @prefix@/share/applications/
 	cp rivendell-rdpanel.desktop @prefix@/share/applications/
 	cp rivendell-rdsoftkeys.desktop @prefix@/share/applications/
 	cp rivendell-rmlsend.desktop @prefix@/share/applications/

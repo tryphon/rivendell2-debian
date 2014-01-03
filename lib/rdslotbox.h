@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdslotbox.h,v 1.3.2.3 2013/07/05 22:44:17 cvs Exp $
+//      $Id: rdslotbox.h,v 1.3.2.5 2013/12/30 17:24:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,6 +36,9 @@
 #include <rdlog_line.h>
 #include <rdlog_event.h>
 #include <rdplaymeter.h>
+#include <rdplay_deck.h>
+#include <rdcartdrag.h>
+#include <rdslotoptions.h>
 
 //
 // Widget Settings
@@ -48,11 +51,12 @@ class RDSlotBox : public QWidget
   Q_OBJECT
  public:
   enum BarMode {Transitioning=0,Stopping=1};
-  RDSlotBox(QWidget *parent=0);
+  RDSlotBox(RDPlayDeck *deck,QWidget *parent=0);
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
   RDLogLine *logLine();
   void setCart(RDLogLine *logline);
+  void setMode(RDSlotOptions::Mode mode);
   void setService(const QString &svcname);
   void setStatusLine(const QString &str);
   void setTimer(int msecs);
@@ -62,10 +66,14 @@ class RDSlotBox : public QWidget
 
  signals:
   void doubleClicked();
+  void cartDropped(unsigned cartnum);
 
  protected:
+  void mousePressEvent(QMouseEvent *e);
   void mouseDoubleClickEvent(QMouseEvent *e);
   void paintEvent(QPaintEvent *);
+  void dragEnterEvent(QDragEnterEvent *e);
+  void dropEvent(QDropEvent *e);
 
  private:
   void SetColor(QColor);
@@ -85,6 +93,7 @@ class RDSlotBox : public QWidget
   QTime line_end_time;
   int log_id;
   RDLogLine *line_logline;
+  RDSlotOptions::Mode line_mode;
   QFont line_font;
   QFont talk_font;
   QFont line_bold_font;
@@ -99,6 +108,7 @@ class RDSlotBox : public QWidget
   QPixmap *line_playout_map;
   QPixmap *line_macro_map;
   RDPlayMeter *line_meter[2];
+  RDPlayDeck *line_deck;
 };
 
 

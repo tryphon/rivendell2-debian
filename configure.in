@@ -5,8 +5,8 @@ dnl Use autoconf to process this into a configure script
 dnl
 dnl   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 dnl
-dnl      $Id: configure.in,v 1.247.6.11 2013/12/03 23:34:33 cvs Exp $
-dnl      $Date: 2013/12/03 23:34:33 $
+dnl      $Id: configure.in,v 1.247.6.13 2013/12/13 22:48:48 cvs Exp $
+dnl      $Date: 2013/12/13 22:48:48 $
 dnl
 dnl   This program is free software; you can redistribute it and/or modify
 dnl   it under the terms of the GNU General Public License version 2 as
@@ -111,12 +111,16 @@ AC_SUBST(DISTRO,$ar_gcc_distro)
 if test $ar_gcc_distro = suse ; then
   AC_SUBST(APACHE_PKG,"apache2")
   AC_SUBST(APACHE_CONFIG_DIR,"/etc/apache2/conf.d")
+  AC_SUBST(CONSOLEHELPER_RDALSACONFIG,"")
+  AC_SUBST(USERMODE_PKG,"")
   AC_SUBST(QT3_MYSQL_PKG,"qt3-mysql")
   AC_SUBST(QT3_DEVEL_PKG,"qt3-devel")
   AC_SUBST(MYSQL_PKG,"mysql")
 else
   AC_SUBST(APACHE_PKG,"httpd")
   AC_SUBST(APACHE_CONFIG_DIR,"/etc/httpd/conf.d")
+  AC_SUBST(CONSOLEHELPER_RDALSACONFIG,"/usr/bin/rdalsaconfig-root")
+  AC_SUBST(USERMODE_PKG,"usermode")
   AC_SUBST(QT3_MYSQL_PKG,"qt-MySQL")
   if test $ar_distro_major -ge 6 ; then
     AC_SUBST(QT3_DEVEL_PKG,"qt3-devel")
@@ -242,7 +246,11 @@ if test $HPI_FOUND ; then
     AC_SUBST(HPI_FILE3,$LIB_PATH/librdhpi.la)
     AC_SUBST(HPI_FILE4,$LIB_PATH/librdhpi.so)
     AC_SUBST(HPI_FILE5,$PREFIX/bin/rdhpiinfo)
-    AC_SUBST(HPI_FILE6,$PREFIX/bin/rdhpiinfo-root)
+    if test $ar_gcc_distro = suse ; then
+      AC_SUBST(HPI_FILE6,"")
+    else
+      AC_SUBST(HPI_FILE6,$PREFIX/bin/rdhpiinfo-root)
+    fi
     AC_SUBST(HPI_FILE7,$PREFIX/share/rivendell/rdhpi_es.qm)
     AC_SUBST(HPI_FILE8,$PREFIX/share/rivendell/rdhpi_cs.qm)
     AC_SUBST(HPI_FILE9,$PREFIX/share/rivendell/rdhpi_de.qm)

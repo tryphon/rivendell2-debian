@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdpanel.cpp,v 1.9.8.1 2013/03/09 00:21:11 cvs Exp $
+//      $Id: edit_rdpanel.cpp,v 1.9.8.2 2013/12/23 18:35:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -43,7 +43,8 @@
 #include <edit_now_next.h>
 
 
-EditRDPanel::EditRDPanel(RDStation *station,QWidget *parent,const char *name)
+EditRDPanel::EditRDPanel(RDStation *station,RDStation *cae_station,
+			 QWidget *parent,const char *name)
   : QDialog(parent,name,true)
 {
   QString sql;
@@ -340,9 +341,9 @@ EditRDPanel::EditRDPanel(RDStation *station,QWidget *parent,const char *name)
   //
   if(station->scanned()) {
     for(int i=0;i<6;i++) {
-      air_card_sel[i]->setMaxCards(station->cards());
+      air_card_sel[i]->setMaxCards(cae_station->cards());
       for(int j=0;j<air_card_sel[i]->maxCards();j++) {
-	air_card_sel[i]->setMaxPorts(j,station->cardOutputs(j));
+	air_card_sel[i]->setMaxPorts(j,cae_station->cardOutputs(j));
       }
     }
   }

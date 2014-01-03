@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: button_log.cpp,v 1.46 2010/10/04 18:11:47 cvs Exp $
+//      $Id: button_log.cpp,v 1.46.6.1 2013/12/28 00:00:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -75,6 +75,8 @@ ButtonLog::ButtonLog(LogPlay *log,int id,bool allow_pause,
 			       log_line_box[i]->sizeHint().height());
     connect(log_line_box[i],SIGNAL(doubleClicked(int)),
 	    this,SLOT(boxDoubleClickedData(int)));
+    connect(log_line_box[i],SIGNAL(cartDropped(int,RDLogLine *)),
+	    this,SLOT(cartDroppedData(int,RDLogLine *)));
     log_start_button[i]=new StartButton(allow_pause,this);
     log_start_button[i]->setGeometry(5,
 			       (log_line_box[i]->sizeHint().height()+12)*i,
@@ -95,6 +97,8 @@ ButtonLog::ButtonLog(LogPlay *log,int id,bool allow_pause,
 			        log_line_box[i]->sizeHint().height());
     connect(log_line_box[i],SIGNAL(doubleClicked(int)),
 	    this,SLOT(boxDoubleClickedData(int)));
+    connect(log_line_box[i],SIGNAL(cartDropped(int,RDLogLine *)),
+	    this,SLOT(cartDroppedData(int,RDLogLine *)));
     log_start_button[i]=new StartButton(allow_pause,this);
     log_start_button[i]->setGeometry(5,
 			       (log_line_box[0]->sizeHint().height()+12)*3+
@@ -459,7 +463,12 @@ void ButtonLog::positionData(int line,int point)
       return;
     }
   }
+}
 
+
+void ButtonLog::cartDroppedData(int line,RDLogLine *ll)
+{
+  emit cartDropped(log_id,line,ll);
 }
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel.h,v 1.16 2011/08/30 23:35:45 cvs Exp $
+//      $Id: rdpanel.h,v 1.16.4.1 2013/12/30 21:11:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,6 +35,7 @@
 #include <rdconfig.h>
 #include <rdsound_panel.h>
 #include <rdevent_player.h>
+#include <rdemptycart.h>
 
 //
 // Settings
@@ -78,6 +79,7 @@ class MainWidget : public QWidget
   QString panel_group;
   QString panel_schedcode;
   QPixmap *panel_skin_pixmap;
+  RDEmptyCart *panel_empty_cart;
 };
 
 

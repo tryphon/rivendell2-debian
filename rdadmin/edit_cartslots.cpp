@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cartslots.cpp,v 1.1.2.6 2012/12/18 17:49:34 cvs Exp $
+//      $Id: edit_cartslots.cpp,v 1.1.2.7 2013/12/23 18:47:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -30,14 +30,15 @@
 #include <globals.h>
 #include <edit_cartslots.h>
 
-EditCartSlots::EditCartSlots(RDStation *station,QWidget *parent,
-			     const char *name)
+EditCartSlots::EditCartSlots(RDStation *station,RDStation *cae_station,
+			     QWidget *parent,const char *name)
   : QDialog(parent)
 {
   QString sql;
   RDSqlQuery *q;
 
   edit_station=station;
+  edit_cae_station=cae_station;
   edit_previous_slot=0;
 
   //
@@ -123,7 +124,7 @@ EditCartSlots::EditCartSlots(RDStation *station,QWidget *parent,
   //
   edit_card_spin=new QSpinBox(this);
   edit_card_spin->setGeometry(127,145,50,20);
-  edit_card_spin->setRange(-1,station->cards()-1);
+  edit_card_spin->setRange(-1,cae_station->cards()-1);
   edit_card_spin->setSpecialValueText(tr("None"));
   connect(edit_card_spin,SIGNAL(valueChanged(int)),
 	  this,SLOT(cardChangedData(int)));
@@ -320,8 +321,8 @@ void EditCartSlots::cardChangedData(int card)
     edit_output_spin->setValue(-1);
   }
   else {
-    edit_input_spin->setRange(-1,edit_station->cardInputs(card)-1);
-    edit_output_spin->setRange(-1,edit_station->cardOutputs(card)-1);
+    edit_input_spin->setRange(-1,edit_cae_station->cardInputs(card)-1);
+    edit_output_spin->setRange(-1,edit_cae_station->cardOutputs(card)-1);
   }
 }
 

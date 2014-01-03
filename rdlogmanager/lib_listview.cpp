@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: lib_listview.cpp,v 1.7 2010/07/29 19:32:37 cvs Exp $
+//      $Id: lib_listview.cpp,v 1.7.8.1 2013/12/27 22:12:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,7 +22,7 @@
 //
 //
 
-#include <qdragobject.h>
+#include <rdcartdrag.h>
 
 #include <lib_listview.h>
 
@@ -50,8 +50,8 @@ void LibListView::contentsMousePressEvent(QMouseEvent *e)
   if(item==NULL) {
     return;
   }
-  QDragObject *d=new QTextDrag(item->text(1),this);
+  RDCartDrag *d=new RDCartDrag(item->text(1).toUInt(),item->pixmap(0),this);
   d->dragCopy();
+
   emit clicked(item);
 }
-

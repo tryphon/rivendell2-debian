@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: button_log.h,v 1.17 2010/10/04 18:11:47 cvs Exp $
+//      $Id: button_log.h,v 1.17.6.1 2013/12/28 00:00:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -75,9 +75,11 @@ class ButtonLog : public QWidget
   void stoppedData(int line);
   void pausedData(int line);
   void positionData(int line,int point);
+  void cartDroppedData(int line,RDLogLine *ll);
 
  signals:
   void selectClicked(int id,int line,RDLogLine::Status);
+  void cartDropped(int id,int line,RDLogLine *ll);
 
  private:
   void UpdateEvents();

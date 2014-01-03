@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.cpp,v 1.13.2.14 2013/11/13 23:36:32 cvs Exp $
+//      $Id: rdcartslot.cpp,v 1.13.2.16 2013/12/30 19:56:12 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -104,12 +104,14 @@ RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
   //
   // Slot Box
   //
-  slot_box=new RDSlotBox(this);
+  slot_box=new RDSlotBox(slot_deck,this);
   slot_box->setBarMode(false);
   slot_box->setGeometry(5+sizeHint().height(),0,
 			slot_box->sizeHint().width(),
 			slot_box->sizeHint().height());
   connect(slot_box,SIGNAL(doubleClicked()),this,SLOT(doubleClickedData()));
+  connect(slot_box,SIGNAL(cartDropped(unsigned)),
+	  this,SLOT(cartDroppedData(unsigned)));
 
   //
   // Load Button
@@ -199,6 +201,7 @@ void RDCartSlot::updateOptions()
   case RDSlotOptions::LastMode:
     break;
   }
+  slot_box->setMode(slot_options->mode());
   slot_options->save();
   if(slot_logline->cartNumber()!=0) {
     load(slot_logline->cartNumber());
@@ -565,6 +568,17 @@ void RDCartSlot::timescalingSupportedData(int card,bool state)
 {
   if(card==slot_options->card()) {
     slot_timescaling_active=state;
+  }
+}
+
+
+void RDCartSlot::cartDroppedData(unsigned cartnum)
+{
+  if(cartnum==0) {
+    unload();
+  }
+  else {
+    load(cartnum);
   }
 }
 

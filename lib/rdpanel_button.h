@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel_button.h,v 1.18 2011/01/05 20:15:26 cvs Exp $
+//      $Id: rdpanel_button.h,v 1.18.6.3 2013/12/30 18:20:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -33,6 +33,7 @@
 #include <rdairplay_conf.h>
 #include <rdplay_deck.h>
 #include <rdlog_line.h>
+#include <rdcartdrag.h>
 
 #define RDPANEL_BUTTON_MARGIN 5
 
@@ -40,7 +41,8 @@ class RDPanelButton : public QPushButton
 {
  Q_OBJECT
  public:
-  RDPanelButton(RDStation *station,bool flash,QWidget *parent=0,const char *name=0);
+  RDPanelButton(int row,int col,RDStation *station,bool flash,QWidget *parent=0,
+		const char *name=0);
   void clear();
   QString text() const;
   void setText(const QString &text);
@@ -77,6 +79,9 @@ class RDPanelButton : public QPushButton
   void setDuckVolume(int lvel);
   void resetCounter();
 
+ signals:
+  void cartDropped(int row,int col,unsigned cartnum,const QColor &color);
+
  public slots:
   void tickClock();
   void flashButton(bool state);
@@ -84,6 +89,13 @@ class RDPanelButton : public QPushButton
  private slots:
   void keyPressEvent(QKeyEvent *e);
   void keyReleaseEvent(QKeyEvent *e);
+
+ protected:
+  void mousePressEvent(QMouseEvent *e);
+  void mouseMoveEvent(QMouseEvent *e);
+  void mouseReleaseEvent(QMouseEvent *e);
+  void dragEnterEvent(QDragEnterEvent *e);
+  void dropEvent(QDropEvent *e);
 
  private:
   void WriteKeycap(int secs);
@@ -114,5 +126,8 @@ class RDPanelButton : public QPushButton
   bool button_pause_when_finished;
   int button_duck_volume;
   RDLogLine::StartSource button_start_source;
+  int button_row;
+  int button_col;
+  int button_move_count;
 };
 #endif

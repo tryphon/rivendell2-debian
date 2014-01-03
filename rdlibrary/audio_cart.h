@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.h,v 1.19 2010/07/29 19:32:36 cvs Exp $
+//      $Id: audio_cart.h,v 1.19.8.1 2013/12/26 22:03:49 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,8 @@
 
 #ifndef AUDIO_CART_H
 #define AUDIO_CART_H
+
+#include <vector>
 
 #include <qwidget.h>
 #include <qlabel.h>
@@ -78,6 +80,7 @@ class AudioCart : public QWidget
   void audioChanged();
 
  private:
+  RDListViewItem *SelectedCuts(std::vector<QString> *cutnames);
   void RefreshList();
   void RefreshLine(RDListViewItem *item);
   unsigned NextCut();

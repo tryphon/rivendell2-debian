@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.cpp,v 1.91.6.3 2013/11/13 23:36:37 cvs Exp $
+//      $Id: edit_log.cpp,v 1.91.6.4 2013/12/27 22:12:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -311,7 +311,7 @@ EditLog::EditLog(QString logname,vector<RDLogLine> *clipboard,
   //
   // Log Event List
   //
-  edit_log_list=new RDListView(this,"edit_log_list");
+  edit_log_list=new DropListView(this,"edit_log_list");
   edit_log_list->setAllColumnsShowFocus(true);
   edit_log_list->setSelectionMode(QListView::Extended);
   edit_log_list->setItemMargin(5);
@@ -347,6 +347,8 @@ EditLog::EditLog(QString logname,vector<RDLogLine> *clipboard,
   if(editing_allowed) {
     connect(edit_log_list,SIGNAL(doubleClicked(QListViewItem *)),
 	    this,SLOT(doubleClickData(QListViewItem *)));
+    connect(edit_log_list,SIGNAL(cartDropped(int,RDLogLine *)),
+	    this,SLOT(cartDroppedData(int,RDLogLine *)));
   }
   connect(edit_log_list,SIGNAL(clicked(QListViewItem *)),
   	  this,SLOT(clickedData(QListViewItem *)));
@@ -1022,6 +1024,25 @@ void EditLog::pasteButtonData()
   UpdateTracks();
   SelectRecord(id);
   UpdateSelection();
+}
+
+
+void EditLog::cartDroppedData(int line,RDLogLine *ll)
+{
+  int id;
+
+  edit_log_event->insert(line,1);
+  edit_log_event->setLogLine(line,ll);
+  edit_log_event->logLine(line)->setTransType(edit_default_trans);
+  edit_log_event->logLine(line)->setFadeupGain(-3000);
+  edit_log_event->logLine(line)->setFadedownGain(-3000);
+  edit_log_event->refresh(line);
+  edit_changed=true;
+  RefreshList();
+  /*
+  SelectRecord(id);
+  UpdateSelection();
+  */
 }
 
 

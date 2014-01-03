@@ -3,7 +3,7 @@
 ##    The Rivendell Radio Automation System
 ##    Copyright (C) 2002-2010  Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: rivendell.spec.in,v 1.98.4.25 2013/12/03 23:34:33 cvs Exp $
+##      $Id: rivendell.spec.in,v 1.98.4.27 2013/12/27 00:04:04 cvs Exp $
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of version 2 of the GNU General Public License as
@@ -28,7 +28,7 @@ License: GPL
 Packager: Fred Gleason <fredg@paravelsystems.com>
 Group: Productivity/Multimedia/Other
 Source: rivendell-@VERSION@.tar.gz
-Requires: @QT3_MYSQL_PKG@ @APACHE_PKG@ @QT3_DEVEL_PKG@ curl usermode rivendell-base
+Requires: @QT3_MYSQL_PKG@ @APACHE_PKG@ @QT3_DEVEL_PKG@ curl @USERMODE_PKG@ rivendell-base
 BuildRoot: /var/tmp/rivendell-@VERSION@
 
 %package base
@@ -129,7 +129,9 @@ cp rdlogin/.libs/rdlogin $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdselect/.libs/rdselect $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp rdmonitor/.libs/rdmonitor $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rdalsaconfig/.libs/rdalsaconfig $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-ln -s /usr/bin/consolehelper $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdalsaconfig-root
+if test "@DISTRO@" = "redhat" ; then
+  ln -s /usr/bin/consolehelper $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdalsaconfig-root
+fi
 cp utils/rdcheckcuts/.libs/rdcheckcuts $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rdcollect/.libs/rdcollect $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rddgimport/.libs/rddgimport $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
@@ -138,7 +140,9 @@ cp utils/rdgen/rdgen $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rdgpimon/.libs/rdgpimon $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 if test -f rdhpi/.libs/librdhpi-@VERSION@.so ; then
   cp utils/rdhpiinfo/.libs/rdhpiinfo $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-  ln -s /usr/bin/consolehelper $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdhpiinfo-root
+  if test "@DISTRO@" = "redhat" ; then
+    ln -s /usr/bin/consolehelper $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/rdhpiinfo-root
+  fi
 fi
 cp utils/rddelete/.libs/rddelete $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 cp utils/rdimport/.libs/rdimport $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
@@ -310,6 +314,7 @@ cp xdg/rivendell-rdlibrary.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applicati
 cp xdg/rivendell-rdlogedit.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 cp xdg/rivendell-rdlogin.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 cp xdg/rivendell-rdlogmanager.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
+cp xdg/rivendell-rdmonitor.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 cp xdg/rivendell-rdpanel.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 cp xdg/rivendell-rdsoftkeys.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
 cp xdg/rivendell-rmlsend.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/
@@ -362,8 +367,6 @@ if test "@WIN32_SOURCE@" ; then
   mkdir -p $RPM_BUILD_ROOT/var/win32
   cp @WIN32_SOURCE@ $RPM_BUILD_ROOT/var/win32/
 fi
-mkdir -p $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d
-cp scripts/start-rdmonitor.sh $RPM_BUILD_ROOT/etc/X11/xinit/xinitrc.d/
 mkdir -p $RPM_BUILD_ROOT/etc/pam.d
 cp xdg/rdalsaconfig-root-pam $RPM_BUILD_ROOT/etc/pam.d/rdalsaconfig-root
 if test -f rdhpi/.libs/librdhpi-@VERSION@.so ; then
@@ -374,7 +377,6 @@ cp xdg/rdalsaconfig-root-consolehelper $RPM_BUILD_ROOT/etc/security/console.apps
 if test -f rdhpi/.libs/librdhpi-@VERSION@.so ; then
   cp xdg/rdhpiinfo-root-consolehelper $RPM_BUILD_ROOT/etc/security/console.apps/rdhpiinfo-root
 fi
-
 
 %post
 ldconfig
@@ -485,7 +487,7 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/bin/rdsoftkeys
 @LOCAL_PREFIX@/bin/rdpopup
 @LOCAL_PREFIX@/bin/rdalsaconfig
-@LOCAL_PREFIX@/bin/rdalsaconfig-root
+@CONSOLEHELPER_RDALSACONFIG@
 @LOCAL_PREFIX@/bin/rdgpimon
 @LOCAL_PREFIX@/bin/rddelete
 @LOCAL_PREFIX@/bin/rdimport
@@ -577,6 +579,7 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/share/applications/rivendell-rdadmin.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdlogin.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdairplay.desktop
+@LOCAL_PREFIX@/share/applications/rivendell-rdmonitor.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdpanel.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdcartslots.desktop
 @LOCAL_PREFIX@/share/applications/rivendell-rdcatch.desktop
@@ -776,10 +779,11 @@ rm -rf $RPM_BUILD_ROOT
 @LOCAL_PREFIX@/share/rivendell/rdmonitor_nb.qm
 @LOCAL_PREFIX@/share/rivendell/rdmonitor_nn.qm
 @LOCAL_PREFIX@/share/rivendell/rdmonitor_pt_BR.qm
-/etc/X11/xinit/xinitrc.d/start-rdmonitor.sh
 
 
 %changelog
+* Thu Dec 26 2013 Fred Gleason <fredg@paravelsystems.com>
+-- Added desktop entry for RDMonitor.
 * Tue Dec 03 2013 Fred Gleason <fredg@paravelsystems.com>
 -- Added RDDiscImport(1).
 * Tue Nov 13 2013 Fred Gleason <fredg@paravelsystems.com>

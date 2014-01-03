@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdslotbox.cpp,v 1.5.2.4 2013/07/05 22:44:17 cvs Exp $
+//      $Id: rdslotbox.cpp,v 1.5.2.6 2013/12/30 17:24:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -30,11 +30,13 @@
 #include "../icons/play.xpm"
 #include "../icons/rml5.xpm"
 
-RDSlotBox::RDSlotBox(QWidget *parent)
+RDSlotBox::RDSlotBox(RDPlayDeck *deck,QWidget *parent)
   : QWidget(parent)
 {
+  line_deck=deck;
   line_type=RDLogLine::UnknownType;
   line_logline=NULL;
+  line_mode=RDSlotOptions::LastMode;
   log_id=-1;
 
   //
@@ -209,6 +211,8 @@ RDSlotBox::RDSlotBox(QWidget *parent)
   line_length_label->setAlignment(Qt::AlignRight);
 
   SetColor(QColor(LABELBOX_BACKGROUND_COLOR));
+
+  setAcceptDrops(true);
 }
 
 
@@ -412,6 +416,12 @@ void RDSlotBox::setCart(RDLogLine *logline)
 }
 
 
+void RDSlotBox::setMode(RDSlotOptions::Mode mode)
+{
+  line_mode=mode;
+}
+
+
 void RDSlotBox::setService(const QString &svcname)
 {
   clear();
@@ -479,6 +489,18 @@ void RDSlotBox::setBarMode(bool changed)
 }
 
 
+void RDSlotBox::mousePressEvent(QMouseEvent *e)
+{
+  QWidget::mousePressEvent(e);
+
+  if((line_logline!=NULL)&&(line_mode==RDSlotOptions::CartDeckMode)) {
+    RDCartDrag *d=new RDCartDrag(line_logline->cartNumber(),
+				 line_icon_label->pixmap(),this);
+    d->dragCopy();
+  }
+}
+
+
 void RDSlotBox::mouseDoubleClickEvent(QMouseEvent *e)
 {
   emit doubleClicked();
@@ -494,6 +516,24 @@ void RDSlotBox::paintEvent(QPaintEvent *e)
 	      backgroundColor());
   p->end();
   delete p;
+}
+
+
+void RDSlotBox::dragEnterEvent(QDragEnterEvent *e)
+{
+  e->accept(RDCartDrag::canDecode(e)&&
+	    (line_mode==RDSlotOptions::CartDeckMode)&&
+	    (line_deck->state()==RDPlayDeck::Stopped));
+}
+
+
+void RDSlotBox::dropEvent(QDropEvent *e)
+{
+  unsigned cartnum;
+
+  if(RDCartDrag::decode(e,&cartnum)) {
+    emit cartDropped(cartnum);
+  }
 }
 
 

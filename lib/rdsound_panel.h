@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.h,v 1.32.6.3 2013/03/13 16:10:43 cvs Exp $
+//      $Id: rdsound_panel.h,v 1.32.6.6 2013/12/30 20:37:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -43,7 +43,6 @@
 #include <rdevent_player.h>
 #include <rdcombobox.h>
 
-
 //
 // Widget Settings
 //
@@ -73,8 +72,6 @@ class RDSoundPanel : public QWidget
   void setRmls(int outnum,const QString &start_rml,const QString &stop_rml);
   void setLogName(const QString &logname);
   void setSvcName(const QString &svcname);
-  void setButton(RDAirPlayConf::PanelType type,int panel,int row,int col,
-		 unsigned cartnum);
   void setLogfile(QString filename);
   void play(RDAirPlayConf::PanelType type,int panel,int row,int col,
 	    RDLogLine::StartSource src,int mport=-1,bool pause_when_finished=false);
@@ -96,6 +93,9 @@ class RDSoundPanel : public QWidget
   RDAirPlayConf::PanelType currentType() const;
 
  public slots:
+  void setButton(RDAirPlayConf::PanelType type,int panel,int row,int col,
+		 unsigned cartnum);
+  void acceptCartDrop(int row,int col,unsigned cartnum,const QColor &color);
   void changeUser();
   void tickClock();
 

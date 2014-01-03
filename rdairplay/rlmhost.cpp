@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rlmhost.cpp,v 1.7.6.5 2013/12/11 22:32:51 cvs Exp $
+//      $Id: rlmhost.cpp,v 1.7.6.6 2013/12/19 13:08:52 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -212,10 +212,10 @@ void RLMHost::loadMetadata(const RDLogLine *logline,struct rlm_pad *pad,
       sprintf(pad->rlm_album,"%s",(const char *)logline->album().left(255));
     }
     if(!logline->isrc().isEmpty()) {
-      sprintf(pad->rlm_isrc,"%s",(const char *)logline->isrc().left(12));
+      strncpy(pad->rlm_isrc,(const char *)logline->isrc().left(12),12);
     }
     if(!logline->isci().isEmpty()) {
-      sprintf(pad->rlm_isci,"%s",(const char *)logline->isci().left(32));
+      strncpy(pad->rlm_isci,(const char *)logline->isci().left(32),32);
     }
     if(!logline->extData().isEmpty()) {
       sprintf(pad->rlm_ext_data,"%s",(const char *)logline->extData().left(32));
@@ -281,8 +281,8 @@ void RLMHost::saveMetadata(const struct rlm_pad *pad,RDLogLine *logline)
   logline->setPublisher(pad->rlm_pub);
   logline->setUserDefined(pad->rlm_userdef);
   logline->setAlbum(pad->rlm_album);
-  logline->setIsrc(pad->rlm_isrc);
-  logline->setIsci(pad->rlm_isci);
+  logline->setIsrc(QString::fromAscii(pad->rlm_isrc,12));
+  logline->setIsci(QString::fromAscii(pad->rlm_isci,32));
   if((pad->rlm_start_year>0)&&(pad->rlm_start_mon>0)&&(pad->rlm_start_day)) {
     logline->setStartDatetime(QDateTime(QDate(pad->rlm_start_year,
 					      pad->rlm_start_mon,

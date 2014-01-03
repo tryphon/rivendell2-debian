@@ -6,7 +6,7 @@
 ##
 ##   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.37.8.3 2013/01/01 21:36:31 cvs Exp $
+##      $Id: Makefile.am,v 1.37.8.4 2013/12/27 22:12:28 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -46,6 +46,7 @@ all:
 bin_PROGRAMS = rdlogedit
 
 dist_rdlogedit_SOURCES = add_meta.cpp add_meta.h\
+                         drop_listview.cpp drop_listview.h\
                          edit_chain.cpp edit_chain.h\
                          edit_log.cpp edit_log.h\
                          edit_logline.cpp edit_logline.h\
@@ -60,6 +61,7 @@ dist_rdlogedit_SOURCES = add_meta.cpp add_meta.h\
                          voice_tracker.cpp voice_tracker.h
 
 nodist_rdlogedit_SOURCES = moc_add_meta.cpp\
+                           moc_drop_listview.cpp\
                            moc_edit_chain.cpp\
                            moc_edit_log.cpp\
                            moc_edit_logline.cpp\

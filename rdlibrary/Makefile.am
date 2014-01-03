@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.51.8.2 2013/01/01 21:36:31 cvs Exp $
+##      $Id: Makefile.am,v 1.51.8.3 2013/12/27 22:12:26 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -58,6 +58,7 @@ dist_rdlibrary_SOURCES = audio_cart.cpp audio_cart.h\
                          edit_schedulercodes.cpp edit_schedulercodes.h\
                          filter.cpp filter.h\
                          globals.h\
+                         lib_listview.cpp lib_listview.h\
                          list_reports.cpp list_reports.h\
                          macro_cart.cpp macro_cart.h\
                          rdlibrary.cpp rdlibrary.h\
@@ -73,6 +74,7 @@ nodist_rdlibrary_SOURCES = moc_audio_cart.cpp\
                            moc_edit_notes.cpp\
                            moc_edit_schedulercodes.cpp \
                            moc_filter.cpp\
+                           moc_lib_listview.cpp\
                            moc_list_reports.cpp\
                            moc_macro_cart.cpp\
                            moc_rdlibrary.cpp\

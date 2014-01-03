@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdbutton_panel.h,v 1.10 2011/01/03 13:28:27 cvs Exp $
+//      $Id: rdbutton_panel.h,v 1.10.6.1 2013/12/28 01:03:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -45,8 +45,8 @@
 class RDButtonPanel
 {
  public:
-  RDButtonPanel(int cols,int rows,RDStation *station,bool flash,
-		QWidget *parent);
+  RDButtonPanel(RDAirPlayConf::PanelType type,int panel,int cols,int rows,
+		RDStation *station,bool flash,QWidget *parent);
   ~RDButtonPanel();
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;

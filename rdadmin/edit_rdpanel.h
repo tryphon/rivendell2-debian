@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdpanel.h,v 1.6.8.1 2013/03/09 00:21:11 cvs Exp $
+//      $Id: edit_rdpanel.h,v 1.6.8.2 2013/12/23 18:35:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -48,7 +48,8 @@ class EditRDPanel : public QDialog
 {
  Q_OBJECT
  public:
-  EditRDPanel(RDStation *station,QWidget *parent=0,const char *name=0);
+  EditRDPanel(RDStation *station,RDStation *cae_station,
+	      QWidget *parent=0,const char *name=0);
   ~EditRDPanel();
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;

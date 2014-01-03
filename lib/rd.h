@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194.6.11 2013/11/13 23:36:29 cvs Exp $
+//      $Id: rd.h,v 1.194.6.13 2013/12/27 22:12:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -366,7 +366,7 @@
 #define CAE_MAX_ARGS 10
 #define CAE_MAX_LENGTH 256
 #define CAE_POLL_INTERVAL 50
-#define CAE_MAX_CONNECTIONS 32
+#define CAE_MAX_CONNECTIONS 128
 
 /*
  * Default Sample Rate
@@ -560,5 +560,11 @@
  */
 #define RDCARTSLOTS_MAX_ROWS 16
 #define RDCARTSLOTS_MAX_COLUMNS 4
+
+/*
+ * Custom MIME Types (for Drag and Drop)
+ */
+#define RDMIMETYPE_CART "application/rivendell-cart"
+
 
 #endif  // RD_H
