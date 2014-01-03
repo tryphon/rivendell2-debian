@@ -7,7 +7,7 @@ Subject: Fix prefix in icons makefile
  1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/icons/Makefile.am b/icons/Makefile.am
-index f0217a7..bd8e50a 100644
+index 07385fb..2ad7c8c 100644
 --- a/icons/Makefile.am
 +++ b/icons/Makefile.am
 @@ -31,18 +31,18 @@ install-exec-am:

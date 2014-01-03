@@ -3,14 +3,14 @@ Date: Wed, 10 Apr 2013 19:31:59 +0200
 Subject: Fix prefix in xdg makefile
 
 ---
- xdg/Makefile.am | 54 +++++++++++++++++++++++++++---------------------------
- 1 file changed, 27 insertions(+), 27 deletions(-)
+ xdg/Makefile.am | 56 ++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
 diff --git a/xdg/Makefile.am b/xdg/Makefile.am
-index 194511c..e715dae 100644
+index f5e9678..eaf6553 100644
 --- a/xdg/Makefile.am
 +++ b/xdg/Makefile.am
-@@ -21,34 +21,34 @@
+@@ -21,35 +21,35 @@
  ##
  ## Use automake to process this into a Makefile.in
  
@@ -30,6 +30,7 @@ index 194511c..e715dae 100644
 -	cp rivendell-rdlogedit.desktop @prefix@/share/applications/
 -	cp rivendell-rdlogin.desktop @prefix@/share/applications/
 -	cp rivendell-rdlogmanager.desktop @prefix@/share/applications/
+-	cp rivendell-rdmonitor.desktop @prefix@/share/applications/
 -	cp rivendell-rdpanel.desktop @prefix@/share/applications/
 -	cp rivendell-rdsoftkeys.desktop @prefix@/share/applications/
 -	cp rivendell-rmlsend.desktop @prefix@/share/applications/
@@ -53,6 +54,7 @@ index 194511c..e715dae 100644
 +	cp rivendell-rdlogedit.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rdlogin.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rdlogmanager.desktop $(DESTDIR)@prefix@/share/applications/
++	cp rivendell-rdmonitor.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rdpanel.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rdsoftkeys.desktop $(DESTDIR)@prefix@/share/applications/
 +	cp rivendell-rmlsend.desktop $(DESTDIR)@prefix@/share/applications/

@@ -22,10 +22,10 @@ index 93e176f..c6154cc 100644
  CLEANFILES = *~\
               moc_*
 diff --git a/cae/Makefile.in b/cae/Makefile.in
-index 87e63db..84774b7 100644
+index 7ebefdb..6177bdf 100644
 --- a/cae/Makefile.in
 +++ b/cae/Makefile.in
-@@ -284,7 +284,8 @@ caed_LDADD = @LIB_RDLIBS@\
+@@ -286,7 +286,8 @@ caed_LDADD = @LIB_RDLIBS@\
               @LIBHPI@\
               @LIBJACK@\
               @LIBSRC@\
@@ -35,7 +35,7 @@ index 87e63db..84774b7 100644
  
  CLEANFILES = *~\
               moc_*
-@@ -369,7 +370,7 @@ clean-binPROGRAMS:
+@@ -371,7 +372,7 @@ clean-binPROGRAMS:
  	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
  	echo " rm -f" $$list; \
  	rm -f $$list

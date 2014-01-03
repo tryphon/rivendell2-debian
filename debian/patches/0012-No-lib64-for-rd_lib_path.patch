@@ -7,7 +7,7 @@ Subject: No lib64 for rd_lib_path
  1 file changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/configure.in b/configure.in
-index 2e993f6..31fe64b 100644
+index 56f8cef..aedad6a 100644
 --- a/configure.in
 +++ b/configure.in
 @@ -95,13 +95,9 @@ fi
