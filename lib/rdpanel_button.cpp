@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel_button.cpp,v 1.26.6.1 2012/07/23 20:56:19 cvs Exp $
+//      $Id: rdpanel_button.cpp,v 1.26.6.7 2013/12/30 19:56:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -26,17 +26,23 @@
 #include <qpixmap.h>
 #include <qpainter.h>
 
+#include <rdcartdrag.h>
 
-RDPanelButton::RDPanelButton(RDStation *station,bool flash,
+RDPanelButton::RDPanelButton(int row,int col,RDStation *station,bool flash,
 			     QWidget *parent,const char *name)
   : QPushButton(parent,name)
 {
+  button_row=row;
+  button_col=col;
   button_station=station;
   button_parent=parent;
   button_flash=flash;
   button_flash_state=false;
   button_hook_mode=false;
+  button_move_count=-1;
   clear();
+
+  setAcceptDrops(true);
 }
 
 
@@ -344,6 +350,49 @@ void RDPanelButton::keyReleaseEvent(QKeyEvent *e)
 }
 
 
+void RDPanelButton::mousePressEvent(QMouseEvent *e)
+{
+  button_move_count=3;
+  QPushButton::mousePressEvent(e);
+}
+
+
+void RDPanelButton::mouseMoveEvent(QMouseEvent *e)
+{
+  button_move_count--;
+  if(button_move_count==0) {
+    QPushButton::mouseReleaseEvent(e);
+    RDCartDrag *d=new RDCartDrag(button_cart,button_color,this);
+    d->dragCopy();
+  }
+}
+
+
+void RDPanelButton::mouseReleaseEvent(QMouseEvent *e)
+{
+  button_move_count=-1;
+  QPushButton::mouseReleaseEvent(e);
+}
+
+
+void RDPanelButton::dragEnterEvent(QDragEnterEvent *e)
+{
+  e->accept(RDCartDrag::canDecode(e)&&
+  ((button_play_deck==NULL)||(button_play_deck->state()==RDPlayDeck::Stopped)));
+}
+
+
+void RDPanelButton::dropEvent(QDropEvent *e)
+{
+  unsigned cartnum;
+  QColor color;
+
+  if(RDCartDrag::decode(e,&cartnum,&color)) {
+    emit cartDropped(button_row,button_col,cartnum,color);
+  }
+}
+
+
 void RDPanelButton::WriteKeycap(int secs)
 {
   QString text=button_text;
@@ -396,8 +445,15 @@ void RDPanelButton::WriteKeycap(int secs)
         p->drawText(RDPANEL_BUTTON_MARGIN,size().height()-RDPANEL_BUTTON_MARGIN,"Finished");
         }
       else {
-	      p->drawText(RDPANEL_BUTTON_MARGIN,size().height()-RDPANEL_BUTTON_MARGIN,
-			  RDGetTimeLength(button_active_length+1000,true,false));
+	if(button_active_length>=0) {
+	  p->drawText(RDPANEL_BUTTON_MARGIN,size().height()-
+		      RDPANEL_BUTTON_MARGIN,
+		      RDGetTimeLength(button_active_length+1000,true,false));
+	}
+	else {
+	  p->drawText(RDPANEL_BUTTON_MARGIN,size().height()-
+		      RDPANEL_BUTTON_MARGIN,tr("No Audio"));
+	}
       }
     }
     else {

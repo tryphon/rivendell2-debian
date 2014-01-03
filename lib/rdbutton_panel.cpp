@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdbutton_panel.cpp,v 1.12 2011/01/03 13:28:27 cvs Exp $
+//      $Id: rdbutton_panel.cpp,v 1.12.6.2 2013/12/30 18:20:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -26,7 +26,8 @@
 #include <rdbutton_dialog.h>
 
 
-RDButtonPanel::RDButtonPanel(int cols,int rows,RDStation *station,bool flash,
+RDButtonPanel::RDButtonPanel(RDAirPlayConf::PanelType type,int panel,int cols,
+			     int rows,RDStation *station,bool flash,
 			     QWidget *parent)
 {
   panel_button_columns=cols;
@@ -34,7 +35,8 @@ RDButtonPanel::RDButtonPanel(int cols,int rows,RDStation *station,bool flash,
   panel_station=station;
   for(int i=0;i<panel_button_rows;i++) {
     for(int j=0;j<panel_button_columns;j++) {
-      panel_button[i][j]=new RDPanelButton(panel_station,flash,parent);
+      panel_button[i][j]=
+	new RDPanelButton(i,j,panel_station,flash,parent);
       panel_button[i][j]->setGeometry((15+PANEL_BUTTON_SIZE_X)*j,
 				      (15+PANEL_BUTTON_SIZE_Y)*i,
 				      PANEL_BUTTON_SIZE_X,
@@ -42,6 +44,10 @@ RDButtonPanel::RDButtonPanel(int cols,int rows,RDStation *station,bool flash,
       panel_button[i][j]->hide();
       parent->connect(parent,SIGNAL(buttonFlash(bool)),
 		      panel_button[i][j],SLOT(flashButton(bool)));
+      QObject::connect(panel_button[i][j],
+		       SIGNAL(cartDropped(int,int,unsigned,const QColor &)),
+		       parent,
+		       SLOT(acceptCartDrop(int,int,unsigned,const QColor &)));
     }
   }
   clear();

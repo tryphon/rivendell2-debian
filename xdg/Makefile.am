@@ -4,7 +4,7 @@
 ##
 ##   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.11.2.7 2013/12/03 23:34:38 cvs Exp $
+##      $Id: Makefile.am,v 1.11.2.8 2013/12/27 00:04:04 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -37,6 +37,7 @@ install-exec-am:
 	cp rivendell-rdlogedit.desktop @prefix@/share/applications/
 	cp rivendell-rdlogin.desktop @prefix@/share/applications/
 	cp rivendell-rdlogmanager.desktop @prefix@/share/applications/
+	cp rivendell-rdmonitor.desktop @prefix@/share/applications/
 	cp rivendell-rdpanel.desktop @prefix@/share/applications/
 	cp rivendell-rdsoftkeys.desktop @prefix@/share/applications/
 	cp rivendell-rmlsend.desktop @prefix@/share/applications/
@@ -72,6 +73,7 @@ EXTRA_DIST = rdalsaconfig-root-consolehelper\
              rivendell-rdlogedit.desktop\
              rivendell-rdlogin.desktop\
              rivendell-rdlogmanager.desktop\
+             rivendell-rdmonitor.desktop\
              rivendell-rdpanel.desktop\
              rivendell-rmlsend.desktop\
              rivendell-rdsoftkeys.desktop\

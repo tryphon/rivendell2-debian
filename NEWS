@@ -1,6 +1,25 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.6.1 --  1/02/2014
+
+Changes:
+   Drag and Drop.  Added the ability to drag and drop carts within and
+   between Rivendell modules.
+
+   Useability Tweaks.  Modified UI behavior to improve ease of use for
+   SoundPanels and RDLibrary.  See the ChangeLog for details.
+
+   Multiple bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 224, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.6.0 -- 12/13/2013
 
 Changes:

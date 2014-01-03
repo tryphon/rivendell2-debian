@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_play.cpp,v 1.197.8.5 2013/03/13 17:09:55 cvs Exp $
+//      $Id: log_play.cpp,v 1.197.8.6 2013/12/30 21:02:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -853,7 +853,7 @@ void LogPlay::remove(int line,int num_lines,bool update,bool preserv_custom_tran
   RDLogLine *logline;
   int mod_line=-1;
 
-  if(num_lines==0) {
+  if((num_lines==0)||(line<0)||(line>=size())) {
     return;
   }
   if((line+num_lines)<(size()-1)) {

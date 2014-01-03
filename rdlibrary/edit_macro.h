@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_macro.h,v 1.8 2010/07/29 19:32:36 cvs Exp $
+//      $Id: edit_macro.h,v 1.8.8.2 2013/12/23 22:04:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 
 #include <qdialog.h>
 #include <qlineedit.h>
+#include <qpushbutton.h>
 
 #include <rdcart.h>
 #include <rdmacro.h>
@@ -34,7 +35,7 @@ class EditMacro : public QDialog
 {
   Q_OBJECT
  public:
-  EditMacro(RDMacro *cmd,QWidget *parent=0,const char *name=0);
+  EditMacro(RDMacro *cmd,bool highlight,QWidget *parent=0,const char *name=0);
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
 
@@ -44,9 +45,12 @@ class EditMacro : public QDialog
 
  protected:
   void closeEvent(QCloseEvent *e);
+  void resizeEvent(QResizeEvent *e);
 
  private:
   QLineEdit *edit_macro_edit;
+  QPushButton *edit_ok_button;
+  QPushButton *edit_cancel_button;
   RDMacro *edit_macro;
 };
 

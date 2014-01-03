@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdairplay.pro,v 1.8.4.3 2013/07/05 21:07:29 cvs Exp $
+#      $Id: rdairplay.pro,v 1.8.4.4 2013/12/28 00:00:34 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@ x11 {
   SOURCES += button_log.cpp
   SOURCES += edit_event.cpp
   SOURCES += hourselector.cpp
+  SOURCES += lib_listview.cpp
   SOURCES += list_log.cpp
   SOURCES += list_logs.cpp
   SOURCES += local_macros.cpp
@@ -45,6 +46,7 @@ x11 {
   HEADERS += colors.h
   HEADERS += edit_event.h
   HEADERS += hourselector.h
+  HEADERS += lib_listview.h
   HEADERS += list_log.h
   HEADERS += list_logs.h
   HEADERS += log_play.h

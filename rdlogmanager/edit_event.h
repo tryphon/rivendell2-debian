@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.h,v 1.24 2010/07/29 19:32:37 cvs Exp $
+//      $Id: edit_event.h,v 1.24.8.1 2013/12/30 20:37:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -41,6 +41,7 @@
 #include <rdtransportbutton.h>
 
 #include <rduser.h>
+#include <rdemptycart.h>
 #include <rdevent.h>
 #include <rdevent_line.h>
 #include <rdsimpleplayer.h>
@@ -166,6 +167,7 @@ class EditEvent : public QDialog
   std::vector<QString> *event_new_events;
   RDSimplePlayer *event_player;
   QTextEdit *event_remarks_edit;
+  RDEmptyCart *event_empty_cart;
 };
 
 

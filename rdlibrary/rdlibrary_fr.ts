@@ -116,11 +116,6 @@ Markers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This cut is used in one or more RDCatch events!
-Do you still want to delete it?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Empty Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -167,10 +162,6 @@ Do you want to proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to delete audio!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No audio is present in the cut!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -180,6 +171,39 @@ Do you want to proceed?</source>
     </message>
     <message>
         <source>RDLibrary - Edit Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Cuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more cuts are used in one or more RDCatch events!
+Do you still want to delete?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to delete audio for cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data copied - you must select a single cut!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must select a single cut!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1045,6 +1069,10 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>PUBLISHER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Cart Dragging</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

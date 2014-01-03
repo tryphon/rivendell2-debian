@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlibrary.pro,v 1.11.2.1 2013/01/01 21:36:31 cvs Exp $
+#      $Id: rdlibrary.pro,v 1.11.2.2 2013/12/27 22:12:27 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -32,6 +32,7 @@ x11 {
   SOURCES += edit_notes.cpp
   SOURCES += edit_schedulercodes.cpp
   SOURCES += filter.cpp
+  SOURCES += lib_listview.cpp
   SOURCES += list_reports.cpp
   SOURCES += macro_cart.cpp
   SOURCES += rdlibrary.cpp
@@ -50,6 +51,7 @@ x11 {
   HEADERS += edit_notes.h
   HEADERS += edit_schedulercodes.h
   HEADERS += filter.h
+  HEADERS += lib_listview.h
   HEADERS += list_reports.h
   HEADERS += macro_cart.h
   HEADERS += rdlibrary.h

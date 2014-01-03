@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.cpp,v 1.53.2.2 2013/03/09 00:21:16 cvs Exp $
+//      $Id: edit_event.cpp,v 1.53.2.4 2013/12/30 22:05:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -150,11 +150,7 @@ EditEvent::EditEvent(QString eventname,bool new_event,
   // Cart List
   //
   event_lib_list=new LibListView(this,"event_lib_list");
-#ifdef WIN32
-  event_lib_list->setGeometry(10,80,CENTER_LINE-20,sizeHint().height()-250);
-#else
   event_lib_list->setGeometry(10,80,CENTER_LINE-20,sizeHint().height()-300);
-#endif  // WIN32
   event_lib_list->setAllColumnsShowFocus(true);
   event_lib_list->setItemMargin(5);
   event_lib_list->addColumn("");
@@ -170,6 +166,12 @@ EditEvent::EditEvent(QString eventname,bool new_event,
   connect(event_lib_list,SIGNAL(clicked(QListViewItem *)),
 	  this,SLOT(cartClickedData(QListViewItem *)));
   
+  //
+  // Empty Cart Source
+  //
+  event_empty_cart=new RDEmptyCart(this);
+  event_empty_cart->setGeometry(CENTER_LINE-227,sizeHint().height()-202,32,32);
+
   //
   // Cart Player
   //

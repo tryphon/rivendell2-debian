@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.cpp,v 1.101.4.8 2013/12/11 22:32:50 cvs Exp $
+//      $Id: rdlog_event.cpp,v 1.101.4.9 2013/12/27 22:12:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -954,6 +954,14 @@ RDLogLine *RDLogEvent::logLine(int line) const
     return NULL;
   }
   return log_line[line];
+}
+
+
+void RDLogEvent::setLogLine(int line,RDLogLine *ll)
+{
+  int id=log_line[line]->id();
+  *log_line[line]=*ll;
+  log_line[line]->setId(id);
 }
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cartslots.h,v 1.1.2.4 2012/12/18 17:49:34 cvs Exp $
+//      $Id: edit_cartslots.h,v 1.1.2.5 2013/12/23 18:47:23 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,7 +36,8 @@ class EditCartSlots : public QDialog
 {
   Q_OBJECT
  public:
-  EditCartSlots(RDStation *station,QWidget *parent=0,const char *name=0);
+  EditCartSlots(RDStation *station,RDStation *cae_station,
+		QWidget *parent=0,const char *name=0);
   ~EditCartSlots();
   QSize sizeHint() const;
  
@@ -56,6 +57,7 @@ class EditCartSlots : public QDialog
   void ReadSlot(unsigned slotnum);
   void WriteSlot(unsigned slotnum);
   RDStation *edit_station;
+  RDStation *edit_cae_station;
   QLabel *edit_slot_columns_label;
   QSpinBox *edit_slot_columns_spin;
   QLabel *edit_slot_rows_label;

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_log.cpp,v 1.105.6.5 2012/12/18 19:29:49 cvs Exp $
+//      $Id: list_log.cpp,v 1.105.6.6 2013/12/28 00:00:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -144,7 +144,7 @@ ListLog::ListLog(LogPlay *log,int id,bool allow_pause,
   //
   // Log List
   //
-  list_log_list=new RDListView(this,"list_log_list");
+  list_log_list=new LibListView(this,"list_log_list");
   list_log_list->setFont(list_font);
   int y=0;
   int h=sizeHint().height()-60;
@@ -200,6 +200,8 @@ ListLog::ListLog(LogPlay *log,int id,bool allow_pause,
 	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
 	  this,
 	  SLOT(doubleclickedData(QListViewItem *,const QPoint &,int)));
+  connect(list_log_list,SIGNAL(cartDropped(int,RDLogLine *)),
+	  this,SLOT(cartDroppedData(int,RDLogLine *)));
 
   //
   // List Logs Dialog
@@ -1067,6 +1069,12 @@ void ListLog::modifiedData(int line)
 void ListLog::refreshabilityChangedData(bool state)
 {
   list_refresh_button->setEnabled(state);
+}
+
+
+void ListLog::cartDroppedData(int line,RDLogLine *ll)
+{
+  emit cartDropped(list_id,line,ll);
 }
 
 

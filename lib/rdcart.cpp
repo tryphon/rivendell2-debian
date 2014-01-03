@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.cpp,v 1.72.4.5 2013/12/11 18:51:47 cvs Exp $
+//      $Id: rdcart.cpp,v 1.72.4.6 2013/12/31 15:06:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -109,6 +109,7 @@ bool RDCart::selectCut(QString *cut,const QTime &time) const
   QDate current_date=QDate::currentDate();
   QString datetime_str=QDateTime(current_date,time).
     toString("yyyy-MM-dd hh:mm:ss");
+  QString time_str=QDateTime(current_date,time).toString("hh:mm:ss");
 
   //  if(type()==RDCart::Audio) {
   switch(type()) {
@@ -123,8 +124,8 @@ bool RDCart::selectCut(QString *cut,const QTime &time) const
                            (LENGTH>0) order by LOCAL_COUNTER",
 			  (const char *)datetime_str,
 			  (const char *)datetime_str,
-			  (const char *)datetime_str,
-			  (const char *)datetime_str,
+			  (const char *)time_str,
+			  (const char *)time_str,
 	(const char *)RDGetShortDayNameEN(current_date.dayOfWeek()).upper(),
 			  cart_number);
     q=new RDSqlQuery(sql);

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.h,v 1.36 2010/07/29 19:32:37 cvs Exp $
+//      $Id: edit_log.h,v 1.36.8.1 2013/12/27 22:12:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -41,9 +41,8 @@
 #include <rdgroup_list.h>
 #include <rdsimpleplayer.h>
 
+#include <drop_listview.h>
 #include <list_reports.h>
-
-using namespace std;
 
 //
 // Widget Settings
@@ -79,6 +78,7 @@ class EditLog : public QDialog
   void cutButtonData();
   void copyButtonData();
   void pasteButtonData();
+  void cartDroppedData(int line,RDLogLine *ll);
   void saveData();
   void saveasData();
   void reportsData();
@@ -124,7 +124,7 @@ class EditLog : public QDialog
   QCheckBox *edit_startdate_box;
   QLabel *edit_enddate_label;
   QCheckBox *edit_enddate_box;
-  RDListView *edit_log_list;
+  DropListView *edit_log_list;
   QString edit_filter;
   QString edit_group;
   QPixmap *edit_playout_map;

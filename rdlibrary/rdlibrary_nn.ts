@@ -119,7 +119,7 @@ markørar</translation>
     <message>
         <source>This cut is used in one or more RDCatch events!
 Do you still want to delete it?</source>
-        <translation>Dette kuttet er brukt i ei eller fleire RDCatch-hendingar.
+        <translation type="obsolete">Dette kuttet er brukt i ei eller fleire RDCatch-hendingar.
 Er du sikker på at du vil sletta det?</translation>
     </message>
     <message>
@@ -171,10 +171,6 @@ Vil du halda fram?</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to delete audio!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No audio is present in the cut!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -184,6 +180,39 @@ Vil du halda fram?</translation>
     </message>
     <message>
         <source>RDLibrary - Edit Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Cuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>cuts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more cuts are used in one or more RDCatch events!
+Do you still want to delete?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to delete audio for cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No data copied - you must select a single cut!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must select a single cut!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1161,6 +1190,10 @@ Vil du sletta ho likevel?</translation>
     </message>
     <message>
         <source>PUBLISHER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Cart Dragging</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

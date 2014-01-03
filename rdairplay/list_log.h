@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_log.h,v 1.36.6.1 2012/11/13 23:45:13 cvs Exp $
+//      $Id: list_log.h,v 1.36.6.2 2013/12/28 00:00:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -33,6 +33,7 @@
 #include <rdlistviewitem.h>
 #include <rdairplay_conf.h>
 
+#include <lib_listview.h>
 #include <list_logs.h>
 #include <log_play.h>
 #include <edit_event.h>
@@ -60,6 +61,7 @@ class ListLog : public QWidget
 
  signals:
   void selectClicked(int id,int line,RDLogLine::Status status);
+  void cartDropped(int id,int line,RDLogLine *ll);
 
  private slots:
   void selectHour(int hour);
@@ -86,6 +88,7 @@ class ListLog : public QWidget
   void transportChangedData();
   void modifiedData(int line);
   void refreshabilityChangedData(bool state);
+  void cartDroppedData(int line,RDLogLine *ll);
 
  protected:
   void paintEvent(QPaintEvent *e);
@@ -109,7 +112,7 @@ class ListLog : public QWidget
   void UpdateHourSelector();
   int PredictedStartHour(RDListViewItem *item);
   HourSelector *list_hour_selector;
-  RDListView *list_log_list;
+  LibListView *list_log_list;
   LogPlay *list_log;
   ListLogs *list_logs_dialog;
   RDAirPlayConf::ActionMode list_action_mode;

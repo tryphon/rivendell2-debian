@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loglinebox.h,v 1.47 2010/07/29 19:32:36 cvs Exp $
+//      $Id: loglinebox.h,v 1.47.8.4 2013/12/31 15:26:31 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,6 +39,7 @@
 #include <rdlog_event.h>
 #include <rdplay_deck.h>
 #include <rdairplay_conf.h>
+#include <rdcartdrag.h>
 
 #include <mode_display.h>
 #include <colors.h>
@@ -72,13 +73,19 @@ class LogLineBox : public QWidget
 
  signals:
   void doubleClicked(int line);
+  void cartDropped(int line,RDLogLine *ll);
 
  private slots:
   void countdownData();
 
  protected:
+  void mousePressEvent(QMouseEvent *e);
+  void mouseMoveEvent(QMouseEvent *e);
+  void mouseReleaseEvent(QMouseEvent *e);
   void mouseDoubleClickEvent(QMouseEvent *e);
   void paintEvent(QPaintEvent *);
+  void dragEnterEvent(QDragEnterEvent *e);
+  void dropEvent(QDropEvent *e);
 
  private:
   void SetColor(QColor);
@@ -130,6 +137,8 @@ class LogLineBox : public QWidget
   QPixmap *line_notemarker_map;
   QPixmap *line_traffic_map;
   QPixmap *line_music_map;
+  int line_move_count;
+  RDLogLine::Status line_status;
 };
 
 

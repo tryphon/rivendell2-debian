@@ -48,21 +48,22 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 dist_rdairplay_OBJECTS = button_log.$(OBJEXT) edit_event.$(OBJEXT) \
-	hourselector.$(OBJEXT) list_log.$(OBJEXT) list_logs.$(OBJEXT) \
-	local_macros.$(OBJEXT) log_play.$(OBJEXT) \
-	log_traffic.$(OBJEXT) loglinebox.$(OBJEXT) \
+	hourselector.$(OBJEXT) lib_listview.$(OBJEXT) \
+	list_log.$(OBJEXT) list_logs.$(OBJEXT) local_macros.$(OBJEXT) \
+	log_play.$(OBJEXT) log_traffic.$(OBJEXT) loglinebox.$(OBJEXT) \
 	mode_display.$(OBJEXT) nownext.$(OBJEXT) pie_counter.$(OBJEXT) \
 	post_counter.$(OBJEXT) rdairplay.$(OBJEXT) rlmhost.$(OBJEXT) \
 	start_button.$(OBJEXT) stop_counter.$(OBJEXT) \
 	wall_clock.$(OBJEXT)
 nodist_rdairplay_OBJECTS = moc_button_log.$(OBJEXT) \
 	moc_edit_event.$(OBJEXT) moc_hourselector.$(OBJEXT) \
-	moc_list_log.$(OBJEXT) moc_list_logs.$(OBJEXT) \
-	moc_log_play.$(OBJEXT) moc_loglinebox.$(OBJEXT) \
-	moc_mode_display.$(OBJEXT) moc_pie_counter.$(OBJEXT) \
-	moc_post_counter.$(OBJEXT) moc_rdairplay.$(OBJEXT) \
-	moc_rlmhost.$(OBJEXT) moc_start_button.$(OBJEXT) \
-	moc_stop_counter.$(OBJEXT) moc_wall_clock.$(OBJEXT)
+	moc_lib_listview.$(OBJEXT) moc_list_log.$(OBJEXT) \
+	moc_list_logs.$(OBJEXT) moc_log_play.$(OBJEXT) \
+	moc_loglinebox.$(OBJEXT) moc_mode_display.$(OBJEXT) \
+	moc_pie_counter.$(OBJEXT) moc_post_counter.$(OBJEXT) \
+	moc_rdairplay.$(OBJEXT) moc_rlmhost.$(OBJEXT) \
+	moc_start_button.$(OBJEXT) moc_stop_counter.$(OBJEXT) \
+	moc_wall_clock.$(OBJEXT)
 rdairplay_OBJECTS = $(dist_rdairplay_OBJECTS) \
 	$(nodist_rdairplay_OBJECTS)
 rdairplay_DEPENDENCIES =
@@ -133,6 +134,7 @@ AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CONSOLEHELPER_RDALSACONFIG = @CONSOLEHELPER_RDALSACONFIG@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CXX = @CXX@
@@ -222,6 +224,7 @@ SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+USERMODE_PKG = @USERMODE_PKG@
 VENDOR = @VENDOR@
 VERSION = @VERSION@
 WIN32_PATH = @WIN32_PATH@
@@ -291,6 +294,7 @@ dist_rdairplay_SOURCES = button_log.cpp button_log.h\
                          edit_event.cpp edit_event.h\
                          globals.h\
                          hourselector.cpp hourselector.h\
+                         lib_listview.cpp lib_listview.h\
                          list_log.cpp list_log.h\
                          list_logs.cpp list_logs.h\
                          local_macros.cpp colors.h\
@@ -310,6 +314,7 @@ dist_rdairplay_SOURCES = button_log.cpp button_log.h\
 nodist_rdairplay_SOURCES = moc_button_log.cpp\
                            moc_edit_event.cpp\
                            moc_hourselector.cpp\
+                           moc_lib_listview.cpp\
                            moc_list_log.cpp\
                            moc_list_logs.cpp\
                            moc_log_play.cpp\
@@ -435,6 +440,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/button_log.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/edit_event.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hourselector.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lib_listview.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_log.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list_logs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/local_macros.Po@am__quote@
@@ -444,6 +450,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_button_log.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_edit_event.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_hourselector.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_lib_listview.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_log.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_list_logs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_log_play.Po@am__quote@

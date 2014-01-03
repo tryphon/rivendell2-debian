@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.cpp,v 1.57.6.4 2013/11/13 23:36:36 cvs Exp $
+//      $Id: audio_cart.cpp,v 1.57.6.5 2013/12/26 22:03:49 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -128,6 +128,7 @@ AudioCart::AudioCart(AudioControls *controls,RDCart *cart,QString *path,
   rdcart_cut_list=new RDListView(this,"rdcart_cut_list");
   rdcart_cut_list->setGeometry(100,0,430,sizeHint().height());
   rdcart_cut_list->setAllColumnsShowFocus(true);
+  rdcart_cut_list->setSelectionMode(QListView::Extended);
   rdcart_cut_list->setItemMargin(5);
   rdcart_cut_list->setSorting(11);
   connect(rdcart_cut_list,
@@ -304,35 +305,63 @@ void AudioCart::deleteCutData()
 {
   QString filename;
   QString str;
-  QListViewItem *item=rdcart_cut_list->selectedItem();
-  if(item==NULL) {
+  std::vector<QString> cutnames;
+  RDListViewItem *item=NULL;
+
+  item=SelectedCuts(&cutnames);
+  if(cutnames.size()==0) {
     return;
   }
-  str=QString(tr("Are you sure you want to delete"));
-  switch(QMessageBox::question(this,tr("Delete Cut"),
-			      QString().
-			      sprintf("%s \"%s\"?",(const char *)str,
-				      (const char *)item->text(1)),
-			      QMessageBox::Yes,QMessageBox::No)) {
-      case QMessageBox::No:
-      case QMessageBox::NoButton:
-	return;
 
-      default:
-	break;
+  //
+  // Prompt for Deletion
+  //
+  if(cutnames.size()==1) {
+    str=QString(tr("Are you sure you want to delete"));
+    switch(QMessageBox::question(this,tr("Delete Cut"),
+				 QString().
+				 sprintf("%s \"%s\"?",(const char *)str,
+					 (const char *)item->text(1)),
+				 QMessageBox::Yes,QMessageBox::No)) {
+    case QMessageBox::No:
+    case QMessageBox::NoButton:
+      return;
+      
+    default:
+      break;
+    }
   }
-  QString sql=QString().sprintf("select CUT_NAME from RECORDINGS where \
-                                 CUT_NAME=\"%s\"",
-				(const char *)item->text(11));
-  RDSqlQuery *q=new RDSqlQuery(sql);
-  if(q->first()) {
-    if(QMessageBox::warning(this,tr("RDCatch Event Exists"),
-			    tr("This cut is used in one or more RDCatch events!\nDo you still want to delete it?"),QMessageBox::Yes,QMessageBox::No)==QMessageBox::No) {
-      delete q;
+  else {
+    if(QMessageBox::question(this,"RDLibrary - "+tr("Delete Cuts"),
+			     tr("Are you sure you want to delete")+
+			     QString().sprintf(" %lu ",cutnames.size())+
+			     tr("cuts")+"?",QMessageBox::Yes,
+			     QMessageBox::No)!=QMessageBox::Yes) {
       return;
     }
   }
-  delete q;
+
+  //
+  // Check for RDCatch Events
+  //
+  for(unsigned i=0;i<cutnames.size();i++) {
+    QString sql=QString().
+      sprintf("select CUT_NAME from RECORDINGS where CUT_NAME=\"%s\"",
+	      (const char *)cutnames[i]);
+    RDSqlQuery *q=new RDSqlQuery(sql);
+    if(q->first()) {
+      if(QMessageBox::warning(this,tr("RDCatch Event Exists"),
+			      tr("One or more cuts are used in one or more RDCatch events!\nDo you still want to delete?"),QMessageBox::Yes,QMessageBox::No)==QMessageBox::No) {
+	delete q;
+	return;
+      }
+    }
+    delete q;
+  }
+
+  //
+  // Check Clipboard
+  //
   if(cut_clipboard!=NULL) {
     if(item->text(11)==cut_clipboard->cutName()) {
       if(QMessageBox::question(this,tr("Empty Clipboard"),
@@ -345,44 +374,70 @@ void AudioCart::deleteCutData()
       paste_cut_button->setDisabled(true);
     }
   }
-  if(!rdcart_cart->removeCut(rdstation_conf,lib_user,item->text(11),
-			     lib_config)) {
-    QMessageBox::warning(this,tr("RDLibrary"),tr("Unable to delete audio!"));
-    return;
+
+  //
+  // Delete Cuts
+  //
+  for(unsigned i=0;i<cutnames.size();i++) {
+    if(!rdcart_cart->removeCut(rdstation_conf,lib_user,cutnames[i],
+			       lib_config)) {
+      QMessageBox::warning(this,tr("RDLibrary"),
+			   tr("Unable to delete audio for cut")+
+			   QString().sprintf(" %d!",RDCut::cutNumber(cutnames[i])));
+      return;
+    }
   }
   UpdateCutCount();
-  QListViewItem *next_item=item->nextSibling();
-  if(next_item==NULL) {
-    next_item=rdcart_cut_list->lastItem();
-  }
-  if(next_item!=NULL) {
-    rdcart_cut_list->setSelected(next_item,true);
-  }
-  rdcart_cut_list->removeItem(item);
+
   rdcart_cart->updateLength(rdcart_controls->enforce_length_box->isChecked(),
 			    QTime().msecsTo(rdcart_controls->
 					    forced_length_edit->time()));
   rdcart_cart->resetRotation();
   disk_gauge->update();
+
+  //
+  // Update List
+  //
+  item=(RDListViewItem *)rdcart_cut_list->firstChild();
+  while(item!=NULL) {
+    RDListViewItem *del=NULL;
+    if(item->isSelected()) {
+      del=item;
+    }
+    item=(RDListViewItem *)item->nextSibling();
+    if(del!=NULL) {
+      delete del;
+    }
+  }
+
   emit cartDataChanged();
 }
 
 
 void AudioCart::copyCutData()
 {
-  if(rdcart_cut_list->currentItem()==0) {
+  std::vector<QString> cutnames;
+  RDListViewItem *item=NULL;
+
+  if((item=SelectedCuts(&cutnames))==NULL) {
+    QMessageBox::information(this,"RDLibrary - "+tr("Copy Cut"),
+			  tr("No data copied - you must select a single cut!"));
     return;
   }
   if(cut_clipboard!=NULL) {
     delete cut_clipboard;
   }
-  cut_clipboard=new RDCut(rdcart_cut_list->currentItem()->text(11));
+  cut_clipboard=new RDCut(item->text(11));
   paste_cut_button->setEnabled(rdcart_modification_allowed);
 }
 
+
 void AudioCart::extEditorCutData()
 {
-  if(rdcart_cut_list->currentItem()==0) {
+  std::vector<QString> cutnames;
+  RDListViewItem *item=NULL;
+
+  if((item=SelectedCuts(&cutnames))==NULL) {
     return;
   }
 
@@ -401,8 +456,12 @@ void AudioCart::extEditorCutData()
 
 void AudioCart::pasteCutData()
 {
-  QListViewItem *item=rdcart_cut_list->currentItem();
-  if(item==0) {
+  std::vector<QString> cutnames;
+  RDListViewItem *item=NULL;
+
+  if((item=SelectedCuts(&cutnames))==NULL) {
+    QMessageBox::information(this,"RDLibrary - "+tr("Paste Cut"),
+			  tr("You must select a single cut!"));
     return;
   }
   if(!cut_clipboard->exists()) {
@@ -436,9 +495,9 @@ void AudioCart::pasteCutData()
 
 void AudioCart::editCutData()
 {
-  RDListViewItem *item=(RDListViewItem *)rdcart_cut_list->selectedItem();
-
-  if(item==NULL) {
+  RDListViewItem *item=NULL;
+  std::vector<QString> cutnames;
+  if((item=SelectedCuts(&cutnames))==NULL) {
     return;
   }
   QString cutname=item->text(11);
@@ -465,13 +524,12 @@ void AudioCart::editCutData()
 
 void AudioCart::recordCutData()
 {
-  QString cutname;
-  RDListViewItem *item=(RDListViewItem *)rdcart_cut_list->selectedItem();
-
-  if(item==NULL) {
+  RDListViewItem *item=NULL;
+  std::vector<QString> cutnames;
+  if((item=SelectedCuts(&cutnames))==NULL) {
     return;
   }
-  cutname=item->text(11);
+  QString cutname=item->text(11);
   RecordCut *cut=new RecordCut(rdcart_cart,cutname,this,"cut");
   cut->exec();
   delete cut;
@@ -491,10 +549,11 @@ void AudioCart::ripCutData()
 {
   int track;
   QString cutname;
-  RDListViewItem *item=(RDListViewItem *)rdcart_cut_list->selectedItem();
   QString title;
 
-  if(item==NULL) {
+  RDListViewItem *item=NULL;
+  std::vector<QString> cutnames;
+  if((item=SelectedCuts(&cutnames))==NULL) {
     return;
   }
   cutname=item->text(11);
@@ -534,9 +593,9 @@ void AudioCart::importCutData()
 {
   QString cutname;
   RDWaveData wavedata;
-  RDListViewItem *item=(RDListViewItem *)rdcart_cut_list->selectedItem();
-
-  if(item==NULL) {
+  RDListViewItem *item=NULL;
+  std::vector<QString> cutnames;
+  if((item=SelectedCuts(&cutnames))==NULL) {
     return;
   }
   cutname=item->text(11);
@@ -613,6 +672,24 @@ void AudioCart::copyProgressData(const QVariant &step)
 {
   rdcart_progress_dialog->setProgress(step.toInt());
   qApp->processEvents();
+}
+
+
+RDListViewItem *AudioCart::SelectedCuts(std::vector<QString> *cutnames)
+{
+  RDListViewItem *ret=NULL;
+  RDListViewItem *item=(RDListViewItem *)rdcart_cut_list->firstChild();
+  while(item!=NULL) {
+    if(item->isSelected()) {
+      cutnames->push_back(item->text(11));
+      ret=item;
+    }
+    item=(RDListViewItem *)item->nextSibling();
+  }
+  if(cutnames->size()==1) {
+    return ret;
+  }
+  return NULL;
 }
 
 

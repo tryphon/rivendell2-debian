@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: macro_cart.cpp,v 1.13.8.1 2013/12/11 18:51:49 cvs Exp $
+//      $Id: macro_cart.cpp,v 1.13.8.2 2013/12/23 21:51:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -206,7 +206,7 @@ void MacroCart::addMacroData()
   else {
     line=item->text(0).toUInt()-1;
   }
-  EditMacro *edit=new EditMacro(&cmd,this,"edit_macro");
+  EditMacro *edit=new EditMacro(&cmd,true,this,"edit_macro");
   if(edit->exec()!=-1) {
     AddLine(line,&cmd);
     UpdateLength();
@@ -266,7 +266,7 @@ void MacroCart::editMacroData()
     return;
   }
   unsigned line=item->text(0).toUInt()-1;
-  EditMacro *edit=new EditMacro(rdcart_events->command(line),this,"edit");
+  EditMacro *edit=new EditMacro(rdcart_events->command(line),false,this,"edit");
   if(edit->exec()!=-1) {
     RefreshLine(item);
     UpdateLength();
@@ -296,7 +296,14 @@ void MacroCart::runCartMacroData()
 void MacroCart::doubleClickedData(QListViewItem *,const QPoint &,int)
 {
   if(rdcart_allow_modification) {
-    editMacroData();
+    QListViewItem *item=rdcart_macro_list->selectedItem();
+
+    if((item==NULL)||(item->text(0).isEmpty())) {
+      addMacroData();
+    }
+    else {
+      editMacroData();
+    }
   }
 }
 

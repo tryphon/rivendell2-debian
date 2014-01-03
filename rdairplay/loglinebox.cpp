@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loglinebox.cpp,v 1.89.6.1 2012/10/09 16:42:05 cvs Exp $
+//      $Id: loglinebox.cpp,v 1.89.6.5 2013/12/31 15:26:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -42,12 +42,14 @@
 LogLineBox::LogLineBox(QWidget *parent,const char *name)
   : QWidget(parent,name)
 {
+  line_status=RDLogLine::Scheduled;
   line_type=RDLogLine::UnknownType;
   line_mode=LogLineBox::Full;
   line_time_mode=RDAirPlayConf::TwentyFourHour;
   line_logline=NULL;
   log_id=-1;
   log_line=-1;
+  line_move_count=-1;
 
   //
   // Create Font
@@ -251,6 +253,8 @@ LogLineBox::LogLineBox(QWidget *parent,const char *name)
   //
   line_countdown_timer=new QTimer(this,"line_countdown_timer");
   connect(line_countdown_timer,SIGNAL(timeout()),this,SLOT(countdownData()));
+
+  setAcceptDrops(true);
 }
 
 
@@ -359,6 +363,7 @@ void LogLineBox::setStatus(RDLogLine::Status status)
 	line_outcue_label->show();
 	break;
   }
+  line_status=status;
 }
 
 
@@ -748,6 +753,34 @@ void LogLineBox::countdownData()
 }
 
 
+void LogLineBox::mousePressEvent(QMouseEvent *e)
+{
+  QWidget::mousePressEvent(e);
+  line_move_count=3;
+}
+
+
+void LogLineBox::mouseMoveEvent(QMouseEvent *e)
+{
+  QWidget::mouseMoveEvent(e);
+  line_move_count--;
+  if(line_move_count==0) {
+    if(line_logline!=NULL) {
+      RDCartDrag *d=
+	new RDCartDrag(line_logline->cartNumber(),line_icon_label->pixmap(),
+		       this);
+      d->dragCopy();
+    }
+  }
+}
+
+
+void LogLineBox::mouseReleaseEvent(QMouseEvent *e)
+{
+  line_move_count=-1;
+}
+
+
 void LogLineBox::mouseDoubleClickEvent(QMouseEvent *e)
 {
   if(line_logline==NULL) {
@@ -764,6 +797,22 @@ void LogLineBox::paintEvent(QPaintEvent *e)
   p->drawRect(0,0,sizeHint().width(),sizeHint().height());
   p->end();
   delete p;
+}
+
+
+void LogLineBox::dragEnterEvent(QDragEnterEvent *e)
+{
+  e->accept(RDCartDrag::canDecode(e)&&(line_status==RDLogLine::Scheduled));
+}
+
+
+void LogLineBox::dropEvent(QDropEvent *e)
+{
+  RDLogLine ll;
+
+  if(RDCartDrag::decode(e,&ll)) {
+    emit cartDropped(log_line,&ll);
+  }
 }
 
 

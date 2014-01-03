@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: import_listview.cpp,v 1.21 2010/07/29 19:32:37 cvs Exp $
+//      $Id: import_listview.cpp,v 1.21.8.2 2013/12/30 19:56:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,6 +27,7 @@
 
 #include <rdcart.h>
 #include <rdconf.h>
+#include <rdcartdrag.h>
 
 #include <edit_note.h>
 #include <edit_track.h>
@@ -450,28 +451,36 @@ void ImportListView::focusOutEvent(QFocusEvent *e)
 
 void ImportListView::dragEnterEvent(QDragEnterEvent *e)
 {
-  e->accept(QTextDrag::canDecode(e));
+  e->accept(RDCartDrag::canDecode(e));
 }
 
 
 void ImportListView::dropEvent(QDropEvent *e)
 {
   QListViewItem *item;
-  QString cartstr;
+  unsigned cartnum;
   int line=0;
   QPoint pos(e->pos().x(),e->pos().y()-header()->sectionRect(0).height());
 
-  if(QTextDrag::decode(e,cartstr)) {
-    if((item=itemAt(pos))==NULL) {
-	line=childCount();
+  if(RDCartDrag::decode(e,&cartnum)) {
+    if(cartnum==0) {
+      if((item=itemAt(pos))==NULL) {
+	return;
+      }
+      import_log->remove(item->text(6).toInt(),1);
     }
     else {
-      line=item->text(6).toInt();
+      if((item=itemAt(pos))==NULL) {
+	line=childCount();
+      }
+      else {
+	line=item->text(6).toInt();
+      }
+      import_log->insert(line,1);
+      import_log->logLine(line)->
+	loadCart(cartnum,RDLogLine::Segue,0,false);
+      import_log->logLine(line)->setTransType(RDLogLine::Segue);
     }
-    import_log->insert(line,1);
-    import_log->logLine(line)->
-      loadCart(cartstr.toUInt(),RDLogLine::Segue,0,false);
-    import_log->logLine(line)->setTransType(RDLogLine::Segue);
   }
   validateTransitions();
   refreshList(line);

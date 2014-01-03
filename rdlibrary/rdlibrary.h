@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.h,v 1.45 2010/07/29 19:32:37 cvs Exp $
+//      $Id: rdlibrary.h,v 1.45.8.1 2013/12/27 22:12:27 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -46,6 +46,7 @@
 
 #include <rdconfig.h>
 
+#include <lib_listview.h>
 #include <disk_gauge.h>
 #include <cart_tip.h>
 
@@ -87,6 +88,7 @@ class MainWidget : public QWidget
   void cartDoubleclickedData(QListViewItem *,const QPoint &,int);
   void audioChangedData(int state);
   void macroChangedData(int state);
+  void dragsChangedData(int state);
   void quitMainWidget();
 
  protected:
@@ -103,7 +105,7 @@ class MainWidget : public QWidget
   QString GetTypeFilter();
   void LoadGeometry();
   void SaveGeometry();
-  RDListView *lib_cart_list;
+  LibListView *lib_cart_list;
   CartTip *lib_cart_tip;
   QString lib_filter_text;
   QString lib_search_text;
@@ -124,6 +126,8 @@ class MainWidget : public QWidget
   QPushButton *lib_rip_button;
   QPushButton *lib_reports_button;
   QPushButton *lib_close_button;
+  QCheckBox *lib_allowdrag_box;
+  QLabel *lib_allowdrag_label;
   QCheckBox *lib_showaudio_box;
   QLabel *lib_showaudio_label;
   QCheckBox *lib_showmacro_box;
