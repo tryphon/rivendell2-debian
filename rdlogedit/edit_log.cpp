@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.cpp,v 1.91.6.4 2013/12/27 22:12:28 cvs Exp $
+//      $Id: edit_log.cpp,v 1.91.6.5 2014/01/03 18:06:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1029,8 +1029,9 @@ void EditLog::pasteButtonData()
 
 void EditLog::cartDroppedData(int line,RDLogLine *ll)
 {
-  int id;
-
+  if(line<0) {
+    line=edit_log_event->size();
+  }
   edit_log_event->insert(line,1);
   edit_log_event->setLogLine(line,ll);
   edit_log_event->logLine(line)->setTransType(edit_default_trans);
@@ -1039,10 +1040,6 @@ void EditLog::cartDroppedData(int line,RDLogLine *ll)
   edit_log_event->refresh(line);
   edit_changed=true;
   RefreshList();
-  /*
-  SelectRecord(id);
-  UpdateSelection();
-  */
 }
 
 

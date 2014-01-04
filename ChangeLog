@@ -13747,3 +13747,10 @@
 2013-01-02 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.6.1.
+2013-01-03 Fred Gleason <fredg@paravelsystems.com>
+	* * Fixed a bug in 'rdlogedit/edit_log.cpp' that threw a segfault
+	when dropping a cart into the end of a log in RDLogEdit's Edit Log
+	dialog.
+2013-01-03 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS.'.
+	* Incremented the package version to 2.6.2.
