@@ -1,3 +1,9 @@
+rivendell (2.7.0-1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Alban Peignier <alban@tryphon.eu>  Mon, 20 Jan 2014 22:37:26 +0100
+
 rivendell (2.6.2-1) unstable; urgency=medium
 
   * New upstream release
