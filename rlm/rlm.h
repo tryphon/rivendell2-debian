@@ -80,7 +80,7 @@ extern "C" {
 /*
  * RLM Interface Version
  */
-#define RLM_VERSION 16
+#define RLM_VERSION 17
 
 /*
  * Available Timers
@@ -178,7 +178,9 @@ extern "C" {
     int32_t rlm_start_year;    /* Event start date, year part */
     char rlm_conductor[65];    /* Cart 'conductor' field */
     char rlm_song_id[33];      /* Cart 'songId' field */
-    char reserved[435];        /* Reserved for future use */
+    char rlm_outcue[65];       /* Cut outcue field */
+    char rlm_description[65];  /* Cut description field */
+    char reserved[305];        /* Reserved for future use */
   };
   
 /*
@@ -290,6 +292,8 @@ extern "C" {
  *   %r   %R   Conductor
  *   %s   %S   Song ID
  *   %u   %U   User Definied
+ *   %o   %O   Outcue
+ *   %i   %I   Description
  *   %D(<dt>)  The current date/time, formatted according to <dt>.  <dt>
  *             can be any of the wildcards supported by the RLMDateTime()
  *             function (see above).
@@ -337,6 +341,8 @@ extern "C" {
  *   %r   %R   Conductor
  *   %s   %S   Song ID
  *   %u   %U   User Definied
+ *   %o   %O   Outcue
+ *   %d   %D   Cut Description
  *
  * RETURNS: A pointer to a null terminated string.  This string is statically
  * allocated, and may be reused in subsequent calls to the utility functions.

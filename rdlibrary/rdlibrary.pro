@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2005 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: rdlibrary.pro,v 1.11.2.2 2013/12/27 22:12:27 cvs Exp $
+#      $Id: rdlibrary.pro,v 1.11.2.3 2014/01/08 02:08:38 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -24,7 +24,6 @@ TEMPLATE = app
 x11 {
   SOURCES += audio_cart.cpp
   SOURCES += cdripper.cpp
-  SOURCES += disk_bar.cpp
   SOURCES += disk_gauge.cpp
   SOURCES += disk_ripper.cpp
   SOURCES += edit_cart.cpp
@@ -43,7 +42,6 @@ x11 {
 x11 {
   HEADERS += audio_cart.h
   HEADERS += cdripper.h
-  HEADERS += disk_bar.h
   HEADERS += disk_gauge.h
   HEADERS += disk_ripper.h
   HEADERS += edit_cart.h

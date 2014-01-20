@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: disk_gauge.h,v 1.6 2010/07/29 19:32:36 cvs Exp $
+//      $Id: disk_gauge.h,v 1.6.8.1 2014/01/08 02:08:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,8 +25,7 @@
 
 #include <qwidget.h>
 #include <qlabel.h>
-
-#include <disk_bar.h>
+#include <qprogressbar.h>
 
 #define DISK_GAUGE_UPDATE_INTERVAL 60000
 
@@ -39,13 +38,16 @@ class DiskGauge : public QWidget
   QSizePolicy sizePolicy() const;
 
  public slots:
-  void setGeometry(int x,int y,int w,int h);
   void update();
+
+ protected:
+  void resizeEvent(QResizeEvent *e);
 
  private:
   int GetMinutes(long blocks,long block_size);
   QLabel *disk_label;
-  DiskBar *disk_bar;
+  QProgressBar *disk_bar;
+  QLabel *disk_space_label;
   double disk_sample_rate;
   double disk_channels;
 };

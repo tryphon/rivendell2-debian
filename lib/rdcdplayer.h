@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdcdplayer.h,v 1.4 2010/07/29 19:32:33 cvs Exp $
+//    $Id: rdcdplayer.h,v 1.4.8.2 2014/01/10 18:52:24 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -23,17 +23,20 @@
 #ifndef RDCDPLAYER_H
 #define RDCDPLAYER_H
 
+#include <stdio.h>
+#include <linux/cdrom.h>
+
+#include <queue>
+
 #include <qdialog.h>
 #include <qtimer.h>
 #include <rdcddbrecord.h>
-#include <linux/cdrom.h>
-
 
 //
 // Driver Settings
 //
 #define RDCDPLAYER_CLOCK_INTERVAL 100
-#define RDCDPLAYER_BUTTON_DELAY 10
+#define RDCDPLAYER_BUTTON_DELAY 100
 
 class RDCdPlayer : public QObject
 {
@@ -47,7 +50,7 @@ class RDCdPlayer : public QObject
 		Xa21=CDS_XA_2_1,Xa22=CDS_XA_2_2,Mixed=CDS_MIXED};
    enum State {NoStateInfo=0,Stopped=1,Playing=2,Paused=3};
    enum PlayMode {Single=0,Continuous=1};
-   RDCdPlayer(QWidget *parent=0,const char *name=0);
+   RDCdPlayer(FILE *profile_msgs,QWidget *parent=0,const char *name=0);
    ~RDCdPlayer();
    QString device() const;
    void setDevice(QString device);
@@ -91,6 +94,8 @@ class RDCdPlayer : public QObject
 
   private:
    enum ButtonOp {Play=0,Pause=1,Resume=2,Stop=3,Eject=4,Lock=5,Unlock=6};
+   void PushButton(RDCdPlayer::ButtonOp op,int track=-1);
+   void Profile(const QString &msg);
    void ReadToc();
    unsigned GetCddbSum(int);
    unsigned GetCddbDiscId();
@@ -98,8 +103,6 @@ class RDCdPlayer : public QObject
    int cdrom_fd;
    QTimer *cdrom_clock;
    QTimer *cdrom_button_timer;
-   RDCdPlayer::ButtonOp cdrom_pending_op;
-   int cdrom_pending_track;
    RDCdPlayer::State cdrom_state;
    int cdrom_track;
    int cdrom_track_count;
@@ -111,6 +114,9 @@ class RDCdPlayer : public QObject
    bool cdrom_old_state;
    int cdrom_audiostatus;
    unsigned cdrom_disc_id;
+   FILE *cdrom_profile_msgs;
+   std::queue<int> cdrom_button_queue;
+   std::queue<int> cdrom_track_queue;
 };
 
 

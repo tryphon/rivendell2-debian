@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cart.cpp,v 1.74.2.3 2013/12/16 02:50:46 cvs Exp $
+//      $Id: edit_cart.cpp,v 1.74.2.6 2014/01/14 15:30:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -50,12 +50,13 @@
 #include <edit_schedulercodes.h>
 #include <edit_notes.h>
 
-EditCart::EditCart(unsigned number,QString *path,bool new_cart,
+EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
 		   QWidget *parent,const char *name,QListView *lib_cart_list)
   : QDialog(parent,name,true)
 {
   bool modification_allowed;
   rdcart_cart=NULL;
+  rdcart_profile_rip=profile_rip;
 
   rdcart_new_cart=new_cart;
   sched_codes="";
@@ -505,6 +506,22 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
   rdcart_syncronous_label->hide();
 
   //
+  // Use Event Length Policy
+  //
+  rdcart_use_event_length_box=new QCheckBox(this);
+  rdcart_use_event_length_box->setGeometry(330,351,15,15);
+  connect(rdcart_use_event_length_box,SIGNAL(toggled(bool)),
+	  this,SLOT(asyncronousToggledData(bool)));
+  rdcart_use_event_length_box->hide();
+  QLabel *rdcart_use_event_length_label=
+    new QLabel(rdcart_use_event_length_box,
+	       tr("Use Event Length for Now && Next Updates"),this);
+  rdcart_use_event_length_label->setGeometry(350,351,sizeHint().width()-350,19);
+  rdcart_use_event_length_label->setFont(button_font);
+  rdcart_use_event_length_label->setAlignment(AlignLeft|ShowPrefix);
+  rdcart_use_event_length_label->hide();
+
+  //
   // Notes Button
   //
   rdcart_notes_button=new QPushButton(this,"rdcart_notes_button");
@@ -532,7 +549,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
       case RDCart::Audio:
 	rdcart_audio_cart=new AudioCart(&rdcart_controls,rdcart_cart,
 					rdcart_import_path,new_cart,
-					this,"rdcart_audio_cart");
+					rdcart_profile_rip,this);
 	rdcart_audio_cart->
 	  setGeometry(0,378,rdcart_audio_cart->sizeHint().width(),
 		      rdcart_audio_cart->sizeHint().height());
@@ -552,7 +569,9 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
 	rdcart_controls.enforce_length_box->setDisabled(true);
 	rdcart_enforce_length_label->setDisabled(true);
 	rdcart_syncronous_box->show();
+	rdcart_use_event_length_box->show();
 	rdcart_syncronous_label->show();
+	rdcart_use_event_length_label->show();
 	break;
 	
       default:
@@ -668,6 +687,8 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
       setText(RDCart::usageText((RDCart::UsageCode)rdcart_usage_box->
 				currentItem()));
     rdcart_syncronous_box->setChecked(rdcart_cart->asyncronous());
+    rdcart_use_event_length_box->
+      setChecked(rdcart_cart->useEventLength());
   }
   else {//multi edit
     if(rdcart_group_box->count() == 0) {
@@ -691,6 +712,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,
     rdcart_usage_box->hide();
   }
   rdcart_syncronous_box->setEnabled(modification_allowed);
+  rdcart_use_event_length_box->setEnabled(modification_allowed);
   rdcart_controls.title_edit->setReadOnly(!modification_allowed);
   rdcart_controls.artist_edit->setReadOnly(!modification_allowed);
   rdcart_controls.song_id_edit->setReadOnly(!modification_allowed);
@@ -860,21 +882,24 @@ void EditCart::okData()
     if(rdcart_cart->type()==RDCart::Macro) {
       rdcart_macro_cart->save();
       rdcart_cart->setAsyncronous(rdcart_syncronous_box->isChecked());
+      rdcart_cart->setUseEventLength(rdcart_use_event_length_box->isChecked());
     }
   }
   else {  // Multi Edit
     it=new QListViewItemIterator(lib_cart_list_edit);
     while(it->current()) {
-      if (it->current()->isSelected()) {  
+      if(it->current()->isSelected()) {  
         RDListViewItem *item=(RDListViewItem *)it->current();
         if(item->text(19).isEmpty()) {
-	  
+ 
           rdcart_cart_medit=new RDCart(item->text(1).toUInt());
 	  
-          if(!rdcart_group_box->currentText().stripWhiteSpace().isEmpty())
+          if(!rdcart_group_box->currentText().stripWhiteSpace().isEmpty()) {
 	    rdcart_cart_medit->setGroupName(rdcart_group_box->currentText());
-          if(!rdcart_controls.title_edit->text().stripWhiteSpace().isEmpty())
+	  }
+          if(!rdcart_controls.title_edit->text().stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->setTitle(rdcart_controls.title_edit->text());
+	  }
           if(!rdcart_controls.year_edit->text().stripWhiteSpace().isEmpty()) {
             if(sscanf((const char *)rdcart_controls.year_edit->text(),
 		      "%d",&year)==1) {
@@ -884,30 +909,50 @@ void EditCart::okData()
               rdcart_cart->setYear();
             }
 	  }
-          if(!rdcart_controls.artist_edit->text().stripWhiteSpace().isEmpty())
+          if(!rdcart_controls.artist_edit->text().stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->setArtist(rdcart_controls.artist_edit->text());
-          if(!rdcart_controls.album_edit->text().stripWhiteSpace().isEmpty())
+	  }
+          if(!rdcart_controls.album_edit->text().stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->setAlbum(rdcart_controls.album_edit->text());
-          if(!rdcart_controls.label_edit->text().stripWhiteSpace().isEmpty())
+	  }
+          if(!rdcart_controls.label_edit->text().stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->setLabel(rdcart_controls.label_edit->text());
-          if(!rdcart_controls.client_edit->text().stripWhiteSpace().isEmpty())
+	  }
+          if(!rdcart_controls.client_edit->text().stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->setClient(rdcart_controls.client_edit->text());
-          if(!rdcart_controls.agency_edit->text().stripWhiteSpace().isEmpty())
+	  }
+          if(!rdcart_controls.agency_edit->text().stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->setAgency(rdcart_controls.agency_edit->text());
+	  }
+          if(!rdcart_controls.song_id_edit->
+	     text().stripWhiteSpace().isEmpty()) {
+            rdcart_cart_medit->
+	      setSongId(rdcart_controls.song_id_edit->text());
+	  }
           if(!rdcart_controls.publisher_edit->text().stripWhiteSpace().
-	     isEmpty())
+	     isEmpty()) {
             rdcart_cart_medit->
 	      setPublisher(rdcart_controls.publisher_edit->text());
-          if(!rdcart_controls.composer_edit->text().stripWhiteSpace().isEmpty())
+	  }
+          if(!rdcart_controls.composer_edit->
+	     text().stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->
 	      setComposer(rdcart_controls.composer_edit->text());
+	  }
+          if(!rdcart_controls.conductor_edit->text().
+	     stripWhiteSpace().isEmpty()) {
+            rdcart_cart_medit->
+	      setConductor(rdcart_controls.conductor_edit->text());
+	  }
           if(!rdcart_controls.user_defined_edit->text().
-	     stripWhiteSpace().isEmpty())
+	     stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->
 	      setUserDefined(rdcart_controls.user_defined_edit->text());
-          if(!rdcart_usage_box->currentText().stripWhiteSpace().isEmpty())
-            rdcart_cart_medit->
-	      setUsageCode((RDCart::UsageCode)(rdcart_usage_box->currentItem()-1));
+	  }
+          if(!rdcart_usage_box->currentText().stripWhiteSpace().isEmpty()) {
+            rdcart_cart_medit->setUsageCode((RDCart::UsageCode)
+				    (rdcart_usage_box->currentItem()-1));
+	  }
           rdcart_cart_medit->updateSchedCodes(add_codes,remove_codes);
 	  delete rdcart_cart_medit; 
         }

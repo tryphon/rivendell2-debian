@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.h,v 1.85.8.7 2013/12/11 22:32:51 cvs Exp $
+//      $Id: rdlog_line.h,v 1.85.8.10 2014/01/13 23:02:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -154,6 +154,8 @@ class RDLogLine
   void setAgency(const QString &agency);
   QString outcue() const;
   void setOutcue(const QString &outcue);
+  QString description() const;
+  void setDescription(const QString &desc);
   QString userDefined() const;
   void setUserDefined(const QString &string);
   RDCart::UsageCode usageCode() const;
@@ -227,6 +229,10 @@ class RDLogLine
   void setPlayPositionChanged(bool state);
   bool nowNextEnabled() const;
   void setNowNextEnabled(bool state);
+  bool useEventLength() const;
+  void setUseEventLength(bool state);
+  int eventLength() const;
+  void setEventLength(int msec);
   QString linkEventName() const;
   void setLinkEventName(const QString &name);
   QTime linkStartTime() const;
@@ -303,6 +309,7 @@ class RDLogLine
   QString log_client;
   QString log_agency;
   QString log_outcue;
+  QString log_description;
   QString log_user_defined;
   RDCart::UsageCode log_usage_code;
   unsigned log_forced_length;
@@ -349,6 +356,8 @@ class RDLogLine
   bool log_asyncronous;
   QString log_cut_name;
   bool log_has_custom_transition;
+  bool log_use_event_length;
+  int log_event_length;
   QString log_link_event_name;
   QTime log_link_start_time;
   int log_link_length;

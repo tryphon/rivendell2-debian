@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogmanager.cpp,v 1.43.4.2 2013/11/13 23:36:38 cvs Exp $
+//      $Id: rdlogmanager.cpp,v 1.43.4.3 2014/01/08 02:08:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -28,6 +28,7 @@
 #include <sys/wait.h>
 #endif  // WIN32
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qsqldatabase.h>
@@ -62,7 +63,6 @@
 #include <list_grids.h>
 #include <generate_log.h>
 #include <list_svcs.h>
-
 
 //
 // Icons
@@ -360,6 +360,7 @@ void MainWidget::quitMainWidget()
 int gui_main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

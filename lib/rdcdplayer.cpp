@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdcdplayer.cpp,v 1.5 2012/02/13 18:05:06 cvs Exp $
+//    $Id: rdcdplayer.cpp,v 1.5.2.2 2014/01/10 18:52:24 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -20,6 +20,7 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -27,12 +28,16 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <linux/cdrom.h>
+
+#include <qdatetime.h>
+
 #include <rdcdplayer.h>
 
 
-RDCdPlayer::RDCdPlayer(QWidget *parent,const char *name)
+RDCdPlayer::RDCdPlayer(FILE *profile_msgs,QWidget *parent,const char *name)
   : QObject(parent,name)
 {
+  cdrom_profile_msgs=profile_msgs;
   cdrom_fd=-1;
   cdrom_track_count=0;
   cdrom_track_start=NULL;
@@ -209,50 +214,42 @@ void RDCdPlayer::setCddbRecord(RDCddbRecord *rec)
 
 void RDCdPlayer::lock()
 {
-  cdrom_pending_op=RDCdPlayer::Lock;
-  cdrom_button_timer->start(RDCDPLAYER_BUTTON_DELAY,true);
+  PushButton(RDCdPlayer::Lock);
 }
 
 
 void RDCdPlayer::unlock()
 {
-  cdrom_pending_op=RDCdPlayer::Unlock;
-  cdrom_button_timer->start(RDCDPLAYER_BUTTON_DELAY,true);
+  system("eject -i off "+cdrom_device);
 }
 
 
 void RDCdPlayer::eject()
 {
-  cdrom_pending_op=RDCdPlayer::Eject;
-  cdrom_button_timer->start(RDCDPLAYER_BUTTON_DELAY,true);
+  system("eject "+cdrom_device);
 }
 
 
 void RDCdPlayer::play(int track)
 {
   if((cdrom_state!=RDCdPlayer::Paused)||(cdrom_track!=track)) {
-    cdrom_pending_track=track;
-    cdrom_pending_op=RDCdPlayer::Play;
-    cdrom_button_timer->start(RDCDPLAYER_BUTTON_DELAY,true);
+    PushButton(RDCdPlayer::Play,track);
   }
   else {
-    cdrom_pending_op=RDCdPlayer::Resume;
-    cdrom_button_timer->start(RDCDPLAYER_BUTTON_DELAY,true);
+    PushButton(RDCdPlayer::Resume);
   }
 }
 
 
 void RDCdPlayer::pause()
 {
-  cdrom_pending_op=RDCdPlayer::Pause;
-  cdrom_button_timer->start(RDCDPLAYER_BUTTON_DELAY,true);
+  PushButton(RDCdPlayer::Pause);
 }
 
 
 void RDCdPlayer::stop()
 {
-  cdrom_pending_op=RDCdPlayer::Stop;
-  cdrom_button_timer->start(RDCDPLAYER_BUTTON_DELAY,true);
+  PushButton(RDCdPlayer::Stop);
 }
 
 
@@ -303,16 +300,22 @@ void RDCdPlayer::buttonTimerData()
   struct cdrom_msf msf;
 
   if(cdrom_fd>0) {
-    switch(cdrom_pending_op) {
+    switch(cdrom_button_queue.front()) {
       case RDCdPlayer::Play:
 	memset(&msf,0,sizeof(struct cdrom_msf));
-	msf.cdmsf_min0=cdrom_track_start[cdrom_pending_track-1].msf.minute;
-	msf.cdmsf_sec0=cdrom_track_start[cdrom_pending_track-1].msf.second;
-	msf.cdmsf_frame0=cdrom_track_start[cdrom_pending_track-1].msf.frame;
+	msf.cdmsf_min0=
+	  cdrom_track_start[cdrom_track_queue.front()-1].msf.minute;
+	msf.cdmsf_sec0=
+	  cdrom_track_start[cdrom_track_queue.front()-1].msf.second;
+	msf.cdmsf_frame0=
+	  cdrom_track_start[cdrom_track_queue.front()-1].msf.frame;
 	if(cdrom_play_mode==Single) {
-	  msf.cdmsf_min1=cdrom_track_start[cdrom_pending_track].msf.minute;
-	  msf.cdmsf_sec1=cdrom_track_start[cdrom_pending_track].msf.second;
-	  msf.cdmsf_frame1=cdrom_track_start[cdrom_pending_track].msf.frame;
+	  msf.cdmsf_min1=
+	    cdrom_track_start[cdrom_track_queue.front()].msf.minute;
+	  msf.cdmsf_sec1=
+	    cdrom_track_start[cdrom_track_queue.front()].msf.second;
+	  msf.cdmsf_frame1=
+	    cdrom_track_start[cdrom_track_queue.front()].msf.frame;
 	}
 	else {
 	  msf.cdmsf_min1=cdrom_track_start[cdrom_track_count].msf.minute;
@@ -360,6 +363,11 @@ void RDCdPlayer::buttonTimerData()
 	break;
     }
   }
+  cdrom_button_queue.pop();
+  cdrom_track_queue.pop();
+  if(cdrom_button_queue.size()>0) {
+    cdrom_button_timer->start(RDCDPLAYER_BUTTON_DELAY,true);
+  }
 }
 
 
@@ -374,14 +382,20 @@ void RDCdPlayer::clockData()
   if(ioctl(cdrom_fd,CDROM_MEDIA_CHANGED,NULL)==0) {
     new_state=true;
     if(cdrom_old_state==false) {
+      Profile("ReadToc() started");
       ReadToc();
+      Profile("ReadToc() finished");
+      Profile("emitting mediaChanged()");
       emit mediaChanged();
+      Profile("mediaChanged() emitted");
     }
   }
   else {
     new_state=false;
     if(cdrom_old_state==true) {
+      Profile("emitting ejected()");
       emit ejected();
+      Profile("ejected() emitted");
     }
   }
   cdrom_old_state=new_state;
@@ -391,7 +405,9 @@ void RDCdPlayer::clockData()
   //
   memset(&subchnl,0,sizeof(struct cdrom_subchnl));
   subchnl.cdsc_format=CDROM_MSF;
+  Profile("calling ioctl(CDROMSUBCHNL)");
   if(ioctl(cdrom_fd,CDROMSUBCHNL,&subchnl)>=0) {
+    Profile("ioctl(CDROMSUBCHNL) success");
     if(cdrom_audiostatus!=subchnl.cdsc_audiostatus) {
       cdrom_audiostatus=subchnl.cdsc_audiostatus;
       cdrom_track=subchnl.cdsc_trk;
@@ -423,6 +439,7 @@ void RDCdPlayer::clockData()
     }
   }
   else {
+    Profile("ioctl(CDROMSUBCHNL) failure");
     if(cdrom_audiostatus!=CDROM_AUDIO_NO_STATUS) {
       cdrom_audiostatus=CDROM_AUDIO_NO_STATUS;
       cdrom_state=RDCdPlayer::Stopped;
@@ -515,3 +532,24 @@ unsigned RDCdPlayer::GetCddbDiscId()
     ((cdrom_track_start[0].msf.minute*60)+cdrom_track_start[0].msf.second);
   return ((n%0xff)<<24|t<<8|cdrom_track_count);
 }
+
+
+void RDCdPlayer::PushButton(RDCdPlayer::ButtonOp op,int track)
+{
+  cdrom_button_queue.push(op);
+  cdrom_track_queue.push(track);
+  if(!cdrom_button_timer->isActive()) {
+    cdrom_button_timer->start(RDCDPLAYER_BUTTON_DELAY,true);
+  }
+}
+
+
+void RDCdPlayer::Profile(const QString &msg)
+{
+  if(cdrom_profile_msgs!=NULL) {
+    fprintf(cdrom_profile_msgs,"%s | RDCdPlayer::%s\n",
+	    (const char *)QTime::currentTime().toString("hh:mm:ss.zzz"),
+	    (const char *)msg);
+  }
+}
+

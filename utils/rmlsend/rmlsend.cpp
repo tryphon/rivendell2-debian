@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rmlsend.cpp,v 1.7.8.2 2013/03/13 20:10:40 cvs Exp $
+//      $Id: rmlsend.cpp,v 1.7.8.3 2014/01/08 02:08:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,6 +27,7 @@
 #endif
 
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qwidget.h>
 #include <qpushbutton.h>
 #include <qlineedit.h>
@@ -517,6 +518,7 @@ int main(int argc,char *argv[])
   }
   else {
     QApplication a(argc,argv,true);
+    QApplication::setStyle(new QWindowsStyle);
     
     //
     // Load Translations

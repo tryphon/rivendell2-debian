@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdevent.h,v 1.11 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdevent.h,v 1.11.8.1 2014/01/13 18:36:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -75,7 +75,8 @@ class RDEvent
   void setHaveCode(QString str);
   unsigned titleSep();
   void setTitleSep(unsigned titlesep);
-
+  static QString preimportTableName(const QString event_name);
+  static QString postimportTableName(const QString event_name);
   
  private:
   int GetIntValue(const QString &field) const;

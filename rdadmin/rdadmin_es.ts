@@ -2523,6 +2523,22 @@ servicios de Rivendell en el equipo configurado para ejecutar el servicio CAE. <
 GPIOs</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Title Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outcue Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditRDLibrary</name>
@@ -2726,6 +2742,14 @@ configured to run the CAE service in order to populate the audio resources datab
 generado información de audio.  Por favor, inicie los servicios de Rivendell en el 
 equipo configurado para ejecutar CAE para obtener la información de audio.</translation>
     </message>
+    <message>
+        <source>Previous</source>
+        <translation type="unfinished">Previo</translation>
+    </message>
+    <message>
+        <source>Limit Searches at Startup</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditRDLogedit</name>
@@ -2900,6 +2924,18 @@ computador para obtener los recursos de audio de dicho equipo.</translation>
     <message>
         <source>320 kbps/chan</source>
         <translation>320 kbps/canal</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Sí</translation>
+    </message>
+    <message>
+        <source>Enable &amp;2nd Start Button:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3559,7 +3595,7 @@ configured to run the CAE service in order to populate the audio resources datab
     </message>
     <message>
         <source>Log &amp;Template Name:</source>
-        <translation>&amp;Plantilla Nmbr de Lista:</translation>
+        <translation type="obsolete">&amp;Plantilla Nmbr de Lista:</translation>
     </message>
     <message>
         <source>[none]</source>
@@ -3679,6 +3715,14 @@ debe guardarse.  ¿Hacerlo ahora?</translation>
     </message>
     <message>
         <source>AutoSpot Group:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log Name &amp;Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log &amp;Description Template:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4060,7 +4104,11 @@ PARA UN PROPÓSITO PARTICULAR.  Oprima el botón &quot;Ver licencia&quot; para d
     </message>
     <message>
         <source>Copyright 2002-2010</source>
-        <translation>Copyright 2002-2010</translation>
+        <translation type="obsolete">Copyright 2002-2010</translation>
+    </message>
+    <message>
+        <source>Copyright 2002-2014</source>
+        <translation type="unfinished">Copyright 2002-2014</translation>
     </message>
 </context>
 <context>

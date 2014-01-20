@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdhpiinfo.cpp,v 1.8.6.2 2013/01/07 15:35:08 cvs Exp $
+//    $Id: rdhpiinfo.cpp,v 1.8.6.3 2014/01/08 02:08:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,7 @@
 #include <stdint.h>
 
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qmessagebox.h>
 #include <qpushbutton.h>
 #include <qtextcodec.h>
@@ -407,6 +408,7 @@ void MainWidget::HpiErr(hpi_err_t err,const char *func_name) const
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Start Event Loop

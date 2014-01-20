@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdtrimaudio.h,v 1.1.6.1 2013/11/13 23:36:34 cvs Exp $
+//      $Id: rdtrimaudio.h,v 1.1.6.2 2014/01/16 02:44:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -33,7 +33,7 @@ class RDTrimAudio : public QObject
   Q_OBJECT;
  public:
   enum ErrorCode {ErrorOk=0,ErrorInternal=5,ErrorUrlInvalid=7,
-		  ErrorService=8,ErrorInvalidUser=9};
+		  ErrorService=8,ErrorInvalidUser=9,ErrorNoAudio=10};
   RDTrimAudio(RDStation *station,RDConfig *config,QObject *parent=0,
 	      const char *name=0);
   int startPoint() const;

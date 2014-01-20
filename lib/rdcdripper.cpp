@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcdripper.cpp,v 1.4.6.2 2013/07/03 19:16:25 cvs Exp $
+//      $Id: rdcdripper.cpp,v 1.4.6.3 2014/01/10 02:25:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,14 +27,16 @@ extern "C" {
 */
 
 #include <qapplication.h>
+#include <qdatetime.h>
 
 #include <rdpaths.h>
 #include <rdcdripper.h>
 #include <rd.h>
 
-RDCdRipper::RDCdRipper(QObject *parent,const char *name)
-  : QObject(parent,name)
+RDCdRipper::RDCdRipper(FILE *profile_msgs,QObject *parent)
+  : QObject(parent)
 {
+  conv_profile_msgs=profile_msgs;
   conv_aborting=false;
 }
 
@@ -47,6 +49,7 @@ RDCdRipper::~RDCdRipper()
 void RDCdRipper::setDevice(const QString &device)
 {
   conv_device=device;
+  Profile("using device \""+device+"\"");
 }
 
 
@@ -189,4 +192,14 @@ QString RDCdRipper::errorText(RDCdRipper::ErrorCode err)
 void RDCdRipper::abort()
 {
   conv_aborting=true;
+}
+
+
+void RDCdRipper::Profile(const QString &msg)
+{
+  if(conv_profile_msgs!=NULL) {
+    fprintf(conv_profile_msgs,"%s | RDCdPlayer::%s\n",
+	    (const char *)QTime::currentTime().toString("hh:mm:ss.zzz"),
+	    (const char *)msg);
+  }
 }

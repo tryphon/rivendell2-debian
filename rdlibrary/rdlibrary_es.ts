@@ -381,6 +381,14 @@ Lectura</translation>
         <source>[none]</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Ripper Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DiskRipper</name>
@@ -593,6 +601,14 @@ Disco</translation>
         <translation>¡Lectura
 Abortada!</translation>
     </message>
+    <message>
+        <source>Ripper Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditCart</name>
@@ -784,6 +800,10 @@ Notas</translation>
     </message>
     <message>
         <source>&amp;Beats per Minute:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Event Length for Now &amp;&amp; Next Updates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1203,6 +1223,14 @@ Do you still want to delete it?</source>
     </message>
     <message>
         <source>Allow Cart Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown command-line option</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

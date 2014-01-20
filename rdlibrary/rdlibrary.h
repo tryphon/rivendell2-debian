@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.h,v 1.45.8.1 2013/12/27 22:12:27 cvs Exp $
+//      $Id: rdlibrary.h,v 1.45.8.3 2014/01/10 02:25:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -62,6 +62,7 @@
 #define RDLIBRARY_MAX_LENGTH_COLOR red
 #define RDLIBRARY_ENFORCE_LENGTH_COLOR blue
 
+#define RDLIBRARY_USAGE "[--profile-ripping]\n\n--profile-ripping\n     Print profiling information to stdout when performing rips from\n     optical media.\n\n"
 
 class MainWidget : public QWidget
 {
@@ -88,6 +89,7 @@ class MainWidget : public QWidget
   void cartDoubleclickedData(QListViewItem *,const QPoint &,int);
   void audioChangedData(int state);
   void macroChangedData(int state);
+  void searchLimitChangedData(int state);
   void dragsChangedData(int state);
   void quitMainWidget();
 
@@ -141,6 +143,7 @@ class MainWidget : public QWidget
   QPixmap *lib_rivendell_map;
   RDStation::FilterMode lib_filter_mode;
   QProgressDialog *lib_progress_dialog;
+  bool profile_ripping;
 };
 
 

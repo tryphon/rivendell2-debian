@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdnownext.cpp,v 1.3.8.4 2013/12/11 22:32:51 cvs Exp $
+//      $Id: rdnownext.cpp,v 1.3.8.5 2014/01/07 18:18:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -101,6 +101,9 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding)
 					     encoding));
     str->replace("%u",RDResolveNowNextEncode(loglines[0]->userDefined(),
 					     encoding));
+    str->replace("%o",RDResolveNowNextEncode(loglines[0]->outcue(),encoding));
+    str->replace("%i",RDResolveNowNextEncode(loglines[0]->description(),
+    					     encoding));
     RDResolveNowNextDateTime(str,"%d(",loglines[0]->startDatetime());
   }
   else {   // No NOW PLAYING Event
@@ -119,6 +122,8 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding)
     str->replace("%m","");
     str->replace("%p","");
     str->replace("%u","");
+    str->replace("%o","");
+    str->replace("%i","");
     RDResolveNowNextDateTime(str,"%d(",QDateTime());
   }
 
@@ -145,6 +150,9 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding)
 					     encoding));
     str->replace("%U",RDResolveNowNextEncode(loglines[1]->userDefined(),
 					     encoding));
+    str->replace("%O",RDResolveNowNextEncode(loglines[1]->outcue(),encoding));
+    str->replace("%I",RDResolveNowNextEncode(loglines[1]->description(),
+					     encoding));
     RDResolveNowNextDateTime(str,"%D(",loglines[1]->startDatetime());
   }
   else {   // No NEXT Event
@@ -163,9 +171,39 @@ void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding)
     str->replace("%M","");
     str->replace("%P","");
     str->replace("%U","");
+    str->replace("%O","");
+    str->replace("%I","");
     RDResolveNowNextDateTime(str,"%D(",QDateTime());
   }
   str->replace("%%","%");
   str->replace("\\r","\n");
   str->replace("\\n","\r\n");
 }
+
+
+QString RDResolveNowNext(const QString &pattern,RDLogLine *ll)
+{
+  QString ret=pattern;
+
+  ret.replace("%n",QString().sprintf("%06u",ll->cartNumber()));
+  ret.replace("%h",QString().sprintf("%d",ll->effectiveLength()));
+  ret.replace("%g",ll->groupName());
+  ret.replace("%t",ll->title());
+  ret.replace("%a",ll->artist());
+  ret.replace("%l",ll->album());
+  ret.replace("%r",ll->conductor());
+  ret.replace("%s",ll->songId());
+  ret.replace("%y",ll->year().toString("yyyy"));
+  ret.replace("%b",ll->label());
+  ret.replace("%c",ll->client());
+  ret.replace("%e",ll->agency());
+  ret.replace("%m",ll->composer());
+  ret.replace("%p",ll->publisher());
+  ret.replace("%u",ll->userDefined());
+  ret.replace("%o",ll->outcue());
+  ret.replace("%i",ll->description());
+  RDResolveNowNextDateTime(&ret,"%d(",ll->startDatetime());
+
+  return ret;
+}
+

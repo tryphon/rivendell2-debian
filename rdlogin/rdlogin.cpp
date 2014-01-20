@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogin.cpp,v 1.35 2011/06/21 22:20:44 cvs Exp $
+//      $Id: rdlogin.cpp,v 1.35.4.1 2014/01/08 02:08:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -23,6 +23,7 @@
 #include <stdlib.h>
 
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qpainter.h>
 #include <qsqldatabase.h>
 #include <qmessagebox.h>
@@ -325,6 +326,7 @@ void MainWidget::resizeEvent(QResizeEvent *e)
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

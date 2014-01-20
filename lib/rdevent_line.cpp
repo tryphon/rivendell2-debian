@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdevent_line.cpp,v 1.60.2.1 2012/12/13 22:33:44 cvs Exp $
+//      $Id: rdevent_line.cpp,v 1.60.2.4 2014/01/13 18:36:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -509,7 +509,7 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
       sql=QString().sprintf("insert into `%s_LOG` set ID=%d,COUNT=%d,TYPE=%d,\
                              SOURCE=%d,START_TIME=%d,GRACE_TIME=%d,\
                              CART_NUMBER=%u,TIME_TYPE=%d,POST_POINT=\"%s\",\
-                             TRANS_TYPE=%d,COMMENT=\"%s\"",
+                             TRANS_TYPE=%d,COMMENT=\"%s\",EVENT_LENGTH=%d",
 			    (const char *)logname,count,count,
 			    logline->type(),
 			    RDLogLine::Template,
@@ -519,7 +519,8 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
 			    (const char *)RDYesNo(post_point),
 			    logline->transType(),
 			    (const char *)
-			    RDEscapeString(logline->markerComment()));
+			    RDEscapeString(logline->markerComment()),
+			    event_length);
       q=new RDSqlQuery(sql);
       delete q;
       count++;
@@ -543,7 +544,6 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
   // Import Links
   //
   if(event_import_source==RDEventLine::Traffic || event_import_source==RDEventLine::Music) {
-//  if(event_import_source!=RDEventLine::None) {
     switch(event_import_source) {
 	case RDEventLine::Traffic:
 	  link_type=RDLogLine::TrafficLink;
@@ -563,7 +563,7 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
                            TIME_TYPE=%d,POST_POINT=\"%s\",TRANS_TYPE=%d,\
                            LINK_EVENT_NAME=\"%s\",LINK_START_TIME=%d,\
                            LINK_LENGTH=%d,LINK_ID=%d,LINK_START_SLOP=%d,\
-                           LINK_END_SLOP=%d",
+                           LINK_END_SLOP=%d,EVENT_LENGTH=%d",
 			  (const char *)logname,count,count,
 			  link_type,RDLogLine::Template,
 			  QTime().msecsTo(time),
@@ -572,12 +572,12 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
 			  (const char *)RDYesNo(post_point),
 			  trans_type,
 			  (const char *)RDEscapeString(event_name),
-//			  (const char *)event_start_time.toString("hh:mm:ss"),
 			  QTime().msecsTo(event_start_time),
 			  event_start_time.msecsTo(end_start_time),
 			  link_id,
 			  event_start_slop,
-			  event_end_slop);
+			  event_end_slop,
+			  event_length);
     q=new RDSqlQuery(sql);
     delete q;
     count++;
@@ -791,9 +791,10 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
       
       int schedpos = rand()%schedCL->getNumberOfItems();
       sql=QString().sprintf("insert into %s_LOG set ID=%d,COUNT=%d,TYPE=%d,\
-				  SOURCE=%d,START_TIME=%d,GRACE_TIME=%d, \
-				  CART_NUMBER=%u,TIME_TYPE=%d,POST_POINT=\"%s\", \
-				  TRANS_TYPE=%d,EXT_START_TIME=%d",
+			     SOURCE=%d,START_TIME=%d,GRACE_TIME=%d, \
+			     CART_NUMBER=%u,TIME_TYPE=%d,POST_POINT=\"%s\", \
+			     TRANS_TYPE=%d,EXT_START_TIME=\"%s\",\
+                             EVENT_LENGTH=%d",
 			    (const char *)logname,count,count,
 			    RDLogLine::Cart,source,
 			    QTime().msecsTo(time),
@@ -802,10 +803,17 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
 			    time_type,
 			    (const char *)RDYesNo(post_point),
 			    trans_type,
-			    QTime().msecsTo(time));
+			    (const char *)time.toString("hh:mm:ss"),
+			    event_length);
       q=new RDSqlQuery(sql);
       delete q;
-      
+
+
+
+      count++;
+
+
+
       sql=QString().sprintf("insert into %s_STACK set SCHED_STACK_ID=%u,CART=%u,ARTIST=\"%s\",SCHED_CODES=\"%s\"",(const char*)svcname_rp,
 			    stackid,schedCL->getItemCartnumber(schedpos),
 			    (const char *)RDEscapeString(schedCL->getItemArtist(schedpos)),(const char *)schedCL->getItemSchedCodes(schedpos));
@@ -828,7 +836,7 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
       sql=QString().sprintf("insert into `%s_LOG` set ID=%d,COUNT=%d,TYPE=%d,\
                              SOURCE=%d,START_TIME=%d,GRACE_TIME=%d,\
                              CART_NUMBER=%u,TIME_TYPE=%d,POST_POINT=\"%s\",\
-                             TRANS_TYPE=%d,COMMENT=\"%s\"",
+                             TRANS_TYPE=%d,COMMENT=\"%s\",EVENT_LENGTH=%d",
 			    (const char *)logname,count,count,
 			    logline->type(),
 			    RDLogLine::Template,
@@ -838,7 +846,8 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
 			    (const char *)RDYesNo(post_point),
 			    logline->transType(),
 			    (const char *)
-			    RDEscapeString(logline->markerComment()));
+			    RDEscapeString(logline->markerComment()),
+			    event_length);
       q=new RDSqlQuery(sql);
       delete q;
       count++;
@@ -934,6 +943,7 @@ bool RDEventLine::linkLog(RDLogEvent *e,int next_id,const QString &svcname,
 	  logline->setType(RDLogLine::TrafficLink);
 	  logline->setSource(event_src);
 	  logline->setTransType(trans_type);
+	  logline->setEventLength(event_length);
 	  logline->setLinkEventName(event_nested_event);
 	  logline->setLinkStartTime(link_logline->linkStartTime());
 	  logline->setLinkLength(link_logline->linkLength());
@@ -952,6 +962,7 @@ bool RDEventLine::linkLog(RDLogEvent *e,int next_id,const QString &svcname,
 	logline->setSource(event_src);
 	logline->setTransType(RDLogLine::Segue);
 	logline->setMarkerComment(q->value(11).toString());
+	logline->setEventLength(event_length);
 	logline->setLinkEventName(event_name);
 	logline->setLinkStartTime(link_logline->linkStartTime());
 	logline->setLinkLength(link_logline->linkLength());
@@ -971,6 +982,7 @@ bool RDEventLine::linkLog(RDLogEvent *e,int next_id,const QString &svcname,
 	logline->setSource(event_src);
 	logline->setTransType(RDLogLine::Segue);
 	logline->setMarkerComment(q->value(11).toString());
+        logline->setEventLength(event_length);
 	logline->setLinkEventName(event_name);
 	logline->setLinkStartTime(link_logline->linkStartTime());
 	logline->setLinkLength(link_logline->linkLength());
@@ -988,6 +1000,7 @@ bool RDEventLine::linkLog(RDLogEvent *e,int next_id,const QString &svcname,
 	  logline->setType(RDLogLine::TrafficLink);
 	  logline->setSource(event_src);
 	  logline->setTransType(trans_type);
+	  logline->setEventLength(event_length);
 	  logline->setLinkEventName(event_nested_event);
 	  logline->setLinkStartTime(link_logline->linkStartTime());
 	  logline->setLinkLength(link_logline->linkLength());
@@ -1014,6 +1027,7 @@ bool RDEventLine::linkLog(RDLogEvent *e,int next_id,const QString &svcname,
     logline->setExtEventId(q->value(4).toString());
     logline->setExtAnncType(q->value(5).toString());
     logline->setExtCartName(q->value(6).toString());
+    logline->setEventLength(event_length);
     logline->setLinkEventName(event_name);
     logline->setLinkStartTime(link_logline->linkStartTime());
     logline->setLinkLength(link_logline->linkLength());
@@ -1091,6 +1105,7 @@ bool RDEventLine::linkLog(RDLogEvent *e,int next_id,const QString &svcname,
 	  logline->setGraceTime(grace_time);
 	  logline->setCartNumber(q->value(0).toUInt());
 	  logline->setTimeType(time_type);
+	  logline->setEventLength(event_length);
 	  logline->setLinkEventName(event_name);
 	  logline->setLinkStartTime(link_logline->linkStartTime());
 	  logline->setLinkLength(link_logline->linkLength());

@@ -376,6 +376,14 @@ Rip</source>
         <source>[none]</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Ripper Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DiskRipper</name>
@@ -590,6 +598,14 @@ Disk</source>
         <source>RDLibrary - Ripper Error</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Ripper Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditCart</name>
@@ -781,6 +797,10 @@ limite do sistema!   Você ainda quer salvar?</translation>
     </message>
     <message>
         <source>&amp;Beats per Minute:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Event Length for Now &amp;&amp; Next Updates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1196,6 +1216,14 @@ Você ainda quer deletá-lo?</translation>
     </message>
     <message>
         <source>Allow Cart Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown command-line option</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

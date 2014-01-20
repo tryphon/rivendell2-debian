@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdchunk.cpp,v 1.3.8.1 2013/12/05 17:37:48 cvs Exp $
+//    $Id: rdchunk.cpp,v 1.3.8.2 2014/01/08 02:08:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,7 @@
 
 
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qrect.h>
 #include <qpoint.h>
 #include <qpainter.h>
@@ -704,6 +705,7 @@ void MainWidget::displayAIR1()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit.h,v 1.28 2011/08/30 23:35:45 cvs Exp $
+//      $Id: rdlogedit.h,v 1.28.4.1 2014/01/08 23:32:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -30,15 +30,17 @@
 #include <qsize.h>
 #include <qsizepolicy.h>
 #include <qsqldatabase.h>
+#include <qlineedit.h>
 #include <qlistview.h>
 #include <qpushbutton.h>
 #include <qpixmap.h>
+#include <qcombobox.h>
+#include <qlabel.h>
 
 #include <rduser.h>
 #include <rdripc.h>
 #include <rdlibrary_conf.h>
 #include <rdlog_line.h>
-//#include <rdconfig.h>
 
 #include <list_listviewitem.h>
 
@@ -59,6 +61,8 @@ class MainWidget : public QMainWindow
   void deleteData();
   void trackData();
   void reportData();
+  void filterChangedData(const QString &str);
+  void filterClearedData();
   void logDoubleclickedData(QListViewItem *item,const QPoint &pt,int col);
   void quitMainWidget();
 
@@ -74,6 +78,11 @@ class MainWidget : public QMainWindow
   QLabel *log_user_label;
   int log_card_no;
   int log_stream_no;
+  QLabel *log_service_label;
+  QComboBox *log_service_box;
+  QLabel *log_filter_label;
+  QLineEdit *log_filter_edit;
+  QPushButton *log_filter_button;
   QListView *log_log_list;
   std::vector<RDLogLine> log_clipboard;
   QPushButton *log_add_button;

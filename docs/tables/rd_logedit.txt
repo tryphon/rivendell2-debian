@@ -14,6 +14,7 @@ FORMAT               int(10) unsigned  0 = PCM16, 1 = Layer-2, 2 = Layer-3
 SAMPRATE             int(10) unsigned  RETIRED
 LAYER                int(10) unsigned
 BITRATE              int(10) unsigned
+ENABLE_SECOND_START  enum('N','Y')
 DEFAULT_CHANNELS     int(10) unsigned 
 MAXLENGTH            int(11)           Max record length, in sec
 TAIL_PREROLL	     int(10) unsigned

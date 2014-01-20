@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdtrimaudio.cpp,v 1.6.4.2 2013/11/13 23:36:34 cvs Exp $
+//      $Id: rdtrimaudio.cpp,v 1.6.4.3 2014/01/16 02:44:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -155,7 +155,11 @@ RDTrimAudio::ErrorCode RDTrimAudio::runTrim(const QString &username,
 
   switch(response_code) {
   case 200:
+    //printf("XML: %s\n",(const char *)conv_xml);
     break;
+
+  case 404:
+    return RDTrimAudio::ErrorNoAudio;
 
   default:
     return RDTrimAudio::ErrorService;
@@ -169,7 +173,7 @@ RDTrimAudio::ErrorCode RDTrimAudio::runTrim(const QString &username,
 
 QString RDTrimAudio::errorText(RDTrimAudio::ErrorCode err)
 {
-  QString ret=QString().sprintf("Uknown Error [%u]",err);
+  QString ret=QString().sprintf("Unknown Error [%u]",err);
 
   switch(err) {
   case RDTrimAudio::ErrorOk:
@@ -190,6 +194,10 @@ QString RDTrimAudio::errorText(RDTrimAudio::ErrorCode err)
 
   case RDTrimAudio::ErrorInvalidUser:
     ret=tr("Invalid user or password");
+    break;
+
+  case RDTrimAudio::ErrorNoAudio:
+    ret=tr("No audio data");
     break;
   }
   return ret;

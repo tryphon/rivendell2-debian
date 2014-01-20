@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary_conf.cpp,v 1.25 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdlibrary_conf.cpp,v 1.25.8.1 2014/01/09 01:03:54 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -307,9 +307,35 @@ int RDLibraryConf::srcConverter() const
 }
 
 
-void RDLibraryConf::setSrcConverter(int conv)
+void RDLibraryConf::setSrcConverter(int conv) const
 {
   SetRow("SRC_CONVERTER",conv);
+}
+
+
+RDLibraryConf::SearchLimit RDLibraryConf::limitSearch() const
+{
+  return (RDLibraryConf::SearchLimit)
+    RDGetSqlValue("RDLIBRARY","ID",lib_id,"LIMIT_SEARCH").toInt();
+}
+
+
+void RDLibraryConf::setLimitSearch(RDLibraryConf::SearchLimit lmt) const
+{
+  SetRow("LIMIT_SEARCH",(int)lmt);
+}
+
+
+bool RDLibraryConf::searchLimited() const
+{
+  return RDBool(RDGetSqlValue("RDLIBRARY","ID",lib_id,"SEARCH_LIMITED").
+		toString());
+}
+
+
+void RDLibraryConf::setSearchLimited(bool state) const
+{
+  SetRow("SEARCH_LIMITED",RDYesNo(state));
 }
 
 

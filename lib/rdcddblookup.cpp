@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdcddblookup.cpp,v 1.5 2010/07/29 19:32:33 cvs Exp $
+//    $Id: rdcddblookup.cpp,v 1.5.8.3 2014/01/14 17:35:31 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -25,14 +25,16 @@
 #include <string.h>
 #include <qtimer.h>
 #include <qregexp.h>
+#include <qdatetime.h>
 
 #include <rdcddblookup.h>
 #include <rdprofile.h>
 
-RDCddbLookup::RDCddbLookup(QObject *parent,const char *name) 
+RDCddbLookup::RDCddbLookup(FILE *profile_msgs,QObject *parent,const char *name) 
   : QObject(parent,name)
 {
   lookup_state=0;
+  lookup_profile_msgs=profile_msgs;
 
   //
   // Get the Hostname
@@ -48,7 +50,6 @@ RDCddbLookup::RDCddbLookup(QObject *parent,const char *name)
   // Socket
   //
   lookup_socket=new QSocket(this,"lookup_socket");
-  connect(lookup_socket,SIGNAL(connected()),this,SLOT(connectedData()));
   connect(lookup_socket,SIGNAL(readyRead()),this,SLOT(readyReadData()));
   connect(lookup_socket,SIGNAL(error(int)),this,SLOT(errorData(int)));
 }
@@ -66,20 +67,26 @@ void RDCddbLookup::setCddbRecord(RDCddbRecord *rec)
 }
 
 
-void RDCddbLookup::lookupRecord(QString cdda_dir,QString cdda_dev,
-			       QString hostname,Q_UINT16 port,
-			       QString username,QString appname,QString appver)
+void RDCddbLookup::lookupRecord(const QString &cdda_dir,const QString &cdda_dev,
+			       const QString &hostname,Q_UINT16 port,
+			       const QString &username,const QString &appname,
+				const QString &appver)
 {
   lookup_username=username;
   lookup_appname=appname;
   lookup_appver=appver;
 
+  Profile("starting CD-TEXT lookup");
   if(!cdda_dir.isEmpty()) {
-    if(GetCddaData(cdda_dir,cdda_dev)) {
+    if(ReadCdText(cdda_dir,cdda_dev)) {
       emit done(RDCddbLookup::ExactMatch);
+      Profile("CD-TEXT lookup success");
       return;
     }
   }
+  Profile("CD-TEXT lookup failure");
+
+  Profile("starting CDDB lookup");
   if(!hostname.isEmpty()) {
     //
     // Set Up Default User
@@ -107,8 +114,9 @@ void RDCddbLookup::lookupRecord(QString cdda_dir,QString cdda_dev,
 }
 
 
-void RDCddbLookup::connectedData()
+bool RDCddbLookup::readIsrc(const QString &cdda_dir,const QString &cdda_dev)
 {
+  return ReadIsrcs(cdda_dir,cdda_dev);
 }
 
 
@@ -126,128 +134,111 @@ void RDCddbLookup::readyReadData()
 
   while(lookup_socket->canReadLine()) {
     line=lookup_socket->readLine();
+    Profile("recevied from server: \""+line+"\"");
     sscanf((const char *)line,"%d",&code);
     switch(lookup_state) {
-	case 0:    // Login Banner
-	  if((code==200)||(code==201)) {
-	    sprintf(buffer,"cddb hello %s %s %s %s\n",
-		    (const char *)lookup_username,
-		    (const char *)lookup_hostname,
-		    (const char *)lookup_appname,
-		    (const char *)lookup_appver);
-	    lookup_socket->writeBlock(buffer,strlen(buffer));
-	    lookup_state=1;
-	  }
-	  else {
-	    lookup_socket->writeBlock("quit\n",4);
-	    lookup_socket->close();
-	    emit done(RDCddbLookup::ProtocolError);
-	  }
-	  break;
+    case 0:    // Login Banner
+      if((code==200)||(code==201)) {
+	sprintf(buffer,"cddb hello %s %s %s %s",
+		(const char *)lookup_username,
+		(const char *)lookup_hostname,
+		(const char *)lookup_appname,
+		(const char *)lookup_appver);
+	SendToServer(buffer);
+	lookup_state=1;
+      }
+      else {
+	FinishCddbLookup(RDCddbLookup::ProtocolError);
+      }
+      break;
 
-	case 1:    // Handshake Response
-	  if((code==200)||(code==402)) {
-	    sprintf(buffer,"cddb query %08x %d",
-		    lookup_record->discId(),lookup_record->tracks());
-	    for(int i=0;i<lookup_record->tracks();i++) {
-	      sprintf(offset," %d",lookup_record->trackOffset(i));
-	      strcat(buffer,offset);
-	    }
-	    sprintf(offset," %d\n",lookup_record->discLength()/75);
-	    strcat(buffer,offset);
-	    lookup_socket->writeBlock(buffer,strlen(buffer));
-	    lookup_state=2;
-	  }
-	  else {
-	    lookup_socket->writeBlock("quit\n",4);
-	    lookup_socket->close();
-	    lookup_state=0;
-	    emit done(RDCddbLookup::ProtocolError);
-	  }
-	  break;
+    case 1:    // Handshake Response
+      if((code==200)||(code==402)) {
+	sprintf(buffer,"cddb query %08x %d",
+		lookup_record->discId(),lookup_record->tracks());
+	for(int i=0;i<lookup_record->tracks();i++) {
+	  sprintf(offset," %d",lookup_record->trackOffset(i));
+	  strcat(buffer,offset);
+	}
+	sprintf(offset," %d",lookup_record->discLength()/75);
+	strcat(buffer,offset);
+	SendToServer(buffer);
+	lookup_state=2;
+      }
+      else {
+	FinishCddbLookup(RDCddbLookup::ProtocolError);
+      }
+      break;
 
-	case 2:    // Query Response
-	  switch(code) {
-	      case 200:   // Exact Match
-		start=4;
-		if(sscanf((const char *)line+start,"%s",offset)==1) {
-		  lookup_record->setDiscGenre(offset);
-		  start+=lookup_record->discGenre().length()+1;
-		}
-		if(sscanf((const char *)line+start,"%x",&hex)==1) {
-		  lookup_record->setDiscId(hex);
-		  start+=9;
-		}
-		lookup_record->setDiscTitle((const char *)line+start);
-		sprintf(buffer,"cddb read %s %08x\n",
-			(const char *)lookup_record->discGenre(),
-			lookup_record->discId());
-		lookup_socket->writeBlock(buffer,strlen(buffer));
-		lookup_state=3;		
-		break;
+    case 2:    // Query Response
+      switch(code) {
+      case 200:   // Exact Match
+	start=4;
+	if(sscanf((const char *)line+start,"%s",offset)==1) {
+	  lookup_record->setDiscGenre(offset);
+	  start+=lookup_record->discGenre().length()+1;
+	}
+	if(sscanf((const char *)line+start,"%x",&hex)==1) {
+	  lookup_record->setDiscId(hex);
+	  start+=9;
+	}
+	lookup_record->setDiscTitle((const char *)line+start);
+	sprintf(buffer,"cddb read %s %08x\n",
+		(const char *)lookup_record->discGenre(),
+		lookup_record->discId());
+	SendToServer(buffer);
+	lookup_state=3;		
+	break;
 
-	      case 211:   // Inexact Match
-		lookup_socket->writeBlock("quit\n",4);
-		lookup_socket->close();
-		lookup_state=0;
-		emit done(RDCddbLookup::PartialMatch);
-		break;
+      case 211:   // Inexact Match
+	FinishCddbLookup(RDCddbLookup::PartialMatch);
+	break;
 
-	      default:
-		lookup_socket->writeBlock("quit\n",4);
-		lookup_socket->close();
-		lookup_state=0;
-		emit done(RDCddbLookup::ProtocolError);
-		break;
-	  }
-	  break;
+      default:
+	FinishCddbLookup(RDCddbLookup::ProtocolError);
+	break;
+      }
+      break;
 
-	case 3:    // Read Response
-	  if((code==210)) {
-	    lookup_state=4;
-	  }
-	  else {
-	    lookup_socket->writeBlock("quit\n",4);
-	    lookup_socket->close();
-	    lookup_state=0;
-	    emit done(RDCddbLookup::ProtocolError);
-	  }
-	  break;
+    case 3:    // Read Response
+      if((code==210)) {
+	lookup_state=4;
+      }
+      else {
+	FinishCddbLookup(RDCddbLookup::ProtocolError);
+      }
+      break;
 	  
-	case 4:    // Record Lines
-	  if(line[0]!='#') {   // Ignore Comments
-	    if(line[0]=='.') {  // Done
-	      lookup_socket->writeBlock("quit\n",strlen("quit\n"));
-	      lookup_socket->close();
-	      lookup_state=0;
-	      emit done(RDCddbLookup::ExactMatch);
-	    }
-	    ParsePair(&line,&tag,&value,&index);
-	    if(tag=="DTITLE") {
-	      lookup_record->setDiscTitle(value.left(value.length()-1));
-	    }
-	    if(tag=="DYEAR") {
-	      lookup_record->setDiscYear(value.toUInt());
-	    }
-	    if(tag=="EXTD") {
-	      lookup_record->
-		setDiscExtended(lookup_record->discExtended()+
-				DecodeString(value));
-	    }
-	      
-	    if(tag=="PLAYORDER") {
-	      lookup_record->setDiscPlayOrder(value);
-	    }
-	    if((tag=="TTITLE")&&(index!=-1)) {
-	      lookup_record->setTrackTitle(index,value.left(value.length()-1));
-	    }
-	    if((tag=="EXTT")&&(index!=-1)) {
-	      lookup_record->
-		setTrackExtended(index,
-				 lookup_record->trackExtended(index)+value);
-	    }
-	  }
-	  break;
+    case 4:    // Record Lines
+      if(line[0]!='#') {   // Ignore Comments
+	if(line[0]=='.') {  // Done
+	  FinishCddbLookup(RDCddbLookup::ExactMatch);
+	}
+	ParsePair(&line,&tag,&value,&index);
+	if(tag=="DTITLE") {
+	  lookup_record->setDiscTitle(value.left(value.length()-1));
+	}
+	if(tag=="DYEAR") {
+	  lookup_record->setDiscYear(value.toUInt());
+	}
+	if(tag=="EXTD") {
+	  lookup_record->
+	    setDiscExtended(lookup_record->discExtended()+
+			    DecodeString(value));
+	}
+	if(tag=="PLAYORDER") {
+	  lookup_record->setDiscPlayOrder(value);
+	}
+	if((tag=="TTITLE")&&(index!=-1)) {
+	  lookup_record->setTrackTitle(index,value.left(value.length()-1));
+	}
+	if((tag=="EXTT")&&(index!=-1)) {
+	  lookup_record->
+	    setTrackExtended(index,
+			     lookup_record->trackExtended(index)+value);
+	}
+      }
+      break;
     }
   }
 }
@@ -257,7 +248,7 @@ void RDCddbLookup::errorData(int err)
 {
   switch(err) {
       case QSocket::ErrConnectionRefused:
-	printf("CDDB: Connection Refushed!\n");
+	printf("CDDB: Connection Refused!\n");
 	break;
       case QSocket::ErrHostNotFound:
 	printf("CDDB: Host Not Found!\n");
@@ -268,6 +259,16 @@ void RDCddbLookup::errorData(int err)
   }
   lookup_state=0;
   emit done(RDCddbLookup::NetworkError);
+}
+
+
+void RDCddbLookup::FinishCddbLookup(RDCddbLookup::Result res)
+{
+  SendToServer("quit");
+  lookup_socket->close();
+  lookup_state=0;
+  emit done(res);
+  Profile("CDDB lookup finished");
 }
 
 
@@ -319,22 +320,21 @@ int RDCddbLookup::GetIndex(QString *tag)
 }
 
 
-bool RDCddbLookup::GetCddaData(QString &cdda_dir,QString &cdda_dev)
+bool RDCddbLookup::ReadCdText(const QString &cdda_dir,const QString &cdda_dev)
 {
   int err=0;
   RDProfile *title_profile=new RDProfile();
-  RDProfile *isrc_profile=new RDProfile();
-  bool cdtext_found=false;
+  bool ret=false;
   QString str;
+  QString cmd;
 
   //
   // Write the Track Title Data to a Temp File
   //
-  QString cmd=QString().sprintf("CURDIR=`pwd`;cd %s;cdda2wav -D %s --info-only -v titles 2> /dev/null;cd $CURDIR",
+  cmd=QString().sprintf("CURDIR=`pwd`;cd %s;cdda2wav -D %s --info-only -v titles 2> /dev/null;cd $CURDIR",
 				(const char *)cdda_dir,
 				(const char *)cdda_dev);
   if((err=system(cmd))!=0) {
-    printf("cdda2wav error: %d\n",err);
     return false;
   }
 
@@ -348,30 +348,42 @@ bool RDCddbLookup::GetCddaData(QString &cdda_dir,QString &cdda_dev)
     str.remove("'");
     if((!str.isEmpty())&&(str!="''")) {
       lookup_record->setDiscTitle(str);
-      cdtext_found=true;
+      ret=true;
     }
 
     str=title_profile->stringValue("","Albumperformer","");
     str.remove("'");
     if((!str.isEmpty())&&(str!="''")) {
       lookup_record->setDiscArtist(str);
-      cdtext_found=true;
+      ret=true;
     }
 
     str=title_profile->stringValue("","Tracktitle","");
     str.remove("'");
     if((!str.isEmpty())&&(str!="''")) {
       lookup_record->setTrackTitle(i,str);
-      cdtext_found=true;
+      ret=true;
     }
 
     str=title_profile->stringValue("","Performer","");
     str.remove("'");
     if((!str.isEmpty())&&(str!="''")) {
       lookup_record->setTrackArtist(i,str);
-      cdtext_found=true;
+      ret=true;
     }
   }
+  return ret;
+}
+
+
+bool RDCddbLookup::ReadIsrcs(const QString &cdda_dir,const QString &cdda_dev)
+{
+  int err=0;
+  RDProfile *title_profile=new RDProfile();
+  RDProfile *isrc_profile=new RDProfile();
+  bool ret=false;
+  QString str;
+  QString cmd;
 
   //
   // Write the ISRC Data to a Temp File
@@ -380,7 +392,6 @@ bool RDCddbLookup::GetCddaData(QString &cdda_dir,QString &cdda_dev)
 				(const char *)cdda_dir,
 				(const char *)cdda_dev);
   if((err=system(cmd))!=0) {
-    printf("cdda2wav error: %d\n",err);
     return false;
   }
 
@@ -395,10 +406,28 @@ bool RDCddbLookup::GetCddaData(QString &cdda_dir,QString &cdda_dev)
     str.remove("-");
     if((!str.isEmpty())&&(str!="''")) {
       lookup_record->setIsrc(i,str);
+      ret=true;
     }
   }
   delete title_profile;
   delete isrc_profile;
 
-  return cdtext_found;
+  return ret;
+}
+
+
+void RDCddbLookup::SendToServer(const QString &msg)
+{
+  lookup_socket->writeBlock(msg+"\n",msg.length()+1);
+  Profile("sent to server: \""+msg+"\"");
+}
+
+
+void RDCddbLookup::Profile(const QString &msg)
+{
+  if(lookup_profile_msgs!=NULL) {
+    printf("%s | RDCddbLookup::%s\n",
+	    (const char *)QTime::currentTime().toString("hh:mm:ss.zzz"),
+	    (const char *)msg);
+  }
 }

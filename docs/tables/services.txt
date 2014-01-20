@@ -9,6 +9,7 @@ FIELD NAME              TYPE               REMARKS
 NAME                    char(10) unsigned  Primary Key
 DESCRIPTION             char(255)
 NAME_TEMPLATE           char(255)
+DESCRIPTION_TEMPLATE    char(255)
 PROGRAM_CODE            char(255)
 CHAIN_LOG               enum('N','Y')
 TRACK_GROUP             char(10)           From GROUPS.NAME

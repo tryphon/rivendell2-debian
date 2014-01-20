@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioimport.cpp,v 1.12.4.3 2013/11/13 23:36:30 cvs Exp $
+//      $Id: rdaudioimport.cpp,v 1.12.4.4 2014/01/15 19:56:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -236,7 +236,7 @@ RDAudioImport::ErrorCode RDAudioImport::runImport(const QString &username,
   else {
     *conv_err=RDAudioConvert::ErrorOk;
   }
-  //syslog(LOG_NOTICE,"resp code: %d\n",response_code);
+  //printf("resp code: %d\n",response_code);
   switch(response_code) {
   case 200:
     break;

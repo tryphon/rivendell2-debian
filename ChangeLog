@@ -13744,13 +13744,216 @@
 2013-12-31 Fred Gleason <fredg@paravelsystems.com>
 	* Adjusted the position of the 'Allow Dragging' control in
 	'rdlibrary/rdlibrary.cpp'.
-2013-01-02 Fred Gleason <fredg@paravelsystems.com>
+2014-01-02 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.6.1.
-2013-01-03 Fred Gleason <fredg@paravelsystems.com>
+2014-01-03 Fred Gleason <fredg@paravelsystems.com>
 	* * Fixed a bug in 'rdlogedit/edit_log.cpp' that threw a segfault
 	when dropping a cart into the end of a log in RDLogEdit's Edit Log
 	dialog.
-2013-01-03 Fred Gleason <fredg@paravelsystems.com>
-	* Updated 'NEWS.'.
+2014-01-03 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
 	* Incremented the package version to 2.6.2.
+2014-01-06 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the copyright date to '2002-2014' in
+	'rdadmin/info_dialog.cpp'.
+2014-01-06 Fred Gleason <fredg@paravelsystems.com>
+	* Added '%o', '%O', '%i' and '%I' wildcards in 'lib/rdnownext.cpp'.
+	* Added 'rlm_outcue' and 'rlm_desciption' fields to the 'rlm_pad'
+	struct in 'rlm/rlm.h'.
+	* Incremented 'RLM_VERSION' to 17 in 'rlm/rlm.h'.
+2014-01-07 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDAIRPLAY.TITLE_TEMPLATE', 'RDAIRPLAY.ARTIST_TEMPLATE',
+	'RDAIRPLAY.OUTCUE_TEMPLATE' and 'RDAIRPLAY.DESCRIPTION_TEMPLATE'
+	fields to the database.
+	* Incremented the database version to 225.
+	* Added 'RDAirPlayConf::titleTemplate()',
+	'RDAirPlayConf::setTitleTemplate()', 'RDAirPlayConf::artistTemplate()',
+	'RDAirPlayConf::setArtistTemplate()',
+	'RDAirPlayConf::outcueTemplate()', 'RDAirPlayConf::setOutcueTemplate()',
+	'RDAirPlayConf::descriptionTemplate()' and
+	'RDAirPlayConf::setDescriptionTemplate()' methods in
+	'lib/rdairplay_conf.cpp' 'lib/rdairplay_conf.h'.
+	* Added 'Title Template', 'Artist Template', 'Outcue Template'
+	and 'Description Template' controls to the RDAirPlay Configuration
+	dialog in 'rdadmin/edit_rdairplay.cpp' and 'rdadmin/edit_rdairplay.h'.
+	* Added 'RDLogLine::description()' and 'RDLogLine::setDescription()'
+	methods in 'lib/rdlog_line.cpp' and 'lib/rdlog_line.h'.
+	* Implemented customized Title, Artist, Outcue and Description fields
+	in RDAirPlay's Button Log Widget in 'rdairplay/loglinebox.cpp'.
+2014-01-07 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented customized Title, Artist, Outcue and Description fields
+	in RDCartSlot's Cart Labels in 'rdcartslots/rdcartslots.cpp',
+	'rdcartslots/rdcartslots.h', 'lib/rdcartslot.cpp' 'lib/rdcartslot.h',
+	'lib/rdslotbox.cpp' and 'lib/rdslotbox.h'..
+2014-01-07 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdcatch/edit_playout.cpp' that threw a segfault
+	when attmpting to edit a playout event on a setup with no playout
+	decks.
+	* Fixed a bug in 'rdcatch/rdcatch.cpp' that would display a
+	playout deck even when no valid playout deck was defined.
+2014-01-07 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in RDLibrary that broke double-clicking on a cart
+	when cart dragging was enabled in ''rdlibrary/lib_listview.cpp'
+	and 'rdlibrary/lib_listview.h'.
+2014-01-07 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored the Disk Gauge widget in RDLibrary to display the
+	remaining free space below the progress bar in
+	'rdlibrary/disk_gauge.cpp' and 'rdlibrary/disk_gauge.h'.
+	* Removed 'rdlibrary/disk_bar.cpp' and 'rdlibrary/disk_bar.h'.
+	* Added code to force the GUI style of RDLibrary to 'WindowsStyle'.
+	* Added code to force the GUI style of RDAdmin to 'WindowsStyle'.
+	* Added code to force the GUI style of RDAirPlay to 'WindowsStyle'.
+	* Added code to force the GUI style of RDCartSlots to 'WindowsStyle'.
+	* Added code to force the GUI style of RDCastManager to 'WindowsStyle'.
+	* Added code to force the GUI style of RDCatch to 'WindowsStyle'.
+	* Added code to force the GUI style of RDLogEdit to 'WindowsStyle'.
+	* Added code to force the GUI style of RDLogin to 'WindowsStyle'.
+	* Added code to force the GUI style of RDLogManager to 'WindowsStyle'.
+	* Added code to force the GUI style of RDPanel to 'WindowsStyle'.
+	* Added code to force the GUI style of RDSelect to 'WindowsStyle'.
+	* Added code to force the GUI style of RDAlsaConfig to 'WindowsStyle'.
+	* Added code to force the GUI style of RDChunk to 'WindowsStyle'.
+	* Added code to force the GUI style of RDDGImport to 'WindowsStyle'.
+	* Added code to force the GUI style of RDDiscImport to 'WindowsStyle'.
+	* Added code to force the GUI style of RDGpiMon to 'WindowsStyle'.
+	* Added code to force the GUI style of RDHPIInfo to 'WindowsStyle'.
+	* Added code to force the GUI style of RDPopup to 'WindowsStyle'.
+	* Added code to force the GUI style of RDSoftKeys to 'WindowsStyle'.
+	* Added code to force the GUI style of RMLSend to 'WindowsStyle'.
+2014-01-08 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogedit/edit_log.cpp' that caused the log list
+	to scroll to the top of the log when a cart was dropped onto the
+	end of the log.
+2014-01-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDLOGEDIT.ENABLE_SECOND_START' field to the database.
+	* Incremented the database verison to 226.
+	* Added 'RDLogeditConf::enableSecondStart()' and
+	'RDLogeditConf::setEnableSecondStart()' methods in
+	'lib/rdlogedit_conf.cpp' and 'lib/rdlogedit_conf.h'.
+	* Added an 'Enable 2nd Start Button' control to the Edit RDLogEdit
+	dialog in 'rdadmin/edit_rdlogedit.cpp' and 'rdadmin/edit_rdlogedit.h'.
+	* Implemented three-button voice tracking in
+	'rdlogedit/voice_tracker.cpp' and 'rdlogedit/voice_tracker.h'.
+2014-01-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'TYPE_IDX' index to the 'LOGS' table.
+	* Incremented the database version to 227.
+	* Implemented RDLogEdit log searching by Service and Filter in
+	'rdlogedit/rdlogedit.cpp' and 'rdlogedit/rdlogedit.h'.
+2014-01-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDLIBRARY.LIMIT_SEARCH' field to the database.
+	* Added an 'RDLIBRARY.SEARCH_LIMITED' field to the database.
+	* Incremented the database version to 228.
+	* Added 'RDLibraryConf::limitSearch()',
+	'RDLibraryConf::setLimitSearch()', 'RDLibrary::searchLimited()' and
+	'RDLibrary::setSearchLimited()' methods in 'lib/rdlibrary_conf.cpp'
+	and 'lib/rdlibrary_conf.h'.
+	* Added a 'Limit Searches at Start' control to the Library
+	Configuration dialog in 'rdadmin/edit_rdlibrary.cpp' and
+	'rdadmin/edit_rdlibrary.h'.
+	* Added code to set default state of the RDLibrary 'Limit Searches...'
+	control in 'rdlibrary/rdlibrary.cpp' and 'rdlibrry/rdlibrary.h'.
+2014-01-08 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in the RDLibrary Record/Info dialog that caused a
+	warning to be issued when saving an everegreen cut with an expired
+	end date.
+2014-01-09 Fred Gleason <fredg@paravelsystems.com>
+	* Tweaked the behavior of the Full Log widget in RDAirPlay so that
+	it scrolls to display the End of Log marker after a cart is dropped
+	onto the end of the log.
+2014-01-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--profile-ripping' option to RDLibrary.
+	* Disabled CDDA lookups in 'lib/rdcddb_lookup.cpp'.
+2014-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'SERVICES.DESCRIPTION_TEMPLATE' field to the database.
+	* Incremented the database version to 229.
+	* Added 'RDSvc::descriptionTemplate()' and
+	'RDSvc::setDescriptionTemplate()' methods in 'lib/rdsvc.cpp' and
+	'lib/rdsvc.h'.
+	* Added a 'Description Template' field to the Edit Service dialog
+	in 'rdadmin/edit_service.cpp' and 'rdadmin/edit_service.h'.
+	* Implemented description templates in 'lib/rdsvc.cpp'.
+2014-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added code to clone the description template when creating a new
+	service based on an existing service.
+2014-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added the cart title to the log generation exception report in
+	'lib/rdlog_event.cpp'.
+2014-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored code in 'lib/rdcdrom.cpp', 'lib/rdcdrom.h',
+	'rdlibrary/cdripper.cpp' and 'rdlibrary/cdripper.h' to make disc
+	ejection work properly.
+2014-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Made the List Clocks dialog in RDLogManger resizable in
+	'rdlogmanager/list_clocks.cpp' and 'rdlogmanager/list_clocks.h'.
+	* Made the List Events dialog in RDLogManger resizable in
+	'rdlogmanager/list_events.cpp' and 'rdlogmanager/list_events.h'.
+2014-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogedit/edit_log.cpp' that caused the event
+	list to scroll to the top of the log when dropping a cart onto it.
+2014-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdevent_line.cpp' that threw a SQL error
+	when generating a log with music scheduler events.
+2014-01-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdevent_line.cpp' that caused invalid
+	external start time data to be generated by the music scheduler
+	subsystem.
+2014-01-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/nownext.cpp' that caused cruft to be
+	appended to the log name when sending PAD updates.
+2014-01-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'EVENT_LENGTH' field to the log database schema.
+	* Incremented the database version to 230.
+	* Added a 'RDLog::tableName()' method in 'lib/rdlog.cpp' and
+	'lib/rdlog.h'.
+	* Added a 'RDEvent::preimportTableName()' and
+	'RDEvent::postimportTableName()' methods in 'lib/rdevent.cpp' and
+	'lib/rdevent.h'.
+	* Added 'RDLogLine::eventLength()' and 'RDLogLine::setEventLength()'
+	methods in 'lib/rdlog_line.cpp' and 'lib/rdlog_line.h'.
+	* Modified 'rdairplay/rlmhost.cpp' to use the length of the
+	parent RDLogManager event when sending PAD updates for macro
+	carts.
+2014-01-13 Fred Gleason <fredg@paravelsystems.com>
+	* Corrected a typo in schema update 225 that set an invalid
+	metadata wildcard for the description template.
+2014-01-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'CART.USE_EVENT_LENGTH' field to the database.
+	* Incremented the database version to 231.
+	* Added 'RDCart::useEventLength()' and 'RDCart::setUseEventLength()'
+	methods in 'lib/rdcart.cpp' and 'lib/rdcart.h'.
+	* Added a 'Use Event Length for Now & Next Updates' control to the
+	Edit Cart dialog in 'rdlibrary/edit_cart.cpp' and
+	'rdlibrary/edit_cart.h'.
+2014-01-13 Fred Gleason <fredg@paravelsystems.com>
+	* Applied updated Spanish [es] translations from Luigino Bracci
+	<lbracci@gamil.com>.
+2014-01-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlibrary/edit_cart.cpp' that broke editing of the
+	'Conductor' and 'SongID' fields when editing multiple carts.
+2014-01-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDCddbLookup::readIsrc()' method in 'lib/rdcddb_lookup.cpp'
+	and 'lib/rdcddb_lookup.h'.
+	* Refactored ISRC lookup in RDLibrary's Single Track Ripper to
+	optimize performance in 'rdlibrary/cdripper.cpp' and
+	'rdlibrary/cdripper.h'.
+	* Refactored ISRC lookup in RDLibrary's Full Disc Ripper to
+	optimize performance in 'rdlibrary/disk_ripper.cpp' and
+	'rdlibrary/disk_ripper.h'.
+2014-01-14 Fred Gleason <fredg@paravelsystems.com>
+	* Made RDLibrary's Single Track Ripper resizable in
+	'rdlibrary/cdripper.cpp' and 'rdlibrary/cdripper.h'.
+2014-01-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDWaveFile::Aiff' value to the 'RDWaveFile::Type' enum
+	in 'lib/rdwavefile.h'.
+	* Added support for AIFF files in 'lib/rdwavefile.cpp' and
+	'lib/rdwavefile.h'.
+2014-01-15 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlog_edit.cpp' that caused tracks to be created
+	that would not visualize correctly when using a system sample rate
+	of other than 44100.
+2014-01-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added an rdmarkerset(8) utility in 'utils/rdmarkerset/'.
+2014-01-17 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Updated the package version to 2.7.0.

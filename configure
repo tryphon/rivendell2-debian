@@ -20495,7 +20495,7 @@ else
 
 fi
 
-ac_config_files="$ac_config_files rivendell.spec Makefile make_slack slack-desc rivendell-suse rdrepld-suse conf/rd-bin.conf icons/Makefile helpers/Makefile lib/rdpaths.h lib/Makefile rdhpi/Makefile rlm/Makefile cae/Makefile utils/Makefile utils/rddelete/Makefile utils/rdgen/Makefile utils/rmlsend/Makefile utils/rdgpimon/Makefile utils/rdimport/Makefile utils/sas_shim/Makefile utils/rdsoftkeys/Makefile utils/rddbcheck/Makefile utils/rdalsaconfig/Makefile utils/rddgimport/Makefile utils/rddiscimport/Makefile utils/rdhpiinfo/Makefile utils/rdpurgecasts/Makefile utils/rdchunk/Makefile utils/rdmaint/Makefile utils/rdpopup/Makefile utils/rdcollect/Makefile utils/rdcheckcuts/Makefile web/Makefile web/rdfeed/Makefile web/rdcastmanager/Makefile web/rdxport/Makefile web/tests/Makefile conf/Makefile docs/Makefile docs/tables/Makefile docs/examples/Makefile debian/Makefile debian/patches/Makefile xdg/Makefile rdadmin/Makefile scripts/Makefile ripcd/Makefile rdlogin/Makefile rdlibrary/Makefile rdcatch/Makefile rdcatchd/Makefile rdlogedit/Makefile rdlogmanager/Makefile rdairplay/Makefile rdpanel/Makefile rdcartslots/Makefile rdcastmanager/Makefile rdselect/Makefile rdmonitor/Makefile rdrepld/Makefile tests/Makefile importers/Makefile ios/Makefile ios/rmlsend/Makefile ios/rmlsend/Classes/Makefile ios/rmlsend/RMLSend.xcodeproj/Makefile pam_rd/Makefile"
+ac_config_files="$ac_config_files rivendell.spec Makefile make_slack slack-desc rivendell-suse rdrepld-suse conf/rd-bin.conf icons/Makefile helpers/Makefile lib/rdpaths.h lib/Makefile rdhpi/Makefile rlm/Makefile cae/Makefile utils/Makefile utils/rdalsaconfig/Makefile utils/rdcheckcuts/Makefile utils/rdchunk/Makefile utils/rdcollect/Makefile utils/rddbcheck/Makefile utils/rddelete/Makefile utils/rddgimport/Makefile utils/rddiscimport/Makefile utils/rdgen/Makefile utils/rdhpiinfo/Makefile utils/rdgpimon/Makefile utils/rdimport/Makefile utils/rdmaint/Makefile utils/rdmarkerset/Makefile utils/rdpopup/Makefile utils/rdpurgecasts/Makefile utils/rdsoftkeys/Makefile utils/rmlsend/Makefile utils/sas_shim/Makefile web/Makefile web/rdfeed/Makefile web/rdcastmanager/Makefile web/rdxport/Makefile web/tests/Makefile conf/Makefile docs/Makefile docs/tables/Makefile docs/examples/Makefile debian/Makefile debian/patches/Makefile xdg/Makefile rdadmin/Makefile scripts/Makefile ripcd/Makefile rdlogin/Makefile rdlibrary/Makefile rdcatch/Makefile rdcatchd/Makefile rdlogedit/Makefile rdlogmanager/Makefile rdairplay/Makefile rdpanel/Makefile rdcartslots/Makefile rdcastmanager/Makefile rdselect/Makefile rdmonitor/Makefile rdrepld/Makefile tests/Makefile importers/Makefile ios/Makefile ios/rmlsend/Makefile ios/rmlsend/Classes/Makefile ios/rmlsend/RMLSend.xcodeproj/Makefile pam_rd/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -21542,24 +21542,25 @@ do
     "rlm/Makefile") CONFIG_FILES="$CONFIG_FILES rlm/Makefile" ;;
     "cae/Makefile") CONFIG_FILES="$CONFIG_FILES cae/Makefile" ;;
     "utils/Makefile") CONFIG_FILES="$CONFIG_FILES utils/Makefile" ;;
-    "utils/rddelete/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rddelete/Makefile" ;;
-    "utils/rdgen/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdgen/Makefile" ;;
-    "utils/rmlsend/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rmlsend/Makefile" ;;
-    "utils/rdgpimon/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdgpimon/Makefile" ;;
-    "utils/rdimport/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdimport/Makefile" ;;
-    "utils/sas_shim/Makefile") CONFIG_FILES="$CONFIG_FILES utils/sas_shim/Makefile" ;;
-    "utils/rdsoftkeys/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdsoftkeys/Makefile" ;;
-    "utils/rddbcheck/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rddbcheck/Makefile" ;;
     "utils/rdalsaconfig/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdalsaconfig/Makefile" ;;
+    "utils/rdcheckcuts/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdcheckcuts/Makefile" ;;
+    "utils/rdchunk/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdchunk/Makefile" ;;
+    "utils/rdcollect/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdcollect/Makefile" ;;
+    "utils/rddbcheck/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rddbcheck/Makefile" ;;
+    "utils/rddelete/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rddelete/Makefile" ;;
     "utils/rddgimport/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rddgimport/Makefile" ;;
     "utils/rddiscimport/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rddiscimport/Makefile" ;;
+    "utils/rdgen/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdgen/Makefile" ;;
     "utils/rdhpiinfo/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdhpiinfo/Makefile" ;;
-    "utils/rdpurgecasts/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdpurgecasts/Makefile" ;;
-    "utils/rdchunk/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdchunk/Makefile" ;;
+    "utils/rdgpimon/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdgpimon/Makefile" ;;
+    "utils/rdimport/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdimport/Makefile" ;;
     "utils/rdmaint/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdmaint/Makefile" ;;
+    "utils/rdmarkerset/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdmarkerset/Makefile" ;;
     "utils/rdpopup/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdpopup/Makefile" ;;
-    "utils/rdcollect/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdcollect/Makefile" ;;
-    "utils/rdcheckcuts/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdcheckcuts/Makefile" ;;
+    "utils/rdpurgecasts/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdpurgecasts/Makefile" ;;
+    "utils/rdsoftkeys/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rdsoftkeys/Makefile" ;;
+    "utils/rmlsend/Makefile") CONFIG_FILES="$CONFIG_FILES utils/rmlsend/Makefile" ;;
+    "utils/sas_shim/Makefile") CONFIG_FILES="$CONFIG_FILES utils/sas_shim/Makefile" ;;
     "web/Makefile") CONFIG_FILES="$CONFIG_FILES web/Makefile" ;;
     "web/rdfeed/Makefile") CONFIG_FILES="$CONFIG_FILES web/rdfeed/Makefile" ;;
     "web/rdcastmanager/Makefile") CONFIG_FILES="$CONFIG_FILES web/rdcastmanager/Makefile" ;;

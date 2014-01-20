@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslots.cpp,v 1.8.2.9 2013/11/13 23:36:35 cvs Exp $
+//      $Id: rdcartslots.cpp,v 1.8.2.11 2014/01/08 02:08:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -28,6 +28,7 @@
 
 #include <qmessagebox.h>
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qtranslator.h>
 #include <qtextcodec.h>
 #include <qpainter.h>
@@ -110,6 +111,11 @@ MainWidget::MainWidget(QWidget *parent)
   panel_system=new RDSystem();
 
   //
+  // RDAirPlay Configuration
+  //
+  panel_airplay_conf=new RDAirPlayConf(panel_config->stationName(),"RDAIRPLAY");
+
+  //
   // CAE Connection
   //
   panel_cae=new RDCae(panel_station,panel_config,parent);
@@ -164,7 +170,8 @@ MainWidget::MainWidget(QWidget *parent)
 	push_back(new RDCartSlot(panel_slots.size(),panel_ripc,panel_cae,
 				 panel_station,panel_config,panel_svcs_dialog,
 				 panel_slot_dialog,panel_cart_dialog,
-				 panel_cue_dialog,tr("RDCartSlots"),this));
+				 panel_cue_dialog,tr("RDCartSlots"),
+				 panel_airplay_conf,this));
       panel_slots.back()->
 	setGeometry(10+i*(panel_slots.back()->sizeHint().width()+10),
 		    10+j*(panel_slots.back()->sizeHint().height()+5),
@@ -258,6 +265,7 @@ void MainWidget::SetCaption()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

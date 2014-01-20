@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcastmanager.cpp,v 1.15.4.1 2013/01/07 15:35:02 cvs Exp $
+//      $Id: rdcastmanager.cpp,v 1.15.4.2 2014/01/08 02:08:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,6 +27,7 @@
 #include <unistd.h>
 #endif
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qwidget.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
@@ -358,6 +359,7 @@ void MainWidget::RefreshList()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

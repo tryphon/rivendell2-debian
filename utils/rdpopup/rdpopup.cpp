@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpopup.cpp,v 1.4 2010/07/29 19:32:40 cvs Exp $
+//      $Id: rdpopup.cpp,v 1.4.8.1 2014/01/08 02:08:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,7 @@
 #include <syslog.h>
 
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qmessagebox.h>
 #include <qdatetime.h>
 
@@ -55,6 +56,7 @@ QString WordWrap(const QString &str)
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
 
   RDCmdSwitch *cmd=
     new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdpopup",RDPOPUP_USAGE);

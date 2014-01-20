@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.51.8.3 2013/12/27 22:12:26 cvs Exp $
+##      $Id: Makefile.am,v 1.51.8.4 2014/01/08 02:08:37 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -49,7 +49,6 @@ dist_rdlibrary_SOURCES = audio_cart.cpp audio_cart.h\
                          audio_controls.h\
                          cart_tip.cpp cart_tip.h\
                          cdripper.cpp cdripper.h\
-                         disk_bar.cpp disk_bar.h\
                          disk_gauge.cpp disk_gauge.h\
                          disk_ripper.cpp disk_ripper.h\
                          edit_cart.cpp edit_cart.h\

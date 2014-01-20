@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdalsaconfig.cpp,v 1.2.8.1 2013/01/07 15:35:08 cvs Exp $
+//    $Id: rdalsaconfig.cpp,v 1.2.8.2 2014/01/08 02:08:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,6 +25,7 @@
 #include <sys/types.h>
 
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qmessagebox.h>
 
 #include <rdcmd_switch.h>
@@ -379,6 +380,7 @@ int main(int argc,char *argv[])
   // Start GUI
   //
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   MainWidget *w=new MainWidget(NULL,"main");
   a.setMainWidget(w);
   w->setGeometry(QRect(QPoint(0,0),w->sizeHint()));

@@ -375,6 +375,14 @@ Rip</source>
         <source>[none]</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Ripper Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DiskRipper</name>
@@ -589,6 +597,14 @@ Disk</source>
         <source>Rip aborted!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Ripper Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditCart</name>
@@ -779,6 +795,10 @@ Notes</source>
     </message>
     <message>
         <source>&amp;Beats per Minute:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Event Length for Now &amp;&amp; Next Updates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1194,6 +1214,14 @@ Vil du sletta ho likevel?</translation>
     </message>
     <message>
         <source>Allow Cart Dragging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown command-line option</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.cpp,v 1.117.4.7 2013/12/31 22:49:48 cvs Exp $
+//      $Id: rdlibrary.cpp,v 1.117.4.11 2014/01/10 02:25:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -26,6 +26,7 @@
 #include <sys/wait.h>
 
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qeventloop.h>
 #include <qwidget.h>
 #include <qpainter.h>
@@ -99,14 +100,27 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 {
   unsigned schema=0;
   bool skip_db_check=false;
+  profile_ripping=false;
 
   //
   // Read Command Options
   //
-  RDCmdSwitch *cmd=new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdlibrary","\n");
+  RDCmdSwitch *cmd=
+    new RDCmdSwitch(qApp->argc(),qApp->argv(),"rdlibrary",RDLIBRARY_USAGE);
   for(unsigned i=0;i<cmd->keys();i++) {
     if(cmd->key(i)=="--skip-db-check") {
       skip_db_check=true;
+      cmd->setProcessed(i,true);
+    }
+    if(cmd->key(i)=="--profile-ripping") {
+      profile_ripping=true;
+      cmd->setProcessed(i,true);
+    }
+    if(!cmd->processed(i)) {
+      QMessageBox::warning(this,"RDLibrary - "+tr("Error"),
+			   tr("Unknown command-line option")+
+			   " \""+cmd->key(i)+"\".");
+      exit(256);
     }
   }
   delete cmd;
@@ -330,8 +344,6 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Show Matches Checkbox
   //
   lib_showmatches_box=new QCheckBox(this,"lib_showmatches_box");
-  lib_showmatches_box->setChecked(true);
-  lib_showmatches_box->setChecked(true);
   lib_showmatches_label=
     new QLabel(lib_showmatches_box,tr("Show Only First ")+
 	       QString().sprintf("%d",RD_LIMITED_CART_SEARCH_QUANTITY)+
@@ -340,7 +352,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   lib_showmatches_label->setFont(button_font);
   lib_showmatches_label->setAlignment(AlignVCenter|AlignLeft);
   connect(lib_showmatches_box,SIGNAL(stateChanged(int)),
-	  this,SLOT(macroChangedData(int)));
+	  this,SLOT(searchLimitChangedData(int)));
 
   //
   // Cart List
@@ -398,9 +410,6 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 
   lib_cart_list->addColumn(tr("LAST CUT PLAYED"));
   lib_cart_list->setColumnAlignment(15,Qt::AlignHCenter);
-
-  //  lib_cart_list->addColumn(tr("PLAY ORDER"));
-  //  lib_cart_list->setColumnAlignment(16,Qt::AlignHCenter);
 
   lib_cart_list->addColumn(tr("ENFORCE LENGTH"));
   lib_cart_list->setColumnAlignment(16,Qt::AlignHCenter);
@@ -473,6 +482,24 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Setup Signal Handling 
   //
   ::signal(SIGCHLD,SigHandler);
+
+  //
+  // Load Data
+  //
+  switch(rdlibrary_conf->limitSearch()) {
+  case RDLibraryConf::LimitNo:
+    lib_showmatches_box->setChecked(false);
+    break;
+
+  case RDLibraryConf::LimitYes:
+    lib_showmatches_box->setChecked(true);
+    break;
+
+  case RDLibraryConf::LimitPrevious:
+    lib_showmatches_box->setChecked(rdlibrary_conf->searchLimited());
+    break;
+  }
+  searchLimitChangedData(lib_showmatches_box->isChecked());
 
   LoadGeometry();
 }
@@ -607,7 +634,8 @@ void MainWidget::addData()
   q=new RDSqlQuery(sql);
   delete q;
   
-  EditCart *cart=new EditCart(cart_num,&lib_import_path,true,this);
+  EditCart *cart=
+    new EditCart(cart_num,&lib_import_path,true,profile_ripping,this);
   if(cart->exec() <0) {
     RDCart *rdcart=new RDCart(cart_num);
     rdcart->remove(rdstation_conf,lib_user,lib_config);
@@ -655,7 +683,7 @@ void MainWidget::editData()
     RDListViewItem *item=(RDListViewItem *)it->current();
 
     EditCart *edit_cart=new EditCart(item->text(1).toUInt(),&lib_import_path,
-				     false,this,"edit_cart");
+				     false,profile_ripping,this);
     edit_cart->exec();
     RefreshLine(item);
     cartOnItemData(item);
@@ -665,8 +693,9 @@ void MainWidget::editData()
   else { //multi edit
   //  RDListViewItem *item=(RDListViewItem *)it->current();
     if(lib_user->modifyCarts()) {
-      EditCart *edit_cart=new EditCart(0,&lib_import_path,
-				     false,this,"edit_cart",lib_cart_list);
+      EditCart *edit_cart=
+	new EditCart(0,&lib_import_path,false,profile_ripping,this,"",
+				       lib_cart_list);
     
       edit_cart->exec();
       delete edit_cart;
@@ -780,7 +809,7 @@ void MainWidget::ripData()
   QString group=lib_group_box->currentText();
   QString schedcode=lib_codes_box->currentText();
   DiskRipper *dialog=new DiskRipper(&lib_filter_text,&group,&schedcode,
-				    this,"disk_ripper");
+				    profile_ripping,this,"disk_ripper");
   if(dialog->exec()==0) {
     for(int i=0;i<lib_group_box->count();i++) {
       if(lib_group_box->text(i)==*group) {
@@ -872,6 +901,13 @@ void MainWidget::macroChangedData(int state)
 }
 
 
+void MainWidget::searchLimitChangedData(int state)
+{
+  rdlibrary_conf->setSearchLimited(state);
+  filterChangedData("");
+}
+
+
 void MainWidget::dragsChangedData(int state)
 {
   if(state) {
@@ -929,7 +965,7 @@ void MainWidget::resizeEvent(QResizeEvent *e)
   lib_add_button->setGeometry(10,e->size().height()-60,80,50);
   lib_edit_button->setGeometry(100,e->size().height()-60,80,50);
   lib_delete_button->setGeometry(190,e->size().height()-60,80,50);
-  disk_gauge->setGeometry(285,e->size().height()-45,
+  disk_gauge->setGeometry(285,e->size().height()-55,
 			  e->size().width()-585,
 			  disk_gauge->sizeHint().height());
   lib_rip_button->
@@ -1351,6 +1387,7 @@ void MainWidget::SaveGeometry()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

@@ -2,9 +2,9 @@
 //
 // Display System Information for Rivendell
 //
-//   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2002-2014 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: info_dialog.cpp,v 1.17 2010/07/29 19:32:34 cvs Exp $
+//      $Id: info_dialog.cpp,v 1.17.8.1 2014/01/06 22:35:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -130,7 +130,7 @@ InfoDialog::InfoDialog(QWidget *parent,const char *name)
   //
   // Signature
   //
-  str=QString(tr("Copyright 2002-2010"));
+  str=QString(tr("Copyright 2002-2014"));
   label=new QLabel(QString().sprintf("%s %s",(const char *)str,
 				     PACKAGE_BUGREPORT),this,"title_label");
   label->setGeometry(10,87,sizeHint().width()-20,14);

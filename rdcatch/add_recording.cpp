@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_recording.cpp,v 1.26 2010/07/29 19:32:36 cvs Exp $
+//      $Id: add_recording.cpp,v 1.26.8.1 2014/01/07 23:40:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -110,8 +110,8 @@ AddRecording::AddRecording(int id,QString *filter,
   button->setFont(button_font);
   button->setText(tr("&Playout"));
   button->setDisabled(true);
-  sql=QString("select CHANNEL from DECKS \
-               where (CARD_NUMBER>=0)&&(CHANNEL>128)&&(CHANNEL<=137)");
+  sql=QString("select CHANNEL from DECKS where (CARD_NUMBER>=0)&&")+
+    "(PORT_NUMBER>=0)&&(CHANNEL>128)&&(CHANNEL<=137)";
   q=new RDSqlQuery(sql);
   if(q->first()) {
     button->setEnabled(true);

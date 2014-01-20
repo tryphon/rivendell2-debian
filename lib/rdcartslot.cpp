@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.cpp,v 1.13.2.16 2013/12/30 19:56:12 cvs Exp $
+//      $Id: rdcartslot.cpp,v 1.13.2.17 2014/01/07 23:23:17 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -33,7 +33,8 @@ RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
 		       RDConfig *config,RDListSvcs *svcs_dialog,
 		       RDSlotDialog *slot_dialog,RDCartDialog *cart_dialog,
 		       RDCueEditDialog *cue_dialog,
-		       const QString &caption,QWidget *parent)
+		       const QString &caption,RDAirPlayConf *conf,
+		       QWidget *parent)
   : QWidget(parent)
 {
   slot_number=slotnum;
@@ -46,6 +47,7 @@ RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
   slot_cart_dialog=cart_dialog;
   slot_cue_dialog=cue_dialog;
   slot_caption=caption;
+  slot_airplay_conf=conf;
 
   slot_svc_names=NULL;
   slot_stop_requested=false;
@@ -104,7 +106,7 @@ RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
   //
   // Slot Box
   //
-  slot_box=new RDSlotBox(slot_deck,this);
+  slot_box=new RDSlotBox(slot_deck,conf,this);
   slot_box->setBarMode(false);
   slot_box->setGeometry(5+sizeHint().height(),0,
 			slot_box->sizeHint().width(),

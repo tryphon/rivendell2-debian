@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdedit_audio.cpp,v 1.26.6.2 2013/11/13 23:36:33 cvs Exp $
+//      $Id: rdedit_audio.cpp,v 1.26.6.3 2014/01/16 02:44:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1536,13 +1536,13 @@ void RDEditAudio::trimHeadData()
   switch(conv_err=conv->runTrim(edit_user->name(),edit_user->password())) {
   case RDTrimAudio::ErrorOk:
     if(conv->startPoint()>=0) {
-    point=edit_cue_point;
-    edit_cue_point=RDEditAudio::Start;
-    PositionCursor((double)conv->startPoint()*(double)edit_sample_rate/1000.0);
-    UpdateCounters();
-    edit_cue_point=point;
-  }
-
+      point=edit_cue_point;
+      edit_cue_point=RDEditAudio::Start;
+      PositionCursor((double)conv->startPoint()*
+		     (double)edit_sample_rate/1000.0);
+      UpdateCounters();
+      edit_cue_point=point;
+    }
     break;
 
   default:
@@ -1565,13 +1565,12 @@ void RDEditAudio::trimTailData()
   switch(conv_err=conv->runTrim(edit_user->name(),edit_user->password())) {
   case RDTrimAudio::ErrorOk:
     if(conv->endPoint()>=0) {
-    point=edit_cue_point;
-    edit_cue_point=RDEditAudio::End;
-    PositionCursor((double)conv->endPoint()*(double)edit_sample_rate/1000.0);
-    UpdateCounters();
-    edit_cue_point=point;
-  }
-
+      point=edit_cue_point;
+      edit_cue_point=RDEditAudio::End;
+      PositionCursor((double)conv->endPoint()*(double)edit_sample_rate/1000.0);
+      UpdateCounters();
+      edit_cue_point=point;
+    }
     break;
 
   default:

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary_conf.h,v 1.22 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdlibrary_conf.h,v 1.22.8.1 2014/01/09 01:03:54 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,7 @@ class RDLibraryConf
 {
  public:
   enum RecordMode {Manual=0,Vox=1};
+  enum SearchLimit {LimitNo=0,LimitYes=1,LimitPrevious=2};
   RDLibraryConf(const QString &station,unsigned instance);
   QString station() const;
   unsigned instance() const;
@@ -74,7 +75,11 @@ class RDLibraryConf
   void setEnableEditor(bool state) const;
   void getSettings(RDSettings *s) const;
   int srcConverter() const;
-  void setSrcConverter(int conv);
+  void setSrcConverter(int conv) const;
+  RDLibraryConf::SearchLimit limitSearch() const;
+  void setLimitSearch(RDLibraryConf::SearchLimit lmt) const;
+  bool searchLimited() const;
+  void setSearchLimited(bool state) const;
 
  private:
   void SetRow(const QString &param,int value) const;

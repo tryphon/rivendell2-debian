@@ -117,6 +117,8 @@ void rlm_test_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
   printf("       Composer: %s\n",now->rlm_comp);
   printf("      Publisher: %s\n",now->rlm_pub);
   printf("    UserDefined: %s\n",now->rlm_userdef);
+  printf("         Outcue: %s\n",now->rlm_outcue);
+  printf("Cut Description: %s\n",now->rlm_description);
   printf("           ISRC: %s\n",now->rlm_isrc);
   printf("      ISCI Code: %s\n",now->rlm_isci);
   printf("       Ext Data: %s\n",now->rlm_ext_data);
@@ -141,6 +143,8 @@ void rlm_test_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
   printf("       Composer: %s\n",next->rlm_comp);
   printf("      Publisher: %s\n",next->rlm_pub);
   printf("    UserDefined: %s\n",next->rlm_userdef);
+  printf("         Outcue: %s\n",next->rlm_outcue);
+  printf("Cut Description: %s\n",next->rlm_description);
   printf("           ISRC: %s\n",next->rlm_isrc);
   printf("      ISCI Code: %s\n",next->rlm_isci);
   printf("       Ext Data: %s\n",next->rlm_ext_data);

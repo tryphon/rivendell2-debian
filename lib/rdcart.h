@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.h,v 1.39.6.4 2013/12/11 18:51:47 cvs Exp $
+//      $Id: rdcart.h,v 1.39.6.5 2014/01/13 23:02:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -121,6 +121,8 @@ class RDCart
   void setAsyncronous(bool state) const;
   QString owner() const;
   void setOwner(const QString &owner) const;
+  bool useEventLength() const;
+  void setUseEventLength(bool state) const;
   QString macros() const;
   void setMacros(const QString &cmds) const;
   bool validateLengths(int len) const;

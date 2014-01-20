@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.cpp,v 1.195.2.20 2013/12/11 20:17:14 cvs Exp $
+//      $Id: createdb.cpp,v 1.195.2.28 2014/01/13 23:02:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -32,6 +32,8 @@
 
 #include <rddb.h>
 #include <rd.h>
+#include <rdevent.h>
+#include <rdlog.h>
 #include <dbversion.h>
 #include <rdcart.h>
 #include <rdcreate_log.h>
@@ -718,6 +720,7 @@ bool CreateDb(QString name,QString pwd)
       SCHED_CODES VARCHAR( 255 ) NULL DEFAULT NULL,\
       NOTES text,\
       METADATA_DATETIME datetime,\
+      USE_EVENT_LENGTH enum('N','Y') default 'N',\
       INDEX GROUP_NAME_IDX (GROUP_NAME),\
       INDEX TITLE_IDX (TITLE),\
       INDEX ARTIST_IDX (ARTIST),\
@@ -838,6 +841,7 @@ bool CreateDb(QString name,QString pwd)
       NAME CHAR(10) NOT NULL PRIMARY KEY,\
       DESCRIPTION CHAR(255),\
       NAME_TEMPLATE char(255),\
+      DESCRIPTION_TEMPLATE char(255),\
       PROGRAM_CODE char(255),\
       CHAIN_LOG enum('N','Y') default 'N',\
       TRACK_GROUP char(10),\
@@ -994,6 +998,8 @@ bool CreateDb(QString name,QString pwd)
       CDDB_SERVER CHAR(64) DEFAULT \"freedb.freedb.org\",\
       ENABLE_EDITOR enum('N','Y') default 'N',\
       SRC_CONVERTER int default 1,\
+      LIMIT_SEARCH int default 1,\
+      SEARCH_LIMITED enum('N','Y') default 'Y',\
       INDEX STATION_IDX (STATION,INSTANCE))");
   if(!RunQuery(sql)) {
     return false;
@@ -1197,7 +1203,8 @@ bool CreateDb(QString name,QString pwd)
       INDEX DESCRIPTION_IDX (DESCRIPTION),\
       INDEX ORIGIN_USER_IDX (ORIGIN_USER),\
       INDEX START_DATE_IDX (START_DATE),\
-      INDEX END_DATE_IDX (END_DATE))");
+      INDEX END_DATE_IDX (END_DATE),\
+      index TYPE_IDX(TYPE,LOG_EXISTS))");
   if(!RunQuery(sql)) {
     return false;
   }
@@ -1280,6 +1287,10 @@ bool CreateDb(QString name,QString pwd)
       PAUSE_ENABLED enum('N','Y'),\
       DEFAULT_SERVICE char(10),\
       HOUR_SELECTOR_ENABLED enum('N','Y') default 'N',\
+      TITLE_TEMPLATE char(64) default '%t',\
+      ARTIST_TEMPLATE char(64) default '%a',\
+      OUTCUE_TEMPLATE char(64) default '%o',\
+      DESCRIPTION_TEMPLATE char(64) default '%d',\
       UDP_ADDR0 char(255),\
       UDP_PORT0 int unsigned,\
       UDP_STRING0 char(255),\
@@ -1667,6 +1678,7 @@ bool CreateDb(QString name,QString pwd)
       SAMPRATE int unsigned default 44100,\
       LAYER int unsigned default 0,\
       BITRATE int unsigned default 0,\
+      ENABLE_SECOND_START enum('N','Y') default 'Y',\
       DEFAULT_CHANNELS int unsigned default 2,\
       MAXLENGTH int default 0,\
       TAIL_PREROLL int unsigned default 2000,\
@@ -7738,7 +7750,111 @@ int UpdateDb(int ver)
     delete q;
   }
 
+  if(ver<225) {
+    sql=QString("alter table RDAIRPLAY add column TITLE_TEMPLATE char(64) ")+
+      "default '%t' after HOUR_SELECTOR_ENABLED";
+    q=new QSqlQuery(sql);
+    delete q;
 
+    sql=QString("alter table RDAIRPLAY add column ARTIST_TEMPLATE char(64) ")+
+      "default '%a' after TITLE_TEMPLATE";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table RDAIRPLAY add column OUTCUE_TEMPLATE char(64) ")+
+      "default '%o' after ARTIST_TEMPLATE";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table RDAIRPLAY add column DESCRIPTION_TEMPLATE char(64) ")+
+      "default '%i' after HOUR_SELECTOR_ENABLED";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<226) {
+    sql=QString("alter table RDLOGEDIT add column ")+
+      "ENABLE_SECOND_START enum('N','Y') default 'Y' after BITRATE";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<227) {
+    sql="alter table LOGS add index TYPE_IDX(TYPE,LOG_EXISTS)";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<228) {
+    sql=QString("alter table RDLIBRARY add column ")+
+      "LIMIT_SEARCH int default 1 after SRC_CONVERTER";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table RDLIBRARY add column ")+
+      "SEARCH_LIMITED enum('N','Y') default 'Y' after LIMIT_SEARCH";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<229) {
+    sql=QString("alter table SERVICES add column ")+
+      "DESCRIPTION_TEMPLATE char(255) after NAME_TEMPLATE";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("select NAME from SERVICES");
+    q=new QSqlQuery(sql);
+    while(q->next()) {
+      sql=QString("update SERVICES set DESCRIPTION_TEMPLATE=\"")+
+	RDEscapeString(q->value(0).toString())+" log for %m/%d/%Y\" "+
+	"where NAME=\""+RDEscapeString(q->value(0).toString())+"\"";
+      q1=new QSqlQuery(sql);
+      delete q1;
+    }
+    delete q;
+  }
+
+  if(ver<230) { 
+    sql="select NAME from LOGS";
+    q=new QSqlQuery(sql);
+    while(q->next()) {
+      sql="alter table "+
+	RDEscapeStringSQLColumn(RDLog::tableName(q->value(0).toString()))+
+	" add column EVENT_LENGTH int default -1 after ORIGIN_DATETIME";
+      q1=new QSqlQuery(sql);
+      delete q1;
+    }
+    delete q;
+
+    sql="select NAME from EVENTS";
+    q=new QSqlQuery(sql);
+    while(q->next()) {
+      sql="alter table "+
+	RDEscapeStringSQLColumn(RDEvent::preimportTableName(q->value(0).
+							    toString()))+
+	" add column EVENT_LENGTH int default -1 after ORIGIN_DATETIME";
+      q1=new QSqlQuery(sql);
+      delete q1;
+
+      sql="alter table "+
+	RDEscapeStringSQLColumn(RDEvent::postimportTableName(q->value(0).
+							     toString()))+
+	" add column EVENT_LENGTH int default -1 after ORIGIN_DATETIME";
+      q1=new QSqlQuery(sql);
+      delete q1;
+    }
+    delete q;
+ }
+
+  if(ver<231) { 
+    sql=QString("alter table CART add column ")+
+      "USE_EVENT_LENGTH enum('N','Y') default 'N' after METADATA_DATETIME";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+      
   // **** End of version updates ****
   
   //

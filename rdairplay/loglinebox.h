@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loglinebox.h,v 1.47.8.4 2013/12/31 15:26:31 cvs Exp $
+//      $Id: loglinebox.h,v 1.47.8.5 2014/01/07 18:18:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -56,7 +56,7 @@ class LogLineBox : public QWidget
  public:
   enum Mode {Full=0,Half=1};
   enum BarMode {Transitioning=0,Stopping=1};
-  LogLineBox(QWidget *parent=0,const char *name=0);
+  LogLineBox(RDAirPlayConf *conf,QWidget *parent=0,const char *name=0);
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
   LogLineBox::Mode mode() const;
@@ -139,6 +139,10 @@ class LogLineBox : public QWidget
   QPixmap *line_music_map;
   int line_move_count;
   RDLogLine::Status line_status;
+  QString line_title_template;
+  QString line_artist_template;
+  QString line_outcue_template;
+  QString line_description_template;
 };
 
 

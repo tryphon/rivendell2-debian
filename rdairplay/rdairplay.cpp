@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.cpp,v 1.189.2.17 2013/12/30 21:02:58 cvs Exp $
+//      $Id: rdairplay.cpp,v 1.189.2.19 2014/01/08 02:08:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -29,6 +29,7 @@
 #include <syslog.h>
 
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qsqlpropertymap.h>
@@ -817,7 +818,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Button Log
   //
-  air_button_list=new ButtonLog(air_log[0],0,air_pause_enabled,
+  air_button_list=new ButtonLog(air_log[0],0,rdairplay_conf,air_pause_enabled,
 				this,"air_button_list");
   air_button_list->setGeometry(10,140,air_button_list->sizeHint().width(),
 			       air_button_list->sizeHint().height());
@@ -2470,6 +2471,7 @@ void MainWidget::SetActionMode(StartButton::Mode mode)
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

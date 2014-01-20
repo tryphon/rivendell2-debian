@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rlmhost.cpp,v 1.7.6.6 2013/12/19 13:08:52 cvs Exp $
+//      $Id: rlmhost.cpp,v 1.7.6.9 2014/01/13 23:02:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -167,7 +167,23 @@ void RLMHost::loadMetadata(const RDLogLine *logline,struct rlm_pad *pad,
   }
   if(logline!=NULL) {
     pad->rlm_cartnum=logline->cartNumber();
-    pad->rlm_len=logline->effectiveLength();
+    switch(logline->cartType()) {
+    case RDCart::Audio:
+      pad->rlm_len=logline->effectiveLength();
+      break;
+
+    case RDCart::Macro:
+      if((logline->eventLength()>=0)&&logline->useEventLength()) {
+	pad->rlm_len=logline->eventLength();
+      }
+      else {
+	pad->rlm_len=logline->effectiveLength();
+      }
+      break;
+
+    case RDCart::All:
+      break;
+    }
     pad->rlm_carttype=logline->cartType();
     if(!logline->year().isNull()) {
       sprintf(pad->rlm_year,"%s",
@@ -200,6 +216,14 @@ void RLMHost::loadMetadata(const RDLogLine *logline,struct rlm_pad *pad,
     if(!logline->userDefined().isEmpty()) {
       sprintf(pad->rlm_userdef,"%s",
 	      (const char *)logline->userDefined().left(255));
+    }
+    if(!logline->outcue().isEmpty()) {
+      sprintf(pad->rlm_outcue,"%s",
+	      (const char *)logline->outcue().left(64));
+    }
+    if(!logline->description().isEmpty()) {
+      sprintf(pad->rlm_description,"%s",
+	      (const char *)logline->description().left(64));
     }
     if(!logline->conductor().isEmpty()) {
       sprintf(pad->rlm_conductor,"%s",
@@ -280,6 +304,8 @@ void RLMHost::saveMetadata(const struct rlm_pad *pad,RDLogLine *logline)
   logline->setComposer(pad->rlm_comp);
   logline->setPublisher(pad->rlm_pub);
   logline->setUserDefined(pad->rlm_userdef);
+  logline->setOutcue(pad->rlm_outcue);
+  logline->setDescription(pad->rlm_description);
   logline->setAlbum(pad->rlm_album);
   logline->setIsrc(QString::fromAscii(pad->rlm_isrc,12));
   logline->setIsci(QString::fromAscii(pad->rlm_isci,32));

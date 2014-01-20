@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loglinebox.cpp,v 1.89.6.5 2013/12/31 15:26:30 cvs Exp $
+//      $Id: loglinebox.cpp,v 1.89.6.6 2014/01/07 18:18:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,8 @@
 
 #include <rdconf.h>
 #include <rdplay_deck.h>
+#include <rdairplay_conf.h>
+#include <rdnownext.h>
 
 #include <loglinebox.h>
 #include <colors.h>
@@ -39,7 +41,7 @@
 #include "../icons/music.xpm"
 
 
-LogLineBox::LogLineBox(QWidget *parent,const char *name)
+LogLineBox::LogLineBox(RDAirPlayConf *conf,QWidget *parent,const char *name)
   : QWidget(parent,name)
 {
   line_status=RDLogLine::Scheduled;
@@ -50,6 +52,14 @@ LogLineBox::LogLineBox(QWidget *parent,const char *name)
   log_id=-1;
   log_line=-1;
   line_move_count=-1;
+
+  //
+  // Templates
+  //
+  line_title_template=conf->titleTemplate();
+  line_artist_template=conf->artistTemplate();
+  line_outcue_template=conf->outcueTemplate();
+  line_description_template=conf->descriptionTemplate();
 
   //
   // Create Font
@@ -504,7 +514,8 @@ void LogLineBox::setEvent(int line,RDLogLine::TransType next_type,
 	}
 	if(line_logline->originUser().isEmpty()||
 	   (!line_logline->originDateTime().isValid())) {
-	  line_title_label->setText(line_logline->title());
+	  line_title_label->
+	    setText(RDResolveNowNext(line_title_template,line_logline));
 	}
 	else {
 	  line_title_label->setText(QString().
@@ -514,10 +525,10 @@ void LogLineBox::setEvent(int line,RDLogLine::TransType next_type,
 					    (const char *)line_logline->originDateTime().
 					    toString("M/d hh:mm")));
 	}
-	if(cut->exists()) {
-	  line_description_label->setText(cut->description());
-	}
-	line_artist_label->setText(cart->artist());
+	line_description_label->
+	  setText(RDResolveNowNext(line_description_template,line_logline));
+	line_artist_label->
+	  setText(RDResolveNowNext(line_artist_template,line_logline));
 	line_up_label->
 	  setText(RDGetTimeLength(line_logline->playPosition(),true,true));
 	line_down_label->
@@ -528,7 +539,8 @@ void LogLineBox::setEvent(int line,RDLogLine::TransType next_type,
 	if(logline->cutNumber()>=0) {
 	  line_cut_label->
 	    setText(QString().sprintf("%03u",logline->cutNumber()));
-	  line_outcue_label->setText(logline->outcue());
+	  line_outcue_label->
+	    setText(RDResolveNowNext(line_outcue_template,line_logline));
 	}
 	else {
 	  SetColor(QColor(LOGLINEBOX_MISSING_COLOR));
@@ -641,10 +653,15 @@ void LogLineBox::setEvent(int line,RDLogLine::TransType next_type,
     line_length_label->
       setText(RDGetTimeLength(line_logline->effectiveLength(),
 			      false,false));
-    line_title_label->setText(cart->title());
-    line_description_label->setText("");
-    line_artist_label->setText(cart->artist());
-    line_outcue_label->setText("");
+
+    line_title_label->
+      setText(RDResolveNowNext(line_title_template,line_logline));
+    line_description_label->
+      setText(RDResolveNowNext(line_description_template,line_logline));
+    line_artist_label->
+      setText(RDResolveNowNext(line_artist_template,line_logline));
+    line_outcue_label->
+      setText(RDResolveNowNext(line_outcue_template,line_logline));
     delete cart;
     delete cut;
     setMode(line_mode);

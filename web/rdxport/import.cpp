@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: import.cpp,v 1.12.2.1 2013/02/27 21:21:54 cvs Exp $
+//      $Id: import.cpp,v 1.12.2.2 2014/01/15 19:56:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -116,13 +116,6 @@ void Xport::Import()
   if(!wave->openWave()) {
     delete wave;
     XmlExit("Format Not Supported",415);
-    /*
-    printf("Content-type: text/html\n");
-    printf("Status: %d\n",415);
-    printf("\n");
-    printf("Format Not Supported\n");
-    exit(0);
-    */
   }
   msecs=wave->getExtTimeLength();
   delete wave;

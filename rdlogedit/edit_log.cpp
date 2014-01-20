@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.cpp,v 1.91.6.5 2014/01/03 18:06:30 cvs Exp $
+//      $Id: edit_log.cpp,v 1.91.6.7 2014/01/10 21:00:52 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1029,8 +1029,12 @@ void EditLog::pasteButtonData()
 
 void EditLog::cartDroppedData(int line,RDLogLine *ll)
 {
-  if(line<0) {
+  RDListViewItem *item=NULL;
+  bool appended=false;
+
+  if((line<0)||(line==edit_log_event->size())) {
     line=edit_log_event->size();
+    appended=true;
   }
   edit_log_event->insert(line,1);
   edit_log_event->setLogLine(line,ll);
@@ -1040,6 +1044,19 @@ void EditLog::cartDroppedData(int line,RDLogLine *ll)
   edit_log_event->refresh(line);
   edit_changed=true;
   RefreshList();
+  if(appended) {
+    if((item=(RDListViewItem *)edit_log_list->findItem("-2",12))!=NULL) {
+      item->setSelected(true);
+      edit_log_list->ensureItemVisible(item);
+    }
+  }
+  else {
+    if((item=(RDListViewItem *)edit_log_list->
+	findItem(QString().sprintf("%d",line),13))!=NULL) {
+      item->setSelected(true);
+      edit_log_list->ensureItemVisible(item);
+    }
+  }
 }
 
 

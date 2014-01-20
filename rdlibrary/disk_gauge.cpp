@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: disk_gauge.cpp,v 1.7 2010/07/29 19:32:36 cvs Exp $
+//      $Id: disk_gauge.cpp,v 1.7.8.1 2014/01/08 02:08:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -45,8 +45,15 @@ DiskGauge::DiskGauge(int samp_rate,int chans,QWidget *parent,const char *name)
   disk_label->setGeometry(0,0,50,sizeHint().height());
   disk_label->setFont(label_font);
   disk_label->setAlignment(AlignRight|AlignVCenter);
-  disk_bar=new DiskBar(this,"disk_bar");
+
+  disk_bar=new QProgressBar(this);
+  disk_bar->setPercentageVisible(false);
   disk_bar->setGeometry(55,0,sizeHint().width()-55,sizeHint().height());
+
+  disk_space_label=new QLabel(this);
+  disk_space_label->setFont(label_font);
+  disk_space_label->setAlignment(AlignCenter);
+
   struct statfs diskstat;
   statfs(RDConfiguration()->audioRoot().ascii(),&diskstat);
   disk_bar->setTotalSteps(GetMinutes(diskstat.f_blocks,diskstat.f_bsize));
@@ -60,7 +67,7 @@ DiskGauge::DiskGauge(int samp_rate,int chans,QWidget *parent,const char *name)
 
 QSize DiskGauge::sizeHint() const
 {
-  return QSize(160,20);
+  return QSize(160,40);
 }
 
 
@@ -70,22 +77,26 @@ QSizePolicy DiskGauge::sizePolicy() const
 }
 
 
-void DiskGauge::setGeometry(int x,int y,int w,int h)
-{
-  QFontMetrics *fm=new QFontMetrics(disk_label->font());
-  disk_label->setGeometry(0,0,fm->width(disk_label->text()),h);
-  disk_bar->setGeometry(fm->width(disk_label->text())+5,0,
-			w-fm->width(disk_label->text())-10,h);
-  QWidget::setGeometry(x,y,w,h);
-  delete fm;
-}
-
-
 void DiskGauge::update()
 {
   struct statfs diskstat;
   statfs(RDConfiguration()->audioRoot().ascii() ,&diskstat);
-  disk_bar->setProgress(GetMinutes(diskstat.f_bavail,diskstat.f_bsize));
+  int mins=GetMinutes(diskstat.f_bavail,diskstat.f_bsize);
+  disk_bar->setProgress(mins);
+  disk_space_label->
+    setText(QString().sprintf("%dh %02dm",mins/60,mins-60*(mins/60)));
+}
+
+
+void DiskGauge::resizeEvent(QResizeEvent *e)
+{
+  QFontMetrics *fm=new QFontMetrics(disk_label->font());
+  disk_label->setGeometry(0,0,fm->width(disk_label->text()),size().height()/2);
+  disk_bar->setGeometry(fm->width(disk_label->text())+5,0,
+			size().width()-fm->width(disk_label->text())-10,size().height()/2);
+  disk_space_label->
+    setGeometry(0,size().height()/2,size().width(),size().height()/2);
+  delete fm;
 }
 
 

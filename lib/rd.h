@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rd.h,v 1.194.6.13 2013/12/27 22:12:25 cvs Exp $
+//      $Id: rd.h,v 1.194.6.14 2014/01/15 19:56:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -450,7 +450,7 @@
 /*
  * Audio File Filter for QFileDialog
  */
-#define RD_AUDIO_FILE_FILTER "Sound Files (*.mp* *.MP* *.wav *.WAV *.ogg *.OGG *.flac *.FLAC *.atx *.ATX *.tmc *.TMC)\nWAV Files (*.wav *.WAV)\nMPEG Files (*.mp* *.MP*)\nOggVorbis Files (*.ogg *.OGG)\nFLAC Files (*.flac *.FLAC)\nATX Files (*.atx *.ATX)\nTM Century GoldDrive Files (*.tmc *.TMC)\nAll Files (*.*)"
+#define RD_AUDIO_FILE_FILTER "Sound Files (*.mp* *.MP* *.wav *.WAV *.ogg *.OGG *.flac *.FLAC *.atx *.ATX *.tmc *.TMC *.aif* *.AIF*)\nAIFF Files (*.aif* *.AIF*)\nATX Files (*.atx *.ATX)\nMPEG Files (*.mp* *.MP*)\nOggVorbis Files (*.ogg *.OGG)\nFLAC Files (*.flac *.FLAC)\nTM Century GoldDrive Files (*.tmc *.TMC)\nWAV Files (*.wav *.WAV)\nAll Files (*.*)"
 
 /*
  * Image File Filter for QFileDialog
