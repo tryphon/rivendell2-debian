@@ -331,7 +331,7 @@ bool RDCddbLookup::ReadCdText(const QString &cdda_dir,const QString &cdda_dev)
   //
   // Write the Track Title Data to a Temp File
   //
-  cmd=QString().sprintf("CURDIR=`pwd`;cd %s;cdda2wav -D %s --info-only -v titles 2> /dev/null;cd $CURDIR",
+  cmd=QString().sprintf("CURDIR=`pwd`;cd %s;icedax -D %s --info-only -v titles 2> /dev/null;cd $CURDIR",
 				(const char *)cdda_dir,
 				(const char *)cdda_dev);
   if((err=system(cmd))!=0) {
@@ -388,7 +388,7 @@ bool RDCddbLookup::ReadIsrcs(const QString &cdda_dir,const QString &cdda_dev)
   //
   // Write the ISRC Data to a Temp File
   //
-  cmd=QString().sprintf("CURDIR=`pwd`;cd %s;cdda2wav -D %s --info-only -v trackid 2> /dev/null;cd $CURDIR",
+  cmd=QString().sprintf("CURDIR=`pwd`;cd %s;icedax -D %s --info-only -v trackid 2> /dev/null;cd $CURDIR",
 				(const char *)cdda_dir,
 				(const char *)cdda_dev);
   if((err=system(cmd))!=0) {
