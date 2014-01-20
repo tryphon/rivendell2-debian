@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_playout.cpp,v 1.23 2011/08/30 23:35:44 cvs Exp $
+//      $Id: edit_playout.cpp,v 1.23.4.1 2014/01/07 23:40:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -320,6 +320,9 @@ void EditPlayout::activateStationData(int id,bool use_temp)
   char gunk[3];
   int chan;
   
+  if(edit_station_box->currentText().isEmpty()) {
+    return;
+  }
   sscanf((const char *)edit_station_box->currentText(),"%s%s%d",
 	 station,gunk,&chan);
   if(edit_deck!=NULL) {

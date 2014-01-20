@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdcddblookup.h,v 1.3 2010/07/29 19:32:33 cvs Exp $
+//    $Id: rdcddblookup.h,v 1.3.8.2 2014/01/14 17:35:31 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -23,6 +23,8 @@
 
 #ifndef RDCDDBLOOKUP_H
 #define RDCDDBLOOKUP_H
+
+#include <stdio.h>
 
 #include <qobject.h>
 #include <qsocket.h>
@@ -49,16 +51,18 @@ class RDCddbLookup : public QObject
   public:
    enum Result {ExactMatch=0,PartialMatch=1,NoMatch=2,
 		ProtocolError=3,NetworkError=4};
-   RDCddbLookup(QObject *parent=0,const char *name=0);
+   RDCddbLookup(FILE *profile_msgs,QObject *parent=0,const char *name=0);
    ~RDCddbLookup();
    void setCddbRecord(RDCddbRecord *);
-   void lookupRecord(QString cdda_dir,QString cdda_dev,QString hostname,
+   void lookupRecord(const QString &cdda_dir,const QString &cdda_dev,
+		     const QString &hostname,
 		     Q_UINT16 port=RDCDDBLOOKUP_DEFAULT_PORT,
-		     QString username="",
-		     QString appname=PACKAGE_NAME,QString ver=VERSION);
+		     const QString &username="",
+		     const QString &appname=PACKAGE_NAME,
+		     const QString &ver=VERSION);
+   bool readIsrc(const QString &cdda_dir,const QString &cdda_dev);
 
   private slots:
-   void connectedData();
    void readyReadData();
    void errorData(int);
 
@@ -66,10 +70,14 @@ class RDCddbLookup : public QObject
    void done(RDCddbLookup::Result);
 
   private:
+   void FinishCddbLookup(RDCddbLookup::Result res);
    QString DecodeString(QString &str);
    void ParsePair(QString *line,QString *tag,QString *value,int *index);
    int GetIndex(QString *tag);
-   bool GetCddaData(QString &cdda_dir,QString &cdda_dev);
+   bool ReadCdText(const QString &cdda_dir,const QString &cdda_dev);
+   bool ReadIsrcs(const QString &cdda_dir,const QString &cdda_dev);
+   void SendToServer(const QString &msg);
+   void Profile(const QString &msg);
    RDCddbRecord *lookup_record;
    QSocket *lookup_socket;
    int lookup_state;
@@ -77,6 +85,7 @@ class RDCddbLookup : public QObject
    QString lookup_appname;
    QString lookup_appver;
    QString lookup_hostname;
+   FILE *lookup_profile_msgs;
 };
 
 #endif  // RDCDDBLOOKUP_H

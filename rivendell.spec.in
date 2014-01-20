@@ -3,7 +3,7 @@
 ##    The Rivendell Radio Automation System
 ##    Copyright (C) 2002-2010  Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: rivendell.spec.in,v 1.98.4.27 2013/12/27 00:04:04 cvs Exp $
+##      $Id: rivendell.spec.in,v 1.98.4.28 2014/01/16 02:44:58 cvs Exp $
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of version 2 of the GNU General Public License as
@@ -165,6 +165,7 @@ cp importers/.libs/panel_copy $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
 mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin
 cp utils/sas_shim/.libs/sas_shim $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin/
 cp utils/rddbcheck/.libs/rddbcheck $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin/
+cp utils/rdmarkerset/.libs/rdmarkerset $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin/
 mkdir -p $RPM_BUILD_ROOT@libexecdir@
 cp web/rdfeed/.libs/rdfeed.xml $RPM_BUILD_ROOT@libexecdir@/
 cp web/rdcastmanager/.libs/rdcastmanager.cgi $RPM_BUILD_ROOT@libexecdir@/
@@ -501,6 +502,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(4755,root,root)@LOCAL_PREFIX@/bin/ripcd
 @LOCAL_PREFIX@/sbin/sas_shim
 @LOCAL_PREFIX@/sbin/rddbcheck
+@LOCAL_PREFIX@/sbin/rdmarkerset
 @LOCAL_PREFIX@/share/rivendell/librd_es.qm
 @LOCAL_PREFIX@/share/rivendell/rdadmin_es.qm
 @LOCAL_PREFIX@/share/rivendell/rdairplay_es.qm
@@ -782,6 +784,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 15 2014 Fred Gleason <fredg@paravelsystems.com>
+-- Added RDMarkerSet utility.
 * Thu Dec 26 2013 Fred Gleason <fredg@paravelsystems.com>
 -- Added desktop entry for RDMonitor.
 * Tue Dec 03 2013 Fred Gleason <fredg@paravelsystems.com>

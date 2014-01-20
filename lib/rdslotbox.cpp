@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdslotbox.cpp,v 1.5.2.6 2013/12/30 17:24:25 cvs Exp $
+//      $Id: rdslotbox.cpp,v 1.5.2.7 2014/01/07 23:23:17 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -25,15 +25,17 @@
 #include "rdconf.h"
 #include "rdplay_deck.h"
 
+#include "rdnownext.h"
 #include "rdslotbox.h"
 
 #include "../icons/play.xpm"
 #include "../icons/rml5.xpm"
 
-RDSlotBox::RDSlotBox(RDPlayDeck *deck,QWidget *parent)
+RDSlotBox::RDSlotBox(RDPlayDeck *deck,RDAirPlayConf *conf,QWidget *parent)
   : QWidget(parent)
 {
   line_deck=deck;
+  line_airplay_conf=conf;
   line_type=RDLogLine::UnknownType;
   line_logline=NULL;
   line_mode=RDSlotOptions::LastMode;
@@ -339,7 +341,9 @@ void RDSlotBox::setCart(RDLogLine *logline)
 	}
 	if(line_logline->originUser().isEmpty()||
 	   (!line_logline->originDateTime().isValid())) {
-	  line_title_label->setText(line_logline->title());
+	  line_title_label->
+	    setText(RDResolveNowNext(line_airplay_conf->titleTemplate(),
+				     logline));
 	}
 	else {
 	  line_title_label->setText(line_logline->title()+" -- "+
@@ -347,8 +351,12 @@ void RDSlotBox::setCart(RDLogLine *logline)
 				    line_logline->originDateTime().
 				    toString("M/d hh:mm"));
 	}
-	line_description_label->setText(cut->description());
-	line_artist_label->setText(cart->artist());
+	line_description_label->
+	  setText(RDResolveNowNext(line_airplay_conf->descriptionTemplate(),
+				   logline));
+	line_artist_label->
+	  setText(RDResolveNowNext(line_airplay_conf->artistTemplate(),
+				   logline));
 	line_up_label->
 	  setText(RDGetTimeLength(line_logline->playPosition(),true,true));
 	line_down_label->
@@ -359,7 +367,9 @@ void RDSlotBox::setCart(RDLogLine *logline)
 	if(logline->cutNumber()>=0) {
 	  line_cut_label->
 	    setText(QString().sprintf("%03u",logline->cutNumber()));
-	  line_outcue_label->setText(logline->outcue());
+	  line_outcue_label->
+	    setText(RDResolveNowNext(line_airplay_conf->outcueTemplate(),
+				     logline));
 	  line_position_bar->show();
 	  line_up_label->show();
 	  line_down_label->show();

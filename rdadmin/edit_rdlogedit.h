@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdlogedit.h,v 1.9 2010/09/13 15:37:12 cvs Exp $
+//      $Id: edit_rdlogedit.h,v 1.9.6.1 2014/01/08 18:14:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -62,6 +62,7 @@ class EditRDLogedit : public QDialog
   QComboBox *lib_format_box;
   QComboBox *lib_channels_box;
   QComboBox *lib_bitrate_box;
+  QComboBox *lib_enable_second_start_box;
   QSpinBox *lib_preroll_spin;
   QSpinBox *lib_threshold_spin;
   QSpinBox *lib_normalization_spin;

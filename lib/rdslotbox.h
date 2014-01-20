@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdslotbox.h,v 1.3.2.5 2013/12/30 17:24:25 cvs Exp $
+//      $Id: rdslotbox.h,v 1.3.2.6 2014/01/07 23:23:17 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,6 +39,7 @@
 #include <rdplay_deck.h>
 #include <rdcartdrag.h>
 #include <rdslotoptions.h>
+#include <rdairplay_conf.h>
 
 //
 // Widget Settings
@@ -51,7 +52,7 @@ class RDSlotBox : public QWidget
   Q_OBJECT
  public:
   enum BarMode {Transitioning=0,Stopping=1};
-  RDSlotBox(RDPlayDeck *deck,QWidget *parent=0);
+  RDSlotBox(RDPlayDeck *deck,RDAirPlayConf *conf,QWidget *parent=0);
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
   RDLogLine *logLine();
@@ -109,6 +110,7 @@ class RDSlotBox : public QWidget
   QPixmap *line_macro_map;
   RDPlayMeter *line_meter[2];
   RDPlayDeck *line_deck;
+  RDAirPlayConf *line_airplay_conf;
 };
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: disk_ripper.cpp,v 1.30.4.1 2013/11/13 23:36:36 cvs Exp $
+//      $Id: disk_ripper.cpp,v 1.30.4.3 2014/01/14 17:35:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -50,12 +50,14 @@
 
 
 DiskRipper::DiskRipper(QString *filter,QString *group,QString *schedcode,
-		       QWidget *parent,const char *name) 
+		       bool profile_rip,QWidget *parent,const char *name) 
   : QDialog(parent,name)
 {
+  rip_isrc_read=false;
   rip_filter_text=filter;
   rip_group_text=group;
   rip_schedcode_text=schedcode;
+  rip_profile_rip=profile_rip;
   rip_aborting=false;
 
   //
@@ -75,9 +77,28 @@ DiskRipper::DiskRipper(QString *filter,QString *group,QString *schedcode,
   setCaption(tr("Rip Disk"));
 
   //
+  // Create Temporary Directory
+  //
+  char path[PATH_MAX];
+  strncpy(path,RIPPER_TEMP_DIR,PATH_MAX);
+  strcat(path,"/XXXXXX");
+  if(mkdtemp(path)==NULL) {
+    QMessageBox::warning(this,"RDLibrary - "+tr("Ripper Error"),
+			 tr("Unable to create temporary directory!"));
+  }
+  else {
+    rip_cdda_dir.setPath(path);
+  }
+
+  //
   // The CDROM Drive
   //
-  rip_cdrom=new RDCdPlayer(this,"rip_cdrom");
+  if(rip_profile_rip) {
+    rip_cdrom=new RDCdPlayer(stdout,this);
+  }
+  else {
+    rip_cdrom=new RDCdPlayer(NULL,this);
+  }
   connect(rip_cdrom,SIGNAL(ejected()),this,SLOT(ejectedData()));
   connect(rip_cdrom,SIGNAL(mediaChanged()),this,SLOT(mediaChangedData()));
   connect(rip_cdrom,SIGNAL(played(int)),this,SLOT(playedData(int)));
@@ -88,7 +109,12 @@ DiskRipper::DiskRipper(QString *filter,QString *group,QString *schedcode,
   //
   // CDDB Stuff
   //
-  rip_cddb_lookup=new RDCddbLookup(this,"rip_cddb_lookup");
+  if(rip_profile_rip) {
+    rip_cddb_lookup=new RDCddbLookup(stdout,this,"rip_cddb_lookup");
+  }
+  else {
+    rip_cddb_lookup=new RDCddbLookup(NULL,this,"rip_cddb_lookup");
+  }
   connect(rip_cddb_lookup,SIGNAL(done(RDCddbLookup::Result)),
 	  this,SLOT(cddbDoneData(RDCddbLookup::Result)));
 
@@ -303,6 +329,14 @@ DiskRipper::DiskRipper(QString *filter,QString *group,QString *schedcode,
 
 DiskRipper::~DiskRipper()
 {
+  QStringList files=rip_cdda_dir.entryList();
+  for(unsigned i=0;i<files.size();i++) {
+    if((files[i]!=".")&&(files[i]!="..")) {
+      rip_cdda_dir.remove(files[i]);
+    }
+  }
+  rmdir(rip_cdda_dir.path());
+
   rip_cdrom->close();
   delete rip_cdrom;
   delete rip_track_list;
@@ -371,6 +405,15 @@ void DiskRipper::ripDiskButtonData()
     item=item->nextSibling();
   }
   rip_disk_bar->setTotalSteps(tracks);
+
+  //
+  // Read ISRCs
+  //
+  if(!rip_isrc_read) {
+    rip_cddb_lookup->
+      readIsrc(rip_cdda_dir.path(),rdlibrary_conf->ripperDevice());
+    rip_isrc_read=true;
+  }
 
   //
   // Rip
@@ -559,10 +602,8 @@ void DiskRipper::setAllButtonData()
 void DiskRipper::mediaChangedData()
 {
   QListViewItem *l;
-  QString cdda_dir=tempnam(RIPPER_TEMP_DIR,"cdda");
 
-  mkdir(cdda_dir,0700);
-
+  rip_isrc_read=false;
   rip_cutnames.clear();
   rip_track_list->clear();
   rip_track=-1;
@@ -581,11 +622,10 @@ void DiskRipper::mediaChangedData()
   rip_cddb_record.clear();
   rip_cdrom->setCddbRecord(&rip_cddb_record);
   rip_cddb_lookup->setCddbRecord(&rip_cddb_record);
-  rip_cddb_lookup->lookupRecord(cdda_dir,rdlibrary_conf->ripperDevice(),
-				rdlibrary_conf->cddbServer(),8880,
-				RIPPER_CDDB_USER,PACKAGE_NAME,VERSION);
-  system(QString().sprintf("rm %s/*",(const char *)cdda_dir));
-  system(QString().sprintf("rmdir %s",(const char *)cdda_dir));
+  rip_cddb_lookup->
+    lookupRecord(rip_cdda_dir.path(),rdlibrary_conf->ripperDevice(),
+		 rdlibrary_conf->cddbServer(),8880,
+		 RIPPER_CDDB_USER,PACKAGE_NAME,VERSION);
 }
 
 
@@ -713,6 +753,7 @@ void DiskRipper::closeEvent(QCloseEvent *e)
 
 void DiskRipper::RipTrack(int track,QString cutname,QString title)
 {
+  RDCdRipper *ripper=NULL;
   RDCut *cut=new RDCut(cutname);
   RDCart *cart=new RDCart(cut->cartNumber());
   QString sql=QString().sprintf("select NUMBER from CART where NUMBER=%u",
@@ -762,7 +803,12 @@ void DiskRipper::RipTrack(int track,QString cutname,QString title)
   RDCdRipper::ErrorCode ripper_err;
   QString tmpdir=RDTempDir();
   QString tmpfile=tmpdir+"/"+RIPPER_TEMP_WAV;
-  RDCdRipper *ripper=new RDCdRipper(this);
+  if(rip_profile_rip) {
+    ripper=new RDCdRipper(stdout,this);
+  }
+  else {
+    ripper=new RDCdRipper(NULL,this);
+  }
   rip_track_bar->setTotalSteps(ripper->totalSteps()+1);
   connect(ripper,SIGNAL(progressChanged(int)),
 	  rip_track_bar,SLOT(setProgress(int)));

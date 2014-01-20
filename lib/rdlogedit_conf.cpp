@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit_conf.cpp,v 1.12 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdlogedit_conf.cpp,v 1.12.8.1 2014/01/08 18:14:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -134,6 +134,19 @@ unsigned RDLogeditConf::bitrate() const
 void RDLogeditConf::setBitrate(unsigned rate) const
 {
   SetRow("BITRATE",rate);
+}
+
+
+bool RDLogeditConf::enableSecondStart() const
+{
+  return RDBool(RDGetSqlValue("RDLOGEDIT","STATION",lib_station,
+			      "ENABLE_SECOND_START").toString());
+}
+  
+
+void RDLogeditConf::setEnableSecondStart(bool state) const
+{
+  SetRow("ENABLE_SECOND_START",state);
 }
 
 
@@ -319,6 +332,20 @@ void RDLogeditConf::SetRow(const QString &param,unsigned value) const
   sql=QString().sprintf("UPDATE RDLOGEDIT SET %s=%d WHERE STATION=\"%s\"",
 			(const char *)param,
 			value,
+			(const char *)RDEscapeString(lib_station));
+  q=new RDSqlQuery(sql);
+  delete q;
+}
+
+
+void RDLogeditConf::SetRow(const QString &param,bool value) const
+{
+  RDSqlQuery *q;
+  QString sql;
+
+  sql=QString().sprintf("update RDLOGEDIT set %s=\"%s\" where STATION=\"%s\"",
+			(const char *)param,
+			(const char *)RDYesNo(value),
 			(const char *)RDEscapeString(lib_station));
   q=new RDSqlQuery(sql);
   delete q;

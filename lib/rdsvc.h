@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.h,v 1.26.8.2 2013/10/11 22:00:52 cvs Exp $
+//      $Id: rdsvc.h,v 1.26.8.3 2014/01/10 15:40:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -46,6 +46,8 @@ class RDSvc : public QObject
   void setProgramCode(const QString &str) const;
   QString nameTemplate() const;
   void setNameTemplate(const QString &str) const;
+  QString descriptionTemplate() const;
+  void setDescriptionTemplate(const QString &str) const;
   QString trackGroup() const;
   void setTrackGroup(const QString &group) const;
   QString autospotGroup() const;

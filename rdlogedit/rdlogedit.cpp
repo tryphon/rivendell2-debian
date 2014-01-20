@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit.cpp,v 1.77.4.5 2013/11/13 23:36:37 cvs Exp $
+//      $Id: rdlogedit.cpp,v 1.77.4.7 2014/01/08 23:32:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,6 +27,7 @@
 #include <unistd.h>
 #endif  // WIN32
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qsqlpropertymap.h>
@@ -53,6 +54,7 @@
 #include <rdtextfile.h>
 #include <rdmixer.h>
 #include <dbversion.h>
+#include <rdescape_string.h>
 
 #include <rdlogedit.h>
 #include <edit_log.h>
@@ -112,6 +114,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   log_log_list=NULL;
   bool skip_db_check=false;
   unsigned schema=0;
+  QString sql;
+  RDSqlQuery *q;
 
   //
   // Read Command Options
@@ -262,6 +266,38 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   log_redball_map=new QPixmap(redball_xpm);
 
   //
+  // Service Selector
+  //
+  log_service_box=new QComboBox(this);
+  log_service_box->setFont(default_font);
+  connect(log_service_box,SIGNAL(activated(const QString &)),
+	  this,SLOT(filterChangedData(const QString &)));
+  log_service_box->insertItem(tr("ALL"));
+  sql="select NAME from SERVICES order by NAME";
+  q=new RDSqlQuery(sql);
+  while(q->next()) {
+    log_service_box->insertItem(q->value(0).toString());
+  }
+  delete q;
+  log_service_label=new QLabel(log_service_box,tr("Service")+":",this);
+  log_service_label->setFont(button_font);
+  log_service_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
+
+  //
+  // Filter
+  //
+  log_filter_edit=new QLineEdit(this);
+  log_filter_edit->setFont(default_font);
+  connect(log_filter_edit,SIGNAL(textChanged(const QString &)),
+	  this,SLOT(filterChangedData(const QString &)));
+  log_filter_label=new QLabel(log_filter_edit,tr("Filter")+":",this);
+  log_filter_label->setFont(button_font);
+  log_filter_label->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
+  log_filter_button=new QPushButton(tr("Clear"),this);
+  log_filter_button->setFont(button_font);
+  connect(log_filter_button,SIGNAL(clicked()),this,SLOT(filterClearedData()));
+
+  //
   // Log List
   //
   log_log_list=new QListView(this,"log_log_list");
@@ -397,7 +433,6 @@ void MainWidget::userData()
   //
   log_add_button->setEnabled(rduser->createLog());
   log_delete_button->setEnabled(rduser->deleteLog());
-//  log_track_allowed=rduser->voicetrackLog();
   log_track_button->setEnabled(rduser->voicetrackLog());
 
   // Update the list of logs if applicable.
@@ -668,6 +703,19 @@ void MainWidget::reportData()
 }
 
 
+void MainWidget::filterChangedData(const QString &str)
+{
+  RefreshList();
+}
+
+
+void MainWidget::filterClearedData()
+{
+  log_filter_edit->clear();
+  filterChangedData("");
+}
+
+
 void MainWidget::logDoubleclickedData(QListViewItem *,const QPoint &,int)
 {
   editData();
@@ -686,7 +734,12 @@ void MainWidget::resizeEvent(QResizeEvent *e)
   if(log_log_list==NULL) {
     return;
   }
-  log_log_list->setGeometry(10,10,size().width()-20,size().height()-70);
+  log_service_label->setGeometry(10,10,70,20);
+  log_service_box->setGeometry(85,10,140,20);
+  log_filter_label->setGeometry(230,10,50,20);
+  log_filter_edit->setGeometry(285,10,size().width()-360,20);
+  log_filter_button->setGeometry(size().width()-60,8,50,25);
+  log_log_list->setGeometry(10,37,size().width()-20,size().height()-107);
   log_add_button->setGeometry(10,size().height()-55,80,50);
   log_edit_button->setGeometry(100,size().height()-55,80,50);
   log_delete_button->setGeometry(190,size().height()-55,80,50);
@@ -779,6 +832,16 @@ void MainWidget::RefreshList()
 
   sql="select NAME from LOGS where (TYPE=0)&&(LOG_EXISTS=\"Y\")";
 
+  if(log_service_box->currentItem()!=0) {
+    sql+="&&(SERVICE=\""+RDEscapeString(log_service_box->currentText())+"\")";
+  }
+  QString filter=log_filter_edit->text();
+  if(!filter.isEmpty()) {
+    sql+="&&((NAME like \"%%"+RDEscapeString(filter)+"%%\")||";
+    sql+="(DESCRIPTION like \"%%"+RDEscapeString(filter)+"%%\")||";
+    sql+="(SERVICE like \"%%"+RDEscapeString(filter)+"%%\"))";
+  }
+
   if (rdstation_conf->broadcastSecurity() == RDStation::UserSec
       && rduser != NULL) {
     QStringList services_list;
@@ -814,6 +877,7 @@ void MainWidget::RefreshList()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.h,v 1.19.8.1 2013/12/26 22:03:49 cvs Exp $
+//      $Id: audio_cart.h,v 1.19.8.2 2014/01/10 02:25:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -53,7 +53,7 @@ class AudioCart : public QWidget
   Q_OBJECT
  public:
   AudioCart(AudioControls *controls,RDCart *cart,QString *path,bool select_cut,
-	    QWidget *parent=0,const char *name=0);
+	    bool profile_rip,QWidget *parent=0,const char *name=0);
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
 
@@ -96,6 +96,7 @@ class AudioCart : public QWidget
   QProgressDialog *rdcart_progress_dialog;
   bool rdcart_modification_allowed;
   bool rdcart_import_metadata;
+  bool rdcart_profile_rip;
 };
 
 

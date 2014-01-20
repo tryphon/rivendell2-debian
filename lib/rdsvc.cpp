@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.cpp,v 1.71.8.8 2013/10/31 15:37:43 cvs Exp $
+//      $Id: rdsvc.cpp,v 1.71.8.10 2014/01/10 15:58:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -91,6 +91,19 @@ QString RDSvc::nameTemplate() const
 void RDSvc::setNameTemplate(const QString &str) const
 {
   SetRow("NAME_TEMPLATE",str);
+}
+
+
+QString RDSvc::descriptionTemplate() const
+{
+  return RDGetSqlValue("SERVICES","NAME",svc_name,"DESCRIPTION_TEMPLATE").
+    toString();
+}
+
+
+void RDSvc::setDescriptionTemplate(const QString &str) const
+{
+  SetRow("DESCRIPTION_TEMPLATE",str);
 }
 
 
@@ -757,12 +770,12 @@ bool RDSvc::generateLog(const QDate &date,const QString &logname,
   if(q->first()) {   // Already Exists
     delete q;
     sql=QString().sprintf("update LOGS set SERVICE=\"%s\",\
-                           DESCRIPTION=\"%s log\",ORIGIN_USER=\"%s\",\
+                           DESCRIPTION=\"%s\",ORIGIN_USER=\"%s\",\
                            ORIGIN_DATETIME=now(),LINK_DATETIME=now(),\
                            MODIFIED_DATETIME=now(),START_DATE=null,\
                            END_DATE=null,NEXT_ID=0",
 			  (const char *)RDEscapeString(svc_name),
-			  (const char *)RDEscapeString(svc_name),
+			  (const char *)RDEscapeString(RDDateDecode(descriptionTemplate(),date)),
 			  "RDLogManager");
     if(!purge_date.isEmpty()) {
       sql+=(",PURGE_DATE=\""+purge_date+"\"");
@@ -778,13 +791,14 @@ bool RDSvc::generateLog(const QDate &date,const QString &logname,
   else {             // Doesn't exist
     delete q;
     sql=QString().sprintf("insert into LOGS set NAME=\"%s\",\
-                           SERVICE=\"%s\",DESCRIPTION=\"%s log\",\
+                           SERVICE=\"%s\",DESCRIPTION=\"%s\",\
                            ORIGIN_USER=\"%s\",ORIGIN_DATETIME=now(),\
                            LINK_DATETIME=now(),MODIFIED_DATETIME=now(),\
                            PURGE_DATE=\"%s\"",
 			  (const char *)RDEscapeString(logname),
 			  (const char *)RDEscapeString(svc_name),
-			  (const char *)RDEscapeString(logname),"RDLogManager",
+			  (const char *)RDEscapeString(RDDateDecode(descriptionTemplate(),date)),
+			  "RDLogManager",
 			  (const char *)purge_date);
     q=new RDSqlQuery(sql);
     delete q;
@@ -1080,7 +1094,8 @@ void RDSvc::create(const QString exemplar) const
   if(exemplar.isEmpty()) {  // Create Empty Service
     sql=QString("insert into SERVICES set NAME=\"")+
       RDEscapeString(svc_name)+"\","+
-      "NAME_TEMPLATE=\""+RDEscapeString(svc_name)+"-%m%d\"";
+      "NAME_TEMPLATE=\""+RDEscapeString(svc_name)+"-%m%d\","+
+      "DESCRIPTION_TEMPLATE=\""+RDEscapeString(svc_name)+" log for %d/%m/%Y\"";
     q=new RDSqlQuery(sql);
     delete q;
 
@@ -1117,7 +1132,8 @@ void RDSvc::create(const QString exemplar) const
     delete q;
   }
   else {    // Base on Existing Service
-    sql=QString().sprintf("select NAME_TEMPLATE,CHAIN_LOG,AUTO_REFRESH,\
+    sql=QString().sprintf("select NAME_TEMPLATE,DESCRIPTION_TEMPLATE,\
+                           CHAIN_LOG,AUTO_REFRESH,\
                            ELR_SHELFLIFE,TFC_PATH,TFC_WIN_PATH,\
                            TFC_CART_OFFSET,TFC_CART_LENGTH,\
                            TFC_START_OFFSET,TFC_START_LENGTH,\
@@ -1147,7 +1163,9 @@ void RDSvc::create(const QString exemplar) const
     q=new RDSqlQuery(sql);
     if(q->first()) {
       sql=QString().sprintf("insert into SERVICES set\
-                             NAME_TEMPLATE=\"%s\",CHAIN_LOG=\"%s\",\
+                             NAME_TEMPLATE=\"%s\",\
+                             DESCRIPTION_TEMPLATE=\"%s\",\
+                             CHAIN_LOG=\"%s\",\
                              AUTO_REFRESH=\"%s\",ELR_SHELFLIFE=%d,\
                              TFC_PATH=\"%s\",TFC_WIN_PATH=\"%s\",\
                              TFC_CART_OFFSET=%d,TFC_CART_LENGTH=%d,\
@@ -1172,12 +1190,13 @@ void RDSvc::create(const QString exemplar) const
                              NAME=\"%s\",",
 			    (const char *)
 			    RDEscapeString(q->value(0).toString()),
-			    (const char *)q->value(1).toString(),
+			    (const char *)
+			    RDEscapeString(q->value(1).toString()),
 			    (const char *)q->value(2).toString(),
-                            q->value(3).toInt(),
-			    (const char *)q->value(4).toString(),
+			    (const char *)q->value(3).toString(),
+                            q->value(4).toInt(),
 			    (const char *)q->value(5).toString(),
-			    q->value(6).toInt(),
+			    (const char *)q->value(6).toString(),
 			    q->value(7).toInt(),
 			    q->value(8).toInt(),
 			    q->value(9).toInt(),
@@ -1195,9 +1214,9 @@ void RDSvc::create(const QString exemplar) const
 			    q->value(21).toInt(),
 			    q->value(22).toInt(),
 			    q->value(23).toInt(),
-			    (const char *)q->value(24).toString(),
+			    q->value(24).toInt(),
 			    (const char *)q->value(25).toString(),
-			    q->value(26).toInt(),
+			    (const char *)q->value(26).toString(),
 			    q->value(27).toInt(),
 			    q->value(28).toInt(),
 			    q->value(29).toInt(),
@@ -1215,10 +1234,11 @@ void RDSvc::create(const QString exemplar) const
 			    q->value(41).toInt(),
 			    q->value(42).toInt(),
 			    q->value(43).toInt(),
+			    q->value(44).toInt(),
 			    (const char *)RDEscapeString(svc_name));
       for(int i=0;i<168;i++) {
 	sql+=QString().sprintf("CLOCK%d=\"%s\",",
-			      i,(const char *)q->value(44+i).toString());
+			      i,(const char *)q->value(45+i).toString());
       }
       sql=sql.left(sql.length()-1);
       q=new RDSqlQuery(sql);

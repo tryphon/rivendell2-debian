@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.cpp,v 1.72.4.6 2013/12/31 15:06:00 cvs Exp $
+//      $Id: rdcart.cpp,v 1.72.4.7 2014/01/13 23:02:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -704,7 +704,7 @@ void RDCart::setPreservePitch(bool state) const
 bool RDCart::asyncronous() const
 {
   return RDBool(RDGetSqlValue("CART","NUMBER",cart_number,
-			    "ASYNCRONOUS").toString());
+			      "ASYNCRONOUS").toString());
 }
 
 
@@ -723,6 +723,19 @@ QString RDCart::owner() const
 void RDCart::setOwner(const QString &owner) const
 {
   SetRow("OWNER",owner);
+}
+
+
+bool RDCart::useEventLength() const
+{
+  return RDBool(RDGetSqlValue("CART","NUMBER",cart_number,
+			      "USE_EVENT_LENGTH").toString());
+}
+
+
+void RDCart::setUseEventLength(bool state) const
+{
+  SetRow("USE_EVENT_LENGTH",RDYesNo(state));
 }
 
 

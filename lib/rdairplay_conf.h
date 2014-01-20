@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay_conf.h,v 1.36.8.3 2013/03/13 15:18:05 cvs Exp $
+//      $Id: rdairplay_conf.h,v 1.36.8.4 2014/01/07 18:18:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -111,6 +111,14 @@ class RDAirPlayConf
   void setPauseEnabled(bool state) const;
   QString defaultSvc() const;
   void setDefaultSvc(const QString &svcname) const;
+  QString titleTemplate() const;
+  void setTitleTemplate(const QString &str);
+  QString artistTemplate() const;
+  void setArtistTemplate(const QString &str);
+  QString outcueTemplate() const;
+  void setOutcueTemplate(const QString &str);
+  QString descriptionTemplate() const;
+  void setDescriptionTemplate(const QString &str);
   bool hourSelectorEnabled() const;
   void setHourSelectorEnabled(bool state) const;
   QHostAddress udpAddress(int logno) const;

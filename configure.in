@@ -5,8 +5,8 @@ dnl Use autoconf to process this into a configure script
 dnl
 dnl   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 dnl
-dnl      $Id: configure.in,v 1.247.6.13 2013/12/13 22:48:48 cvs Exp $
-dnl      $Date: 2013/12/13 22:48:48 $
+dnl      $Id: configure.in,v 1.247.6.14 2014/01/16 02:44:58 cvs Exp $
+dnl      $Date: 2014/01/16 02:44:58 $
 dnl
 dnl   This program is free software; you can redistribute it and/or modify
 dnl   it under the terms of the GNU General Public License version 2 as
@@ -415,24 +415,25 @@ AC_CONFIG_FILES([rivendell.spec \
     rlm/Makefile \
     cae/Makefile \
     utils/Makefile \
-    utils/rddelete/Makefile \
-    utils/rdgen/Makefile \
-    utils/rmlsend/Makefile \
-    utils/rdgpimon/Makefile \
-    utils/rdimport/Makefile \
-    utils/sas_shim/Makefile \
-    utils/rdsoftkeys/Makefile \
-    utils/rddbcheck/Makefile \
     utils/rdalsaconfig/Makefile \
+    utils/rdcheckcuts/Makefile \
+    utils/rdchunk/Makefile \
+    utils/rdcollect/Makefile \
+    utils/rddbcheck/Makefile \
+    utils/rddelete/Makefile \
     utils/rddgimport/Makefile \
     utils/rddiscimport/Makefile \
+    utils/rdgen/Makefile \
     utils/rdhpiinfo/Makefile \
-    utils/rdpurgecasts/Makefile \
-    utils/rdchunk/Makefile \
+    utils/rdgpimon/Makefile \
+    utils/rdimport/Makefile \
     utils/rdmaint/Makefile \
+    utils/rdmarkerset/Makefile \
     utils/rdpopup/Makefile \
-    utils/rdcollect/Makefile \
-    utils/rdcheckcuts/Makefile \
+    utils/rdpurgecasts/Makefile \
+    utils/rdsoftkeys/Makefile \
+    utils/rmlsend/Makefile \
+    utils/sas_shim/Makefile \
     web/Makefile \
     web/rdfeed/Makefile \
     web/rdcastmanager/Makefile \

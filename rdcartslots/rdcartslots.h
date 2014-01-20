@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslots.h,v 1.5.2.5 2013/07/05 22:44:18 cvs Exp $
+//      $Id: rdcartslots.h,v 1.5.2.6 2014/01/07 23:23:18 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -41,6 +41,7 @@
 #include <rdslotdialog.h>
 #include <rdcueeditdialog.h>
 #include <rdlistsvcs.h>
+#include <rdairplay_conf.h>
 
 //
 // Settings
@@ -84,6 +85,7 @@ class MainWidget : public QWidget
   RDSlotDialog *panel_slot_dialog;
   RDCueEditDialog *panel_cue_dialog;
   RDListSvcs *panel_svcs_dialog;
+  RDAirPlayConf *panel_airplay_conf;
 };
 
 

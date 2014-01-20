@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.cpp,v 1.113.4.10 2013/12/12 21:45:44 cvs Exp $
+//      $Id: rdlog_line.cpp,v 1.113.4.13 2014/01/13 23:02:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -118,6 +118,7 @@ void RDLogLine::clear()
   log_client="";
   log_agency="";
   log_outcue="";
+  log_description="";
   log_user_defined="";
   log_usage_code=RDCart::UsageFeature;
   log_forced_length=0;
@@ -162,6 +163,8 @@ void RDLogLine::clear()
   log_cut_name="";
   log_average_segue_length=0;
   log_has_custom_transition=false;
+  log_use_event_length=false;
+  log_event_length=-1;
   log_link_event_name="";
   log_link_start_time=QTime();
   log_link_length=0;
@@ -875,6 +878,18 @@ void RDLogLine::setOutcue(const QString &outcue)
 }
 
 
+QString RDLogLine::description() const
+{
+  return log_description;
+}
+
+
+void RDLogLine::setDescription(const QString &desc)
+{
+  log_description=desc;
+}
+
+
 QString RDLogLine::userDefined() const
 {
   return log_user_defined;
@@ -1363,6 +1378,30 @@ void RDLogLine::setNowNextEnabled(bool state)
 }
 
 
+bool RDLogLine::useEventLength() const
+{
+  return log_use_event_length;
+}
+
+
+void RDLogLine::setUseEventLength(bool state)
+{
+  log_use_event_length=state;
+}
+
+
+int RDLogLine::eventLength() const
+{
+  return log_event_length;
+}
+
+
+void RDLogLine::setEventLength(int msec)
+{
+  log_event_length=msec;
+}
+
+
 QString RDLogLine::linkEventName() const
 {
   return log_link_event_name;
@@ -1516,7 +1555,7 @@ RDLogLine::State RDLogLine::setEvent(int mach,RDLogLine::TransType next_type,
 			       SEGUE_GAIN,\
                                TALK_START_POINT,TALK_END_POINT,\
                                HOOK_START_POINT,HOOK_END_POINT,\
-                               OUTCUE,ISRC,ISCI from CUTS\
+                               OUTCUE,ISRC,ISCI,DESCRIPTION from CUTS\
                                where CUT_NAME=\"%s\"",
 			      (const char *)log_cut_name);
 	q=new RDSqlQuery(sql);
@@ -1642,6 +1681,7 @@ RDLogLine::State RDLogLine::setEvent(int mach,RDLogLine::TransType next_type,
 	log_outcue=q->value(10).toString();
 	log_isrc=q->value(11).toString();
 	log_isci=q->value(12).toString();
+	log_description=q->value(13).toString();
 	log_segue_gain_cut=q->value(5).toInt();
 	delete q;
 	delete cart;

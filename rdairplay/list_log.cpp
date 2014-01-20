@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_log.cpp,v 1.105.6.6 2013/12/28 00:00:33 cvs Exp $
+//      $Id: list_log.cpp,v 1.105.6.7 2014/01/09 23:53:52 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -928,8 +928,13 @@ void ListLog::logStoppedData(int line)
 
 void ListLog::logInsertedData(int line)
 {
+  bool appended=false;
+
   if(line>=list_log->size()) {
     line=list_log->size()-1;
+  }
+  if(line>=list_log->size()-1) {
+    appended=true;
   }
   int count;
   RDListViewItem *item=GetItem(line+1);
@@ -942,6 +947,11 @@ void ListLog::logInsertedData(int line)
   item=new RDListViewItem(list_log_list);
   list_log->logLine(line)->setListViewItem(item);
   RefreshItem(item,line);
+  if(appended) {
+    if((item=(RDListViewItem *)list_log_list->findItem("-2",13))!=NULL) {
+      list_log_list->ensureItemVisible(item);
+    }
+  }
 }
 
 

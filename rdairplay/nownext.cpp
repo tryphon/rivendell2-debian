@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: nownext.cpp,v 1.4.8.2 2013/10/16 21:14:36 cvs Exp $
+//      $Id: nownext.cpp,v 1.4.8.3 2014/01/13 16:51:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -116,8 +116,9 @@ void LogPlay::SendNowNext()
     svcname=play_defaultsvc_name;
   }
   for(unsigned i=0;i<play_rlm_hosts->size();i++) {
-    play_rlm_hosts->at(i)->sendEvent(svcname,logName(),play_id,logline,
-				     play_onair_flag,play_op_mode);
+    play_rlm_hosts->at(i)->
+      sendEvent(svcname,logName().left(logName().length()-4),play_id,logline,
+		play_onair_flag,play_op_mode);
   }
   RDResolveNowNext(&cmd,logline,0);
   play_nownext_socket->

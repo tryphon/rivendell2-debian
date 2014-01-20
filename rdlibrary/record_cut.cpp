@@ -2,9 +2,9 @@
 //
 // Record a Rivendell Cut
 //
-//   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2002-2004,2014 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: record_cut.cpp,v 1.90.6.4 2013/11/13 23:36:36 cvs Exp $
+//      $Id: record_cut.cpp,v 1.90.6.5 2014/01/09 01:11:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -927,7 +927,8 @@ void RecordCut::closeData()
 			   tr("The End Date is prior to the Start Date!"));
       return;
     }
-    if(cut_enddatetime_edit->dateTime()<QDate::currentDate()) {
+    if((cut_enddatetime_edit->dateTime()<QDate::currentDate())&&
+       (!rec_evergreen_box->isChecked())) {
       switch(QMessageBox::warning(this,tr("Invalid Date"),
 				  tr("The End Date has already passed!\nDo you still want to save?"),
 				  QMessageBox::Yes,QMessageBox::No)) {

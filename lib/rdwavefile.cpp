@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavefile.cpp,v 1.24.6.3 2013/12/05 17:37:48 cvs Exp $
+//    $Id: rdwavefile.cpp,v 1.24.6.4 2014/01/15 19:56:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -23,6 +23,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -31,6 +32,7 @@
 #include <fcntl.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include <id3/tag.h>
 #include <id3/misc_support.h>
@@ -55,6 +57,7 @@ RDWaveFile::RDWaveFile(QString file_name)
   wave_data=NULL;
   recordable=false;
   format_chunk=false;
+  comm_chunk=false;
   format_tag=0;
   channels=0;
   normalize_level=1.0;
@@ -209,192 +212,203 @@ bool RDWaveFile::openWave(RDWaveData *data)
   }
 
   switch(GetType(wave_file.handle())) {
-      case RDWaveFile::Wave:
-	if(GetFmt(wave_file.handle())) {
-	  wave_type=RDWaveFile::Wave;
-	}
-	else {
-	  wave_type=RDWaveFile::Ambos;
-	  format_tag=WAVE_FORMAT_MPEG;
-	}
-	if(!GetChunk(wave_file.handle(),"data",&data_length,NULL,0)) { // Set fileptr to start of data block
-	  return false;
-	}
-	data_chunk=true;
-	data_start=lseek(wave_file.handle(),0,SEEK_CUR);
-	if((!GetFact(wave_file.handle()))||(sample_length==0)) {
-
-
-	  if((format_tag!=WAVE_FORMAT_PCM)&&
-	     (format_tag!=WAVE_FORMAT_IEEE_FLOAT)&&format_chunk) {
+  case RDWaveFile::Wave:
+    if(GetFmt(wave_file.handle())) {
+      wave_type=RDWaveFile::Wave;
+    }
+    else {
+      wave_type=RDWaveFile::Ambos;
+      format_tag=WAVE_FORMAT_MPEG;
+    }
+    if(!GetChunk(wave_file.handle(),"data",&data_length,NULL,0)) { // Set fileptr to start of data block
+      return false;
+    }
+    data_chunk=true;
+    data_start=lseek(wave_file.handle(),0,SEEK_CUR);
+    if((!GetFact(wave_file.handle()))||(sample_length==0)) {
+      if((format_tag!=WAVE_FORMAT_PCM)&&
+	 (format_tag!=WAVE_FORMAT_IEEE_FLOAT)&&format_chunk) {
 #ifdef MPEG_FACT_FUDGE
-
-	    
-	    // Guesstimate the overall sample size
-	    time_length=data_length/avg_bytes_per_sec;
-	    sample_length=time_length*samples_per_sec;
-	    ext_time_length=(unsigned)(1000.0*(double)time_length/
-				       (double)samples_per_sec);
+	// Guesstimate the overall sample size
+	time_length=data_length/avg_bytes_per_sec;
+	sample_length=time_length*samples_per_sec;
+	ext_time_length=(unsigned)(1000.0*(double)time_length/
+				   (double)samples_per_sec);
 #else
-	    time_length=0;
-	    sample_length=0;
-	    ext_time_length=0;
+	time_length=0;
+	sample_length=0;
+	ext_time_length=0;
 #endif
-	  }
-	  else {
-	    if(format_chunk) {
-	      ext_time_length=(unsigned)(1000.0*(double)data_length/
-					 (double)(block_align*samples_per_sec));
-	      time_length=ext_time_length/1000;
-	      sample_length=data_length/block_align;
-	    }
-	    else {
-	      if(!GetMpegHeader(wave_file.handle(),data_start)) {
-		wave_file.close();
-		return false;
-	      }
-	      data_length=wave_file.size()-data_start;
-	      sample_length=1152*(data_length/mpeg_frame_size);
-	      ext_time_length=(unsigned)(1000.0*(double)sample_length/
-					 (double)samples_per_sec);
-	      time_length=ext_time_length/1000;
-	      lseek(wave_file.handle(),data_start,SEEK_SET);
-	      format_chunk=true;
-	    }
-	  }
+      }
+      else {
+	if(format_chunk) {
+	  ext_time_length=(unsigned)(1000.0*(double)data_length/
+				     (double)(block_align*samples_per_sec));
+	  time_length=ext_time_length/1000;
+	  sample_length=data_length/block_align;
 	}
 	else {
-	  if(format_chunk) {
-	    time_length=sample_length/samples_per_sec;
-	    ext_time_length=(unsigned)(1000.0*(double)sample_length/
-				       (double)samples_per_sec);
+	  if(!GetMpegHeader(wave_file.handle(),data_start)) {
+	    wave_file.close();
+	    return false;
 	  }
-	  else {
-	    time_length=0;
-	    ext_time_length=0;
-	  }
+	  data_length=wave_file.size()-data_start;
+	  sample_length=1152*(data_length/mpeg_frame_size);
+	  ext_time_length=(unsigned)(1000.0*(double)sample_length/
+				     (double)samples_per_sec);
+	  time_length=ext_time_length/1000;
+	  lseek(wave_file.handle(),data_start,SEEK_SET);
+	  format_chunk=true;
 	}
-	GetCart(wave_file.handle());
-	GetBext(wave_file.handle());
-	GetMext(wave_file.handle());
-	GetList(wave_file.handle());
-	GetScot(wave_file.handle());
-	GetAv10(wave_file.handle());
-	GetAir1(wave_file.handle());
-	break;
+      }
+    }
+    else {
+      if(format_chunk) {
+	time_length=sample_length/samples_per_sec;
+	ext_time_length=(unsigned)(1000.0*(double)sample_length/
+				   (double)samples_per_sec);
+      }
+      else {
+	time_length=0;
+	ext_time_length=0;
+      }
+    }
+    GetCart(wave_file.handle());
+    GetBext(wave_file.handle());
+    GetMext(wave_file.handle());
+    GetList(wave_file.handle());
+    GetScot(wave_file.handle());
+    GetAv10(wave_file.handle());
+    GetAir1(wave_file.handle());
+    break;
 
-      case RDWaveFile::Mpeg:
-	format_tag=WAVE_FORMAT_MPEG;
-	if(!GetMpegHeader(wave_file.handle(),id3v2_offset[0])) {
-	  wave_file.close();
-	  return false;
-	}
-	data_length=wave_file.size();
-	if(id3v1_tag) {
-	  data_length-=128;
-	}
-	if(id3v2_tag[1]) {
-	  data_length-=id3v2_offset[1];
-	}
-	data_start=id3v2_offset[0];
-	sample_length=1152*(data_length/mpeg_frame_size);
-	ext_time_length=
-	  (unsigned)(1000.0*(double)sample_length/(double)samples_per_sec);
-	time_length=ext_time_length/1000;
-	data_chunk=true;
-	lseek(wave_file.handle(),data_start,SEEK_SET);
-	format_chunk=true;
-	wave_type=RDWaveFile::Mpeg;
-	ReadId3Metadata();
-    	break;
+  case RDWaveFile::Aiff:
+    if(GetComm(wave_file.handle())) {
+      wave_type=RDWaveFile::Aiff;
+    }
+    if(!GetChunk(wave_file.handle(),"SSND",&data_length,NULL,0,true)) {
+      return false;
+    }
+    data_length-=8;  // SSND chunk has eight data bytes at the beginning!
+    data_chunk=true;
+    data_start=lseek(wave_file.handle(),8,SEEK_CUR);
+    ext_time_length=(unsigned)(1000.0*(double)sample_length/
+			       (double)samples_per_sec);
+    time_length=ext_time_length/1000;
+    break;
 
-      case RDWaveFile::Ogg:
+  case RDWaveFile::Mpeg:
+    format_tag=WAVE_FORMAT_MPEG;
+    if(!GetMpegHeader(wave_file.handle(),id3v2_offset[0])) {
+      wave_file.close();
+      return false;
+    }
+    data_length=wave_file.size();
+    if(id3v1_tag) {
+      data_length-=128;
+    }
+    if(id3v2_tag[1]) {
+      data_length-=id3v2_offset[1];
+    }
+    data_start=id3v2_offset[0];
+    sample_length=1152*(data_length/mpeg_frame_size);
+    ext_time_length=
+      (unsigned)(1000.0*(double)sample_length/(double)samples_per_sec);
+    time_length=ext_time_length/1000;
+    data_chunk=true;
+    lseek(wave_file.handle(),data_start,SEEK_SET);
+    format_chunk=true;
+    wave_type=RDWaveFile::Mpeg;
+    ReadId3Metadata();
+    break;
+
+  case RDWaveFile::Ogg:
 #ifdef HAVE_VORBIS
-	format_tag=WAVE_FORMAT_VORBIS;
-	avg_bytes_per_sec=ov_bitrate(&vorbis_file,-1)/8;
-	vorbis_info=ov_info(&vorbis_file,-1);
-	channels=vorbis_info->channels;
-	block_align=2*channels;
-	samples_per_sec=vorbis_info->rate;
-	avg_bytes_per_sec=block_align*samples_per_sec;
-	bits_per_sample=16;
-	data_start=0;
-	sample_length=ov_pcm_total(&vorbis_file,-1);
-	data_length=sample_length*2*channels;
-	ext_time_length=(unsigned)(ov_time_total(&vorbis_file,-1)*1000.0);
-	time_length=(unsigned)ov_time_total(&vorbis_file,-1);
-	data_chunk=true;
-	format_chunk=true;
-	wave_type=RDWaveFile::Ogg;
-        ReadNormalizeLevel(wave_file.name());
-	ValidateMetadata();
-	return true;
+    format_tag=WAVE_FORMAT_VORBIS;
+    avg_bytes_per_sec=ov_bitrate(&vorbis_file,-1)/8;
+    vorbis_info=ov_info(&vorbis_file,-1);
+    channels=vorbis_info->channels;
+    block_align=2*channels;
+    samples_per_sec=vorbis_info->rate;
+    avg_bytes_per_sec=block_align*samples_per_sec;
+    bits_per_sample=16;
+    data_start=0;
+    sample_length=ov_pcm_total(&vorbis_file,-1);
+    data_length=sample_length*2*channels;
+    ext_time_length=(unsigned)(ov_time_total(&vorbis_file,-1)*1000.0);
+    time_length=(unsigned)ov_time_total(&vorbis_file,-1);
+    data_chunk=true;
+    format_chunk=true;
+    wave_type=RDWaveFile::Ogg;
+    ReadNormalizeLevel(wave_file.name());
+    ValidateMetadata();
+    return true;
 #else
-	return false;
+    return false;
 #endif  // HAVE_VORBIS
-	break;
+    break;
 
-      case RDWaveFile::Atx:
-	format_tag=WAVE_FORMAT_MPEG;
-	atx_offset=GetAtxOffset(wave_file.handle());
-	if(!GetMpegHeader(wave_file.handle(),atx_offset)) {
-	  wave_file.close();
-	  return false;
-	}
-	data_length=wave_file.size()-atx_offset;
-	data_start=atx_offset;
-	sample_length=1152*(data_length/mpeg_frame_size);
-	ext_time_length=
-	  (unsigned)(1000.0*(double)sample_length/(double)samples_per_sec);
-	time_length=ext_time_length/1000;
-	data_chunk=true;
-	lseek(wave_file.handle(),data_start,SEEK_SET);
-	format_chunk=true;
-	wave_type=RDWaveFile::Atx;	
-	break;
+  case RDWaveFile::Atx:
+    format_tag=WAVE_FORMAT_MPEG;
+    atx_offset=GetAtxOffset(wave_file.handle());
+    if(!GetMpegHeader(wave_file.handle(),atx_offset)) {
+      wave_file.close();
+      return false;
+    }
+    data_length=wave_file.size()-atx_offset;
+    data_start=atx_offset;
+    sample_length=1152*(data_length/mpeg_frame_size);
+    ext_time_length=
+      (unsigned)(1000.0*(double)sample_length/(double)samples_per_sec);
+    time_length=ext_time_length/1000;
+    data_chunk=true;
+    lseek(wave_file.handle(),data_start,SEEK_SET);
+    format_chunk=true;
+    wave_type=RDWaveFile::Atx;	
+    break;
 
-      case RDWaveFile::Tmc:
-	format_tag=WAVE_FORMAT_MPEG;
-	atx_offset=4;
-	if(!GetMpegHeader(wave_file.handle(),atx_offset)) {
-	  wave_file.close();
-	  return false;
-	}
-	lseek(wave_file.handle(),0,SEEK_SET);
-	read(wave_file.handle(),tmc_buffer,4);
-	data_length=(0xFF&tmc_buffer[0])+(0xFF&tmc_buffer[1])*256+
-	  (0xFF&tmc_buffer[2])*65536+(0xFF&tmc_buffer[3])*16777216;
-	data_start=atx_offset;
-	sample_length=1152*(data_length/mpeg_frame_size);
-	ext_time_length=
-	  (unsigned)(1000.0*(double)sample_length/(double)samples_per_sec);
-	time_length=ext_time_length/1000;
-	data_chunk=true;
-	lseek(wave_file.handle(),data_start,SEEK_SET);
-	format_chunk=true;
-	wave_type=RDWaveFile::Tmc;
-	ReadTmcMetadata(wave_file.handle());
-	break;
+  case RDWaveFile::Tmc:
+    format_tag=WAVE_FORMAT_MPEG;
+    atx_offset=4;
+    if(!GetMpegHeader(wave_file.handle(),atx_offset)) {
+      wave_file.close();
+      return false;
+    }
+    lseek(wave_file.handle(),0,SEEK_SET);
+    read(wave_file.handle(),tmc_buffer,4);
+    data_length=(0xFF&tmc_buffer[0])+(0xFF&tmc_buffer[1])*256+
+      (0xFF&tmc_buffer[2])*65536+(0xFF&tmc_buffer[3])*16777216;
+    data_start=atx_offset;
+    sample_length=1152*(data_length/mpeg_frame_size);
+    ext_time_length=
+      (unsigned)(1000.0*(double)sample_length/(double)samples_per_sec);
+    time_length=ext_time_length/1000;
+    data_chunk=true;
+    lseek(wave_file.handle(),data_start,SEEK_SET);
+    format_chunk=true;
+    wave_type=RDWaveFile::Tmc;
+    ReadTmcMetadata(wave_file.handle());
+    break;
 #ifdef HAVE_FLAC
-      case RDWaveFile::Flac:
-	format_tag=WAVE_FORMAT_FLAC;
-	if(!GetFlacStreamInfo()) {
-	  wave_file.close();
-	  return false;
-	}
-	wave_type=RDWaveFile::Flac;
-	format_chunk=true;
-	if(wave_data!=NULL) {
-	  ReadId3Metadata();
-	  ReadFlacMetadata();
-	}
-	break;
+  case RDWaveFile::Flac:
+    format_tag=WAVE_FORMAT_FLAC;
+    if(!GetFlacStreamInfo()) {
+      wave_file.close();
+      return false;
+    }
+    wave_type=RDWaveFile::Flac;
+    format_chunk=true;
+    if(wave_data!=NULL) {
+      ReadId3Metadata();
+      ReadFlacMetadata();
+    }
+    break;
 #endif  // HAVE_FLAC
 
-      default:
-	close(wave_file.handle());
-	return false;
-	break;
+  default:
+    close(wave_file.handle());
+    return false;
+    break;
   }
   lseek(wave_file.handle(),data_start,SEEK_SET);
   ValidateMetadata();
@@ -1980,6 +1994,9 @@ RDWaveFile::Type RDWaveFile::GetType(int fd)
   if(IsWav(fd)) {
     return RDWaveFile::Wave;
   }
+  if(IsAiff(fd)) {
+    return RDWaveFile::Aiff;
+  }
   if(IsFlac(fd)) {
     return RDWaveFile::Flac;
   }
@@ -2149,10 +2166,45 @@ bool RDWaveFile::IsFlac(int fd)
 }
 
 
-off_t RDWaveFile::FindChunk(int fd,char *chunk_name,unsigned *chunk_size)
+bool RDWaveFile::IsAiff(int fd)
 {
   int i;
-//  off_t oOffset;
+  char buffer[5];
+  
+  lseek(fd,0,SEEK_SET);
+  i=read(fd,buffer,4);
+  if(i==4) {
+    buffer[4]=0;
+    if(strcmp("FORM",buffer)!=0) {
+      return false;
+    }
+  }
+  else {
+    return false;
+  }
+
+  if(lseek(fd,8,SEEK_SET)!=8) {
+    return false;
+  }
+  i=read(fd,buffer,4);
+  if(i==4) {
+    buffer[4]=0;
+    if(strcmp("AIFF",buffer)!=0) {
+      return false;
+    }
+  }
+  else {
+    return false;
+  }
+
+  return true;
+}
+
+
+off_t RDWaveFile::FindChunk(int fd,char *chunk_name,unsigned *chunk_size,
+			    bool big_end)
+{
+  int i;
   char name[5]={0,0,0,0,0};
   unsigned char buffer[4];
   off_t offset;
@@ -2160,7 +2212,14 @@ off_t RDWaveFile::FindChunk(int fd,char *chunk_name,unsigned *chunk_size)
   offset=lseek(fd,12,SEEK_SET);
   i=read(fd,name,4);
   i=read(fd,buffer,4);
-  *chunk_size=buffer[0]+(256*buffer[1])+(65536*buffer[2])+(16777216*buffer[3]);
+  if(big_end) {
+    *chunk_size=
+      buffer[3]+(256*buffer[2])+(65536*buffer[1])+(16777216*buffer[0]);
+  }
+  else {
+    *chunk_size=
+      buffer[0]+(256*buffer[1])+(65536*buffer[2])+(16777216*buffer[3]);
+  }
   while(i==4) {
     if(strcasecmp(chunk_name,name)==0) {
       return lseek(fd,0,SEEK_CUR);
@@ -2168,35 +2227,51 @@ off_t RDWaveFile::FindChunk(int fd,char *chunk_name,unsigned *chunk_size)
     lseek(fd,*chunk_size,SEEK_CUR);
     i=read(fd,name,4);
     i=read(fd,buffer,4);
-    *chunk_size=buffer[0]+(256*buffer[1])+(65536*buffer[2])+
-      (16777216*buffer[3]);
+    if(big_end) {
+      *chunk_size=buffer[3]+(256*buffer[2])+(65536*buffer[1])+
+	(16777216*buffer[0]);
+    }
+    else {
+      *chunk_size=buffer[0]+(256*buffer[1])+(65536*buffer[2])+
+	(16777216*buffer[3]);
+    }
   }
   return -1;
 }
 
 
 bool RDWaveFile::GetChunk(int fd,char *chunk_name,unsigned *chunk_size,
-			 unsigned char *chunk,size_t size)
+			  unsigned char *chunk,size_t size,bool big_end)
 {
-  if(FindChunk(fd,chunk_name,chunk_size)<0) {
+  off_t pos;
+  if((pos=FindChunk(fd,chunk_name,chunk_size,big_end))<0) {
     return false;
   }
+  lseek(fd,SEEK_SET,pos);
   read(fd,chunk,size);
   return true;
 }
 
 
-void RDWaveFile::WriteChunk(int fd,char *cname,unsigned char *buf,unsigned size)
+void RDWaveFile::WriteChunk(int fd,char *cname,unsigned char *buf,unsigned size,
+			    bool big_end)
 {
   unsigned char size_buf[4];
   unsigned csize;
 
   if(FindChunk(fd,cname,&csize)<0) {
-    size_buf[0]=size&0xff;
-    size_buf[1]=(size>>8)&0xff;
-    size_buf[2]=(size>>16)&0xff;
-    size_buf[3]=(size>>24)&0xff;
-    
+    if(big_end) {
+      size_buf[3]=size&0xff;
+      size_buf[2]=(size>>8)&0xff;
+      size_buf[1]=(size>>16)&0xff;
+      size_buf[0]=(size>>24)&0xff;
+    }
+    else {
+      size_buf[0]=size&0xff;
+      size_buf[1]=(size>>8)&0xff;
+      size_buf[2]=(size>>16)&0xff;
+      size_buf[3]=(size>>24)&0xff;
+    }
     lseek(fd,0,SEEK_END);
     write(fd,cname,4);
     write(fd,size_buf,4);
@@ -2622,8 +2697,6 @@ bool RDWaveFile::GetAv10(int fd)
   // The 'av10' chunk is used by BE AudioVault systems for metadata storage
   //
   unsigned chunk_size;
-  char temp[512];
-  unsigned ptr=1;
   QString str;
   int n;
   int pos;
@@ -2782,6 +2855,32 @@ bool RDWaveFile::GetAir1(int fd)
     wave_data->setMetadataFound(true);
   }
   AIR1_chunk=true;
+  return true;
+}
+
+
+bool RDWaveFile::GetComm(int fd)
+{
+  unsigned chunk_size;
+  float samprate;
+
+  /*
+   * Load the chunk
+   */
+  if(!GetChunk(fd,"COMM",&chunk_size,comm_chunk_data,COMM_CHUNK_SIZE,true)) {
+    comm_chunk=false;
+    return false;
+  }
+  comm_chunk=true;
+
+
+  format_tag=WAVE_FORMAT_PCM;   // We support only PCM AIFFs at the moment
+  channels=comm_chunk_data[1]+256*fmt_chunk_data[0];
+  sample_length=comm_chunk_data[5]+256*comm_chunk_data[4]+
+    65536*comm_chunk_data[3]+16777216*comm_chunk_data[2];
+  bits_per_sample=comm_chunk_data[6]+256*comm_chunk_data[7];
+  samples_per_sec=256*(0xFF&comm_chunk_data[10])+(0xFF&comm_chunk_data[11]);
+
   return true;
 }
 

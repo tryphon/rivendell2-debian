@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cart.h,v 1.30 2012/02/13 20:54:27 cvs Exp $
+//      $Id: edit_cart.h,v 1.30.2.2 2014/01/13 23:02:42 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -49,7 +49,7 @@ class EditCart : public QDialog
 {
   Q_OBJECT
  public:
-  EditCart(unsigned number,QString *path,bool new_cart,
+  EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
 	   QWidget *parent=0,const char *name=0,QListView *lib_cart_list=NULL);
   ~EditCart();
   QSize sizeHint() const;
@@ -79,9 +79,8 @@ class EditCart : public QDialog
   QComboBox *rdcart_group_box;
   QLineEdit *rdcart_group_edit;
   AudioControls rdcart_controls;
-  //  QComboBox *rdcart_cut_sched_box;
-  //  QLineEdit *rdcart_cut_sched_edit;
   QCheckBox *rdcart_syncronous_box;
+  QCheckBox *rdcart_use_event_length_box;
   QLabel *rdcart_syncronous_label;
   QLineEdit *rdcart_start_date_edit;
   QLineEdit *rdcart_end_date_edit;
@@ -102,6 +101,7 @@ class EditCart : public QDialog
   QString sched_codes;
   QString add_codes;
   QString remove_codes;
+  bool rdcart_profile_rip;
 };
 
 #endif

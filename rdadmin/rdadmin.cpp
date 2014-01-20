@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadmin.cpp,v 1.72.4.4 2013/11/13 23:36:34 cvs Exp $
+//      $Id: rdadmin.cpp,v 1.72.4.5 2014/01/08 02:08:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -26,7 +26,9 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
+
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qmessagebox.h>
@@ -548,6 +550,7 @@ void MainWidget::ClearTables()
 int gui_main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
 
   //
   // Load Translations

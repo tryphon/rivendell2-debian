@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.h,v 1.8.2.10 2013/12/30 17:07:08 cvs Exp $
+//      $Id: rdcartslot.h,v 1.8.2.11 2014/01/07 23:23:17 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -49,6 +49,7 @@
 #include <rdslotoptions.h>
 #include <rdcueeditdialog.h>
 #include <rdlistsvcs.h>
+#include <rdairplay_conf.h>
 
 class RDCartSlot : public QWidget
 {
@@ -57,7 +58,7 @@ class RDCartSlot : public QWidget
   RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
 	     RDConfig *config,RDListSvcs *svcs_dialog,RDSlotDialog *slot_dialog,
 	     RDCartDialog *cart_dialog,RDCueEditDialog *cue_dialog,
-	     const QString &caption,QWidget *parent=0);
+	     const QString &caption,RDAirPlayConf *conf,QWidget *parent=0);
   ~RDCartSlot();
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
@@ -128,6 +129,7 @@ class RDCartSlot : public QWidget
   int slot_breakaway_length;
   bool slot_timescaling_active;
   bool slot_temp_cart;
+  RDAirPlayConf *slot_airplay_conf;
 };
 
 #endif  // RDCARTSLOT_H

@@ -31,6 +31,7 @@ COMMENT              char(255)
 LABEL                char(64)
 ORIGIN_USER          char(255)          From USERS.LOGIN_NAME
 ORIGIN_DATETIME      datetime
+EVENT_LENGTH         int(11)            Length of parent RDLogManager event
 LINK_EVENT_NAME      char(64)
 LINK_START_TIME      int(11)            Milliseconds after 00:00:00
 LINK_LENGTH          int(11)

@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: button_log.h,v 1.17.6.1 2013/12/28 00:00:33 cvs Exp $
+//      $Id: button_log.h,v 1.17.6.2 2014/01/07 18:18:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -52,7 +52,7 @@ class ButtonLog : public QWidget
 {
  Q_OBJECT
  public:
-  ButtonLog(LogPlay *log,int id,bool allow_pause=false,
+  ButtonLog(LogPlay *log,int id,RDAirPlayConf *conf,bool allow_pause=false,
 	    QWidget *parent=0,const char *name=0);
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;

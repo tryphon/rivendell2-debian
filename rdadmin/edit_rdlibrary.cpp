@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdlibrary.cpp,v 1.33 2010/09/13 15:37:12 cvs Exp $
+//      $Id: edit_rdlibrary.cpp,v 1.33.6.1 2014/01/09 01:03:55 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -248,7 +248,7 @@ EditRDLibrary::EditRDLibrary(RDStation *station,RDStation *cae_station,
   // Sample Rate Converter
   //
   lib_converter_box=new QComboBox(this,"lib_converter_box");
-  lib_converter_box->setGeometry(160,328,sizeHint().width()-170,19);
+  lib_converter_box->setGeometry(160,352,sizeHint().width()-170,19);
   int conv=0;
   while(src_get_name(conv)!=NULL) {
     lib_converter_box->insertItem(src_get_name(conv++));
@@ -256,14 +256,27 @@ EditRDLibrary::EditRDLibrary(RDStation *station,RDStation *cae_station,
   QLabel *lib_converter_label=new QLabel(lib_converter_box,
 					 tr("Sample Rate Converter:"),this,
 					 "lib_converter_label");
-  lib_converter_label->setGeometry(10,328,145,19);
+  lib_converter_label->setGeometry(10,352,145,19);
   lib_converter_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+
+  //
+  // Limit Searches at Startup
+  //
+  lib_limit_search_box=new QComboBox(this);
+  lib_limit_search_box->setGeometry(160,376,80,19);
+  lib_limit_search_box->insertItem(tr("No"));
+  lib_limit_search_box->insertItem(tr("Yes"));
+  lib_limit_search_box->insertItem(tr("Previous"));
+  QLabel *lib_limit_search_label=
+    new QLabel(lib_limit_search_box,tr("Limit Searches at Startup")+":",this);
+  lib_limit_search_label->setGeometry(10,376,145,19);
+  lib_limit_search_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
   // Defaults
   //
   QLabel *default_label=new QLabel(tr("Defaults"),this,"default_label");
-  default_label->setGeometry(25,367,120,19);
+  default_label->setGeometry(25,415,120,19);
   default_label->setFont(big_font);
   default_label->setAlignment(AlignRight|ShowPrefix);
 
@@ -271,30 +284,30 @@ EditRDLibrary::EditRDLibrary(RDStation *station,RDStation *cae_station,
   // Default Channels
   //
   lib_channels_box=new QComboBox(this,"lib_channels_box");
-  lib_channels_box->setGeometry(160,386,60,19);
+  lib_channels_box->setGeometry(160,434,60,19);
   QLabel *lib_channels_label=new QLabel(lib_channels_box,tr("&Channels:"),this,
 				       "lib_channels_label");
-  lib_channels_label->setGeometry(25,386,130,19);
+  lib_channels_label->setGeometry(25,434,130,19);
   lib_channels_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
   // Default Record Mode
   //
   lib_recmode_box=new QComboBox(this,"lib_recmode_box");
-  lib_recmode_box->setGeometry(160,408,100,19);
+  lib_recmode_box->setGeometry(160,456,100,19);
   QLabel *lib_recmode_label=new QLabel(lib_recmode_box,tr("Record Mode:"),this,
 				       "lib_recmode_label");
-  lib_recmode_label->setGeometry(25,408,130,19);
+  lib_recmode_label->setGeometry(25,456,130,19);
   lib_recmode_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
   // Default Trim State
   //
   lib_trimstate_box=new QComboBox(this,"lib_trimstate_box");
-  lib_trimstate_box->setGeometry(160,432,100,19);
+  lib_trimstate_box->setGeometry(160,480,100,19);
   QLabel *lib_trimstate_label=new QLabel(lib_trimstate_box,tr("AutoTrim:"),
 					 this,"lib_trimstate_label");
-  lib_trimstate_label->setGeometry(25,432,130,19);
+  lib_trimstate_label->setGeometry(25,480,130,19);
   lib_trimstate_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
@@ -377,6 +390,7 @@ EditRDLibrary::EditRDLibrary(RDStation *station,RDStation *cae_station,
   lib_cddb_edit->setText(lib_lib->cddbServer());
   lib_editor_box->setCurrentItem(lib_lib->enableEditor());
   lib_converter_box->setCurrentItem(lib_lib->srcConverter());
+  lib_limit_search_box->setCurrentItem((int)lib_lib->limitSearch());
 }
 
 
@@ -393,7 +407,7 @@ EditRDLibrary::~EditRDLibrary()
 
 QSize EditRDLibrary::sizeHint() const
 {
-  return QSize(375,536);
+  return QSize(375,584);
 } 
 
 
@@ -452,6 +466,8 @@ void EditRDLibrary::okData()
   lib_lib->setCddbServer(lib_cddb_edit->text());
   lib_lib->setEnableEditor(lib_editor_box->currentItem());
   lib_lib->setSrcConverter(lib_converter_box->currentItem());
+  lib_lib->setLimitSearch((RDLibraryConf::SearchLimit)
+			  lib_limit_search_box->currentItem());
   done(0);
 }
 

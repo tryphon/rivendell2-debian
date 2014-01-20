@@ -1,6 +1,45 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.7.0 --  1/17/2014
+
+Changes:
+   Cart Label Customization.  It is now possible to customize the fields
+   displayed in the Button Log widgets in RDAirPlay and RDCartSlots by
+   means of templates defined in the 'Display Settings' section of
+   RDAdmin->ManageHosts->RDAirPlay.
+
+   RLM API Extensions.  Added support for 'Outcue' and 'Description' fields
+   to the RLM API.
+
+   'Limit Searches' Configuration.  Added the ability to specify the
+   state of the 'Show Only First 100 Matches' checkbox in RDLibrary at
+   module startup.
+
+   Log Description Template.  Added the ability to generate custom log
+   descriptions by means of a template specified in RDAdmin->ManageServices.
+
+   CD Ripper Optimizations.  Optimized CD ripping to work faster and
+   more reliably.
+
+   Updated Spanish [es] Translation.  Provided by Luigino Bracci
+   <lbracci@gamil.com>.
+
+   Import Format Support.  Added support for AIFF audio file imports.
+
+   RDMarkerSet Utility.  Added an rdmarkerset(8) command-line utility
+   to allow Start/End Library markers to be modified on a bulk basis.
+
+   Various bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 231, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.6.2 --  1/03/2014
 
 Changes:

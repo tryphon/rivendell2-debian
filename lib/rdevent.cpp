@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdevent.cpp,v 1.14 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdevent.cpp,v 1.14.8.1 2014/01/13 18:36:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -284,6 +284,22 @@ QString RDEvent::remarks() const
 void RDEvent::setRemarks(const QString &str) const
 {
   SetRow("REMARKS",str,true);
+}
+
+
+QString RDEvent::preimportTableName(const QString event_name)
+{
+  QString ret=event_name;
+  ret.replace(" ","_");
+  return ret+"_PRE";
+}
+
+
+QString RDEvent::postimportTableName(const QString event_name)
+{
+  QString ret=event_name;
+  ret.replace(" ","_");
+  return ret+"_POST";
 }
 
 

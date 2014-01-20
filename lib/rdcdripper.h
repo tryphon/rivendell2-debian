@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcdripper.h,v 1.2.8.2 2013/07/03 19:16:25 cvs Exp $
+//      $Id: rdcdripper.h,v 1.2.8.3 2014/01/10 02:25:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,7 @@
 #define RDCDRIPPER_H
 
 #include <sndfile.h>
+#include <stdio.h>
 #include <qobject.h>
 #include <unistd.h>
 
@@ -34,7 +35,7 @@ class RDCdRipper : public QObject
   enum ErrorCode {ErrorOk=0,ErrorNoDevice=1,ErrorNoDestination=2,
 		  ErrorInternal=3,ErrorNoDisc=4,ErrorNoTrack=5,
 		  ErrorAborted=6};
-  RDCdRipper(QObject *parent=0,const char *name=0);
+  RDCdRipper(FILE *profile_msgs,QObject *parent=0);
   ~RDCdRipper();
   void setDevice(const QString &device);
   void setDestinationFile(const QString &filename);
@@ -50,9 +51,11 @@ class RDCdRipper : public QObject
   void progressChanged(int step);
 
  private:
+  void Profile(const QString &msg);
   QString conv_device;
   QString conv_dst_filename;
   bool conv_aborting;
+  FILE *conv_profile_msgs;
 };
 
 

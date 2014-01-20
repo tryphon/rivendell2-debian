@@ -2529,6 +2529,22 @@ nastaveném pro běh služby CAE pro naplnění databáze se zdroji zvuku.</tran
 GPIOs</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Title Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Artist Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outcue Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditRDLibrary</name>
@@ -2746,6 +2762,14 @@ configured to run the CAE service in order to populate the audio resources datab
 ještě nebyla vytvořena. Spusťte, prosím, démony Rivendell na serveru
 nastaveném pro běh služby CAE pro naplnění databáze se zdroji zvuku.</translation>
     </message>
+    <message>
+        <source>Limit Searches at Startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous</source>
+        <translation type="unfinished">Předchozí</translation>
+    </message>
 </context>
 <context>
     <name>EditRDLogedit</name>
@@ -2920,6 +2944,18 @@ nastaveném pro běh služby CAE pro naplnění databáze se zdroji zvuku.</tran
     <message>
         <source>320 kbps/chan</source>
         <translation>320 kB/s/kanál</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Ne</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Ano</translation>
+    </message>
+    <message>
+        <source>Enable &amp;2nd Start Button:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3562,7 +3598,7 @@ nastaveném pro běh služby CAE pro naplnění databáze se zdroji zvuku.</tran
     </message>
     <message>
         <source>Log &amp;Template Name:</source>
-        <translation>Název &amp;předlohy zápisu:</translation>
+        <translation type="obsolete">Název &amp;předlohy zápisu:</translation>
     </message>
     <message>
         <source>[none]</source>
@@ -3734,6 +3770,14 @@ uloženo. Uložit nyní?</translation>
     </message>
     <message>
         <source>AutoSpot Group:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log Name &amp;Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log &amp;Description Template:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4105,7 +4149,11 @@ GNU Library General Public License. Klepněte na tlačítko pro zobrazení povol
     </message>
     <message>
         <source>Copyright 2002-2010</source>
-        <translation>Autorské právo 2002-2010</translation>
+        <translation type="obsolete">Autorské právo 2002-2010</translation>
+    </message>
+    <message>
+        <source>Copyright 2002-2014</source>
+        <translation type="unfinished">Autorské právo 2002-2014</translation>
     </message>
 </context>
 <context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdlogedit.cpp,v 1.18.6.1 2012/11/26 20:19:38 cvs Exp $
+//      $Id: edit_rdlogedit.cpp,v 1.18.6.2 2014/01/08 18:14:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -177,6 +177,18 @@ EditRDLogedit::EditRDLogedit(RDStation *station,RDStation *cae_station,
   lib_bitrate_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
+  // Enable Second Start Button
+  //
+  lib_enable_second_start_box=new QComboBox(this);
+  lib_enable_second_start_box->setGeometry(160,244,60,19);
+  lib_enable_second_start_box->insertItem(tr("No"));
+  lib_enable_second_start_box->insertItem(tr("Yes"));
+  QLabel *lib_enable_second_start_label=
+   new QLabel(lib_enable_second_start_box,tr("Enable &2nd Start Button:"),this);
+  lib_enable_second_start_label->setGeometry(10,244,145,19);
+  lib_enable_second_start_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+
+  //
   // Validator
   //
   QIntValidator *validator=new QIntValidator(this,"validator");
@@ -186,15 +198,15 @@ EditRDLogedit::EditRDLogedit(RDStation *station,RDStation *cae_station,
   // Play Start Cart
   //
   lib_startcart_edit=new QLineEdit(this,"lib_name_edit");
-  lib_startcart_edit->setGeometry(160,244,70,19);
+  lib_startcart_edit->setGeometry(160,268,70,19);
   lib_startcart_edit->setValidator(validator);
   QLabel *lib_startcart_label=
     new QLabel(lib_startcart_edit,tr("Play &Start Cart:"),this,
 	       "lib_startcart_label");
-  lib_startcart_label->setGeometry(25,244,130,19);
+  lib_startcart_label->setGeometry(25,268,130,19);
   lib_startcart_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
   QPushButton *button=new QPushButton(this,"start_select_button");
-  button->setGeometry(240,242,55,23);
+  button->setGeometry(240,266,55,23);
   button->setText(tr("Select"));
   connect(button,SIGNAL(clicked()),this,SLOT(selectStartData()));
 
@@ -202,15 +214,15 @@ EditRDLogedit::EditRDLogedit(RDStation *station,RDStation *cae_station,
   // Play End Cart
   //
   lib_endcart_edit=new QLineEdit(this,"lib_name_edit");
-  lib_endcart_edit->setGeometry(160,268,70,19);
+  lib_endcart_edit->setGeometry(160,292,70,19);
   lib_endcart_edit->setValidator(validator);
   QLabel *lib_endcart_label=
     new QLabel(lib_endcart_edit,tr("Play &End Cart:"),this,
 	       "lib_endcart_label");
-  lib_endcart_label->setGeometry(25,268,130,19);
+  lib_endcart_label->setGeometry(25,292,130,19);
   lib_endcart_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
   button=new QPushButton(this,"end_select_button");
-  button->setGeometry(240,266,55,23);
+  button->setGeometry(240,290,55,23);
   button->setText(tr("Select"));
   connect(button,SIGNAL(clicked()),this,SLOT(selectEndData()));
 
@@ -218,15 +230,15 @@ EditRDLogedit::EditRDLogedit(RDStation *station,RDStation *cae_station,
   // Record Start Cart
   //
   lib_recstartcart_edit=new QLineEdit(this,"lib_name_edit");
-  lib_recstartcart_edit->setGeometry(160,292,70,19);
+  lib_recstartcart_edit->setGeometry(160,316,70,19);
   lib_recstartcart_edit->setValidator(validator);
   QLabel *lib_recstartcart_label=
     new QLabel(lib_recstartcart_edit,tr("&Record Start Cart:"),this,
 	       "lib_recstartcart_label");
-  lib_recstartcart_label->setGeometry(25,292,130,19);
+  lib_recstartcart_label->setGeometry(25,316,130,19);
   lib_recstartcart_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
   button=new QPushButton(this,"start_select_button");
-  button->setGeometry(240,290,55,23);
+  button->setGeometry(240,314,55,23);
   button->setText(tr("Select"));
   connect(button,SIGNAL(clicked()),this,SLOT(selectRecordStartData()));
 
@@ -234,15 +246,15 @@ EditRDLogedit::EditRDLogedit(RDStation *station,RDStation *cae_station,
   // Record End Cart
   //
   lib_recendcart_edit=new QLineEdit(this,"lib_name_edit");
-  lib_recendcart_edit->setGeometry(160,316,70,19);
+  lib_recendcart_edit->setGeometry(160,340,70,19);
   lib_recendcart_edit->setValidator(validator);
   QLabel *lib_recendcart_label=
     new QLabel(lib_recendcart_edit,tr("Re&cord End Cart:"),this,
 	       "lib_recendcart_label");
-  lib_recendcart_label->setGeometry(25,316,130,19);
+  lib_recendcart_label->setGeometry(25,340,130,19);
   lib_recendcart_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
   button=new QPushButton(this,"end_select_button");
-  button->setGeometry(240,314,55,23);
+  button->setGeometry(240,338,55,23);
   button->setText(tr("Select"));
   connect(button,SIGNAL(clicked()),this,SLOT(selectRecordEndData()));
 
@@ -250,21 +262,21 @@ EditRDLogedit::EditRDLogedit(RDStation *station,RDStation *cae_station,
   // Default Channels
   //
   lib_channels_box=new QComboBox(this,"lib_name_edit");
-  lib_channels_box->setGeometry(160,340,60,19);
+  lib_channels_box->setGeometry(160,364,60,19);
   QLabel *lib_channels_label=new QLabel(lib_channels_box,tr("&Channels:"),this,
 				       "lib_channels_label");
-  lib_channels_label->setGeometry(25,340,130,19);
+  lib_channels_label->setGeometry(25,364,130,19);
   lib_channels_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
   // Default Transition Type
   //
   lib_default_transtype_box=new QComboBox(this,"lib_name_edit");
-  lib_default_transtype_box->setGeometry(160,364,100,19);
+  lib_default_transtype_box->setGeometry(160,388,100,19);
   QLabel *lib_default_transtype_label=
     new QLabel(lib_default_transtype_box,tr("Default Transition:"),
 	       this,"lib_default_transtype_label");
-  lib_default_transtype_label->setGeometry(20,364,130,19);
+  lib_default_transtype_label->setGeometry(20,388,130,19);
   lib_default_transtype_label->
     setAlignment(AlignRight|AlignVCenter|ShowPrefix);
   lib_default_transtype_box->insertItem(tr("Play"));
@@ -337,6 +349,7 @@ EditRDLogedit::EditRDLogedit(RDStation *station,RDStation *cae_station,
   lib_channels_box->insertItem("2");
   lib_channels_box->setCurrentItem(lib_lib->defaultChannels()-1);
   ShowBitRates(lib_lib->format(),lib_lib->bitrate());
+  lib_enable_second_start_box->setCurrentItem(lib_lib->enableSecondStart());
   lib_default_transtype_box->setCurrentItem(lib_lib->defaultTransType());
 }
 
@@ -354,7 +367,7 @@ EditRDLogedit::~EditRDLogedit()
 
 QSize EditRDLogedit::sizeHint() const
 {
-  return QSize(375,454);
+  return QSize(375,478);
 } 
 
 
@@ -454,6 +467,7 @@ void EditRDLogedit::okData()
     sscanf(lib_bitrate_box->currentText(),"%d",&rate);
   }
   lib_lib->setBitrate(rate*1000);
+  lib_lib->setEnableSecondStart(lib_enable_second_start_box->currentItem());
   lib_lib->setDefaultTransType(
     (RDLogLine::TransType)lib_default_transtype_box->currentItem());
   done(0);

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_clocks.cpp,v 1.28.8.1 2012/04/23 17:22:47 cvs Exp $
+//      $Id: list_clocks.cpp,v 1.28.8.2 2014/01/10 19:32:54 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -53,9 +53,7 @@ ListClocks::ListClocks(QString *clockname,QWidget *parent,const char *name)
   // Fix the Window Size
   //
   setMinimumWidth(sizeHint().width());
-  setMaximumWidth(sizeHint().width());
   setMinimumHeight(sizeHint().height());
-  setMaximumHeight(sizeHint().height());
 
   //
   // Create Fonts
@@ -69,12 +67,9 @@ ListClocks::ListClocks(QString *clockname,QWidget *parent,const char *name)
   // Event Filter
   //
   edit_filter_box=new QComboBox(this,"edit_filter_box");
-  edit_filter_box->setGeometry(65,10,sizeHint().width()-75,20);
-  QLabel *label=new QLabel(edit_filter_box,tr("Filter:"),
-			   this,"edit_filter_label");
-  label->setGeometry(10,10,50,20);
-  label->setFont(bold_font);
-  label->setAlignment(AlignRight|AlignVCenter);
+  edit_filter_label=new QLabel(edit_filter_box,tr("Filter:"),this);
+  edit_filter_label->setFont(bold_font);
+  edit_filter_label->setAlignment(AlignRight|AlignVCenter);
   connect(edit_filter_box,SIGNAL(activated(int)),
 	  this,SLOT(filterActivatedData(int)));
 
@@ -82,8 +77,6 @@ ListClocks::ListClocks(QString *clockname,QWidget *parent,const char *name)
   // Clocks List
   //
   edit_clocks_list=new QListView(this,"edit_clocks_list");
-  edit_clocks_list->setGeometry(10,45,
-				sizeHint().width()-20,sizeHint().height()-115);
   edit_clocks_list->setAllColumnsShowFocus(true);
   edit_clocks_list->setItemMargin(5);
   edit_clocks_list->addColumn(tr("Name"));
@@ -94,81 +87,83 @@ ListClocks::ListClocks(QString *clockname,QWidget *parent,const char *name)
 	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
 	  this,SLOT(doubleClickedData(QListViewItem *,const QPoint &,int)));
 
+  //
+  //  Add Button
+  //
+  edit_add_button=new QPushButton(this);
+  edit_add_button->setFont(bold_font);
+  edit_add_button->setText(tr("&Add"));
+  connect(edit_add_button,SIGNAL(clicked()),this,SLOT(addData()));
+    
+  //
+  //  Edit Button
+  //
+  edit_edit_button=new QPushButton(this);
+  edit_edit_button->setFont(bold_font);
+  edit_edit_button->setText(tr("&Edit"));
+  connect(edit_edit_button,SIGNAL(clicked()),this,SLOT(editData()));
+    
+  //
+  //  Delete Button
+  //
+  edit_delete_button=new QPushButton(this);
+  edit_delete_button->setFont(bold_font);
+  edit_delete_button->setText(tr("&Delete"));
+  connect(edit_delete_button,SIGNAL(clicked()),this,SLOT(deleteData()));
+    
+  //
+  //  Rename Button
+  //
+  edit_rename_button=new QPushButton(this);
+  edit_rename_button->setFont(bold_font);
+  edit_rename_button->setText(tr("&Rename"));
+  connect(edit_rename_button,SIGNAL(clicked()),this,SLOT(renameData()));
+    
+  //
+  //  Close Button
+  //
+  edit_close_button=new QPushButton(this);
+  edit_close_button->setFont(bold_font);
+  edit_close_button->setText(tr("C&lose"));
+  connect(edit_close_button,SIGNAL(clicked()),this,SLOT(closeData()));
+
+  //
+  //  Clear Button
+  //
+  edit_clear_button=new QPushButton(this);
+  edit_clear_button->setFont(bold_font);
+  edit_clear_button->setText(tr("C&lear"));
+  connect(edit_clear_button,SIGNAL(clicked()),this,SLOT(clearData()));
+
+  //
+  //  OK Button
+  //
+  edit_ok_button=new QPushButton(this);
+  edit_ok_button->setFont(bold_font);
+  edit_ok_button->setText(tr("&OK"));
+  connect(edit_ok_button,SIGNAL(clicked()),this,SLOT(okData()));
+
+  //
+  //  Cancel Button
+  //
+  edit_cancel_button=new QPushButton(this);
+  edit_cancel_button->setFont(bold_font);
+  edit_cancel_button->setText(tr("&Cancel"));
+  connect(edit_cancel_button,SIGNAL(clicked()),this,SLOT(cancelData()));
+
   if(edit_clockname==NULL) {
-    //
-    //  Add Button
-    //
-    QPushButton *button=new QPushButton(this,"add_button");
-    button->setGeometry(10,sizeHint().height()-60,80,50);
-    button->setFont(bold_font);
-    button->setText(tr("&Add"));
-    connect(button,SIGNAL(clicked()),this,SLOT(addData()));
-    
-    //
-    //  Edit Button
-    //
-    button=new QPushButton(this,"edit_button");
-    button->setGeometry(100,sizeHint().height()-60,80,50);
-    button->setFont(bold_font);
-    button->setText(tr("&Edit"));
-    connect(button,SIGNAL(clicked()),this,SLOT(editData()));
-    
-    //
-    //  Delete Button
-    //
-    button=new QPushButton(this,"delete_button");
-    button->setGeometry(190,sizeHint().height()-60,80,50);
-    button->setFont(bold_font);
-    button->setText(tr("&Delete"));
-    connect(button,SIGNAL(clicked()),this,SLOT(deleteData()));
-    
-    //
-    //  Rename Button
-    //
-    button=new QPushButton(this,"rename_button");
-    button->setGeometry(310,sizeHint().height()-60,80,50);
-    button->setFont(bold_font);
-    button->setText(tr("&Rename"));
-    connect(button,SIGNAL(clicked()),this,SLOT(renameData()));
-    
-    //
-    //  Close Button
-    //
-    button=new QPushButton(this,"close_button");
-    button->setGeometry(sizeHint().width()-90,sizeHint().height()-60,80,50);
-    button->setDefault(true);
-    button->setFont(bold_font);
-    button->setText(tr("C&lose"));
-    connect(button,SIGNAL(clicked()),this,SLOT(closeData()));
+    edit_close_button->setDefault(true);
+    edit_clear_button->hide();
+    edit_ok_button->hide();
+    edit_cancel_button->hide();
   }
   else {
-    //
-    //  Clear Button
-    //
-    QPushButton *button=new QPushButton(this,"clear_button");
-    button->setGeometry(10,sizeHint().height()-60,80,50);
-    button->setFont(bold_font);
-    button->setText(tr("C&lear"));
-    connect(button,SIGNAL(clicked()),this,SLOT(clearData()));
-
-    //
-    //  OK Button
-    //
-    button=new QPushButton(this,"ok_button");
-    button->setGeometry(sizeHint().width()-180,sizeHint().height()-60,80,50);
-    button->setDefault(true);
-    button->setFont(bold_font);
-    button->setText(tr("&OK"));
-    connect(button,SIGNAL(clicked()),this,SLOT(okData()));
-
-    //
-    //  Cancel Button
-    //
-    button=new QPushButton(this,"cancel_button");
-    button->setGeometry(sizeHint().width()-90,sizeHint().height()-60,80,50);
-    button->setFont(bold_font);
-    button->setText(tr("&Cancel"));
-    connect(button,SIGNAL(clicked()),this,SLOT(cancelData()));
+    edit_ok_button->setDefault(true);
+    edit_add_button->hide();
+    edit_edit_button->hide();
+    edit_delete_button->hide();
+    edit_rename_button->hide();
+    edit_close_button->hide();
   }
 
   //
@@ -487,6 +482,26 @@ void ListClocks::okData()
 void ListClocks::cancelData()
 {
   done(-1);
+}
+
+
+void ListClocks::resizeEvent(QResizeEvent *e)
+{
+  edit_filter_box->setGeometry(65,10,size().width()-75,20);
+  edit_filter_label->setGeometry(10,10,50,20);
+  edit_clocks_list->setGeometry(10,45,
+				size().width()-20,size().height()-115);
+  edit_add_button->setGeometry(10,size().height()-60,80,50);
+  edit_edit_button->setGeometry(100,size().height()-60,80,50);
+  edit_delete_button->setGeometry(190,size().height()-60,80,50);
+  edit_rename_button->setGeometry(310,size().height()-60,80,50);
+  edit_close_button->
+    setGeometry(size().width()-90,size().height()-60,80,50);
+  edit_clear_button->setGeometry(10,size().height()-60,80,50);
+  edit_ok_button->
+    setGeometry(size().width()-180,size().height()-60,80,50);
+  edit_cancel_button->
+    setGeometry(size().width()-90,size().height()-60,80,50);
 }
 
 

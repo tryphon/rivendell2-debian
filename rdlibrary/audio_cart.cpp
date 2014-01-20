@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.cpp,v 1.57.6.5 2013/12/26 22:03:49 cvs Exp $
+//      $Id: audio_cart.cpp,v 1.57.6.8 2014/01/10 18:52:24 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -56,7 +56,8 @@ bool import_active=false;
 
 
 AudioCart::AudioCart(AudioControls *controls,RDCart *cart,QString *path,
-		     bool select_cut,QWidget *parent,const char *name)
+		     bool select_cut,bool profile_rip,
+		     QWidget *parent,const char *name)
   : QWidget(parent,name)
 {
   rdcart_import_metadata=true;
@@ -64,6 +65,7 @@ AudioCart::AudioCart(AudioControls *controls,RDCart *cart,QString *path,
   rdcart_cart=cart;
   rdcart_import_path=path;
   rdcart_select_cut=select_cut;
+  rdcart_profile_rip=profile_rip;
   rdcart_modification_allowed=lib_user->editAudio()&&cart->owner().isEmpty();
 
   setCaption(QString().sprintf("%u",rdcart_cart->number())+" - "+
@@ -550,6 +552,8 @@ void AudioCart::ripCutData()
   int track;
   QString cutname;
   QString title;
+  QString artist;
+  QString album;
 
   RDListViewItem *item=NULL;
   std::vector<QString> cutnames;
@@ -558,19 +562,23 @@ void AudioCart::ripCutData()
   }
   cutname=item->text(11);
   RDCddbRecord *rec=new RDCddbRecord();
-  CdRipper *ripper=new CdRipper(cutname,rec,rdlibrary_conf);
-  if((track=ripper->exec(&title))>=0) {
+  CdRipper *ripper=new CdRipper(cutname,rec,rdlibrary_conf,rdcart_profile_rip);
+  if((track=ripper->exec(&title,&artist,&album))>=0) {
     if((rdcart_controls->title_edit->text().isEmpty()||
 	(rdcart_controls->title_edit->text()==tr("[new cart]")))&&
        (!title.isEmpty())) {
       rdcart_controls->title_edit->setText(title);
     }
+    rdcart_controls->artist_edit->setText(artist);
+    rdcart_controls->album_edit->setText(album);
+    /*
     if(rdcart_controls->artist_edit->text().isEmpty()) {
       rdcart_controls->artist_edit->setText(rec->discArtist());
     }
     if(rdcart_controls->album_edit->text().isEmpty()) {
       rdcart_controls->album_edit->setText(rec->discAlbum());
     }
+    */
     RDCut *cut=new RDCut(cutname);
     cut->setIsrc(rec->isrc(track));
     delete cut;
@@ -751,7 +759,7 @@ void AudioCart::RefreshList()
 	  err=true;
 	}
 	break;
-	
+
       case RDCart::AlwaysValid:
 	break;
       }

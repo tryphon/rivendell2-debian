@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel.cpp,v 1.27.4.5 2013/12/30 21:11:59 cvs Exp $
+//      $Id: rdpanel.cpp,v 1.27.4.6 2014/01/08 02:08:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -28,6 +28,7 @@
 
 #include <qmessagebox.h>
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qtranslator.h>
 #include <qtextcodec.h>
 #include <qpainter.h>
@@ -438,6 +439,7 @@ void MainWidget::SetCaption()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

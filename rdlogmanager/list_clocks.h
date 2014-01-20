@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_clocks.h,v 1.15.8.1 2012/04/23 17:22:47 cvs Exp $
+//      $Id: list_clocks.h,v 1.15.8.2 2014/01/10 19:32:54 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -58,6 +58,7 @@ class ListClocks : public QDialog
   void cancelData();
 
  protected:
+  void resizeEvent(QResizeEvent *e);
   void closeEvent(QCloseEvent *e);
 
  private:
@@ -71,7 +72,16 @@ class ListClocks : public QDialog
   QString GetNoneFilter();
   QListView *edit_clocks_list;
   QString *edit_clockname;
+  QLabel *edit_filter_label;
   QComboBox *edit_filter_box;
+  QPushButton *edit_add_button;
+  QPushButton *edit_edit_button;
+  QPushButton *edit_delete_button;
+  QPushButton *edit_rename_button;
+  QPushButton *edit_close_button;
+  QPushButton *edit_clear_button;
+  QPushButton *edit_ok_button;
+  QPushButton *edit_cancel_button;
 };
 
 

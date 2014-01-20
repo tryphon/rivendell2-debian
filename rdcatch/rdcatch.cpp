@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcatch.cpp,v 1.127.4.4 2013/11/13 23:36:35 cvs Exp $
+//      $Id: rdcatch.cpp,v 1.127.4.6 2014/01/08 02:08:37 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,7 @@
 #include <vector>
 
 #include <qapplication.h>
+#include <qwindowsstyle.h>
 #include <qwidget.h>
 #include <qpainter.h>
 #include <qsqlpropertymap.h>
@@ -306,7 +307,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
     catch_station_count++;
 
     sql=QString().sprintf("select CHANNEL,MON_PORT_NUMBER from DECKS \
-where (CARD_NUMBER!=-1)&&(CHANNEL>0)&&(STATION_NAME=\"%s\") \
+where (CARD_NUMBER!=-1)&&(PORT_NUMBER!=-1)&&(CHANNEL>0)&&(STATION_NAME=\"%s\") \
 order by CHANNEL",(const char *)q->value(0).toString().lower());
     q1=new RDSqlQuery(sql);
     while(q1->next()) {
@@ -2551,6 +2552,7 @@ void MainWidget::SaveGeometry()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
+  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

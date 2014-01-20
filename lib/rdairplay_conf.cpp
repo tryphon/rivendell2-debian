@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay_conf.cpp,v 1.35.8.4 2013/03/13 15:18:05 cvs Exp $
+//      $Id: rdairplay_conf.cpp,v 1.35.8.5 2014/01/07 18:18:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -466,6 +466,58 @@ bool RDAirPlayConf::hourSelectorEnabled() const
 void RDAirPlayConf::setHourSelectorEnabled(bool state) const
 {
   SetRow("HOUR_SELECTOR_ENABLED",RDYesNo(state));
+}
+
+
+QString RDAirPlayConf::titleTemplate() const
+{
+  return RDGetSqlValue(air_tablename,"ID",air_id,"TITLE_TEMPLATE").
+    toString();
+}
+
+
+void RDAirPlayConf::setTitleTemplate(const QString &str)
+{
+  SetRow("TITLE_TEMPLATE",str);
+}
+
+
+QString RDAirPlayConf::artistTemplate() const
+{
+  return RDGetSqlValue(air_tablename,"ID",air_id,"ARTIST_TEMPLATE").
+    toString();
+}
+
+
+void RDAirPlayConf::setArtistTemplate(const QString &str)
+{
+  SetRow("ARTIST_TEMPLATE",str);
+}
+
+
+QString RDAirPlayConf::outcueTemplate() const
+{
+  return RDGetSqlValue(air_tablename,"ID",air_id,"OUTCUE_TEMPLATE").
+    toString();
+}
+
+
+void RDAirPlayConf::setOutcueTemplate(const QString &str)
+{
+  SetRow("OUTCUE_TEMPLATE",str);
+}
+
+
+QString RDAirPlayConf::descriptionTemplate() const
+{
+  return RDGetSqlValue(air_tablename,"ID",air_id,"DESCRIPTION_TEMPLATE").
+    toString();
+}
+
+
+void RDAirPlayConf::setDescriptionTemplate(const QString &str)
+{
+  SetRow("DESCRIPTION_TEMPLATE",str);
 }
 
 

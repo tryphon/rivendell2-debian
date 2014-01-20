@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog.cpp,v 1.23.4.6 2013/11/13 23:36:33 cvs Exp $
+//      $Id: rdlog.cpp,v 1.23.4.7 2014/01/13 18:36:57 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -492,6 +492,14 @@ QString RDLog::xml() const
   delete q;
 #endif  // WIN32
   return ret;
+}
+
+
+QString RDLog::tableName(const QString &log_name)
+{
+  QString ret=log_name;
+  ret.replace(" ","_");
+  return ret+"_LOG";
 }
 
 

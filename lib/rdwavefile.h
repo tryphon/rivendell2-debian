@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavefile.h,v 1.10.6.1 2013/12/05 17:37:48 cvs Exp $
+//    $Id: rdwavefile.h,v 1.10.6.2 2014/01/15 19:56:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -79,6 +79,7 @@ using namespace std;
 #define SCOT_CHUNK_SIZE 424
 #define AV10_CHUNK_SIZE 512
 #define AIR1_CHUNK_SIZE 2048
+#define COMM_CHUNK_SIZE 18
 
 //
 // Maximum Header Size for ATX Files
@@ -114,7 +115,8 @@ class RDWaveFile
   enum Encoding {Raw=0,Signed16Int=1,Signed32Float=2};
   enum Format {Pcm8=0,Pcm16=1,Float32=2,MpegL1=3,MpegL2=4,MpegL3=5,
 	       DolbyAc2=6,DolbyAc3=7,Vorbis=8};
-  enum Type {Unknown=0,Wave=1,Mpeg=2,Ogg=3,Atx=4,Tmc=5,Flac=6,Ambos=7};
+  enum Type {Unknown=0,Wave=1,Mpeg=2,Ogg=3,Atx=4,Tmc=5,Flac=6,Ambos=7,
+	     Aiff=8};
   enum MpegID {NonMpeg=0,Mpeg1=1,Mpeg2=2};
 
   /**
@@ -1037,27 +1039,32 @@ class RDWaveFile
 
   private:
    RDWaveFile::Type GetType(int fd);
-   bool IsWav(int);
-   bool IsMpeg(int);
-   bool IsOgg(int);
-   bool IsAtx(int);
+   bool IsWav(int fd);
+   bool IsMpeg(int fd);
+   bool IsOgg(int fd);
+   bool IsAtx(int fd);
    bool IsTmc(int fd);
    bool IsFlac(int fd);
-   off_t FindChunk(int,char *,unsigned *);
-   bool GetChunk(int,char *,unsigned *,unsigned char *,size_t);
-   void WriteChunk(int,char *,unsigned char *,unsigned);
-   bool GetFmt(int);
-   bool GetFact(int);
-   bool GetCart(int);
-   bool GetBext(int);
-   bool GetMext(int);
-   bool GetLevl(int);
-   bool GetList(int);
-   bool GetScot(int);
-   bool GetAv10(int);
-   bool GetAir1(int);
+   bool IsAiff(int fd);
+   off_t FindChunk(int fd,char *chunk_name,unsigned *chunk_size,
+		   bool big_end=false);
+   bool GetChunk(int fd,char *chunk_name,unsigned *chunk_size,
+		 unsigned char *chunk,size_t size,bool big_end=false);
+   void WriteChunk(int fd,char *cname,unsigned char *buf,unsigned size,
+		   bool big_end=false);
+   bool GetFmt(int fd);
+   bool GetFact(int fd);
+   bool GetCart(int fd);
+   bool GetBext(int fd);
+   bool GetMext(int fd);
+   bool GetLevl(int fd);
+   bool GetList(int fd);
+   bool GetScot(int fd);
+   bool GetAv10(int fd);
+   bool GetAir1(int fd);
+   bool GetComm(int fd);
    bool ReadListElement(unsigned char *buffer,unsigned *offset,unsigned size);
-   bool ReadTmcMetadata(int);
+   bool ReadTmcMetadata(int fd);
    void ReadTmcTag(const QString tag,const QString value);
    bool GetLine(int fd,char *buffer,int max_len);
    void ReadId3Metadata();
@@ -1090,6 +1097,8 @@ class RDWaveFile
    unsigned time_length;           // Audio length in secs
    unsigned ext_time_length;       // Audio length in msec
    bool format_chunk;              // Does 'fmt ' chunk exist?
+   bool comm_chunk;                // Does 'COMM' chunk exist?
+   unsigned char comm_chunk_data[COMM_CHUNK_SIZE];
    unsigned short format_tag;      // Encoding Format
    unsigned short channels;        // Number of channels
    unsigned samples_per_sec;       // Samples/sec/channel

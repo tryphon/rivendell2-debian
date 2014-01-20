@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdnownext.h,v 1.3.8.1 2013/10/16 21:14:36 cvs Exp $
+//      $Id: rdnownext.h,v 1.3.8.2 2014/01/07 18:18:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,6 +27,7 @@
 #include "../rlm/rlm.h"
 
 void RDResolveNowNext(QString *str,RDLogLine **loglines,int encoding);
+QString RDResolveNowNext(const QString &pattern,RDLogLine *ll);
 
 
 #endif  // RDNOWNEXT_H

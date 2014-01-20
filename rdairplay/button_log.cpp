@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: button_log.cpp,v 1.46.6.1 2013/12/28 00:00:33 cvs Exp $
+//      $Id: button_log.cpp,v 1.46.6.2 2014/01/07 18:18:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -30,7 +30,7 @@
 #include <colors.h>
 
 
-ButtonLog::ButtonLog(LogPlay *log,int id,bool allow_pause,
+ButtonLog::ButtonLog(LogPlay *log,int id,RDAirPlayConf *conf,bool allow_pause,
 		     QWidget *parent,const char *name)
   : QWidget(parent,name)
 {
@@ -67,7 +67,7 @@ ButtonLog::ButtonLog(LogPlay *log,int id,bool allow_pause,
   connect(mapper,SIGNAL(mapped(int)),
 	  this,SLOT(startButton(int)));
   for(int i=0;i<BUTTON_PLAY_BUTTONS;i++) {
-    log_line_box[i]=new LogLineBox(this);
+    log_line_box[i]=new LogLineBox(conf,this);
     log_line_box[i]->setMode(LogLineBox::Full);
     log_line_box[i]->setGeometry(10+log_line_box[i]->sizeHint().height(),
 			       (log_line_box[i]->sizeHint().height()+12)*i,
@@ -88,7 +88,7 @@ ButtonLog::ButtonLog(LogPlay *log,int id,bool allow_pause,
   }
 
   for(int i=BUTTON_PLAY_BUTTONS;i<BUTTON_TOTAL_BUTTONS;i++) {
-    log_line_box[i]=new LogLineBox(this);
+    log_line_box[i]=new LogLineBox(conf,this);
     log_line_box[i]->setMode(LogLineBox::Half);
     log_line_box[i]->setGeometry(10+log_line_box[0]->sizeHint().height(),
 			       (log_line_box[0]->sizeHint().height()+12)*3+

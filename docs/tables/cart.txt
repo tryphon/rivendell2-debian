@@ -45,3 +45,5 @@ OWNER                char(64)          From LOGS.NAME or STATIONS.NAME
 MACROS               text              RML Macros
 NOTES                text              User notes (freeform)
 METADATA_DATETIME    datetime          Metadata last modified
+USE_EVENT_LENGTH     enum('N','Y')     Use RDLogManager event lengths for
+                                       macro cart PAD updates.
