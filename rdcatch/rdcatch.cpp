@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcatch.cpp,v 1.127.4.6 2014/01/08 02:08:37 cvs Exp $
+//      $Id: rdcatch.cpp,v 1.127.4.8 2014/02/11 23:46:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -391,10 +391,9 @@ order by CHANNEL",(const char *)q->value(0).toString().lower());
   // Cart Picker
   //
   catch_cart_dialog=new RDCartDialog(&catch_filter,&catch_group,
-				     &catch_schedcode,
-				     catch_audition_card,catch_audition_port,
-				     0,0,catch_cae,catch_ripc,rdstation_conf,
-				     catch_system,catch_config,"",this);
+				     &catch_schedcode,catch_cae,catch_ripc,
+				     rdstation_conf,catch_system,catch_config,
+				     this);
 
   //
   // Cart List
@@ -2552,7 +2551,6 @@ void MainWidget::SaveGeometry()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

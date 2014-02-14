@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loglinebox.cpp,v 1.89.6.6 2014/01/07 18:18:32 cvs Exp $
+//      $Id: loglinebox.cpp,v 1.89.6.8 2014/02/06 20:43:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -52,6 +52,7 @@ LogLineBox::LogLineBox(RDAirPlayConf *conf,QWidget *parent,const char *name)
   log_id=-1;
   log_line=-1;
   line_move_count=-1;
+  line_allow_drags=false;
 
   //
   // Templates
@@ -307,6 +308,12 @@ void LogLineBox::setLine(int line)
 }
 
 
+void LogLineBox::setAllowDrags(bool state)
+{
+  line_allow_drags=state;
+}
+
+
 RDLogLine *LogLineBox::logLine()
 {
   return line_logline;
@@ -512,7 +519,8 @@ void LogLineBox::setEvent(int line,RDLogLine::TransType next_type,
 	else {
 	  line_length_label->setPalette(line_time_palette);
 	}
-	if(line_logline->originUser().isEmpty()||
+	if((line_logline->source()!=RDLogLine::Tracker)||
+	   line_logline->originUser().isEmpty()||
 	   (!line_logline->originDateTime().isValid())) {
 	  line_title_label->
 	    setText(RDResolveNowNext(line_title_template,line_logline));
@@ -782,7 +790,7 @@ void LogLineBox::mouseMoveEvent(QMouseEvent *e)
   QWidget::mouseMoveEvent(e);
   line_move_count--;
   if(line_move_count==0) {
-    if(line_logline!=NULL) {
+    if(line_allow_drags&&(line_logline!=NULL)) {
       RDCartDrag *d=
 	new RDCartDrag(line_logline->cartNumber(),line_icon_label->pixmap(),
 		       this);

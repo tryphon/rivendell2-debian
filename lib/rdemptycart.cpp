@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdemptycart.cpp,v 1.1.2.1 2013/12/30 20:37:00 cvs Exp $
+//    $Id: rdemptycart.cpp,v 1.1.2.2 2014/01/20 19:13:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -58,6 +58,6 @@ QSizePolicy RDEmptyCart::sizePolicy() const
 void RDEmptyCart::mousePressEvent(QMouseEvent *e)
 {
   QWidget::mousePressEvent(e);
-  RDCartDrag *d=new RDCartDrag(0,QColor(),this);
+  RDCartDrag *d=new RDCartDrag(0,"",QColor(),this);
   d->dragCopy();
 }

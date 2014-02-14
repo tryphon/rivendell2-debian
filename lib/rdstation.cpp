@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdstation.cpp,v 1.30.4.6 2013/11/18 15:48:22 cvs Exp $
+//      $Id: rdstation.cpp,v 1.30.4.8 2014/02/11 23:46:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -362,6 +362,31 @@ void RDStation::setCuePort(int port)
 }
 
 
+unsigned RDStation::cueStartCart() const
+{
+  return RDGetSqlValue("STATIONS","NAME",station_name,"CUE_START_CART").
+    toUInt();
+}
+
+
+void RDStation::setCueStartCart(unsigned cartnum) const
+{
+  SetRow("CUE_START_CART",cartnum);
+}
+
+
+unsigned RDStation::cueStopCart() const
+{
+  return RDGetSqlValue("STATIONS","NAME",station_name,"CUE_STOP_CART").toUInt();
+}
+
+
+void RDStation::setCueStopCart(unsigned cartnum) const
+{
+  SetRow("CUE_STOP_CART",cartnum);
+}
+
+
 int RDStation::cartSlotColumns() const
 {
   return RDGetSqlValue("STATIONS","NAME",station_name,"CARTSLOT_COLUMNS").
@@ -384,6 +409,32 @@ int RDStation::cartSlotRows() const
 void RDStation::setCartSlotRows(int rows)
 {
   SetRow("CARTSLOT_ROWS",rows);
+}
+
+
+bool RDStation::enableDragdrop() const
+{
+  return RDBool(RDGetSqlValue("STATIONS","NAME",station_name,
+			      "ENABLE_DRAGDROP").toString());
+}
+
+
+void RDStation::setEnableDragdrop(bool state)
+{
+  SetRow("ENABLE_DRAGDROP",state);
+}
+
+
+bool RDStation::enforcePanelSetup() const
+{
+  return RDBool(RDGetSqlValue("STATIONS","NAME",station_name,
+			      "ENFORCE_PANEL_SETUP").toString());
+}
+
+
+void RDStation::setEnforcePanelSetup(bool state)
+{
+  SetRow("ENFORCE_PANEL_SETUP",state);
 }
 
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: mode_display.h,v 1.12 2011/01/10 19:20:51 cvs Exp $
+//      $Id: mode_display.h,v 1.12.6.1 2014/02/10 20:45:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,20 +40,22 @@ class ModeDisplay : public QPushButton
 {
  Q_OBJECT
  public:
-  ModeDisplay(QWidget *parent=0,const char *name=0);
+  ModeDisplay(QWidget *parent=0);
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
-  void setMode(RDAirPlayConf::OpMode mode);
-  
+  void setOpMode(int mach,RDAirPlayConf::OpMode mode);
+  void setOpModeStyle(RDAirPlayConf::OpModeStyle style);
+
  private:
-  void DrawMaps();
-  RDAirPlayConf::OpMode mode_mode;
+  void WriteMap();
+  RDAirPlayConf::OpMode mode_mode[RDAIRPLAY_LOG_QUANTITY];
+  RDAirPlayConf::OpModeStyle mode_style;
   QPalette auto_color;
   QPalette manual_color;
   QPalette live_assist_color;
-  QPixmap *mode_bitmap[3];
   QFont mode_large_font;
   QFont mode_small_font;
+  QFont mode_tiny_font;
 };
 
 #endif

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddgimport.cpp,v 1.1.2.11 2014/01/08 02:08:40 cvs Exp $
+//      $Id: rddgimport.cpp,v 1.1.2.12 2014/01/21 21:59:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -635,7 +635,6 @@ void MainWidget::LogMessage(const QString &str)
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

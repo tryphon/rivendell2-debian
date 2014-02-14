@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel_button.h,v 1.18.6.3 2013/12/30 18:20:36 cvs Exp $
+//      $Id: rdpanel_button.h,v 1.18.6.5 2014/02/06 20:43:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -77,10 +77,12 @@ class RDPanelButton : public QPushButton
   void setPauseWhenFinished(bool pause_when_finished);
   int duckVolume() const;
   void setDuckVolume(int lvel);
+  void setAllowDrags(bool state);
   void resetCounter();
 
  signals:
-  void cartDropped(int row,int col,unsigned cartnum,const QColor &color);
+  void cartDropped(int row,int col,unsigned cartnum,const QColor &color,
+		   const QString &title);
 
  public slots:
   void tickClock();
@@ -129,5 +131,6 @@ class RDPanelButton : public QPushButton
   int button_row;
   int button_col;
   int button_move_count;
+  bool button_allow_drags;
 };
 #endif

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdbutton_panel.h,v 1.10.6.1 2013/12/28 01:03:37 cvs Exp $
+//      $Id: rdbutton_panel.h,v 1.10.6.2 2014/02/06 20:43:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -52,6 +52,8 @@ class RDButtonPanel
   QSizePolicy sizePolicy() const;
   RDPanelButton *panelButton(int row,int col) const;
   void setActionMode(RDAirPlayConf::ActionMode mode);
+  void setAllowDrags(bool state);
+  void setAcceptDrops(bool state);
   void hide();
   void show();
   void clear();

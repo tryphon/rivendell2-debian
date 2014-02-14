@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdstation.h,v 1.24.4.5 2013/11/14 02:04:57 cvs Exp $
+//      $Id: rdstation.h,v 1.24.4.7 2014/02/11 23:46:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -104,10 +104,18 @@ class RDStation
   void setCueCard(int card);
   int cuePort() const;
   void setCuePort(int port);
+  unsigned cueStartCart() const;
+  void setCueStartCart(unsigned cartnum) const;
+  unsigned cueStopCart() const;
+  void setCueStopCart(unsigned cartnum) const;
   int cartSlotColumns() const;
   void setCartSlotColumns(int cols);
   int cartSlotRows() const;
   void setCartSlotRows(int rows);
+  bool enableDragdrop() const;
+  void setEnableDragdrop(bool state);
+  bool enforcePanelSetup() const;
+  void setEnforcePanelSetup(bool state);
   bool systemMaint() const;
   void setSystemMaint(bool state) const;
   bool scanned() const;

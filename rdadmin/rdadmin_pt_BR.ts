@@ -2208,7 +2208,7 @@ GPIOs</source>
     </message>
     <message>
         <source>Audition/Cue Output</source>
-        <translation>Saída de Audição/Cue </translation>
+        <translation type="obsolete">Saída de Audição/Cue </translation>
     </message>
     <message>
         <source>SoundPanel First Play Output</source>
@@ -2316,7 +2316,7 @@ GPIOs</source>
     </message>
     <message>
         <source>Startup Mode:</source>
-        <translation>Modo ao Iniciar:</translation>
+        <translation type="obsolete">Modo ao Iniciar:</translation>
     </message>
     <message>
         <source>Previous</source>
@@ -2383,19 +2383,19 @@ Agora &amp;&amp; Próximo
     </message>
     <message>
         <source>start with empty log</source>
-        <translation>Começar com Lista vazia</translation>
+        <translation type="unfinished">Começar com Lista vazia</translation>
     </message>
     <message>
         <source>load previous log</source>
-        <translation>Carregar Lista anterior</translation>
+        <translation type="unfinished">Carregar Lista anterior</translation>
     </message>
     <message>
         <source>load specified log</source>
-        <translation>Carregar Lista específica</translation>
+        <translation type="unfinished">Carregar Lista específica</translation>
     </message>
     <message>
         <source>At Startup:</source>
-        <translation>Ao Iniciar:</translation>
+        <translation type="unfinished">Ao Iniciar:</translation>
     </message>
     <message>
         <source>Restart Log After Unclean Shutdown</source>
@@ -2504,6 +2504,34 @@ GPIOs</source>
     </message>
     <message>
         <source>Description Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log Mode Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode Control Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Independent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main Log Startup Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux 1 Log Startup Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux 2 Log Startup Mode:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3455,7 +3483,7 @@ Resources</source>
     <message>
         <source>Custom
 Encoders</source>
-        <translation>Codificadores
+        <translation type="obsolete">Codificadores
 </translation>
     </message>
     <message>
@@ -3529,6 +3557,22 @@ Slots</source>
         <source>Channel assignments will not be available for this host as audio resource data
 has not yet been generated.  Please start the Rivendell daemons on the host
 configured to run the CAE service in order to populate the audio resources database.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Drag &amp;&amp; Drop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Drops on Panels not in Setup Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop Cart</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

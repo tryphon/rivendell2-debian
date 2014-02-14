@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdslotbox.cpp,v 1.5.2.7 2014/01/07 23:23:17 cvs Exp $
+//      $Id: rdslotbox.cpp,v 1.5.2.8 2014/02/06 20:43:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -213,8 +213,6 @@ RDSlotBox::RDSlotBox(RDPlayDeck *deck,RDAirPlayConf *conf,QWidget *parent)
   line_length_label->setAlignment(Qt::AlignRight);
 
   SetColor(QColor(LABELBOX_BACKGROUND_COLOR));
-
-  setAcceptDrops(true);
 }
 
 
@@ -484,6 +482,7 @@ void RDSlotBox::clear()
   line_position_bar->hide();
   line_down_label->hide();
   line_icon_label->clear();
+  line_allow_drags=false;
   setBarMode(RDSlotBox::Stopping);
 }
 
@@ -499,11 +498,18 @@ void RDSlotBox::setBarMode(bool changed)
 }
 
 
+void RDSlotBox::setAllowDrags(bool state)
+{
+  line_allow_drags=state;
+}
+
+
 void RDSlotBox::mousePressEvent(QMouseEvent *e)
 {
   QWidget::mousePressEvent(e);
 
-  if((line_logline!=NULL)&&(line_mode==RDSlotOptions::CartDeckMode)) {
+  if((line_logline!=NULL)&&(line_mode==RDSlotOptions::CartDeckMode)&&
+     line_allow_drags) {
     RDCartDrag *d=new RDCartDrag(line_logline->cartNumber(),
 				 line_icon_label->pixmap(),this);
     d->dragCopy();

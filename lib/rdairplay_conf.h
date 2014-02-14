@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay_conf.h,v 1.36.8.4 2014/01/07 18:18:28 cvs Exp $
+//      $Id: rdairplay_conf.h,v 1.36.8.5 2014/02/10 20:45:09 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -33,6 +33,7 @@ class RDAirPlayConf
 {
  public:
   enum TimeMode {TwelveHour=0,TwentyFourHour=1};
+  enum OpModeStyle {Unified=0,Independent=1};
   enum OpMode {Previous=0,LiveAssist=1,Auto=2,Manual=3};
   enum ActionMode {Normal=0,AddFrom=1,AddTo=2,DeleteFrom=3,MoveFrom=4,MoveTo=5,
 		   CopyFrom=6,CopyTo=7,Audition=8};
@@ -81,10 +82,12 @@ class RDAirPlayConf
   void setSegueLength(int len) const;
   int transLength() const;
   void setTransLength(int len) const;
-  RDAirPlayConf::OpMode opMode() const;
-  void setOpMode(RDAirPlayConf::OpMode mode) const;
-  RDAirPlayConf::OpMode startMode() const;
-  void setStartMode(RDAirPlayConf::OpMode mode) const;
+  RDAirPlayConf::OpModeStyle opModeStyle() const;
+  void setOpModeStyle(RDAirPlayConf::OpModeStyle style) const;
+  RDAirPlayConf::OpMode opMode(int mach) const;
+  void setOpMode(int mach,RDAirPlayConf::OpMode mode) const;
+  RDAirPlayConf::OpMode logStartMode(int mach) const;
+  void setLogStartMode(int mach,RDAirPlayConf::OpMode mode) const;
   int pieCountLength() const;
   void setPieCountLength(int len) const;
   RDAirPlayConf::PieEndPoint pieEndPoint() const;
@@ -158,12 +161,16 @@ class RDAirPlayConf
   unsigned logNextCart(int lognum) const;
   void setLogNextCart(int lognum,unsigned cartnum) const;
   static QString channelText(RDAirPlayConf::Channel chan);
+  static QString logModeText(RDAirPlayConf::OpMode mode);
 
  private:
   QVariant GetChannelValue(const QString &param,Channel chan) const;
   void SetChannelValue(const QString &param,Channel chan,int value) const;
   void SetChannelValue(const QString &param,Channel chan,
 		       const QString &value) const;
+  RDAirPlayConf::OpMode GetLogMode(const QString &param,int mach) const;
+  void SetLogMode(const QString &param,int mach,
+		  RDAirPlayConf::OpMode mode) const;
   void SetRow(const QString &param,int value) const;
   void SetRow(const QString &param,unsigned value) const;
   void SetRow(const QString &param,const QString &value) const;

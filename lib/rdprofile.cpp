@@ -4,7 +4,7 @@
 //
 // (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdprofile.cpp,v 1.4 2010/07/29 19:32:33 cvs Exp $
+//    $Id: rdprofile.cpp,v 1.4.8.1 2014/01/20 19:13:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -22,6 +22,7 @@
 //
 
 #include <qfile.h>
+#include <qstringlist.h>
 #include <qtextstream.h>
 
 #include <rdprofile.h>
@@ -38,7 +39,7 @@ QString RDProfile::source() const
 }
 
 
-bool RDProfile::setSource(QString filename)
+bool RDProfile::setSource(const QString &filename)
 {
   QString section;
   int offset;
@@ -62,7 +63,6 @@ bool RDProfile::setSource(QString filename)
 	profile_section.back().setName(section);
       }
       else if(((offset=line.find('='))!=-1)) {
-//      else if(((offset=line.find('='))!=-1)&&(!section.isEmpty())) {
 	profile_section.back().
 	  addValue(line.left(offset),
 		   line.right(line.length()-offset-1).stripWhiteSpace());
@@ -73,6 +73,35 @@ bool RDProfile::setSource(QString filename)
   delete text;
   delete file;
   return true;
+}
+
+
+void RDProfile::setSourceString(const QString &str)
+{
+  QStringList lines;
+  QString section;
+  int offset;
+
+  profile_source="";
+  profile_section.resize(0);
+  profile_section.push_back(RDProfileSection());
+  profile_section.back().setName("");
+  lines=lines.split("\n",str);
+  for(unsigned i=0;i<lines.size();i++) {
+    QString line=lines[i];
+    if((line.left(1)!=";")&&(line.left(1)!="#")) {
+      if((line.left(1)=="[")&&(line.right(1)=="]")) {
+	section=line.mid(1,line.length()-2);
+	profile_section.push_back(RDProfileSection());
+	profile_section.back().setName(section);
+      }
+      else if(((offset=line.find('='))!=-1)) {
+	profile_section.back().
+	  addValue(line.left(offset),
+		   line.right(line.length()-offset-1).stripWhiteSpace());
+      }
+    }
+  }
 }
 
 

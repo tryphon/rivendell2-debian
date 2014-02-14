@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_station.h,v 1.36.4.2 2012/11/28 18:49:36 cvs Exp $
+//      $Id: edit_station.h,v 1.36.4.4 2014/02/11 23:46:27 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -73,8 +73,9 @@ class EditStation : public QDialog
    void editHostvarsData();
    void editBackupsData();
    void editDropboxesData();
-   void editEncodersData();
    void jackSettingsData();
+   void startCartClickedData();
+   void stopCartClickedData();
 
   private:
    QString DisplayPart(QString);
@@ -91,6 +92,10 @@ class EditStation : public QDialog
    QSpinBox *station_timeoffset_box;
    QLineEdit *station_startup_cart_edit;
    RDCardSelector *station_cue_sel;
+   QLineEdit *station_start_cart_edit;
+   QPushButton *station_start_cart_button;
+   QLineEdit *station_stop_cart_edit;
+   QPushButton *station_stop_cart_button;
    QCheckBox *station_heartbeat_box;
    QCheckBox *station_filter_box;
    QLabel *station_hbcart_label;
@@ -102,6 +107,9 @@ class EditStation : public QDialog
    QString station_cart_filter;
    QString station_cart_group;
    QCheckBox *station_maint_box;
+   QCheckBox *station_dragdrop_box;
+   QLabel *station_panel_enforce_label;
+   QCheckBox *station_panel_enforce_box;
    QComboBox *station_http_station_box;
    QComboBox *station_cae_station_box;
 };

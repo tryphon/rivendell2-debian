@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdslotbox.h,v 1.3.2.6 2014/01/07 23:23:17 cvs Exp $
+//      $Id: rdslotbox.h,v 1.3.2.7 2014/02/06 20:43:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -63,6 +63,7 @@ class RDSlotBox : public QWidget
   void setTimer(int msecs);
   void clear();
   void setBarMode(bool changed);
+  void setAllowDrags(bool state);
   void updateMeters(short levels[2]);
 
  signals:
@@ -111,6 +112,7 @@ class RDSlotBox : public QWidget
   RDPlayMeter *line_meter[2];
   RDPlayDeck *line_deck;
   RDAirPlayConf *line_airplay_conf;
+  bool line_allow_drags;
 };
 
 

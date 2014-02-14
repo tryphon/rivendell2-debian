@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_play.cpp,v 1.197.8.6 2013/12/30 21:02:58 cvs Exp $
+//      $Id: log_play.cpp,v 1.197.8.7 2014/02/10 20:45:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -193,7 +193,7 @@ RDAirPlayConf::OpMode LogPlay::mode() const
 }
 
 
-void LogPlay::setMode(RDAirPlayConf::OpMode mode)
+void LogPlay::setOpMode(RDAirPlayConf::OpMode mode)
 {
   if(mode==play_op_mode) {
     return;

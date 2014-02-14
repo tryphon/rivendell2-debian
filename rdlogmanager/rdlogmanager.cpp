@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogmanager.cpp,v 1.43.4.3 2014/01/08 02:08:39 cvs Exp $
+//      $Id: rdlogmanager.cpp,v 1.43.4.4 2014/01/21 21:59:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -360,7 +360,6 @@ void MainWidget::quitMainWidget()
 int gui_main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.h,v 1.32.6.6 2013/12/30 20:37:01 cvs Exp $
+//      $Id: rdsound_panel.h,v 1.32.6.7 2014/01/20 19:13:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -94,8 +94,9 @@ class RDSoundPanel : public QWidget
 
  public slots:
   void setButton(RDAirPlayConf::PanelType type,int panel,int row,int col,
-		 unsigned cartnum);
-  void acceptCartDrop(int row,int col,unsigned cartnum,const QColor &color);
+		 unsigned cartnum,const QString &title="");
+  void acceptCartDrop(int row,int col,unsigned cartnum,const QColor &color,
+		      const QString &);
   void changeUser();
   void tickClock();
 

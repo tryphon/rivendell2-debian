@@ -389,6 +389,10 @@ Tail</source>
         <translation>Konec
 poslechu</translation>
     </message>
+    <message>
+        <source>ALBUM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ListLogs</name>
@@ -593,7 +597,7 @@ OBNOVEN</translation>
     <name>ModeDisplay</name>
     <message>
         <source>Operating Mode</source>
-        <translation>Operační režim</translation>
+        <translation type="unfinished">Operační režim</translation>
     </message>
     <message>
         <source>LiveAssist</source>
@@ -606,6 +610,14 @@ OBNOVEN</translation>
     <message>
         <source>Manual</source>
         <translation>Ruční</translation>
+    </message>
+    <message>
+        <source>Aux1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

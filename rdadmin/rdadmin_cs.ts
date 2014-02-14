@@ -2246,7 +2246,7 @@ GPIOs</source>
     </message>
     <message>
         <source>Audition/Cue Output</source>
-        <translation>Výstup poslech/CUE</translation>
+        <translation type="obsolete">Výstup poslech/CUE</translation>
     </message>
     <message>
         <source>SoundPanel First Play Output</source>
@@ -2354,7 +2354,7 @@ GPIOs</source>
     </message>
     <message>
         <source>Startup Mode:</source>
-        <translation>Režim spouštění:</translation>
+        <translation type="obsolete">Režim spouštění:</translation>
     </message>
     <message>
         <source>Previous</source>
@@ -2420,19 +2420,19 @@ Nyní &amp;&amp; Další</translation>
     </message>
     <message>
         <source>start with empty log</source>
-        <translation>Začít s prázdným zápisem</translation>
+        <translation type="unfinished">Začít s prázdným zápisem</translation>
     </message>
     <message>
         <source>load previous log</source>
-        <translation>Nahrát předchozí zápis</translation>
+        <translation type="unfinished">Nahrát předchozí zápis</translation>
     </message>
     <message>
         <source>load specified log</source>
-        <translation>Nahrát určitý zápis</translation>
+        <translation type="unfinished">Nahrát určitý zápis</translation>
     </message>
     <message>
         <source>At Startup:</source>
-        <translation>Při spuštění:</translation>
+        <translation type="unfinished">Při spuštění:</translation>
     </message>
     <message>
         <source>Restart Log After Unclean Shutdown</source>
@@ -2543,6 +2543,34 @@ GPIOs</source>
     </message>
     <message>
         <source>Description Template:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log Mode Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mode Control Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Independent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main Log Startup Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux 1 Log Startup Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux 2 Log Startup Mode:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3527,7 +3555,7 @@ serveru</translation>
     <message>
         <source>Custom
 Encoders</source>
-        <translation>Vlastní
+        <translation type="obsolete">Vlastní
 kodéry</translation>
     </message>
     <message>
@@ -3580,6 +3608,22 @@ configured to run the CAE service in order to populate the audio resources datab
         <translation type="unfinished">Přiřazení kanálů nebudou dostupná pro tento server jako zdroj zvuku, data
 ještě nebyla vytvořena. Spusťte, prosím, démony Rivendell na serveru
 nastaveném pro běh služby CAE pro naplnění databáze se zdroji zvuku.</translation>
+    </message>
+    <message>
+        <source>Enable Drag &amp;&amp; Drop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow Drops on Panels not in Setup Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop Cart</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

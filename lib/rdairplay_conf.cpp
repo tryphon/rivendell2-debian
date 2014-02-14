@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay_conf.cpp,v 1.35.8.5 2014/01/07 18:18:28 cvs Exp $
+//      $Id: rdairplay_conf.cpp,v 1.35.8.6 2014/02/10 20:45:09 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -248,29 +248,40 @@ void RDAirPlayConf::setTransLength(int len) const
 }
 
 
-RDAirPlayConf::OpMode RDAirPlayConf::opMode() const
+RDAirPlayConf::OpModeStyle RDAirPlayConf::opModeStyle() const
 {
-  return (RDAirPlayConf::OpMode)
-    RDGetSqlValue(air_tablename,"ID",air_id,"OP_MODE").toInt();
+  return (RDAirPlayConf::OpModeStyle)
+    RDGetSqlValue(air_tablename,"ID",air_id,"LOG_MODE_STYLE").toInt();
 }
 
 
-void RDAirPlayConf::setOpMode(RDAirPlayConf::OpMode mode) const
+void RDAirPlayConf::setOpModeStyle(RDAirPlayConf::OpModeStyle style) const
 {
-  SetRow("OP_MODE",(int)mode);
+  SetRow("LOG_MODE_STYLE",(int)style);
 }
 
 
-RDAirPlayConf::OpMode RDAirPlayConf::startMode() const
+RDAirPlayConf::OpMode RDAirPlayConf::opMode(int mach) const
 {
-  return (RDAirPlayConf::OpMode)
-    RDGetSqlValue(air_tablename,"ID",air_id,"START_MODE").toInt();
+  return GetLogMode("OP_MODE",mach);
 }
 
 
-void RDAirPlayConf::setStartMode(RDAirPlayConf::OpMode mode) const
+void RDAirPlayConf::setOpMode(int mach,RDAirPlayConf::OpMode mode) const
 {
-  SetRow("START_MODE",(int)mode);
+  SetLogMode("OP_MODE",mach,mode);
+}
+
+
+RDAirPlayConf::OpMode RDAirPlayConf::logStartMode(int mach) const
+{
+  return GetLogMode("START_MODE",mach);
+}
+
+
+void RDAirPlayConf::setLogStartMode(int mach,RDAirPlayConf::OpMode mode) const
+{
+  SetLogMode("START_MODE",mach,mode);
 }
 
 
@@ -832,6 +843,33 @@ QString RDAirPlayConf::channelText(RDAirPlayConf::Channel chan)
   return ret;
 }
 
+
+QString RDAirPlayConf::logModeText(RDAirPlayConf::OpMode mode)
+{
+  QString ret=QObject::tr("Unknown");
+
+  switch(mode) {
+  case RDAirPlayConf::LiveAssist:
+    ret=QObject::tr("LiveAssist");
+    break;
+
+  case RDAirPlayConf::Auto:
+    ret=QObject::tr("Automatic");
+    break;
+
+  case RDAirPlayConf::Manual:
+    ret=QObject::tr("Manual");
+    break;
+
+  case RDAirPlayConf::Previous:
+    ret=QObject::tr("Previous");
+    break;
+  }
+
+  return ret;
+}
+
+
 QVariant RDAirPlayConf::GetChannelValue(const QString &param,RDAirPlayConf::Channel chan) const
 {
   RDSqlQuery *q;
@@ -874,6 +912,38 @@ void RDAirPlayConf::SetChannelValue(const QString &param,RDAirPlayConf::Channel 
     param+"=\""+RDEscapeString(value)+"\" "+
     "where (STATION_NAME=\""+RDEscapeString(air_station)+"\")&&"+
     QString().sprintf("(INSTANCE=%d)",chan);
+  q=new RDSqlQuery(sql);
+  delete q;
+}
+
+
+RDAirPlayConf::OpMode RDAirPlayConf::GetLogMode(const QString &param,int mach) const
+{
+  RDAirPlayConf::OpMode mode=RDAirPlayConf::Auto;
+  QString sql;
+  RDSqlQuery *q;
+
+  sql=QString("select ")+param+" from LOG_MODES where "+
+    "(STATION_NAME=\""+RDEscapeString(air_station)+"\")&&"+
+    QString().sprintf("MACHINE=%d",mach);
+  q=new RDSqlQuery(sql);
+  if(q->first()) {
+    mode=(RDAirPlayConf::OpMode)q->value(0).toInt();
+  }
+  delete q;
+  return mode;
+}
+
+
+void RDAirPlayConf::SetLogMode(const QString &param,int mach,
+			       RDAirPlayConf::OpMode mode) const
+{
+  QString sql;
+  RDSqlQuery *q;
+
+  sql=QString("update LOG_MODES set ")+param+QString().sprintf("=%d ",mode)+
+    "where (STATION_NAME=\""+RDEscapeString(air_station)+"\")&&"+
+    QString().sprintf("(MACHINE=%d)",mach);
   q=new RDSqlQuery(sql);
   delete q;
 }

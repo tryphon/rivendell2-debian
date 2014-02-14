@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdairplay.cpp,v 1.53.6.6 2014/01/07 18:18:30 cvs Exp $
+//      $Id: edit_rdairplay.cpp,v 1.53.6.9 2014/02/11 23:46:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -78,7 +78,7 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Text Validator
   //
-  RDTextValidator *validator=new RDTextValidator(this,"validator");
+  RDTextValidator *validator=new RDTextValidator(this);
 
   //
   // Dialog Name
@@ -88,7 +88,7 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Channel Assignments Section
   //
-  QLabel *label=new QLabel(tr("Channel Assignments"),this,"globals_label");
+  QLabel *label=new QLabel(tr("Channel Assignments"),this);
   label->setFont(big_font);
   label->setGeometry(10,10,200,16);
 
@@ -98,10 +98,10 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Main Log Output 1
   //
-  label=new QLabel(tr("Main Log Output 1"),this,"globals_label");
+  label=new QLabel(tr("Main Log Output 1"),this);
   label->setFont(small_font);
   label->setGeometry(25,32,200,16);
-  air_card_sel[0]=new RDCardSelector(this,"air_card0_sel");
+  air_card_sel[0]=new RDCardSelector(this);
   air_card_sel[0]->setId(0);
   air_card_sel[0]->setGeometry(20,50,120,117);
   air_start_rml_edit[0]=new QLineEdit(this);
@@ -128,10 +128,10 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Main Log Output 2
   //
-  label=new QLabel(tr("Main Log Output 2"),this,"globals_label");
+  label=new QLabel(tr("Main Log Output 2"),this);
   label->setFont(small_font);
   label->setGeometry(25,100,200,16);
-  air_card_sel[1]=new RDCardSelector(this,"air_card1_sel");
+  air_card_sel[1]=new RDCardSelector(this);
   air_card_sel[1]->setId(1);
   air_card_sel[1]->setGeometry(20,118,120,117);
   air_start_rml_edit[1]=new QLineEdit(this);
@@ -158,10 +158,10 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Aux Log 1 Output
   //
-  label=new QLabel(tr("Aux Log 1 Output"),this,"globals_label");
+  label=new QLabel(tr("Aux Log 1 Output"),this);
   label->setFont(small_font);
   label->setGeometry(25,168,200,16);
-  air_card_sel[4]=new RDCardSelector(this,"air_card2_sel");
+  air_card_sel[4]=new RDCardSelector(this);
   air_card_sel[4]->setId(4);
   air_card_sel[4]->setGeometry(20,186,120,117);
   air_start_rml_edit[4]=new QLineEdit(this);
@@ -188,10 +188,10 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Aux Log 2 Output
   //
-  label=new QLabel(tr("Aux Log 2 Output"),this,"globals_label");
+  label=new QLabel(tr("Aux Log 2 Output"),this);
   label->setFont(small_font);
   label->setGeometry(25,236,200,16);
-  air_card_sel[5]=new RDCardSelector(this,"air_card3_sel");
+  air_card_sel[5]=new RDCardSelector(this);
   air_card_sel[5]->setId(5);
   air_card_sel[5]->setGeometry(20,254,120,117);
   air_start_rml_edit[5]=new QLineEdit(this);
@@ -218,10 +218,12 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Audition/Cue Output
   //
-  label=new QLabel(tr("Audition/Cue Output"),this,"globals_label");
+  /*
+  label=new QLabel(tr("Audition/Cue Output"),this);
   label->setFont(small_font);
   label->setGeometry(25,304,200,16);
-  air_card_sel[3]=new RDCardSelector(this,"air_card4_sel");
+  */
+  air_card_sel[3]=new RDCardSelector(this);
   air_card_sel[3]->setId(3);
   air_card_sel[3]->setGeometry(20,322,120,117);
   air_start_rml_edit[3]=new QLineEdit(this);
@@ -240,14 +242,37 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   air_channel_button[3]=NULL;
   connect(air_card_sel[3],SIGNAL(settingsChanged(int,int,int)),
 	  this,SLOT(audioSettingsChangedData(int,int,int)));
+  air_card_sel[3]->hide();
+  air_start_rml_edit[3]->hide();
+  air_start_rml_label[3]->hide();
+  air_stop_rml_edit[3]->hide();
+  air_stop_rml_label[3]->hide();
+
+  //
+  // HotKeys Configuration Button
+  //
+  QPushButton *button=new QPushButton(this);
+  button->setGeometry(10,310,180,50);
+  button->setFont(small_font);
+  button->setText(tr("Configure Hot Keys"));
+  connect(button,SIGNAL(clicked()),this,SLOT(editHotKeys()));
+
+  //
+  // Now & Next Button
+  //
+  button=new QPushButton(this);
+  button->setGeometry(200,310,180,50);
+  button->setFont(small_font);
+  button->setText(tr("Configure Now && Next\nParameters"));
+  connect(button,SIGNAL(clicked()),this,SLOT(nownextData()));
 
   //
   // Sound Panel First Play Output
   //
-  label=new QLabel(tr("SoundPanel First Play Output"),this,"globals_label");
+  label=new QLabel(tr("SoundPanel First Play Output"),this);
   label->setFont(small_font);
   label->setGeometry(395,32,300,16);
-  air_card_sel[2]=new RDCardSelector(this,"air_card5_sel");
+  air_card_sel[2]=new RDCardSelector(this);
   air_card_sel[2]->setId(2);
   air_card_sel[2]->setGeometry(390,50,120,117);
   air_start_rml_edit[2]=new QLineEdit(this);
@@ -274,10 +299,10 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Sound Panel Second Play Output
   //
-  label=new QLabel(tr("SoundPanel Second Play Output"),this,"globals_label");
+  label=new QLabel(tr("SoundPanel Second Play Output"),this);
   label->setFont(small_font);
   label->setGeometry(395,100,300,16);
-  air_card_sel[6]=new RDCardSelector(this,"air_card5_sel");
+  air_card_sel[6]=new RDCardSelector(this);
   air_card_sel[6]->setId(6);
   air_card_sel[6]->setGeometry(390,118,120,117);
   air_start_rml_edit[6]=new QLineEdit(this);
@@ -304,10 +329,10 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Sound Panel Third Play Output
   //
-  label=new QLabel(tr("SoundPanel Third Play Output"),this,"globals_label");
+  label=new QLabel(tr("SoundPanel Third Play Output"),this);
   label->setFont(small_font);
   label->setGeometry(395,168,300,16);
-  air_card_sel[7]=new RDCardSelector(this,"air_card5_sel");
+  air_card_sel[7]=new RDCardSelector(this);
   air_card_sel[7]->setId(7);
   air_card_sel[7]->setGeometry(390,186,120,117);
   air_start_rml_edit[7]=new QLineEdit(this);
@@ -334,10 +359,10 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Sound Panel Fourth Play Output
   //
-  label=new QLabel(tr("SoundPanel Fourth Play Output"),this,"globals_label");
+  label=new QLabel(tr("SoundPanel Fourth Play Output"),this);
   label->setFont(small_font);
   label->setGeometry(395,236,300,16);
-  air_card_sel[8]=new RDCardSelector(this,"air_card5_sel");
+  air_card_sel[8]=new RDCardSelector(this);
   air_card_sel[8]->setId(8);
   air_card_sel[8]->setGeometry(390,254,120,117);
   air_start_rml_edit[8]=new QLineEdit(this);
@@ -364,11 +389,10 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Sound Panel Fifth Play Output
   //
-  label=new QLabel(tr("SoundPanel Fifth and Later Play Output"),
-		   this,"globals_label");
+  label=new QLabel(tr("SoundPanel Fifth and Later Play Output"),this);
   label->setFont(small_font);
   label->setGeometry(395,304,300,16);
-  air_card_sel[9]=new RDCardSelector(this,"air_card5_sel");
+  air_card_sel[9]=new RDCardSelector(this);
   air_card_sel[9]->setId(9);
   air_card_sel[9]->setGeometry(390,322,120,117);
   air_start_rml_edit[9]=new QLineEdit(this);
@@ -395,59 +419,53 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Main Log Play Section
   //
-  label=new QLabel("Log Settings",this,"globals_label");
+  label=new QLabel("Log Settings",this);
   label->setFont(big_font);
   label->setGeometry(805,10,200,16);
 
   //
   // Segue Length
   //
-  air_segue_edit=new QLineEdit(this,"air_segue_edit");
+  air_segue_edit=new QLineEdit(this);
   air_segue_edit->setGeometry(895,32,50,20);
-  air_segue_label=new QLabel(air_segue_edit,tr("Manual Segue:"),
-			     this,"air_segue_label");
+  air_segue_label=new QLabel(air_segue_edit,tr("Manual Segue:"),this);
   air_segue_label->setGeometry(790,32,100,20);
   air_segue_label->setAlignment(AlignRight|AlignVCenter);
-  air_segue_unit=new QLabel(air_segue_edit,tr("msecs"),
-			     this,"air_segue_unit");
+  air_segue_unit=new QLabel(air_segue_edit,tr("msecs"),this);
   air_segue_unit->setGeometry(950,32,40,20);
   air_segue_unit->setAlignment(AlignLeft|AlignVCenter);
   
   //
   // Forced Transition Length
   //
-  air_trans_edit=new QLineEdit(this,"air_trans_edit");
+  air_trans_edit=new QLineEdit(this);
   air_trans_edit->setGeometry(895,54,50,20);
-  air_trans_label=new QLabel(air_trans_edit,tr("Forced Segue:"),
-			     this,"air_trans_label");
+  air_trans_label=new QLabel(air_trans_edit,tr("Forced Segue:"),this);
   air_trans_label->setGeometry(790,54,100,20);
   air_trans_label->setAlignment(AlignRight|AlignVCenter);
-  air_trans_unit=new QLabel(air_trans_edit,tr("msecs"),
-			     this,"air_trans_unit");
+  air_trans_unit=new QLabel(air_trans_edit,tr("msecs"),this);
   air_trans_unit->setGeometry(950,54,40,20);
   air_trans_unit->setAlignment(AlignLeft|AlignVCenter);
   
   //
   // Pie Countdown Length
   //
-  air_piecount_box=new QSpinBox(this,"air_piecount_box");
+  air_piecount_box=new QSpinBox(this);
   air_piecount_box->setGeometry(895,76,50,20);
   air_piecount_box->setRange(0,60);
-  air_piecount_label=new QLabel(air_piecount_box,tr("Pie Counts Last:"),
-			     this,"air_piecount_label");
+  air_piecount_label=new QLabel(air_piecount_box,tr("Pie Counts Last:"),this);
   air_piecount_label->setGeometry(785,76,105,20);
   air_piecount_label->setAlignment(AlignRight|AlignVCenter);
-  air_piecount_unit=new QLabel(tr("secs"),this,"air_piecount_unit");
+  air_piecount_unit=new QLabel(tr("secs"),this);
   air_piecount_unit->setGeometry(950,76,40,20);
   air_piecount_unit->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Pie Countdown To
   //
-  air_countto_box=new QComboBox(this,"air_countto_box");
+  air_countto_box=new QComboBox(this);
   air_countto_box->setGeometry(895,98,100,20);
-  air_countto_label=new QLabel(air_countto_box,tr("Pie Counts To:"),
-			     this,"air_countto_label");
+  air_countto_label=new QLabel(air_countto_box,tr("Pie Counts To:"),this);
   air_countto_label->setGeometry(785,98,105,20);
   air_countto_label->setAlignment(AlignRight|AlignVCenter);
   air_countto_box->insertItem(tr("Cart End"));
@@ -456,10 +474,9 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Default Transition Type
   //
-  air_default_transtype_box=new QComboBox(this,"air_default_transtype_box");
+  air_default_transtype_box=new QComboBox(this);
   air_default_transtype_box->setGeometry(895,120,100,20);
-  label=new QLabel(air_default_transtype_box,tr("Default Trans. Type:"),
-		   this,"air_default_transtype_label");
+  label=new QLabel(air_default_transtype_box,tr("Default Trans. Type:"),this);
   label->setGeometry(760,120,130,20);
   label->setAlignment(AlignRight|AlignVCenter);
   air_default_transtype_box->insertItem(tr("Play"));
@@ -469,223 +486,174 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Default Service
   //
-  air_defaultsvc_box=new QComboBox(this,"air_defaultsvc_box");
+  air_defaultsvc_box=new QComboBox(this);
   air_defaultsvc_box->setGeometry(895,142,100,20);
-  label=new QLabel(air_defaultsvc_box,tr("Default Service:"),
-		   this,"air_defaultsvc_label");
+  label=new QLabel(air_defaultsvc_box,tr("Default Service:"),this);
   label->setGeometry(760,142,130,20);
   label->setAlignment(AlignRight|AlignVCenter);
 
   //
   // Sound Panel Section
   //
-  label=new QLabel(tr("Sound Panel Settings"),this,"globals_label");
+  label=new QLabel(tr("Sound Panel Settings"),this);
   label->setFont(big_font);
   label->setGeometry(805,179,200,16);
 
   //
   // # of Station Panels
   //
-  air_station_box=new QSpinBox(this,"air_station_box");
+  air_station_box=new QSpinBox(this);
   air_station_box->setGeometry(895,204,50,20);
   air_station_box->setRange(0,MAX_PANELS);
   air_station_box->setSpecialValueText(tr("None"));
-  air_station_label=new QLabel(air_station_box,tr("Host Panels:"),
-			     this,"air_station_label");
+  air_station_label=new QLabel(air_station_box,tr("Host Panels:"),this);
   air_station_label->setGeometry(790,204,100,20);
   air_station_label->setAlignment(AlignRight|AlignVCenter);
 
   //
   // # of User Panels
   //
-  air_user_box=new QSpinBox(this,"air_user_box");
+  air_user_box=new QSpinBox(this);
   air_user_box->setGeometry(895,226,50,20);
   air_user_box->setRange(0,MAX_PANELS);
   air_user_box->setSpecialValueText(tr("None"));
-  air_user_label=new QLabel(air_user_box,tr("User Panels:"),
-			     this,"air_user_label");
+  air_user_label=new QLabel(air_user_box,tr("User Panels:"),this);
   air_user_label->setGeometry(790,226,100,20);
   air_user_label->setAlignment(AlignRight|AlignVCenter);
 
   //
   // Flash Active Button
   //
-  air_flash_box=new QCheckBox(this,"air_flash_box");
+  air_flash_box=new QCheckBox(this);
   air_flash_box->setGeometry(810,254,15,15);
-  label=new QLabel(air_flash_box,tr("Flash Active Buttons"),
-			     this,"air_flash_label");
+  label=new QLabel(air_flash_box,tr("Flash Active Buttons"),this);
   label->setGeometry(830,254,150,15);
   label->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Pause Panel Button
   //
-  air_panel_pause_box=new QCheckBox(this,"air_panel_pause_box");
+  air_panel_pause_box=new QCheckBox(this);
   air_panel_pause_box->setGeometry(810,276,15,15);
-  label=new QLabel(air_panel_pause_box,tr("Enable Button Pausing"),
-			     this,"air_panel_pause_label");
+  label=new QLabel(air_panel_pause_box,tr("Enable Button Pausing"),this);
   label->setGeometry(830,276,150,15);
   label->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Label Template
   //
-  air_label_template_edit=new QLineEdit(this,"air_label_template_edit");
+  air_label_template_edit=new QLineEdit(this);
   air_label_template_edit->setGeometry(895,298,sizeHint().width()-910,20);
-  label=new QLabel(air_label_template_edit,tr("Label Template:"),
-		   this,"air_label_template_label");
+  label=new QLabel(air_label_template_edit,tr("Label Template:"),this);
   label->setGeometry(790,298,100,20);
   label->setAlignment(AlignRight|AlignVCenter);
 
   //
   // Miscellaneous Section
   //
-  label=new QLabel(tr("Miscellaneous Settings"),this,"globals_label");
+  label=new QLabel(tr("Miscellaneous Settings"),this);
   label->setFont(big_font);
   label->setGeometry(805,330,200,16);
 
   //
-  // Startup Mode
-  //
-  air_startup_box=new QComboBox(this,"air_startup_box");
-  air_startup_box->setGeometry(885,351,110,20);
-  air_startup_label=new QLabel(air_startup_box,tr("Startup Mode:"),
-			     this,"air_startup_label");
-  air_startup_label->setGeometry(785,351,95,20);
-  air_startup_label->setAlignment(AlignRight|AlignVCenter);
-  air_startup_box->insertItem(tr("Previous"));
-  air_startup_box->insertItem(tr("LiveAssist"));
-  air_startup_box->insertItem(tr("Automatic"));
-  air_startup_box->insertItem(tr("Manual"));
-
-  //
   // Check Timesync
   //
-  air_timesync_box=new QCheckBox(this,"air_timesync_box");
-  air_timesync_box->setGeometry(810,378,15,15);
-  air_timesync_label=new QLabel(air_timesync_box,tr("Check TimeSync"),
-			     this,"air_timesync_label");
-  air_timesync_label->setGeometry(830,378,100,15);
+  air_timesync_box=new QCheckBox(this);
+  air_timesync_box->setGeometry(810,356,15,15);
+  air_timesync_label=new QLabel(air_timesync_box,tr("Check TimeSync"),this);
+  air_timesync_label->setGeometry(830,356,100,15);
   air_timesync_label->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Show Log Buttons
   //
-  air_auxlog_box[0]=new QCheckBox(this,"air_auxlog1_box");
-  air_auxlog_box[0]->setGeometry(810,400,15,15);
-  label=new QLabel(air_auxlog_box[0],tr("Show Auxlog 1 Button"),
-		   this,"air_auxlog_label");
-  label->setGeometry(830,400,150,15);
+  air_auxlog_box[0]=new QCheckBox(this);
+  air_auxlog_box[0]->setGeometry(810,378,15,15);
+  label=new QLabel(air_auxlog_box[0],tr("Show Auxlog 1 Button"),this);
+  label->setGeometry(830,378,150,15);
   label->setAlignment(AlignLeft|AlignVCenter);
 
-  air_auxlog_box[1]=new QCheckBox(this,"air_auxlog2_box");
-  air_auxlog_box[1]->setGeometry(810,423,15,15);
-  label=new QLabel(air_auxlog_box[1],tr("Show Auxlog 2 Button"),
-		   this,"air_auxlog_label");
-  label->setGeometry(830,423,150,15);
+  air_auxlog_box[1]=new QCheckBox(this);
+  air_auxlog_box[1]->setGeometry(810,400,15,15);
+  label=new QLabel(air_auxlog_box[1],tr("Show Auxlog 2 Button"),this);
+  label->setGeometry(830,400,150,15);
   label->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Clear Cart Filter
   //
-  air_clearfilter_box=new QCheckBox(this,"air_clearfilter_box");
-  air_clearfilter_box->setGeometry(810,444,15,15);
-  label=new QLabel(air_clearfilter_box,tr("Clear Cart Search Filter"),
-		   this,"air_clearfilter_label");
-  label->setGeometry(830,444,150,15);
+  air_clearfilter_box=new QCheckBox(this);
+  air_clearfilter_box->setGeometry(810,422,15,15);
+  label=new QLabel(air_clearfilter_box,tr("Clear Cart Search Filter"),this);
+  label->setGeometry(830,422,150,15);
   label->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Pause Enable Checkbox
   //
-  air_pause_box=new QCheckBox(this,"air_pause_box");
-  air_pause_box->setGeometry(810,466,15,15);
-  label=new QLabel(air_pause_box,tr("Enable Paused Events"),
-		   this,"air_pause_label");
-  label->setGeometry(830,466,150,15);
+  air_pause_box=new QCheckBox(this);
+  air_pause_box->setGeometry(810,444,15,15);
+  label=new QLabel(air_pause_box,tr("Enable Paused Events"),this);
+  label->setGeometry(830,444,150,15);
   label->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Show Extra Counters/Buttons
   //
-  air_show_counters_box=new QCheckBox(this,"air_show_counters_box");
-  air_show_counters_box->setGeometry(810,488,15,15);
-  label=new QLabel(air_show_counters_box,tr("Show Extra Buttons/Counters"),
-		   this,"air_show_counters_label");
-  label->setGeometry(830,488,170,15);
+  air_show_counters_box=new QCheckBox(this);
+  air_show_counters_box->setGeometry(810,466,15,15);
+  label=
+    new QLabel(air_show_counters_box,tr("Show Extra Buttons/Counters"),this);
+  label->setGeometry(830,466,170,15);
   label->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Show Hour Selector
   //
-  air_hour_selector_box=new QCheckBox(this,"air_hour_selector_box");
-  air_hour_selector_box->setGeometry(810,510,15,15);
-  label=new QLabel(air_hour_selector_box,tr("Show Hour Selector"),
-		   this,"air_hour_selector_label");
-  label->setGeometry(830,510,170,15);
+  air_hour_selector_box=new QCheckBox(this);
+  air_hour_selector_box->setGeometry(810,488,15,15);
+  label=new QLabel(air_hour_selector_box,tr("Show Hour Selector"),this);
+  label->setGeometry(830,488,170,15);
   label->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Audition Preroll
   //
-  air_audition_preroll_spin=new QSpinBox(this,"air_audition_preroll_spin");
-  air_audition_preroll_spin->setGeometry(895,50830,45,20);
+  air_audition_preroll_spin=new QSpinBox(this);
+  air_audition_preroll_spin->setGeometry(895,507,45,20);
   air_audition_preroll_spin->setRange(1,60);
-  air_audition_preroll_label=new QLabel(air_audition_preroll_spin,
-					tr("Audition Preroll:"),
-					this,"air_audition_preroll_label");
-  air_audition_preroll_label->setGeometry(800,532,90,15);
+  air_audition_preroll_label=
+    new QLabel(air_audition_preroll_spin,tr("Audition Preroll:"),this);
+  air_audition_preroll_label->setGeometry(800,510,90,15);
   air_audition_preroll_label->setAlignment(AlignRight|AlignVCenter);
-  air_audition_preroll_unit=
-    new QLabel(tr("secs"),this,"air_audition_preroll_unit");
-  air_audition_preroll_unit->setGeometry(945,532,100,15);
+  air_audition_preroll_unit=new QLabel(tr("secs"),this);
+  air_audition_preroll_unit->setGeometry(945,510,100,15);
   air_audition_preroll_unit->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Space Bar Action
   //
-  air_bar_group=new QButtonGroup(1,Qt::Vertical,tr("Space Bar Action"),
-				 this,"air_bar_group");
-  air_bar_group->setGeometry(805,554,sizeHint().width()-815,55);
+  air_bar_group=new QButtonGroup(1,Qt::Vertical,tr("Space Bar Action"),this);
+  air_bar_group->setGeometry(805,532,sizeHint().width()-815,55);
   QRadioButton *rbutton=
-    new QRadioButton(tr("None"),air_bar_group,"none_button");
-  rbutton=new QRadioButton(tr("Start Next"),air_bar_group,"start_next_button");
-
-  //
-  // Now & Next Button
-  //
-  QPushButton *button=new QPushButton(this,"nownext_button");
-  button->setGeometry(815,625,180,50);
-  button->setFont(small_font);
-  button->setText(tr("Configure Now && Next\nParameters"));
-  connect(button,SIGNAL(clicked()),this,SLOT(nownextData()));
-  
-
-  //
-  // HotKeys Configuration Button
-  //
-  button=new QPushButton(this,"hotkeys_button");
-  button->setGeometry(625,625,180,50);
-  button->setFont(small_font);
-  button->setText(tr("Configure Hot Keys"));
-  connect(button,SIGNAL(clicked()),this,SLOT(editHotKeys()));
+    new QRadioButton(tr("None"),air_bar_group);
+  rbutton=new QRadioButton(tr("Start Next"),air_bar_group);
 
   //
   // Start/Stop Section
   //
-  label=new QLabel(tr("Start/Stop Settings"),this,"globals_label");
+  label=new QLabel(tr("Start/Stop Settings"),this);
   label->setFont(big_font);
   label->setGeometry(10,381,200,16);
 
   //
   // Exit Password
   //
-  air_exitpasswd_edit=new QLineEdit(this,"air_exitpasswd_edit");
+  air_exitpasswd_edit=new QLineEdit(this);
   air_exitpasswd_edit->setGeometry(100,404,sizeHint().width()-905,20);
   air_exitpasswd_edit->setEchoMode(QLineEdit::Password);
   air_exitpasswd_edit->setText("******");
-  label=new QLabel(air_exitpasswd_edit,tr("Exit Password:"),
-		   this,"air_exitpasswd_label");
+  label=new QLabel(air_exitpasswd_edit,tr("Exit Password:"),this);
   label->setGeometry(0,404,95,20);
   label->setAlignment(AlignRight|AlignVCenter);
   connect(air_exitpasswd_edit,SIGNAL(textChanged(const QString &)),
@@ -694,7 +662,7 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Log Machine Selector
   //
-  air_logmachine_box=new QComboBox(this,"air_logmachine_box");
+  air_logmachine_box=new QComboBox(this);
   air_logmachine_box->setGeometry(45,429,100,20);
   air_logmachine_box->insertItem(tr("Main Log"));
   for(unsigned i=1;i<RDAIRPLAY_LOG_QUANTITY;i++) {
@@ -706,13 +674,12 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Startup Mode
   //
-  air_startmode_box=new QComboBox(this,"air_startmode_box");
+  air_startmode_box=new QComboBox(this);
   air_startmode_box->setGeometry(100,454,240,20);
   air_startmode_box->insertItem(tr("start with empty log"));
   air_startmode_box->insertItem(tr("load previous log"));
   air_startmode_box->insertItem(tr("load specified log"));
-  label=new QLabel(air_exitpasswd_edit,tr("At Startup:"),
-		   this,"air_exitpasswd_label");
+  label=new QLabel(air_exitpasswd_edit,tr("At Startup:"),this);
   label->setGeometry(30,454,65,20);
   label->setAlignment(AlignRight|AlignVCenter);
   connect(air_startmode_box,SIGNAL(activated(int)),
@@ -721,28 +688,27 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Auto Restart Checkbox
   //
-  air_autorestart_box=new QCheckBox(this,"air_autorestart_box");
+  air_autorestart_box=new QCheckBox(this);
   air_autorestart_box->setGeometry(105,479,15,15);
   air_autorestart_label=
-    new QLabel(air_autorestart_box,tr("Restart Log After Unclean Shutdown"),
-	       this,"air_autorestart_label");
+    new QLabel(air_autorestart_box,
+	       tr("Restart Log After Unclean Shutdown"),this);
   air_autorestart_label->setGeometry(125,479,250,15);
   air_autorestart_label->setAlignment(AlignLeft|AlignVCenter);
 
   //
   // Startup Log
   //
-  air_startlog_edit=new QLineEdit(this,"air_startlog_edit");
+  air_startlog_edit=new QLineEdit(this);
   air_startlog_edit->setGeometry(100,499,240,20);
-  air_startlog_label=new QLabel(air_startlog_edit,tr("Log:"),
-		   this,"air_startlog_label");
+  air_startlog_label=new QLabel(air_startlog_edit,tr("Log:"),this);
   air_startlog_label->setGeometry(30,499,65,20);
   air_startlog_label->setAlignment(AlignRight|AlignVCenter);
 
   //
   //  Log Select Button
   //
-  air_startlog_button=new QPushButton(this,"air_startlog_button");
+  air_startlog_button=new QPushButton(this);
   air_startlog_button->setGeometry(350,497,50,24);
   air_startlog_button->setFont(small_font);
   air_startlog_button->setText(tr("&Select"));
@@ -758,10 +724,9 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   //
   // Skin Path
   //
-  air_skin_edit=new QLineEdit(this,"air_skin_edit");
+  air_skin_edit=new QLineEdit(this);
   air_skin_edit->setGeometry(555,403,180,20);
-  label=new QLabel(air_skin_edit,tr("Background Image:"),
-		   this,"air_skin_label");
+  label=new QLabel(air_skin_edit,tr("Background Image:"),this);
   label->setGeometry(435,403,115,20);
   label->setAlignment(AlignRight|AlignVCenter);
   button=new QPushButton(tr("Select"),this);
@@ -805,6 +770,46 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
   label->setAlignment(AlignRight|AlignVCenter);
 
   //
+  // Log Mode Control Section
+  //
+  label=new QLabel(tr("Log Mode Control"),this);
+  label->setFont(big_font);
+  label->setGeometry(435,530,200,16);
+
+  //
+  // Mode Control Style
+  //
+  air_modecontrol_box=new QComboBox(this);
+  air_modecontrol_box->setGeometry(560,550,110,20);
+  connect(air_modecontrol_box,SIGNAL(activated(int)),
+	  this,SLOT(modeControlActivatedData(int)));
+  label=new QLabel(air_modecontrol_box,tr("Mode Control Style:"),this);
+  label->setGeometry(435,550,120,20);
+  label->setAlignment(AlignRight|AlignVCenter);
+  air_modecontrol_box->insertItem(tr("Unified"));
+  air_modecontrol_box->insertItem(tr("Independent"));
+
+  //
+  // Startup Mode
+  //
+  for(int i=0;i<3;i++) {
+    air_logstartmode_box[i]=new QComboBox(this);
+    air_logstartmode_box[i]->setGeometry(615,572+i*22,110,20);
+    connect(air_logstartmode_box[i],SIGNAL(activated(int)),
+	    this,SLOT(logStartupModeActivatedData(int)));
+    air_logstartmode_label[i]=new QLabel(air_logstartmode_box[i],"",this);
+    air_logstartmode_label[i]->setGeometry(470,572+i*22,140,20);
+    air_logstartmode_label[i]->setAlignment(AlignRight|AlignVCenter);
+    air_logstartmode_box[i]->insertItem(tr("Previous"));
+    air_logstartmode_box[i]->insertItem(tr("LiveAssist"));
+    air_logstartmode_box[i]->insertItem(tr("Automatic"));
+    air_logstartmode_box[i]->insertItem(tr("Manual"));
+  }
+  air_logstartmode_label[0]->setText(tr("Main Log Startup Mode:"));
+  air_logstartmode_label[1]->setText(tr("Aux 1 Log Startup Mode:"));
+  air_logstartmode_label[2]->setText(tr("Aux 2 Log Startup Mode:"));
+
+  //
   //  Ok Button
   //
   button=new QPushButton(this,"ok_button");
@@ -845,7 +850,6 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
     air_card_sel[i]->setCard(air_conf->card((RDAirPlayConf::Channel)i));
     air_card_sel[i]->setPort(air_conf->port((RDAirPlayConf::Channel)i));
   }
-  air_startup_box->setCurrentItem(air_conf->startMode());
   air_segue_edit->setText(QString().sprintf("%d",air_conf->segueLength()));
   air_trans_edit->setText(QString().sprintf("%d",air_conf->transLength()));
   air_piecount_box->setValue(air_conf->pieCountLength()/1000);
@@ -889,10 +893,12 @@ EditRDAirPlay::EditRDAirPlay(RDStation *station,RDStation *cae_station,
     air_stop_rml_edit[i]->setText(air_conf->
 				  stopRml((RDAirPlayConf::Channel)i));
   }
+  air_modecontrol_box->setCurrentItem((int)air_conf->opModeStyle());
   for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
     air_startmode[i]=air_conf->startMode(i);
     air_startlog[i]=air_conf->logName(i);
     air_autorestart[i]=air_conf->autoRestart(i);
+    air_logstartmode_box[i]->setCurrentItem(air_conf->logStartMode(i));
   }
   air_startmode_box->setCurrentItem((int)air_startmode[air_logmachine]);
   air_startlog_edit->setText(air_startlog[air_logmachine]);
@@ -913,7 +919,7 @@ EditRDAirPlay::~EditRDAirPlay()
 
 QSize EditRDAirPlay::sizeHint() const
 {
-  return QSize(1010,765);
+  return QSize(1010,660);
 } 
 
 
@@ -1040,6 +1046,27 @@ void EditRDAirPlay::selectSkinData()
 }
 
 
+void EditRDAirPlay::modeControlActivatedData(int n)
+{
+  if(n==0) {
+    for(int i=1;i<RDAIRPLAY_LOG_QUANTITY;i++) {
+      air_logstartmode_box[i]->
+	setCurrentItem(air_logstartmode_box[0]->currentItem());
+    }
+  }
+}
+
+
+void EditRDAirPlay::logStartupModeActivatedData(int n)
+{
+  if(air_modecontrol_box->currentItem()==0) {
+    for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
+      air_logstartmode_box[i]->setCurrentItem(n);
+    }
+  }
+}
+
+
 void EditRDAirPlay::okData()
 {
   bool ok=false;
@@ -1067,8 +1094,6 @@ void EditRDAirPlay::okData()
       air_conf->setStopGpoMatrix(chan,-1);
     }
   }
-  air_conf->
-    setStartMode((RDAirPlayConf::OpMode)air_startup_box->currentItem());
   air_conf->setSegueLength(segue);
   air_conf->setTransLength(trans);
   air_conf->setPieCountLength(air_piecount_box->value()*1000);
@@ -1109,10 +1134,15 @@ void EditRDAirPlay::okData()
     (RDAirPlayConf::StartMode)air_startmode_box->currentItem();
   air_startlog[air_logmachine]=air_startlog_edit->text();
   air_autorestart[air_logmachine]=air_autorestart_box->isChecked();
+  air_conf->setOpModeStyle((RDAirPlayConf::OpModeStyle)
+			   air_modecontrol_box->currentItem());
   for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
     air_conf->setStartMode(i,air_startmode[i]);
     air_conf->setLogName(i,air_startlog[i]);
     air_conf->setAutoRestart(i,air_autorestart[i]);
+    air_conf->
+      setLogStartMode(i,(RDAirPlayConf::OpMode)air_logstartmode_box[i]->
+		      currentItem());
   }
   air_conf->setSkinPath(air_skin_edit->text());
   done(0);

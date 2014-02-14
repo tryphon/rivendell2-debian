@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.h,v 1.21.4.2 2013/11/13 23:36:32 cvs Exp $
+//      $Id: rdcart_dialog.h,v 1.21.4.3 2014/02/11 23:46:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -49,11 +49,9 @@ class RDCartDialog : public QDialog
  Q_OBJECT
  public:
   RDCartDialog(QString *filter,QString *group,QString *schedcode,
-	       int audition_card,int audition_port,
-	       unsigned start_cart,unsigned end_cart,
 	       RDCae *cae,RDRipc *ripc,RDStation *station,RDSystem *system,
-	       RDConfig *config,const QString &edit_cmd,QWidget *parent=0,
-	       const char *name=0);
+	       RDConfig *config,QWidget *parent=0);
+
   ~RDCartDialog();
   QSize sizeHint() const;
   QSizePolicy sizePolicy() const;
@@ -114,7 +112,6 @@ class RDCartDialog : public QDialog
   QPixmap *cart_macro_map;
   QString *cart_service;
   int cart_service_quan;
-  QString cart_edit_cmd;
   RDStation::FilterMode cart_filter_mode;
   QProgressDialog *cart_progress_dialog;
   QString cart_import_path;

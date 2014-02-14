@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: local_macros.cpp,v 1.31.6.2 2012/12/12 15:36:01 cvs Exp $
+//      $Id: local_macros.cpp,v 1.31.6.3 2014/02/10 20:45:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -42,6 +42,7 @@ void MainWidget::RunLocalMacros(RDMacro *rml)
   int fade;
   RDLogLine *logline=NULL;
   QString label;
+  int mach=0;
 
   if(rml->role()!=RDMacro::Cmd) {
     return;
@@ -340,24 +341,34 @@ void MainWidget::RunLocalMacros(RDMacro *rml)
 	break;
 
       case RDMacro::PM:    // Set Mode
-	if(rml->argQuantity()!=1) {
+	if((rml->argQuantity()!=1)&&(rml->argQuantity()!=2)) {
 	  if(rml->echoRequested()) {
 	    rml->acknowledge(false);
 	    rdripc->sendRml(rml);
 	  }
 	  return;
 	}
+	if(rml->argQuantity()==2) {
+	  mach=rml->arg(1).toInt();
+	  if((mach<0)||(mach>RDAIRPLAY_LOG_QUANTITY)) {
+	    if(rml->echoRequested()) {
+	      rml->acknowledge(false);
+	      rdripc->sendRml(rml);
+	    }
+	    return;
+	  }
+	}
 	switch((RDAirPlayConf::OpMode)rml->arg(0).toInt()) {
 	    case RDAirPlayConf::LiveAssist:
-	      SetLiveAssistMode();
+	      SetLiveAssistMode(mach-1);
 	      break;
 
 	    case RDAirPlayConf::Manual:
-	      SetManualMode();
+	      SetManualMode(mach-1);
 	      break;
 
 	    case RDAirPlayConf::Auto:
-	      SetAutoMode();
+	      SetAutoMode(mach-1);
 	      break;
 
 	    default:

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: lib_listview.cpp,v 1.1.2.2 2014/01/08 00:00:51 cvs Exp $
+//      $Id: lib_listview.cpp,v 1.1.2.3 2014/02/06 20:43:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -23,6 +23,7 @@
 
 #include <rdcartdrag.h>
 
+#include <globals.h>
 #include <rdlistviewitem.h>
 #include <lib_listview.h>
 
@@ -50,8 +51,9 @@ void LibListView::contentsMouseMoveEvent(QMouseEvent *e)
     if(item==NULL) {
       return;
     }
-    if(item->text(19).isEmpty()) {  // Voice tracks cannot be dragged
-      RDCartDrag *d=new RDCartDrag(item->text(1).toUInt(),item->pixmap(0),this);
+    if(item->text(21).isEmpty()) {  // Voice tracks cannot be dragged
+      RDCartDrag *d=
+	new RDCartDrag(item->text(1).toUInt(),item->pixmap(0),this);
       d->dragCopy();
       emit clicked(item);
     }

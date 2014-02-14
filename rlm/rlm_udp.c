@@ -35,6 +35,7 @@ char *rlm_udp_addresses;
 uint16_t *rlm_udp_ports;
 char *rlm_udp_formats;
 int *rlm_udp_encodings;
+int *rlm_udp_null_updates;
 int *rlm_udp_masters;
 int *rlm_udp_aux1s;
 int *rlm_udp_aux2s;
@@ -80,6 +81,7 @@ void rlm_udp_RLMStart(void *ptr,const char *arg)
   rlm_udp_ports=NULL;
   rlm_udp_formats=NULL;
   rlm_udp_encodings=NULL;
+  rlm_udp_null_updates=NULL;
   rlm_udp_masters=NULL;
   rlm_udp_aux1s=NULL;
   rlm_udp_aux2s=NULL;
@@ -104,6 +106,10 @@ void rlm_udp_RLMStart(void *ptr,const char *arg)
 			    (rlm_udp_devs+1)*sizeof(int));
     rlm_udp_encodings[rlm_udp_devs]=
       RLMGetIntegerValue(ptr,arg,section,"Encoding",RLM_ENCODE_NONE);
+    rlm_udp_null_updates=realloc(rlm_udp_null_updates,
+			    (rlm_udp_devs+1)*sizeof(int));
+    rlm_udp_null_updates[rlm_udp_devs]=
+      RLMGetIntegerValue(ptr,arg,section,"ProcessNullUpdates",0);
     rlm_udp_masters=realloc(rlm_udp_masters,
 			    (rlm_udp_devs+1)*sizeof(int));
     rlm_udp_masters[rlm_udp_devs]=
@@ -133,16 +139,13 @@ void rlm_udp_RLMFree(void *ptr)
   free(rlm_udp_ports);
   free(rlm_udp_formats);
   free(rlm_udp_encodings);
+  free(rlm_udp_null_updates);
   free(rlm_udp_masters);
   free(rlm_udp_aux1s);
   free(rlm_udp_aux2s);
 }
 
-/*
-void rlm_udp_RLMPadDataSent(void *ptr,const char *svcname,int onair,
-			       int lognum,const struct rlm_pad *now,
-			       const struct rlm_pad *next)
-*/
+
 void rlm_udp_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
 			    const struct rlm_log *log,
 			    const struct rlm_pad *now,
@@ -153,6 +156,29 @@ void rlm_udp_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
   char msg[1500];
 
   for(i=0;i<rlm_udp_devs;i++) {
+    switch(rlm_udp_null_updates[i]) {
+    case 0:  /* Process all updates */
+      break;
+
+    case 1:  /* Process only non-null NOW updates */
+      if(now->rlm_cartnum==0) {
+	return;
+      }
+      break;
+
+    case 2:  /* Process only non-null NEXT updates */
+      if(next->rlm_cartnum==0) {
+	return;
+      }
+      break;
+
+    case 3:  /* Process only non-null NOW and NEXT updates */
+      if((now->rlm_cartnum==0)||(next->rlm_cartnum==0)) {
+	return;
+      }
+      break;
+    }
+
     switch(log->log_mach) {
       case 0:
 	flag=rlm_udp_masters[i];

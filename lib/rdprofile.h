@@ -4,7 +4,7 @@
 //
 // (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdprofile.h,v 1.4 2010/07/29 19:32:33 cvs Exp $
+//    $Id: rdprofile.h,v 1.4.8.1 2014/01/20 19:13:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -47,7 +47,8 @@ class RDProfile
   **/
   RDProfile();
   QString source() const;
-  bool setSource(QString filename);
+  bool setSource(const QString &filename);
+  void setSourceString(const QString &str);
   QString stringValue(QString section,QString tag,
 		      QString default_value="",bool *ok=0) const;
   int intValue(QString section,QString tag,

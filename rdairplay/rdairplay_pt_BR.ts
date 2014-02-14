@@ -390,6 +390,10 @@ Log</source>
         <source>Stop</source>
         <translation>Parar</translation>
     </message>
+    <message>
+        <source>ALBUM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ListLogs</name>
@@ -599,7 +603,7 @@ LISTA</translation>
     <name>ModeDisplay</name>
     <message>
         <source>Operating Mode</source>
-        <translation>Modo de Operação</translation>
+        <translation type="unfinished">Modo de Operação</translation>
     </message>
     <message>
         <source>LiveAssist</source>
@@ -613,6 +617,14 @@ LISTA</translation>
         <source>Manual</source>
         <translation>Manual
 </translation>
+    </message>
+    <message>
+        <source>Aux1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
