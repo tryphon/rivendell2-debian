@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddiscimport.cpp,v 1.1.2.9 2014/01/10 02:25:38 cvs Exp $
+//      $Id: rddiscimport.cpp,v 1.1.2.10 2014/01/21 21:59:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -726,7 +726,6 @@ void MainWidget::SaveConfig()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

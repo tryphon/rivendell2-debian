@@ -389,6 +389,10 @@ Tail</source>
         <translation>Ende
 vorhören</translation>
     </message>
+    <message>
+        <source>ALBUM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ListLogs</name>
@@ -593,7 +597,7 @@ AKTUALISIERT</translation>
     <name>ModeDisplay</name>
     <message>
         <source>Operating Mode</source>
-        <translation>Operationsmodus</translation>
+        <translation type="unfinished">Operationsmodus</translation>
     </message>
     <message>
         <source>LiveAssist</source>
@@ -606,6 +610,14 @@ AKTUALISIERT</translation>
     <message>
         <source>Manual</source>
         <translation>Manuell</translation>
+    </message>
+    <message>
+        <source>Aux1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.h,v 1.45.8.3 2014/01/10 02:25:37 cvs Exp $
+//      $Id: rdlibrary.h,v 1.45.8.4 2014/01/21 19:12:42 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -107,6 +107,8 @@ class MainWidget : public QWidget
   QString GetTypeFilter();
   void LoadGeometry();
   void SaveGeometry();
+  void LockUser();
+  bool UnlockUser();
   LibListView *lib_cart_list;
   CartTip *lib_cart_tip;
   QString lib_filter_text;
@@ -144,6 +146,9 @@ class MainWidget : public QWidget
   RDStation::FilterMode lib_filter_mode;
   QProgressDialog *lib_progress_dialog;
   bool profile_ripping;
+  bool lib_edit_pending;
+  bool lib_user_changed;
+  QTimer *lib_user_timer;
 };
 
 

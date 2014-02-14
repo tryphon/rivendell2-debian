@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadmin.cpp,v 1.72.4.5 2014/01/08 02:08:36 cvs Exp $
+//      $Id: rdadmin.cpp,v 1.72.4.7 2014/02/11 23:46:27 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -207,11 +207,9 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Cart Dialog
   //
-  admin_cart_dialog=new RDCartDialog(&admin_filter,&admin_group,
-				     &admin_schedcode,-1,-1,0,0,NULL,
-				     rdripc,admin_station,admin_system,
-				     admin_config,"",
-				     this,"admin_cart_dialog");
+  admin_cart_dialog=
+    new RDCartDialog(&admin_filter,&admin_group,&admin_schedcode,NULL,
+		     rdripc,admin_station,admin_system,admin_config,this);
 
   //
   // User Labels
@@ -550,7 +548,6 @@ void MainWidget::ClearTables()
 int gui_main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
 
   //
   // Load Translations

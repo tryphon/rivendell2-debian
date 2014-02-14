@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_rdairplay.h,v 1.29.6.4 2014/01/07 18:18:30 cvs Exp $
+//      $Id: edit_rdairplay.h,v 1.29.6.5 2014/02/10 20:45:10 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -64,6 +64,8 @@ class EditRDAirPlay : public QDialog
   void nownextData();
   void editHotKeys();
   void selectSkinData();
+  void modeControlActivatedData(int n);
+  void logStartupModeActivatedData(int n);
   void okData();
   void cancelData();
 
@@ -78,8 +80,8 @@ class EditRDAirPlay : public QDialog
   QLabel *air_stop_rml_label[RDAirPlayConf::LastChannel];
   QLineEdit *air_stop_rml_edit[RDAirPlayConf::LastChannel];
   QPushButton *air_channel_button[RDAirPlayConf::LastChannel];
-  QLabel *air_startup_label;
-  QComboBox *air_startup_box;
+  //  QLabel *air_startup_label;
+  //  QComboBox *air_startup_box;
   QLabel *air_segue_label;
   QLineEdit *air_segue_edit;
   QLabel *air_trans_label;
@@ -133,8 +135,11 @@ class EditRDAirPlay : public QDialog
   QLineEdit *air_artist_template_edit;
   QLineEdit *air_outcue_template_edit;
   QLineEdit *air_description_template_edit;
+  QComboBox *air_modecontrol_box;
+  QLabel *air_logstartmode_label[RDAIRPLAY_LOG_QUANTITY];
+  QComboBox *air_logstartmode_box[RDAIRPLAY_LOG_QUANTITY];
 };
 
 
-#endif
+#endif  // EDIT_RDAIRPLAY_H
 

@@ -1,6 +1,37 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.8.0 --  2/14/2014
+
+Changes:
+   Drag and Drop Configurability.  It is now possible to enable/disable
+   drag and drop capability on a per-host basis as well as configure cart drops
+   to honor the Setup mode on Sound Panels.  See RDAdmin->ManageHosts to
+   configure.
+
+   Metadata Fields.  Added 'Album' and 'Label' to the fields
+   displayed in Cart List in RDLibrary and the Full Log widget in
+   RDAirPlay.
+
+   Independent Log Modes.  It is now possible to configure RDAirPlay so
+   that log modes (LiveAssist vs. Automatic vs. Manual) can be set
+   independently for each log machine.  See RDAdmin->ManageHosts->RDAirPlay
+   to configure.
+
+   Cue Channel Assignments.  Channel assignments for cue output from all
+   modules (include that for RDAirPlay) is now configured in
+   'RDAdmin->ManageHosts.
+
+   Various bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 234, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.7.0 --  1/17/2014
 
 Changes:

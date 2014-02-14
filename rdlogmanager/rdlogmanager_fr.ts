@@ -587,6 +587,18 @@ already existing event.</source>
 &amp;All</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Clear Clocks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to update ALL clocks in the grid?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This operation cannot be undone!</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditNote</name>

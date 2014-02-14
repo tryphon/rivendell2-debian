@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.cpp,v 1.189.2.19 2014/01/08 02:08:36 cvs Exp $
+//      $Id: rdairplay.cpp,v 1.189.2.23 2014/02/11 23:46:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -212,7 +212,6 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   air_rivendell_map=new QPixmap(rivendell_xpm);
   setIcon(*air_rivendell_map);
 
-  air_op_mode=RDAirPlayConf::Previous;
   air_start_next=false;
   air_next_button=0;
 
@@ -270,6 +269,10 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   rdairplay_conf->setExitCode(RDAirPlayConf::ExitDirty);
   air_clear_filter=rdairplay_conf->clearFilter();
   air_bar_action=rdairplay_conf->barAction();
+  air_op_mode_style=rdairplay_conf->opModeStyle();
+  for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
+    air_op_mode[i]=RDAirPlayConf::Previous;
+  }
   air_editor_cmd=rdstation_conf->editorPath();
   mainmap=new QPixmap(rdairplay_conf->skinPath());
   if(mainmap->isNull()||(mainmap->width()<1024)||(mainmap->height()<738)) {
@@ -427,12 +430,9 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Cart Picker
   //
-  rdcart_dialog=new RDCartDialog(&air_add_filter,&air_add_group,
-				 &air_add_schedcode,
-				 air_cue_card,air_cue_port,0,0,
-				 rdcae,rdripc,rdstation_conf,rdsystem_conf,
-				 air_config,rdstation_conf->editorPath(),
-				 this,"rdcart_dialog");
+  rdcart_dialog=
+    new RDCartDialog(&air_add_filter,&air_add_group,&air_add_schedcode,
+		     rdcae,rdripc,rdstation_conf,rdsystem_conf,air_config,this);
 
   //
   // Wall Clock
@@ -468,7 +468,7 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 				air_pie_counter->sizeHint().height());
   air_pie_counter->setCountLength(rdairplay_conf->pieCountLength());
   air_pie_end=rdairplay_conf->pieEndPoint();
-  air_pie_counter->setOpMode(air_op_mode);
+  air_pie_counter->setOpMode(air_op_mode[0]);
   air_pie_counter->setFocusPolicy(QWidget::NoFocus);
   if(mainmap!=NULL) {
     pm=new QPixmap(1024,738);
@@ -525,12 +525,13 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Mode Display/Button
   //
-  air_mode_display=new ModeDisplay(this,"air_mode_display");
+  air_mode_display=new ModeDisplay(this);
   air_mode_display->
     setGeometry(sizeHint().width()-air_mode_display->sizeHint().width()-10,
 		5,air_mode_display->sizeHint().width(),
 		air_mode_display->sizeHint().height());
   air_mode_display->setFocusPolicy(QWidget::NoFocus);
+  air_mode_display->setOpModeStyle(air_op_mode_style);
   connect(air_mode_display,SIGNAL(clicked()),this,SLOT(modeButtonData()));
 
   //
@@ -794,6 +795,9 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   air_empty_cart=new RDEmptyCart(this);
   air_empty_cart->setGeometry(520,sizeHint().height()-51,32,32);
+  if(!rdstation_conf->enableDragdrop()) {
+    air_empty_cart->hide();
+  }
 
   //
   // SoundPanel Button
@@ -839,23 +843,30 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   // Set Startup Mode
   //
-  switch(rdairplay_conf->startMode()) {
+  for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
+    switch(rdairplay_conf->logStartMode(i)) {
       case RDAirPlayConf::Manual:
-	SetManualMode();
+	SetManualMode(i);
 	break;
 	
       case RDAirPlayConf::LiveAssist:
-	SetLiveAssistMode();
+	SetLiveAssistMode(i);
 	break;
 	
       case RDAirPlayConf::Auto:
-	SetAutoMode();
+	SetAutoMode(i);
 	break;
 	
       case RDAirPlayConf::Previous:
-	SetMode(rdairplay_conf->opMode());
+	if(air_op_mode_style==RDAirPlayConf::Unified) {
+	  SetMode(i,rdairplay_conf->opMode(0));
+	}
+	else {
+	  SetMode(i,rdairplay_conf->opMode(i));
+	}
 	break;
-  }	
+    }
+  }
 
   //
   // Load Plugins
@@ -1570,17 +1581,27 @@ void MainWidget::panelButtonData()
 
 void MainWidget::modeButtonData()
 {
-  switch(air_op_mode) {
+  int mach=-1;
+  switch(air_op_mode_style) {
+  case RDAirPlayConf::Unified:
+    mach=-1;
+    break;
+
+  case RDAirPlayConf::Independent:
+    mach=0;
+    break;
+  }
+  switch(air_op_mode[0]) {
       case RDAirPlayConf::Manual:
-	SetMode(RDAirPlayConf::LiveAssist);
+	SetMode(mach,RDAirPlayConf::LiveAssist);
 	break;
 
       case RDAirPlayConf::LiveAssist:
-	SetMode(RDAirPlayConf::Auto);
+	SetMode(mach,RDAirPlayConf::Auto);
 	break;
 
       case RDAirPlayConf::Auto:
-	SetMode(RDAirPlayConf::Manual);
+	SetMode(mach,RDAirPlayConf::Manual);
 	break;
 
       default:
@@ -1852,7 +1873,7 @@ void MainWidget::transportChangedData()
     }
 
     logline=air_log[0]->logLine(line);
-    switch(air_op_mode) {
+    switch(air_op_mode[0]) {
 	case RDAirPlayConf::Manual:
 	case RDAirPlayConf::LiveAssist:
 	  pie_end=RDAirPlayConf::CartEnd;
@@ -2219,22 +2240,28 @@ void MainWidget::SetCaption()
 }
 
 
-void MainWidget::SetMode(RDAirPlayConf::OpMode mode)
+void MainWidget::SetMode(int mach,RDAirPlayConf::OpMode mode)
 {
-  if(air_op_mode==mode) {
+  if(mach<0) {
+    for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
+      SetMode(i,mode);
+    }
+    return;
+  }
+  if(air_op_mode[mach]==mode) {
     return;
   }
   switch(mode) {
       case RDAirPlayConf::Manual:
-	SetManualMode();
+	SetManualMode(mach);
 	break;
 
       case RDAirPlayConf::LiveAssist:
-	SetLiveAssistMode();
+	SetLiveAssistMode(mach);
 	break;
 
       case RDAirPlayConf::Auto:
-	SetAutoMode();
+	SetAutoMode(mach);
 	break;
 
       default:
@@ -2243,51 +2270,78 @@ void MainWidget::SetMode(RDAirPlayConf::OpMode mode)
 }
 
 
-void MainWidget::SetManualMode()
+void MainWidget::SetManualMode(int mach)
 {
-  air_mode_display->setMode(RDAirPlayConf::Manual);
-  air_op_mode=RDAirPlayConf::Manual;
-  air_pie_counter->setOpMode(RDAirPlayConf::Manual);
-  rdairplay_conf->setOpMode(RDAirPlayConf::Manual);
-  for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
-    air_log[i]->setMode(RDAirPlayConf::Manual);
-    air_log_list[i]->setOpMode(RDAirPlayConf::Manual);
+  if(mach<0) {
+    for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
+      SetManualMode(i);
+    }
+    return;
   }
-  air_button_list->setOpMode(RDAirPlayConf::Manual);
-  air_post_counter->setDisabled(true);
-  LogLine(RDConfig::LogInfo,"mode set to MANUAL");
+  if(mach==0) {
+    air_pie_counter->setOpMode(RDAirPlayConf::Manual);
+  }
+  air_mode_display->setOpMode(mach,RDAirPlayConf::Manual);
+  air_op_mode[mach]=RDAirPlayConf::Manual;
+  rdairplay_conf->setOpMode(mach,RDAirPlayConf::Manual);
+  air_log[mach]->setOpMode(RDAirPlayConf::Manual);
+  air_log_list[mach]->setOpMode(RDAirPlayConf::Manual);
+  if(mach==0) {
+    air_button_list->setOpMode(RDAirPlayConf::Manual);
+    air_post_counter->setDisabled(true);
+  }
+  LogLine(RDConfig::LogInfo,
+	  QString().sprintf("log machine %d mode set to MANUAL",mach+1));
 }
 
 
-void MainWidget::SetAutoMode()
+void MainWidget::SetAutoMode(int mach)
 {
-  air_mode_display->setMode(RDAirPlayConf::Auto);
-  air_op_mode=RDAirPlayConf::Auto;
-  air_pie_counter->setOpMode(RDAirPlayConf::Auto);
-  rdairplay_conf->setOpMode(RDAirPlayConf::Auto);
-  for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
-    air_log[i]->setMode(RDAirPlayConf::Auto);
-    air_log_list[i]->setOpMode(RDAirPlayConf::Auto);
+  if(mach<0) {
+    for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
+      SetAutoMode(i);
+    }
+    return;
   }
-  air_button_list->setOpMode(RDAirPlayConf::Auto);
-  air_post_counter->setEnabled(true);
-  LogLine(RDConfig::LogInfo,"mode set to AUTO");
+  if(mach==0) {
+    air_pie_counter->setOpMode(RDAirPlayConf::Auto);
+  }
+  air_mode_display->setOpMode(mach,RDAirPlayConf::Auto);
+  air_op_mode[mach]=RDAirPlayConf::Auto;
+  rdairplay_conf->setOpMode(mach,RDAirPlayConf::Auto);
+  air_log[mach]->setOpMode(RDAirPlayConf::Auto);
+  air_log_list[mach]->setOpMode(RDAirPlayConf::Auto);
+  if(mach==0) {
+    air_button_list->setOpMode(RDAirPlayConf::Auto);
+    air_post_counter->setEnabled(true);
+  }
+  LogLine(RDConfig::LogInfo,
+	  QString().sprintf("log machine %d mode set to AUTO",mach+1));
 }
 
 
-void MainWidget::SetLiveAssistMode()
+void MainWidget::SetLiveAssistMode(int mach)
 {
-  air_mode_display->setMode(RDAirPlayConf::LiveAssist);
-  air_op_mode=RDAirPlayConf::LiveAssist;
-  air_pie_counter->setOpMode(RDAirPlayConf::LiveAssist);
-  rdairplay_conf->setOpMode(RDAirPlayConf::LiveAssist);
-  for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
-    air_log[i]->setMode(RDAirPlayConf::LiveAssist);
-    air_log_list[i]->setOpMode(RDAirPlayConf::LiveAssist);
+  if(mach<0) {
+    for(int i=0;i<RDAIRPLAY_LOG_QUANTITY;i++) {
+      SetLiveAssistMode(i);
+    }
+    return;
   }
-  air_button_list->setOpMode(RDAirPlayConf::LiveAssist); 
-  air_post_counter->setDisabled(true);
-  LogLine(RDConfig::LogInfo,"mode set to LIVE ASSIST");
+  if(mach==0) {
+    air_pie_counter->setOpMode(RDAirPlayConf::LiveAssist);
+  }
+  air_mode_display->setOpMode(mach,RDAirPlayConf::LiveAssist);
+  air_op_mode[mach]=RDAirPlayConf::LiveAssist;
+  rdairplay_conf->setOpMode(mach,RDAirPlayConf::LiveAssist);
+  air_log[mach]->setOpMode(RDAirPlayConf::LiveAssist);
+  air_log_list[mach]->setOpMode(RDAirPlayConf::LiveAssist);
+  if(mach==0) {
+    air_button_list->setOpMode(RDAirPlayConf::LiveAssist); 
+    air_post_counter->setDisabled(true);
+  }
+  LogLine(RDConfig::LogInfo,
+	  QString().sprintf("log machine %d mode set to AUTO",mach+1));
 }
 
 
@@ -2471,7 +2525,6 @@ void MainWidget::SetActionMode(StartButton::Mode mode)
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

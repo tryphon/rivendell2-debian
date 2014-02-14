@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart_dialog.cpp,v 1.48.4.7 2013/12/11 23:30:47 cvs Exp $
+//      $Id: rdcart_dialog.cpp,v 1.48.4.8 2014/02/11 23:46:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -52,12 +52,9 @@
 #include "../icons/rml5.xpm"
 
 RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
-			   int audition_card,int audition_port,
-			   unsigned start_cart,unsigned end_cart,RDCae *cae,
-			   RDRipc *ripc,RDStation *station,RDSystem *system,
-			   RDConfig *config,const QString &edit_cmd,
-			   QWidget *parent,const char *name)
-  : QDialog(parent,name,true)
+			   RDCae *cae,RDRipc *ripc,RDStation *station,
+			   RDSystem *system,RDConfig *config,QWidget *parent)
+  : QDialog(parent,"",true)
 {
   //
   // Fix the Window Size
@@ -72,7 +69,6 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   cart_type=RDCart::All;
   cart_group=group;
   cart_schedcode=schedcode;
-  cart_edit_cmd=edit_cmd;
   cart_temp_allowed=NULL;
 #ifdef WIN32
   cart_filter_mode=RDStation::FilterSynchronous;
@@ -132,7 +128,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   //
   // Filter Selector
   //
-  cart_filter_edit=new QLineEdit(this,"cart_filter_edit");
+  cart_filter_edit=new QLineEdit(this);
   cart_filter_edit->setValidator(validator);
   cart_filter_label=new QLabel(cart_filter_edit,tr("Cart Filter:"),
 		   this,"cart_filter_label");
@@ -144,7 +140,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   //
   // Filter Search Button
   //
-  cart_search_button=new QPushButton(this,"cart_search_button");
+  cart_search_button=new QPushButton(this);
   cart_search_button->setText(tr("&Search"));
   cart_search_button->setFont(button_font);
   connect(cart_search_button,SIGNAL(clicked()),this,SLOT(filterSearchedData()));
@@ -152,7 +148,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   //
   // Filter Clear Button
   //
-  cart_clear_button=new QPushButton(this,"cart_clear_button");
+  cart_clear_button=new QPushButton(this);
   cart_clear_button->setText(tr("C&lear"));
   cart_clear_button->setFont(button_font);
   connect(cart_clear_button,SIGNAL(clicked()),this,SLOT(filterClearedData()));
@@ -160,9 +156,8 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   //
   // Group Code Selector
   //
-  cart_group_box=new RDComboBox(this,"cart_group_box");
-  cart_group_label=new QLabel(cart_group_box,tr("Group:"),
-			   this,"cart_group_label");
+  cart_group_box=new RDComboBox(this);
+  cart_group_label=new QLabel(cart_group_box,tr("Group:"),this);
   cart_group_label->setAlignment(AlignRight|AlignVCenter);
   cart_group_label->setFont(button_font);
   connect(cart_group_box,SIGNAL(activated(const QString &)),
@@ -171,9 +166,9 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   //
   // Scheduler Code Selector
   //
-  cart_schedcode_box=new RDComboBox(this,"cart_schedcode_box");
-  cart_schedcode_label=new QLabel(cart_schedcode_box,tr("Scheduler Code:"),
-			   this,"cart_schedcode_label");
+  cart_schedcode_box=new RDComboBox(this);
+  cart_schedcode_label=
+    new QLabel(cart_schedcode_box,tr("Scheduler Code:"),this);
   cart_schedcode_label->setAlignment(AlignRight|AlignVCenter);
   cart_schedcode_label->setFont(button_font);
   connect(cart_schedcode_box,SIGNAL(activated(const QString &)),
@@ -182,12 +177,12 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   //
   // Search Limit Checkbox
   //
-  cart_limit_box=new QCheckBox(this,"cart_limit_box");
+  cart_limit_box=new QCheckBox(this);
   cart_limit_box->setChecked(true);
-  cart_limit_label=new QLabel(cart_limit_box,tr("Show Only First")+
-			      QString().sprintf(" %d ",
-		RD_LIMITED_CART_SEARCH_QUANTITY)+tr("Matches"),
-			      this,"cart_limit_label");
+  cart_limit_label=
+    new QLabel(cart_limit_box,tr("Show Only First")+
+	       QString().sprintf(" %d ",
+		      RD_LIMITED_CART_SEARCH_QUANTITY)+tr("Matches"),this);
   cart_limit_label->setAlignment(AlignLeft|AlignVCenter);
   cart_limit_label->setFont(button_font);
   connect(cart_limit_box,SIGNAL(stateChanged(int)),
@@ -196,7 +191,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   //
   // Cart List
   //
-  cart_cart_list=new RDListView(this,"cart_cart_list");
+  cart_cart_list=new RDListView(this);
   cart_cart_list->setSelectionMode(QListView::Single);
   cart_cart_list->setAllColumnsShowFocus(true);
   cart_cart_list->setItemMargin(5);
@@ -206,7 +201,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
 	  SIGNAL(doubleClicked(QListViewItem *,const QPoint &,int)),
 	  this,
 	  SLOT(doubleClickedData(QListViewItem *,const QPoint &,int)));
-  cart_cart_label=new QLabel(cart_cart_list,"Carts",this,"cart_cart_label");
+  cart_cart_label=new QLabel(cart_cart_list,"Carts",this);
   cart_cart_label->setFont(button_font);
   cart_cart_list->addColumn("");
   cart_cart_list->setColumnAlignment(0,Qt::AlignHCenter);
@@ -253,12 +248,13 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   // Audition Player
   //
 #ifndef WIN32
-  if((cae==NULL)||(audition_card<0)||(audition_port<0)) {
+  if((cae==NULL)||(station->cueCard()<0)||(station->cuePort()<0)) {
     cart_player=NULL;
   }
   else {
-    cart_player=new RDSimplePlayer(cae,ripc,audition_card,audition_port,
-				   start_cart,end_cart,this,"cart_player");
+    cart_player=
+      new RDSimplePlayer(cae,ripc,station->cueCard(),station->cuePort(),
+			 station->cueStartCart(),station->cueStopCart(),this);
     cart_player->playButton()->setDisabled(true);
     cart_player->stopButton()->setDisabled(true);
     cart_player->stopButton()->setOnColor(red);
@@ -268,11 +264,10 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   //
   // Send to Editor Button
   //
-  cart_editor_button=
-    new QPushButton(tr("Send to\n&Editor"),this,"cart_editor_button");
+  cart_editor_button=new QPushButton(tr("Send to\n&Editor"),this);
   cart_editor_button->setFont(button_font);
   connect(cart_editor_button,SIGNAL(clicked()),this,SLOT(editorData()));
-  if(edit_cmd.isEmpty()) {
+  if(station->editorPath().isEmpty()) {
     cart_editor_button->hide();
   }
 
@@ -282,7 +277,7 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   cart_file_button=new QPushButton(tr("Load From\n&File"),this);
   cart_file_button->setFont(button_font);
   connect(cart_file_button,SIGNAL(clicked()),this,SLOT(loadFileData()));
-  if(edit_cmd.isEmpty()) {
+  if(station->editorPath().isEmpty()) {
     cart_file_button->hide();
   }
 #ifdef WIN32
@@ -292,14 +287,14 @@ RDCartDialog::RDCartDialog(QString *filter,QString *group,QString *schedcode,
   //
   // OK Button
   //
-  cart_ok_button=new QPushButton(tr("&OK"),this,"cart_ok_button");
+  cart_ok_button=new QPushButton(tr("&OK"),this);
   cart_ok_button->setFont(button_font);
   connect(cart_ok_button,SIGNAL(clicked()),this,SLOT(okData()));
 
   //
   // Cancel Button
   //
-  cart_cancel_button=new QPushButton(tr("&Cancel"),this,"cart_cancel_button");
+  cart_cancel_button=new QPushButton(tr("&Cancel"),this);
   cart_cancel_button->setFont(button_font);
   connect(cart_cancel_button,SIGNAL(clicked()),this,SLOT(cancelData()));
 }
@@ -340,7 +335,7 @@ int RDCartDialog::exec(int *cartnum,RDCart::Type type,QString *svcname,
   switch(cart_type) {
     case RDCart::All:
     case RDCart::Audio:
-      if(cart_edit_cmd.isEmpty()) {
+      if(cart_station->editorPath().isEmpty()) {
 	cart_editor_button->hide();
       }
       else {
@@ -517,7 +512,7 @@ void RDCartDialog::editorData()
     delete q;
     return;
   }
-  QString cmd=cart_edit_cmd;
+  QString cmd=cart_station->editorPath();
   cmd.replace("%f",RDCut::pathName(q->value(0).toString()));
   cmd.replace("%n",QString().sprintf("%06u",item->text(1).toUInt()));
   cmd.replace("%h",QString().sprintf("%d",q->value(1).toInt()));

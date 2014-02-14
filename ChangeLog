@@ -13957,3 +13957,96 @@
 2014-01-17 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Updated the package version to 2.7.0.
+2014-01-20 Fred Gleason <fredg@paravelsystems.com>
+	* Modified drag-and-drop subsystem so that customized button titles
+	are preserved when dragging between buttons.
+2014-01-20 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlibrary/rdlibrary.cpp' that caused a segfault
+	when starting with 'Limit Search Results' in RDAdmin set to 'No'.
+2014-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdadmin/createdb.cpp' that set an incorrect value
+	for the default 'Description' field wildcard.
+2014-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a 'ProcessNullUpdates=' directive in the 'rlm_udp' RLM
+	in 'rlm/rlm_udp.c'.
+	* Implemented a 'ProcessNullUpdates=' directive in the 'rlm_serial' RLM
+	in 'rlm/rlm_serial.c'.
+2014-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlibrary/rdlibrary.cpp' and 'rdlibrary/rdlibrary.h'
+	that threw a segfault when changing the Rivendell user while editing
+	a cart.
+2014-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdlibrary/edit_cart.cpp' that failed to
+	clear previous cut selections after adding a new cut entry.
+2014-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added a confirmation dialog to the 'Change All' operation in
+	the Edit Grid dialog in 'rdlogmanager/edit_grid.cpp'.
+2014-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Reverted code to force GUI style to 'WindowsStyle'.
+2014-01-21 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdlog_event.cpp' that failed to take segue
+	overlaps into account properly when caluculating log lengths.
+2014-02-06 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Album' and 'Label' fields to the RDLibrary cart list in
+	'rdlibrary/rdlibrary.cpp'.
+2014-02-06 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed the 'Label' field in RDAirPlay's Full Log widget to
+	'Marker' in 'rdairplay/list_log.cpp'.
+	* Added 'Album' and 'Label' fields to RDAirPlay's Full Log widget
+	'rdairplay/list_log.cpp'.
+2014-02-06 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'STATIONS.ENABLE_DRAGDROP' and 'STATIONS.ENFORCE_PANEL_SETUP'
+	fields to the database.
+	* Incremented the database version to 232.
+	* Added 'RDStation::enableDragdrop()', 'RDStation::setEnableDragdrop()',
+	'RDStation::enforcePanelSetup()' and 'RDStation::setEnforcePanelSetup()'
+	in 'lib/rdstation.cpp' and 'lib/rdstation.h'.
+	* Added 'Enable Drag & Drop' and 'Allow Drops on Panels not in
+	Setup Mode' control to the Edit Host dialog in
+	'rdadmin/edit_station.cpp' and 'rdadmin/edit_station.h'.
+2014-02-07 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a typo in 'rdairplay/list_log.cpp' that caused log listings
+	to be in incorrect order.
+2014-02-07 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdlibrary/rdlibrary.cpp' that caused
+	all macro carts to be displayed as invalid.
+2014-02-07 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcartslot.cpp' that caused carts containing
+	cuts of differing lengths to be timescaled even when forced length
+	was not enabled for the cart.
+2014-02-07 Fred Gleason <fredg@paravelsystems.com>
+	* Rearranged the layout of the Edit RDAirPlay dialog in
+	'rdadmin/edit_rdairplay.conf'.
+2014-02-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDAIRPLAY.LOG_MODE_STYLE' field to the database.
+	* Added a 'LOG_MODES' table to the database.
+	* Incremented the database version to 233.
+	* Added a 'Mode Control Style' control to the Edit RDAirPlay
+	dialog in 'rdadmin/edit_rdairplay.cpp' and 'rdadmin/edit_rdairplay.h'.
+	* Replaced the 'Startup Mode' control with individual controls for
+	each log machine on the Edit RDAirPlay dialog in
+	'rdadmin/edit_rdairplay.cpp' and 'rdadmin/edit_rdairplay.h'.
+	* Implemented independent log mode style for RDAirPlay in
+	'rdairplay/rdairplay.cpp', rdairplay/rdairplay.h',
+	'rdairplay/mode_display.cpp' and 'rdairplay/mode_display.h'.
+2014-02-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added a signal handler for SIGTERM and SIGINT to rdmonitor(1)
+	in 'rdmonitor/rdmonitor.cpp'.
+2014-02-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'STATIONS.CUE_START_CART' and 'STATIONS.CUE_STOP_CART'
+	fields to the database.
+	* Incremented the database version to 234.
+	* Added 'RDStation::cueStartCart()', 'RDStation::setCueStartCart()',
+	'RDStation::cueStopCart()' and 'RDStation::setCueStopCart()'
+	methods in 'lib/rdstation.cpp' and 'lib/rdstation.h'.
+	* Added 'Start Cart' and 'Stop Cart' controls to the Edit Host
+	dialog in 'rdadmin/edit_station.cpp' and 'rdadmin/edit_station.h'.
+	* Removed redundant arguments from the constructor of the
+	Cart Dialog in 'lib/rdcart_dialog.cpp' and 'lib/rdcart_dialog.h'.
+	* Changed the behavior of RDLogEdit's cue output so as to follow
+	the cue settings in the Edit Host dialog in RDAdmin.
+	* Hid the 'Audition/Cue' controls in the Edit RDAirPlay dialog
+	in 'rdadmin/edit_rdairplay.cpp' and 'rdadmin/edit_rdairplay.h'.
+2014-02-14 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.8.0.

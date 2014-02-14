@@ -395,6 +395,10 @@ Tail</source>
         <source>Selected:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>ALBUM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ListLogs</name>
@@ -603,7 +607,7 @@ LASTAR PÅ NYTT</translation>
     <name>ModeDisplay</name>
     <message>
         <source>Operating Mode</source>
-        <translation>Køyremodus</translation>
+        <translation type="unfinished">Køyremodus</translation>
     </message>
     <message>
         <source>LiveAssist</source>
@@ -616,6 +620,14 @@ LASTAR PÅ NYTT</translation>
     <message>
         <source>Manual</source>
         <translation>Manuelt</translation>
+    </message>
+    <message>
+        <source>Aux1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -395,6 +395,18 @@
         <source>NaturalLog Reconciliation</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>LiveAssist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>

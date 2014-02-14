@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.cpp,v 1.195.2.28 2014/01/13 23:02:41 cvs Exp $
+//      $Id: createdb.cpp,v 1.195.2.32 2014/02/11 23:46:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -629,8 +629,12 @@ bool CreateDb(QString name,QString pwd)
       JACK_COMMAND_LINE char(255),\
       CUE_CARD int default 0,\
       CUE_PORT int default 0,\
+      CUE_START_CART int unsigned,\
+      CUE_STOP_CART int unsigned,\
       CARTSLOT_COLUMNS int default 1,\
       CARTSLOT_ROWS int default 8,\
+      ENABLE_DRAGDROP enum('N','Y') default 'Y',\
+      ENFORCE_PANEL_SETUP enum('N','Y') default 'N',\
       SYSTEM_MAINT enum('N','Y') default 'Y',\
       STATION_SCANNED enum('N','Y') default 'N',\
       HAVE_OGGENC enum('N','Y') default 'N',\
@@ -1271,6 +1275,7 @@ bool CreateDb(QString name,QString pwd)
       TRANS_LENGTH int default 50,\
       OP_MODE int default 2,\
       START_MODE int default 0,\
+      LOG_MODE_STYLE int default 0,\
       PIE_COUNT_LENGTH int default 15000,\
       PIE_COUNT_ENDPOINT int default 0,\
       CHECK_TIMESYNC enum('N','Y') default 'N',\
@@ -1290,7 +1295,7 @@ bool CreateDb(QString name,QString pwd)
       TITLE_TEMPLATE char(64) default '%t',\
       ARTIST_TEMPLATE char(64) default '%a',\
       OUTCUE_TEMPLATE char(64) default '%o',\
-      DESCRIPTION_TEMPLATE char(64) default '%d',\
+      DESCRIPTION_TEMPLATE char(64) default '%i',\
       UDP_ADDR0 char(255),\
       UDP_PORT0 int unsigned,\
       UDP_STRING0 char(255),\
@@ -2314,6 +2319,20 @@ bool CreateDb(QString name,QString pwd)
      return false;
   }
 
+  //
+  // Create LOG_MODES table
+  //
+  sql=QString("create table if not exists LOG_MODES (")+
+    "ID int unsigned auto_increment not null primary key,"+
+    "STATION_NAME char(64) not null,"+
+    "MACHINE int unsigned not null,"+
+    "START_MODE int not null default 0,"+
+    "OP_MODE int not null default 2,"+
+    "index STATION_NAME_IDX(STATION_NAME,MACHINE))";
+  if(!RunQuery(sql)) {
+     return false;
+  }
+  
   return true;
 }
 
@@ -2405,6 +2424,14 @@ bool InitDb(QString name,QString pwd,QString station_name)
     sql=QString("insert into RDPANEL_CHANNELS set ")+
       "STATION_NAME=\""+RDEscapeString(station_name)+"\","+
       QString().sprintf("INSTANCE=%u",i);
+    if(!RunQuery(sql)) {
+      return false;
+    }
+  }
+  for(unsigned i=0;i<3;i++) {
+    sql=QString("insert into LOG_MODES set ")+
+      "STATION_NAME=\""+RDEscapeString(station_name)+"\","+
+      QString().sprintf("MACHINE=%u",i);
     if(!RunQuery(sql)) {
       return false;
     }
@@ -7850,6 +7877,62 @@ int UpdateDb(int ver)
   if(ver<231) { 
     sql=QString("alter table CART add column ")+
       "USE_EVENT_LENGTH enum('N','Y') default 'N' after METADATA_DATETIME";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<232) { 
+    sql=QString("alter table STATIONS add column ")+
+      "ENABLE_DRAGDROP enum('N','Y') default 'Y' after CARTSLOT_ROWS";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table STATIONS add column ")+
+      "ENFORCE_PANEL_SETUP enum('N','Y') default 'N' after ENABLE_DRAGDROP";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<233) { 
+    sql=QString("alter table RDAIRPLAY add column ")+
+      "LOG_MODE_STYLE int default 0 after START_MODE";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("create table if not exists LOG_MODES (")+
+      "ID int unsigned auto_increment not null primary key,"+
+      "STATION_NAME char(64) not null,"+
+      "MACHINE int unsigned not null,"+
+      "START_MODE int not null default 0,"+
+      "OP_MODE int not null default 2,"+
+      "index STATION_NAME_IDX(STATION_NAME,MACHINE))";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("select STATION,START_MODE,OP_MODE from RDAIRPLAY");
+    q=new QSqlQuery(sql);
+    while(q->next()) {
+      for(unsigned i=0;i<3;i++) {
+	sql=QString("insert into LOG_MODES set ")+
+	  "STATION_NAME=\""+RDEscapeString(q->value(0).toString())+"\","+
+	  QString().sprintf("MACHINE=%u,",i)+
+	  QString().sprintf("START_MODE=%d,",q->value(1).toInt())+
+	  QString().sprintf("OP_MODE=%d",q->value(2).toInt());
+	q1=new QSqlQuery(sql);
+	delete q1;
+      }
+    }
+    delete q;
+  }
+
+  if(ver<234) { 
+    sql=QString("alter table STATIONS add column ")+
+      "CUE_START_CART int unsigned after CUE_PORT";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table STATIONS add column ")+
+      "CUE_STOP_CART int unsigned after CUE_START_CART";
     q=new QSqlQuery(sql);
     delete q;
   }

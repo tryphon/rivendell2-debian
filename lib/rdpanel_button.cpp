@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel_button.cpp,v 1.26.6.7 2013/12/30 19:56:13 cvs Exp $
+//      $Id: rdpanel_button.cpp,v 1.26.6.9 2014/02/06 20:43:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,9 +40,8 @@ RDPanelButton::RDPanelButton(int row,int col,RDStation *station,bool flash,
   button_flash_state=false;
   button_hook_mode=false;
   button_move_count=-1;
+  button_allow_drags=false;
   clear();
-
-  setAcceptDrops(true);
 }
 
 
@@ -290,13 +289,19 @@ return button_pause_when_finished;
 
 void RDPanelButton::setPauseWhenFinished(bool pause_when_finished)
 {
-button_pause_when_finished=pause_when_finished;
+  button_pause_when_finished=pause_when_finished;
 }
 
 
 void RDPanelButton::resetCounter()
 {
   WriteKeycap(-1);
+}
+
+
+void RDPanelButton::setAllowDrags(bool state)
+{
+  button_allow_drags=state;
 }
 
 
@@ -362,8 +367,10 @@ void RDPanelButton::mouseMoveEvent(QMouseEvent *e)
   button_move_count--;
   if(button_move_count==0) {
     QPushButton::mouseReleaseEvent(e);
-    RDCartDrag *d=new RDCartDrag(button_cart,button_color,this);
-    d->dragCopy();
+    if(button_allow_drags) {
+      RDCartDrag *d=new RDCartDrag(button_cart,button_text,button_color,this);
+      d->dragCopy();
+    }
   }
 }
 
@@ -377,7 +384,7 @@ void RDPanelButton::mouseReleaseEvent(QMouseEvent *e)
 
 void RDPanelButton::dragEnterEvent(QDragEnterEvent *e)
 {
-  e->accept(RDCartDrag::canDecode(e)&&
+  e->accept(RDCartDrag::canDecode(e)&&button_allow_drags&&
   ((button_play_deck==NULL)||(button_play_deck->state()==RDPlayDeck::Stopped)));
 }
 
@@ -386,9 +393,10 @@ void RDPanelButton::dropEvent(QDropEvent *e)
 {
   unsigned cartnum;
   QColor color;
+  QString title;
 
-  if(RDCartDrag::decode(e,&cartnum,&color)) {
-    emit cartDropped(button_row,button_col,cartnum,color);
+  if(RDCartDrag::decode(e,&cartnum,&color,&title)) {
+    emit cartDropped(button_row,button_col,cartnum,color,title);
   }
 }
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartdrag.cpp,v 1.1.2.6 2013/12/30 22:05:06 cvs Exp $
+//      $Id: rdcartdrag.cpp,v 1.1.2.7 2014/01/20 19:13:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,6 +27,7 @@
 #include <rd.h>
 #include <rdcart.h>
 #include <rdcartdrag.h>
+#include <rdprofile.h>
 
 //
 // Icons
@@ -38,9 +39,7 @@
 RDCartDrag::RDCartDrag(unsigned cartnum,const QPixmap *icon,QWidget *src)
   : QStoredDrag(RDMIMETYPE_CART,src)
 {
-  QByteArray data(15);
-  data.duplicate(QString().sprintf("%06u:#000000",cartnum),15);
-  setEncodedData(data);
+  SetData(cartnum,QColor(),QString());
   if(icon==NULL) {
     RDCart *cart=new RDCart(cartnum);
     switch(cart->type()) {
@@ -63,12 +62,11 @@ RDCartDrag::RDCartDrag(unsigned cartnum,const QPixmap *icon,QWidget *src)
 }
 
 
-RDCartDrag::RDCartDrag(unsigned cartnum,const QColor &color,QWidget *src)
+RDCartDrag::RDCartDrag(unsigned cartnum,const QString &title,
+		       const QColor &color,QWidget *src)
   : QStoredDrag(RDMIMETYPE_CART,src)
 {
-  QByteArray data(15);
-  data.duplicate(QString().sprintf("%06u:",cartnum)+color.name(),15);
-  setEncodedData(data);
+  SetData(cartnum,color,title);
   if(cartnum==0) {
     setPixmap(QPixmap(trashcan_xpm));
   }
@@ -97,18 +95,17 @@ bool RDCartDrag::canDecode(QMimeSource *e)
 }
 
 
-bool RDCartDrag::decode(QMimeSource *e,unsigned *cartnum,QColor *color)
+bool RDCartDrag::decode(QMimeSource *e,unsigned *cartnum,QColor *color,
+			QString *title)
 {
-  QStringList f0;
-  QString str(e->encodedData(RDMIMETYPE_CART));
-
-  f0=f0.split(":",str);
-  if(f0.size()!=2) {
-    return false;
-  }
-  *cartnum=f0[0].toUInt();
+  RDProfile *p=new RDProfile();
+  p->setSourceString(e->encodedData(RDMIMETYPE_CART));
+  *cartnum=p->intValue("Rivendell-Cart","Number");
   if(color!=NULL) {
-    color->setNamedColor(f0[1]);
+    color->setNamedColor(p->stringValue("Rivendell-Cart","Color"));
+  }
+  if(title!=NULL) {
+    *title=p->stringValue("Rivendell-Cart","ButtonText");
   }
 
   return true;
@@ -125,4 +122,20 @@ bool RDCartDrag::decode(QMimeSource *e,RDLogLine *ll,
   ll->loadCart(cartnum,next_trans,log_mach,timescale,trans);
 
   return true;
+}
+
+
+void RDCartDrag::SetData(unsigned cartnum,const QColor &color,const QString &title)
+{
+  QString str="[Rivendell-Cart]\n";
+  str+="Number="+QString().sprintf("%06u",cartnum)+"\n";
+  if(color.isValid()) {
+    str+="Color="+color.name()+"\n";
+  }
+  if(!title.isEmpty()) {
+    str+="ButtonText="+title+"\n";
+  }
+  QByteArray data(str.length());
+  data.duplicate(str,str.length());
+  setEncodedData(data);
 }

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_grid.cpp,v 1.12.8.1 2013/10/11 17:16:49 cvs Exp $
+//      $Id: edit_grid.cpp,v 1.12.8.2 2014/01/21 21:28:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -126,7 +126,7 @@ EditGrid::EditGrid(QString servicename,QWidget *parent,const char *name)
   // Change All Button
   //
   QPushButton *all_button=new QPushButton(this,"change_all_button");
-  all_button->setGeometry(sizeHint().width()-180,sizeHint().height()-60,80,50);
+  all_button->setGeometry(10,sizeHint().height()-60,80,50);
   all_button->setDefault(false);
   all_button->setFont(bold_font);
   all_button->setText(tr("Change\n&All"));
@@ -195,16 +195,19 @@ void EditGrid::allHourButtonData()
     return;
   }
   delete listclocks;
-  for(int id=0;id<168;id++) {
-    QString sql=QString().sprintf("update SERVICES set CLOCK%d=\"%s\"\
+  if(QMessageBox::question(this,"RDLogManager - "+tr("Clear Clocks"),
+			   tr("Are you sure you want to update ALL clocks in the grid?")+"\n"+tr("This operation cannot be undone!"),QMessageBox::Yes,QMessageBox::No)==QMessageBox::Yes) {
+    for(int id=0;id<168;id++) {
+      QString sql=QString().sprintf("update SERVICES set CLOCK%d=\"%s\"\
                                    where NAME=\"%s\"",
-                                 id,(const char *)clockname,
-                                 (const char *)edit_servicename);
-    RDSqlQuery *q=new RDSqlQuery(sql);
-    delete q;
-    int dayofweek=id/24+1;
-    int hour=id-24*(dayofweek-1);
-    LabelButton(dayofweek,hour,clockname);
+				    id,(const char *)clockname,
+				    (const char *)edit_servicename);
+      RDSqlQuery *q=new RDSqlQuery(sql);
+      delete q;
+      int dayofweek=id/24+1;
+      int hour=id-24*(dayofweek-1);
+      LabelButton(dayofweek,hour,clockname);
+    }
   }
 }
 

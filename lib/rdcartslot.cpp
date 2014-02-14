@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.cpp,v 1.13.2.17 2014/01/07 23:23:17 cvs Exp $
+//      $Id: rdcartslot.cpp,v 1.13.2.19 2014/02/07 19:42:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -108,6 +108,8 @@ RDCartSlot::RDCartSlot(int slotnum,RDRipc *ripc,RDCae *cae,RDStation *station,
   //
   slot_box=new RDSlotBox(slot_deck,conf,this);
   slot_box->setBarMode(false);
+  slot_box->setAllowDrags(station->enableDragdrop());
+  slot_box->setAcceptDrops(station->enableDragdrop());
   slot_box->setGeometry(5+sizeHint().height(),0,
 			slot_box->sizeHint().width(),
 			slot_box->sizeHint().height());
@@ -227,11 +229,10 @@ void RDCartSlot::setCart(RDCart *cart,int break_len)
     slot_box->clear();
   }
   else {
-    slot_logline->setTimescalingActive(slot_timescaling_active);
     slot_logline->loadCart(cart->number(),RDLogLine::Play,0,true,
 			   RDLogLine::NoTrans,break_len);
-    slot_logline->setTimescalingActive(slot_timescaling_active);
-    slot_logline->setEvent(0,RDLogLine::Play,true,break_len);
+    slot_logline->
+      setEvent(0,RDLogLine::Play,slot_logline->timescalingActive(),break_len);
     slot_box->setCart(slot_logline);
     slot_box->setBarMode(false);
   }

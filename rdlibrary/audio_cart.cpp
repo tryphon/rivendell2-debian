@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.cpp,v 1.57.6.8 2014/01/10 18:52:24 cvs Exp $
+//      $Id: audio_cart.cpp,v 1.57.6.9 2014/01/21 21:18:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -291,7 +291,7 @@ void AudioCart::addCutData()
 			 tr("This cart cannot contain any additional cuts!"));
     return;
   }
-
+  rdcart_cut_list->clearSelection();
   RDListViewItem *item=new RDListViewItem(rdcart_cut_list);
   item->setText(11,next_name);
   UpdateCutCount();

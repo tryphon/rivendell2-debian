@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.h,v 1.89.4.8 2013/12/30 21:02:58 cvs Exp $
+//      $Id: rdairplay.h,v 1.89.4.9 2014/02/10 20:45:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -136,10 +136,10 @@ class MainWidget : public QWidget
   void RunLocalMacros(RDMacro *rml);
   void StopEvent(int button_id);
   void SetCaption();
-  void SetMode(RDAirPlayConf::OpMode mode);
-  void SetManualMode();
-  void SetAutoMode();
-  void SetLiveAssistMode();
+  void SetMode(int mach,RDAirPlayConf::OpMode mode);
+  void SetManualMode(int mach);
+  void SetAutoMode(int mach);
+  void SetLiveAssistMode(int mach);
   void SetActionMode(StartButton::Mode mode);
   bool FirstPort(int index);
   bool GetPanel(QString str,RDAirPlayConf::PanelType *type,int *panel);
@@ -169,7 +169,8 @@ class MainWidget : public QWidget
   int air_line_counter;
   int air_segue_length;
   int air_next_button;
-  RDAirPlayConf::OpMode air_op_mode;
+  RDAirPlayConf::OpModeStyle air_op_mode_style;
+  RDAirPlayConf::OpMode air_op_mode[RDAIRPLAY_LOG_QUANTITY];
   bool air_start_next;
   int air_time_start_line;
   RDAirPlayConf::PieEndPoint air_pie_end;

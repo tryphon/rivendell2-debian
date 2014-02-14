@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.cpp,v 1.62.6.10 2013/12/30 18:20:36 cvs Exp $
+//      $Id: rdsound_panel.cpp,v 1.62.6.12 2014/02/06 20:43:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -498,7 +498,8 @@ RDAirPlayConf::PanelType RDSoundPanel::currentType() const
 
 
 void RDSoundPanel::setButton(RDAirPlayConf::PanelType type,int panel,
-			   int row,int col,unsigned cartnum)
+			     int row,int col,unsigned cartnum,
+			     const QString &title)
 {
   QString str;
 
@@ -512,8 +513,13 @@ void RDSoundPanel::setButton(RDAirPlayConf::PanelType type,int panel,
     button->setCart(cartnum);
     RDCart *cart=new RDCart(cartnum);
     if(cart->exists()) {
-      button->
-	setText(RDLogLine::resolveWildcards(cartnum,panel_label_template));
+      if(title.isEmpty()) {
+	button->
+	  setText(RDLogLine::resolveWildcards(cartnum,panel_label_template));
+      }
+      else {
+	button->setText(title);
+      }
       button->setLength(false,cart->forcedLength());
       if(cart->averageHookLength()>0) {
 	button->setLength(true,cart->averageHookLength());
@@ -541,8 +547,13 @@ void RDSoundPanel::setButton(RDAirPlayConf::PanelType type,int panel,
       }
     }
     else {
-      str=QString(tr("Cart"));
-      button->setText(QString().sprintf("%s %06u",(const char *)str,cartnum));
+      if(title.isEmpty()) {
+	str=QString(tr("Cart"));
+	button->setText(QString().sprintf("%s %06u",(const char *)str,cartnum));
+      }
+      else {
+	button->setText(title);
+      }
     }
     delete cart;
   }
@@ -551,9 +562,9 @@ void RDSoundPanel::setButton(RDAirPlayConf::PanelType type,int panel,
 
 
 void RDSoundPanel::acceptCartDrop(int row,int col,unsigned cartnum,
-				  const QColor &color)
+				  const QColor &color,const QString &title)
 {
-  setButton(panel_type,panel_number,row,col,cartnum);
+  setButton(panel_type,panel_number,row,col,cartnum,title);
   if(color.isValid()&&(color.name()!="#000000")) {
     setColor(panel_type,panel_number,row,col,color);
   }
@@ -676,6 +687,13 @@ void RDSoundPanel::setupClickedData()
     panel_setup_button->setFlashingEnabled(true);
     panel_reset_button->setDisabled(true);
     panel_playmode_box->setDisabled(true);
+  }
+  if(panel_station->enableDragdrop()&&(panel_station->enforcePanelSetup())) {
+    for(unsigned i=0;i<panel_buttons.size();i++) {
+      if(panel_buttons[i]!=NULL) {
+	panel_buttons[i]->setAcceptDrops(panel_setup_mode);
+      }
+    }
   }
   panel_selector_box->setSetupMode(panel_setup_mode);
 }
@@ -1186,6 +1204,7 @@ void RDSoundPanel::LoadPanels()
       }
     }
     LoadPanel(RDAirPlayConf::StationPanel,i);
+    panel_buttons.back()->setAllowDrags(panel_station->enableDragdrop());
   }
   for(int i=0;i<panel_user_panels;i++) {
     panel_buttons.push_back(new RDButtonPanel(panel_type,i,panel_button_columns,
@@ -1199,6 +1218,7 @@ void RDSoundPanel::LoadPanels()
 			   j*panel_button_columns+k);
       }
     }
+    panel_buttons.back()->setAllowDrags(panel_station->enableDragdrop());
     LoadPanel(RDAirPlayConf::UserPanel,i);
   }
 }

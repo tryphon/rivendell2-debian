@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdselect.cpp,v 1.1.2.8 2014/01/08 02:08:39 cvs Exp $
+//      $Id: rdselect.cpp,v 1.1.2.9 2014/01/21 21:59:33 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -350,7 +350,6 @@ void MainWidget::SetCurrentItem(int id)
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

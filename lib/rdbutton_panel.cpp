@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdbutton_panel.cpp,v 1.12.6.2 2013/12/30 18:20:36 cvs Exp $
+//      $Id: rdbutton_panel.cpp,v 1.12.6.4 2014/02/06 20:43:47 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -37,6 +37,9 @@ RDButtonPanel::RDButtonPanel(RDAirPlayConf::PanelType type,int panel,int cols,
     for(int j=0;j<panel_button_columns;j++) {
       panel_button[i][j]=
 	new RDPanelButton(i,j,panel_station,flash,parent);
+      if(station->enableDragdrop()&&(!station->enforcePanelSetup())) {
+	panel_button[i][j]->setAcceptDrops(true);
+      }
       panel_button[i][j]->setGeometry((15+PANEL_BUTTON_SIZE_X)*j,
 				      (15+PANEL_BUTTON_SIZE_Y)*i,
 				      PANEL_BUTTON_SIZE_X,
@@ -45,9 +48,9 @@ RDButtonPanel::RDButtonPanel(RDAirPlayConf::PanelType type,int panel,int cols,
       parent->connect(parent,SIGNAL(buttonFlash(bool)),
 		      panel_button[i][j],SLOT(flashButton(bool)));
       QObject::connect(panel_button[i][j],
-		       SIGNAL(cartDropped(int,int,unsigned,const QColor &)),
-		       parent,
-		       SLOT(acceptCartDrop(int,int,unsigned,const QColor &)));
+	 SIGNAL(cartDropped(int,int,unsigned,const QColor &,const QString &)),
+	 parent,
+	 SLOT(acceptCartDrop(int,int,unsigned,const QColor &,const QString &)));
     }
   }
   clear();
@@ -157,6 +160,26 @@ void RDButtonPanel::setActionMode(RDAirPlayConf::ActionMode mode)
 	  }
 	}
 	break;
+  }
+}
+
+
+void RDButtonPanel::setAllowDrags(bool state)
+{
+  for(int i=0;i<panel_button_rows;i++) {
+    for(int j=0;j<panel_button_columns;j++) {
+      panel_button[i][j]->setAllowDrags(state);
+    }
+  }
+}
+
+
+void RDButtonPanel::setAcceptDrops(bool state)
+{
+  for(int i=0;i<panel_button_rows;i++) {
+    for(int j=0;j<panel_button_columns;j++) {
+      panel_button[i][j]->setAcceptDrops(state);
+    }
   }
 }
 

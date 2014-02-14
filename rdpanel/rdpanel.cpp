@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdpanel.cpp,v 1.27.4.6 2014/01/08 02:08:39 cvs Exp $
+//      $Id: rdpanel.cpp,v 1.27.4.9 2014/02/11 23:46:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -202,13 +202,8 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   // Cart Picker
   //
   panel_cart_dialog=
-    new RDCartDialog(&panel_filter,&panel_group,
-		     &panel_schedcode,
-		     rdairplay_conf->card(RDAirPlayConf::CueChannel),
-		     rdairplay_conf->port(RDAirPlayConf::CueChannel),
-		     0,0,panel_cae,rdripc,rdstation_conf,
-		     rdsystem_conf,panel_config,rdstation_conf->editorPath(),
-		     this,"panel_cart_dialog");
+    new RDCartDialog(&panel_filter,&panel_group,&panel_schedcode,panel_cae,
+		     rdripc,rdstation_conf,rdsystem_conf,panel_config,this);
 
   //
   // Sound Panel Array
@@ -350,6 +345,9 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
   //
   panel_empty_cart=new RDEmptyCart(this);
   panel_empty_cart->setGeometry(373,sizeHint().height()-52,32,32);
+  if(!rdstation_conf->enableDragdrop()) {
+    panel_empty_cart->hide();
+  }
 
   rdripc->connectHost("localhost",RIPCD_TCP_PORT,panel_config->password());
 
@@ -439,7 +437,6 @@ void MainWidget::SetCaption()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

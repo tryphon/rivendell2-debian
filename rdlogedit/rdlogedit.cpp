@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit.cpp,v 1.77.4.7 2014/01/08 23:32:50 cvs Exp $
+//      $Id: rdlogedit.cpp,v 1.77.4.9 2014/02/11 23:46:30 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -214,21 +214,12 @@ MainWidget::MainWidget(QWidget *parent,const char *name,WFlags f)
   //
 #ifdef WIN32
   log_cart_dialog=new RDCartDialog(&log_filter,&log_group,&log_schedcode,
-				   rdlogedit_conf->outputCard(),
-				   rdlogedit_conf->outputPort(),
-				   rdlogedit_conf->startCart(),
-				   rdlogedit_conf->endCart(),
 				   NULL,NULL,rdstation_conf,rdsystem,
-				   log_config,"",
-				   this,"log_cart_dialog");
+				   log_config,this);
 #else
   log_cart_dialog=new RDCartDialog(&log_filter,&log_group,&log_schedcode,
-				   rdlogedit_conf->outputCard(),
-				   rdlogedit_conf->outputPort(),
-				   rdlogedit_conf->startCart(),
-				   rdlogedit_conf->endCart(),
 				   rdcae,rdripc,rdstation_conf,rdsystem,
-				   log_config,"",this,"log_cart_dialog");
+				   log_config,this);
 #endif
 
   //
@@ -877,7 +868,6 @@ void MainWidget::RefreshList()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

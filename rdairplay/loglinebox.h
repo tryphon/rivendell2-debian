@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loglinebox.h,v 1.47.8.5 2014/01/07 18:18:32 cvs Exp $
+//      $Id: loglinebox.h,v 1.47.8.6 2014/02/06 20:43:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -70,6 +70,7 @@ class LogLineBox : public QWidget
   void setBarMode(LogLineBox::BarMode);
   void setTimeMode(RDAirPlayConf::TimeMode);
   void setStatus(RDLogLine::Status status);
+  void setAllowDrags(bool state);
 
  signals:
   void doubleClicked(int line);
@@ -143,6 +144,7 @@ class LogLineBox : public QWidget
   QString line_artist_template;
   QString line_outcue_template;
   QString line_description_template;
+  bool line_allow_drags;
 };
 
 

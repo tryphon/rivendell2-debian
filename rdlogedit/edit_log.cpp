@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.cpp,v 1.91.6.7 2014/01/10 21:00:52 cvs Exp $
+//      $Id: edit_log.cpp,v 1.91.6.8 2014/01/28 17:50:27 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -139,7 +139,7 @@ EditLog::EditLog(QString logname,vector<RDLogLine> *clipboard,
   //
   edit_log_event=
     new RDLogEvent(QString().sprintf("%s_LOG",(const char *)edit_logname));
-  edit_log_event->load();
+  edit_log_event->load(true);
 
   //
   // Log Name
@@ -1399,7 +1399,8 @@ void EditLog::RefreshLine(RDListViewItem *item)
 	else {
 	  item->setText(4,logline->groupName());
 	  item->setTextColor(4,logline->groupColor(),QFont::Bold);
-	  if(logline->originUser().isEmpty()||
+	  if((logline->source()!=RDLogLine::Tracker)||
+	     logline->originUser().isEmpty()||
 	     (!logline->originDateTime().isValid())) {
 	    item->setText(6,logline->title());
 	  }

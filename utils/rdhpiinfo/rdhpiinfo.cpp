@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdhpiinfo.cpp,v 1.8.6.3 2014/01/08 02:08:41 cvs Exp $
+//    $Id: rdhpiinfo.cpp,v 1.8.6.4 2014/01/21 21:59:34 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -408,7 +408,6 @@ void MainWidget::HpiErr(hpi_err_t err,const char *func_name) const
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Start Event Loop

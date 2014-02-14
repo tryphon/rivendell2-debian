@@ -34,6 +34,7 @@ int rlm_serial_devs;
 int *rlm_serial_handles;
 char *rlm_serial_formats;
 int *rlm_serial_encodings;
+int *rlm_serial_null_updates;
 int *rlm_serial_masters;
 int *rlm_serial_aux1s;
 int *rlm_serial_aux2s;
@@ -82,6 +83,7 @@ void rlm_serial_RLMStart(void *ptr,const char *arg)
   rlm_serial_handles=NULL;
   rlm_serial_formats=NULL;
   rlm_serial_encodings=NULL;
+  rlm_serial_null_updates=NULL;
   rlm_serial_masters=NULL;
   rlm_serial_aux1s=NULL;
   rlm_serial_aux2s=NULL;
@@ -111,6 +113,14 @@ void rlm_serial_RLMStart(void *ptr,const char *arg)
 				 (rlm_serial_devs+1)*sizeof(int));
       rlm_serial_encodings[rlm_serial_devs]=
 	RLMGetIntegerValue(ptr,arg,section,"Encoding",RLM_ENCODE_NONE);
+
+      rlm_serial_null_updates=realloc(rlm_serial_null_updates,
+				      (rlm_serial_devs+1)*sizeof(int));
+      rlm_serial_null_updates[rlm_serial_devs]=
+	RLMGetIntegerValue(ptr,arg,section,"ProcessNullUpdates",0);
+
+
+
       rlm_serial_aux1s=realloc(rlm_serial_aux1s,
 				 (rlm_serial_devs+1)*sizeof(int));
       rlm_serial_aux1s[rlm_serial_devs]=
@@ -143,16 +153,13 @@ void rlm_serial_RLMFree(void *ptr)
   free(rlm_serial_handles);
   free(rlm_serial_formats);
   free(rlm_serial_encodings);
+  free(rlm_serial_null_updates);
   free(rlm_serial_masters);
   free(rlm_serial_aux1s);
   free(rlm_serial_aux2s);
 }
 
-/*
-void rlm_serial_RLMPadDataSent(void *ptr,const char *svcname,int onair,
-			       int lognum,const struct rlm_pad *now,
-			       const struct rlm_pad *next)
-*/
+
 void rlm_serial_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
 			       const struct rlm_log *log,
 			       const struct rlm_pad *now,
@@ -163,6 +170,29 @@ void rlm_serial_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
   char msg[1500];
 
   for(i=0;i<rlm_serial_devs;i++) {
+    switch(rlm_serial_null_updates[i]) {
+    case 0:  /* Process all updates */
+      break;
+
+    case 1:  /* Process only non-null NOW updates */
+      if(now->rlm_cartnum==0) {
+	return;
+      }
+      break;
+
+    case 2:  /* Process only non-null NEXT updates */
+      if(next->rlm_cartnum==0) {
+	return;
+      }
+      break;
+
+    case 3:  /* Process only non-null NOW and NEXT updates */
+      if((now->rlm_cartnum==0)||(next->rlm_cartnum==0)) {
+	return;
+      }
+      break;
+    }
+
     switch(log->log_mach) {
       case 0:
 	flag=rlm_serial_masters[i];

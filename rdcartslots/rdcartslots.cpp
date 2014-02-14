@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslots.cpp,v 1.8.2.11 2014/01/08 02:08:37 cvs Exp $
+//      $Id: rdcartslots.cpp,v 1.8.2.13 2014/02/11 23:46:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -148,12 +148,8 @@ MainWidget::MainWidget(QWidget *parent)
   // Dialogs
   //
   panel_cart_dialog=new RDCartDialog(&panel_filter,&panel_group,
-				     &panel_schedcode,
-				     panel_station->cueCard(),
-				     panel_station->cuePort(),
-				     0,0,panel_cae,panel_ripc,panel_station,
-				     panel_system,panel_config,
-				     panel_station->editorPath(),
+				     &panel_schedcode,panel_cae,panel_ripc,
+				     panel_station,panel_system,panel_config,
 				     this);
   panel_slot_dialog=new RDSlotDialog(tr("RDCartSlots"),this);
   panel_cue_dialog=new RDCueEditDialog(panel_cae,panel_station->cueCard(),
@@ -265,7 +261,6 @@ void MainWidget::SetCaption()
 int main(int argc,char *argv[])
 {
   QApplication a(argc,argv);
-  QApplication::setStyle(new QWindowsStyle);
   
   //
   // Load Translations

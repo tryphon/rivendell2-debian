@@ -1224,6 +1224,14 @@ Vil du sletta ho likevel?</translation>
         <source>Unknown command-line option</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>ALBUM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LABEL</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RecordCut</name>

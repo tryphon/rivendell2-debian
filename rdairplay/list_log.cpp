@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_log.cpp,v 1.105.6.7 2014/01/09 23:53:52 cvs Exp $
+//      $Id: list_log.cpp,v 1.105.6.10 2014/02/07 15:32:19 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -178,21 +178,28 @@ ListLog::ListLog(LogPlay *log,int id,bool allow_pause,
   list_log_list->addColumn(tr("GROUP"));
   list_log_list->setColumnAlignment(7,Qt::AlignCenter);
   list_log_list->addColumn(tr("TIME"));
+
   list_log_list->setColumnAlignment(8,Qt::AlignRight);
-  list_log_list->addColumn(tr("CLIENT"));
-  list_log_list->setColumnAlignment(9,Qt::AlignLeft);
-  list_log_list->addColumn(tr("AGENCY"));
-  list_log_list->setColumnAlignment(10,Qt::AlignLeft);
+  list_log_list->addColumn(tr("ALBUM"));
+  list_log_list->setColumnAlignment(9,Qt::AlignRight);
   list_log_list->addColumn(tr("LABEL"));
-  list_log_list->setColumnAlignment(11,Qt::AlignHCenter);
+
+
+  list_log_list->setColumnAlignment(10,Qt::AlignRight);
+  list_log_list->addColumn(tr("CLIENT"));
+  list_log_list->setColumnAlignment(11,Qt::AlignLeft);
+  list_log_list->addColumn(tr("AGENCY"));
+  list_log_list->setColumnAlignment(12,Qt::AlignLeft);
+  list_log_list->addColumn(tr("MARKER"));
+  list_log_list->setColumnAlignment(13,Qt::AlignHCenter);
 
   list_log_list->addColumn(tr("LINE ID"));
-  list_log_list->setColumnAlignment(12,Qt::AlignHCenter);
-  list_log_list->addColumn(tr("COUNT"));
-  list_log_list->setColumnAlignment(13,Qt::AlignHCenter);
-  list_log_list->addColumn(tr("STATUS"));
   list_log_list->setColumnAlignment(14,Qt::AlignHCenter);
-  list_log_list->setHardSortColumn(13);
+  list_log_list->addColumn(tr("COUNT"));
+  list_log_list->setColumnAlignment(15,Qt::AlignHCenter);
+  list_log_list->addColumn(tr("STATUS"));
+  list_log_list->setColumnAlignment(16,Qt::AlignHCenter);
+  list_log_list->setHardSortColumn(15);
   list_log_list->setFocusPolicy(QWidget::NoFocus);
   connect(list_log_list,SIGNAL(selectionChanged()),
 	  this,SLOT(selectionChangedData()));
@@ -433,7 +440,7 @@ void ListLog::setStatus(int line,RDLogLine::Status status)
   if(next==NULL) {
     return;
   }
-  next->setText(14,QString().sprintf("%d",status));
+  next->setText(16,QString().sprintf("%d",status));
 }
 
 
@@ -624,13 +631,13 @@ void ListLog::takeButtonData()
 	      return;
 	      
 	    default:
-	      line=list_log_list->currentItem()->text(13).toInt();
+	      line=list_log_list->currentItem()->text(15).toInt();
 	      break;
 	}
 	break;
 	  
       case RDAirPlayConf::CopyFrom:
-	line=list_log_list->currentItem()->text(13).toInt();
+	line=list_log_list->currentItem()->text(15).toInt();
 	if(list_log->logLine(line)!=NULL) {
 	  switch(list_log->logLine(line)->type()) {
 	      case RDLogLine::Marker:
@@ -658,7 +665,7 @@ void ListLog::takeButtonData()
 	      return;
 	      
 	    default:
-	      line=list_log_list->currentItem()->text(13).toInt();
+	      line=list_log_list->currentItem()->text(15).toInt();
 	      break;
 	}
 	break;
@@ -671,7 +678,7 @@ void ListLog::takeButtonData()
 	      return;
 	      
 	    default:
-	      line=list_log_list->currentItem()->text(13).toInt();
+	      line=list_log_list->currentItem()->text(15).toInt();
               // Don't try delete "end of log" or other invalid log entries.
               if (line<0) {
                 return;
@@ -780,13 +787,13 @@ void ListLog::modifyButtonData()
 {
   RDListViewItem *item=(RDListViewItem *)list_log_list->currentItem();
   if((item==NULL)||
-     ((item->text(14).toInt()!=RDLogLine::Scheduled)&&
-      (item->text(14).toInt()!=RDLogLine::Paused)&&
-      (item->text(14).toInt()!=RDLogLine::NoCart)&&
-      (item->text(14).toInt()!=RDLogLine::NoCut))) {
+     ((item->text(16).toInt()!=RDLogLine::Scheduled)&&
+      (item->text(16).toInt()!=RDLogLine::Paused)&&
+      (item->text(16).toInt()!=RDLogLine::NoCart)&&
+      (item->text(16).toInt()!=RDLogLine::NoCut))) {
     return;
   }
-  int line=item->text(13).toInt();
+  int line=item->text(15).toInt();
   if(list_event_edit->exec(line)==0) {
     list_log->lineModified(line);
   }
@@ -828,10 +835,10 @@ void ListLog::refreshButtonData()
 void ListLog::nextButtonData()
 {
   if((list_log_list->currentItem()==NULL)||
-     (list_log_list->currentItem()->text(14).toInt()!=RDLogLine::Scheduled)) {
+     (list_log_list->currentItem()->text(16).toInt()!=RDLogLine::Scheduled)) {
     return;
   }
-  int line=list_log_list->currentItem()->text(13).toInt();
+  int line=list_log_list->currentItem()->text(15).toInt();
   list_log->makeNext(line);
   ClearSelection();
 }
@@ -939,8 +946,8 @@ void ListLog::logInsertedData(int line)
   int count;
   RDListViewItem *item=GetItem(line+1);
   while(item!=NULL) {
-    if((count=item->text(13).toInt())>=0) {
-      item->setText(13,QString().sprintf("%d",count+1));
+    if((count=item->text(15).toInt())>=0) {
+      item->setText(15,QString().sprintf("%d",count+1));
     }
     item=(RDListViewItem *)item->nextSibling();
   }
@@ -960,8 +967,8 @@ void ListLog::logRemovedData(int line,int num,bool moving)
   int count;
   RDListViewItem *item=GetItem(line+num);
   while(item!=NULL) {
-    if((count=item->text(13).toInt())>=0) {
-      item->setText(13,QString().sprintf("%d",count-num));
+    if((count=item->text(15).toInt())>=0) {
+      item->setText(15,QString().sprintf("%d",count-num));
     }
     item=(RDListViewItem *)item->nextSibling();
   }
@@ -985,11 +992,11 @@ void ListLog::selectionChangedData()
   while(next!=NULL) {
     if(list_log_list->isSelected(next)) {
       item=next;
-      if((start_line<0)&&(next->text(12).toInt()!=END_MARKER_ID)) {
-	start_line=next->text(13).toInt();
+      if((start_line<0)&&(next->text(14).toInt()!=END_MARKER_ID)) {
+	start_line=next->text(15).toInt();
       }
       if(next->text(12).toInt()!=END_MARKER_ID) {
-	end_line=next->text(13).toInt();
+	end_line=next->text(15).toInt();
       }
       count++;
     }
@@ -1030,11 +1037,11 @@ void ListLog::selectionChangedData()
       default:
 	break;
   }
-  if(item->text(13).toInt()>=0) {
+  if(item->text(15).toInt()>=0) {
     list_endtime_edit->setText(RDGetTimeLength(list_log->
-      length(item->text(13).toInt(),list_log->size()),true,false));
+      length(item->text(15).toInt(),list_log->size()),true,false));
     list_stoptime_label->setText(tr("Next Stop:"));
-    int stoplen=list_log->lengthToStop(item->text(13).toInt());
+    int stoplen=list_log->lengthToStop(item->text(15).toInt());
     if(stoplen>=0) {
       list_stoptime_edit->setText(RDGetTimeLength(stoplen,true,false));
     }
@@ -1119,8 +1126,8 @@ void ListLog::RefreshList()
   list_log_list->clear();
   l=new RDListViewItem(list_log_list);
   l->setText(5,tr("--- end of log ---"));
-  l->setText(13,QString().sprintf("%d",END_MARKER_ID));
-  l->setText(12,QString().sprintf("%d",list_log->size()));
+  l->setText(15,QString().sprintf("%d",END_MARKER_ID));
+  l->setText(14,QString().sprintf("%d",list_log->size()));
   for(int i=list_log->size()-1;i>=0;i--) {
     if((logline=list_log->logLine(i))!=NULL) {
       l=new RDListViewItem(list_log_list);
@@ -1134,7 +1141,7 @@ void ListLog::RefreshList()
 void ListLog::RefreshList(int line)
 {
   RDListViewItem *next=(RDListViewItem *)list_log_list->firstChild();
-  while((next!=NULL)&&next->text(13).toInt()!=line) {
+  while((next!=NULL)&&next->text(15).toInt()!=line) {
     next=(RDListViewItem *)next->nextSibling();
   }
   if(next!=NULL) {
@@ -1161,7 +1168,7 @@ void ListLog::RefreshItem(RDListViewItem *l,int line)
 	for(int i=0;i<list_log_list->columns();i++) {
 	  l->setTextColor(i,LOG_HARDTIME_TEXT_COLOR,QFont::Bold);
 	}
-	l->setText(12,"N");
+	l->setText(14,"N");
 	break;
       default:
 	if(!log_line->startTime(RDLogLine::Logged).isNull()) {
@@ -1173,7 +1180,7 @@ void ListLog::RefreshItem(RDListViewItem *l,int line)
 	for(int i=0;i<list_log_list->columns();i++) {
 	  l->setTextColor(i,LOG_RELATIVE_TEXT_COLOR,QFont::Normal);
 	}
-	l->setText(12,"");
+	l->setText(14,"");
 	break;
   }
   switch(log_line->transType()) {
@@ -1217,7 +1224,8 @@ void ListLog::RefreshItem(RDListViewItem *l,int line)
 	l->setText(2,RDGetTimeLength(log_line->effectiveLength(),false,false));
 	l->setText(4,QString().
 		   sprintf("%06u",log_line->cartNumber()));
-	if(log_line->originUser().isEmpty()||
+	if((log_line->source()!=RDLogLine::Tracker)||
+	   log_line->originUser().isEmpty()||
 	   (!log_line->originDateTime().isValid())) {
 	  l->setText(5,log_line->title());
 	}
@@ -1232,8 +1240,10 @@ void ListLog::RefreshItem(RDListViewItem *l,int line)
 	l->setText(6,log_line->artist());
 	l->setText(7,log_line->groupName());
 	l->setTextColor(7,log_line->groupColor(),QFont::Bold);
-	l->setText(9,log_line->client());
-	l->setText(10,log_line->agency());
+	l->setText(9,log_line->album());
+	l->setText(10,log_line->label());
+	l->setText(11,log_line->client());
+	l->setText(12,log_line->agency());
 	break;
 
       case RDLogLine::Macro:
@@ -1245,8 +1255,10 @@ void ListLog::RefreshItem(RDListViewItem *l,int line)
 	l->setText(6,log_line->artist());
 	l->setText(7,log_line->groupName());
 	l->setTextColor(7,log_line->groupColor(),QFont::Bold);
-	l->setText(9,log_line->client());
-	l->setText(10,log_line->agency());
+	l->setText(9,log_line->album());
+	l->setText(10,log_line->label());
+	l->setText(11,log_line->client());
+	l->setText(12,log_line->agency());
 	break;
 
       case RDLogLine::Marker:
@@ -1254,7 +1266,7 @@ void ListLog::RefreshItem(RDListViewItem *l,int line)
 	l->setText(2,"00:00");
 	l->setText(4,tr("MARKER"));
 	l->setText(5,RDTruncateAfterWord(log_line->markerComment(),5,true));
-	l->setText(11,log_line->markerLabel());
+	l->setText(13,log_line->markerLabel());
 	break;
 
       case RDLogLine::Track:
@@ -1289,9 +1301,9 @@ void ListLog::RefreshItem(RDListViewItem *l,int line)
       default:
 	break;
   }
-  l->setText(12,QString().sprintf("%d",log_line->id()));
-  l->setText(13,QString().sprintf("%d",line));
-  l->setText(14,QString().sprintf("%d",log_line->status()));
+  l->setText(14,QString().sprintf("%d",log_line->id()));
+  l->setText(15,QString().sprintf("%d",line));
+  l->setText(16,QString().sprintf("%d",log_line->status()));
   SetPlaybuttonMode(ListLog::ButtonDisabled);
   list_modify_button->setDisabled(true);
   switch(log_line->state()) {
@@ -1346,7 +1358,7 @@ int ListLog::CurrentLine() {
   if(!list_log_list->isSelected(item)) {
     return -1;
   }
-  return list_log_list->currentItem()->text(13).toInt();
+  return list_log_list->currentItem()->text(15).toInt();
 }
 
 
@@ -1354,7 +1366,7 @@ RDLogLine::Status ListLog::CurrentStatus() {
   if(list_log_list->currentItem()==NULL) {
     return RDLogLine::Finished;
   }
-  return (RDLogLine::Status)list_log_list->currentItem()->text(14).toInt();
+  return (RDLogLine::Status)list_log_list->currentItem()->text(16).toInt();
 }
 
 
@@ -1363,7 +1375,7 @@ RDLogLine::State ListLog::CurrentState() {
     return RDLogLine::NoCart;
   }
   return list_log->
-    logLine(list_log_list->currentItem()->text(12).toInt())->state();
+    logLine(list_log_list->currentItem()->text(14).toInt())->state();
 }
 
 
@@ -1385,11 +1397,11 @@ void ListLog::UpdateTimes(int removed_line,int num_lines)
 
   RDListViewItem *next=(RDListViewItem *)list_log_list->firstChild();
   for(int i=0;i<(list_log_list->childCount()-1);i++) {
-    if((line=next->text(13).toInt())>=removed_line) {
+    if((line=next->text(15).toInt())>=removed_line) {
       line+=num_lines;
     }
     if((logline=list_log->logLine(line))!=NULL) {
-      switch((RDLogLine::Status)next->text(14).toInt()) {
+      switch((RDLogLine::Status)next->text(16).toInt()) {
 	  case RDLogLine::Scheduled:
 	  case RDLogLine::Paused:
 	    switch(logline->timeType()) {

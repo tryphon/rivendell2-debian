@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.cpp,v 1.101.4.12 2014/01/13 23:02:40 cvs Exp $
+//      $Id: rdlog_event.cpp,v 1.101.4.13 2014/01/28 17:50:26 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -827,7 +827,13 @@ int RDLogEvent::length(int from_line,int to_line,QTime *sched_time)
   }
   int len=0;
   for(int i=from_line;i<to_line;i++) {
-    len+=logLine(i)->forcedLength();
+    if(((i+1)>=size())||(logLine(i+1)->transType()!=RDLogLine::Segue)||
+       (logLine(i)->segueStartPoint()<0)) {
+      len+=logLine(i)->forcedLength();
+    }
+    else {
+      len+=logLine(i)->segueStartPoint()-logLine(i)->startPoint();
+    }
   }
 
   return len;

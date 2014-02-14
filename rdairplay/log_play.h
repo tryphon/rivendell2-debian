@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_play.h,v 1.90.8.2 2013/03/09 22:50:46 cvs Exp $
+//      $Id: log_play.h,v 1.90.8.3 2014/02/10 20:45:13 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -72,7 +72,7 @@ class LogPlay : public QObject,public RDLogEvent
   int card(int channum) const;
   int port(int channum) const;
   RDAirPlayConf::OpMode mode() const;
-  void setMode(RDAirPlayConf::OpMode mode);
+  void setOpMode(RDAirPlayConf::OpMode mode);
   void setLogName(QString name);
   void setChannels(int cards[2],int ports[2],
 		   const QString start_rml[2],const QString stop_rml[2]);

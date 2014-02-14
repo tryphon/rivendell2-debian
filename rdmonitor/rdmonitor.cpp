@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmonitor.cpp,v 1.1.2.12 2013/12/26 22:46:56 cvs Exp $
+//      $Id: rdmonitor.cpp,v 1.1.2.13 2014/02/10 20:54:14 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -20,6 +20,7 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
+#include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -55,6 +56,16 @@
 #include "../icons/rivendell-22x22.xpm"
 #include "../icons/greenball.xpm"
 #include "../icons/redball.xpm"
+
+void SigHandler(int signo)
+{
+  switch(signo) {
+  case SIGTERM:
+  case SIGINT:
+    exit(0);
+    break;
+  }
+}
 
 
 MainWidget::MainWidget(QWidget *parent,const char *name)
@@ -129,6 +140,9 @@ MainWidget::MainWidget(QWidget *parent,const char *name)
 
   mon_name_label->setText(mon_rdconfig->label());
   SetPosition();
+
+  ::signal(SIGTERM,SigHandler);
+  ::signal(SIGINT,SigHandler);
 }
 
 

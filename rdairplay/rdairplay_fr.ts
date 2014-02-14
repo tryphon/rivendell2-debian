@@ -364,6 +364,10 @@ Head</source>
 Tail</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>ALBUM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ListLogs</name>
@@ -558,10 +562,6 @@ REFRESHING</source>
 <context>
     <name>ModeDisplay</name>
     <message>
-        <source>Operating Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>LiveAssist</source>
         <translation type="unfinished"></translation>
     </message>
@@ -571,6 +571,18 @@ REFRESHING</source>
     </message>
     <message>
         <source>Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Operating Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aux2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
