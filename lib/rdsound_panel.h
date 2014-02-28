@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.h,v 1.32.6.7 2014/01/20 19:13:30 cvs Exp $
+//      $Id: rdsound_panel.h,v 1.32.6.8 2014/02/20 17:29:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -49,7 +49,7 @@
 #define PANEL_BUTTON_SIZE_X 88
 #define PANEL_BUTTON_SIZE_Y 80
 #define PANEL_MAX_OUTPUTS 5
-
+#define PANEL_SCAN_INTERVAL 10000
 
 class RDSoundPanel : public QWidget
 {
@@ -119,6 +119,7 @@ class RDSoundPanel : public QWidget
   void timescalingSupportedData(int card,bool state);
   void panelSetupData();
   void onairFlagChangedData(bool state);
+  void scanPanelData();
 
  private:
   void PlayButton(RDAirPlayConf::PanelType type,int panel,int row,int col,
@@ -193,6 +194,7 @@ class RDSoundPanel : public QWidget
   int panel_button_rows;
   RDCartDialog *panel_cart_dialog;
   bool panel_onair_flag;
+  QTimer *panel_scan_timer;
 };
 
 #endif  // RDSOUND_PANEL_H

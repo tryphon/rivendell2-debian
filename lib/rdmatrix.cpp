@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmatrix.cpp,v 1.28.8.10 2013/11/17 04:27:04 cvs Exp $
+//      $Id: rdmatrix.cpp,v 1.28.8.11 2014/02/17 02:19:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -60,7 +60,8 @@ bool __mx_primary_controls[RDMatrix::LastType][RDMatrix::LastControl]=
     {0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0},  // ACU-1 Prophet
     {0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,1,0,0,0,1},  // LiveWire Multicast GPIO
     {0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0},  // 360 AM16
-    {0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0}   // LiveWire LWRP GPIO
+    {0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0},  // LiveWire LWRP GPIO
+    {0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0}   // BT Sentinel 4 Web
   };
 bool __mx_backup_controls[RDMatrix::LastType][RDMatrix::LastControl]=
   {
@@ -95,7 +96,8 @@ bool __mx_backup_controls[RDMatrix::LastType][RDMatrix::LastControl]=
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // ACU-1 Prophet
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // LiveWire Multicast GPIO
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // 360 AM16
-    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}   // LiveWire LWRP GPIO
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},  // LiveWire LWRP GPIO
+    {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}   // BT Sentinel 4 Web
   };
 
 int __mx_default_values[RDMatrix::LastType][RDMatrix::LastControl]=
@@ -131,7 +133,8 @@ int __mx_default_values[RDMatrix::LastType][RDMatrix::LastControl]=
     {0,0,0,0,0,0,0,0,0,0,0,10,1,16,8,0,0,0,0,0,0,0,0,0,0,0,0,1,0},  // ACU-1 Prophet
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0},    // LiveWire  Multicast GPIO
     {0,0,0,0,0,0,0,0,0,0,0,16,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},  // 360 AM16
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0}     // LiveWire  LWRP GPIO
+    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0},    // LiveWire  LWRP GPIO
+    {1,0,0,0,0,0,0,0,0,0,0,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0}    // BT Sentinel 4 Web
   };
 
 RDMatrix::RDMatrix(const QString &station,int matrix)
@@ -661,6 +664,10 @@ QString RDMatrix::typeString(RDMatrix::Type type)
 
       case RDMatrix::LiveWireLwrpGpio:
 	return QString("LiveWire LWRP GPIO");
+	break;
+
+      case RDMatrix::BtSentinel4Web:
+	return QString("BroadcastTools Sentinel 4 Web");
 	break;
 
       default:

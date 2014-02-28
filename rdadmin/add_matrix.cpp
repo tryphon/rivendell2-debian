@@ -3,7 +3,7 @@
 //
 //   (C) Copyright 2002-2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: add_matrix.cpp,v 1.28.2.2 2012/12/10 15:40:14 cvs Exp $
+//      $Id: add_matrix.cpp,v 1.28.2.3 2014/02/17 02:19:02 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -125,15 +125,6 @@ QSizePolicy AddMatrix::sizePolicy() const
 
 void AddMatrix::okData()
 {
-  /*
-  int inputs;
-  int outputs;
-  int gpis;
-  int gpos;
-  RDMatrix::PortType port_type=RDMatrix::TtyPort;
-  RDMatrix::PortType port_type2=RDMatrix::TtyPort;
-  */
-
   QString sql=QString("select MATRIX from MATRICES where STATION_NAME=\"")+
     RDEscapeString(add_station)+"\" && MATRIX="+
     QString().sprintf("%d",add_matrix_box->value());
@@ -145,153 +136,6 @@ void AddMatrix::okData()
     return;
   }
   delete q;
-  /*
-  switch((RDMatrix::Type)add_type_box->currentItem()) {
-      case RDMatrix::BtSs82:
-	inputs=8;
-	outputs=2;
-	gpis=16;
-	gpos=8;
-	break;
-
-      case RDMatrix::Bt10x1:
-	inputs=10;
-	outputs=1;
-	gpis=0;
-	gpos=0;
-	break;
-
-      case RDMatrix::Bt16x1:
-	inputs=16;
-	outputs=1;
-	gpis=0;
-	gpos=0;
-	break;
-
-      case RDMatrix::Bt8x2:
-	inputs=8;
-	outputs=2;
-	gpis=0;
-	gpos=0;
-	break;
-
-      case RDMatrix::BtAcs82:
-	inputs=8;
-	outputs=2;
-	gpis=16;
-	gpos=16;
-	break;
-
-      case RDMatrix::SasUsi:
-	inputs=0;
-	outputs=0;
-	gpis=0;
-	gpos=0;
-	break;
-
-      case RDMatrix::Bt16x2:
-	inputs=16;
-	outputs=2;
-	gpis=16;
-	gpos=16;
-	break;
-
-      case RDMatrix::BtSs124:
-	inputs=12;
-	outputs=4;
-	gpis=0;
-	gpos=0;
-	break;
-
-      case RDMatrix::LocalAudioAdapter:
-	inputs=0;
-	outputs=0;
-	gpis=0;
-	gpos=0;
-	break;
-
-      case RDMatrix::LogitekVguest:
-	inputs=0;
-	outputs=0;
-	gpis=0;
-	gpos=0;
-	break;
-
-      case RDMatrix::BtSs164:
-	inputs=16;
-	outputs=4;
-	gpis=24;
-	gpos=24;
-	break;
-
-      case RDMatrix::StarGuideIII:
-	inputs=0;
-	outputs=6;
-	gpis=0;
-	gpos=0;
-	break;
-
-      case RDMatrix::BtSs42:
-	inputs=4;
-	outputs=2;
-	gpis=16;
-	gpos=8;
-	break;
-
-      case RDMatrix::LiveWire:
-	inputs=0;
-	outputs=0;
-	gpis=0;
-	gpos=0;
-	break;
-
-      case RDMatrix::BtSs44:
-	inputs=4;
-	outputs=4;
-	gpis=16;
-	gpos=8;
-	break;
-
-      case RDMatrix::BtSrc8III:
-	inputs=0;
-	outputs=0;
-	gpis=8;
-	gpos=8;
-	break;
-
-      case RDMatrix::BtSrc16:
-	inputs=0;
-	outputs=0;
-	gpis=16;
-	gpos=16;
-	break;
-
-      case RDMatrix::Harlond:
-	inputs=8;
-	outputs=4;
-	gpis=8;
-	gpos=8;
-	port_type=RDMatrix::TcpPort;
-	port_type2=RDMatrix::NoPort;
-	break;
-
-      case RDMatrix::Acu1p:
-	inputs=8;
-	outputs=1;
-	gpis=16;
-	gpos=8;
-	port_type=RDMatrix::TcpPort;
-	port_type2=RDMatrix::NoPort;
-	break;
-
-      default:
-	inputs=0;
-	outputs=0;
-	gpis=0;
-	gpos=0;
-	break;
-  }
-  */
 
   sql=QString("insert into MATRICES set STATION_NAME=\"")+
     RDEscapeString(add_station)+"\","+

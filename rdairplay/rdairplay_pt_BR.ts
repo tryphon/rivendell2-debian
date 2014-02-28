@@ -101,6 +101,10 @@
         <source>An event is already scheduled with this start time!</source>
         <translation>Um evento já está agendado com esta hora de início!</translation>
     </message>
+    <message>
+        <source>&amp;Recue</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HourSelector</name>

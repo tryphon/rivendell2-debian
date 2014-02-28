@@ -7,6 +7,7 @@ Broadcast Tools 10x1 Audio Switcher
 Broadcast Tools 16x1 Audio Switcher
 Broadcast Tools 16x2 Audio Switcher
 Broadcast Tools 8x2 Audio Switcher
+Broadcast Tools Sentinel 4 Web AES Switcher
 Broadcast Tools SS 12.4 Audio Switcher
 Broadcast Tools SS 16.4 Audio Switcher
 Broadcast Tools SS 4.2 Audio Switcher
@@ -122,6 +123,24 @@ The 8x2 should be configured to use 'Mix' mode.  This can be done by holding
 down the F1 button on the switcher while powering up.
 
 Operation in 'multidrop' mode is not supported.
+
+
+----------------------------------------------------------------------------
+BROADCAST TOOLS SENTINEL 4 WEB AES SWITCHER
+
+Driver Name: BroadcastTools Sentinel 4 Web
+
+Supported RML Commands:
+  Switch Take ('ST')
+
+GENERAL NOTES:
+Control is done by means of a TCP/IP connection to the unit's integrated
+Ethernet port.
+
+On the 'Email/Network Setup' page of the unit, be sure that the 'TCP Enabled'
+box is checked and that 'TCP Listen Port' is set to the same number as is
+used in the 'IP Port' setting in Rivendell's driver configuration
+('56' by default).
 
 
 ----------------------------------------------------------------------------

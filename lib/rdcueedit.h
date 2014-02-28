@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcueedit.h,v 1.1.2.1 2013/07/05 21:07:27 cvs Exp $
+//      $Id: rdcueedit.h,v 1.1.2.2 2014/02/20 19:38:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -52,6 +52,9 @@ class RDCueEdit : public QWidget
   bool initialize(RDLogLine *logline);
   unsigned playPosition(RDMarkerBar::Marker marker) const;
   void stop();
+
+ public slots:
+  void recue();
 
  private slots:
   void sliderPressedData();

@@ -97,6 +97,10 @@
         <source>An event is already scheduled with this start time!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Recue</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HourSelector</name>

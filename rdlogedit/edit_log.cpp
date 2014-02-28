@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.cpp,v 1.91.6.8 2014/01/28 17:50:27 cvs Exp $
+//      $Id: edit_log.cpp,v 1.91.6.10 2014/02/20 16:33:55 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -315,7 +315,7 @@ EditLog::EditLog(QString logname,vector<RDLogLine> *clipboard,
   edit_log_list->setAllColumnsShowFocus(true);
   edit_log_list->setSelectionMode(QListView::Extended);
   edit_log_list->setItemMargin(5);
-  edit_log_list->setSorting(-1);
+  //edit_log_list->setSorting(-1);
   edit_log_list->addColumn("");
   edit_log_list->setColumnAlignment(0,Qt::AlignHCenter);
   edit_log_list->addColumn(tr("TIME"));
@@ -344,6 +344,8 @@ EditLog::EditLog(QString logname,vector<RDLogLine> *clipboard,
   edit_log_list->setColumnAlignment(12,Qt::AlignHCenter);
   edit_log_list->addColumn(tr("COUNT"));
   edit_log_list->setColumnAlignment(13,Qt::AlignHCenter);
+  edit_log_list->setHardSortColumn(13);
+  edit_log_list->setColumnSortType(13,RDListView::LineSort);
   if(editing_allowed) {
     connect(edit_log_list,SIGNAL(doubleClicked(QListViewItem *)),
 	    this,SLOT(doubleClickData(QListViewItem *)));
@@ -914,32 +916,7 @@ void EditLog::deleteButtonData()
     }
     next=next->nextSibling();
   }
-  if(count>0) {
-    for(int i=line;i<(line+count);i++) {
-      if(edit_log_event->logLine(i)->source()==RDLogLine::Tracker) {
-	edit_deleted_tracks.
-	  push_back(edit_log_event->logLine(i)->cartNumber());
-      }
-    }
-    edit_log_event->remove(line,count);
-    edit_changed=true;
-    QListViewItem *next_kill;
-    for(int i=0;i<count;i++) {
-      item=item->itemAbove();
-    }
-    for(int i=0;i<count;i++) {
-      next_kill=item->nextSibling();
-      edit_log_list->takeItem(item);
-      item=next_kill;
-    }
-    edit_log_list->setSelected(item,true);
-    if(line>(edit_log_event->size()-1)) {
-      line=edit_log_event->size()-1;
-    }
-    RenumberList(line);
-  }
-  UpdateTracks();
-  UpdateSelection();
+  DeleteLines(line,count);
 }
 
 
@@ -1036,6 +1013,12 @@ void EditLog::cartDroppedData(int line,RDLogLine *ll)
     line=edit_log_event->size();
     appended=true;
   }
+  if(ll->cartNumber()==0) {  // Empty Cart
+    if(!appended) {
+      DeleteLines(line,1);
+    }
+    return;
+  }
   edit_log_event->insert(line,1);
   edit_log_event->setLogLine(line,ll);
   edit_log_event->logLine(line)->setTransType(edit_default_trans);
@@ -1043,20 +1026,24 @@ void EditLog::cartDroppedData(int line,RDLogLine *ll)
   edit_log_event->logLine(line)->setFadedownGain(-3000);
   edit_log_event->refresh(line);
   edit_changed=true;
-  RefreshList();
   if(appended) {
-    if((item=(RDListViewItem *)edit_log_list->findItem("-2",12))!=NULL) {
-      item->setSelected(true);
-      edit_log_list->ensureItemVisible(item);
-    }
+    item=(RDListViewItem *)edit_log_list->lastItem();
+    item->setText(13,QString().sprintf("%d",item->text(13).toInt()+1));
   }
   else {
-    if((item=(RDListViewItem *)edit_log_list->
-	findItem(QString().sprintf("%d",line),13))!=NULL) {
-      item->setSelected(true);
-      edit_log_list->ensureItemVisible(item);
+    item=(RDListViewItem *)edit_log_list->
+      findItem(QString().sprintf("%d",line),13);
+    item->setText(13,QString().sprintf("%d",item->text(13).toInt()+1));
+    while((item=(RDListViewItem *)item->nextSibling())!=NULL) {
+      item->setText(13,QString().sprintf("%d",item->text(13).toInt()+1));
     }
   }
+  item=new RDListViewItem(edit_log_list);
+  item->setText(13,QString().sprintf("%d",line));
+  RefreshLine(item);
+  edit_log_list->sort();
+  edit_log_list->clearSelection();
+  item->setSelected(true);
 }
 
 
@@ -1297,6 +1284,36 @@ void EditLog::paintEvent(QPaintEvent *e)
 
   p->end();
   delete p;
+}
+
+
+void EditLog::DeleteLines(int line,int count)
+{
+  RDListViewItem *item=NULL;
+  RDListViewItem *next=NULL;
+  if(count>0) {
+    for(int i=line;i<(line+count);i++) {
+      if(edit_log_event->logLine(i)->source()==RDLogLine::Tracker) {
+	edit_deleted_tracks.
+	  push_back(edit_log_event->logLine(i)->cartNumber());
+      }
+    }
+    item=(RDListViewItem *)edit_log_list->
+      findItem(QString().sprintf("%d",line),13);
+    for(int i=0;i<count;i++) {
+      next=(RDListViewItem *)item->nextSibling();
+      delete item;
+      item=next;
+    }
+    if(next!=NULL) {
+      next->setSelected(true);
+    }
+    edit_log_event->remove(line,count);
+    edit_changed=true;
+    RenumberList(line);
+  }
+  UpdateTracks();
+  UpdateSelection();
 }
 
 
