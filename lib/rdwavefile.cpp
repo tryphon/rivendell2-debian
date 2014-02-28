@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavefile.cpp,v 1.24.6.4 2014/01/15 19:56:32 cvs Exp $
+//    $Id: rdwavefile.cpp,v 1.24.6.5 2014/02/26 22:35:07 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -230,10 +230,10 @@ bool RDWaveFile::openWave(RDWaveData *data)
 	 (format_tag!=WAVE_FORMAT_IEEE_FLOAT)&&format_chunk) {
 #ifdef MPEG_FACT_FUDGE
 	// Guesstimate the overall sample size
-	time_length=data_length/avg_bytes_per_sec;
-	sample_length=time_length*samples_per_sec;
-	ext_time_length=(unsigned)(1000.0*(double)time_length/
-				   (double)samples_per_sec);
+	sample_length=1152.0*((double)data_length/(144.0*(double)head_bit_rate/
+						   (double)samples_per_sec));
+	ext_time_length=1000.0*(double)sample_length/(double)samples_per_sec;
+	time_length=ext_time_length/1000;
 #else
 	time_length=0;
 	sample_length=0;

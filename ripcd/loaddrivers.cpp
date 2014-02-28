@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: loaddrivers.cpp,v 1.1.8.8 2013/11/17 04:27:06 cvs Exp $
+//      $Id: loaddrivers.cpp,v 1.1.8.9 2014/02/17 02:19:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -32,6 +32,7 @@
 #include <bt16x2.h>
 #include <bt8x2.h>
 #include <btacs82.h>
+#include <btsentinel4web.h>
 #include <btsrc16.h>
 #include <btsrc8iii.h>
 #include <btss124.h>
@@ -85,6 +86,10 @@ bool MainObject::LoadSwitchDriver(int matrix_num)
 
   case RDMatrix::BtAcs82:
     ripcd_switcher[matrix_num]=new BtAcs82(matrix,this);
+    break;
+
+  case RDMatrix::BtSentinel4Web:
+    ripcd_switcher[matrix_num]=new BtSentinel4Web(matrix,this);
     break;
 
   case RDMatrix::BtSrc16:

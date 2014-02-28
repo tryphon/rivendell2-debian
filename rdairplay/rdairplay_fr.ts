@@ -77,6 +77,10 @@
         <source>Edit Log Track</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>&amp;Recue</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HourSelector</name>

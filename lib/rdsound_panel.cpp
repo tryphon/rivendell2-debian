@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.cpp,v 1.62.6.12 2014/02/06 20:43:47 cvs Exp $
+//      $Id: rdsound_panel.cpp,v 1.62.6.13 2014/02/20 17:29:32 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -236,6 +236,10 @@ RDSoundPanel::RDSoundPanel(int cols,int rows,int station_panels,
 						     i+1,i+1));
   }
   panel_selector_box->setFocus();
+
+  panel_scan_timer=new QTimer(this);
+  connect(panel_scan_timer,SIGNAL(timeout()),this,SLOT(scanPanelData()));
+  panel_scan_timer->start(PANEL_SCAN_INTERVAL);
 }
 
 
@@ -883,6 +887,12 @@ void RDSoundPanel::panelSetupData()
 void RDSoundPanel::onairFlagChangedData(bool state)
 {
   panel_onair_flag=state;
+}
+
+
+void RDSoundPanel::scanPanelData()
+{
+  LoadPanel(panel_type,panel_number);
 }
 
 

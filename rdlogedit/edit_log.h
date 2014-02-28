@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.h,v 1.36.8.1 2013/12/27 22:12:29 cvs Exp $
+//      $Id: edit_log.h,v 1.36.8.2 2014/02/20 16:33:55 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -91,6 +91,7 @@ class EditLog : public QDialog
   void paintEvent(QPaintEvent *);
   
  private:
+  void DeleteLines(int line,int count);
   void SaveLog();
   void RefreshLine(RDListViewItem *item);
   void RefreshList();

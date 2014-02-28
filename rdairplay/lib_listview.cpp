@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: lib_listview.cpp,v 1.1.2.1 2013/12/28 00:00:33 cvs Exp $
+//      $Id: lib_listview.cpp,v 1.1.2.2 2014/02/20 00:43:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -48,7 +48,7 @@ void LibListView::dropEvent(QDropEvent *e)
   if(RDCartDrag::decode(e,&ll)) {
     RDListViewItem *item=(RDListViewItem *)itemAt(pos);
     if(item!=NULL) {
-      line=item->text(13).toInt();
+      line=item->text(15).toInt();
     }
     emit cartDropped(line,&ll);
   }

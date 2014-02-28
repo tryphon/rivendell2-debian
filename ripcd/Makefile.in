@@ -49,24 +49,26 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 dist_ripcd_OBJECTS = acu1p.$(OBJEXT) am16.$(OBJEXT) bt10x1.$(OBJEXT) \
 	bt16x1.$(OBJEXT) bt16x2.$(OBJEXT) bt8x2.$(OBJEXT) \
-	btacs82.$(OBJEXT) btss124.$(OBJEXT) btss164.$(OBJEXT) \
-	btss42.$(OBJEXT) btss44.$(OBJEXT) btss82.$(OBJEXT) \
-	btsrc16.$(OBJEXT) btsrc8iii.$(OBJEXT) harlond.$(OBJEXT) \
-	livewire_lwrpaudio.$(OBJEXT) livewire_lwrpgpio.$(OBJEXT) \
-	livewire_mcastgpio.$(OBJEXT) local_audio.$(OBJEXT) \
-	local_gpio.$(OBJEXT) local_macros.$(OBJEXT) \
-	maint_routines.$(OBJEXT) loaddrivers.$(OBJEXT) \
-	quartz1.$(OBJEXT) ripcd.$(OBJEXT) ripcd_connection.$(OBJEXT) \
-	ripcd_socket.$(OBJEXT) sas32000.$(OBJEXT) sas64000.$(OBJEXT) \
-	sas64000gpi.$(OBJEXT) sasusi.$(OBJEXT) starguide3.$(OBJEXT) \
-	starguide_feed.$(OBJEXT) switcher.$(OBJEXT) \
-	unity4000.$(OBJEXT) unity_feed.$(OBJEXT) vguest.$(OBJEXT)
+	btacs82.$(OBJEXT) btsentinel4web.$(OBJEXT) btss124.$(OBJEXT) \
+	btss164.$(OBJEXT) btss42.$(OBJEXT) btss44.$(OBJEXT) \
+	btss82.$(OBJEXT) btsrc16.$(OBJEXT) btsrc8iii.$(OBJEXT) \
+	harlond.$(OBJEXT) livewire_lwrpaudio.$(OBJEXT) \
+	livewire_lwrpgpio.$(OBJEXT) livewire_mcastgpio.$(OBJEXT) \
+	local_audio.$(OBJEXT) local_gpio.$(OBJEXT) \
+	local_macros.$(OBJEXT) maint_routines.$(OBJEXT) \
+	loaddrivers.$(OBJEXT) quartz1.$(OBJEXT) ripcd.$(OBJEXT) \
+	ripcd_connection.$(OBJEXT) ripcd_socket.$(OBJEXT) \
+	sas32000.$(OBJEXT) sas64000.$(OBJEXT) sas64000gpi.$(OBJEXT) \
+	sasusi.$(OBJEXT) starguide3.$(OBJEXT) starguide_feed.$(OBJEXT) \
+	switcher.$(OBJEXT) unity4000.$(OBJEXT) unity_feed.$(OBJEXT) \
+	vguest.$(OBJEXT)
 nodist_ripcd_OBJECTS = moc_am16.$(OBJEXT) moc_acu1p.$(OBJEXT) \
 	moc_bt10x1.$(OBJEXT) moc_bt16x1.$(OBJEXT) moc_bt16x2.$(OBJEXT) \
 	moc_bt8x2.$(OBJEXT) moc_btacs82.$(OBJEXT) \
-	moc_btsrc16.$(OBJEXT) moc_btsrc8iii.$(OBJEXT) \
-	moc_btss124.$(OBJEXT) moc_btss164.$(OBJEXT) \
-	moc_btss42.$(OBJEXT) moc_btss44.$(OBJEXT) moc_btss82.$(OBJEXT) \
+	moc_btsentinel4web.$(OBJEXT) moc_btsrc16.$(OBJEXT) \
+	moc_btsrc8iii.$(OBJEXT) moc_btss124.$(OBJEXT) \
+	moc_btss164.$(OBJEXT) moc_btss42.$(OBJEXT) \
+	moc_btss44.$(OBJEXT) moc_btss82.$(OBJEXT) \
 	moc_harlond.$(OBJEXT) moc_livewire_lwrpaudio.$(OBJEXT) \
 	moc_livewire_lwrpgpio.$(OBJEXT) \
 	moc_livewire_mcastgpio.$(OBJEXT) moc_local_audio.$(OBJEXT) \
@@ -305,6 +307,7 @@ dist_ripcd_SOURCES = acu1p.cpp acu1p.h\
                      bt16x2.cpp bt16x2.h\
                      bt8x2.cpp bt8x2.h\
                      btacs82.cpp btacs82.h\
+                     btsentinel4web.cpp btsentinel4web.h\
                      btss124.cpp btss124.h\
                      btss164.cpp btss164.h\
                      btss42.cpp btss42.h\
@@ -342,6 +345,7 @@ nodist_ripcd_SOURCES = moc_am16.cpp\
                        moc_bt16x2.cpp\
                        moc_bt8x2.cpp\
                        moc_btacs82.cpp\
+                       moc_btsentinel4web.cpp\
                        moc_btsrc16.cpp\
                        moc_btsrc8iii.cpp\
                        moc_btss124.cpp\
@@ -473,6 +477,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bt16x2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bt8x2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btacs82.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btsentinel4web.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btsrc16.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btsrc8iii.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/btss124.Po@am__quote@
@@ -496,6 +501,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_bt16x2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_bt8x2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btacs82.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btsentinel4web.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btsrc16.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btsrc8iii.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_btss124.Po@am__quote@

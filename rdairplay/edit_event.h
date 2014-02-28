@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.h,v 1.25.8.1 2013/07/05 21:07:28 cvs Exp $
+//      $Id: edit_event.h,v 1.25.8.2 2014/02/20 19:38:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -83,6 +83,7 @@ class EditEvent : public QDialog
   QLabel *edit_overlap_label;
   RDCueEdit *edit_cue_edit;
   QFont normal_font;
+  QPushButton *edit_recue_button;
   QPushButton *edit_ok_button;
   QPushButton *edit_cancel_button;
   int edit_height;

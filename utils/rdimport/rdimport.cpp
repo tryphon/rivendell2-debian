@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.cpp,v 1.34.4.8 2013/12/11 19:38:00 cvs Exp $
+//      $Id: rdimport.cpp,v 1.34.4.9 2014/02/26 22:38:52 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -817,7 +817,7 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
     else {
       printf(" Importing file \"%s\" [%s] to cart %06u ... ",
 	     (const char *)RDGetBasePart(filename).utf8(),
-	     (const char *)wavedata->title(),*cartnum);
+	     (const char *)wavedata->title().stripWhiteSpace(),*cartnum);
     }
     fflush(stdout);
   }

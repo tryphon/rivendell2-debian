@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_log.cpp,v 1.105.6.10 2014/02/07 15:32:19 cvs Exp $
+//      $Id: list_log.cpp,v 1.105.6.11 2014/02/20 01:05:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -176,23 +176,19 @@ ListLog::ListLog(LogPlay *log,int id,bool allow_pause,
   list_log_list->addColumn(tr("ARTIST"));
   list_log_list->setColumnAlignment(6,Qt::AlignLeft);
   list_log_list->addColumn(tr("GROUP"));
-  list_log_list->setColumnAlignment(7,Qt::AlignCenter);
+  list_log_list->setColumnAlignment(7,Qt::AlignHCenter);
   list_log_list->addColumn(tr("TIME"));
-
-  list_log_list->setColumnAlignment(8,Qt::AlignRight);
+  list_log_list->setColumnAlignment(8,Qt::AlignHCenter);
   list_log_list->addColumn(tr("ALBUM"));
-  list_log_list->setColumnAlignment(9,Qt::AlignRight);
+  list_log_list->setColumnAlignment(9,Qt::AlignLeft);
   list_log_list->addColumn(tr("LABEL"));
-
-
-  list_log_list->setColumnAlignment(10,Qt::AlignRight);
+  list_log_list->setColumnAlignment(10,Qt::AlignLeft);
   list_log_list->addColumn(tr("CLIENT"));
   list_log_list->setColumnAlignment(11,Qt::AlignLeft);
   list_log_list->addColumn(tr("AGENCY"));
   list_log_list->setColumnAlignment(12,Qt::AlignLeft);
   list_log_list->addColumn(tr("MARKER"));
   list_log_list->setColumnAlignment(13,Qt::AlignHCenter);
-
   list_log_list->addColumn(tr("LINE ID"));
   list_log_list->setColumnAlignment(14,Qt::AlignHCenter);
   list_log_list->addColumn(tr("COUNT"));

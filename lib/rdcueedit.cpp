@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcueedit.cpp,v 1.1.2.2 2013/07/05 22:44:16 cvs Exp $
+//      $Id: rdcueedit.cpp,v 1.1.2.3 2014/02/20 19:38:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -258,6 +258,16 @@ void RDCueEdit::stop()
   if(edit_play_deck->state()==RDPlayDeck::Playing) {
     edit_play_deck->stop();
   }
+}
+
+
+void RDCueEdit::recue()
+{
+  edit_position_bar->setMarker(RDMarkerBar::Start,0);
+  if(edit_start_button->isOn()) {
+    edit_slider->setValue(0);
+  }
+  UpdateCounters();
 }
 
 

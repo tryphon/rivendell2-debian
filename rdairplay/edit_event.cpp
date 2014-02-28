@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.cpp,v 1.48.8.2 2013/07/05 21:07:28 cvs Exp $
+//      $Id: edit_event.cpp,v 1.48.8.3 2014/02/20 19:38:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -53,10 +53,9 @@ EditEvent::EditEvent(LogPlay *log,QWidget *parent,const char *name)
   //
   // Time Type
   //
-  edit_timetype_box=new QCheckBox(this,"edit_timetype_box");
+  edit_timetype_box=new QCheckBox(this);
   edit_timetype_box->setGeometry(10,22,15,15);
-  edit_timetype_label=new QLabel(edit_timetype_box,tr("Start at:"),
-			   this,"edit_timetype_label");
+  edit_timetype_label=new QLabel(edit_timetype_box,tr("Start at:"),this);
   edit_timetype_label->setGeometry(30,21,85,17);
   edit_timetype_label->setFont(label_font);
   edit_timetype_label->setAlignment(AlignLeft|AlignVCenter);
@@ -64,7 +63,7 @@ EditEvent::EditEvent(LogPlay *log,QWidget *parent,const char *name)
   //
   // Start Time
   //
-  edit_time_edit=new RDTimeEdit(this,"edit_time_edit");
+  edit_time_edit=new RDTimeEdit(this);
   edit_time_edit->setGeometry(85,19,85,20);
   edit_time_edit->setDisplay(RDTimeEdit::Hours|RDTimeEdit::Minutes|
 			     RDTimeEdit::Seconds|RDTimeEdit::Tenths);
@@ -76,8 +75,7 @@ EditEvent::EditEvent(LogPlay *log,QWidget *parent,const char *name)
   //
   edit_grace_group
     =new QButtonGroup(1,Qt::Vertical,
-		      tr("Action If Previous Event Still Playing"),
-		      this,"edit_grace_group");
+		      tr("Action If Previous Event Still Playing"),this);
   edit_grace_group->setGeometry(175,11,435,50);
   edit_grace_group->setFont(label_font);
   edit_grace_group->setRadioButtonExclusive(true);
@@ -91,7 +89,7 @@ EditEvent::EditEvent(LogPlay *log,QWidget *parent,const char *name)
   radio_button=new QRadioButton(tr("Wait up to"),edit_grace_group);
   edit_grace_group->insert(radio_button);
   radio_button->setFont(radio_font);
-  edit_grace_edit=new RDTimeEdit(this,"edit_grace_edit");
+  edit_grace_edit=new RDTimeEdit(this);
   edit_grace_edit->setGeometry(538,31,65,20);
   edit_grace_edit->setDisplay(RDTimeEdit::Minutes|RDTimeEdit::Seconds|
 			      RDTimeEdit::Tenths);
@@ -103,22 +101,22 @@ EditEvent::EditEvent(LogPlay *log,QWidget *parent,const char *name)
   //
   // Transition Type
   //
-  edit_transtype_box=new QComboBox(this,"edit_transtype_box");
+  edit_transtype_box=new QComboBox(this);
   edit_transtype_box->setGeometry(485,68,110,26);
   edit_transtype_box->insertItem(tr("Play"));
   edit_transtype_box->insertItem(tr("Segue"));
   edit_transtype_box->insertItem(tr("Stop"));  
-  edit_time_label=new QLabel(edit_transtype_box,tr("Start Transition Type:"),
-			     this,"edit_transtype_label");
+  edit_time_label=
+    new QLabel(edit_transtype_box,tr("Start Transition Type:"),this);
   edit_time_label->setGeometry(190,68,290,26);
   edit_time_label->setFont(label_font);
   edit_time_label->setAlignment(AlignRight|AlignVCenter);
 
   // Overlap Box
-  edit_overlap_box=new QCheckBox(this,"edit_overlap_box");
+  edit_overlap_box=new QCheckBox(this);
   edit_overlap_box->setGeometry(30,72,15,15);
-  edit_overlap_label=new QLabel(edit_overlap_box,tr("No Fade at Segue Out"),
-				this,"edit_overlap_label");
+  edit_overlap_label=
+    new QLabel(edit_overlap_box,tr("No Fade at Segue Out"),this);
   edit_overlap_label->setGeometry(50,68,130,26);
   edit_overlap_label->setFont(button_font);
   edit_overlap_label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
@@ -127,7 +125,7 @@ EditEvent::EditEvent(LogPlay *log,QWidget *parent,const char *name)
   //
   // Horizontal Rule
   //
-  QLabel *label=new QLabel(this,"horizontal_label");
+  QLabel *label=new QLabel(this);
   label->setGeometry(0,100,sizeHint().width(),3);
   QPixmap *pix=new QPixmap(sizeHint().width(),3);
   QPainter *p=new QPainter(pix);
@@ -151,9 +149,19 @@ EditEvent::EditEvent(LogPlay *log,QWidget *parent,const char *name)
 			     edit_cue_edit->sizeHint().height());
 
   //
+  //  Recue Button
+  //
+  edit_recue_button=new QPushButton(this);
+  edit_recue_button->setGeometry(sizeHint().width()-300,sizeHint().height()-60,
+			      80,50);
+  edit_recue_button->setFont(button_font);
+  edit_recue_button->setText(tr("&Recue"));
+  connect(edit_recue_button,SIGNAL(clicked()),edit_cue_edit,SLOT(recue()));
+
+  //
   //  Ok Button
   //
-  edit_ok_button=new QPushButton(this,"edit_ok_button");
+  edit_ok_button=new QPushButton(this);
   edit_ok_button->setGeometry(sizeHint().width()-180,sizeHint().height()-60,
 			      80,50);
   edit_ok_button->setDefault(true);
@@ -164,7 +172,7 @@ EditEvent::EditEvent(LogPlay *log,QWidget *parent,const char *name)
   //
   //  Cancel Button
   //
-  edit_cancel_button=new QPushButton(this,"edit_cancel_button");
+  edit_cancel_button=new QPushButton(this);
   edit_cancel_button->setGeometry(sizeHint().width()-90,sizeHint().height()-60,
 				  80,50);
   edit_cancel_button->setFont(button_font);

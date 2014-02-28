@@ -14050,3 +14050,38 @@
 2014-02-14 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.8.0.
+2014-02-16 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDMatrix::BtSentinel4Web' value to the 'RDMatrix::Type'
+	enum in 'lib/rdmatrix.cpp' and 'lib/rdmatrix.h'.
+	* Added a driver for the Broadcast Tools Sentinel 4 Web AES switcher in
+	'ripcd/btsentinel4web.cpp' and 'ripcd/btsentinel4web.h'.
+2014-02-18 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdairplay/lib_listview.cpp' that caused
+	dropped carts to appear in the wrong location in a log.
+2014-02-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogedit/edit_log.cpp' that caused the log
+	to reposition after dropping a cart onto it.
+2014-02-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'rdlibrary/edit_cart.cpp that broke
+	multi-cart editing.
+2014-02-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in RDAirPlay's Full Log widget that caused columns
+	to be misaligned in 'rdairplay/list_log.cpp'.
+2014-02-20 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in RDLogEdit's Edit Log screen that failed to process
+	empty cart drops properly
+2014-02-20 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented dynamic updating for SoundPanel buttons in
+	'lib/rdsound_panel.cpp' and 'lib/rdsound_panel.h'.
+2014-02-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Recue' button to the Edit Event dialog in
+	'rdairplay/edit_event.cpp' and 'rdairplay/edit_event.h'.
+2014-02-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdwavefile.cpp' that caused a zero length
+	to be calculated for MPEG WAV files with a null FACT chunk.
+2014-02-26 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up title display in verbose output from rdimport(1)
+	in 'utils/rdimport/rdimport.cpp'.
+2014-02-28 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.8.1.

@@ -1,6 +1,25 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.8.1 --  2/28/2014
+
+Changes:
+   New Switcher Device.  Added support for the Broadcast Tools Sentinel4Web
+   AES Switcher.
+
+   Cart Recuing.  Added a 'Recue' button in RDAirPlay's Edit Event dialog
+   to allow fast recuing of carts that were inadvertently started.
+
+   Various bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 234, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.8.0 --  2/14/2014
 
 Changes:

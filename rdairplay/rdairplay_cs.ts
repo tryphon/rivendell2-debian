@@ -97,6 +97,10 @@
         <source>An event is already scheduled with this start time!</source>
         <translation>Již existuje událost s tímto začátečním časem!</translation>
     </message>
+    <message>
+        <source>&amp;Recue</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HourSelector</name>
