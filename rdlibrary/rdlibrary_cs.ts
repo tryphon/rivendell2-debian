@@ -71,7 +71,7 @@
     </message>
     <message>
         <source>Cuts</source>
-        <translation>Záběry</translation>
+        <translation type="obsolete">Záběry</translation>
     </message>
     <message>
         <source>Cut Info</source>
@@ -165,7 +165,7 @@ Přesto pokračovat?</translation>
     </message>
     <message>
         <source>1 Cut</source>
-        <translation>1 záběr</translation>
+        <translation type="obsolete">1 záběr</translation>
     </message>
     <message>
         <source>RDLibrary</source>
@@ -607,6 +607,14 @@ zrušeno!</translation>
     </message>
     <message>
         <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Track</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

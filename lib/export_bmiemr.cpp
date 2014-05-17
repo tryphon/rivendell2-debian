@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: export_bmiemr.cpp,v 1.10.8.1 2013/02/08 21:41:44 cvs Exp $
+//      $Id: export_bmiemr.cpp,v 1.10.8.1.2.1 2014/03/19 23:50:20 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -67,17 +67,22 @@ bool RDReport::ExportBmiEmr(const QDate &startdate,const QDate &enddate,
     report_error_code=RDReport::ErrorCantOpen;
     return false;
   }
+  /*
   sql=QString().sprintf("select EVENT_DATETIME,TITLE,ARTIST,COMPOSER,\
                          LENGTH,ISRC,USAGE_CODE from `%s_SRT` \
                          order by EVENT_DATETIME",
 			(const char *)mixtable);
+  */
+  sql=QString("select EVENT_DATETIME,TITLE,ARTIST,COMPOSER,")+
+    "LENGTH,ISRC,USAGE_CODE from `"+
+    mixtable+"_SRT` order by EVENT_DATETIME"; 
   q=new RDSqlQuery(sql);
 
   //
   // Write HEDR Record
   //
   fprintf(f,"HEDRSTA%-25s%22sFMDT                                                   \x0d\x0a",
-	  (const char *)stationId(),
+	  (const char *)stationId().utf8(),
 	  (const char *)current_datetime.toString("yyyyMMddhhmmssyyyyMMdd"));
   records++;
 
@@ -115,19 +120,19 @@ bool RDReport::ExportBmiEmr(const QDate &startdate,const QDate &enddate,
 	  break;
     }
     fprintf(f,"FMDT%-40s%2s%-25s%6s01%14s000000001%-40s%-40s%-40s%8s           %12s%2s                      \x0d\x0a",
-	    (const char *)stationId(),
-	    (const char *)type_code,
-	    (const char *)station_format,
+	    (const char *)stationId().utf8(),
+	    (const char *)type_code.utf8(),
+	    (const char *)station_format.utf8(),
 	    (const char *)startdate.toString("yyyyMM"),
 	    (const char *)q->value(0).toDateTime().
 	    toString("yyyyMMddhh:mm:ss"),
-	    (const char *)q->value(1).toString(),
-	    (const char *)q->value(2).toString(),
-	    (const char *)q->value(3).toString(),
+	    (const char *)q->value(1).toString().utf8(),
+	    (const char *)q->value(2).toString().utf8(),
+	    (const char *)q->value(3).toString().utf8(),
 	    (const char *)QTime().addMSecs(q->value(4).toInt()).
 	    toString("hh:mm:ss"),
-	    (const char *)q->value(5).toString(),
-	    (const char *)usage_code);
+	    (const char *)q->value(5).toString().utf8(),
+	    (const char *)usage_code.utf8());
     records++;
   }
   delete q;

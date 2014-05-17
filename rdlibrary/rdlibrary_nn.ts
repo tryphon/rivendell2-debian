@@ -71,7 +71,7 @@
     </message>
     <message>
         <source>Cuts</source>
-        <translation>Kutt</translation>
+        <translation type="obsolete">Kutt</translation>
     </message>
     <message>
         <source>Cut Info</source>
@@ -164,7 +164,7 @@ Vil du halda fram?</translation>
     </message>
     <message>
         <source>1 Cut</source>
-        <translation>1 kutt</translation>
+        <translation type="obsolete">1 kutt</translation>
     </message>
     <message>
         <source>RDLibrary</source>
@@ -603,6 +603,14 @@ Disk</source>
     </message>
     <message>
         <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Track</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

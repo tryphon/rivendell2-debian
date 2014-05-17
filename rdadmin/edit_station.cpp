@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_station.cpp,v 1.57.4.11 2014/02/11 23:46:27 cvs Exp $
+//      $Id: edit_station.cpp,v 1.57.4.12 2014/03/05 17:59:39 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -82,7 +82,6 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
 
   station_station=new RDStation(sname);
   station_cae_station=NULL;
-  caeStationActivatedData(station_station->caeStation());
 
   setCaption(tr("Host: ")+sname);
 
@@ -244,6 +243,7 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   station_stop_cart_button->setFont(small_font);
   connect(station_stop_cart_button,SIGNAL(clicked()),
 	  this,SLOT(stopCartClickedData()));
+  caeStationActivatedData(station_station->caeStation());
 
   //
   // Heartbeat Checkbox
@@ -530,11 +530,14 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
     station_startup_cart_edit->setText(QString().sprintf("%06u",cartnum));
   }
 
-
-  if(station_station->scanned()) {
-    station_cue_sel->setMaxCards(station_station->cards());
+  RDStation *cue_station=station_station;
+  if(station_station->caeStation()!="localhost") {
+    cue_station=new RDStation(station_station->caeStation());
+  }
+  if(cue_station->scanned()) {
+    station_cue_sel->setMaxCards(cue_station->cards());
     for(int i=0;i<station_cue_sel->maxCards();i++) {
-      station_cue_sel->setMaxPorts(i,station_station->cardOutputs(i));
+      station_cue_sel->setMaxPorts(i,cue_station->cardOutputs(i));
     }
   }
   else {
@@ -542,6 +545,9 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
 			     tr("Channel assignments will not be available for this host as audio resource data\nhas not yet been generated.  Please start the Rivendell daemons on the host\nconfigured to run the CAE service in order to populate the audio resources database."));
     station_cue_sel->setDisabled(true);
     station_cue_sel->setDisabled(true);
+  }
+  if(cue_station!=station_station) {
+    delete cue_station;
   }
   station_cue_sel->setCard(station_station->cueCard());
   station_cue_sel->setPort(station_station->cuePort());
@@ -596,9 +602,9 @@ EditStation::EditStation(QString sname,QWidget *parent,const char *name)
   }
 
   station_http_station_box->insertItem("localhost");
-  station_http_station_box->insertItem(RD_RDSELECT_LABEL);
+  //station_http_station_box->insertItem(RD_RDSELECT_LABEL);
   station_cae_station_box->insertItem("localhost");
-  station_cae_station_box->insertItem(RD_RDSELECT_LABEL);
+  //station_cae_station_box->insertItem(RD_RDSELECT_LABEL);
   sql=QString().sprintf("select NAME from STATIONS \
                          where NAME!=\"%s\" order by NAME",
 			(const char *)RDEscapeString(sname));
@@ -685,6 +691,19 @@ void EditStation::caeStationActivatedData(const QString &station_name)
   else {
     station_cae_station=new RDStation(station_name);
   }
+  if(station_cae_station->scanned()) {
+    station_cue_sel->setMaxCards(station_cae_station->cards());
+    for(int i=0;i<station_cue_sel->maxCards();i++) {
+      station_cue_sel->setMaxPorts(i,station_cae_station->cardOutputs(i));
+    }
+  }
+  else {
+    QMessageBox::information(this,tr("RDAdmin - No Audio Configuration Data"),
+			     tr("Channel assignments will not be available for this host as audio resource data\nhas not yet been generated.  Please start the Rivendell daemons on the host\nconfigured to run the CAE service in order to populate the audio resources database."));
+    station_cue_sel->setDisabled(true);
+    station_cue_sel->setDisabled(true);
+  }
+
 }
 
 

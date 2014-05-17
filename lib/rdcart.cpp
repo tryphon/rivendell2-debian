@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.cpp,v 1.72.4.7 2014/01/13 23:02:40 cvs Exp $
+//      $Id: rdcart.cpp,v 1.72.4.7.2.3 2014/05/15 16:30:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -233,20 +233,18 @@ void RDCart::setAlbum(const QString &album)
 }
 
 
-QDate RDCart::year() const
+int RDCart::year() const
 {
-  QDate value;
-  value=RDGetSqlValue("CART","NUMBER",cart_number,"YEAR").toDate();
-  if(value.isValid()) {
-    return value;
-  }
-  return QDate();
+  QString value;
+  value=RDGetSqlValue("CART","NUMBER",cart_number,"YEAR").toString();
+  QStringList f0=f0.split("-",value);
+  return f0[0].toInt();
 }
 
 
-void RDCart::setYear(const QDate &date)
+void RDCart::setYear(int year)
 {
-  SetRow("YEAR",date);
+  SetRow("YEAR",QString().sprintf("%04d-01-01",year));
   metadata_changed=true;
 }
 
@@ -288,12 +286,6 @@ void RDCart::updateSchedCodes(const QString &add_codes,const QString &remove_cod
   save_codes+=".";
   SetRow("SCHED_CODES",save_codes);
 }	
-
-void RDCart::setYear()
-{
-  SetRow("YEAR");
-  metadata_changed=true;
-}
 
 
 QString RDCart::label() const

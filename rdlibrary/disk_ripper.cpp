@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003,2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: disk_ripper.cpp,v 1.30.4.3 2014/01/14 17:35:32 cvs Exp $
+//      $Id: disk_ripper.cpp,v 1.30.4.3.2.1 2014/03/19 22:12:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,6 +44,7 @@
 #include <rdgroup.h>
 #include <rdaudioimport.h>
 #include <rdcdripper.h>
+#include <rdescape_string.h>
 
 #include <disk_ripper.h>
 #include <globals.h>
@@ -549,8 +550,7 @@ void DiskRipper::setCutButtonData()
       rip_cutnames[item->text(0).toUInt()-1]=cutname;
       RDCart *cart=new RDCart(cutname.left(6).toUInt());
       RDCut *cut=new RDCut(cutname);
-      item->setText(5,QString().sprintf("%s -> %s",(const char *)cart->title(),
-					(const char *)cut->description()));
+      item->setText(5,cart->title()+" -> "+cut->description());
       delete cut;
       delete cart;
     }
@@ -761,18 +761,18 @@ void DiskRipper::RipTrack(int track,QString cutname,QString title)
   RDSqlQuery *q=new RDSqlQuery(sql);
   if(!q->first()) {  // Create Cart/cut entries
     delete q;
-    sql=QString().sprintf("insert into CART set \
-                           NUMBER=%u,TYPE=%d,GROUP_NAME=\"%s\",\
-                           TITLE=\"[New Cart %06u]\",CUT_QUANTITY=1",
-			  cut->cartNumber(),RDCart::Audio,
-			  (const char *)(*rip_group_text),cut->cartNumber());
+    sql=QString("insert into CART set ")+
+      QString().sprintf("NUMBER=%u,TYPE=%d,",cut->cartNumber(),RDCart::Audio)+
+      "GROUP_NAME=\""+RDEscapeString(*rip_group_text)+"\","+
+      "CUT_QUANTITY=1";
+
     q=new RDSqlQuery(sql);
     delete q;
-    sql=QString().sprintf("insert into CUTS set\
-                           CUT_NAME=\"%s\",CART_NUMBER=%u,\
-                           DESCRIPTION=\"Cut 001\"",
-			  (const char *)cutname,cut->cartNumber());
-    q=new RDSqlQuery(sql);
+    sql=QString("insert into CUTS set ")+
+      "CUT_NAME=\""+RDEscapeString(cutname)+"\","+
+      QString().sprintf("CART_NUMBER=%u,",cut->cartNumber())+
+      "DESCRIPTION=\""+tr("Cut")+" 001\"";
+      q=new RDSqlQuery(sql);
   }
   delete q;
   
@@ -782,15 +782,11 @@ void DiskRipper::RipTrack(int track,QString cutname,QString title)
   rip_title=title;
   rip_cutname=cutname;
   if(title.isEmpty()) {
-    rip_trackbar_label->
-      setText(QString().sprintf("%s - Track %d",
-				(const char *)tr("Track Progress"),track));
+    rip_trackbar_label->setText(tr("Track Progress")+" - "+tr("Track")+
+				QString().sprintf(" %d",track));
   }
   else {
-    rip_trackbar_label->
-      setText(QString().sprintf("%s - %s",
-				(const char *)tr("Track Progress"),
-				(const char *)title));
+    rip_trackbar_label->setText(tr("Track Progress")+" - "+title);
   }
   rip_diskbar_label->setEnabled(true);
   rip_trackbar_label->setEnabled(true);

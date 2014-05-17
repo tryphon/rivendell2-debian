@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdairplay.cpp,v 1.189.2.23 2014/02/11 23:46:29 cvs Exp $
+//      $Id: rdairplay.cpp,v 1.189.2.24 2014/03/02 03:21:52 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -2341,7 +2341,7 @@ void MainWidget::SetLiveAssistMode(int mach)
     air_post_counter->setDisabled(true);
   }
   LogLine(RDConfig::LogInfo,
-	  QString().sprintf("log machine %d mode set to AUTO",mach+1));
+	  QString().sprintf("log machine %d mode set to LIVE ASSIST",mach+1));
 }
 
 

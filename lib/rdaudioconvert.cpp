@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdaudioconvert.cpp,v 1.14.2.3 2013/05/17 14:27:44 cvs Exp $
+//      $Id: rdaudioconvert.cpp,v 1.14.2.3.2.1 2014/05/15 16:30:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -520,6 +520,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage1Vorbis(const QString &dstfile,
 #endif  // HAVE_VORBIS
 }
 
+#define STAGE1BUFSIZE 2500
 
 RDAudioConvert::ErrorCode RDAudioConvert::Stage1Mpeg(const QString &dstfile,
 						     RDWaveFile *wave)
@@ -533,7 +534,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage1Mpeg(const QString &dstfile,
   int left_over=0;
   int fsize;
   int n;
-  unsigned char buffer[2500];
+  unsigned char buffer[STAGE1BUFSIZE];
   float sf_buffer[1152*2];
   sf_count_t start=0;
   sf_count_t end=wave->getSampleLength();
@@ -581,11 +582,16 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage1Mpeg(const QString &dstfile,
     }
     mad_stream_buffer(&mad_stream,buffer,n+left_over);
     //printf("mad err: %d\n",mad_stream.error);
-   if(mad_stream.error==MAD_ERROR_LOSTSYNC) {  // FIXME: try to recover!!!
-     //    return RDAudioConvert::ErrorFormatError;
-     //break;
-    }
-    while(mad_frame_decode(&mad_frame,&mad_stream)==0) {
+   while(1) {
+
+      int thiserr=mad_frame_decode(&mad_frame,&mad_stream);
+      if(thiserr!=0) {
+	if(!MAD_RECOVERABLE(mad_stream.error))
+	  break;
+	else
+	  continue;
+      }
+
       //printf("decoding...\n");
       mad_synth_frame(&mad_synth,&mad_frame);
       for(int i=0;i<mad_synth.pcm.length;i++) {
@@ -625,9 +631,18 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage1Mpeg(const QString &dstfile,
 	}
       }
       frames+=mad_synth.pcm.length;
+
     }
     left_over=mad_stream.bufend-mad_stream.next_frame;
+
+    // Prevent buffer overflow on malformed files.
+    // The amount checked for should match the maximum amount that may be read
+    // by the next top-of-loop wave->readWave call.
+    if(left_over + fsize + 1 > STAGE1BUFSIZE)
+      return RDAudioConvert::ErrorFormatError;
+
     memmove(buffer,mad_stream.next_frame,left_over);
+
   }
   memset(buffer+left_over,0,MAD_BUFFER_GUARD);
   mad_stream_buffer(&mad_stream,buffer,MAD_BUFFER_GUARD+left_over);

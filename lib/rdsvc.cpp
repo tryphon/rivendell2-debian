@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.cpp,v 1.71.8.10 2014/01/10 15:58:28 cvs Exp $
+//      $Id: rdsvc.cpp,v 1.71.8.10.2.1 2014/05/16 15:21:29 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -727,7 +727,6 @@ bool RDSvc::import(ImportSource src,const QDate &date,const QString &break_str,
 	    track_first=true;
 	    insert_found=true;
 	  }
-	  //	  q=new RDSqlQuery(sql);
 	}
       }
     }
@@ -1015,7 +1014,7 @@ bool RDSvc::linkLog(RDSvc::ImportSource src,const QDate &date,
   emit generationProgress(24);
   delete src_event;
   delete dest_event;
-  // printf("Import Table: %s\n",(const char *)import_name);
+  //  printf("Import Table: %s\n",(const char *)import_name);
   sql=QString().sprintf("drop table `%s`",(const char *)import_name);
   q=new RDSqlQuery(sql);
   delete q;

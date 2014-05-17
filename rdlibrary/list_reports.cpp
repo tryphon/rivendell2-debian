@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_reports.cpp,v 1.11.4.4 2013/09/12 23:26:10 cvs Exp $
+//      $Id: list_reports.cpp,v 1.11.4.4.2.1 2014/03/19 22:12:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -192,7 +192,7 @@ void ListReports::GenerateCartReport(QString *report)
     sprintf("Generated: %s     Group: %-10s      Filter: %s\n",
 	    (const char *)QDateTime(QDate::currentDate(),QTime::currentTime()).
 	    toString("MM/dd/yyyy - hh:mm:ss"),
-	    (const char *)list_group,(const char *)filter);
+	    (const char *)list_group.utf8(),(const char *)filter.utf8());
   *report+="\n";
   *report+="Type -Cart- -Group---- -Len- -Title------------------------- -Artist----------------------- Cuts Rot Enf -LenDev -Owner--------------\n";
 
@@ -207,18 +207,14 @@ void ListReports::GenerateCartReport(QString *report)
     "CART.PLAY_ORDER,CART.ENFORCE_LENGTH,CART.LENGTH_DEVIATION,CART.OWNER "+
     "from CART left join CUTS on CART.NUMBER=CUTS.CART_NUMBER";
   if(list_group==QString("ALL")) {
-    sql+=QString().
-      sprintf(" where %s && %s order by NUMBER",
-	      (const char *)RDAllCartSearchText(list_filter,schedcode,
-						lib_user->name(),true),
-	      (const char *)list_type_filter);
+    sql+=QString(" where ")+
+      RDAllCartSearchText(list_filter,schedcode,lib_user->name(),true)+" && "+
+      list_type_filter+" order by NUMBER";
   }
   else {
-    sql+=QString().
-      sprintf(" where %s && %s order by NUMBER",
-	      (const char *)RDCartSearchText(list_filter,list_group,
-					     schedcode,true).utf8(),
-	      (const char *)list_type_filter);
+    sql+=QString(" where ")+
+      RDCartSearchText(list_filter,list_group,schedcode,true)+" && "+
+      list_type_filter+" order by NUMBER";
   }
   q=new RDSqlQuery(sql);
   while(q->next()) {
@@ -247,7 +243,8 @@ void ListReports::GenerateCartReport(QString *report)
     //
     // Group
     //
-    *report+=QString().sprintf("%-10s ",(const char *)q->value(2).toString());
+    *report+=
+      QString().sprintf("%-10s ",(const char *)q->value(2).toString().utf8());
 
     //
     // Length
@@ -259,14 +256,14 @@ void ListReports::GenerateCartReport(QString *report)
     //
     // Title
     //
-    *report+=QString().sprintf("%-31s ",
-			       (const char *)q->value(4).toString().left(31));
+    *report+=QString().sprintf("%-31s ",(const char *)q->value(4).toString().
+			       utf8().left(31));
 
     //
     // Artist
     //
-    *report+=QString().sprintf("%-30s ",
-			       (const char *)q->value(5).toString().left(30));
+    *report+=QString().sprintf("%-30s ",(const char *)q->value(5).toString().
+			       utf8().left(30));
 
     //
     // Cut Quantity
@@ -314,8 +311,8 @@ void ListReports::GenerateCartReport(QString *report)
       *report+="[none]";
     }
     else {
-      *report+=
-	QString().sprintf("%s",(const char *)q->value(10).toString().left(20));
+      *report+=QString().sprintf("%s",(const char *)q->value(10).toString().
+				 utf8().left(20));
     }
 
     //
@@ -350,7 +347,7 @@ void ListReports::GenerateCutReport(QString *report)
     sprintf("Generated: %s     Group: %-10s      Filter: %s\n",
 	    (const char *)QDateTime(QDate::currentDate(),QTime::currentTime()).
 	    toString("MM/dd/yyyy - hh:mm:ss"),
-	    (const char *)list_group,(const char *)filter);
+	    (const char *)list_group.utf8(),(const char *)filter.utf8());
   *report+="\n";
   *report+="-Cart- Cut Wht -Cart Title-------------- -Description--- -Len- Last Play Plays Start Date End Date -Days of Week- -Daypart-----------\n";
 
@@ -366,18 +363,14 @@ void ListReports::GenerateCutReport(QString *report)
        CUTS.START_DAYPART,CUTS.END_DAYPART from CART join CUTS \
        on CART.NUMBER=CUTS.CART_NUMBER";
   if(list_group==QString("ALL")) {
-    sql+=QString().
-      sprintf(" where %s && %s order by CART.NUMBER",
-	      (const char *)RDAllCartSearchText(list_filter,schedcode,
-						lib_user->name(),true).utf8(),
-	      (const char *)list_type_filter);
+    sql+=QString(" where ")+
+      RDAllCartSearchText(list_filter,schedcode,lib_user->name(),true)+" && "+
+      list_type_filter+" order by CART.NUMBER";
   }
   else {
-    sql+=QString().
-      sprintf(" where %s && %s order by CART.NUMBER",
-	      (const char *)RDCartSearchText(list_filter,list_group,
-					     schedcode,true).utf8(),
-	      (const char *)list_type_filter);
+    sql+=QString(" where ")+
+      RDCartSearchText(list_filter,list_group,schedcode,true)+" && "+
+      list_type_filter+" order by CART.NUMBER";
   }
   q=new RDSqlQuery(sql);
   while(q->next()) {
@@ -406,8 +399,8 @@ void ListReports::GenerateCutReport(QString *report)
     // Title
     //
     if(q->value(0).toUInt()!=current_cart) {
-      *report+=QString().
-	sprintf("%-25s ",(const char *)q->value(3).toString().left(25));
+      *report+=QString().sprintf("%-25s ",(const char *)q->value(3).toString().
+				 utf8().left(25));
     }
     else {
       *report+="                          ";
@@ -416,8 +409,8 @@ void ListReports::GenerateCutReport(QString *report)
     //
     // Description
     //
-    *report+=
-     QString().sprintf("%-15s ",(const char *)q->value(4).toString().left(15));
+    *report+=QString().sprintf("%-15s ",(const char *)q->value(4).toString().
+			       utf8().left(15));
 
     //
     // Length
@@ -575,26 +568,22 @@ void ListReports::GenerateCartDumpFixed(QString *report,bool prepend_names)
        CART.COMPOSER,CART.USER_DEFINED,CUTS.LENGTH from CART \
        join CUTS on CART.NUMBER=CUTS.CART_NUMBER";
   if(list_group==QString("ALL")) {
-    sql+=QString().
-      sprintf(" where %s && %s order by CUTS.CUT_NAME",
-	      (const char *)RDAllCartSearchText(list_filter,schedcode,
-						lib_user->name(),true).utf8(),
-	      (const char *)list_type_filter);
+    sql+=QString(" where ")+
+      RDAllCartSearchText(list_filter,schedcode,lib_user->name(),true)+" && "+
+      list_type_filter+" order by CUTS.CUT_NAME";
   }
   else {
-    sql+=QString().
-      sprintf(" where %s && %s order by CUTS.CUT_NAME",
-	      (const char *)RDCartSearchText(list_filter,list_group,
-					     schedcode,true).utf8(),
-	      (const char *)list_type_filter);
+    sql+=QString(" where ")+
+      RDCartSearchText(list_filter,list_group,schedcode,true)+" && "+
+      list_type_filter+" order by CUTS.CUT_NAME";
   }
   q=new RDSqlQuery(sql);
   while(q->next()) {
     //
     // Cart Number
     //
-    *report+=
-      QString().sprintf("%-6s|",(const char *)q->value(0).toString().left(6));
+    *report+=QString().sprintf("%-6s|",(const char *)q->value(0).toString().
+			       utf8().left(6));
 
     //
     // Cut Number
@@ -605,22 +594,26 @@ void ListReports::GenerateCartDumpFixed(QString *report,bool prepend_names)
     //
     // Group Name
     //
-    *report+=QString().sprintf("%-10s|",(const char *)q->value(1).toString());
+    *report+=QString().sprintf("%-10s|",(const char *)q->value(1).toString().
+			       utf8());
 
     //
     // Title
     //
-    *report+=QString().sprintf("%-255s|",(const char *)q->value(2).toString());
+    *report+=QString().sprintf("%-255s|",(const char *)q->value(2).toString().
+			       utf8());
 
     //
     // Artist
     //
-    *report+=QString().sprintf("%-255s|",(const char *)q->value(3).toString());
+    *report+=QString().sprintf("%-255s|",(const char *)q->value(3).toString().
+			       utf8());
 
     //
     // Album
     //
-    *report+=QString().sprintf("%-255s|",(const char *)q->value(4).toString());
+    *report+=QString().sprintf("%-255s|",(const char *)q->value(4).toString().
+			       utf8());
 
     //
     // Year
@@ -635,37 +628,44 @@ void ListReports::GenerateCartDumpFixed(QString *report,bool prepend_names)
     //
     // ISRC
     //
-    *report+=QString().sprintf("%-12s|",(const char *)q->value(6).toString());
+    *report+=QString().sprintf("%-12s|",(const char *)q->value(6).toString().
+			       utf8());
 
     //
     // Label
     //
-    *report+=QString().sprintf("%-64s|",(const char *)q->value(7).toString());
+    *report+=QString().sprintf("%-64s|",(const char *)q->value(7).toString().
+			       utf8());
 
     //
     // Client
     //
-    *report+=QString().sprintf("%-64s|",(const char *)q->value(8).toString());
+    *report+=QString().sprintf("%-64s|",(const char *)q->value(8).toString().
+			       utf8());
 
     //
     // Agency
     //
-    *report+=QString().sprintf("%-64s|",(const char *)q->value(9).toString());
+    *report+=QString().sprintf("%-64s|",(const char *)q->value(9).toString().
+			       utf8());
 
     //
     // Publisher
     //
-    *report+=QString().sprintf("%-64s|",(const char *)q->value(10).toString());
+    *report+=QString().sprintf("%-64s|",(const char *)q->value(10).toString().
+			       utf8());
 
     //
     // Composer
     //
-    *report+=QString().sprintf("%-64s|",(const char *)q->value(11).toString());
+    *report+=QString().sprintf("%-64s|",(const char *)q->value(11).toString().
+			       utf8());
 
     //
     // User Defined
     //
-    *report+=QString().sprintf("%-255s|",(const char *)q->value(12).toString());
+    *report+=QString().sprintf("%-255s|",(const char *)q->value(12).toString().
+			       utf8());
 
     //
     // Length
@@ -712,18 +712,14 @@ void ListReports::GenerateCartDumpCsv(QString *report,bool prepend_names)
        CART.PUBLISHER,CART.COMPOSER,CART.USER_DEFINED,CUTS.LENGTH from CART \
        join CUTS on CART.NUMBER=CUTS.CART_NUMBER";
   if(list_group==QString("ALL")) {
-    sql+=QString().
-      sprintf(" where %s && %s order by CUTS.CUT_NAME",
-	      (const char *)RDAllCartSearchText(list_filter,schedcode,
-						lib_user->name(),true).utf8(),
-	      (const char *)list_type_filter);
+    sql+=QString(" where ")+
+      RDAllCartSearchText(list_filter,schedcode,lib_user->name(),true)+" && "+
+      list_type_filter+" order by CUTS.CUT_NAME";
   }
   else {
-    sql+=QString().
-      sprintf(" where %s && %s order by CUTS.CUT_NAME",
-	      (const char *)RDCartSearchText(list_filter,list_group,
-					     schedcode,true).utf8(),
-	      (const char *)list_type_filter);
+    sql=QString(" where ")+
+      RDCartSearchText(list_filter,list_group,schedcode,true)+" && "+
+      list_type_filter+" order by CUTS.CUT_NAME";
   }
   q=new RDSqlQuery(sql);
   while(q->next()) {

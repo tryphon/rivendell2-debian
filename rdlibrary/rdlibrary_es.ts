@@ -71,7 +71,7 @@
     </message>
     <message>
         <source>Cuts</source>
-        <translation>Audios</translation>
+        <translation type="obsolete">Audios</translation>
     </message>
     <message>
         <source>Cut Info</source>
@@ -117,7 +117,7 @@ Do you still want to proceed?</source>
     </message>
     <message>
         <source>1 Cut</source>
-        <translation>1 audio</translation>
+        <translation type="obsolete">1 audio</translation>
     </message>
     <message>
         <source>[new cart]</source>
@@ -607,6 +607,14 @@ Abortada!</translation>
     </message>
     <message>
         <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Track</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

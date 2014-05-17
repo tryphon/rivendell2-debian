@@ -71,7 +71,7 @@
     </message>
     <message>
         <source>Cuts</source>
-        <translation>Cuts</translation>
+        <translation type="obsolete">Cuts</translation>
     </message>
     <message>
         <source>Cut Info</source>
@@ -165,7 +165,7 @@ Trotzdem fortfahren?</translation>
     </message>
     <message>
         <source>1 Cut</source>
-        <translation>1 Cut</translation>
+        <translation type="obsolete">1 Cut</translation>
     </message>
     <message>
         <source>RDLibrary</source>
@@ -606,6 +606,14 @@ Rippen</translation>
     </message>
     <message>
         <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Track</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

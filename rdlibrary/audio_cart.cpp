@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.cpp,v 1.57.6.9 2014/01/21 21:18:33 cvs Exp $
+//      $Id: audio_cart.cpp,v 1.57.6.9.2.1 2014/03/19 22:12:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,6 +44,7 @@
 #include <rdimport_audio.h>
 #include <rdaudio_exists.h>
 #include <rdedit_audio.h>
+#include <rdescape_string.h>
 
 #include <cdripper.h>
 #include <audio_cart.h>
@@ -175,11 +176,6 @@ AudioCart::AudioCart(AudioControls *controls,RDCart *cart,QString *path,
   rdcart_cut_list->addColumn(tr("NAME"));
   rdcart_cut_list->setColumnAlignment(11,Qt::AlignLeft);
 
-  rdcart_cut_list_label=new QLabel(rdcart_cut_list,tr("Cuts"),
-				   this,"rdcartcut_list_label");
-  rdcart_cut_list_label->setGeometry(105,345,430,22);
-  rdcart_cut_list_label->setFont(QFont("Helvetica",16,QFont::Bold));
-
   RefreshList();
 
   //
@@ -294,7 +290,7 @@ void AudioCart::addCutData()
   rdcart_cut_list->clearSelection();
   RDListViewItem *item=new RDListViewItem(rdcart_cut_list);
   item->setText(11,next_name);
-  UpdateCutCount();
+  //  UpdateCutCount();
   RefreshLine(item);
   rdcart_cut_list->setSelected(item,true);
   rdcart_cut_list->ensureItemVisible(item);
@@ -319,12 +315,11 @@ void AudioCart::deleteCutData()
   // Prompt for Deletion
   //
   if(cutnames.size()==1) {
-    str=QString(tr("Are you sure you want to delete"));
-    switch(QMessageBox::question(this,tr("Delete Cut"),
-				 QString().
-				 sprintf("%s \"%s\"?",(const char *)str,
-					 (const char *)item->text(1)),
+    switch(QMessageBox::question(this,"RDLibrary - "+tr("Delete Cut"),
+				 tr("Are you sure you want to delete")+" \""+
+				 item->text(1)+"\"?",
 				 QMessageBox::Yes,QMessageBox::No)) {
+
     case QMessageBox::No:
     case QMessageBox::NoButton:
       return;
@@ -347,9 +342,8 @@ void AudioCart::deleteCutData()
   // Check for RDCatch Events
   //
   for(unsigned i=0;i<cutnames.size();i++) {
-    QString sql=QString().
-      sprintf("select CUT_NAME from RECORDINGS where CUT_NAME=\"%s\"",
-	      (const char *)cutnames[i]);
+    QString sql=QString("select CUT_NAME from RECORDINGS where ")+
+      "CUT_NAME=\""+RDEscapeString(cutnames[i])+"\"";
     RDSqlQuery *q=new RDSqlQuery(sql);
     if(q->first()) {
       if(QMessageBox::warning(this,tr("RDCatch Event Exists"),
@@ -389,7 +383,7 @@ void AudioCart::deleteCutData()
       return;
     }
   }
-  UpdateCutCount();
+  //  UpdateCutCount();
 
   rdcart_cart->updateLength(rdcart_controls->enforce_length_box->isChecked(),
 			    QTime().msecsTo(rdcart_controls->
@@ -571,14 +565,6 @@ void AudioCart::ripCutData()
     }
     rdcart_controls->artist_edit->setText(artist);
     rdcart_controls->album_edit->setText(album);
-    /*
-    if(rdcart_controls->artist_edit->text().isEmpty()) {
-      rdcart_controls->artist_edit->setText(rec->discArtist());
-    }
-    if(rdcart_controls->album_edit->text().isEmpty()) {
-      rdcart_controls->album_edit->setText(rec->discAlbum());
-    }
-    */
     RDCut *cut=new RDCut(cutname);
     cut->setIsrc(rec->isrc(track));
     delete cut;
@@ -712,7 +698,6 @@ void AudioCart::RefreshList()
   int pass=0;
   bool err=false;
 
-  UpdateCutCount();
   rdcart_cut_list->clear();
   sql=QString().sprintf("select WEIGHT,DESCRIPTION,LENGTH,LAST_PLAY_DATETIME,\
                          PLAY_COUNTER,ORIGIN_DATETIME,ORIGIN_NAME,OUTCUE,\
@@ -822,14 +807,12 @@ void AudioCart::RefreshLine(RDListViewItem *item)
   QDateTime current_datetime=
     QDateTime(QDate::currentDate(),QTime::currentTime());
   QString cut_name=item->text(11);
-  sql=QString().sprintf("select WEIGHT,DESCRIPTION,LENGTH,LAST_PLAY_DATETIME,\
-                         PLAY_COUNTER,ORIGIN_DATETIME,ORIGIN_NAME,OUTCUE,\
-                         CUT_NAME,LENGTH,EVERGREEN,START_DATETIME,\
-                         END_DATETIME,START_DAYPART,END_DAYPART,MON,TUE,WED,\
-                         THU,FRI,SAT,SUN from CUTS \
-                         where CART_NUMBER=%d && CUT_NAME=\"%s\"",
-			rdcart_cart->number(),
-			(const char *)cut_name);
+  sql=QString("select WEIGHT,DESCRIPTION,LENGTH,LAST_PLAY_DATETIME,")+
+    "PLAY_COUNTER,ORIGIN_DATETIME,ORIGIN_NAME,OUTCUE,CUT_NAME,LENGTH,"+
+    "EVERGREEN,START_DATETIME,END_DATETIME,START_DAYPART,END_DAYPART,"+
+    "MON,TUE,WED,THU,FRI,SAT,SUN from CUTS where "+
+    QString().sprintf("(CART_NUMBER=%d) ",rdcart_cart->number())+
+    "&& (CUT_NAME=\""+RDEscapeString(cut_name)+"\")";
   RDSqlQuery *q=new RDSqlQuery(sql);
   if(q->first()) {
     item->setText(0,q->value(0).toString());
@@ -904,20 +887,4 @@ void AudioCart::RefreshLine(RDListViewItem *item)
     rdcart_average_length=0;
   }
   delete q;
-}
-
-
-void AudioCart::UpdateCutCount()
-{
-  QString str;
-
-  if(rdcart_cart->cutQuantity()==1) {
-    rdcart_cut_list_label->setText(tr("1 Cut"));
-  }
-  else {
-    str=QString(tr("Cuts"));
-    rdcart_cut_list_label->setText(QString().sprintf("%d %s",
-						  rdcart_cart->cutQuantity(),
-						     (const char *)str));
-  }
 }

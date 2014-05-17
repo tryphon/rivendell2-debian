@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.h,v 1.19.8.2 2014/01/10 02:25:36 cvs Exp $
+//      $Id: audio_cart.h,v 1.19.8.2.2.1 2014/03/19 22:12:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -84,10 +84,8 @@ class AudioCart : public QWidget
   void RefreshList();
   void RefreshLine(RDListViewItem *item);
   unsigned NextCut();
-  void UpdateCutCount();
   RDCart *rdcart_cart;
   RDListView *rdcart_cut_list;
-  QLabel *rdcart_cut_list_label;
   unsigned rdcart_average_length;
   QString *rdcart_import_path;
   bool rdcart_select_cut;

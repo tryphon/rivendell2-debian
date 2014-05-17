@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cart.cpp,v 1.74.2.7 2014/02/20 00:52:13 cvs Exp $
+//      $Id: edit_cart.cpp,v 1.74.2.7.2.1 2014/03/19 22:12:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -34,6 +34,7 @@
 #include <qcheckbox.h>
 #include <qbuttongroup.h>
 #include <qtooltip.h>
+#include <qvalidator.h>
 
 #include <rddb.h>
 #include <rd.h>
@@ -313,9 +314,12 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
   //
   // Cart Origination Year
   //
+  QIntValidator *val=new QIntValidator(this);
+  val->setBottom(1);
   rdcart_controls.year_edit=new QLineEdit(this,"rdcart_year_edit");
   rdcart_controls.year_edit->setGeometry(135,110,50,21);
   rdcart_controls.year_edit->setFont(line_edit_font);
+  rdcart_controls.year_edit->setValidator(val);
   rdcart_controls.year_edit->setMaxLength(255);
   QLabel *rdcart_year_label=new QLabel(rdcart_controls.year_edit,
 					     tr("&Year Released:"),this,
@@ -641,8 +645,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     forcedLengthData(rdcart_controls.enforce_length_box->isChecked());
     if(lib_cart_list_edit==NULL) {
       rdcart_average_length_edit->
-	setText(QString().sprintf("%s",
-				  (const char *)RDGetTimeLength(rdcart_cart->averageLength())));
+	setText(RDGetTimeLength(rdcart_cart->averageLength()));
     }
     rdcart_controls.forced_length_edit->
       setTime(QTime().addMSecs(rdcart_cart->forcedLength()));
@@ -667,8 +670,9 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
     else {
       rdcart_end_date_edit->setText(tr("TFN"));
     }
-    if(!rdcart_cart->year().isNull()) {
-      rdcart_controls.year_edit->setText(rdcart_cart->year().toString("yyyy"));
+    if(rdcart_cart->year()>0) {
+      rdcart_controls.year_edit->
+	setText(QString().sprintf("%d",rdcart_cart->year()));
     }
     sched_codes=rdcart_cart->schedCodes();
     rdcart_controls.artist_edit->setText(rdcart_cart->artist());
@@ -795,7 +799,6 @@ void EditCart::lengthChangedData(unsigned len)
 
 void EditCart::okData()
 {
-  int year;
   QListViewItemIterator *it;
   RDCart *rdcart_cart_medit;
   RDSystem *system;
@@ -810,10 +813,9 @@ void EditCart::okData()
     }
     system=new RDSystem();
     if(!system->allowDuplicateCartTitles()) {
-      sql=QString().sprintf("select NUMBER from CART \
-                             where (TITLE=\"%s\")&&(NUMBER!=%u)",
-	  (const char *)RDEscapeString(rdcart_controls.title_edit->text()),
-	  rdcart_cart->number());
+      sql=QString("select NUMBER from CART where ")+
+	"(TITLE=\""+RDEscapeString(rdcart_controls.title_edit->text())+"\") &&"+
+	QString().sprintf("(NUMBER=%u)",rdcart_cart->number());
       q=new RDSqlQuery(sql);
       if(q->first()) {
 	QMessageBox::warning(this,tr("Duplicate Title"),
@@ -858,12 +860,11 @@ void EditCart::okData()
     }
     rdcart_cart->setPreservePitch(rdcart_preserve_pitch_button->isChecked());
     rdcart_cart->setTitle(rdcart_controls.title_edit->text());
-    if(sscanf((const char *)rdcart_controls.year_edit->text(),
-	      "%d",&year)==1) {
-      rdcart_cart->setYear(QDate(year,1,1));
+    if(rdcart_controls.year_edit->text().toInt()==0) {
+      rdcart_cart->setYear();
     }
     else {
-      rdcart_cart->setYear();
+      rdcart_cart->setYear(rdcart_controls.year_edit->text().toInt());
     }
     rdcart_cart->setSchedCodes(sched_codes);
     rdcart_cart->setArtist(rdcart_controls.artist_edit->text());
@@ -900,15 +901,7 @@ void EditCart::okData()
           if(!rdcart_controls.title_edit->text().stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->setTitle(rdcart_controls.title_edit->text());
 	  }
-          if(!rdcart_controls.year_edit->text().stripWhiteSpace().isEmpty()) {
-            if(sscanf((const char *)rdcart_controls.year_edit->text(),
-		      "%d",&year)==1) {
-              rdcart_cart_medit->setYear(QDate(year,1,1));
-            }
-            else {
-              rdcart_cart->setYear();
-            }
-	  }
+	  rdcart_cart_medit->setYear(rdcart_controls.year_edit->text().toInt());
           if(!rdcart_controls.artist_edit->text().stripWhiteSpace().isEmpty()) {
             rdcart_cart_medit->setArtist(rdcart_controls.artist_edit->text());
 	  }
@@ -1011,8 +1004,7 @@ void EditCart::cartDataChangedData()
 {
   if(!rdcart_controls.enforce_length_box->isChecked()) {
     rdcart_average_length_edit->
-      setText(QString().sprintf("%s",
-	  (const char *)RDGetTimeLength(rdcart_cart->calculateAverageLength())));
+      setText(RDGetTimeLength(rdcart_cart->calculateAverageLength()));
   }
 }
 
@@ -1067,10 +1059,10 @@ void EditCart::schedCodesData()
 
 void EditCart::PopulateGroupList()
 {
-  QString sql=
-    QString().sprintf("select GROUP_NAME from USER_PERMS \
-                       where USER_NAME=\"%s\" order by GROUP_NAME",
-		      (const char *)lib_user->name());
+  QString sql=QString("select GROUP_NAME from USER_PERMS where ")+
+    "USER_NAME=\""+RDEscapeString(lib_user->name())+"\" "+
+    "order by GROUP_NAME";
+
   RDSqlQuery *q=new RDSqlQuery(sql);
   while(q->next()) {
     rdcart_group_box->insertItem(q->value(0).toString());

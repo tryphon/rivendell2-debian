@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.cpp,v 1.117.4.18 2014/02/07 18:14:42 cvs Exp $
+//      $Id: rdlibrary.cpp,v 1.117.4.18.2.1 2014/03/19 22:12:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -54,6 +54,7 @@
 #include <rdcheck_daemons.h>
 #include <rdtextvalidator.h>
 #include <rdcmd_switch.cpp>
+#include <rdescape_string.h>
 #include <dbversion.h>
 
 #include <filter.h>
@@ -551,9 +552,8 @@ void MainWidget::userData()
 
   lib_group_box->clear();
   lib_group_box->insertItem(tr("ALL"));
-  sql=QString().sprintf("select GROUP_NAME from USER_PERMS\
-                              where USER_NAME=\"%s\" order by GROUP_NAME",
-			     (const char *)lib_user->name());
+  sql=QString("select GROUP_NAME from USER_PERMS where ")+
+    "USER_NAME=\""+RDEscapeString(lib_user->name())+"\" order by GROUP_NAME";
   q=new RDSqlQuery(sql);
   while(q->next()) {
     lib_group_box->insertItem(q->value(0).toString());
@@ -644,11 +644,10 @@ void MainWidget::addData()
     return;
   }
   delete add_cart;
-  sql=QString().sprintf("insert into CART set \
-                         NUMBER=%u,TYPE=%d,GROUP_NAME=\"%s\",TITLE=\"%s\"",
-			cart_num,cart_type,
-			(const char *)lib_default_group,
-			(const char *)cart_title);
+  sql=QString("insert into CART set ")+
+    QString().sprintf("NUMBER=%u,TYPE=%d,",cart_num,cart_type)+
+    "GROUP_NAME=\""+RDEscapeString(lib_default_group)+"\","+
+    "TITLE=\""+RDEscapeString(cart_title)+"\"";
   q=new RDSqlQuery(sql);
   delete q;
   
@@ -1081,21 +1080,15 @@ void MainWidget::RefreshList()
     schedcode=lib_codes_box->currentText();
   }
   if(lib_group_box->currentText()==QString(tr("ALL"))) {
-    sql+=QString().
-      sprintf(" where %s && %s",
-	      (const char *)RDAllCartSearchText(lib_filter_edit->text(),
-						schedcode,
-						lib_user->name(),true).utf8(),
-	      (const char *)type_filter);
+    sql+=QString(" where ")+
+      RDAllCartSearchText(lib_filter_edit->text(),schedcode,
+			  lib_user->name(),true)+" && "+type_filter;
+
   }
   else {
-    sql+=QString().
-      sprintf(" where %s && %s",
-	      (const char *)RDCartSearchText(lib_filter_edit->text(),
-					     lib_group_box->currentText(),
-					     schedcode,true).
-	      utf8(),
-	      (const char *)type_filter);
+    sql+=QString(" where ")+
+      RDCartSearchText(lib_filter_edit->text(),lib_group_box->currentText(),
+		       schedcode,true)+" && "+type_filter;      
   }
   sql+=" order by CART.NUMBER";
   if(lib_showmatches_box->isChecked()) {

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003, 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cdripper.cpp,v 1.41.4.6 2014/01/14 18:02:26 cvs Exp $
+//      $Id: cdripper.cpp,v 1.41.4.6.2.1 2014/03/19 22:12:59 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -737,6 +737,6 @@ void CdRipper::Profile(const QString &msg)
   if(rip_profile_rip) {
     printf("%s | CdRipper::%s\n",
 	    (const char *)QTime::currentTime().toString("hh:mm:ss.zzz"),
-	    (const char *)msg);
+	   (const char *)msg.utf8());
   }
 }

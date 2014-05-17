@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2007 Dan Mills <dmills@exponent.myzen.co.uk>
 //
-//      $Id: rddb.cpp,v 1.13.4.2 2013/07/30 15:34:49 cvs Exp $
+//      $Id: rddb.cpp,v 1.13.4.2.2.2 2014/03/21 15:41:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -68,6 +68,9 @@ QSqlDatabase *RDInitDb (unsigned *schema,QString *error)
     new RDDbHeartbeat(cf->mysqlHeartbeatInterval());
     firsttime = false;
   }
+  //  QSqlQuery *q=new QSqlQuery("set character_set_results='utf8'");
+  //  delete q;
+
   QSqlQuery *q=new QSqlQuery("select DB from VERSION");
   if(q->first()) {
     *schema=q->value(0).toUInt();
@@ -80,7 +83,7 @@ QSqlDatabase *RDInitDb (unsigned *schema,QString *error)
 RDSqlQuery::RDSqlQuery (const QString &query, QSqlDatabase *dbase):
   QSqlQuery (query,dbase)
 {
-  //  printf("lastQuery: %s\n",(const char *)lastQuery());
+  //printf("lastQuery: %s\n",(const char *)lastQuery());
 
   // With any luck, by the time we get here, we have already done the biz...
   unsigned schema;
