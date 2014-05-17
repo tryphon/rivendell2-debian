@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.h,v 1.39.6.5 2014/01/13 23:02:40 cvs Exp $
+//      $Id: rdcart.h,v 1.39.6.5.2.1 2014/03/19 22:12:58 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -60,9 +60,8 @@ class RDCart
   void setArtist(const QString &name);
   QString album() const;
   void setAlbum(const QString &album);
-  QDate year() const;
-  void setYear(const QDate &date);
-  void setYear();
+  int year() const;
+  void setYear(int year=-1);
   QString schedCodes() const;
   void setSchedCodes(const QString &sched_codes) const;
   void updateSchedCodes(const QString &add_codes,const QString &remove_codes) const;

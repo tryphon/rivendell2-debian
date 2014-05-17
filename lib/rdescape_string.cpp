@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdescape_string.cpp,v 1.17 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdescape_string.cpp,v 1.17.10.1 2014/03/19 23:50:20 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -100,6 +100,82 @@ QString RDEscapeString(QString const &str)
 	  break;
     }
   }
+
+  /*
+  for(unsigned i=0;i<str.length();i++) {
+    switch(((const char *)str)[i]) {
+	case '(':
+	  res+=QString("\\\(");
+	  break;
+
+	case ')':
+	  res+=QString("\\)");
+	  break;
+
+	case '{':
+	  res+=QString("\\\{");
+	  break;
+
+	case '"':
+	  res+=QString("\\\"");
+	  break;
+
+	case '´':
+	  res+=QString("\\´");
+	  break;
+
+	case '`':
+	  res+=QString("\\`");
+	  break;
+
+	case '[':
+	  res+=QString("\\\[");
+	  break;
+
+	case '\'':
+	  res+=QString("\\\'");
+	  break;
+
+	case '\\':
+	  res+=QString("\\");
+	  res+=QString("\\");
+	  break;
+
+	case '?':
+	  res+=QString("\\\?");
+	  break;
+
+	case ' ':
+	  res+=QString("\\ ");
+	  break;
+
+	case '&':
+	  res+=QString("\\&");
+	  break;
+
+        case ';':
+	  res+=QString("\\;");
+	  break;
+
+        case '<':
+	  res+=QString("\\<");
+	  break;
+
+        case '>':
+	  res+=QString("\\>");
+	  break;
+
+        case '|':
+	  res+=QString("\\|");
+	  break;
+
+	default:
+	  res+=((const char *)str)[i];
+	  break;
+    }
+  }
+  */
+
   return res;
 }
 

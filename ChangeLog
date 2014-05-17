@@ -14085,3 +14085,45 @@
 2014-02-28 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.8.1.
+2014-03-01 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a fix from Brian McGlynn <jazzeum@yahoo.ca> that fixed
+	a bug in the BroadcastTools SS4.4 driver tht prevented outputs 3
+	and 4 from being addressed.
+2014-03-01 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a fix from Max Goldstein <ops@wfmo.org> that fixed a
+	logging bug in RDAirPlay in 'rdiaplay/rdairplay.cpp'.
+2014-03-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdadmin/edit_station.cpp' where the Cue Output
+	audio assignment did not take account of the 'Core Audio Engine'
+	settings.
+2014-03-19 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/rlmhost.cpp' that caused RDAirPlay to
+	segfault when processing multi-byte UTF8 characters.
+2014-03-19 Fred Gleason <fredg@paravelsystems.com>
+	* Removed (const char *) casts from SQL calls in
+	'rdlibrary/rdlibrary.cpp'.
+	* Removed (const char *) casts from SQL calls in
+	'rdlibrary/audio_cart.cpp'.
+	* Removed (const char *) casts from SQL calls in
+	'rdlibrary/disk_ripper.cpp'.
+	* Removed (const char *) casts from SQL calls in
+	'rdlibrary/edit_cart.cpp'.
+	* Removed (const char *) casts from SQL calls in
+	'rdlibrary/list_reports.cpp'.
+2014-03-19 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored SQL insert in 'rdairplay/log_traffic.cpp' to support
+	UTF8 characters.
+	* Refactored SQL insert in 'lib/rdsound_panel.cpp' to support
+	UTF8 characters.
+	* Removed (const char *) casts from SQL calls in
+	'lib/rdsound_panel.cpp'.
+2014-03-21 Fred Gleason <fredg@paravelsystems.com>
+	* Regressed UTF8 processing in 'RDSoundPanel::LoadPanel()' to
+	preserve compatibility with latin1 coding in MySQL in
+	'lib/rdsound_panel.cpp'.
+2014-05-15 Fred Gleason <fredg@paravelsystems.com>
+	* Applied a patch from Chris Smowton <chris@smowton.net> to
+	'lib/rdaudioconvert.cpp' to fix a buffer overflow bug.
+2014-05-16 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.8.2.

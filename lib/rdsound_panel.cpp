@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.cpp,v 1.62.6.13 2014/02/20 17:29:32 cvs Exp $
+//      $Id: rdsound_panel.cpp,v 1.62.6.13.2.2 2014/03/21 15:41:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -211,18 +211,16 @@ RDSoundPanel::RDSoundPanel(int cols,int rows,int station_panels,
   //
 
   QString sql;
-  sql=QString().sprintf("select PANEL_NO,NAME from %s \
-                         where (TYPE=%d)&&(OWNER=\"%s\") order by PANEL_NO",
-			(const char *)panel_name_tablename,
-			RDAirPlayConf::StationPanel,
-			(const char *)panel_station->name());
+  sql=QString("select PANEL_NO,NAME from ")+panel_name_tablename+" where "+
+    QString().sprintf("(TYPE=%d)&&",RDAirPlayConf::StationPanel)+
+    "(OWNER=\""+RDEscapeString(panel_station->name())+"\") "+
+    "order by PANEL_NO";
   RDSqlQuery *q=new RDSqlQuery(sql);
   q->first();
   for(int i=0;i<panel_station_panels;i++) {
     if(q->isValid()&&(q->value(0).toInt()==i)) {
       panel_selector_box->
-	insertItem(QString().sprintf("[S:%d] %s",i+1,
-				     (const char *)q->value(1).toString()));
+	insertItem(QString().sprintf("[S:%d] ",i+1)+q->value(1).toString());
       q->next();
     }
     else {
@@ -553,7 +551,7 @@ void RDSoundPanel::setButton(RDAirPlayConf::PanelType type,int panel,
     else {
       if(title.isEmpty()) {
 	str=QString(tr("Cart"));
-	button->setText(QString().sprintf("%s %06u",(const char *)str,cartnum));
+	button->setText(str+QString().sprintf(" %06u",cartnum));
       }
       else {
 	button->setText(title);
@@ -597,18 +595,16 @@ void RDSoundPanel::changeUser()
   // Load New Panel Names
   //
   QString sql;
-  sql=QString().sprintf("select PANEL_NO,NAME from %s \
-                         where (TYPE=%d)&&(OWNER=\"%s\") order by PANEL_NO",
-			(const char *)panel_name_tablename,
-			RDAirPlayConf::UserPanel,
-			(const char *)panel_user->name());
+  sql=QString("select PANEL_NO,NAME from ")+panel_name_tablename+" where "+
+    QString().sprintf("(TYPE=%d)&&",RDAirPlayConf::UserPanel)+
+    "(OWNER=\""+RDEscapeString(panel_user->name())+"\") "+
+    "order by PANEL_NO";
   RDSqlQuery *q=new RDSqlQuery(sql);
   q->first();
   for(int i=0;i<panel_user_panels;i++) {
     if(q->isValid()&&(q->value(0).toInt()==i)) {
       panel_selector_box->
-	insertItem(QString().sprintf("[U:%d] %s",i+1,
-				     (const char *)q->value(1).toString()));
+	insertItem(QString().sprintf("[U:%d] ",i+1)+q->value(1).toString());
       q->next();
     }
     else {
@@ -861,21 +857,19 @@ void RDSoundPanel::panelSetupData()
     RDEditPanelName *edn=new RDEditPanelName(&panel_name);
     if(edn->exec()==0) {
       panel_selector_box->
-	setCurrentText(QString().sprintf("[%s] %s",
-	     (const char *)PanelTag(panel_selector_box->currentItem()),
-					 (const char *)panel_name));
-      sql=QString().sprintf("delete from %s where \
-                           (TYPE=%d)&&(OWNER=\"%s\")&&(PANEL_NO=%d)",
-			    (const char *)panel_name_tablename,
-			    panel_type,(const char *)PanelOwner(panel_type),
-			    panel_number);
+	setCurrentText("["+PanelTag(panel_selector_box->currentItem())+"] "+
+		       panel_name);
+      sql=QString("delete from ")+panel_name_tablename+" where "+
+	QString().sprintf("(TYPE=%d)&&",panel_type)+
+	"(OWNER=\""+RDEscapeString(PanelOwner(panel_type))+"\")&&"+
+	QString().sprintf("(PANEL_NO=%d)",panel_number);
       q=new RDSqlQuery(sql);
       delete q;
-      sql=QString().sprintf("insert into %s set TYPE=%d,OWNER=\"%s\",\
-                           PANEL_NO=%d,NAME=\"%s\"",
-			    (const char *)panel_name_tablename,panel_type,
-			    (const char *)PanelOwner(panel_type),panel_number,
-			    (const char *)RDEscapeString(panel_name));
+      sql=QString("insert into ")+panel_name_tablename+" set "+
+	QString().sprintf("TYPE=%d,",panel_type)+
+	"OWNER=\""+RDEscapeString(PanelOwner(panel_type))+"\","+
+	QString().sprintf("PANEL_NO=%d,",panel_number)+
+	"NAME=\""+RDEscapeString(panel_name)+"\"";
       q=new RDSqlQuery(sql);
       delete q;
     }
@@ -1254,27 +1248,17 @@ void RDSoundPanel::LoadPanel(RDAirPlayConf::PanelType type,int panel)
 	break;
   }
 
-  QString sql=QString().sprintf("select %s.ROW_NO,%s.COLUMN_NO,\
-    %s.LABEL,%s.CART,%s.DEFAULT_COLOR,CART.FORCED_LENGTH,\
-    CART.AVERAGE_HOOK_LENGTH,CART.TYPE \
-    from %s left join CART on %s.CART=CART.NUMBER\
-    where %s.TYPE=%d && %s.OWNER=\"%s\" && %s.PANEL_NO=%d\
-    order by %s.COLUMN_NO,%s.ROW_NO",
-				(const char *)panel_tablename,
-				(const char *)panel_tablename,
-				(const char *)panel_tablename,
-				(const char *)panel_tablename,
-				(const char *)panel_tablename,
-				(const char *)panel_tablename,
-				(const char *)panel_tablename,
-				(const char *)panel_tablename,
-				type,
-				(const char *)panel_tablename,
-				(const char *)owner,
-				(const char *)panel_tablename,
-				panel,
-				(const char *)panel_tablename,
-				(const char *)panel_tablename);
+  QString sql=QString("select ")+panel_tablename+".ROW_NO,"+
+    panel_tablename+".COLUMN_NO,"+
+    panel_tablename+".LABEL,"+
+    panel_tablename+".CART,"+
+    panel_tablename+".DEFAULT_COLOR,"+
+    "CART.FORCED_LENGTH,CART.AVERAGE_HOOK_LENGTH,CART.TYPE from "+
+    panel_tablename+" left join CART on "+panel_tablename+".CART=CART.NUMBER "+
+    "where "+panel_tablename+QString().sprintf(".TYPE=%d && ",type)+
+    panel_tablename+".OWNER=\""+RDEscapeString(owner)+"\" && "+
+    panel_tablename+QString().sprintf(".PANEL_NO=%d ",panel)+
+    "order by "+panel_tablename+".COLUMN_NO,"+panel_tablename+".ROW_NO";
   RDSqlQuery *q=new RDSqlQuery(sql);
   while(q->next()) {
     if(panel_buttons[offset]->panelButton(q->value(0).toInt(),
@@ -1362,37 +1346,31 @@ void RDSoundPanel::SaveButton(RDAirPlayConf::PanelType type,
   //
   // Determine if the button exists
   //
-  sql=QString().sprintf("select LABEL from %s where \
-          TYPE=%d && OWNER=\"%s\" && PANEL_NO=%d && ROW_NO=%d && COLUMN_NO=%d",
-			(const char *)panel_tablename,
-			type,
-			(const char *)owner,
-			panel,
-			row,
-			col);
+  sql=QString("select LABEL from ")+panel_tablename+" where "+
+    QString().sprintf("TYPE=%d && ",type)+
+    "OWNER=\""+RDEscapeString(owner)+"\" && "+
+    QString().sprintf("PANEL_NO=%d && ",panel)+
+    QString().sprintf("ROW_NO=%d && ",row)+
+    QString().sprintf("COLUMN_NO=%d",col);
   q=new RDSqlQuery(sql);
   if(q->size()>0) {
     //
     // If so, update the record
     //
     delete q;
-    sql1=QString().sprintf("update %s set LABEL=\"%s\",\
-    CART=%d,DEFAULT_COLOR=\"%s\" where (TYPE=%d)&&(OWNER=\"%s\")&&\
-    (PANEL_NO=%d)&&(ROW_NO=%d)&&(COLUMN_NO=%d)",
-			   (const char *)panel_tablename,
-			   (const char *)RDEscapeString(panel_buttons[offset]->
-							panelButton(row,col)->
-							text().utf8()),
-			   panel_buttons[PanelOffset(panel_type,panel_number)]->
-			   panelButton(row,col)->cart(),
-			   (const char *)panel_buttons[offset]->
-			   panelButton(row,col)->defaultColor().
-			   name(),
-			   type,
-			   (const char *)RDEscapeString(owner),
-			   panel,
-			   row,
-			   col);
+    sql1=QString("update ")+panel_tablename+" set "+
+      "LABEL=\""+RDEscapeString(panel_buttons[offset]->panelButton(row,col)->
+				text())+"\","+
+      QString().sprintf("CART=%d,",
+			panel_buttons[PanelOffset(panel_type,panel_number)]->
+			panelButton(row,col)->cart())+
+      "DEFAULT_COLOR=\""+panel_buttons[offset]->panelButton(row,col)->
+      defaultColor().name()+"\" where "+
+      QString().sprintf("(TYPE=%d)&&",type)+
+      "(OWNER=\""+RDEscapeString(owner)+"\")&&"+
+      QString().sprintf("(PANEL_NO=%d)&&",panel)+
+      QString().sprintf("(ROW_NO=%d)&&",row)+
+      QString().sprintf("(COLUMN_NO=%d)",col);
     q=new RDSqlQuery(sql1);
     if(q->isActive()) {
       delete q;
@@ -1406,23 +1384,18 @@ void RDSoundPanel::SaveButton(RDAirPlayConf::PanelType type,
     //
     // Otherwise, insert a new one
     //
-    sql1=QString().sprintf("insert into %s (TYPE,OWNER,\
-    PANEL_NO,ROW_NO,COLUMN_NO,LABEL,CART,DEFAULT_COLOR)\
-    values (%d,\"%s\",%d,%d,%d,\"%s\",%d,\"%s\")",
-			   (const char *)panel_tablename,
-			   type,
-			   (const char *)RDEscapeString(owner),
-			   panel,
-			   row,
-			   col,
-			   (const char *)RDEscapeString(panel_buttons[offset]->
-							panelButton(row,col)->
-							text().utf8()),
-			   panel_buttons[PanelOffset(panel_type,panel_number)]->
-			   panelButton(row,col)->cart(),
-			   (const char *)panel_buttons[offset]->
-			   panelButton(row,col)->
-			   defaultColor().name());
+    sql1=QString("insert into ")+panel_tablename+
+      " (TYPE,OWNER,PANEL_NO,ROW_NO,COLUMN_NO,LABEL,CART,DEFAULT_COLOR) "+
+      QString().sprintf("values (%d,",type)+
+      "\""+RDEscapeString(owner)+"\","+
+      QString().sprintf("%d,%d,%d,",panel,row,col)+
+      "\""+RDEscapeString(panel_buttons[offset]->
+			  panelButton(row,col)->text())+"\","+
+      QString().sprintf("%d,",
+			panel_buttons[PanelOffset(panel_type,panel_number)]->
+			panelButton(row,col)->cart())+
+      "\""+RDEscapeString(panel_buttons[offset]->
+			  panelButton(row,col)->defaultColor().name())+"\")";
     q=new RDSqlQuery(sql1);
     delete q;
   }
@@ -1493,45 +1466,35 @@ void RDSoundPanel::LogTraffic(RDPanelButton *button)
   RDSqlQuery *q;
   QDateTime datetime(QDate::currentDate(),QTime::currentTime());
 
-  sql=QString().sprintf("select CART.TITLE,CART.ARTIST,CART.PUBLISHER,\
-                         CART.COMPOSER,CART.USAGE_CODE,CUTS.ISRC,\
-                         CART.ALBUM,CART.LABEL,CUTS.ISCI \
-                         from CART left join CUTS \
-                         on CART.NUMBER=CUTS.CART_NUMBER \
-                         where CUTS.CUT_NAME=\"%s\"",
-			(const char *)button->cutName());
+  sql=QString("select CART.TITLE,CART.ARTIST,CART.PUBLISHER,")+
+    "CART.COMPOSER,CART.USAGE_CODE,CUTS.ISRC,"+
+    "CART.ALBUM,CART.LABEL,CUTS.ISCI from CART left join CUTS "+
+    "on CART.NUMBER=CUTS.CART_NUMBER where "+
+    "CUTS.CUT_NAME=\""+RDEscapeString(button->cutName())+"\"";
   q=new RDSqlQuery(sql);
   if(q->first()) {
-    sql=QString().sprintf("insert into `%s_SRT` set\
-                         LENGTH=%d,CART_NUMBER=%u,\
-                         STATION_NAME=\"%s\",EVENT_DATETIME=\"%s %s\",\
-                         EVENT_TYPE=%d,EVENT_SOURCE=%d,PLAY_SOURCE=%d,\
-                         CUT_NUMBER=%d,TITLE=\"%s\",ARTIST=\"%s\",\
-                         PUBLISHER=\"%s\",COMPOSER=\"%s\",USAGE_CODE=%d,\
-                         ISRC=\"%s\",START_SOURCE=%d,ALBUM=\"%s\",\
-                         LABEL=\"%s\",ISCI=\"%s\",ONAIR_FLAG=\"%s\"",
-			  (const char *)panel_svcname,
-			  button->startTime().msecsTo(datetime.time()),
-			  button->cart(),
-			  (const char *)RDEscapeString(panel_station->name()),
-			  (const char *)datetime.toString("yyyy-MM-dd"),
-			  (const char *)button->startTime().
-			  toString("hh:mm:ss"),
-			  RDAirPlayConf::TrafficStop,
-			  RDLogLine::SoundPanel,
-			  RDLogLine::SoundPanel,
-			  button->cutName().right(3).toInt(),
-			  (const char *)RDEscapeString(q->value(0).toString()),
-			  (const char *)RDEscapeString(q->value(1).toString()),
-			  (const char *)RDEscapeString(q->value(2).toString()),
-			  (const char *)RDEscapeString(q->value(3).toString()),
-			  q->value(4).toInt(),
-			  (const char *)q->value(5).toString(),
-			  button->startSource(),
-			  (const char *)RDEscapeString(q->value(6).toString()),
-			  (const char *)RDEscapeString(q->value(7).toString()),
-			  (const char *)RDEscapeString(q->value(8).toString()),
-			  (const char *)RDYesNo(panel_onair_flag));
+    sql=QString("insert into `")+panel_svcname+"_SRT` set "+
+      QString().sprintf("LENGTH=%d,",button->startTime().
+			msecsTo(datetime.time()))+
+      QString().sprintf("CART_NUMBER=%u,",button->cart())+
+      "STATION_NAME=\""+RDEscapeString(panel_station->name().utf8())+"\","+
+      "EVENT_DATETIME=\""+datetime.toString("yyyy-MM-dd")+" "+
+      button->startTime().toString("hh:mm:ss")+"\","+
+      QString().sprintf("EVENT_TYPE=%d,",RDAirPlayConf::TrafficStop)+
+      QString().sprintf("EVENT_SOURCE=%d,",RDLogLine::SoundPanel)+
+      QString().sprintf("PLAY_SOURCE=%d,",RDLogLine::SoundPanel)+
+      QString().sprintf("CUT_NUMBER=%d,",button->cutName().right(3).toInt())+
+      "TITLE=\""+RDEscapeString(q->value(0).toString().utf8())+"\","+
+      "ARTIST=\""+RDEscapeString(q->value(1).toString().utf8())+"\","+
+      "PUBLISHER=\""+RDEscapeString(q->value(2).toString().utf8())+"\","+
+      "COMPOSER=\""+RDEscapeString(q->value(3).toString().utf8())+"\","+
+      QString().sprintf("USAGE_CODE=%d,",q->value(4).toInt())+
+      "ISRC=\""+RDEscapeString(q->value(5).toString().utf8())+"\","+
+      QString().sprintf("START_SOURCE=%d,",button->startSource())+
+      "ALBUM=\""+RDEscapeString(q->value(6).toString().utf8())+"\","+
+      "LABEL=\""+RDEscapeString(q->value(7).toString().utf8())+"\","+
+      "ISCI=\""+RDEscapeString(q->value(8).toString().utf8())+"\","+
+      "ONAIR_FLAG=\""+RDYesNo(panel_onair_flag)+"\"";
     delete q;
     q=new RDSqlQuery(sql);
   }
@@ -1545,38 +1508,28 @@ void RDSoundPanel::LogTrafficMacro(RDPanelButton *button)
   RDSqlQuery *q;
   QDateTime datetime(QDate::currentDate(),QTime::currentTime());
 
-  sql=QString().sprintf("select TITLE,ARTIST,PUBLISHER,\
-                         COMPOSER,USAGE_CODE,FORCED_LENGTH,\
-                         ALBUM,LABEL from CART where NUMBER=%u",
-			button->cart());
+  sql=QString("select TITLE,ARTIST,PUBLISHER,COMPOSER,USAGE_CODE,")+
+    "FORCED_LENGTH,ALBUM,LABEL from CART where "+
+    QString().sprintf("NUMBER=%u",button->cart());
   q=new RDSqlQuery(sql);
   if(q->first()) {
-    sql=QString().sprintf("insert into `%s_SRT` set\
-                         LENGTH=%d,CART_NUMBER=%u,\
-                         STATION_NAME=\"%s\",EVENT_DATETIME=\"%s\",\
-                         EVENT_TYPE=%d,EVENT_SOURCE=%d,PLAY_SOURCE=%d,\
-                         TITLE=\"%s\",ARTIST=\"%s\",\
-                         PUBLISHER=\"%s\",COMPOSER=\"%s\",USAGE_CODE=%d,\
-                         START_SOURCE=%d,ALBUM=\"%s\",\
-                         LABEL=\"%s\",ONAIR_FLAG=\"%s\"",
-			  (const char *)panel_svcname,
-			  q->value(5).toUInt(),
-			  button->cart(),
-			  (const char *)RDEscapeString(panel_station->name()),
-			  (const char *)datetime.
-			  toString("yyyy-MM-dd hh:mm:ss"),
-			  RDAirPlayConf::TrafficMacro,
-			  RDLogLine::SoundPanel,
-			  RDLogLine::SoundPanel,
-			  (const char *)RDEscapeString(q->value(0).toString()),
-			  (const char *)RDEscapeString(q->value(1).toString()),
-			  (const char *)RDEscapeString(q->value(2).toString()),
-			  (const char *)RDEscapeString(q->value(3).toString()),
-			  q->value(4).toInt(),
-			  button->startSource(),
-			  (const char *)RDEscapeString(q->value(6).toString()),
-			  (const char *)RDEscapeString(q->value(7).toString()),
-			  (const char *)RDYesNo(panel_onair_flag));
+    sql=QString("insert into `")+panel_svcname+"_SRT` set "+
+      QString().sprintf("LENGTH=%d,",q->value(5).toUInt())+
+      QString().sprintf("CART_NUMBER=%u,",button->cart())+
+      "STATION_NAME=\""+RDEscapeString(panel_station->name().utf8())+"\","+
+      "EVENT_DATETIME=\""+datetime.toString("yyyy-MM-dd hh:mm:ss")+"\","+
+      QString().sprintf("EVENT_TYPE=%d,",RDAirPlayConf::TrafficMacro)+
+      QString().sprintf("EVENT_SOURCE=%d,",RDLogLine::SoundPanel)+
+      QString().sprintf("PLAY_SOURCE=%d,",RDLogLine::SoundPanel)+
+      "TITLE=\""+RDEscapeString(q->value(0).toString().utf8())+"\","+
+      "ARTIST=\""+RDEscapeString(q->value(1).toString().utf8())+"\","+
+      "PUBLISHER=\""+RDEscapeString(q->value(2).toString().utf8())+"\","+
+      "COMPOSER=\""+RDEscapeString(q->value(3).toString().utf8())+"\","+
+      QString().sprintf("USAGE_CODE=%d,",q->value(4).toInt())+
+      QString().sprintf("START_SOURCE=%d,",button->startSource())+
+      "ALBUM=\""+RDEscapeString(q->value(6).toString().utf8())+"\","+
+      "LABEL=\""+RDEscapeString(q->value(7).toString().utf8())+"\","+
+      "ONAIR_FLAG=\""+RDYesNo(panel_onair_flag)+"\"";
     delete q;
     q=new RDSqlQuery(sql);
     delete q;

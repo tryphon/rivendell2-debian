@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdbutton_dialog.cpp,v 1.23.6.1 2012/11/26 20:19:36 cvs Exp $
+//      $Id: rdbutton_dialog.cpp,v 1.23.6.1.2.1 2014/03/21 15:41:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -235,23 +235,28 @@ void RDButtonDialog::cancelData()
 
 void RDButtonDialog::DisplayCart(int cartnum)
 {
-  QString str;
-
   if(cartnum==0) {
     edit_cart_edit->setText("");
     return;
   }
   RDCart *cart=new RDCart((unsigned)cartnum);
   if(cart->exists()) {
+    edit_cart_edit->
+      setText(QString().sprintf("%06u - ",cart->number())+cart->title());
+    /*
     edit_cart_edit->setText(QString().sprintf("%06u - %s",
 					      cart->number(),
 					      (const char *)cart->title()));
+    */
   }
   else {
-    str=QString(tr("NOT FOUND"));
+    edit_cart_edit->setText(QString().sprintf("%06u - [",cart->number())+"] "+
+			    tr("NOT FOUND"));
+    /*
     edit_cart_edit->
       setText(QString().sprintf("%06u - [%s]",cart->number(),
 				(const char *)str));
+    */
   }
   delete cart;
 }

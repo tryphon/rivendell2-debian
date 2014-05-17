@@ -1,6 +1,27 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.8.2 --  5/16/2014
+
+Changes:
+   This is a maintenance release of Rivendell.  It fixes several bugs,
+   but provides no new functionality.  Some of the fixes include:
+
+   UTF-8 Character Handling.  Improved handling of multi-byte UTF-8
+   characters, especially in the RLM subsystem.
+
+   More robust MPEG-1 import support (contributed by Chris Smowden).
+
+   See the ChangeLog for additional details.
+
+Database Update:
+   This version of Rivendell uses database schema version 234, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.8.1 --  2/28/2014
 
 Changes:

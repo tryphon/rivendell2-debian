@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005,2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: btss44.cpp,v 1.3 2010/08/03 23:39:26 cvs Exp $
+//      $Id: btss44.cpp,v 1.3.8.1 2014/03/02 03:15:23 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -224,7 +224,7 @@ void BtSs44::processCommand(RDMacro *cmd)
 
       case RDMacro::SA:
 	if((cmd->arg(1).toInt()<1)||(cmd->arg(1).toInt()>bt_inputs)||
-	   (cmd->arg(2).toInt()<1)||(cmd->arg(2).toInt()>2)) {
+	   (cmd->arg(2).toInt()<1)||(cmd->arg(2).toInt()>bt_outputs)) {
 	  cmd->acknowledge(false);
 	  emit rmlEcho(cmd);
 	  return;
@@ -238,7 +238,7 @@ void BtSs44::processCommand(RDMacro *cmd)
 
       case RDMacro::SR:
 	if((cmd->arg(1).toInt()<1)||(cmd->arg(1).toInt()>bt_inputs)||
-	   (cmd->arg(2).toInt()<1)||(cmd->arg(2).toInt()>2)) {
+	   (cmd->arg(2).toInt()<1)||(cmd->arg(2).toInt()>bt_outputs)) {
 	  cmd->acknowledge(false);
 	  emit rmlEcho(cmd);
 	  return;
@@ -252,7 +252,7 @@ void BtSs44::processCommand(RDMacro *cmd)
 
       case RDMacro::ST:
 	if((cmd->arg(1).toInt()<0)||(cmd->arg(1).toInt()>bt_inputs)||
-	   (cmd->arg(2).toInt()<1)||(cmd->arg(2).toInt()>2)) {
+	   (cmd->arg(2).toInt()<1)||(cmd->arg(2).toInt()>bt_outputs)) {
 	  cmd->acknowledge(false);
 	  emit rmlEcho(cmd);
 	  return;

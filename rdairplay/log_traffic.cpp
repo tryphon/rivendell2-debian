@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_traffic.cpp,v 1.20.8.2 2013/03/09 00:21:16 cvs Exp $
+//      $Id: log_traffic.cpp,v 1.20.8.2.2.1 2014/03/19 23:50:20 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -48,6 +48,39 @@ void LogTraffic(const QString &svcname,const QString &logname,
   }
   QString svctablename=RDEscapeStringSQLColumn(svcname);
   svctablename.replace(" ","_");
+  sql=QString("insert into `")+svctablename+"_SRT` set "+
+    QString().sprintf("LENGTH=%d,",length)+
+    "LOG_NAME=\""+RDEscapeString(logname.utf8())+"\","+
+    QString().sprintf("LOG_ID=%d,",logline->id())+
+    QString().sprintf("CART_NUMBER=%u,",logline->cartNumber())+
+    "STATION_NAME=\""+RDEscapeString(rdstation_conf->name().utf8())+"\","+
+    "EVENT_DATETIME=\""+datetime.toString("yyyy-MM-dd")+" "+
+    logline->startTime(RDLogLine::Actual).toString("hh:mm:ss")+"\","+
+    QString().sprintf("EVENT_TYPE=%d,",action)+
+    QString().sprintf("EVENT_SOURCE=%d,",logline->source())+
+    "EXT_START_TIME=\""+logline->extStartTime().toString("hh:mm:ss")+"\","+
+    QString().sprintf("EXT_LENGTH=%d,",logline->extLength())+
+    "EXT_DATA=\""+RDEscapeString(logline->extData())+"\","+
+    "EXT_EVENT_ID=\""+RDEscapeString(logline->extEventId())+"\","+
+    "EXT_ANNC_TYPE=\""+RDEscapeString(logline->extAnncType())+"\","+
+    QString().sprintf("PLAY_SOURCE=%d,",src)+
+    QString().sprintf("CUT_NUMBER=%d,",logline->cutNumber())+
+    "EXT_CART_NAME=\""+RDEscapeString(logline->extCartName().utf8())+"\","+
+    "TITLE=\""+RDEscapeString(logline->title().utf8())+"\","+
+    "ARTIST=\""+RDEscapeString(logline->artist().utf8())+"\","+
+    "SCHEDULED_TIME=\""+RDEscapeString(logline->startTime(RDLogLine::Logged).
+				       toString("hh:mm:ss"))+"\","+
+    "ISRC=\""+RDEscapeString(logline->isrc().utf8())+"\","+
+    "PUBLISHER=\""+RDEscapeString(logline->publisher().utf8())+"\","+
+    "COMPOSER=\""+RDEscapeString(logline->composer().utf8())+"\","+
+    QString().sprintf("USAGE_CODE=%d,",logline->usageCode())+
+    QString().sprintf("START_SOURCE=%d,",logline->startSource())+
+    "ONAIR_FLAG=\""+RDYesNo(onair_flag)+"\","+
+    "ALBUM=\""+RDEscapeString(logline->album().utf8())+"\","+
+    "LABEL=\""+RDEscapeString(logline->label().utf8())+"\","+
+    "ISCI=\""+RDEscapeString(logline->isci().utf8())+"\"";
+
+  /*
   sql=QString().sprintf("insert into `%s_SRT` set\
                          LENGTH=%d,LOG_NAME=\"%s\",LOG_ID=%d,CART_NUMBER=%u,\
                          STATION_NAME=\"%s\",EVENT_DATETIME=\"%s %s\",\
@@ -92,6 +125,7 @@ void LogTraffic(const QString &svcname,const QString &logname,
 			(const char *)RDEscapeString(logline->album()),
 			(const char *)RDEscapeString(logline->label()),
 			(const char *)RDEscapeString(logline->isci()));
+  */
   q=new RDSqlQuery(sql);
   delete q;
 }

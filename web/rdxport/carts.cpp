@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: carts.cpp,v 1.8.2.2 2013/11/13 23:36:40 cvs Exp $
+//      $Id: carts.cpp,v 1.8.2.2.2.1 2014/03/19 22:13:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -316,7 +316,7 @@ void Xport::EditCart()
   if(xport_post->getValue("YEAR",&value)) {
     number=value.toInt(&ok);
     if((ok)&&(number>0)) {
-      cart->setYear(QDate(number,0,0));
+      cart->setYear(number);
     }
   }
   if(xport_post->getValue("LABEL",&value)) {

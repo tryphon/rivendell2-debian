@@ -70,10 +70,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cuts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Cut Info</source>
         <translation type="unfinished"></translation>
     </message>
@@ -151,10 +147,6 @@ Do you want to proceed?</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>1 Cut</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -521,6 +513,14 @@ Disk</source>
     </message>
     <message>
         <source>Unable to create temporary directory!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Track</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

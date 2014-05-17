@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rlmhost.cpp,v 1.7.6.9 2014/01/13 23:02:41 cvs Exp $
+//      $Id: rlmhost.cpp,v 1.7.6.9.2.1 2014/03/19 19:25:18 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -21,6 +21,7 @@
 //
 
 #include <dlfcn.h>
+#include <iostream>
 
 #include <rdconf.h>
 #include <rdprofile.h>
@@ -186,71 +187,71 @@ void RLMHost::loadMetadata(const RDLogLine *logline,struct rlm_pad *pad,
     }
     pad->rlm_carttype=logline->cartType();
     if(!logline->year().isNull()) {
-      sprintf(pad->rlm_year,"%s",
-	      (const char *)logline->year().toString("YYYY").left(4));
+      snprintf(pad->rlm_year,5,"%s",
+	       (const char *)logline->year().toString("YYYY"));
     }
     if(!logline->groupName().isEmpty()) {
-      sprintf(pad->rlm_group,"%s",(const char *)logline->groupName().left(10));
+      snprintf(pad->rlm_group,11,"%s",
+	       (const char *)logline->groupName().utf8());
     }
     if(!logline->title().isEmpty()) {
-      sprintf(pad->rlm_title,"%s",(const char *)logline->title().left(255));
+      snprintf(pad->rlm_title,256,"%s",(const char *)logline->title().utf8());
     }
     if(!logline->artist().isEmpty()) {
-      sprintf(pad->rlm_artist,"%s",(const char *)logline->artist().left(255));
+      snprintf(pad->rlm_artist,256,"%s",(const char *)logline->artist().utf8());
     }
     if(!logline->label().isEmpty()) {
-      sprintf(pad->rlm_label,"%s",(const char *)logline->label().left(64));
+      snprintf(pad->rlm_label,65,"%s",(const char *)logline->label().utf8());
     }
     if(!logline->client().isEmpty()) {
-      sprintf(pad->rlm_client,"%s",(const char *)logline->client().left(64));
+      snprintf(pad->rlm_client,65,"%s",(const char *)logline->client().utf8());
     }
     if(!logline->agency().isEmpty()) {
-      sprintf(pad->rlm_agency,"%s",(const char *)logline->agency().left(64));
+      snprintf(pad->rlm_agency,65,"%s",(const char *)logline->agency().utf8());
     }
     if(!logline->composer().isEmpty()) {
-      sprintf(pad->rlm_comp,"%s",(const char *)logline->composer().left(64));
+      snprintf(pad->rlm_comp,65,"%s",(const char *)logline->composer().utf8());
     }
     if(!logline->publisher().isEmpty()) {
-      sprintf(pad->rlm_pub,"%s",(const char *)logline->publisher().left(64));
+      snprintf(pad->rlm_pub,65,"%s",(const char *)logline->publisher().utf8());
     }
     if(!logline->userDefined().isEmpty()) {
-      sprintf(pad->rlm_userdef,"%s",
-	      (const char *)logline->userDefined().left(255));
+      snprintf(pad->rlm_userdef,256,"%s",
+	       (const char *)logline->userDefined().utf8());
     }
     if(!logline->outcue().isEmpty()) {
-      sprintf(pad->rlm_outcue,"%s",
-	      (const char *)logline->outcue().left(64));
+      snprintf(pad->rlm_outcue,65,"%s",(const char *)logline->outcue().utf8());
     }
     if(!logline->description().isEmpty()) {
-      sprintf(pad->rlm_description,"%s",
-	      (const char *)logline->description().left(64));
+      snprintf(pad->rlm_description,65,"%s",
+	       (const char *)logline->description().utf8());
     }
     if(!logline->conductor().isEmpty()) {
-      sprintf(pad->rlm_conductor,"%s",
-	      (const char *)logline->conductor().left(64));
+      snprintf(pad->rlm_conductor,65,"%s",
+	      (const char *)logline->conductor().utf8());
     }
     if(!logline->songId().isEmpty()) {
-      sprintf(pad->rlm_song_id,"%s",(const char *)logline->songId().left(32));
+      snprintf(pad->rlm_song_id,33,"%s",(const char *)logline->songId().utf8());
     }
     if(!logline->album().isEmpty()) {
-      sprintf(pad->rlm_album,"%s",(const char *)logline->album().left(255));
+      snprintf(pad->rlm_album,256,"%s",(const char *)logline->album().utf8());
     }
     if(!logline->isrc().isEmpty()) {
-      strncpy(pad->rlm_isrc,(const char *)logline->isrc().left(12),12);
+      strncpy(pad->rlm_isrc,(const char *)logline->isrc().utf8().left(12),12);
     }
     if(!logline->isci().isEmpty()) {
-      strncpy(pad->rlm_isci,(const char *)logline->isci().left(32),32);
+      strncpy(pad->rlm_isci,(const char *)logline->isci().utf8().left(32),32);
     }
     if(!logline->extData().isEmpty()) {
-      sprintf(pad->rlm_ext_data,"%s",(const char *)logline->extData().left(32));
+      snprintf(pad->rlm_ext_data,32,"%s",(const char *)logline->extData());
     }
     if(!logline->extEventId().isEmpty()) {
-      sprintf(pad->rlm_ext_eventid,"%s",
-	      (const char *)logline->extEventId().left(32));
+      snprintf(pad->rlm_ext_eventid,32,"%s",
+	       (const char *)logline->extEventId());
     }
     if(!logline->extAnncType().isEmpty()) {
-      sprintf(pad->rlm_ext_annctype,"%s",
-	      (const char *)logline->extAnncType().left(32));
+      snprintf(pad->rlm_ext_annctype,32,"%s",
+	       (const char *)logline->extAnncType());
     }
     if(start_datetime.isValid()) {
       pad->rlm_start_msec=start_datetime.time().msec();
