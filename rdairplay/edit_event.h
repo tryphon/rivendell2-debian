@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.h,v 1.25.8.2 2014/02/20 19:38:08 cvs Exp $
+//      $Id: edit_event.h,v 1.25.8.2.2.1 2014/05/20 01:45:17 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -31,6 +31,7 @@
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
+#include <qtextedit.h>
 #include <qtimer.h>
 
 #include <rdtransportbutton.h>
@@ -64,6 +65,7 @@ class EditEvent : public QDialog
   void cancelData();
 
  protected:
+  void resizeEvent(QResizeEvent *e);
   void closeEvent(QCloseEvent *e);
 
  private:
@@ -83,9 +85,11 @@ class EditEvent : public QDialog
   QLabel *edit_overlap_label;
   RDCueEdit *edit_cue_edit;
   QFont normal_font;
-  QPushButton *edit_recue_button;
+  QLabel *edit_cart_notes_label;
+  QTextEdit *edit_cart_notes_text;
   QPushButton *edit_ok_button;
   QPushButton *edit_cancel_button;
+  QLabel *edit_horizrule_label;
   int edit_height;
 };
 

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_cart.cpp,v 1.74.2.7.2.1 2014/03/19 22:12:59 cvs Exp $
+//      $Id: edit_cart.cpp,v 1.74.2.7.2.2 2014/05/28 21:21:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -377,7 +377,7 @@ EditCart::EditCart(unsigned number,QString *path,bool new_cart,bool profile_rip,
   rdcart_controls.bpm_spin=new QSpinBox(this);
   rdcart_controls.bpm_spin->setGeometry(515,135,100,21);
   rdcart_controls.bpm_spin->setFont(line_edit_font);
-  rdcart_controls.bpm_spin->setRange(0,200);
+  rdcart_controls.bpm_spin->setRange(0,300);
   rdcart_controls.bpm_spin->setSpecialValueText(tr("Unknown"));
   QLabel *rdcart_bpm_label=
     new QLabel(rdcart_controls.bpm_spin,tr("&Beats per Minute:"),this);

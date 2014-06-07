@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcart.h,v 1.39.6.5.2.1 2014/03/19 22:12:58 cvs Exp $
+//      $Id: rdcart.h,v 1.39.6.5.2.5 2014/05/30 00:26:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -21,6 +21,7 @@
 //
 
 #include <qdatetime.h>
+#include <qstringlist.h>
 
 #include <rdconfig.h>
 #include <rdwavedata.h>
@@ -43,7 +44,7 @@ class RDCart
   enum UsageCode {UsageFeature=0,UsageOpen=1,UsageClose=2,UsageTheme=3,
 		  UsageBackground=4,UsagePromo=5,UsageLast=6};
   enum Validity {NeverValid=0,ConditionallyValid=1,AlwaysValid=2,
-		 EvergreenValid=3};
+		 EvergreenValid=3,FutureValid=4};
   RDCart(unsigned number);
   ~RDCart();
   bool exists() const;
@@ -64,7 +65,11 @@ class RDCart
   void setYear(int year=-1);
   QString schedCodes() const;
   void setSchedCodes(const QString &sched_codes) const;
-  void updateSchedCodes(const QString &add_codes,const QString &remove_codes) const;
+  QStringList schedCodesList() const;
+  void setSchedCodesList(const QStringList &codes);
+  void addSchedCode(const QString &code);
+  void updateSchedCodes(const QString &add_codes,
+			const QString &remove_codes) const;
   QString conductor() const;
   void setConductor(const QString &cond);
   QString label() const;
@@ -122,6 +127,8 @@ class RDCart
   void setOwner(const QString &owner) const;
   bool useEventLength() const;
   void setUseEventLength(bool state) const;
+  void setPending(const QString &station_name);
+  void clearPending() const;
   QString macros() const;
   void setMacros(const QString &cmds) const;
   bool validateLengths(int len) const;
@@ -138,13 +145,18 @@ class RDCart
   bool removeCut(RDStation *station,RDUser *user,const QString &cutname,
 		 RDConfig *config);
   bool removeCutAudio(RDStation *station,RDUser *user,
-		      const QString &cutname,RDConfig *config) const;
+		      const QString &cutname,RDConfig *config);
   bool create(const QString &groupname,RDCart::Type type);
   bool remove(RDStation *station,RDUser *user,RDConfig *config) const;
   static bool exists(unsigned cartnum);
   static QString playOrderText(RDCart::PlayOrder order);
   static QString usageText(RDCart::UsageCode usage);
   static QString typeText(RDCart::Type type);
+  static bool removeCart(unsigned cart_num,RDStation *station,RDUser *user,
+			 RDConfig *config);
+  static bool removeCutAudio(RDStation *station,RDUser *user,unsigned cart_num,
+			     const QString &cutname,RDConfig *config);
+  static void removePending(RDStation *station,RDUser *user,RDConfig *config);
   
  private:
   QString GetNextCut(RDSqlQuery *q) const;
@@ -152,6 +164,7 @@ class RDCart
   RDCut::Validity ValidateCut(RDSqlQuery *q,bool enforce_length,
 			      unsigned length,bool *time_ok) const;
   QString VerifyTitle(const QString &title) const;
+
   void SetRow(const QString &param,const QString &value) const;
   void SetRow(const QString &param,unsigned value) const;
   void SetRow(const QString &param,const QDateTime &value) const;

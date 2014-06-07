@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.cpp,v 1.34.4.9 2014/02/26 22:38:52 cvs Exp $
+//      $Id: rdimport.cpp,v 1.34.4.9.2.1 2014/05/21 00:44:02 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -159,6 +159,9 @@ MainObject::MainObject(QObject *parent,const char *name)
 	import_delete_source=true;
       }
     }
+    if(import_cmd->key(i)=="--add-scheduler-code") {
+      import_add_scheduler_codes.push_back(import_cmd->value(i));
+    }
     if(import_cmd->key(i)=="--set-user-defined") {
       import_set_user_defined=import_cmd->value(i);
     }
@@ -272,6 +275,17 @@ MainObject::MainObject(QObject *parent,const char *name)
       fprintf(stderr,"rdimport: invalid cart number for group\n");
       delete import_group;
       delete import_cmd;
+      exit(256);
+    }
+  }
+
+  //
+  // Verify Scheduler Codes
+  //
+  for(unsigned i=0;i<import_add_scheduler_codes.size();i++) {
+    if(!SchedulerCodeExists(import_add_scheduler_codes[i])) {
+      fprintf(stderr,"scheduler code \"%s\" does not exist\n",
+	      (const char *)import_add_scheduler_codes[i].utf8());
       exit(256);
     }
   }
@@ -408,6 +422,13 @@ MainObject::MainObject(QObject *parent,const char *name)
     }
     else {
       printf(" DropBox mode is OFF\n");
+    }
+    if(import_add_scheduler_codes.size()>0) {
+      printf(" Adding Scheduler Code(s):");
+      for(unsigned i=0;i<import_add_scheduler_codes.size();i++) {
+	printf(" %s",(const char *)import_add_scheduler_codes[i].utf8());
+      }
+      printf("\n");
     }
     if(!import_set_user_defined.isEmpty()) {
       printf(" Setting the User Defined field to \"%s\"\n",
@@ -918,6 +939,9 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
     }
   }
   cut->setOriginName(import_station->name());
+  for(unsigned i=0;i<import_add_scheduler_codes.size();i++) {
+    cart->addSchedCode(import_add_scheduler_codes[i]);
+  }
   if(!import_set_user_defined.isEmpty()) {
     cart->setUserDefined(import_set_user_defined);
   }
@@ -1461,6 +1485,22 @@ void MainObject::WriteTimestampCache(const QString &filename,
   }
   q=new RDSqlQuery(sql);
   delete q;
+}
+
+
+bool MainObject::SchedulerCodeExists(const QString &code) const
+{
+  QString sql;
+  RDSqlQuery *q;
+  bool ret=false;
+
+  sql=QString("select CODE from SCHED_CODES where CODE=\"")+
+    RDEscapeString(code)+"\"";
+  q=new RDSqlQuery(sql);
+  ret=q->first();
+  delete q;
+
+  return ret;
 }
 
 

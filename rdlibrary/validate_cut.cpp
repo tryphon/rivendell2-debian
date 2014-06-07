@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: validate_cut.cpp,v 1.4 2007/10/05 13:50:33 fredg Exp $
+//      $Id: validate_cut.cpp,v 1.4.16.2 2014/05/22 19:37:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,6 +22,19 @@
 
 #include <validate_cut.h>
 #include <rddb.h> 
+
+QString ValidateCutFields()
+{
+  QString sql;
+
+  sql=QString("select WEIGHT,DESCRIPTION,LENGTH,LAST_PLAY_DATETIME,")+
+    "PLAY_COUNTER,ORIGIN_DATETIME,ORIGIN_NAME,OUTCUE,CUT_NAME,LENGTH,"+
+    "EVERGREEN,START_DATETIME,END_DATETIME,START_DAYPART,END_DAYPART,"+
+    "MON,TUE,WED,THU,FRI,SAT,SUN from CUTS";
+
+  return sql;
+}
+
 
 RDCart::Validity ValidateCut(RDSqlQuery *q,unsigned offset,
 			     RDCart::Validity prev_validity,
@@ -41,7 +54,7 @@ RDCart::Validity ValidateCut(RDSqlQuery *q,unsigned offset,
   }
   if(!q->value(offset+2).isNull()) {                  // Start DateTime
     if(q->value(offset+2).toDateTime()>datetime) {
-      return prev_validity;
+      return RDCart::FutureValid;
     }
   }
   if(!q->value(offset+3).isNull()) {                  // End DateTime

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_svc.cpp,v 1.43.8.2 2014/01/10 15:40:15 cvs Exp $
+//      $Id: edit_svc.cpp,v 1.43.8.2.2.1 2014/05/21 20:29:02 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -36,6 +36,7 @@
 #include <rd.h>
 #include <rduser.h>
 #include <rdpasswd.h>
+#include <rdidvalidator.h>
 #include <rdtextvalidator.h>
 
 #include <edit_svc.h>
@@ -74,34 +75,9 @@ EditSvc::EditSvc(QString svc,QWidget *parent,const char *name)
   //
   // Text Validators
   //
-  RDTextValidator *validator=new RDTextValidator(this,"validator");
-  RDTextValidator *log_validator=new RDTextValidator(this,"validator");
-  log_validator->addBannedChar('-');
-  log_validator->addBannedChar('!');
-  log_validator->addBannedChar('@');
-  log_validator->addBannedChar('#');
-  log_validator->addBannedChar('$');
-  log_validator->addBannedChar('^');
-  log_validator->addBannedChar('&');
-  log_validator->addBannedChar('*');
-  log_validator->addBannedChar('(');
-  log_validator->addBannedChar(')');
-  log_validator->addBannedChar('[');
-  log_validator->addBannedChar(']');
-  log_validator->addBannedChar('{');
-  log_validator->addBannedChar('}');
-  log_validator->addBannedChar('+');
-  log_validator->addBannedChar('=');
-  log_validator->addBannedChar('\\');
-  log_validator->addBannedChar('|');
-  log_validator->addBannedChar('?');
-  log_validator->addBannedChar(';');
-  log_validator->addBannedChar(':');
-  log_validator->addBannedChar('.');
-  log_validator->addBannedChar('<');
-  log_validator->addBannedChar('>');
-  log_validator->addBannedChar(',');
-  log_validator->addBannedChar('/');
+  RDTextValidator *validator=new RDTextValidator(this);
+  RDIdValidator *log_validator=new RDIdValidator(this);
+  log_validator->addBannedChar(' ');
 
   //
   // General Section
@@ -738,7 +714,7 @@ void EditSvc::Save()
 {
   svc_svc->setDescription(svc_description_edit->text());
   svc_svc->setProgramCode(svc_program_code_edit->text());
-  svc_svc->setNameTemplate(svc_name_template_edit->text());
+  svc_svc->setNameTemplate(svc_name_template_edit->text().stripWhiteSpace());
   svc_svc->setDescriptionTemplate(svc_description_template_edit->text());
   svc_svc->setChainto(svc_chain_box->isChecked());
   svc_svc->setAutoRefresh(svc_autorefresh_box->isChecked());

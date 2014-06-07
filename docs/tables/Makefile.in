@@ -230,6 +230,7 @@ EXTRA_DIST = audio_perms.txt\
              decks.txt\
              dropboxes.txt\
              dropbox_paths.txt\
+             dropbox_sched_codes.txt\
              encoder_bitrates.txt\
              encoder_channels.txt\
              encoder_samplerates.txt\

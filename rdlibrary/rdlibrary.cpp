@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlibrary.cpp,v 1.117.4.18.2.1 2014/03/19 22:12:59 cvs Exp $
+//      $Id: rdlibrary.cpp,v 1.117.4.18.2.2 2014/05/22 14:30:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1269,7 +1269,7 @@ void MainWidget::RefreshLine(RDListViewItem *item)
 	    item->setBackgroundColor(RD_CART_ERROR_COLOR);
 	  }
 	  else {
-	    UpdateItemColor(item,(RDCart::Validity)q->value(21).toUInt(),
+	    UpdateItemColor(item,validity,
 			    q->value(13).toDateTime(),current_datetime);
 	  }
 	  break;
@@ -1355,6 +1355,10 @@ void MainWidget::UpdateItemColor(RDListViewItem *item,
 	else {
 	  item->setBackgroundColor(RD_CART_CONDITIONAL_COLOR);
 	}
+	break;
+	
+      case RDCart::FutureValid:
+	item->setBackgroundColor(RD_CART_FUTURE_COLOR);
 	break;
 	
       case RDCart::AlwaysValid:

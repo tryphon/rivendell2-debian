@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.h,v 1.85.8.10 2014/01/13 23:02:41 cvs Exp $
+//      $Id: rdlog_line.h,v 1.85.8.10.2.1 2014/05/20 01:45:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -158,6 +158,8 @@ class RDLogLine
   void setDescription(const QString &desc);
   QString userDefined() const;
   void setUserDefined(const QString &string);
+  QString cartNotes() const;
+  void setCartNotes(const QString &str);
   RDCart::UsageCode usageCode() const;
   void setUsageCode(RDCart::UsageCode code);
   unsigned forcedLength() const;
@@ -311,6 +313,7 @@ class RDLogLine
   QString log_outcue;
   QString log_description;
   QString log_user_defined;
+  QString log_cart_notes;
   RDCart::UsageCode log_usage_code;
   unsigned log_forced_length;
   unsigned log_cut_quantity;

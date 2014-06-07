@@ -70,54 +70,57 @@ am__installdirs = "$(DESTDIR)$(libdir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 librd_la_LIBADD =
 dist_librd_la_OBJECTS = export_bmiemr.lo export_deltaflex.lo \
-	export_musicplayout.lo export_musicsummary.lo \
-	export_nprsoundex.lo export_radiotraffic.lo export_soundex.lo \
-	export_technical.lo export_textlog.lo html_gpl2.lo \
-	rdadd_cart.lo rdadd_log.lo rdairplay_conf.lo rdaudio_exists.lo \
-	rdaudio_port.lo rdaudioconvert.lo rdaudioexport.lo \
-	rdaudioimport.lo rdaudioinfo.lo rdaudiosettings_dialog.lo \
-	rdaudiosettings.lo rdbusybar.lo rdbusydialog.lo \
-	rdbutton_dialog.lo rdbutton_panel.lo rdcae.lo \
-	rdcardselector.lo rdcart.lo rdcart_dialog.lo \
-	rdcart_search_text.lo rdcartdrag.lo rdcartslot.lo \
-	rdcastsearch.lo rdcatch_conf.lo rdcatch_connect.lo \
-	rdcddblookup.lo rdcddbrecord.lo rdcdplayer.lo rdcdripper.lo \
-	rdcheck_daemons.lo rdcheck_version.lo rdclock.lo \
-	rdcmd_cache.lo rdcmd_switch.lo rdcodetrap.lo rdcombobox.lo \
-	rdconf.lo rdconfig.lo rdcopyaudio.lo rdcreate_log.lo \
-	rdcreateauxfieldstable.lo rdcueedit.lo rdcueeditdialog.lo \
-	rdcut.lo rdcut_dialog.lo rdcut_path.lo rddatedecode.lo \
-	rddatedialog.lo rddatepicker.lo rddb.lo rddbheartbeat.lo \
-	rddebug.lo rddeck.lo rddelete.lo rddownload.lo rddropbox.lo \
-	rdedit_audio.lo rdedit_panel_name.lo rdemptycart.lo \
-	rdencoder.lo rdencoderlist.lo rdescape_string.lo rdevent.lo \
-	rdevent_line.lo rdevent_player.lo rdexception_dialog.lo \
+	export_musicclassical.lo export_musicplayout.lo \
+	export_musicsummary.lo export_nprsoundex.lo \
+	export_radiotraffic.lo export_soundex.lo export_technical.lo \
+	export_textlog.lo html_gpl2.lo rdadd_cart.lo rdadd_log.lo \
+	rdairplay_conf.lo rdaudio_exists.lo rdaudio_port.lo \
+	rdaudioconvert.lo rdaudioexport.lo rdaudioimport.lo \
+	rdaudioinfo.lo rdaudiosettings_dialog.lo rdaudiosettings.lo \
+	rdbusybar.lo rdbusydialog.lo rdbutton_dialog.lo \
+	rdbutton_panel.lo rdcae.lo rdcardselector.lo rdcart.lo \
+	rdcart_dialog.lo rdcart_search_text.lo rdcartdrag.lo \
+	rdcartslot.lo rdcastsearch.lo rdcatch_conf.lo \
+	rdcatch_connect.lo rdcddblookup.lo rdcddbrecord.lo \
+	rdcdplayer.lo rdcdripper.lo rdcheck_daemons.lo \
+	rdcheck_version.lo rdclock.lo rdcmd_cache.lo rdcmd_switch.lo \
+	rdcodetrap.lo rdcombobox.lo rdconf.lo rdconfig.lo \
+	rdcopyaudio.lo rdcreate_log.lo rdcreateauxfieldstable.lo \
+	rdcueedit.lo rdcueeditdialog.lo rdcut.lo rdcut_dialog.lo \
+	rdcut_path.lo rddatedecode.lo rddatedialog.lo rddatepicker.lo \
+	rddb.lo rddbheartbeat.lo rddebug.lo rddeck.lo rddelete.lo \
+	rddownload.lo rddropbox.lo rdedit_audio.lo \
+	rdedit_panel_name.lo rdemptycart.lo rdencoder.lo \
+	rdencoderlist.lo rdescape_string.lo rdevent.lo rdevent_line.lo \
+	rdevent_player.lo rdexception_dialog.lo \
 	rdexport_settings_dialog.lo rdfeed.lo rdfeedlog.lo \
 	rdformpost.lo rdflacdecode.lo rdgain_envelope.lo rdget_ath.lo \
 	rdgetpasswd.lo rdgpio.lo rdgpioselector.lo rdgrid.lo \
 	rdgroup.lo rdgroup_list.lo rdhotkeys.lo rdhotkeylist.lo \
-	rdimport_audio.lo rdinstancelock.lo rdintegeredit.lo \
-	rdintegerdialog.lo rdlabel.lo rdlibrary_conf.lo rdlicense.lo \
-	rdlineedit.lo rdlistselector.lo rdlist_groups.lo \
-	rdlist_logs.lo rdlistsvcs.lo rdlistview.lo rdlistviewitem.lo \
-	rdlivewire.lo rdlivewiredestination.lo rdlivewiresource.lo \
-	rdlog.lo rdlogedit_conf.lo rdlog_event.lo rdlog_line.lo \
-	rdmacro.lo rdmacro_event.lo rdmarker_bar.lo rdmarker_button.lo \
-	rdmarker_edit.lo rdmatrix.lo rdmeteraverage.lo rdmixer.lo \
-	rdmonitor_config.lo rdnownext.lo rdoneshot.lo rdpam.lo \
-	rdpanel_button.lo rdpasswd.lo rdplay_deck.lo rdplaymeter.lo \
-	rdpeaksexport.lo rdpodcast.lo rdprofile.lo rdprofileline.lo \
-	rdprofilesection.lo rdpushbutton.lo rdrecording.lo \
-	rdreplicator.lo rdreport.lo rdringbuffer.lo rdripc.lo \
-	rdsegmeter.lo rdsettings.lo rdsimpleplayer.lo rdslider.lo \
-	rdslotbox.lo rdslotdialog.lo rdslotoptions.lo rdsocket.lo \
-	rdsound_panel.lo rdstation.lo rdstatus.lo rdstereometer.lo \
-	rdstringlist.lo rdsvc.lo rdsystem.lo rdsystemuser.lo \
-	rdtextfile.lo rdtextvalidator.lo rdtimeedit.lo rdtimeengine.lo \
+	rdidvalidator.lo rdimport_audio.lo rdinstancelock.lo \
+	rdintegeredit.lo rdintegerdialog.lo rdlabel.lo \
+	rdlibrary_conf.lo rdlicense.lo rdlineedit.lo rdlistselector.lo \
+	rdlist_groups.lo rdlist_logs.lo rdlistsvcs.lo rdlistview.lo \
+	rdlistviewitem.lo rdlivewire.lo rdlivewiredestination.lo \
+	rdlivewiresource.lo rdlog.lo rdlogedit_conf.lo rdlog_event.lo \
+	rdlog_line.lo rdmacro.lo rdmacro_event.lo rdmarker_bar.lo \
+	rdmarker_button.lo rdmarker_edit.lo rdmatrix.lo \
+	rdmeteraverage.lo rdmixer.lo rdmonitor_config.lo rdnownext.lo \
+	rdoneshot.lo rdpam.lo rdpanel_button.lo rdpasswd.lo \
+	rdplay_deck.lo rdplaymeter.lo rdpeaksexport.lo rdpodcast.lo \
+	rdprofile.lo rdprofileline.lo rdprofilesection.lo \
+	rdpushbutton.lo rdrecording.lo rdreplicator.lo rdreport.lo \
+	rdringbuffer.lo rdripc.lo rdschedcodes_dialog.lo rdsegmeter.lo \
+	rdsettings.lo rdsimpleplayer.lo rdslider.lo rdslotbox.lo \
+	rdslotdialog.lo rdslotoptions.lo rdsocket.lo rdsound_panel.lo \
+	rdstation.lo rdstatus.lo rdstereometer.lo rdstringlist.lo \
+	rdsvc.lo rdsystem.lo rdsystemuser.lo rdtextfile.lo \
+	rdtextvalidator.lo rdtimeedit.lo rdtimeengine.lo \
 	rdtimeevent.lo rdtransportbutton.lo rdtrimaudio.lo rdtty.lo \
 	rdttydevice.lo rdttyout.lo rdurl.lo rduser.lo rdupload.lo \
-	rdversion.lo rdwavedata.lo rdwavefile.lo rdwavepainter.lo \
-	rdweb.lo rdwebresult.lo schedruleslist.lo schedcartlist.lo
+	rdversion.lo rdwavedata.lo rdwavedata_dialog.lo rdwavefile.lo \
+	rdwavepainter.lo rdweb.lo rdwebresult.lo schedruleslist.lo \
+	schedcartlist.lo
 nodist_librd_la_OBJECTS = moc_rdadd_cart.lo moc_rdadd_log.lo \
 	moc_rdaudioconvert.lo moc_rdaudioexport.lo \
 	moc_rdaudioimport.lo moc_rdaudioinfo.lo \
@@ -141,13 +144,13 @@ nodist_librd_la_OBJECTS = moc_rdadd_cart.lo moc_rdadd_log.lo \
 	moc_rdlivewire.lo moc_rdmacro_event.lo moc_rdmarker_bar.lo \
 	moc_rdmarker_edit.lo moc_rdoneshot.lo moc_rdpanel_button.lo \
 	moc_rdpasswd.lo moc_rdplay_deck.lo moc_rdplaymeter.lo \
-	moc_rdpushbutton.lo moc_rdripc.lo moc_rdsegmeter.lo \
-	moc_rdsimpleplayer.lo moc_rdslider.lo moc_rdsocket.lo \
-	moc_rdsound_panel.lo moc_rdslotbox.lo moc_rdslotdialog.lo \
-	moc_rdstereometer.lo moc_rdsvc.lo moc_rdtimeedit.lo \
-	moc_rdtimeengine.lo moc_rdtransportbutton.lo \
-	moc_rdtrimaudio.lo moc_rdupload.lo moc_schedcartlist.lo \
-	moc_schedruleslist.lo
+	moc_rdpushbutton.lo moc_rdripc.lo moc_rdschedcodes_dialog.lo \
+	moc_rdsegmeter.lo moc_rdsimpleplayer.lo moc_rdslider.lo \
+	moc_rdsocket.lo moc_rdsound_panel.lo moc_rdslotbox.lo \
+	moc_rdslotdialog.lo moc_rdstereometer.lo moc_rdsvc.lo \
+	moc_rdtimeedit.lo moc_rdtimeengine.lo moc_rdtransportbutton.lo \
+	moc_rdtrimaudio.lo moc_rdupload.lo moc_rdwavedata_dialog.lo \
+	moc_schedcartlist.lo moc_schedruleslist.lo
 librd_la_OBJECTS = $(dist_librd_la_OBJECTS) $(nodist_librd_la_OBJECTS)
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -378,6 +381,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         gpio.h\
                         export_bmiemr.cpp\
                         export_deltaflex.cpp\
+                        export_musicclassical.cpp\
                         export_musicplayout.cpp\
                         export_musicsummary.cpp\
                         export_nprsoundex.cpp\
@@ -467,6 +471,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdgroup_list.cpp rdgroup_list.h\
                         rdhotkeys.cpp rdhotkeys.h\
                         rdhotkeylist.cpp rdhotkeylist.h\
+                        rdidvalidator.cpp rdidvalidator.h\
                         rdimport_audio.cpp rdimport_audio.h\
                         rdinstancelock.cpp rdinstancelock.h\
                         rdintegeredit.cpp rdintegeredit.h\
@@ -517,6 +522,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdreport.cpp rdreport.h\
                         rdringbuffer.cpp rdringbuffer.h\
                         rdripc.cpp rdripc.h\
+                        rdschedcodes_dialog.cpp rdschedcodes_dialog.h\
                         rdsegmeter.cpp rdsegmeter.h\
                         rdsettings.cpp rdsettings.h\
                         rdsimpleplayer.cpp rdsimpleplayer.h\
@@ -548,6 +554,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdupload.cpp rdupload.h\
                         rdversion.cpp rdversion.h\
                         rdwavedata.cpp rdwavedata.h\
+                        rdwavedata_dialog.cpp rdwavedata_dialog.h\
                         rdwavefile.cpp rdwavefile.h\
                         rdwavepainter.cpp rdwavepainter.h\
                         rdweb.cpp rdweb.h\
@@ -620,6 +627,7 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rdplaymeter.cpp\
                           moc_rdpushbutton.cpp\
                           moc_rdripc.cpp\
+                          moc_rdschedcodes_dialog.cpp\
                           moc_rdsegmeter.cpp\
                           moc_rdsimpleplayer.cpp\
                           moc_rdslider.cpp\
@@ -634,6 +642,7 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rdtransportbutton.cpp\
                           moc_rdtrimaudio.cpp\
                           moc_rdupload.cpp\
+                          moc_rdwavedata_dialog.cpp\
                           moc_schedcartlist.cpp\
                           moc_schedruleslist.cpp
 
@@ -745,6 +754,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_bmiemr.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_deltaflex.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_musicclassical.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_musicplayout.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_musicsummary.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/export_nprsoundex.Plo@am__quote@
@@ -817,6 +827,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdplaymeter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdpushbutton.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdripc.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdschedcodes_dialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdsegmeter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdsimpleplayer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdslider.Plo@am__quote@
@@ -831,6 +842,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdtransportbutton.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdtrimaudio.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdupload.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_rdwavedata_dialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_schedcartlist.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_schedruleslist.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdadd_cart.Plo@am__quote@
@@ -914,6 +926,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdgroup_list.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdhotkeylist.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdhotkeys.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdidvalidator.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdimport_audio.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdinstancelock.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdintegerdialog.Plo@am__quote@
@@ -962,6 +975,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdreport.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdringbuffer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdripc.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdschedcodes_dialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdsegmeter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdsettings.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdsimpleplayer.Plo@am__quote@
@@ -993,6 +1007,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rduser.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdversion.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdwavedata.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdwavedata_dialog.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdwavefile.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdwavepainter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rdweb.Plo@am__quote@

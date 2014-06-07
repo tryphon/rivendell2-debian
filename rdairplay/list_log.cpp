@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: list_log.cpp,v 1.105.6.11 2014/02/20 01:05:58 cvs Exp $
+//      $Id: list_log.cpp,v 1.105.6.11.2.1 2014/05/21 18:19:42 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -851,7 +851,7 @@ void ListLog::loadButtonData()
 
   switch(list_logs_dialog->exec(&name,&svcname)) {
       case 0:
-	list_log->setLogName(QString().sprintf("%s_LOG",(const char *)name));
+	list_log->setLogName(RDLog::tableName(name));
 	list_log->load();
 	break;
 
@@ -884,9 +884,9 @@ void ListLog::loadButtonData()
 	}
 	delete q;
 	edit_log=new RDLog(name,true);
-	RDCreateLogTable(QString().sprintf("%s_LOG",(const char *)name));
+	RDCreateLogTable(RDLog::tableName(name));
 	list_log->setServiceName(svcname);
-	list_log->setLogName(QString().sprintf("%s_LOG",(const char *)name));
+	list_log->setLogName(RDLog::tableName(name));
 	list_log->save();
 	edit_log->setModifiedDatetime(QDateTime(QDate::currentDate(),
 						QTime::currentTime()));

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdmacro.cpp,v 1.37.4.2 2012/11/16 18:10:40 cvs Exp $
+//      $Id: rdmacro.cpp,v 1.37.4.2.2.1 2014/05/22 19:37:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -163,6 +163,7 @@ bool RDMacro::parseString(const char *str,int n)
   //
   rml_cmd=(RDMacro::Command)((str[0]<<8)+str[1]);
   switch(rml_cmd) {
+      case RDMacro::AL:
       case RDMacro::BO:
       case RDMacro::CC:
       case RDMacro::CL:

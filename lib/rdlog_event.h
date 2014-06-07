@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_event.h,v 1.36.6.4 2013/12/27 22:12:26 cvs Exp $
+//      $Id: rdlog_event.h,v 1.36.6.4.2.1 2014/05/22 19:37:44 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -46,6 +46,7 @@ class RDLogEvent
    QString serviceName() const;
    int load(bool track_ptrs=false);
    void save(bool update_tracks=true,int line=-1);
+   int append(const QString &logname,bool track_ptrs=false);
    int validate(QString *report,const QDate &date);
    void clear();
    void refresh(int line);
@@ -72,8 +73,9 @@ class RDLogEvent
    QString xml() const;
 
   private:
+   int LoadLines(const QString &log_table,int id_offset,bool track_ptrs);
    void SaveLine(int line);
-   void LoadNowNext();
+   void LoadNowNext(unsigned from_line);
    QString log_name;
    QString log_service_name;
    int log_max_id;

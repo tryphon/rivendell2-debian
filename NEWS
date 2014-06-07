@@ -1,6 +1,44 @@
 The NEWS file for the Rivendell package.
 
 -------------------------------------------------------------------------------
+v2.9.0 --  6/4/2014
+
+Changes:
+   Cart Notes Display.  'Cart Notes' information can now be displayed in
+   the 'Edit Events' dialog in RDAirPlay.
+
+   RDLogManger Command Line Enhancements.  A '-P' switch has been added
+   to prevent existing logs from being overwritten by batched jobs.
+
+   Report Enhancements.  Added a 'Classical Music' as-played report,
+   as well as the ability to filter all reports on the basis of daypart
+   range.
+
+   New Scheduler Code Support.  Added an '--add-scheduler-code=' switch
+   to rdimport(1) and the ability to specify a set of scheduler codes to
+   be added to new carts on a per-dropbox basis in
+   RDAdmin->ManageHosts->Dropboxes. 
+
+   RDLibrary Cart Status Highlighting.  Carts whose dayparting indicates
+   a start time in the future are now highlighted in cyan rather than red.
+
+   New RML.  An 'Append Log' ['AL'] RML has been added.
+
+   Full Disc Ripper Enhancements.  The Full Disc Ripper ('Rip Disk' in
+   RDLibrary) has undergone a major overhaul, now allowing for multi-track
+   rips to a single cut and streamlined assignments of selected tracks to
+   new carts.
+
+   Various bug fixes.  See the ChangeLog for details.
+
+Database Update:
+   This version of Rivendell uses database schema version 239, and will
+   automatically upgrade any earlier versions.  To see the current schema
+   version prior to upgrade, see RDAdmin->SystemInfo.
+
+   As always, be sure to run RDAdmin immediately after upgrading to allow 
+   any necessary changes to the database schema to be applied.
+-------------------------------------------------------------------------------
 v2.8.2 --  5/16/2014
 
 Changes:

@@ -102,7 +102,7 @@
         <translation>Um evento já está agendado com esta hora de início!</translation>
     </message>
     <message>
-        <source>&amp;Recue</source>
+        <source>Cart Notes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

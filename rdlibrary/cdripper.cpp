@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003, 2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: cdripper.cpp,v 1.41.4.6.2.1 2014/03/19 22:12:59 cvs Exp $
+//      $Id: cdripper.cpp,v 1.41.4.6.2.2 2014/05/20 15:45:08 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -143,16 +143,14 @@ CdRipper::CdRipper(QString cutname,RDCddbRecord *rec,RDLibraryConf *conf,
   rip_artist_label->setFont(label_font);
   rip_artist_label->setAlignment(AlignRight|AlignVCenter);
   rip_artist_edit=new QLineEdit(this,"rip_artist_edit");
-  rip_artist_edit->setReadOnly(true);
 
   //
   // Album Edit
   //
-  rip_artist_label=new QLabel(tr("Album:"),this);
-  rip_artist_label->setFont(label_font);
-  rip_artist_label->setAlignment(AlignRight|AlignVCenter);
+  rip_album_label=new QLabel(tr("Album:"),this);
+  rip_album_label->setFont(label_font);
+  rip_album_label->setAlignment(AlignRight|AlignVCenter);
   rip_album_edit=new QLineEdit(this,"rip_album_edit");
-  rip_album_edit->setReadOnly(true);
 
   //
   // Other Edit
@@ -695,7 +693,7 @@ void CdRipper::resizeEvent(QResizeEvent *e)
   rip_title_box->setGeometry(65,9,size().width()-125,18);
   rip_artist_label->setGeometry(10,32,50,18);
   rip_artist_edit->setGeometry(65,31,size().width()-125,18);
-  rip_artist_label->setGeometry(10,54,50,18);
+  rip_album_label->setGeometry(10,54,50,18);
   rip_album_edit->setGeometry(65,53,size().width()-125,18);
   rip_other_label->setGeometry(10,76,50,16);
   rip_other_edit->setGeometry(65,75,size().width()-125,60);

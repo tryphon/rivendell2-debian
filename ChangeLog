@@ -14127,3 +14127,145 @@
 2014-05-16 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.8.2.
+2014-05-19 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the RDValidator from the 'Title' field in
+	'lib/rdadd_cart.cpp'.
+2014-05-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDLogLine::cartNotes()' and 'RDLogLine::setCartNotes()'
+	methods to 'lib/rdlog_line.cpp' and 'lib/rdlog_line.h'.
+	* Added a 'Cart Notes' control to the 'Edit Event' dialog in
+	'rdairplay/edit_event.cpp' anbd 'rdairplay/edit_event.h'.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDLog::exists()' method in 'lib/rdlog.cpp' and
+	'lib/rdlog.h'.
+	* Implemented a '-P' switch for rdlogmanager(1) in
+	'rdlogmanager/commandline_ops.cpp', 'rdlogmanager/rdlogmanager.cpp'
+	and 'rdlogmanager/rdlogmanager.h'.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'rdlibrary/lib_listview.cpp' to include the group
+	color when dragging a cart.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Increased the maximum output string size in 'rlm/rlm_filewrite.c'
+	to 8192.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the 'Artist' and 'Album' controls in 'rdlibrary/cdripper.cpp'
+	to enable editing.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the 'Artist' and 'Album' controls in
+	'rdlibrary/disk_ripper.cpp' to enable editing.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Album' and 'Label' columns to the log display in the
+	Voice Tracker interface in 'rdlogedit/voice_tracker.cpp'.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the font size of the 'Cart Notes' field in the Edit Event
+	dialog to 14 point in 'rdairplay/edit_event.cpp'.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDReport::MusicClassical' to the 'RDReport::ExportFilter'
+	enumeration in 'lib/rdreport.cpp' and 'lib/rdreport.h'.
+	* Implemented a 'Classical Music Playout' report in
+	'lib/export_musicclassical.cpp'.
+	* Added 'CONDUCTOR', 'SONG_ID', 'USER_DEFINED' fields to the service
+	reconciliation tables.
+	* Incremented the database schema to 236.
+	* Added support for new ELR table fields in 'rdairplay/log_traffic.cpp'.
+	* Added support for new ELR table fields in 'lib/rdsound_panel.cpp'.
+	* Added support for new ELR table fields in 'lib/rdcartslot.cpp'.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdevent_line.cpp' that broke the music scheduler
+	when working with services with non-escaped characters in the name.
+2014-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDCart::schedCodesList()', 'RDCart::setSchedCodesList()'
+	and 'RDCart::addSchedCode()' methods in 'lib/rdcart.cpp' and
+	'lib/rdcart.h'.
+	* Implemented a '--add-scheduler-code=' switch for RDImport(1) in
+	'utils/rdimport/rdimport.cpp' and 'utils/rdimport/rdimport.h'.
+2014-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDIdValidator' class in 'lib/rdidvalidator.cpp' and
+	'lib/rdidvalidator.h'.
+	* Fixed a bug in 'rdlogedit/edit_log.cpp', 'rdlogedit/rdlogedit.cpp',
+	'rdlogedit/voice_tracker.cpp', 'rdairplay/list_log.cpp,
+	'rdairplay/local_macros.cpp' and 'rdairplay/log_play.cpp' where log
+	names containing spaces were incorrectly processed.
+2014-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up SQL calls to '_LOG' tables in 'lib/rdsvc.cpp' and
+	'lib/rdlog.cpp'.
+	* Added code to strip extraneous whitespace from log names in
+	'rdadmin/edit_svc.cpp' and 'lib/rdadd_log.cpp'.
+2014-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'REPORTS.START_TIME' and 'REPORTS.END_TIME' fields to
+	the database.
+	* Incremented the database schema to 237.
+	* Added 'RDReport::startTime()', 'RDReport::setStartTime()',
+	'RDReport::endTime()' and 'RDReport::setEndTime()' methods in
+	'lib/rdreport.cpp' and 'lib/rdreport.h'.
+	* Added a 'Filter by Daypart' section to the Edit Report dialog
+	in 'rdadmin/edit_report.cpp' and 'rdadmin/edit_report.h'.
+2014-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Validity::FutureValid' value to the 'RDCart::Validity'
+	enumeration in 'lib/rdcart.cpp' and 'lib/rdcart.h'.
+	* Added a 'Validity::FutureValid' value to the 'RDCut::Validity'
+	enumeration in 'lib/rdcut.cpp' and 'lib/rdcut.h'.
+	* Added an 'RD_CART_FUTURE_COLOR' define in 'lib.rd.h'.
+	* Implemented future validity indication in 'rdlibrary/audio_cart.cpp'
+	and 'rdlibrary/rdlibrary.cpp'.
+2014-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented future validity indication in 'lib/rdlog_line.cpp'
+	and 'rdlogedit/edit_log.cpp'.
+2014-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added the 'Append Log' ['AL'] RML in 'lib/rdmacro.cpp' and
+	'lib/rdmacro.h'.
+	* Added an 'RDLogEvent::append()' method in 'lib/rdlog_event.cpp'
+	and 'lib/rdlog_event.h'.
+	* Added a 'LogPlay::append()' method in 'rdairplay/log_play.cpp'
+	and 'rdairplay/log_play.h'.
+2014-05-27 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored the Full Disc Ripper in 'rdlibrary/disk_ripper.cpp'
+	and 'rdlibrary/disc_ripper.h' to allow ripping from multiple
+	tracks to single/multiple cuts.
+2014-05-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'Edit Cart Label' dialog in 'lib/rdwavedata_dialog.cpp'
+	and 'lib/rdwavedata_dialog.h'.
+	* Added 'RDWaveData::usageCode()', 'RDWaveData::setUsageCode()',
+	'RDWaveData::schedCodes()' and 'RDWaveData::setSchedCodes()' methods
+	in 'lib/rdwavedata.cpp' and 'lib/rdwavedata.h'.
+	* Added an 'Edit Scheduler Codes' dialog in
+	'lib/rdschedcodes_dialog.cpp' and 'lib/rdschedcodes.h'.
+2014-05-29 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'CART.PENDING_STATION', CART.PENDING_DATETIME and
+	'CART.PENDING_PID' fields to the database.
+	* Incremented the database version to 238.
+	* Added 'RDCart::setPending()' and 'RDCart::clearPending()'
+	methods in 'lib/rdcart.cpp' and 'lib/rdcart.h'.
+	* Added a 'RDGroup::reserveCarts()' method in 'lib/rdgroups.cpp'
+	and 'lib/rdgroup.h'.
+	* Added a 'reserve_carts_test(1)' test harness in 'tests/'.
+2014-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdsvc.cpp' that caused purge dates to
+	be calculated on the basis of log creation date rather than air
+	date when generating logs.
+2014-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdgroup.cpp' that caused abandoned ripper
+	carts to remain after closing the Rip Disk dialog.
+2014-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Added a check for stale reserved carts in
+	'utils/rddbcheck/rddbcheck.cpp' and 'utils/rddbcheck/rddbcheck.h'.
+2014-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlibrary/disk_ripper.cpp' to failed to disable
+	the 'Modify Cart Label' and 'Clear Selection' button when ripping
+	as disk..
+2014-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogmanager/clock_listview.cpp' that caused
+	the right-click menu to appear in the wrong location when the
+	underlying event list was scrolled down.
+2014-06-02 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcart.cpp' that broke the build under
+	Windows.
+	* Fixed a bug in 'lib/lib.pro' that broke the build under Windows.
+2014-06-03 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'DROPBOX_SCHED_CODES' table to the database.
+	* Incremented the database version to 239.
+	* Added a 'Scheduler Codes' button to the Edit Dropbox dialog
+	in 'rdadmin/edit_dropbox.cpp'.
+2014-06-04 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.9.0.

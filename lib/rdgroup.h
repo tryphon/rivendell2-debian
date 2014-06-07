@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdgroup.h,v 1.17.8.1 2013/01/07 13:50:22 cvs Exp $
+//      $Id: rdgroup.h,v 1.17.8.1.2.1 2014/05/30 00:26:28 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -59,10 +59,16 @@ class RDGroup
   void setColor(const QColor &color);
   unsigned nextFreeCart(unsigned startcart=0) const;
   int freeCartQuantity() const;
+  bool reserveCarts(std::vector<unsigned> *cart_nums,
+		    const QString &station_name,RDCart::Type type,
+		    unsigned quan) const;
   bool cartNumberValid(unsigned cartnum) const;
   QString xml() const;
   
  private:
+  unsigned GetNextFreeCart(unsigned startcart) const;
+  bool ReserveCart(const QString &station_name,RDCart::Type type,
+		   unsigned cart_num) const;
   void SetRow(const QString &param,int value) const;
   void SetRow(const QString &param,unsigned value) const;
   void SetRow(const QString &param,const QString &value) const;

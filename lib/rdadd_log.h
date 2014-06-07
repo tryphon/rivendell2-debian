@@ -7,7 +7,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadd_log.h,v 1.8 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdadd_log.h,v 1.8.10.1 2014/05/21 18:19:42 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -29,6 +29,7 @@
 #include <qdialog.h>
 #include <qcombobox.h>
 #include <qlineedit.h>
+#include <qpushbutton.h>
 
 #include <rdstation.h>
 #include <rdlog.h>
@@ -55,6 +56,7 @@ class RDAddLog : public QDialog
  private slots:
   void okData();
   void cancelData();
+  void nameChangedData(const QString &str);
 
  protected:
   void closeEvent(QCloseEvent *e);
@@ -62,6 +64,8 @@ class RDAddLog : public QDialog
  private:
   QLineEdit *add_name_edit;
   QComboBox *add_service_box;
+  QPushButton *add_ok_button;
+  QPushButton *add_cancel_button;
   QString *log_name;
   QString *log_svc;
   RDStation *log_station;

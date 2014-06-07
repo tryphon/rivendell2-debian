@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_dropbox.h,v 1.5.8.1 2013/12/11 20:17:14 cvs Exp $
+//      $Id: edit_dropbox.h,v 1.5.8.1.2.1 2014/06/03 18:23:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -35,8 +35,10 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
+#include <qstringlist.h>
 
 #include <rddropbox.h>
+#include <rdschedcodes_dialog.h>
 
 
 class EditDropbox : public QDialog
@@ -52,6 +54,7 @@ class EditDropbox : public QDialog
   void selectCartData();
   void toCartChangedData(const QString &str);
   void selectLogPathData();
+  void schedcodesData();
   void normalizationToggledData(bool state);
   void autotrimToggledData(bool state);
   void createDatesToggledData(bool state);
@@ -63,6 +66,7 @@ class EditDropbox : public QDialog
   QComboBox *box_group_name_box;
   QLineEdit *box_path_edit;
   QLineEdit *box_to_cart_edit;
+  QPushButton *box_schedcodes_button;
   QCheckBox *box_delete_cuts_box;
   QLabel *box_delete_cuts_label;
   QLineEdit *box_metadata_pattern_edit;
@@ -90,6 +94,8 @@ class EditDropbox : public QDialog
   QSpinBox *box_create_enddate_offset_spin;
   QLabel *box_create_enddate_label;
   QLabel *box_create_enddate_unit;
+  RDSchedCodesDialog *box_schedcodes_dialog;
+  QStringList box_schedcodes;
 };
 
 

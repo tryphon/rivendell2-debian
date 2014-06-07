@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.cpp,v 1.76.6.10 2013/12/04 20:46:08 cvs Exp $
+//      $Id: rdcut.cpp,v 1.76.6.10.2.1 2014/05/22 14:30:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -887,11 +887,6 @@ bool RDCut::copyTo(RDStation *station,RDUser *user,
   conv->setDestinationCutNumber(RDCut::cutNumber(cutname));
   ret=conv->runCopy(user->name(),user->password())==RDCopyAudio::ErrorOk;
   delete conv;
-  /*
-  QString srcname=RDCut::pathName(cut_name); 
-  QString destname=RDCut::pathName(cutname); 
-  FileCopy(srcname,destname);
-  */
 
   return ret;
 #endif

@@ -2,9 +2,9 @@
 //
 // Create a new, empty Rivendell log table.
 //
-//   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2002-2014 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcreate_log.cpp,v 1.38.8.1 2014/01/13 18:36:57 cvs Exp $
+//      $Id: rdcreate_log.cpp,v 1.38.8.1.2.1 2014/05/20 22:39:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -110,8 +110,11 @@ QString RDCreateReconciliationTableSql(QString name)
                             ARTIST char(255),\
                             PUBLISHER char(64),\
                             COMPOSER char(64),\
+                            USER_DEFINED char(255),\
+                            SONG_ID char(32),\
                             ALBUM char(255),\
                             LABEL char(64),\
+                            CONDUCTOR char(64),\
                             USAGE_CODE int,\
                             ISRC char(12),\
                             ISCI char(32),\

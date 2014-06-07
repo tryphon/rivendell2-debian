@@ -4,7 +4,7 @@
 #
 # (C) Copyright 2003-2007 Fred Gleason <fredg@paravelsystems.com>
 #
-#      $Id: lib.pro,v 1.36.8.13 2013/12/30 20:37:00 cvs Exp $
+#      $Id: lib.pro,v 1.36.8.13.2.1 2014/06/02 22:52:24 cvs Exp $
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License version 2 as
@@ -32,6 +32,7 @@ win32 {
 
 SOURCES += export_bmiemr.cpp
 SOURCES += export_deltaflex.cpp
+SOURCES += export_musicclassical.cpp
 SOURCES += export_musicplayout.cpp
 SOURCES += export_musicsummary.cpp
 SOURCES += export_nprsoundex.cpp
@@ -72,6 +73,7 @@ SOURCES += rdexception_dialog.cpp
 SOURCES += rdget_ath.cpp
 SOURCES += rdgetpasswd.cpp
 SOURCES += rdgroup_list.cpp
+SOURCES += rdidvalidator.cpp
 SOURCES += rdintegeredit.cpp
 SOURCES += rdintegerdialog.cpp
 SOURCES += rdlabel.cpp
@@ -204,6 +206,7 @@ HEADERS += rdget_ath.h
 HEADERS += rdgetpasswd.h
 HEADERS += rdgroup_list.h
 HEADERS += rd.h
+HEADERS += rdidvalidator.h
 HEADERS += rdintegeredit.h
 HEADERS += rdintegerdialog.h
 HEADERS += rdlabel.h

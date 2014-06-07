@@ -1098,5 +1098,13 @@ Assim sendo, somente transições existentes serão editáveis.</translation>
         <source>This cart cannot contain any additional cuts!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>ALBUM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LABEL</source>
+        <translation type="unfinished">SELO</translation>
+    </message>
 </context>
 </TS>

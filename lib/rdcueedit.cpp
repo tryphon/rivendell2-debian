@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcueedit.cpp,v 1.1.2.3 2014/02/20 19:38:08 cvs Exp $
+//      $Id: rdcueedit.cpp,v 1.1.2.3.2.1 2014/05/20 01:45:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -161,7 +161,7 @@ RDCueEdit::RDCueEdit(RDCae *cae,int card,int port,
   //
   // End Marker Control
   //
-  edit_end_button=new RDPushButton(this,"button");
+  edit_end_button=new RDPushButton(this);
   edit_end_button->setToggleButton(true);
   edit_end_button->setGeometry(90,155,66,45);
   edit_end_button->setFlashColor(backgroundColor());
@@ -171,6 +171,20 @@ RDCueEdit::RDCueEdit(RDCae *cae,int card,int port,
   edit_end_button->setFont(button_font);
   edit_end_button->setText(tr("End"));
   connect(edit_end_button,SIGNAL(clicked()),this,SLOT(endClickedData()));
+
+  //
+  // Recue Marker Control
+  //
+  edit_recue_button=new RDPushButton(this);
+  edit_recue_button->setToggleButton(true);
+  edit_recue_button->setGeometry(180,155,66,45);
+  edit_recue_button->setFlashColor(backgroundColor());
+  edit_recue_button->setFlashPeriod(RD_CUEEDITOR_BUTTON_FLASH_PERIOD);
+  edit_recue_button->setPalette(QPalette(QColor(RD_CUEEDITOR_START_MARKER),
+				       backgroundColor()));
+  edit_recue_button->setFont(button_font);
+  edit_recue_button->setText(tr("&Recue"));
+  connect(edit_recue_button,SIGNAL(clicked()),this,SLOT(recue()));
 
   //
   // Audition Stop Timer

@@ -407,6 +407,14 @@
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Classical Music Playout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reserved</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>
@@ -519,7 +527,7 @@
     </message>
     <message>
         <source>The name is invalid!</source>
-        <translation>Namnet er ikkje gyldig!</translation>
+        <translation type="obsolete">Namnet er ikkje gyldig!</translation>
     </message>
     <message>
         <source>The service is invalid!</source>
@@ -824,6 +832,10 @@ farge</translation>
     <message>
         <source>End</source>
         <translation type="unfinished">Slutten</translation>
+    </message>
+    <message>
+        <source>&amp;Recue</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

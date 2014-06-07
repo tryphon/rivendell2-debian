@@ -974,6 +974,10 @@ configured to run the CAE service in order to populate the audio resources datab
         <source>&amp;User Defined:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scheduler Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEncoder</name>
@@ -2996,6 +3000,18 @@ in order to populate the audio resources database.</source>
     </message>
     <message>
         <source>Filter by Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by Daypart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Time:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Time:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog_line.cpp,v 1.113.4.13 2014/01/13 23:02:41 cvs Exp $
+//      $Id: rdlog_line.cpp,v 1.113.4.13.2.2 2014/05/22 16:12:54 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -48,7 +48,7 @@ RDLogLine::RDLogLine(unsigned cartnum)
   clear();
   log_cart_number=cartnum;
   sql=QString().sprintf("select GROUP_NAME,TITLE,ARTIST,ALBUM,YEAR,LABEL,\
-                         CLIENT,AGENCY,COMPOSER,PUBLISHER,USER_DEFINED \
+                         CLIENT,AGENCY,COMPOSER,PUBLISHER,USER_DEFINED,NOTES \
                          from CART where NUMBER=%u",log_cart_number);
   q=new RDSqlQuery(sql);
   if(q->first()) {
@@ -63,6 +63,7 @@ RDLogLine::RDLogLine(unsigned cartnum)
     log_composer=q->value(8).toString();
     log_publisher=q->value(9).toString();
     log_user_defined=q->value(10).toString();
+    log_cart_notes=q->value(11).toString();
   }
   delete q;
 }
@@ -254,6 +255,9 @@ RDCart::Validity RDLogLine::validity(const QDateTime &datetime) const
   }
   if(datetime>log_end_datetime) {
     return RDCart::NeverValid;
+  }
+  if(datetime<log_start_datetime) {
+    return RDCart::FutureValid;
   }
   return log_validity;
 }
@@ -899,6 +903,18 @@ QString RDLogLine::userDefined() const
 void RDLogLine::setUserDefined(const QString &string)
 {
   log_user_defined=string;
+}
+
+
+QString RDLogLine::cartNotes() const
+{
+  return log_cart_notes;
+}
+
+
+void RDLogLine::setCartNotes(const QString &str)
+{
+  log_cart_notes=str;
 }
 
 
@@ -1751,7 +1767,8 @@ void RDLogLine::loadCart(int cartnum,RDLogLine::TransType next_type,int mach,
                                  CART.PRESERVE_PITCH,GROUPS.ENABLE_NOW_NEXT,\
                                  CART.ASYNCRONOUS,CART.PUBLISHER,\
                                  CART.COMPOSER,CART.USAGE_CODE,\
-                                 CART.AVERAGE_SEGUE_LENGTH,GROUPS.COLOR \
+                                 CART.AVERAGE_SEGUE_LENGTH,CART.NOTES,\
+                                 GROUPS.COLOR \
                                  from CART left join GROUPS on\
                                  CART.GROUP_NAME=GROUPS.NAME\
                                  where (CART.NUMBER=%d)",
@@ -1808,7 +1825,8 @@ void RDLogLine::loadCart(int cartnum,RDLogLine::TransType next_type,int mach,
   log_composer=q->value(24).toString();
   log_usage_code=(RDCart::UsageCode)q->value(25).toInt();
   log_average_segue_length=q->value(26).toInt();
-  log_group_color=QColor(q->value(27).toString());
+  log_cart_notes=q->value(27).toString();
+  log_group_color=QColor(q->value(28).toString());
   log_play_source=RDLogLine::UnknownSource;
   if(type!=RDLogLine::NoTrans) {
     log_trans_type=type;

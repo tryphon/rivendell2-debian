@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogmanager.h,v 1.14.6.2 2013/11/13 23:36:38 cvs Exp $
+//      $Id: rdlogmanager.h,v 1.14.6.2.2.1 2014/05/20 14:01:51 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,16 +38,17 @@
 #include <rdlog_line.h>
 #include <rdconfig.h>
 
-#define RDLOGMANAGER_USAGE "[-g] [-m] [-t] [-r <rpt-name>] [-d <days>] [-e <days>] -s <svc-name>\n\n-g\n     Generate a new log for the specified service.\n\n-m\n     Merge the Music log for the specified service.\n\n-t\n     Merge the Traffic log for the specified service.\n\n-r <rpt-name>\n     Generate report <rpt-name>.\n\n-d <days>\n     Specify a start date offset.  For log operations, this will be added\n     to tomorrow's date to arrive at a target date, whereas for report\n     operations it will be added to yesterday's date to arrive at a target\n     date.  Default value is '0'.\n\n-e <days>\n     Specify an end date offset.  This will be added to yesterday's date\n     to arrive at a target end date.  Valid only for certain report types.\n     Default value is '0'.\n\n-s <service-name>\n     Specify service <service-name> for log operations.\n\n"
+#define RDLOGMANAGER_USAGE "[-P] [-g] [-m] [-t] [-r <rpt-name>] [-d <days>] [-e <days>] -s <svc-name>\n\n-P\n     Do not overwrite existing logs or imports.\n\n-g\n     Generate a new log for the specified service.\n\n-m\n     Merge the Music log for the specified service.\n\n-t\n     Merge the Traffic log for the specified service.\n\n-r <rpt-name>\n     Generate report <rpt-name>.\n\n-d <days>\n     Specify a start date offset.  For log operations, this will be added\n     to tomorrow's date to arrive at a target date, whereas for report\n     operations it will be added to yesterday's date to arrive at a target\n     date.  Default value is '0'.\n\n-e <days>\n     Specify an end date offset.  This will be added to yesterday's date\n     to arrive at a target end date.  Valid only for certain report types.\n     Default value is '0'.\n\n-s <service-name>\n     Specify service <service-name> for log operations.\n\n"
 
 //
 // Command Line Operations
 //
 extern int RunLogOperation(int argc,char *argv[],const QString &svcname,
-			   int start_offset,bool gen_log,bool merge_mus,
-			   bool merge_tfc);
+			   int start_offset,bool protect_existing,bool gen_log,
+			   bool merge_mus,bool merge_tfc);
 extern int RunReportOperation(int argc,char *argv[],const QString &rptname,
-			      int start_offset,int end_offset);
+			      bool protect_existing,int start_offset,
+			      int end_offset);
 
 
 class MainWidget : public QWidget

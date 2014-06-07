@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdtransportbutton.h,v 1.3 2010/07/29 19:32:34 cvs Exp $
+//    $Id: rdtransportbutton.h,v 1.3.10.1 2014/05/27 22:49:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -41,8 +41,8 @@ class RDTransportButton : public QPushButton
 		  Pause=6,PlayFrom=7,PlayBetween=8,Loop=9,Up=10,Down=11,
 		  PlayTo=12};
   enum TransState {On=0,Off=1,Flashing=2}; 
-  RDTransportButton(RDTransportButton::TransType type,QWidget *parent,
-		    const char *name);
+  RDTransportButton(RDTransportButton::TransType type,QWidget *parent=0,
+		    const char *name=0);
   RDTransportButton::TransType getType() const;
   void setType(RDTransportButton::TransType type);
   QColor onColor() const;

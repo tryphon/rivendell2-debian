@@ -47,3 +47,6 @@ NOTES                text              User notes (freeform)
 METADATA_DATETIME    datetime          Metadata last modified
 USE_EVENT_LENGTH     enum('N','Y')     Use RDLogManager event lengths for
                                        macro cart PAD updates.
+PENDING_STATION      char(64)
+PENDING_DATETIME     datetime
+PENDING_PID          int(11)

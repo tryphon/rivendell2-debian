@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdreport.cpp,v 1.27.4.8 2013/12/10 21:25:51 cvs Exp $
+//      $Id: rdreport.cpp,v 1.27.4.8.2.3 2014/05/22 01:21:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -20,6 +20,7 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
+#include <qfile.h>
 #include <qobject.h>
 
 #include <rdconf.h>
@@ -236,9 +237,72 @@ void RDReport::setFilterGroups(bool state) const
 }
 
 
+QTime RDReport::startTime(bool *is_null) const
+{
+  if(is_null!=NULL) {
+    if(RDIsSqlNull("REPORTS","NAME",report_name,"START_TIME")) {
+      *is_null=true;
+      return QTime();
+    }
+    *is_null=false;
+  }
+  return RDGetSqlValue("REPORTS","NAME",report_name,"START_TIME").toTime();
+}
+
+
+void RDReport::setStartTime(const QTime &time) const
+{
+  SetRow("START_TIME",time);
+}
+
+
+void RDReport::setStartTime() const
+{
+  SetRowNull("START_TIME");
+}
+
+
+QTime RDReport::endTime(bool *is_null) const
+{
+  if(is_null!=NULL) {
+    if(RDIsSqlNull("REPORTS","NAME",report_name,"END_TIME")) {
+      *is_null=true;
+      return QTime();
+    }
+    *is_null=false;
+  }
+  return RDGetSqlValue("REPORTS","NAME",report_name,"END_TIME").toTime();
+}
+
+
+
+void RDReport::setEndTime(const QTime &time) const
+{
+  SetRow("END_TIME",time);
+}
+
+
+void RDReport::setEndTime() const
+{
+  SetRowNull("END_TIME");
+}
+
+
 RDReport::ErrorCode RDReport::errorCode() const
 {
   return report_error_code;
+}
+
+
+bool RDReport::outputExists(const QDate &startdate)
+{
+  QString out_path;
+#ifdef WIN32
+  out_path=RDDateDecode(exportPath(RDReport::Windows),startdate);
+#else
+  out_path=RDDateDecode(exportPath(RDReport::Linux),startdate);
+#endif
+  return QFile::exists(out_path);
 }
 
 
@@ -251,11 +315,43 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
   RDSqlQuery *q2;
   RDSvc *svc;
   QString rec_name;
+  QString daypart_sql;
   QString station_sql;
   QString group_sql;
   QString force_sql;
+  bool is_null=false;
+
   if(!exists()) {
     return false;
+  }
+
+  //
+  // Generate the daypart filter
+  //
+  startTime(&is_null);
+  if(!is_null) {
+    for(int i=0;i<(startdate.daysTo(enddate)+1);i++) {
+      QDate date=startdate.addDays(i);
+      if(startTime()<endTime()) {
+	daypart_sql+=QString("((EVENT_DATETIME>=\"")+
+	  date.toString("yyyy-MM-dd")+
+	  " "+startTime().toString("hh:mm:ss")+"\")&&"+
+	  "(EVENT_DATETIME<\""+date.toString("yyyy-MM-dd")+
+	  " "+endTime().toString("hh:mm:ss")+"\"))||";
+      }
+      else {
+	daypart_sql+=QString("((EVENT_DATETIME<=\"")+
+	  date.toString("yyyy-MM-dd")+
+	  " "+endTime().toString("hh:mm:ss")+"\")&&"+
+	  "(EVENT_DATETIME>\""+date.toString("yyyy-MM-dd")+" 00:00:00))||"+
+	  "((EVENT_DATETIME>=\""+
+	  date.toString("yyyy-MM-dd")+
+	  " "+startTime().toString("hh:mm:ss")+"\")&&"+
+	  "(EVENT_DATETIME<\""+date.toString("yyyy-MM-dd")+" 23:59:59))||";
+	
+      }
+    }
+    daypart_sql=daypart_sql.left(daypart_sql.length()-2);
   }
 
   //
@@ -360,10 +456,11 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
                            START_SOURCE,`%s_SRT`.PUBLISHER,`%s_SRT`.COMPOSER,\
                            `%s_SRT`.ALBUM,`%s_SRT`.LABEL,\
                            `%s_SRT`.ISRC,`%s_SRT`.USAGE_CODE,\
-                           `%s_SRT`.ONAIR_FLAG,`%s_SRT`.ISCI from `%s_SRT`\
+                           `%s_SRT`.ONAIR_FLAG,`%s_SRT`.ISCI,\
+                           `%s_SRT`.CONDUCTOR,`%s_SRT`.USER_DEFINED,\
+                           `%s_SRT`.SONG_ID from `%s_SRT`\
                            left join CART on `%s_SRT`.CART_NUMBER=CART.NUMBER \
-                           where (EVENT_DATETIME>=\"%s 00:00:00\")&&\
-                           (EVENT_DATETIME<=\"%s 23:59:59\")&&(%s)",
+                           where ",
 			    (const char *)rec_name,
 			    (const char *)rec_name,
 			    (const char *)rec_name,
@@ -376,100 +473,72 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 			    (const char *)rec_name,
 			    (const char *)rec_name,
 			    (const char *)rec_name,
-			    (const char *)startdate.toString("yyyy-MM-dd"),
-			    (const char *)enddate.toString("yyyy-MM-dd"),
-			    (const char *)station_sql);
+			    (const char *)rec_name,
+			    (const char *)rec_name,
+			    (const char *)rec_name);
       if(filterOnairFlag()) {
-	sql+="&&(ONAIR_FLAG=\"Y\")";
+	sql+="(ONAIR_FLAG=\"Y\")&&";
       }
-      sql+="&&(";
+      sql+="(";
       if(!group_sql.isEmpty()) {
-	sql+=QString().sprintf("(%s)||",(const char *)group_sql);
+	sql+=QString("(")+group_sql+")&&";
       }
       if(!force_sql.isEmpty()) {
-	sql+=QString().sprintf("(%s)||",(const char *)force_sql);
+	sql+=QString("(")+force_sql+")&&";
+      }
+      if(daypart_sql.isEmpty()) {
+	sql+=QString("(EVENT_DATETIME>=\"")+startdate.toString("yyyy-MM-dd")+
+	  " 00:00:00\")&&"+
+	  "(EVENT_DATETIME<=\""+enddate.toString("yyyy-MM-dd")+
+	  " 23:59:59\")&&";
+      }
+      else {
+	sql+=(QString("(")+daypart_sql+")&&");
+      }
+      if(!station_sql.isEmpty()) {
+	sql+=QString("(")+station_sql+")||";
       }
       sql=sql.left(sql.length()-2);
       sql+=")";
-
+      //printf("SQL: %s\n",(const char *)sql);
       q1=new RDSqlQuery(sql);
       while(q1->next()) {
-	sql=QString().sprintf("insert into `%s_SRT` set\
-                             LENGTH=%d,\
-                             LOG_ID=%u,\
-                             CART_NUMBER=%d,\
-                             STATION_NAME=\"%s\",\
-                             EVENT_DATETIME=\"%s\",\
-                             EVENT_TYPE=%d,\
-                             EXT_START_TIME=\"%s\",\
-                             EXT_LENGTH=%d,\
-                             EXT_DATA=\"%s\",\
-                             EXT_EVENT_ID=\"%s\",\
-                             EXT_ANNC_TYPE=\"%s\",\
-                             PLAY_SOURCE=%d,\
-                             CUT_NUMBER=%d,\
-                             EVENT_SOURCE=%d,\
-                             EXT_CART_NAME=\"%s\",\
-                             LOG_NAME=\"%s\",\
-                             TITLE=\"%s\",\
-                             ARTIST=\"%s\",\
-                             SCHEDULED_TIME=\"%s\",\
-                             START_SOURCE=%d,\
-                             PUBLISHER=\"%s\",\
-                             COMPOSER=\"%s\",\
-                             ALBUM=\"%s\",\
-                             LABEL=\"%s\",\
-                             ISRC=\"%s\",\
-                             USAGE_CODE=%d,\
-                             ONAIR_FLAG=\"%s\",\
-                             ISCI=\"%s\"",
-			      (const char *)mixname,
-			      q1->value(0).toInt(),
-			      q1->value(1).toUInt(),
-			      q1->value(2).toInt(),
-			      (const char *)
-			      RDEscapeString(q1->value(3).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(4).toString()),
-			      q1->value(5).toInt(),
-			      (const char *)
-			      RDEscapeString(q1->value(6).toString()),
-			      q1->value(7).toInt(),
-			      (const char *)
-			      RDEscapeString(q1->value(8).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(9).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(10).toString()),
-			      q1->value(11).toInt(),
-			      q1->value(12).toInt(),
-			      q1->value(13).toInt(),
-			      (const char *)
-			      RDEscapeString(q1->value(14).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(15).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(16).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(17).toString()),
-			      (const char *)q1->value(18).toDate().
-			      toString("yyyy-MM-dd hh:mm:ss"),
-			      q1->value(19).toInt(),
-			      (const char *)
-			      RDEscapeString(q1->value(20).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(21).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(22).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(23).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(24).toString()),
-			      q1->value(25).toInt(),
-			      (const char *)
-			      RDEscapeString(q1->value(26).toString()),
-			      (const char *)
-			      RDEscapeString(q1->value(27).toString()));
+	sql=QString("insert into ")+RDEscapeStringSQLColumn(mixname)+"_SRT "+
+	  "set "+QString().sprintf("LENGTH=%d,LOG_ID=%u,CART_NUMBER=%u,",
+				   q1->value(0).toInt(),
+				   q1->value(1).toUInt(),
+				   q1->value(2).toInt())+
+	  "STATION_NAME=\""+RDEscapeString(q1->value(3).toString())+"\","+
+	  "EVENT_DATETIME=\""+RDEscapeString(q1->value(4).toDateTime().
+				     toString("yyyy-MM-dd hh:mm:ss"))+"\","+
+	  QString().sprintf("EVENT_TYPE=%d,",q1->value(5).toInt())+
+	  "EXT_START_TIME=\""+RDEscapeString(q1->value(6).toString())+"\","+
+	  QString().sprintf("EXT_LENGTH=%d,",q1->value(7).toInt())+
+	  "EXT_DATA=\""+RDEscapeString(q1->value(8).toString())+"\","+
+	  "EXT_EVENT_ID=\""+RDEscapeString(q1->value(9).toString())+"\","+
+	  "EXT_ANNC_TYPE=\""+RDEscapeString(q1->value(10).toString())+"\","+
+	  QString().sprintf("PLAY_SOURCE=%d,CUT_NUMBER=%d,EVENT_SOURCE=%d,",
+			    q1->value(11).toInt(),
+			    q1->value(12).toInt(),
+			    q1->value(13).toInt())+
+	  "EXT_CART_NAME=\""+RDEscapeString(q1->value(14).toString())+"\","+
+	  "LOG_NAME=\""+RDEscapeString(q1->value(15).toString())+"\","+
+	  "TITLE=\""+RDEscapeString(q1->value(16).toString())+"\","+
+	  "ARTIST=\""+RDEscapeString(q1->value(17).toString())+"\","+
+	  "SCHEDULED_TIME=\""+
+	  q1->value(18).toDate().toString("yyyy-MM-dd hh:mm:ss")+"\","+
+	  QString().sprintf("START_SOURCE=%d,",q1->value(19).toInt())+
+	  "PUBLISHER=\""+RDEscapeString(q1->value(20).toString())+"\","+
+	  "COMPOSER=\""+RDEscapeString(q1->value(21).toString())+"\","+
+	  "ALBUM=\""+RDEscapeString(q1->value(22).toString())+"\","+
+	  "LABEL=\""+RDEscapeString(q1->value(23).toString())+"\","+
+	  "ISRC=\""+RDEscapeString(q1->value(24).toString())+"\","+
+	  QString().sprintf("USAGE_CODE=%d,",q1->value(25).toInt())+
+	  "ONAIR_FLAG=\""+RDEscapeString(q1->value(26).toString())+"\","+
+	  "ISCI=\""+RDEscapeString(q1->value(27).toString())+"\","+
+	  "CONDUCTOR=\""+RDEscapeString(q1->value(28).toString())+"\","+
+	  "USER_DEFINED=\""+RDEscapeString(q1->value(29).toString())+"\","+
+	  "SONG_ID=\""+RDEscapeString(q1->value(30).toString())+"\"";
 	q2=new RDSqlQuery(sql);
 	delete q2;
       }
@@ -521,6 +590,10 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 
       case RDReport::Music1:
 	ret=ExportRadioTraffic(startdate,enddate,mixname);
+	break;
+
+      case RDReport::MusicClassical:
+	ret=ExportMusicClassical(startdate,enddate,mixname);
 	break;
 
       case RDReport::MusicPlayout:
@@ -582,6 +655,9 @@ QString RDReport::filterText(RDReport::ExportFilter filter)
   case RDReport::Music1:
     return QObject::tr("Music1 Reconciliation");
 
+  case RDReport::MusicClassical:
+    return QObject::tr("Classical Music Playout");
+
   case RDReport::MusicPlayout:
     return QObject::tr("Music Playout");
 
@@ -630,16 +706,17 @@ bool RDReport::multipleDaysAllowed(RDReport::ExportFilter filter)
   case RDReport::CounterPoint:
   case RDReport::LastFilter:
   case RDReport::Music1:
+  case RDReport::MusicClassical:
   case RDReport::MusicPlayout:
   case RDReport::NaturalLog:
   case RDReport::WideOrbit:
     return false;
 
   case RDReport::BmiEmr:
-  case RDReport::SoundExchange:
-  case RDReport::NprSoundExchange:
-  case RDReport::Technical:
   case RDReport::MusicSummary:
+  case RDReport::NprSoundExchange:
+  case RDReport::SoundExchange:
+  case RDReport::Technical:
     return true;
   }
   return true;
@@ -657,15 +734,16 @@ bool RDReport::multipleMonthsAllowed(RDReport::ExportFilter filter)
   case RDReport::CounterPoint:
   case RDReport::LastFilter:
   case RDReport::Music1:
+  case RDReport::MusicClassical:
   case RDReport::MusicPlayout:
   case RDReport::NaturalLog:
   case RDReport::WideOrbit:
     return false;
     
-  case RDReport::SoundExchange:
-  case RDReport::NprSoundExchange:
-  case RDReport::Technical:
   case RDReport::MusicSummary:
+  case RDReport::NprSoundExchange:
+  case RDReport::SoundExchange:
+  case RDReport::Technical:
     return true;
   }
   return true;
@@ -692,9 +770,9 @@ QString RDReport::errorText(RDReport::ErrorCode code)
 }
 
 
-QString RDReport::StringField(const QString &str) const
+QString RDReport::StringField(const QString &str,const QString &null_text) const
 {
-  QString ret="[unknown]";
+  QString ret=null_text;
 
   if(!str.isEmpty()) {
     ret=str;
@@ -704,7 +782,7 @@ QString RDReport::StringField(const QString &str) const
 }
 
 
-void RDReport::SetRow(const QString &param,QString value) const
+void RDReport::SetRow(const QString &param,const QString &value) const
 {
   RDSqlQuery *q;
   QString sql;
@@ -755,6 +833,32 @@ void RDReport::SetRow(const QString &param,bool value) const
 			(const char *)param,
 			(const char *)RDYesNo(value),
 			(const char *)report_name);
+  q=new RDSqlQuery(sql);
+  delete q;
+}
+
+
+void RDReport::SetRow(const QString &param,const QTime &value) const
+{
+  RDSqlQuery *q;
+  QString sql;
+
+  sql=QString().sprintf("UPDATE REPORTS SET %s=\"%s\" WHERE NAME=\"%s\"",
+			(const char *)param,
+			(const char *)value.toString("hh:mm:ss"),
+			(const char *)report_name);
+  q=new RDSqlQuery(sql);
+  delete q;
+}
+
+
+void RDReport::SetRowNull(const QString &param) const
+{
+  RDSqlQuery *q;
+  QString sql;
+
+  sql=QString("update REPORTS set ")+param+"=NULL where NAME=\""+
+    RDEscapeString(report_name)+"\"";
   q=new RDSqlQuery(sql);
   delete q;
 }

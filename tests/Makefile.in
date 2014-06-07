@@ -36,9 +36,10 @@ build_triplet = @build@
 host_triplet = @host@
 noinst_PROGRAMS = audio_convert_test$(EXEEXT) \
 	audio_export_test$(EXEEXT) audio_import_test$(EXEEXT) \
-	datedecode_test$(EXEEXT) sas_switch_torture$(EXEEXT) \
-	sas_torture$(EXEEXT) stringcode_test$(EXEEXT) \
-	test_pam$(EXEEXT) timer_test$(EXEEXT) upload_test$(EXEEXT)
+	datedecode_test$(EXEEXT) reserve_carts_test$(EXEEXT) \
+	sas_switch_torture$(EXEEXT) sas_torture$(EXEEXT) \
+	stringcode_test$(EXEEXT) test_pam$(EXEEXT) timer_test$(EXEEXT) \
+	upload_test$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -65,6 +66,9 @@ audio_import_test_DEPENDENCIES =
 dist_datedecode_test_OBJECTS = datedecode_test.$(OBJEXT)
 datedecode_test_OBJECTS = $(dist_datedecode_test_OBJECTS)
 datedecode_test_DEPENDENCIES =
+dist_reserve_carts_test_OBJECTS = reserve_carts_test.$(OBJEXT)
+reserve_carts_test_OBJECTS = $(dist_reserve_carts_test_OBJECTS)
+reserve_carts_test_DEPENDENCIES =
 dist_sas_switch_torture_OBJECTS = sas_switch_torture.$(OBJEXT)
 nodist_sas_switch_torture_OBJECTS = moc_sas_switch_torture.$(OBJEXT)
 sas_switch_torture_OBJECTS = $(dist_sas_switch_torture_OBJECTS) \
@@ -135,6 +139,7 @@ SOURCES = $(dist_audio_convert_test_SOURCES) \
 	$(dist_audio_export_test_SOURCES) \
 	$(dist_audio_import_test_SOURCES) \
 	$(dist_datedecode_test_SOURCES) \
+	$(dist_reserve_carts_test_SOURCES) \
 	$(dist_sas_switch_torture_SOURCES) \
 	$(nodist_sas_switch_torture_SOURCES) \
 	$(dist_sas_torture_SOURCES) $(nodist_sas_torture_SOURCES) \
@@ -145,6 +150,7 @@ DIST_SOURCES = $(dist_audio_convert_test_SOURCES) \
 	$(dist_audio_export_test_SOURCES) \
 	$(dist_audio_import_test_SOURCES) \
 	$(dist_datedecode_test_SOURCES) \
+	$(dist_reserve_carts_test_SOURCES) \
 	$(dist_sas_switch_torture_SOURCES) $(dist_sas_torture_SOURCES) \
 	$(dist_stringcode_test_SOURCES) $(dist_test_pam_SOURCES) \
 	$(dist_timer_test_SOURCES) $(dist_upload_test_SOURCES)
@@ -329,6 +335,8 @@ dist_audio_import_test_SOURCES = audio_import_test.cpp audio_import_test.h
 audio_import_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 dist_datedecode_test_SOURCES = datedecode_test.cpp datedecode_test.h
 datedecode_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
+dist_reserve_carts_test_SOURCES = reserve_carts_test.cpp reserve_carts_test.h
+reserve_carts_test_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
 dist_sas_switch_torture_SOURCES = sas_switch_torture.cpp sas_switch_torture.h
 nodist_sas_switch_torture_SOURCES = moc_sas_switch_torture.cpp
 sas_switch_torture_LDADD = @LIB_RDLIBS@ @LIBVORBIS@
@@ -412,6 +420,9 @@ audio_import_test$(EXEEXT): $(audio_import_test_OBJECTS) $(audio_import_test_DEP
 datedecode_test$(EXEEXT): $(datedecode_test_OBJECTS) $(datedecode_test_DEPENDENCIES) 
 	@rm -f datedecode_test$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(datedecode_test_OBJECTS) $(datedecode_test_LDADD) $(LIBS)
+reserve_carts_test$(EXEEXT): $(reserve_carts_test_OBJECTS) $(reserve_carts_test_DEPENDENCIES) 
+	@rm -f reserve_carts_test$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(reserve_carts_test_OBJECTS) $(reserve_carts_test_LDADD) $(LIBS)
 sas_switch_torture$(EXEEXT): $(sas_switch_torture_OBJECTS) $(sas_switch_torture_DEPENDENCIES) 
 	@rm -f sas_switch_torture$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(sas_switch_torture_OBJECTS) $(sas_switch_torture_LDADD) $(LIBS)
@@ -444,6 +455,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_sas_switch_torture.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_sas_torture.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/moc_timer_test.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/reserve_carts_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sas_switch_torture.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sas_torture.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stringcode_test.Po@am__quote@

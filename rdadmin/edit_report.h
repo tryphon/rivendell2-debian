@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_report.h,v 1.14.8.1 2012/08/13 16:50:12 cvs Exp $
+//      $Id: edit_report.h,v 1.14.8.1.2.1 2014/05/22 01:21:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -30,6 +30,7 @@
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qspinbox.h>
+#include <qdatetimeedit.h>
 
 #include <rdlistselector.h>
 
@@ -77,6 +78,12 @@ class EditReport : public QDialog
   RDListSelector *edit_station_sel;
   QCheckBox *edit_group_box;
   RDListSelector *edit_group_sel;
+  QCheckBox *edit_daypart_check;
+  QLabel *edit_daypart_label;
+  QLabel *edit_starttime_label;
+  QTimeEdit *edit_starttime_edit;
+  QLabel *edit_endtime_label;
+  QTimeEdit *edit_endtime_edit;
 };
 
 

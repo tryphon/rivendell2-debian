@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.cpp,v 1.4.8.3 2013/12/11 18:51:47 cvs Exp $
+//    $Id: rdwavedata.cpp,v 1.4.8.3.2.1 2014/05/28 21:21:40 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -159,6 +159,30 @@ QString RDWaveData::publisher() const
 void RDWaveData::setPublisher(const QString &str)
 {
   data_publisher=str;
+}
+
+
+int RDWaveData::usageCode() const
+{
+  return data_usage_code;
+}
+
+
+void RDWaveData::setUsageCode(int code)
+{
+  data_usage_code=code;
+}
+
+
+QStringList RDWaveData::schedCodes() const
+{
+  return data_sched_codes;
+}
+
+
+void RDWaveData::setSchedCodes(const QStringList &codes)
+{
+  data_sched_codes=codes;
 }
 
 
@@ -595,6 +619,8 @@ void RDWaveData::clear()
   data_agency="";
   data_composer="";
   data_publisher="";
+  data_usage_code=0;
+  data_sched_codes.clear();
   data_licensing_organization="";
   data_copyright_notice="";
   data_user_defined="";

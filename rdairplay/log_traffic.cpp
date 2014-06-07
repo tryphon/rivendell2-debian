@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_traffic.cpp,v 1.20.8.2.2.1 2014/03/19 23:50:20 cvs Exp $
+//      $Id: log_traffic.cpp,v 1.20.8.2.2.2 2014/05/20 22:39:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -78,54 +78,11 @@ void LogTraffic(const QString &svcname,const QString &logname,
     "ONAIR_FLAG=\""+RDYesNo(onair_flag)+"\","+
     "ALBUM=\""+RDEscapeString(logline->album().utf8())+"\","+
     "LABEL=\""+RDEscapeString(logline->label().utf8())+"\","+
+    "USER_DEFINED=\""+RDEscapeString(logline->userDefined().utf8())+"\","+
+    "CONDUCTOR=\""+RDEscapeString(logline->conductor().utf8())+"\","+
+    "SONG_ID=\""+RDEscapeString(logline->songId().utf8())+"\","+
     "ISCI=\""+RDEscapeString(logline->isci().utf8())+"\"";
 
-  /*
-  sql=QString().sprintf("insert into `%s_SRT` set\
-                         LENGTH=%d,LOG_NAME=\"%s\",LOG_ID=%d,CART_NUMBER=%u,\
-                         STATION_NAME=\"%s\",EVENT_DATETIME=\"%s %s\",\
-                         EVENT_TYPE=%d,EVENT_SOURCE=%d,EXT_START_TIME=\"%s\",\
-                         EXT_LENGTH=%d,EXT_DATA=\"%s\",EXT_EVENT_ID=\"%s\",\
-                         EXT_ANNC_TYPE=\"%s\",PLAY_SOURCE=%d,CUT_NUMBER=%d,\
-                         EXT_CART_NAME=\"%s\",TITLE=\"%s\",ARTIST=\"%s\",\
-                         SCHEDULED_TIME=\"%s\",ISRC=\"%s\",PUBLISHER=\"%s\",\
-                         COMPOSER=\"%s\",USAGE_CODE=%d,START_SOURCE=%d,\
-                         ONAIR_FLAG=\"%s\",ALBUM=\"%s\",LABEL=\"%s\",\
-                         ISCI=\"%s\"",
-			(const char *)svctablename,
-			length,
-			(const char *)RDEscapeString(logname),
-			logline->id(),
-			logline->cartNumber(),
-			(const char *)RDEscapeString(rdstation_conf->name()),
-			(const char *)datetime.toString("yyyy-MM-dd"),
-			(const char *)logline->startTime(RDLogLine::Actual).
-			toString("hh:mm:ss"),
-			action,
-			logline->source(),
-			(const char *)logline->extStartTime().
-			toString("hh:mm:ss"),
-			logline->extLength(),
-			(const char *)RDEscapeString(logline->extData()),
-			(const char *)RDEscapeString(logline->extEventId()),
-			(const char *)RDEscapeString(logline->extAnncType()),
-			src,
-			logline->cutNumber(),
-			(const char *)RDEscapeString(logline->extCartName()),
-			(const char *)RDEscapeString(logline->title()),
-			(const char *)RDEscapeString(logline->artist()),
-			(const char *)logline->startTime(RDLogLine::Logged).
-			toString("hh:mm:ss"),
-			(const char *)logline->isrc(),
-			(const char *)RDEscapeString(logline->publisher()),
-			(const char *)RDEscapeString(logline->composer()),
-			logline->usageCode(),
-			logline->startSource(),
-			(const char *)RDYesNo(onair_flag),
-			(const char *)RDEscapeString(logline->album()),
-			(const char *)RDEscapeString(logline->label()),
-			(const char *)RDEscapeString(logline->isci()));
-  */
   q=new RDSqlQuery(sql);
   delete q;
 }

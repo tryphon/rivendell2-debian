@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_play.h,v 1.90.8.3 2014/02/10 20:45:13 cvs Exp $
+//      $Id: log_play.h,v 1.90.8.3.2.1 2014/05/22 19:37:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -92,6 +92,7 @@ class LogPlay : public QObject,public RDLogEvent
   void duckVolume(int level,int fade,int mport=-1);
   void makeNext(int line,bool refresh_status=true);
   void load();
+  void append(const QString &log_name);
   bool refresh();
   void save(int line=-1);
   void clear();

@@ -1219,6 +1219,10 @@ nastaveném pro běh služby CAE pro naplnění databáze se zdroji zvuku.</tran
         <source>&amp;User Defined:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scheduler Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEncoder</name>
@@ -3306,6 +3310,18 @@ pro naplnění databáze zdroji zvuku.</translation>
     </message>
     <message>
         <source>Filter by Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by Daypart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Time:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Time:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -2,9 +2,9 @@
 //
 // The cart slot widget.
 //
-//   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2012-2014 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.cpp,v 1.13.2.19 2014/02/07 19:42:40 cvs Exp $
+//      $Id: rdcartslot.cpp,v 1.13.2.19.2.1 2014/05/20 22:39:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -705,6 +705,9 @@ void RDCartSlot::LogPlayout(RDPlayDeck::State state)
     "ONAIR_FLAG=\""+RDYesNo(slot_ripc->onairFlag())+"\","+
     "ALBUM=\""+RDEscapeString(slot_logline->album())+"\","+
     "LABEL=\""+RDEscapeString(slot_logline->label())+"\","+
+    "CONDUCTOR=\""+RDEscapeString(slot_logline->conductor())+"\","+
+    "USER_DEFINED=\""+RDEscapeString(slot_logline->userDefined())+"\","+
+    "SONG_ID=\""+RDEscapeString(slot_logline->songId())+"\","+
     "ISCI=\""+RDEscapeString(slot_logline->isci())+"\"";
   q=new RDSqlQuery(sql);
   delete q;

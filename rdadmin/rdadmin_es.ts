@@ -1213,6 +1213,10 @@ computador para obtener los recursos de audio de dicho equipo.</translation>
         <source>&amp;User Defined:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scheduler Codes</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditEncoder</name>
@@ -3286,6 +3290,18 @@ para generar la base de datos con los recursos de audio disponibles.</translatio
     </message>
     <message>
         <source>Filter by Groups</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter by Daypart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Time:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Time:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
