@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogmanager.cpp,v 1.43.4.4 2014/01/21 21:59:32 cvs Exp $
+//      $Id: rdlogmanager.cpp,v 1.43.4.4.2.1 2014/05/20 14:01:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -410,6 +410,7 @@ int main(int argc,char *argv[])
   //
   // Read Command Options
   //
+  bool cmd_protect_existing=false;
   bool cmd_generate=false;
   bool cmd_merge_music=false;
   bool cmd_merge_traffic=false;
@@ -422,6 +423,9 @@ int main(int argc,char *argv[])
   RDCmdSwitch *cmd=
     new RDCmdSwitch(argc,argv,"rdlogmanager",RDLOGMANAGER_USAGE);
   for(unsigned i=0;i<cmd->keys();i++) {
+    if (cmd->key(i)=="-P") {
+      cmd_protect_existing = true;
+    }
     if (cmd->key(i)=="-g") {
       cmd_generate = true;
     }
@@ -486,12 +490,13 @@ int main(int argc,char *argv[])
   }
 
   if(cmd_generate||cmd_merge_traffic||cmd_merge_music) {
-    return RunLogOperation(argc,argv,cmd_service,cmd_start_offset,cmd_generate,
+    return RunLogOperation(argc,argv,cmd_service,cmd_start_offset,
+			   cmd_protect_existing,cmd_generate,
 			   cmd_merge_music,cmd_merge_traffic);
   }
   if(!cmd_report.isEmpty()) {
-    return RunReportOperation(argc,argv,cmd_report,cmd_start_offset,
-			      cmd_end_offset);
+    return RunReportOperation(argc,argv,cmd_report,cmd_protect_existing,
+			      cmd_start_offset,cmd_end_offset);
   }
   return gui_main(argc,argv);
 }

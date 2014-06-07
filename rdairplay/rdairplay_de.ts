@@ -98,7 +98,7 @@
         <translation>Es existiert bereits ein Event mit dieser Startzeit!</translation>
     </message>
     <message>
-        <source>&amp;Recue</source>
+        <source>Cart Notes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

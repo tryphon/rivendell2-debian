@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog.h,v 1.16.6.5 2014/01/13 18:36:57 cvs Exp $
+//      $Id: rdlog.h,v 1.16.6.5.2.1 2014/05/20 14:01:49 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -80,6 +80,7 @@ class RDLog
    int removeTracks(RDStation *station,RDUser *user,RDConfig *config) const;
    RDLogEvent *createLogEvent() const;
    QString xml() const;
+   static bool exists(const QString &name);
    static QString tableName(const QString &log_name);
 
   private:

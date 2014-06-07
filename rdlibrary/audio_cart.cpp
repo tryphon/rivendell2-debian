@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: audio_cart.cpp,v 1.57.6.9.2.1 2014/03/19 22:12:58 cvs Exp $
+//      $Id: audio_cart.cpp,v 1.57.6.9.2.2 2014/05/22 14:30:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -699,12 +699,8 @@ void AudioCart::RefreshList()
   bool err=false;
 
   rdcart_cut_list->clear();
-  sql=QString().sprintf("select WEIGHT,DESCRIPTION,LENGTH,LAST_PLAY_DATETIME,\
-                         PLAY_COUNTER,ORIGIN_DATETIME,ORIGIN_NAME,OUTCUE,\
-                         CUT_NAME,LENGTH,EVERGREEN,START_DATETIME,\
-                         END_DATETIME,START_DAYPART,END_DAYPART,MON,TUE,WED,\
-                         THU,FRI,SAT,SUN from CUTS where CART_NUMBER=%d",
-			rdcart_cart->number());
+  sql=ValidateCutFields()+
+    QString().sprintf(" where CART_NUMBER=%u",rdcart_cart->number());
   q=new RDSqlQuery(sql);
   while(q->next()) {
     l=new RDListViewItem(rdcart_cut_list);
@@ -733,6 +729,13 @@ void AudioCart::RefreshList()
 	else {
 	  l->setBackgroundColor(RD_CART_CONDITIONAL_COLOR);
 	}
+	if(pass==0) {
+	  err=true;
+	}
+	break;
+
+      case RDCart::FutureValid:
+	l->setBackgroundColor(RD_CART_FUTURE_COLOR);
 	if(pass==0) {
 	  err=true;
 	}
@@ -807,12 +810,9 @@ void AudioCart::RefreshLine(RDListViewItem *item)
   QDateTime current_datetime=
     QDateTime(QDate::currentDate(),QTime::currentTime());
   QString cut_name=item->text(11);
-  sql=QString("select WEIGHT,DESCRIPTION,LENGTH,LAST_PLAY_DATETIME,")+
-    "PLAY_COUNTER,ORIGIN_DATETIME,ORIGIN_NAME,OUTCUE,CUT_NAME,LENGTH,"+
-    "EVERGREEN,START_DATETIME,END_DATETIME,START_DAYPART,END_DAYPART,"+
-    "MON,TUE,WED,THU,FRI,SAT,SUN from CUTS where "+
-    QString().sprintf("(CART_NUMBER=%d) ",rdcart_cart->number())+
-    "&& (CUT_NAME=\""+RDEscapeString(cut_name)+"\")";
+  sql=ValidateCutFields()+
+    QString().sprintf(" where (CART_NUMBER=%u)&&",rdcart_cart->number())+
+    "(CUT_NAME=\""+RDEscapeString(cut_name)+"\")";
   RDSqlQuery *q=new RDSqlQuery(sql);
   if(q->first()) {
     item->setText(0,q->value(0).toString());
@@ -834,6 +834,10 @@ void AudioCart::RefreshLine(RDListViewItem *item)
 	else {
 	  item->setBackgroundColor(RD_CART_CONDITIONAL_COLOR);
 	}
+	break;
+	
+      case RDCart::FutureValid:
+	item->setBackgroundColor(RD_CART_FUTURE_COLOR);
 	break;
 	
       case RDCart::EvergreenValid:

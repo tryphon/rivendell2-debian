@@ -407,6 +407,14 @@
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Classical Music Playout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reserved</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>
@@ -515,7 +523,7 @@
     </message>
     <message>
         <source>The name is invalid!</source>
-        <translation>¡El nombre es inválido!</translation>
+        <translation type="obsolete">¡El nombre es inválido!</translation>
     </message>
     <message>
         <source>&amp;Service:</source>
@@ -825,6 +833,10 @@ Color</translation>
     <message>
         <source>End</source>
         <translation type="unfinished">Final</translation>
+    </message>
+    <message>
+        <source>&amp;Recue</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

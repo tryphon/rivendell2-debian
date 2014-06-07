@@ -98,7 +98,7 @@
         <translation>Un evento ha sido programado con esa misma hora de inicio!</translation>
     </message>
     <message>
-        <source>&amp;Recue</source>
+        <source>Cart Notes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

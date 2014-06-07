@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.cpp,v 1.195.2.32 2014/02/11 23:46:26 cvs Exp $
+//      $Id: createdb.cpp,v 1.195.2.32.2.4 2014/06/03 18:23:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -725,6 +725,9 @@ bool CreateDb(QString name,QString pwd)
       NOTES text,\
       METADATA_DATETIME datetime,\
       USE_EVENT_LENGTH enum('N','Y') default 'N',\
+      PENDING_STATION char(64),\
+      PENDING_PID int,\
+      PENDING_DATETIME datetime,\
       INDEX GROUP_NAME_IDX (GROUP_NAME),\
       INDEX TITLE_IDX (TITLE),\
       INDEX ARTIST_IDX (ARTIST),\
@@ -738,7 +741,10 @@ bool CreateDb(QString name,QString pwd)
       INDEX USER_DEFINED_IDX (USER_DEFINED),\
       INDEX SONG_ID_IDX (SONG_ID),\
       INDEX OWNER_IDX (OWNER),\
-      index METADATA_DATETIME_IDX (METADATA_DATETIME))");
+      index METADATA_DATETIME_IDX (METADATA_DATETIME),\
+      index PENDING_STATION_IDX(PENDING_STATION),\
+      index PENDING_PID_IDX(PENDING_STATION,PENDING_PID),\
+      index PENDING_DATETIME_IDX(PENDING_DATETIME))");
   if(!RunQuery(sql)) {
     return false;
   }
@@ -1570,6 +1576,8 @@ bool CreateDb(QString name,QString pwd)
                STATION_FORMAT char(64),\
                FILTER_ONAIR_FLAG enum('N','Y') default 'N',\
                FILTER_GROUPS enum('N','Y') default 'N',\
+               START_TIME time,\
+               END_TIME time,\
                index IDX_NAME (NAME))");
   if(!RunQuery(sql)) {
     return false;
@@ -2329,6 +2337,19 @@ bool CreateDb(QString name,QString pwd)
     "START_MODE int not null default 0,"+
     "OP_MODE int not null default 2,"+
     "index STATION_NAME_IDX(STATION_NAME,MACHINE))";
+  if(!RunQuery(sql)) {
+     return false;
+  }
+
+  //
+  // Create DROPBOX_SCHED_CODES table
+  //
+    sql=QString("create table if not exists DROPBOX_SCHED_CODES(")+
+      "ID int auto_increment not null primary key,"+
+      "DROPBOX_ID int not null,"+
+      "SCHED_CODE char(11) not null,"
+      "index DROPBOX_ID_IDX(DROPBOX_ID),"+
+      "index SCHED_CODE_IDX(SCHED_CODE))";
   if(!RunQuery(sql)) {
      return false;
   }
@@ -7936,6 +7957,91 @@ int UpdateDb(int ver)
     q=new QSqlQuery(sql);
     delete q;
   }
+
+  if(ver<235) { 
+    // Lock Locking Changes, Superceded
+  }
+
+  if(ver<236) {
+    sql=QString("select NAME from SERVICES");
+    q=new QSqlQuery(sql);
+    while(q->next()) {
+      sql=QString("alter table ")+
+	RDEscapeStringSQLColumn(RDSvc::svcTableName(q->value(0).toString()))+
+	" add column CONDUCTOR char(64) after LABEL";
+      q1=new QSqlQuery(sql);
+      delete q1;
+
+      sql=QString("alter table ")+
+	RDEscapeStringSQLColumn(RDSvc::svcTableName(q->value(0).toString()))+
+	" add column USER_DEFINED char(255) after COMPOSER";
+      q1=new QSqlQuery(sql);
+      delete q1;
+
+      sql=QString("alter table ")+
+	RDEscapeStringSQLColumn(RDSvc::svcTableName(q->value(0).toString()))+
+	" add column SONG_ID char(32) after USER_DEFINED";
+      q1=new QSqlQuery(sql);
+      delete q1;
+    }
+    delete q;
+  }
+
+  if(ver<237) {
+    sql=QString("alter table REPORTS add column ")+
+      "START_TIME time after FILTER_GROUPS";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table REPORTS add column ")+
+      "END_TIME time after START_TIME";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<238) {
+    sql=QString("alter table CART add column ")+
+      "PENDING_STATION char(64) after USE_EVENT_LENGTH";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table CART add column ")+
+      "PENDING_PID int after PENDING_STATION";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table CART add column ")+
+      "PENDING_DATETIME datetime after PENDING_PID";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table CART add index ")+
+      "PENDING_STATION_IDX(PENDING_STATION)";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table CART add index ")+
+      "PENDING_PID_IDX(PENDING_STATION,PENDING_PID)";
+    q=new QSqlQuery(sql);
+    delete q;
+
+    sql=QString("alter table CART add index ")+
+      "PENDING_DATETIME_IDX(PENDING_DATETIME)";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
+  if(ver<239) {
+    sql=QString("create table if not exists DROPBOX_SCHED_CODES(")+
+      "ID int auto_increment not null primary key,"+
+      "DROPBOX_ID int not null,"+
+      "SCHED_CODE char(11) not null,"
+      "index DROPBOX_ID_IDX(DROPBOX_ID),"+
+      "index SCHED_CODE_IDX(SCHED_CODE))";
+    q=new QSqlQuery(sql);
+    delete q;
+  }
+
 
       
   // **** End of version updates ****

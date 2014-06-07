@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.h,v 1.5.8.3 2013/12/11 18:51:47 cvs Exp $
+//    $Id: rdwavedata.h,v 1.5.8.3.2.1 2014/05/28 21:21:41 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -25,6 +25,7 @@
 #define RDWAVEDATA_H
 
 #include <qstring.h>
+#include <qstringlist.h>
 #include <qdatetime.h>
 
 class RDWaveData
@@ -54,6 +55,10 @@ class RDWaveData
   void setComposer(const QString &str);
   QString publisher() const;
   void setPublisher(const QString &str);
+  int usageCode() const;
+  void setUsageCode(int code);
+  QStringList schedCodes() const;
+  void setSchedCodes(const QStringList &codes);
   QString licensingOrganization() const;
   void setLicensingOrganization(const QString &str);
   QString copyrightNotice() const;
@@ -138,6 +143,8 @@ class RDWaveData
   QString data_agency;
   QString data_composer;
   QString data_publisher;
+  int data_usage_code;
+  QStringList data_sched_codes;
   QString data_licensing_organization;
   QString data_copyright_notice;
   QString data_user_defined;

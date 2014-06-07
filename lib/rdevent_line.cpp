@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdevent_line.cpp,v 1.60.2.4 2014/01/13 18:36:57 cvs Exp $
+//      $Id: rdevent_line.cpp,v 1.60.2.4.2.1 2014/05/20 23:22:10 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -790,7 +790,7 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
 // end of deconflicting rules
       
       int schedpos = rand()%schedCL->getNumberOfItems();
-      sql=QString().sprintf("insert into %s_LOG set ID=%d,COUNT=%d,TYPE=%d,\
+      sql=QString().sprintf("insert into `%s_LOG` set ID=%d,COUNT=%d,TYPE=%d,\
 			     SOURCE=%d,START_TIME=%d,GRACE_TIME=%d, \
 			     CART_NUMBER=%u,TIME_TYPE=%d,POST_POINT=\"%s\", \
 			     TRANS_TYPE=%d,EXT_START_TIME=\"%s\",\
@@ -814,7 +814,7 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
 
 
 
-      sql=QString().sprintf("insert into %s_STACK set SCHED_STACK_ID=%u,CART=%u,ARTIST=\"%s\",SCHED_CODES=\"%s\"",(const char*)svcname_rp,
+      sql=QString().sprintf("insert into `%s_STACK` set SCHED_STACK_ID=%u,CART=%u,ARTIST=\"%s\",SCHED_CODES=\"%s\"",(const char*)svcname_rp,
 			    stackid,schedCL->getItemCartnumber(schedpos),
 			    (const char *)RDEscapeString(schedCL->getItemArtist(schedpos)),(const char *)schedCL->getItemSchedCodes(schedpos));
       q=new RDSqlQuery(sql);

@@ -411,6 +411,14 @@
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Classical Music Playout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reserved</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>
@@ -523,7 +531,7 @@
     </message>
     <message>
         <source>The name is invalid!</source>
-        <translation>Název je neplatný!</translation>
+        <translation type="obsolete">Název je neplatný!</translation>
     </message>
     <message>
         <source>The service is invalid!</source>
@@ -830,6 +838,10 @@ ze &amp;souboru</translation>
     <message>
         <source>End</source>
         <translation type="unfinished">Konec</translation>
+    </message>
+    <message>
+        <source>&amp;Recue</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcatchd.cpp,v 1.142.4.2 2013/12/11 20:17:16 cvs Exp $
+//      $Id: rdcatchd.cpp,v 1.142.4.2.2.1 2014/06/03 18:23:38 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -2562,6 +2562,7 @@ void MainObject::StartDropboxes()
 {
   QString sql;
   RDSqlQuery *q;
+  RDSqlQuery *q1;
 
   //
   // Kill Old Instances
@@ -2571,63 +2572,69 @@ void MainObject::StartDropboxes()
   //
   // Launch Dropbox Configurations
   //
-  sql=QString().sprintf("select GROUP_NAME,PATH,NORMALIZATION_LEVEL,\
-                         AUTOTRIM_LEVEL,TO_CART,USE_CARTCHUNK_ID,\
-                         TITLE_FROM_CARTCHUNK_ID,DELETE_CUTS,\
-                         METADATA_PATTERN,FIX_BROKEN_FORMATS,LOG_PATH,\
-                         DELETE_SOURCE,STARTDATE_OFFSET,ENDDATE_OFFSET,ID,\
-                         IMPORT_CREATE_DATES,CREATE_STARTDATE_OFFSET,\
-                         CREATE_ENDDATE_OFFSET,SET_USER_DEFINED \
-                         from DROPBOXES where STATION_NAME=\"%s\"",
-			(const char *)catch_config->stationName());
+  sql=QString("select ID,GROUP_NAME,PATH,NORMALIZATION_LEVEL,")+
+    "AUTOTRIM_LEVEL,TO_CART,USE_CARTCHUNK_ID,TITLE_FROM_CARTCHUNK_ID,"+
+    "DELETE_CUTS,METADATA_PATTERN,FIX_BROKEN_FORMATS,LOG_PATH,"+
+    "DELETE_SOURCE,STARTDATE_OFFSET,ENDDATE_OFFSET,ID,"+
+    "IMPORT_CREATE_DATES,CREATE_STARTDATE_OFFSET,"+
+    "CREATE_ENDDATE_OFFSET,SET_USER_DEFINED "+
+    "from DROPBOXES where STATION_NAME=\""+
+    RDEscapeString(catch_config->stationName())+"\"";
   q=new RDSqlQuery(sql);
   while(q->next()) {
     QString cmd=QString().
       sprintf("nice rdimport --persistent-dropbox-id=%d --drop-box --log-mode",
-	      q->value(14).toInt());
-    cmd+=
-      QString().sprintf(" --normalization-level=%d",q->value(2).toInt()/100);
-    cmd+=
-      QString().sprintf(" --autotrim-level=%d",q->value(3).toInt()/100);
-    if(q->value(4).toUInt()>0) {
-      cmd+=QString().sprintf(" --to-cart=%u",q->value(4).toUInt());
+	      q->value(15).toInt());
+    sql=QString("select SCHED_CODE from DROPBOX_SCHED_CODES where ")+
+      QString().sprintf("DROPBOX_ID=%d",q->value(0).toInt());
+    q1=new RDSqlQuery(sql);
+    while(q1->next()) {
+      cmd+=QString(" --add-scheduler-code=\"")+q1->value(0).toString()+"\"";
     }
-    if(q->value(5).toString()=="Y") {
-      cmd+=" --use-cartchunk-cutid";
+    delete q1;
+    cmd+=
+      QString().sprintf(" --normalization-level=%d",q->value(3).toInt()/100);
+    cmd+=
+      QString().sprintf(" --autotrim-level=%d",q->value(4).toInt()/100);
+    if(q->value(5).toUInt()>0) {
+      cmd+=QString().sprintf(" --to-cart=%u",q->value(5).toUInt());
     }
     if(q->value(6).toString()=="Y") {
-      cmd+=" --title-from-cartchunk-cutid";
+      cmd+=" --use-cartchunk-cutid";
     }
     if(q->value(7).toString()=="Y") {
+      cmd+=" --title-from-cartchunk-cutid";
+    }
+    if(q->value(8).toString()=="Y") {
       cmd+=" --delete-cuts";
     }
-    if(!q->value(8).toString().isEmpty()) {
+    if(!q->value(9).toString().isEmpty()) {
       cmd+=QString().sprintf(" \"--metadata-pattern=%s\"",
-			     (const char *)q->value(8).toString());
+			     (const char *)q->value(9).toString());
     }
-    if(q->value(9).toString()=="Y") {
+    if(q->value(10).toString()=="Y") {
       cmd+=" --fix-broken-formats";
     }
-    if(q->value(11).toString()=="Y") {
+    if(q->value(12).toString()=="Y") {
       cmd+=" --delete-source";
     }
-    if(q->value(15).toString()=="Y") {
+    if(q->value(16).toString()=="Y") {
       cmd+=QString().sprintf(" --create-startdate-offset=%d",
-			     q->value(16).toInt());
-      cmd+=QString().sprintf(" --create-enddate-offset=%d",
 			     q->value(17).toInt());
+      cmd+=QString().sprintf(" --create-enddate-offset=%d",
+			     q->value(18).toInt());
     }
-    if(!q->value(18).toString().isEmpty()) {
-      cmd+=" --set-user-defined="+RDEscapeString(q->value(18).toString());
+    if(!q->value(19).toString().isEmpty()) {
+      cmd+=" --set-user-defined="+RDEscapeString(q->value(19).toString());
     }
-    cmd+=QString().sprintf(" --startdate-offset=%d",q->value(12).toInt());
-    cmd+=QString().sprintf(" --enddate-offset=%d",q->value(13).toInt());
-    cmd+=QString().sprintf(" %s \"%s\"",(const char *)q->value(0).toString(),
-			   (const char *)q->value(1).toString());
-    if(!q->value(10).toString().isEmpty()) {
+    cmd+=QString().sprintf(" --startdate-offset=%d",q->value(13).toInt());
+    cmd+=QString().sprintf(" --enddate-offset=%d",q->value(14).toInt());
+    cmd+=QString().sprintf(" %s \"%s\"",(const char *)q->value(1).toString(),
+			   (const char *)q->value(2).toString());
+    if(!q->value(11).toString().isEmpty()) {
       cmd+=QString().sprintf(" >> %s 2>> %s",
-			     (const char *)q->value(10).toString(),
-			     (const char *)q->value(10).toString());
+			     (const char *)q->value(11).toString(),
+			     (const char *)q->value(11).toString());
     }
     else {
       cmd+=" > /dev/null 2> /dev/null";

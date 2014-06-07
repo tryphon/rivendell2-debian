@@ -182,7 +182,7 @@ void rlm_filewrite_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
 {
   int i;
   int flag=0;
-  char str[1024];
+  char str[8192];
   char msg[1500];
   FILE *f;
 
@@ -203,7 +203,7 @@ void rlm_filewrite_RLMPadDataSent(void *ptr,const struct rlm_svc *svc,
     if((flag==1)||((flag==2)&&(log->log_onair!=0))) {
       strncpy(str,RLMResolveNowNextEncoded(ptr,now,next,
 					   rlm_filewrite_formats+256*i,
-					   rlm_filewrite_encodings[i]),1024);
+					   rlm_filewrite_encodings[i]),8192);
       rlm_filewrite_ProcessString(str);
       if(rlm_filewrite_appends[i]==0) {
 	f=fopen(rlm_filewrite_filenames+256*i,"w");

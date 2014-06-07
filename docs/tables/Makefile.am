@@ -4,8 +4,8 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@salemradiolabs.com>
 ##
-##      $Id: Makefile.am,v 1.16.8.5 2014/02/10 20:45:07 cvs Exp $
-##      $Date: 2014/02/10 20:45:07 $
+##      $Id: Makefile.am,v 1.16.8.5.2.1 2014/06/03 18:23:34 cvs Exp $
+##      $Date: 2014/06/03 18:23:34 $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -34,6 +34,7 @@ EXTRA_DIST = audio_perms.txt\
              decks.txt\
              dropboxes.txt\
              dropbox_paths.txt\
+             dropbox_sched_codes.txt\
              encoder_bitrates.txt\
              encoder_channels.txt\
              encoder_samplerates.txt\

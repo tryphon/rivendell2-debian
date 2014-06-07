@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcueedit.h,v 1.1.2.2 2014/02/20 19:38:08 cvs Exp $
+//      $Id: rdcueedit.h,v 1.1.2.2.2.1 2014/05/20 01:45:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -105,6 +105,7 @@ class RDCueEdit : public QWidget
   RDMarkerBar *edit_position_bar;
   RDPushButton *edit_start_button;
   RDPushButton *edit_end_button;
+  RDPushButton *edit_recue_button;
   bool edit_shift_pressed;
   bool edit_right_click_stop;
   QTimer *edit_audition_timer;

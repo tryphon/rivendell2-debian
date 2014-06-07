@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlogedit.cpp,v 1.77.4.9 2014/02/11 23:46:30 cvs Exp $
+//      $Id: rdlogedit.cpp,v 1.77.4.9.2.1 2014/05/21 18:19:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -473,7 +473,7 @@ void MainWidget::addData()
       return;
     }
     delete q;
-    RDCreateLogTable(QString().sprintf("%s_LOG",(const char *)logname));
+    RDCreateLogTable(RDLog::tableName(logname));
     EditLog *editlog=new EditLog(logname,&log_clipboard,&newlogs,this);
     editlog->exec();
     delete editlog;

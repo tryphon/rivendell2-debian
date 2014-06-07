@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: voice_tracker.cpp,v 1.84.2.4 2014/01/15 20:59:28 cvs Exp $
+//      $Id: voice_tracker.cpp,v 1.84.2.4.2.2 2014/05/21 18:19:43 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -247,10 +247,8 @@ VoiceTracker::VoiceTracker(const QString &logname,QString *import_path,
   //
   // Log Machine
   //
-  edit_log_name.replace(" ","_");
-  QString eventname=edit_log_name+"_LOG";
   track_log=new RDLog(edit_log_name,false);
-  track_log_event=new RDLogEvent(eventname);
+  track_log_event=new RDLogEvent(RDLog::tableName(edit_log_name));
   track_log_event->load();
 
   //
@@ -447,6 +445,10 @@ VoiceTracker::VoiceTracker(const QString &logname,QString *import_path,
   track_log_list->setColumnAlignment(6,AlignLeft);
   track_log_list->addColumn(tr("ARTIST"));
   track_log_list->setColumnAlignment(7,AlignLeft);
+  track_log_list->addColumn(tr("ALBUM"));
+  track_log_list->setColumnAlignment(8,AlignLeft);
+  track_log_list->addColumn(tr("LABEL"));
+  track_log_list->setColumnAlignment(9,AlignLeft);
   for(int i=0;i<track_log_list->columns();i++) {
     track_log_list->setColumnSortType(i,RDListView::LineSort);
   }
@@ -2519,6 +2521,8 @@ void VoiceTracker::RefreshLine(RDListViewItem *item)
 	  }
 	}
 	item->setText(7,logline->artist());
+	item->setText(8,logline->album());
+	item->setText(9,logline->label());
 	break;
 	
       case RDLogLine::Macro:
@@ -2534,6 +2538,8 @@ void VoiceTracker::RefreshLine(RDListViewItem *item)
 	  item->setText(6,logline->title());
 	}
 	item->setText(7,logline->artist());
+	item->setText(8,logline->album());
+	item->setText(9,logline->label());
 	break;
 	
       case RDLogLine::Marker:

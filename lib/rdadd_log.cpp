@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadd_log.cpp,v 1.15 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdadd_log.cpp,v 1.15.10.2 2014/05/21 20:29:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,7 +24,6 @@
 
 #include <qdialog.h>
 #include <qstring.h>
-#include <qpushbutton.h>
 #include <qlistbox.h>
 #include <qtextedit.h>
 #include <qlabel.h>
@@ -35,7 +34,7 @@
 #include <qbuttongroup.h>
 #include <qsqldatabase.h>
 #include <rddb.h>
-#include <rdtextvalidator.h>
+#include <rdidvalidator.h>
 #include <rdadd_log.h>
 
 
@@ -68,55 +67,29 @@ RDAddLog::RDAddLog(QString *logname,QString *svcname,RDStation *station,
   //
   // Validator
   //
-  RDTextValidator *validator=new RDTextValidator(this,"validator");
-  validator->addBannedChar('-');
-  validator->addBannedChar('!');
-  validator->addBannedChar('@');
-  validator->addBannedChar('#');
-  validator->addBannedChar('$');
-  validator->addBannedChar('%');
-  validator->addBannedChar('^');
-  validator->addBannedChar('&');
-  validator->addBannedChar('*');
-  validator->addBannedChar('(');
-  validator->addBannedChar(')');
-  validator->addBannedChar('[');
-  validator->addBannedChar(']');
-  validator->addBannedChar('{');
-  validator->addBannedChar('}');
-  validator->addBannedChar('+');
-  validator->addBannedChar('=');
-  validator->addBannedChar('\\');
-  validator->addBannedChar('|');
-  validator->addBannedChar('?');
-  validator->addBannedChar(';');
-  validator->addBannedChar(':');
-  validator->addBannedChar('.');
-  validator->addBannedChar('<');
-  validator->addBannedChar('>');
-  validator->addBannedChar(',');
-  validator->addBannedChar('/');
-  validator->addBannedChar(' ');
+  RDIdValidator *v=new RDIdValidator(this);
+  v->addBannedChar(' ');
 
   //
   // Log Name
   //
-  add_name_edit=new QLineEdit(this,"add_name_edit");
+  add_name_edit=new QLineEdit(this);
   add_name_edit->setGeometry(115,11,sizeHint().width()-125,19);
   add_name_edit->setMaxLength(64);
-  add_name_edit->setValidator(validator);
-  QLabel *label=new QLabel(add_name_edit,tr("&New Log Name:"),this,
-			   "add_name_label");
+  add_name_edit->setValidator(v);
+  QLabel *label=new QLabel(add_name_edit,tr("&New Log Name:"),this);
   label->setGeometry(10,13,100,19);
   label->setFont(button_font);
   label->setAlignment(AlignRight|ShowPrefix);
+  connect(add_name_edit,SIGNAL(textChanged(const QString &)),
+	  this,SLOT(nameChangedData(const QString &)));
 
   //
   // Service selector
   //
-  add_service_box=new QComboBox(this,"add_sevice_box");
+  add_service_box=new QComboBox(this);
   add_service_box->setGeometry(115,33,100,19);
-  label=new QLabel(add_name_edit,tr("&Service:"),this,"add_service_label");
+  label=new QLabel(add_name_edit,tr("&Service:"),this);
   label->setGeometry(10,33,100,19);
   label->setFont(button_font);
   label->setAlignment(AlignRight|ShowPrefix);
@@ -124,22 +97,23 @@ RDAddLog::RDAddLog(QString *logname,QString *svcname,RDStation *station,
   //
   //  Ok Button
   //
-  QPushButton *ok_button=new QPushButton(this,"ok_button");
-  ok_button->setGeometry(sizeHint().width()-180,sizeHint().height()-60,80,50);
-  ok_button->setDefault(true);
-  ok_button->setFont(button_font);
-  ok_button->setText(tr("&OK"));
-  connect(ok_button,SIGNAL(clicked()),this,SLOT(okData()));
+  add_ok_button=new QPushButton(this);
+  add_ok_button->
+    setGeometry(sizeHint().width()-180,sizeHint().height()-60,80,50);
+  add_ok_button->setDefault(true);
+  add_ok_button->setFont(button_font);
+  add_ok_button->setText(tr("&OK"));
+  connect(add_ok_button,SIGNAL(clicked()),this,SLOT(okData()));
 
   //
   //  Cancel Button
   //
-  QPushButton *cancel_button=new QPushButton(this,"cancel_button");
-  cancel_button->
+  add_cancel_button=new QPushButton(this);
+  add_cancel_button->
     setGeometry(sizeHint().width()-90,sizeHint().height()-60,80,50);
-  cancel_button->setFont(button_font);
-  cancel_button->setText(tr("&Cancel"));
-  connect(cancel_button,SIGNAL(clicked()),this,SLOT(cancelData()));
+  add_cancel_button->setFont(button_font);
+  add_cancel_button->setText(tr("&Cancel"));
+  connect(add_cancel_button,SIGNAL(clicked()),this,SLOT(cancelData()));
 
   //
   // Populate Data
@@ -194,20 +168,12 @@ QSizePolicy RDAddLog::sizePolicy() const
 
 void RDAddLog::okData()
 {
-  if(add_name_edit->text().isEmpty()||
-     (add_name_edit->text().length()>64)||
-     add_name_edit->text().contains(' ')||
-     add_name_edit->text().contains('/')||
-     add_name_edit->text().contains('.')) {
-    QMessageBox::warning(this,tr("RDLogEdit"),tr("The name is invalid!"));
-    return;
-  }
   if(add_service_box->currentText().isEmpty()){
     QMessageBox::warning(this,tr("RDLogEdit"),tr("The service is invalid!"));
     return;
   }
 
-  *log_name=add_name_edit->text();
+  *log_name=add_name_edit->text().stripWhiteSpace();
   *log_svc=add_service_box->currentText();
   done(0);
 }
@@ -216,6 +182,12 @@ void RDAddLog::okData()
 void RDAddLog::cancelData()
 {
   done(-1);
+}
+
+
+void RDAddLog::nameChangedData(const QString &str)
+{
+  add_ok_button->setDisabled(str.isEmpty());
 }
 
 

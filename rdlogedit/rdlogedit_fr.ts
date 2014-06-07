@@ -1068,5 +1068,13 @@ therefore only existing transitions will be editable.</source>
         <source>This cart cannot contain any additional cuts!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>ALBUM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LABEL</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>

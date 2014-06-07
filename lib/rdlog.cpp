@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog.cpp,v 1.23.4.7 2014/01/13 18:36:57 cvs Exp $
+//      $Id: rdlog.cpp,v 1.23.4.7.2.2 2014/05/21 20:29:01 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -273,14 +273,12 @@ void RDLog::setLinkQuantity(RDLog::Source src,int quan) const
 
 void RDLog::updateLinkQuantity(RDLog::Source src) const
 {
-  QString logname=log_name+"_LOG";
-  logname.replace(" ","_");
   QString sql;
   RDSqlQuery *q;
   switch(src) {
       case RDLog::SourceMusic:
-	sql=QString().sprintf("select ID from `%s` where TYPE=%d",
-			      (const char *)logname,RDLogLine::MusicLink);
+	sql=QString("select ID from `")+RDLog::tableName(log_name)+
+	  "` where "+QString().sprintf("TYPE=%d",RDLogLine::MusicLink);
 	q=new RDSqlQuery(sql);
 	sql=QString().sprintf("update LOGS set MUSIC_LINKS=%d where \
                                NAME=\"%s\"",q->size(),
@@ -288,8 +286,8 @@ void RDLog::updateLinkQuantity(RDLog::Source src) const
 	break;
 
       case RDLog::SourceTraffic:
-	sql=QString().sprintf("select ID from `%s` where TYPE=%d",
-			      (const char *)logname,RDLogLine::TrafficLink);
+	sql=QString("select ID from `")+RDLog::tableName(log_name)+
+	  "` where "+QString().sprintf("TYPE=%d",RDLogLine::TrafficLink);
 	q=new RDSqlQuery(sql);
 	sql=QString().sprintf("update LOGS set TRAFFIC_LINKS=%d where \
                                NAME=\"%s\"",q->size(),
@@ -395,18 +393,15 @@ void RDLog::updateTracks()
   RDSqlQuery *q;
   unsigned scheduled=0;
   unsigned completed=0;
-  QString name=log_name;
-  
-  name.replace(" ","_");
+
   sql=QString().sprintf("select NUMBER from CART where OWNER=\"%s\"",
 			(const char *)RDEscapeString(log_name));
   q=new RDSqlQuery(sql);
   completed=q->size();
   delete q;
 
-  sql=QString().sprintf("select ID from `%s_LOG` where TYPE=%d",
-			(const char *)name,
-			RDLogLine::Track);
+  sql=QString("select ID from `")+RDLog::tableName(log_name)+
+    "` where "+QString().sprintf("TYPE=%d",RDLogLine::Track);
   q=new RDSqlQuery(sql);
   scheduled=q->size()+completed;
   delete q;
@@ -491,6 +486,22 @@ QString RDLog::xml() const
   }
   delete q;
 #endif  // WIN32
+  return ret;
+}
+
+
+bool RDLog::exists(const QString &name)
+{
+  QString sql;
+  RDSqlQuery *q;
+  bool ret=false;
+
+  sql=QString("select NAME from LOGS where NAME=\"")+
+    RDEscapeString(name)+"\"";
+  q=new RDSqlQuery(sql);
+  ret=q->first();
+  delete q;
+
   return ret;
 }
 

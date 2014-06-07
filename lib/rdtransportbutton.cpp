@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdtransportbutton.cpp,v 1.4 2010/07/29 19:32:34 cvs Exp $
+//    $Id: rdtransportbutton.cpp,v 1.4.10.1 2014/05/27 22:49:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -33,9 +33,8 @@
 
 
 RDTransportButton::RDTransportButton(RDTransportButton::TransType type,
-				   QWidget *parent=0,
-				   const char *name=0) :
-  QPushButton(parent,name)
+				   QWidget *parent,const char *name)
+  :  QPushButton(parent,name)
 {
   button_type=type;
   button_state=RDTransportButton::Off;

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: lib_listview.cpp,v 1.1.2.3 2014/02/06 20:43:51 cvs Exp $
+//      $Id: lib_listview.cpp,v 1.1.2.3.2.1 2014/05/20 14:23:12 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -46,14 +46,15 @@ void LibListView::contentsMouseMoveEvent(QMouseEvent *e)
   QListView::contentsMouseMoveEvent(e);
   list_move_count--;
   if(list_move_count==0) {
-    QListViewItem *item=selectedItem();
+    RDListViewItem *item=(RDListViewItem *)selectedItem();
 
     if(item==NULL) {
       return;
     }
     if(item->text(21).isEmpty()) {  // Voice tracks cannot be dragged
       RDCartDrag *d=
-	new RDCartDrag(item->text(1).toUInt(),item->pixmap(0),this);
+	new RDCartDrag(item->text(1).toUInt(),item->text(4),item->textColor(2),
+		       this);
       d->dragCopy();
       emit clicked(item);
     }

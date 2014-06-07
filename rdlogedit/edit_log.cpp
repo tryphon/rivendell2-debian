@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_log.cpp,v 1.91.6.10 2014/02/20 16:33:55 cvs Exp $
+//      $Id: edit_log.cpp,v 1.91.6.10.2.2 2014/05/22 16:12:54 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -137,8 +137,7 @@ EditLog::EditLog(QString logname,vector<RDLogLine> *clipboard,
   //
   // Log Events
   //
-  edit_log_event=
-    new RDLogEvent(QString().sprintf("%s_LOG",(const char *)edit_logname));
+  edit_log_event=new RDLogEvent(RDLog::tableName(edit_logname));
   edit_log_event->load(true);
 
   //
@@ -1111,9 +1110,8 @@ ORIGIN_DATETIME=NOW(),LINK_DATETIME=NOW(),SERVICE=\"%s\"",
     edit_log=new RDLog(logname,true);
     QString logtable=logname;
     logtable.replace(" ","_");
-    RDCreateLogTable(QString().sprintf("%s_LOG",(const char *)logtable));
-    edit_log_event->
-      setLogName(QString().sprintf("%s_LOG",(const char *)logtable));
+    RDCreateLogTable(RDLog::tableName(logtable));
+    edit_log_event->setLogName(RDLog::tableName(logtable));
     for(int i=0;i<edit_service_box->count();i++) {
       if(edit_service_box->text(i)==svcname) {
 	edit_service_box->setCurrentItem(i);
@@ -1613,6 +1611,10 @@ bool EditLog::UpdateColor(RDListViewItem *item,RDLogLine *logline)
 	      
 	    case RDCart::ConditionallyValid:
 	      item->setBackgroundColor(RD_CART_CONDITIONAL_COLOR);
+	      break;
+	      
+	    case RDCart::FutureValid:
+	      item->setBackgroundColor(RD_CART_FUTURE_COLOR);
 	      break;
 	      
 	    case RDCart::EvergreenValid:

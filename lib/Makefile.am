@@ -4,7 +4,7 @@
 ##
 ## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 ##
-##      $Id: Makefile.am,v 1.132.4.15 2013/12/30 20:37:00 cvs Exp $
+##      $Id: Makefile.am,v 1.132.4.15.2.3 2014/05/28 21:21:39 cvs Exp $
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -53,6 +53,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         gpio.h\
                         export_bmiemr.cpp\
                         export_deltaflex.cpp\
+                        export_musicclassical.cpp\
                         export_musicplayout.cpp\
                         export_musicsummary.cpp\
                         export_nprsoundex.cpp\
@@ -142,6 +143,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdgroup_list.cpp rdgroup_list.h\
                         rdhotkeys.cpp rdhotkeys.h\
                         rdhotkeylist.cpp rdhotkeylist.h\
+                        rdidvalidator.cpp rdidvalidator.h\
                         rdimport_audio.cpp rdimport_audio.h\
                         rdinstancelock.cpp rdinstancelock.h\
                         rdintegeredit.cpp rdintegeredit.h\
@@ -192,6 +194,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdreport.cpp rdreport.h\
                         rdringbuffer.cpp rdringbuffer.h\
                         rdripc.cpp rdripc.h\
+                        rdschedcodes_dialog.cpp rdschedcodes_dialog.h\
                         rdsegmeter.cpp rdsegmeter.h\
                         rdsettings.cpp rdsettings.h\
                         rdsimpleplayer.cpp rdsimpleplayer.h\
@@ -223,6 +226,7 @@ dist_librd_la_SOURCES = dbversion.h\
                         rdupload.cpp rdupload.h\
                         rdversion.cpp rdversion.h\
                         rdwavedata.cpp rdwavedata.h\
+                        rdwavedata_dialog.cpp rdwavedata_dialog.h\
                         rdwavefile.cpp rdwavefile.h\
                         rdwavepainter.cpp rdwavepainter.h\
                         rdweb.cpp rdweb.h\
@@ -296,6 +300,7 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rdplaymeter.cpp\
                           moc_rdpushbutton.cpp\
                           moc_rdripc.cpp\
+                          moc_rdschedcodes_dialog.cpp\
                           moc_rdsegmeter.cpp\
                           moc_rdsimpleplayer.cpp\
                           moc_rdslider.cpp\
@@ -310,6 +315,7 @@ nodist_librd_la_SOURCES = moc_rdadd_cart.cpp\
                           moc_rdtransportbutton.cpp\
                           moc_rdtrimaudio.cpp\
                           moc_rdupload.cpp\
+                          moc_rdwavedata_dialog.cpp\
                           moc_schedcartlist.cpp\
                           moc_schedruleslist.cpp
 

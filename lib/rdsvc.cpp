@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.cpp,v 1.71.8.10.2.1 2014/05/16 15:21:29 cvs Exp $
+//      $Id: rdsvc.cpp,v 1.71.8.10.2.4 2014/06/02 15:56:18 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -746,8 +746,6 @@ bool RDSvc::generateLog(const QDate &date,const QString &logname,
   QString sql;
   RDSqlQuery *q;
   RDClock clock;
-  QString logname_esc=RDEscapeString(logname);
-  logname_esc.replace(" ","_");
 
   if((!date.isValid()||logname.isEmpty())) {
     return false;
@@ -760,8 +758,7 @@ bool RDSvc::generateLog(const QDate &date,const QString &logname,
   //
   QString purge_date;
   if(defaultLogShelflife()>=0) {
-    purge_date=QDate::currentDate().
-      addDays(defaultLogShelflife()).toString("yyyy-MM-dd");
+    purge_date=date.addDays(defaultLogShelflife()).toString("yyyy-MM-dd");
   }
   sql=QString().sprintf("select NAME from LOGS where NAME=\"%s\"",
 			(const char *)RDEscapeString(logname));
@@ -783,7 +780,7 @@ bool RDSvc::generateLog(const QDate &date,const QString &logname,
 
     q=new RDSqlQuery(sql);
     delete q;
-    sql=QString().sprintf("drop table `%s_LOG`",(const char *)logname_esc);
+    sql=QString("drop table `")+RDLog::tableName(logname)+"`";
     q=new RDSqlQuery(sql);
     delete q;
   }
@@ -802,7 +799,8 @@ bool RDSvc::generateLog(const QDate &date,const QString &logname,
     q=new RDSqlQuery(sql);
     delete q;
   }
-  RDCreateLogTable(QString().sprintf("%s_LOG",(const char *)logname_esc));
+  RDCreateLogTable(RDLog::tableName(logname));
+  //  RDCreateLogTable(QString().sprintf("%s_LOG",(const char *)logname_esc));
   emit generationProgress(1);
 
   //
@@ -829,8 +827,7 @@ bool RDSvc::generateLog(const QDate &date,const QString &logname,
   // Get Current Count
   //
   int count;
-  sql=QString().sprintf("select COUNT from `%s_LOG` order by COUNT desc",
-			(const char *)RDEscapeString(logname));
+  sql=QString("select COUNT from `")+RDLog::tableName(logname)+"` order by COUNT desc";
   q=new RDSqlQuery(sql);
   if(q->first()) {
     count=q->value(0).toInt()+1;
@@ -844,19 +841,17 @@ bool RDSvc::generateLog(const QDate &date,const QString &logname,
   // Log Chain To
   //
   if(chainto()) {
-    sql=QString().sprintf("insert into `%s_LOG` set ID=%d,COUNT=%d,TYPE=%d,\
-                           SOURCE=%d,TRANS_TYPE=%d,LABEL=\"%s\"",
-			  (const char *)RDEscapeString(logname),count,count,
-			  RDLogLine::Chain,
-			  RDLogLine::Template,
-			  RDLogLine::Segue,
-			  (const char *)nextname);
+    sql=QString("insert into `")+RDLog::tableName(logname)+"` set "+
+      QString().sprintf("ID=%d,COUNT=%d,TYPE=%d,",count,count,RDLogLine::Chain)+
+      QString().sprintf("SOURCE=%d,TRANS_TYPE=%d,",RDLogLine::Template,
+			RDLogLine::Segue)+
+      "LABEL=\""+RDEscapeString(nextname)+"\"";
     q=new RDSqlQuery(sql);
     delete q;
     count ++;
   }
 
-  RDLog *log=new RDLog(RDEscapeString(logname));
+  RDLog *log=new RDLog(logname);
   log->updateLinkQuantity(RDLog::SourceMusic);
   log->setLinkState(RDLog::SourceMusic,false);
   log->updateLinkQuantity(RDLog::SourceTraffic);
@@ -922,10 +917,8 @@ bool RDSvc::linkLog(RDSvc::ImportSource src,const QDate &date,
   //
   // Iterate Through the Log
   //
-  QString logname_esc=logname+"_LOG";
-  logname_esc.replace(" ","_");
-  RDLogEvent *src_event=new RDLogEvent(logname_esc);
-  RDLogEvent *dest_event=new RDLogEvent(logname_esc);
+  RDLogEvent *src_event=new RDLogEvent(RDLog::tableName(logname));
+  RDLogEvent *dest_event=new RDLogEvent(RDLog::tableName(logname));
   src_event->load();
   RDLogLine *logline=NULL;
   for(int i=0;i<src_event->size();i++) {
@@ -1041,10 +1034,8 @@ void RDSvc::clearLogLinks(RDSvc::ImportSource src,const QDate &date,
 	break;
   }
 
-  QString logname_esc=RDEscapeString(logname)+"_LOG";
-  logname_esc.replace(" ","_");
-  RDLogEvent *src_event=new RDLogEvent(logname_esc);
-  RDLogEvent *dest_event=new RDLogEvent(logname_esc);
+  RDLogEvent *src_event=new RDLogEvent(RDLog::tableName(logname));
+  RDLogEvent *dest_event=new RDLogEvent(RDLog::tableName(logname));
   src_event->load();
   RDLogLine *logline=NULL;
   for(int i=0;i<src_event->size();i++) {
@@ -1395,7 +1386,7 @@ void RDSvc::remove() const
   while(q->next()) {
     logname=q->value(0).toString();
     logname.replace(" ","_");
-    sql=QString().sprintf("drop table `%s_LOG`",(const char *)logname);
+    sql=QString("drop table `")+RDLog::tableName(logname)+"`";
     q1=new RDSqlQuery(sql);
     delete q1;
     sql=QString().sprintf("drop table `%s_REC`",(const char *)logname);
@@ -1440,6 +1431,15 @@ QString RDSvc::xml() const
   delete q;
 #endif  // WIN32
   return ret;
+}
+
+
+QString RDSvc::svcTableName(const QString &svc_name)
+{
+  QString ret=svc_name;
+  ret.replace(" ","_");
+
+  return ret+"_SRT";
 }
 
 

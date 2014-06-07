@@ -18,6 +18,9 @@ PUBLISHER            char(64)           From CART.PUBLISHER
 COMPOSER             char(64)           From CART.COMPOSER
 ALBUM                char(255)          From CART.ALBUM
 LABEL                char(64)           From CART.LABEL
+CONDUCTOR            char(64)           From CART.CONDUCTOR
+USER_DEFINED         char(255)          From CART.USER_DEFINED
+SONG_ID              char(32)           From CART.SONG_ID
 USAGE_CODE           int                From CART.USAGE_CODE
 ISRC                 char(12)           From CUTS.ISRC
 ISCI                 char(32)           From CUTS.ISCI

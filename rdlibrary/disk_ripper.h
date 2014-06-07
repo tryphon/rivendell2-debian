@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: disk_ripper.h,v 1.8.4.2 2014/01/14 17:35:32 cvs Exp $
+//      $Id: disk_ripper.h,v 1.8.4.2.2.3 2014/06/02 17:17:00 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -39,10 +39,12 @@
 #include <qcheckbox.h>
 #include <qtextedit.h>
 
+#include <rdlistviewitem.h>
 #include <rdtransportbutton.h>
 #include <rdcdplayer.h>
 #include <rdcddbrecord.h>
 #include <rdcddblookup.h>
+#include <rdwavedata_dialog.h>
 
 #include <rdlibrary_conf.h>
 #include <rd.h>
@@ -65,13 +67,17 @@ class DiskRipper : public QDialog
   void ripDiskButtonData();
   void ejectedData();
   void setCutButtonData();
-  void setAllButtonData();
+  void setMultiButtonData();
+  void setSingleButtonData();
+  void modifyCartLabelData();
+  void clearSelectionData();
   void mediaChangedData();
   void playedData(int);
   void stoppedData();
   void cddbDoneData(RDCddbLookup::Result);
   void normalizeCheckData(bool);
   void autotrimCheckData(bool);
+  void selectionChangedData();
   void doubleClickedData(QListViewItem *item,const QPoint &pt,int col);
   void closeData();
   
@@ -80,10 +86,14 @@ class DiskRipper : public QDialog
   void closeEvent(QCloseEvent *e);
   
  private:
-  void RipTrack(int track,QString cutname,QString title);
+  void FocusSelection(int cart_num);
+  void RipTrack(int track,int end_track,QString cutname,QString title);
+  void UpdateRipButton();
+  QString BuildTrackName(int start_track,int end_track) const;
   RDCdPlayer *rip_cdrom;
   RDCddbRecord rip_cddb_record;
   RDCddbLookup *rip_cddb_lookup;
+  QLabel *rip_track_label;
   QListView *rip_track_list;
   QPushButton *rip_rip_button;
   bool rip_rip_aborted;
@@ -96,8 +106,11 @@ class DiskRipper : public QDialog
   RDTransportButton *rip_eject_button;
   RDTransportButton *rip_play_button;
   RDTransportButton *rip_stop_button;
-  QPushButton *rip_setall_button;
   QPushButton *rip_setcut_button;
+  QPushButton *rip_setall_button;
+  QPushButton *rip_setsingle_button;
+  QPushButton *rip_cartlabel_button;
+  QPushButton *rip_clear_button;
   QString rip_cutname;
   QString rip_track;
   QString rip_title;
@@ -123,10 +136,13 @@ class DiskRipper : public QDialog
   QString *rip_group_text;
   QString *rip_schedcode_text;
   std::vector<QString> rip_cutnames;
+  std::vector<int> rip_end_track;
+  std::vector<RDWaveData *> rip_wave_datas;
   bool rip_aborting;
   bool rip_profile_rip;
   QDir rip_cdda_dir;
   bool rip_isrc_read;
+  RDWaveDataDialog *rip_wavedata_dialog;
 };
 
 

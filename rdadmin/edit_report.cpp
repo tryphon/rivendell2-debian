@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_report.cpp,v 1.21.8.1 2012/08/13 16:50:12 cvs Exp $
+//      $Id: edit_report.cpp,v 1.21.8.1.2.1 2014/05/22 01:21:36 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -48,6 +48,7 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   QString sql;
   RDSqlQuery *q;
   QString str;
+  bool ok=false;
 
   //
   // Fix the Window Size
@@ -75,16 +76,16 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Text Validator
   //
-  RDTextValidator *validator=new RDTextValidator(this,"validator");
+  RDTextValidator *validator=new RDTextValidator(this);
 
   //
   // Report Description
   //
-  edit_description_edit=new QLineEdit(this,"edit_description_edit");
+  edit_description_edit=new QLineEdit(this);
   edit_description_edit->setGeometry(170,10,sizeHint().width()-180,19);
   edit_description_edit->setMaxLength(64);
-  QLabel *label=new QLabel(edit_description_edit,tr("&Report Description:"),
-			   this,"edit_description_label");
+  QLabel *label=
+    new QLabel(edit_description_edit,tr("&Report Description:"),this);
   label->setGeometry(10,10,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -92,14 +93,13 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Export Filter Type
   //
-  edit_filter_box=new QComboBox(this,"edit_filter_box");
+  edit_filter_box=new QComboBox(this);
   edit_filter_box->setGeometry(170,31,sizeHint().width()-180,19);
   for(int i=0;i<(int)RDReport::LastFilter;i++) {
     edit_filter_box->
       insertItem(RDReport::filterText((RDReport::ExportFilter)i));
   }
-  label=new QLabel(edit_description_edit,tr("Export &Filter:"),this,
-		   "edit_filter_label");
+  label=new QLabel(edit_description_edit,tr("Export &Filter:"),this);
   label->setGeometry(10,31,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -107,13 +107,11 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Station ID
   //
-  edit_stationid_edit=new QLineEdit(this,"edit_stationid_edit");
+  edit_stationid_edit=new QLineEdit(this);
   edit_stationid_edit->setGeometry(170,52,180,19);
   edit_stationid_edit->setMaxLength(16);
   edit_stationid_edit->setValidator(validator);
-  label=new QLabel(edit_stationid_edit,
-		   tr("Station ID:"),this,
-		   "edit_stationid_label");
+  label=new QLabel(edit_stationid_edit,tr("Station ID:"),this);
   label->setGeometry(10,52,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -121,12 +119,12 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Cart Number Parameters
   //
-  label=new QLabel(tr("Cart Number Parameters:"),this,"edit_cartdigits_label");
+  label=new QLabel(tr("Cart Number Parameters:"),this);
   label->setGeometry(10,73,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
   
-  edit_cartzeros_box=new QCheckBox(this,"edit_cartzeros_box");
+  edit_cartzeros_box=new QCheckBox(this);
   edit_cartzeros_box->setGeometry(170,75,15,15);
   connect(edit_cartzeros_box,SIGNAL(toggled(bool)),
 	  this,SLOT(leadingZerosToggled(bool)));
@@ -137,12 +135,10 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   label->setFont(check_font);
   label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
 
-  edit_cartdigits_spin=new QSpinBox(this,"edit_cartdigits_spin");
+  edit_cartdigits_spin=new QSpinBox(this);
   edit_cartdigits_spin->setGeometry(350,73,40,19);
   edit_cartdigits_spin->setRange(1,6);
-  edit_cartdigits_label=new QLabel(edit_cartdigits_spin,
-				   tr("Digits:"),this,
-				   "edit_cartdigits_label");
+  edit_cartdigits_label=new QLabel(edit_cartdigits_spin,tr("Digits:"),this);
   edit_cartdigits_label->setGeometry(300,73,45,19);
   edit_cartdigits_label->setFont(check_font);
   edit_cartdigits_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -150,14 +146,13 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Station Type
   //
-  edit_stationtype_box=new QComboBox(this,"edit_stationtype_box");
+  edit_stationtype_box=new QComboBox(this);
   edit_stationtype_box->setGeometry(170,94,70,19);
   for(int i=0;i<RDReport::TypeLast;i++) {
     edit_stationtype_box->
       insertItem(RDReport::stationTypeText((RDReport::StationType)i));
   }
-  label=new QLabel(edit_stationtype_box,tr("Station Type:"),
-		   this,"edit_stationtype_label");
+  label=new QLabel(edit_stationtype_box,tr("Station Type:"),this);
   label->setGeometry(10,94,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -165,11 +160,10 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Lines Per Page
   //
-  edit_linesperpage_spin=new QSpinBox(this,"edit_linesperpage_spin");
+  edit_linesperpage_spin=new QSpinBox(this);
   edit_linesperpage_spin->setGeometry(360,94,50,19);
   edit_linesperpage_spin->setRange(10,200);
-  label=new QLabel(edit_linesperpage_spin,tr("Lines per Page:"),
-		   this,"edit_stationid_label");
+  label=new QLabel(edit_linesperpage_spin,tr("Lines per Page:"),this);
   label->setGeometry(255,94,100,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -179,11 +173,10 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Service Name
   //
-  edit_servicename_edit=new QLineEdit(this,"edit_servicename_edit");
+  edit_servicename_edit=new QLineEdit(this);
   edit_servicename_edit->setGeometry(170,115,sizeHint().width()-180,19);
   edit_servicename_edit->setMaxLength(64);
-  label=new QLabel(edit_servicename_edit,tr("Ser&vice Name:"),
-		   this,"edit_servicename_label");
+  label=new QLabel(edit_servicename_edit,tr("Ser&vice Name:"),this);
   label->setGeometry(10,115,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -191,11 +184,10 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Station Format
   //
-  edit_stationformat_edit=new QLineEdit(this,"edit_stationformat_edit");
+  edit_stationformat_edit=new QLineEdit(this);
   edit_stationformat_edit->setGeometry(170,136,sizeHint().width()-180,19);
   edit_stationformat_edit->setMaxLength(64);
-  label=new QLabel(edit_stationformat_edit,tr("Station &Format:"),
-		   this,"edit_stationformat_label");
+  label=new QLabel(edit_stationformat_edit,tr("Station &Format:"),this);
   label->setGeometry(10,136,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -203,13 +195,11 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Linux Export Path
   //
-  edit_path_edit=new QLineEdit(this,"edit_path_edit");
+  edit_path_edit=new QLineEdit(this);
   edit_path_edit->setGeometry(170,157,sizeHint().width()-180,19);
   edit_path_edit->setMaxLength(255);
   edit_path_edit->setValidator(validator);
-  label=new QLabel(edit_path_edit,
-		   tr("Linux Export Path:"),this,
-		   "edit_path_label");
+  label=new QLabel(edit_path_edit,tr("Linux Export Path:"),this);
   label->setGeometry(10,157,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -217,12 +207,10 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Windows Export Path
   //
-  edit_winpath_edit=new QLineEdit(this,"edit_winpath_edit");
+  edit_winpath_edit=new QLineEdit(this);
   edit_winpath_edit->setGeometry(170,178,sizeHint().width()-180,19);
   edit_winpath_edit->setMaxLength(255);
-  label=new QLabel(edit_winpath_edit,
-		   tr("Windows Export Path:"),this,
-		   "edit_winpath_label");
+  label=new QLabel(edit_winpath_edit,tr("Windows Export Path:"),this);
   label->setGeometry(10,178,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -230,28 +218,28 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Type Selectors
   //
-  label=new QLabel(tr("Export Event Types:"),this,"export_types_label");
+  label=new QLabel(tr("Export Event Types:"),this);
   label->setGeometry(10,199,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
-  edit_traffic_box=new QCheckBox(this,"edit_traffic_box");
+  edit_traffic_box=new QCheckBox(this);
   edit_traffic_box->setGeometry(170,200,15,15);
-  edit_traffic_label=new QLabel(tr("Traffic"),this,"export_traffic_label");
+  edit_traffic_label=new QLabel(tr("Traffic"),this);
   edit_traffic_label->setGeometry(187,199,80,19);
   edit_traffic_label->setFont(check_font);
   edit_traffic_label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
   
-  edit_music_box=new QCheckBox(this,"edit_music_box");
+  edit_music_box=new QCheckBox(this);
   edit_music_box->setGeometry(270,201,15,15);
-  edit_music_label=new QLabel(tr("Music"),this,"export_music_label");
+  edit_music_label=new QLabel(tr("Music"),this);
   edit_music_label->setGeometry(287,199,80,19);
   edit_music_label->setFont(check_font);
   edit_music_label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
 
-  edit_generic_box=new QCheckBox(this,"edit_generic_box");
+  edit_generic_box=new QCheckBox(this);
   edit_generic_box->setGeometry(370,201,15,15);
-  label=new QLabel(tr("All"),this,"export_generic_label");
+  label=new QLabel(tr("All"),this);
   label->setGeometry(387,199,80,19);
   label->setFont(check_font);
   label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
@@ -261,22 +249,21 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Force Event Source Selectors
   //
-  label=new QLabel(tr("Export Events From:"),
-		   this,"export_forcetypes_label");
+  label=new QLabel(tr("Export Events From:"),this);
   label->setGeometry(10,220,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
-  edit_forcetraffic_box=new QCheckBox(this,"edit_forcetraffic_box");
+  edit_forcetraffic_box=new QCheckBox(this);
   edit_forcetraffic_box->setGeometry(170,222,15,15);
-  label=new QLabel(tr("Traffic Log"),this,"export_forcetraffic_label");
+  label=new QLabel(tr("Traffic Log"),this);
   label->setGeometry(187,220,80,19);
   label->setFont(check_font);
   label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
   
-  edit_forcemusic_box=new QCheckBox(this,"edit_forcemusic_box");
+  edit_forcemusic_box=new QCheckBox(this);
   edit_forcemusic_box->setGeometry(270,222,15,15);
-  label=new QLabel(tr("Music Log"),this,"export_forcemusic_label");
+  label=new QLabel(tr("Music Log"),this);
   label->setGeometry(287,220,80,19);
   label->setFont(check_font);
   label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
@@ -284,23 +271,56 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Include Only On Air Events
   //
-  edit_onairflag_box=new QComboBox(this,"edit_onairflag_box");
+  edit_onairflag_box=new QComboBox(this);
   edit_onairflag_box->setGeometry(170,241,60,19);
   edit_onairflag_box->insertItem(tr("No"));
   edit_onairflag_box->insertItem(tr("Yes"));
-  label=new QLabel(edit_onairflag_box,tr("Include Only OnAir Events:"),
-		   this,"edit_onairflag_label");
+  label=new QLabel(edit_onairflag_box,tr("Include Only OnAir Events:"),this);
   label->setGeometry(10,241,155,19);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
 
   //
+  // Daypart Filter
+  //
+  edit_daypart_check=new QCheckBox(this);
+  edit_daypart_check->setGeometry(60,271,15,15);
+  edit_daypart_label=
+    new QLabel(edit_daypart_check,tr("Filter by Daypart"),this);
+  edit_daypart_label->setGeometry(edit_daypart_check->geometry().x()+20,271,155,19);
+  edit_daypart_label->setFont(font);
+  edit_daypart_label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
+
+  edit_starttime_edit=new QTimeEdit(this);
+  edit_starttime_edit->setGeometry(150,292,80,20);
+  edit_starttime_label=new QLabel(edit_starttime_edit,tr("Start Time:"),this);
+  edit_starttime_label->setGeometry(65,292,80,20);
+  edit_starttime_label->setFont(font);
+  edit_starttime_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+
+  edit_endtime_edit=new QTimeEdit(this);
+  edit_endtime_edit->setGeometry(335,292,80,20);
+  edit_endtime_label=new QLabel(edit_endtime_edit,tr("End Time:"),this);
+  edit_endtime_label->setGeometry(250,292,80,20);
+  edit_endtime_label->setFont(font);
+  edit_endtime_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
+
+  connect(edit_daypart_check,SIGNAL(toggled(bool)),
+  	  edit_starttime_label,SLOT(setEnabled(bool)));
+  connect(edit_daypart_check,SIGNAL(toggled(bool)),
+  	  edit_starttime_edit,SLOT(setEnabled(bool)));
+  connect(edit_daypart_check,SIGNAL(toggled(bool)),
+  	  edit_endtime_label,SLOT(setEnabled(bool)));
+  connect(edit_daypart_check,SIGNAL(toggled(bool)),
+  	  edit_endtime_edit,SLOT(setEnabled(bool)));
+
+  //
   // Service Selector
   //
-  edit_service_sel=new RDListSelector(this,"edit_service_sel");
+  edit_service_sel=new RDListSelector(this);
   edit_service_sel->
     setGeometry((sizeHint().width()-edit_service_sel->sizeHint().width())/2,
-		268,edit_service_sel->sizeHint().width(),
+		331,edit_service_sel->sizeHint().width(),
 		edit_service_sel->sizeHint().height());
   edit_service_sel->sourceSetLabel(tr("Available Services"));
   edit_service_sel->destSetLabel(tr("Source Services"));
@@ -308,10 +328,10 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Station Selector
   //
-  edit_station_sel=new RDListSelector(this,"edit_station_sel");
+  edit_station_sel=new RDListSelector(this);
   edit_station_sel->
     setGeometry((sizeHint().width()-edit_station_sel->sizeHint().width())/2,
-		378,edit_station_sel->sizeHint().width(),
+		445,edit_station_sel->sizeHint().width(),
 		edit_station_sel->sizeHint().height());
   edit_station_sel->sourceSetLabel(tr("Available Hosts"));
   edit_station_sel->destSetLabel(tr("Source Hosts"));
@@ -319,20 +339,18 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   // Group Selector
   //
-  edit_group_sel=new RDListSelector(this,"edit_group_sel");
+  edit_group_sel=new RDListSelector(this);
   edit_group_sel->
     setGeometry((sizeHint().width()-edit_group_sel->sizeHint().width())/2,
-		513,edit_group_sel->sizeHint().width(),
+		576,edit_group_sel->sizeHint().width(),
 		edit_group_sel->sizeHint().height());
   edit_group_sel->sourceSetLabel(tr("Available Groups"));
   edit_group_sel->destSetLabel(tr("Allowed Groups"));
 
   edit_group_box=new QCheckBox(this);
-  edit_group_box->
-    setGeometry((sizeHint().width()-edit_group_sel->sizeHint().width())/2,489,
-		15,15);
+  edit_group_box->setGeometry(60,552,15,15);
   label=new QLabel(edit_group_box,tr("Filter by Groups"),this);
-  label->setGeometry(edit_group_box->geometry().x()+20,488,155,19);
+  label->setGeometry(edit_group_box->geometry().x()+20,551,155,19);
   label->setFont(font);
   label->setAlignment(AlignLeft|AlignVCenter|ShowPrefix);
   connect(edit_group_box,SIGNAL(toggled(bool)),
@@ -342,7 +360,7 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   //  Ok Button
   //
-  QPushButton *button=new QPushButton(this,"ok_button");
+  QPushButton *button=new QPushButton(this);
   button->setGeometry(sizeHint().width()-180,sizeHint().height()-60,80,50);
   button->setDefault(true);
   button->setFont(font);
@@ -352,7 +370,7 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   //
   //  Cancel Button
   //
-  button=new QPushButton(this,"cancel_button");
+  button=new QPushButton(this);
   button->setGeometry(sizeHint().width()-90,sizeHint().height()-60,
 			     80,50);
   button->setFont(font);
@@ -391,6 +409,13 @@ EditReport::EditReport(QString rptname,QWidget *parent,const char *name)
   else {
     edit_onairflag_box->setCurrentItem(0);
   }
+  edit_starttime_edit->setTime(edit_report->startTime(&ok));
+  edit_starttime_label->setDisabled(ok);
+  edit_starttime_edit->setDisabled(ok);
+  edit_endtime_edit->setTime(edit_report->endTime(&ok));
+  edit_endtime_label->setDisabled(ok);
+  edit_endtime_edit->setDisabled(ok);
+  edit_daypart_check->setChecked(!ok);
 
   sql=QString().sprintf("select SERVICE_NAME from REPORT_SERVICES \
                          where REPORT_NAME=\"%s\"",
@@ -457,7 +482,7 @@ EditReport::~EditReport()
 
 QSize EditReport::sizeHint() const
 {
-  return QSize(500,669);
+  return QSize(500,732);
 } 
 
 
@@ -513,6 +538,14 @@ void EditReport::okData()
     setExportTypeEnabled(RDReport::Generic,edit_generic_box->isChecked());
   edit_report->setFilterOnairFlag(edit_onairflag_box->currentItem()==1);
   edit_report->setFilterGroups(edit_group_box->isChecked());
+  if(edit_daypart_check->isChecked()) {
+    edit_report->setStartTime(edit_starttime_edit->time());
+    edit_report->setEndTime(edit_endtime_edit->time());
+  }
+  else {
+    edit_report->setStartTime();
+    edit_report->setEndTime();
+  }
 
   //
   // Add New Services

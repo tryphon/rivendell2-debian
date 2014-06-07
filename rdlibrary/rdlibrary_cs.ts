@@ -451,13 +451,13 @@ vytahování</translation>
     <message>
         <source>Set
 &amp;Cut</source>
-        <translation>Nastavit
+        <translation type="obsolete">Nastavit
 &amp;záběr</translation>
     </message>
     <message>
         <source>Set All
 &amp;New Carts</source>
-        <translation>Nastavit všechny
+        <translation type="obsolete">Nastavit všechny
 &amp;nové vozíky</translation>
     </message>
     <message>
@@ -514,11 +514,11 @@ Přesto smazat?</translation>
     </message>
     <message>
         <source>Library Error</source>
-        <translation>Chyba v knihovně</translation>
+        <translation type="obsolete">Chyba v knihovně</translation>
     </message>
     <message>
         <source>Insufficient free carts available in group!</source>
-        <translation>Nedostatek volných vozíků ve skupině!</translation>
+        <translation type="obsolete">Nedostatek volných vozíků ve skupině!</translation>
     </message>
     <message>
         <source>Audio Track</source>
@@ -615,6 +615,47 @@ zrušeno!</translation>
     </message>
     <message>
         <source>Track</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Cart
+Per Track</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Single
+Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set
+&amp;Cart/Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[continued]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify
+Cart Label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear
+Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to allocate carts in group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to allocate cart in group</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsound_panel.cpp,v 1.62.6.13.2.2 2014/03/21 15:41:45 cvs Exp $
+//      $Id: rdsound_panel.cpp,v 1.62.6.13.2.3 2014/05/20 22:39:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1468,7 +1468,8 @@ void RDSoundPanel::LogTraffic(RDPanelButton *button)
 
   sql=QString("select CART.TITLE,CART.ARTIST,CART.PUBLISHER,")+
     "CART.COMPOSER,CART.USAGE_CODE,CUTS.ISRC,"+
-    "CART.ALBUM,CART.LABEL,CUTS.ISCI from CART left join CUTS "+
+    "CART.ALBUM,CART.LABEL,CUTS.ISCI,CART.CONDUCTOR,CART.USER_DEFINED,"
+    "CART.SONG_ID from CART left join CUTS "+
     "on CART.NUMBER=CUTS.CART_NUMBER where "+
     "CUTS.CUT_NAME=\""+RDEscapeString(button->cutName())+"\"";
   q=new RDSqlQuery(sql);
@@ -1494,6 +1495,9 @@ void RDSoundPanel::LogTraffic(RDPanelButton *button)
       "ALBUM=\""+RDEscapeString(q->value(6).toString().utf8())+"\","+
       "LABEL=\""+RDEscapeString(q->value(7).toString().utf8())+"\","+
       "ISCI=\""+RDEscapeString(q->value(8).toString().utf8())+"\","+
+      "CONDUCTOR=\""+RDEscapeString(q->value(9).toString().utf8())+"\","+
+      "USER_DEFINED=\""+RDEscapeString(q->value(10).toString().utf8())+"\","+
+      "SONG_ID=\""+RDEscapeString(q->value(11).toString().utf8())+"\","+
       "ONAIR_FLAG=\""+RDYesNo(panel_onair_flag)+"\"";
     delete q;
     q=new RDSqlQuery(sql);

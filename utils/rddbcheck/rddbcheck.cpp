@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rddbcheck.cpp,v 1.18.4.1 2013/11/13 23:36:39 cvs Exp $
+//      $Id: rddbcheck.cpp,v 1.18.4.1.2.1 2014/06/02 18:52:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -194,6 +194,13 @@ MainObject::MainObject(QObject *parent,const char *name)
   //
   printf("Checking for orphaned tables...\n");
   CheckOrphanedTables();
+  printf("done.\n\n");
+
+  //
+  // Check for stale reservations
+  //
+  printf("Checking for stale cart reservations...\n");
+  CheckPendingCarts();
   printf("done.\n\n");
 
   //
@@ -479,6 +486,30 @@ void MainObject::CheckCutCounts()
       }
     }
     delete q1;
+  }
+  delete q;
+}
+
+
+void MainObject::CheckPendingCarts()
+{
+  QString sql;
+  QSqlQuery *q;
+  QDateTime now(QDate::currentDate(),QTime::currentTime());
+
+  sql=QString("select NUMBER from CART where ")+
+    "(PENDING_STATION is not null)&&"+
+    "(PENDING_DATETIME<\""+now.addDays(-1).
+    toString("yyyy-MM-dd hh:mm:ss")+"\")";
+  printf("SQL: %s\n",(const char *)sql);
+  q=new QSqlQuery(sql);
+  while(q->next()) {
+    printf("  Cart %06u has stale reservation, delete cart(y/N)?",
+	   q->value(0).toUInt());
+    if(UserResponse()) {
+      RDCart::removeCart(q->value(0).toUInt(),check_station,check_user,
+			 rdconfig);
+    }
   }
   delete q;
 }

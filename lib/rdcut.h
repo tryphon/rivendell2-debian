@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.h,v 1.44.6.2 2013/11/13 23:36:32 cvs Exp $
+//      $Id: rdcut.h,v 1.44.6.2.2.1 2014/05/22 14:30:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -38,7 +38,7 @@ class RDCut
  public:
   enum AudioEnd {AudioBoth=0,AudioHead=1,AudioTail=2};
   enum IsrcFormat {RawIsrc=0,FormattedIsrc=1};
-  enum Validity {NeverValid=0,ConditionallyValid=1,AlwaysValid=2};
+  enum Validity {NeverValid=0,ConditionallyValid=1,AlwaysValid=2,FutureValid=3};
   RDCut(const QString &name,bool create=false,QSqlDatabase *db=0);
   RDCut(unsigned cartnum,int cutnum,bool create=false,QSqlDatabase *db=0);
   ~RDCut();

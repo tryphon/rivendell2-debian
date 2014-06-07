@@ -33,6 +33,7 @@
 
 #include <rddb.h>
 #include <rdcart.h>
+#include <rdescape_string.h>
 #include <rdtextfile.h>
 
 #include <edit_schedcodes.h>
@@ -61,7 +62,7 @@ ListSchedCodes::ListSchedCodes(QWidget *parent,const char *name)
   //
   //  Add Button
   //
-  list_add_button=new QPushButton(this,"list_add_button");
+  list_add_button=new QPushButton(this);
   list_add_button->setFont(font);
   list_add_button->setText(tr("&Add"));
   connect(list_add_button,SIGNAL(clicked()),this,SLOT(addData()));
@@ -69,7 +70,7 @@ ListSchedCodes::ListSchedCodes(QWidget *parent,const char *name)
   //
   //  Edit Button
   //
-  list_edit_button=new QPushButton(this,"list_edit_button");
+  list_edit_button=new QPushButton(this);
   list_edit_button->setFont(font);
   list_edit_button->setText(tr("&Edit"));
   connect(list_edit_button,SIGNAL(clicked()),this,SLOT(editData()));
@@ -77,7 +78,7 @@ ListSchedCodes::ListSchedCodes(QWidget *parent,const char *name)
   //
   //  Delete Button
   //
-  list_delete_button=new QPushButton(this,"list_delete_button");
+  list_delete_button=new QPushButton(this);
   list_delete_button->setFont(font);
   list_delete_button->setText(tr("&Delete"));
   connect(list_delete_button,SIGNAL(clicked()),this,SLOT(deleteData()));
@@ -85,7 +86,7 @@ ListSchedCodes::ListSchedCodes(QWidget *parent,const char *name)
   //
   //  Close Button
   //
-  list_close_button=new QPushButton(this,"list_close_button");
+  list_close_button=new QPushButton(this);
   list_close_button->setDefault(true);
   list_close_button->setFont(font);
   list_close_button->setText(tr("&Close"));
@@ -94,11 +95,12 @@ ListSchedCodes::ListSchedCodes(QWidget *parent,const char *name)
   //
   // Group List
   //
-  list_schedCodes_view=new QListView(this,"list_schedCodes_view");
+  list_schedCodes_view=new QListView(this);
   list_schedCodes_view->setAllColumnsShowFocus(true);
   list_schedCodes_view->addColumn(tr("CODE"));
   list_schedCodes_view->addColumn(tr("DESCRIPTION"));
-  QLabel *list_box_label=new QLabel(list_schedCodes_view,tr("Scheduler Codes:"),this,"list_box_label");
+  QLabel *list_box_label=
+    new QLabel(list_schedCodes_view,tr("Scheduler Codes:"),this);
   list_box_label->setFont(font);
   list_box_label->setGeometry(14,11,200,19);
   connect(list_schedCodes_view,
@@ -131,7 +133,7 @@ void ListSchedCodes::addData()
 {
   QString schedCode;
 
-  AddSchedCode *add_schedCode=new AddSchedCode(&schedCode,this,"add_schedCode");
+  AddSchedCode *add_schedCode=new AddSchedCode(&schedCode,this);
   if(add_schedCode->exec()<0) {
     delete add_schedCode;
     return;
@@ -153,7 +155,8 @@ void ListSchedCodes::editData()
   if(item==NULL) {
     return;
   }
-  EditSchedCode *edit_schedCode=new EditSchedCode(item->text(0),item->text(1),this,"edit_schedCode");
+  EditSchedCode *edit_schedCode=
+    new EditSchedCode(item->text(0),item->text(1),this);
   edit_schedCode->exec();
   delete edit_schedCode;
   edit_schedCode=NULL;
@@ -177,21 +180,22 @@ void ListSchedCodes::deleteData()
   if(codename.isEmpty()) {
     return;
   }
-  str=QString(tr("Are you sure you want to delete scheduler code "));
-  warning+=QString().sprintf("%s %s?",(const char *)str,
-			     (const char *)codename);
-  switch(QMessageBox::warning(this,tr("Delete Scheduler Code"),warning,
-			      QMessageBox::Yes,QMessageBox::No)) {
-      case QMessageBox::No:
-      case QMessageBox::NoButton:
-	return;
+  if(QMessageBox::question(this,"RDAdmin - "+tr("Delete Scheduler Code"),
+			   tr("This operation will delete the selected scheduler code and")+
+			   "\n"+tr("all of its associated data.")+" "+
+			   tr("This operation cannot be undone.")+"\n\n"+
+			   tr("Delete scheduler code")+" \""+codename+"\"?",
+			   QMessageBox::Yes,QMessageBox::No)!=QMessageBox::Yes) {
+    return;
+  }
 
-      default:
-	break;
-      }
+  sql=QString("delete from DROPBOX_SCHED_CODES where ")+
+    "SCHED_CODE=\""+RDEscapeString(codename)+"\"";
+  q=new RDSqlQuery(sql);
+  delete q;
 
-  sql=QString().sprintf("delete from SCHED_CODES where CODE=\"%s\"",
-			(const char *)codename);
+  sql=QString("delete from SCHED_CODES where ")+
+    "CODE=\""+RDEscapeString(codename)+"\"";
   q=new RDSqlQuery(sql);
   delete q;
   item->setSelected(false);

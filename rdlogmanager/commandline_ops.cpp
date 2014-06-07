@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: commandline_ops.cpp,v 1.1.2.6 2013/11/13 23:36:37 cvs Exp $
+//      $Id: commandline_ops.cpp,v 1.1.2.6.2.1 2014/05/20 14:01:50 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -37,7 +37,8 @@
 #include <globals.h>
 
 int RunLogOperation(int argc,char *argv[],const QString &svcname,
-		    int start_offset,bool gen_log,bool merge_mus,bool merge_tfc)
+		    int start_offset,bool protect_existing,bool gen_log,
+		    bool merge_mus,bool merge_tfc)
 {
   QString sql;
   RDSqlQuery *q;
@@ -91,6 +92,11 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
   // Generate Log
   //
   if(gen_log) {
+    if(protect_existing&&log->exists()) {
+      fprintf(stderr,"log \"%s\" already exists\n",
+	      (const char *)log->name().utf8());
+      exit(256);
+    }
     log->removeTracks(rdstation_conf,rduser,config);
     srand(QTime::currentTime().msec());
     sql=RDCreateStackTableSql(svcname_table);
@@ -131,6 +137,12 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
       fprintf(stderr,"rdlogmanager: log does not exist\n");
       return 256;
     }
+    if(protect_existing&&
+       (log->linkState(RDLog::SourceMusic)==RDLog::LinkDone)) {
+      fprintf(stderr,"rdlogmanager: music for log \"%s\" is already imported\n",
+	      (const char *)log->name().utf8());
+      return 256;
+    }
     report="";
     log->removeTracks(rdstation_conf,rduser,config);
     svc->clearLogLinks(RDSvc::Traffic,start_date,logname);
@@ -152,6 +164,13 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
   if(merge_tfc) {
     if(!log->exists()) {
       fprintf(stderr,"rdlogmanager: log does not exist\n");
+      return 256;
+    }
+    if(protect_existing&&
+       (log->linkState(RDLog::SourceTraffic)==RDLog::LinkDone)) {
+      fprintf(stderr,
+	      "rdlogmanager: traffic for log \"%s\" is already imported\n",
+	      (const char *)log->name().utf8());
       return 256;
     }
     report="";
@@ -176,7 +195,7 @@ int RunLogOperation(int argc,char *argv[],const QString &svcname,
 
 
 int RunReportOperation(int argc,char *argv[],const QString &rptname,
-		       int start_offset,int end_offset)
+		       bool protect_existing,int start_offset,int end_offset)
 {
   unsigned schema=0;
   QString out_path;
@@ -225,6 +244,12 @@ int RunReportOperation(int argc,char *argv[],const QString &rptname,
   // Generate Report
   //
   QDate yesterday=QDate::currentDate().addDays(-1);
+  if(protect_existing&&report->outputExists(yesterday.addDays(start_offset))) {
+    fprintf(stderr,"report \"%s\" for %s already exists\n",
+	    (const char *)rptname.utf8(),
+	    (const char *)yesterday.addDays(start_offset).toString());
+    exit(256);
+  }
   if(!report->generateReport(yesterday.addDays(start_offset),
 			     yesterday.addDays(end_offset),rdstation_conf,
 			     &out_path)) {

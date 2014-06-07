@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdgroup.cpp,v 1.23.8.1 2013/01/07 13:50:22 cvs Exp $
+//      $Id: rdgroup.cpp,v 1.23.8.1.2.3 2014/06/02 18:52:21 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -19,6 +19,11 @@
 //   License along with this program; if not, write to the Free Software
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
+
+#include <sys/types.h>
+#include <unistd.h>
+
+#include <qobject.h>
 
 #include <rdconf.h>
 #include <rdgroup.h>
@@ -203,51 +208,7 @@ void RDGroup::setColor(const QColor &color)
 
 unsigned RDGroup::RDGroup::nextFreeCart(unsigned startcart) const
 {
-  QString sql;
-  RDSqlQuery *q;
-  unsigned cart_low_limit;
-  unsigned cart_high_limit;
-
-  sql=QString().sprintf("select DEFAULT_LOW_CART,DEFAULT_HIGH_CART\
-                         from GROUPS where NAME=\"%s\"",
-			(const char *)group_name);
-  q=new RDSqlQuery(sql);
-  if(q->first()) {
-    if(startcart>q->value(0).toUInt()) {
-      cart_low_limit=startcart;
-    }
-    else {
-      cart_low_limit=q->value(0).toUInt();
-    }
-    cart_high_limit=q->value(1).toUInt();
-    delete q;
-    if(cart_low_limit<1) {
-      return 0;
-    }
-    sql=QString().sprintf("select NUMBER from CART where \
-                         (NUMBER>=%u)&&(NUMBER<=%u) order by NUMBER",
-			  cart_low_limit,cart_high_limit);
-    q=new RDSqlQuery(sql);
-    if(q->size()<1) {
-      delete q;
-      return cart_low_limit;
-    }
-    for(unsigned i=cart_low_limit;i<=cart_high_limit;i++) {
-      if(!q->next()) {
-	delete q;
-	return i;
-      }
-      if(i!=q->value(0).toUInt()) {
-	delete q;
-	return i;
-      }
-    }
-    delete q;
-  }
-  else {
-    delete q;
-  }
-  return 0;
+  return GetNextFreeCart(startcart);
 }
 
 
@@ -279,6 +240,42 @@ int RDGroup::freeCartQuantity() const
   delete q;
 
   return free;
+}
+
+
+bool RDGroup::reserveCarts(std::vector<unsigned> *cart_nums,
+			   const QString &station_name,RDCart::Type type,
+			   unsigned quan) const
+{
+  unsigned next;
+  QString sql;
+  RDSqlQuery *q;
+
+  cart_nums->clear();
+  if((next=GetNextFreeCart(0))==0) {
+    return false;
+  }
+  while(next!=0) {
+    if(ReserveCart(station_name,type,next)) {
+      cart_nums->push_back(next);
+      next++;
+    }
+    else {
+      for(unsigned i=0;i<cart_nums->size();i++) {
+	sql=QString().sprintf("delete from CART where NUMBER=%u",
+			      cart_nums->at(i));
+	q=new RDSqlQuery(sql);
+	delete q;
+      }
+      cart_nums->clear();
+      next=GetNextFreeCart(next+1);
+    }
+    if(cart_nums->size()==quan) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 
@@ -348,6 +345,83 @@ QString RDGroup::xml() const
     ret+="</group>\n";
   }
   delete q;
+  return ret;
+}
+
+
+unsigned RDGroup::GetNextFreeCart(unsigned startcart) const
+{
+  QString sql;
+  RDSqlQuery *q;
+  unsigned cart_low_limit;
+  unsigned cart_high_limit;
+
+  sql=QString().sprintf("select DEFAULT_LOW_CART,DEFAULT_HIGH_CART\
+                         from GROUPS where NAME=\"%s\"",
+			(const char *)group_name);
+  q=new RDSqlQuery(sql);
+  if(q->first()) {
+    if(startcart>q->value(0).toUInt()) {
+      cart_low_limit=startcart;
+    }
+    else {
+      cart_low_limit=q->value(0).toUInt();
+    }
+    cart_high_limit=q->value(1).toUInt();
+    delete q;
+    if((cart_low_limit<1)||(startcart>cart_high_limit)) {
+      return 0;
+    }
+    sql=QString().sprintf("select NUMBER from CART where \
+                         (NUMBER>=%u)&&(NUMBER<=%u) order by NUMBER",
+			  cart_low_limit,cart_high_limit);
+    q=new RDSqlQuery(sql);
+    if(q->size()<1) {
+      delete q;
+      return cart_low_limit;
+    }
+    for(unsigned i=cart_low_limit;i<=cart_high_limit;i++) {
+      if(!q->next()) {
+	delete q;
+	return i;
+      }
+      if(i!=q->value(0).toUInt()) {
+	delete q;
+	return i;
+      }
+    }
+    delete q;
+  }
+  else {
+    delete q;
+  }
+  return 0;
+}
+
+
+bool RDGroup::ReserveCart(const QString &station_name,RDCart::Type type,
+			  unsigned cart_num) const
+{
+  //
+  // We use QSqlQuery here, not RDSqlQuery because the insert could
+  // fail and we don't want to reset the DB connection when that happens.
+  //
+  QString sql;
+  QSqlQuery *q;
+  bool ret=false;
+
+  if((cart_num>=defaultLowCart())&&(cart_num<=defaultHighCart())) {
+    sql=QString().sprintf("insert into CART set NUMBER=%u,",cart_num)+
+      "GROUP_NAME=\""+RDEscapeString(group_name)+"\","+
+      QString().sprintf("TYPE=%d,",type)+
+      "TITLE=\"["+RDEscapeString(QObject::tr("reserved"))+"]\","+
+      "PENDING_STATION=\""+RDEscapeString(station_name)+"\","+
+      QString().sprintf("PENDING_PID=%d,",getpid())+
+      "PENDING_DATETIME=now()";
+    q=new QSqlQuery(sql);
+    ret=q->isActive();
+    delete q;
+  }
   return ret;
 }
 

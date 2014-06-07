@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: clock_listview.cpp,v 1.7 2010/07/29 19:32:37 cvs Exp $
+//      $Id: clock_listview.cpp,v 1.7.10.1 2014/06/02 22:26:19 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -65,12 +65,13 @@ void ClockListView::contentsMousePressEvent(QMouseEvent *e)
   switch(e->button()) {
       case QMouseEvent::RightButton:
 	clock_menu->setGeometry(clock_parent->geometry().x()+
-				 geometry().x()+e->pos().x()+2,
-				 clock_parent->geometry().y()+
-				 geometry().y()+e->pos().y()+
-				 header()->geometry().height()+2,
-				 clock_menu->sizeHint().width(),
-				 clock_menu->sizeHint().height());
+				geometry().x()+e->pos().x()+2,
+				clock_parent->geometry().y()+
+				geometry().y()+e->pos().y()+
+				header()->geometry().height()+2-
+				contentsY(),
+				clock_menu->sizeHint().width(),
+				clock_menu->sizeHint().height());
 	clock_menu->exec();
 	break;
 

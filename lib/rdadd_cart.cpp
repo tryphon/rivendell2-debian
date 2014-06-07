@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdadd_cart.cpp,v 1.8 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdadd_cart.cpp,v 1.8.10.1 2014/05/19 19:31:15 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -69,11 +69,6 @@ RDAddCart::RDAddCart(QString *group,RDCart::Type *type,QString *title,
   //
   QFont label_font("Helvetica",12,QFont::Bold);
   label_font.setPixelSize(12);
-
-  //
-  // Text Validator
-  //
-  RDTextValidator *text_validator=new RDTextValidator(this,"validator");
 
   //
   // Group
@@ -151,7 +146,7 @@ RDAddCart::RDAddCart(QString *group,RDCart::Type *type,QString *title,
   cart_title_edit=new QLineEdit(this,"cart_title_edit");
   cart_title_edit->setGeometry(145,73,sizeHint().width()-155,19);
   cart_title_edit->setMaxLength(255);
-  cart_title_edit->setValidator(text_validator);
+  //  cart_title_edit->setValidator(text_validator);
   cart_title_edit->setText(tr("[new cart]"));
   QLabel *cart_title_label=
     new QLabel(cart_title_edit,tr("&New Cart Title:"),this,

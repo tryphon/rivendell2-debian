@@ -1097,5 +1097,13 @@ sólo podrás editar transiciones ya existentes.</translation>
         <source>This cart cannot contain any additional cuts!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>ALBUM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>LABEL</source>
+        <translation type="unfinished">ETIQUETA</translation>
+    </message>
 </context>
 </TS>

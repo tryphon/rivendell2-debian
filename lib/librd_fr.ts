@@ -393,6 +393,14 @@
         <source>Previous</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Classical Music Playout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reserved</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RDAddCart</name>
@@ -501,10 +509,6 @@
     </message>
     <message>
         <source>RDLogEdit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The name is invalid!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -768,6 +772,10 @@ Color</source>
     </message>
     <message>
         <source>End</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Recue</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

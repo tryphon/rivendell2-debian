@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdreport.h,v 1.17.8.7 2013/12/10 21:25:51 cvs Exp $
+//      $Id: rdreport.h,v 1.17.8.7.2.4 2014/05/22 01:21:35 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -37,7 +37,7 @@ class RDReport
 		     SoundExchange=4,RadioTraffic=5,VisualTraffic=6,
 		     CounterPoint=7,Music1=8,MusicSummary=9,WideOrbit=10,
 		     NprSoundExchange=11,MusicPlayout=12,NaturalLog=13,
-		     LastFilter=14};
+		     MusicClassical=14,LastFilter=15};
   enum ExportOs {Linux=0,Windows=1};
   enum ExportType {Generic=0,Traffic=1,Music=2};
   enum StationType {TypeOther=0,TypeAm=1,TypeFm=2,TypeLast=3};
@@ -75,7 +75,14 @@ class RDReport
   void setFilterOnairFlag(bool state) const;
   bool filterGroups() const;
   void setFilterGroups(bool state) const;
+  QTime startTime(bool *is_null=NULL) const;
+  void setStartTime(const QTime &time) const;
+  void setStartTime() const;
+  QTime endTime(bool *is_null=NULL) const;
+  void setEndTime(const QTime &time) const;
+  void setEndTime() const;
   RDReport::ErrorCode errorCode() const;
+  bool outputExists(const QDate &startdate);
   bool generateReport(const QDate &startdate,const QDate &enddate,
 		      RDStation *station,QString *out_path);
   static QString filterText(RDReport::ExportFilter filter);
@@ -99,15 +106,19 @@ class RDReport
 			const QString &mixtable);
   bool ExportRadioTraffic(const QDate &startdate,const QDate &enddate,
 			  const QString &mixtable);
+  bool ExportMusicClassical(const QDate &startdate,const QDate &enddate,
+			    const QString &mixtable);
   bool ExportMusicPlayout(const QDate &startdate,const QDate &enddate,
 			  const QString &mixtable);
   bool ExportMusicSummary(const QDate &startdate,const QDate &enddate,
 			  const QString &mixtable);
-  QString StringField(const QString &str) const;
-  void SetRow(const QString &param,QString value) const;
+  QString StringField(const QString &str,const QString &null_text="") const;
+  void SetRow(const QString &param,const QString &value) const;
   void SetRow(const QString &param,int value) const;
   void SetRow(const QString &param,unsigned value) const;
   void SetRow(const QString &param,bool value) const;
+  void SetRow(const QString &param,const QTime &value) const;
+  void SetRowNull(const QString &param) const;
   QString OsFieldName(ExportOs os) const;
   QString TypeFieldName(ExportType type,bool forced) const;
   QString report_name;

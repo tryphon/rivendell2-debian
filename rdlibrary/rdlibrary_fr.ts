@@ -393,16 +393,6 @@ Rip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Set
-&amp;Cut</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set All
-&amp;New Carts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Normalize</source>
         <translation type="unfinished"></translation>
     </message>
@@ -450,14 +440,6 @@ Do you want to overwrite it?</source>
     <message>
         <source>Ripping this cut will also empty the clipboard.
 Do you still want to proceed?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Library Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insufficient free carts available in group!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -521,6 +503,47 @@ Disk</source>
     </message>
     <message>
         <source>Track</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Cart
+Per Track</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Single
+Cart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set
+&amp;Cart/Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>[continued]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify
+Cart Label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear
+Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to allocate carts in group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to allocate cart in group</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

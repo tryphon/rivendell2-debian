@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2009 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_play.cpp,v 1.197.8.7 2014/02/10 20:45:13 cvs Exp $
+//      $Id: log_play.cpp,v 1.197.8.7.2.2 2014/05/22 19:37:45 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -554,6 +554,31 @@ void LogPlay::load()
     play_refreshable=false;
     emit refreshabilityChanged(play_refreshable);
   }
+}
+
+
+void LogPlay::append(const QString &log_name)
+{
+  int old_size=size();
+
+  if(size()==0) {
+    setLogName(RDLog::tableName(log_name));
+    load();
+    return;
+  }
+
+  RDLogEvent::append(log_name);
+  if(play_timescaling_available) {
+    for(int i=old_size;i<size();i++) {
+      logLine(i)->setTimescalingActive(logLine(i)->enforceLength());
+    }
+  }
+  RefreshEvents(old_size,size()-old_size);
+  UpdateStartTimes(old_size);
+  emit reloaded();
+  SetTransTimer();
+  emit transportChanged();
+  UpdatePostPoint();
 }
 
 
@@ -2723,11 +2748,8 @@ void LogPlay::ClearChannel(int deckid)
 RDLogLine::TransType LogPlay::GetTransType(const QString &logname,int line)
 {
   RDLogLine::TransType trans=RDLogLine::Stop;
-
-  QString name=logname;
-  name.replace(" ","_");
-  QString sql=QString().sprintf("select TRANS_TYPE from %s_LOG where COUNT=%d",
-				(const char *)name,line);
+  QString sql=QString("select TRANS_TYPE from ")+
+    RDLog::tableName(logname)+" where "+QString().sprintf("COUNT=%d",line);
   RDSqlQuery *q=new RDSqlQuery(sql);
   if(q->first()) {
     trans=(RDLogLine::TransType)q->value(0).toUInt();
