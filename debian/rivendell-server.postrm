@@ -22,8 +22,13 @@ set -e
 case "$1" in
     purge)
         # Remove default apache configuration
-	      if [ "`readlink /etc/apache2/conf.d/rivendell`" = "/etc/rivendell/apache.conf" ]; then
+	      if [ "`readlink /etc/apache2/conf.d/rivendell`" = "/etc/rivendell/apache.conf" -o "`readlink /etc/apache2/conf.d/rivendell`" = "/etc/rivendell/apache-2.2.conf" ]; then
             unlink /etc/apache2/conf.d/rivendell
+            invoke-rc.d apache2 reload 3>/dev/null || true
+	      fi
+
+	      if [ "`readlink /etc/apache2/conf-available/rivendell.conf`" = "/etc/rivendell/apache-2.4.conf" -o "`readlink /etc/apache2/conf-available/rivendell.conf`" = "/etc/rivendell/apache.conf" ]; then
+            unlink /etc/apache2/conf-available/rivendell.conf
             invoke-rc.d apache2 reload 3>/dev/null || true
 	      fi
 
@@ -34,7 +39,7 @@ case "$1" in
                 rm -f /etc/rd.conf
             fi
         fi
-        
+
         # Remove user and group
         AUDIOUSER="rduser"
         deluser $AUDIOUSER $AUDIOGROUP > /dev/null 2>&1 || true

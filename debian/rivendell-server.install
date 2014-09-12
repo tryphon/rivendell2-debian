@@ -6,4 +6,5 @@ usr/lib/rivendell/*.mp3 usr/lib/cgi-bin/rivendell
 usr/lib/rivendell/*.png usr/lib/cgi-bin/rivendell
 usr/lib/rivendell/*.xml usr/lib/cgi-bin/rivendell
 
-debian/apache.conf etc/rivendell
+debian/apache-2.2.conf etc/rivendell
+debian/apache-2.4.conf etc/rivendell

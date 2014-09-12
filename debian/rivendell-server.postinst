@@ -20,10 +20,14 @@ set -e
 
 case "$1" in
     configure)
-        # TODO Manage other webservers than apache (like roundcube does)
 	      if [ -d /etc/apache2/conf.d ] && [ ! -e /etc/apache2/conf.d/rivendell ]; then
-            ln -s /etc/rivendell/apache.conf /etc/apache2/conf.d/rivendell
+            ln -s /etc/rivendell/apache-2.2.conf /etc/apache2/conf.d/rivendell
             invoke-rc.d apache2 reload 3>/dev/null || true
+	      fi
+
+	      if [ -d /etc/apache2/conf-available ] && [ ! -e /etc/apache2/conf-available/rivendell.conf ]; then
+            ln -s /etc/rivendell/apache-2.4.conf /etc/apache2/conf-available/rivendell.conf
+            a2enconf rivendell && a2enmod cgi && service apache2 restart || true
 	      fi
 
         # FIXME This CGI must be run as root :"(
