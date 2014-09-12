@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.cpp,v 1.4.8.3.2.1 2014/05/28 21:21:40 cvs Exp $
+//    $Id: rdwavedata.cpp,v 1.4.8.3.2.2 2014/07/15 20:02:23 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -606,6 +606,30 @@ void RDWaveData::setEndTime(const QTime &time)
 }
 
 
+QTime RDWaveData::daypartStartTime() const
+{
+  return data_daypart_start_time;
+}
+
+
+void RDWaveData::setDaypartStartTime(const QTime &time)
+{
+  data_daypart_start_time=time;
+}
+
+
+QTime RDWaveData::daypartEndTime() const
+{
+  return data_daypart_end_time;
+}
+
+
+void RDWaveData::setDaypartEndTime(const QTime &time)
+{
+  data_daypart_end_time=time;
+}
+
+
 void RDWaveData::clear()
 {
   data_metadata_found=false;
@@ -655,4 +679,6 @@ void RDWaveData::clear()
   data_start_time=QTime();
   data_end_date=QDate();
   data_end_time=QTime();
+  data_daypart_start_time=QTime();
+  data_daypart_end_time=QTime();
 }

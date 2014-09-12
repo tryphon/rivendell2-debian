@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_event.cpp,v 1.53.2.4 2013/12/30 22:05:06 cvs Exp $
+//      $Id: edit_event.cpp,v 1.53.2.4.2.1 2014/06/24 18:27:06 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1664,13 +1664,10 @@ void EditEvent::AbandonEvent(QString name)
 			(const char *)RDEscapeString(name));
   q=new RDSqlQuery(sql);
   delete q;
-  name.replace(" ","_");
-  sql=QString().sprintf("drop table %s_PRE",
-			(const char *)RDEscapeStringSQLColumn(name));
+  sql=QString("drop table `")+RDEvent::preimportTableName(name)+"`";
   q=new RDSqlQuery(sql);
   delete q;
-  sql=QString().sprintf("drop table %s_POST",
-			(const char *)RDEscapeStringSQLColumn(name));
+  sql=QString("drop table `")+RDEvent::postimportTableName(name)+"`";
   q=new RDSqlQuery(sql);
   delete q;
 }

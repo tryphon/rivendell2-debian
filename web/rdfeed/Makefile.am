@@ -21,13 +21,12 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
-INCLUDES = -I$(top_srcdir)/lib
+AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@ -I$(top_srcdir)/lib
 LIBS = @QT_LIBS@ -L$(top_srcdir)/lib
 MOC = @QT_MOC@
 
 install-exec-local:	
-	if test ! -f $(DESTDIR)@libexecdir@/rdfeed.mp3 ; then ln -s $(DESTDIR)@libexecdir@/rdfeed.xml $(DESTDIR)@libexecdir@/rdfeed.mp3 ; fi
+	if test ! -f $(DESTDIR)@libexecdir@/rdfeed.mp3 ; then ln -s @libexecdir@/rdfeed.xml $(DESTDIR)@libexecdir@/rdfeed.mp3 ; fi
 
 uninstall:	
 	rm -f $(DESTDIR)@libexecdir@/rdfeed.mp3

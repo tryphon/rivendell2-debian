@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdescape_string.cpp,v 1.17.10.1 2014/03/19 23:50:20 cvs Exp $
+//      $Id: rdescape_string.cpp,v 1.17.10.2 2014/06/24 18:27:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -44,10 +44,6 @@ QString RDEscapeString(QString const &str)
 
 	case '"':
 	  res+=QString("\\\"");
-	  break;
-
-	case '´':
-	  res+=QString("\\´");
 	  break;
 
 	case '`':
@@ -178,37 +174,3 @@ QString RDEscapeString(QString const &str)
 
   return res;
 }
-
-
-
-QString RDEscapeStringSQLColumn(QString const &str)
-{
-  QString res;
-
-  for(unsigned i=0;i<str.length();i++) {
-    switch(((const char *)str)[i]) {
-        case 0:
-          res+=QString("\\0");
-          break;
-
-        case '/':
-          res+=QString("_");
-          break;
-
-        case '\\':
-          res+=QString("_");
-          break;
-
-        case '.':
-          res+=QString("_");
-          break;
-
-	default:
-	  res+=((const char *)str)[i];
-	  break;
-    }
-  }
-  return res;
-}
-
-

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006,2013 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: export_nprsoundex.cpp,v 1.1.2.2 2013/02/08 21:41:44 cvs Exp $
+//      $Id: export_nprsoundex.cpp,v 1.1.2.2.2.1 2014/06/24 18:27:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -70,8 +70,8 @@ bool RDReport::ExportNprSoundEx(const QDate &startdate,const QDate &enddate,
   //
   // Roll Up Records
   //
-  sql=QString("select EVENT_DATETIME,LENGTH,TITLE,ARTIST,ALBUM,LABEL from ")+
-    RDEscapeStringSQLColumn(mixtable)+"_SRT order by EVENT_DATETIME";
+  sql=QString("select EVENT_DATETIME,LENGTH,TITLE,ARTIST,ALBUM,LABEL from `")+
+    mixtable+"_SRT` order by EVENT_DATETIME";
   q=new RDSqlQuery(sql);
   while(q->next()) {
     fprintf(f,"%s\t",(const char *)q->value(0).toDateTime().

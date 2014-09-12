@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2010 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: createdb.cpp,v 1.195.2.32.2.4 2014/06/03 18:23:35 cvs Exp $
+//      $Id: createdb.cpp,v 1.195.2.32.2.5 2014/06/05 19:04:25 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -48,6 +48,7 @@
 #include "rdconfig.h"
 #include <createdb.h>
 #include <globals.h>
+#include <rdconf.h>
 
 //
 // NOTE TO MAINTAINERS:
@@ -2729,11 +2730,10 @@ int UpdateDb(int ver)
   //
   if(!admin_skip_backup) {
     if(admin_backup_filename.isEmpty()) {
-      if(getenv("HOME")==NULL) {
-	admin_backup_filename="/tmp";
-      }
-      else {
-	admin_backup_filename=getenv("HOME");
+      bool home_found = false;
+      admin_backup_filename = RDGetHomeDir(&home_found);
+      if (!home_found) {
+        admin_backup_filename = RDTempDir();
       }
       admin_backup_filename+=
 	QString().sprintf("/rdbackup-%s-%d.sql.gz",
@@ -7867,9 +7867,8 @@ int UpdateDb(int ver)
     sql="select NAME from LOGS";
     q=new QSqlQuery(sql);
     while(q->next()) {
-      sql="alter table "+
-	RDEscapeStringSQLColumn(RDLog::tableName(q->value(0).toString()))+
-	" add column EVENT_LENGTH int default -1 after ORIGIN_DATETIME";
+      sql="alter table `"+RDLog::tableName(q->value(0).toString())+
+	"` add column EVENT_LENGTH int default -1 after ORIGIN_DATETIME";
       q1=new QSqlQuery(sql);
       delete q1;
     }
@@ -7878,17 +7877,13 @@ int UpdateDb(int ver)
     sql="select NAME from EVENTS";
     q=new QSqlQuery(sql);
     while(q->next()) {
-      sql="alter table "+
-	RDEscapeStringSQLColumn(RDEvent::preimportTableName(q->value(0).
-							    toString()))+
-	" add column EVENT_LENGTH int default -1 after ORIGIN_DATETIME";
+      sql="alter table `"+RDEvent::preimportTableName(q->value(0).toString())+
+	"` add column EVENT_LENGTH int default -1 after ORIGIN_DATETIME";
       q1=new QSqlQuery(sql);
       delete q1;
 
-      sql="alter table "+
-	RDEscapeStringSQLColumn(RDEvent::postimportTableName(q->value(0).
-							     toString()))+
-	" add column EVENT_LENGTH int default -1 after ORIGIN_DATETIME";
+      sql="alter table `"+RDEvent::postimportTableName(q->value(0).toString())+
+	"` add column EVENT_LENGTH int default -1 after ORIGIN_DATETIME";
       q1=new QSqlQuery(sql);
       delete q1;
     }
@@ -7966,21 +7961,18 @@ int UpdateDb(int ver)
     sql=QString("select NAME from SERVICES");
     q=new QSqlQuery(sql);
     while(q->next()) {
-      sql=QString("alter table ")+
-	RDEscapeStringSQLColumn(RDSvc::svcTableName(q->value(0).toString()))+
-	" add column CONDUCTOR char(64) after LABEL";
+      sql=QString("alter table `")+RDSvc::svcTableName(q->value(0).toString())+
+	"` add column CONDUCTOR char(64) after LABEL";
       q1=new QSqlQuery(sql);
       delete q1;
 
-      sql=QString("alter table ")+
-	RDEscapeStringSQLColumn(RDSvc::svcTableName(q->value(0).toString()))+
-	" add column USER_DEFINED char(255) after COMPOSER";
+      sql=QString("alter table `")+RDSvc::svcTableName(q->value(0).toString())+
+	"` add column USER_DEFINED char(255) after COMPOSER";
       q1=new QSqlQuery(sql);
       delete q1;
 
-      sql=QString("alter table ")+
-	RDEscapeStringSQLColumn(RDSvc::svcTableName(q->value(0).toString()))+
-	" add column SONG_ID char(32) after USER_DEFINED";
+      sql=QString("alter table `")+RDSvc::svcTableName(q->value(0).toString())+
+	"` add column SONG_ID char(32) after USER_DEFINED";
       q1=new QSqlQuery(sql);
       delete q1;
     }

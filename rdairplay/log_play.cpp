@@ -32,9 +32,8 @@
 #include <globals.h>
 
 LogPlay::LogPlay(RDCae *cae,int id,QSocketDevice *nn_sock,QString logname,
-		 std::vector<RLMHost *> *rlm_hosts,
-		 QObject *parent,const char *name)
-  : QObject(parent,name),RDLogEvent(logname)
+		 std::vector<RLMHost *> *rlm_hosts,QObject *parent)
+  : QObject(parent),RDLogEvent(logname)
 {
   //
   // Initialize Data Structures
@@ -89,8 +88,7 @@ LogPlay::LogPlay(RDCae *cae,int id,QSocketDevice *nn_sock,QString logname,
   //
   // Macro Cart Decks
   //
-  play_macro_deck=new RDMacroEvent(rdstation_conf->address(),rdripc,
-				   this,"play_macro_deck");
+  play_macro_deck=new RDMacroEvent(rdstation_conf->address(),rdripc,this);
   connect(play_macro_deck,SIGNAL(started()),this,SLOT(macroStartedData()));
   connect(play_macro_deck,SIGNAL(finished()),this,SLOT(macroFinishedData()));
   connect(play_macro_deck,SIGNAL(stopped()),this,SLOT(macroStoppedData()));
@@ -131,19 +129,18 @@ LogPlay::LogPlay(RDCae *cae,int id,QSocketDevice *nn_sock,QString logname,
   //
   // Transition Timers
   //
-  play_trans_timer=new QTimer(this,"play_trans_timer");
+  play_trans_timer=new QTimer(this);
   connect(play_trans_timer,SIGNAL(timeout()),
 	  this,SLOT(transTimerData()));
-  play_grace_timer=new QTimer(this,"play_grace_timer");
+  play_grace_timer=new QTimer(this);
   connect(play_grace_timer,SIGNAL(timeout()),
 	  this,SLOT(graceTimerData()));
 
   //
   // Rescan Timer
   //
-  play_rescan_timer=new QTimer(this,"play_rescan_timer");
-  connect(play_rescan_timer,SIGNAL(timeout()),
-	  this,SLOT(rescanEventsData()));
+  play_rescan_timer=new QTimer(this);
+  connect(play_rescan_timer,SIGNAL(timeout()),this,SLOT(rescanEventsData()));
   play_rescan_timer->start(LOGPLAY_RESCAN_INTERVAL);
 }
 
@@ -2075,13 +2072,11 @@ void LogPlay::UpdateStartTimes(int line)
   int running=0;
   int prev_total_length=0;
   int prev_segue_length=0;
-  bool playing=false;
   bool stop_set=false;
   bool stop;
   RDLogLine *logline;
   RDLogLine *next_logline;
   RDLogLine::TransType next_trans;
-  int next_length=0;
   int lines[TRANSPORT_QUANTITY];
 
   if((running=runningEvents(lines,false))>0) {
@@ -2094,7 +2089,6 @@ void LogPlay::UpdateStartTimes(int line)
     if((logline=logLine(i))!=NULL) {
       if((next_logline=logLine(nextLine(i)))!=NULL) {
 	next_trans=next_logline->transType();
-	next_length=next_logline->segueLength(next_trans);
       }
       else {
 	next_trans=RDLogLine::Stop;
@@ -2104,7 +2098,6 @@ void LogPlay::UpdateStartTimes(int line)
 	  case RDLogLine::Playing:
 	  case RDLogLine::Finishing:
 	    time=logline->startTime(RDLogLine::Actual);
-	    playing=true;
 	    break;
 
 	  default:

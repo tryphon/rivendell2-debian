@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdsvc.cpp,v 1.71.8.10.2.4 2014/06/02 15:56:18 cvs Exp $
+//      $Id: rdsvc.cpp,v 1.71.8.10.2.5 2014/06/24 18:27:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -885,10 +885,8 @@ bool RDSvc::linkLog(RDSvc::ImportSource src,const QDate &date,
   //
   // Import File
   //
-  QString import_name=
-      QString().sprintf("IMPORT_%s_%s_IMP",
-			(const char *)RDEscapeStringSQLColumn(svc_name),
-			(const char *)date.toString("yyyyMMdd"));
+  QString import_name=QString("IMPORT_")+svc_name+"_"+date.toString("yyyyMMdd");
+
   import_name.replace(" ","_");
   if(!import(src,date,breakString(),trackString(src),import_name)) {
     return false;
@@ -1328,7 +1326,7 @@ void RDSvc::create(const QString exemplar) const
   //
   // Create Service Reconciliation Table
   //
-  sql=RDCreateReconciliationTableSql(svc_name);
+  sql=RDCreateReconciliationTableSql(RDSvc::svcTableName(svc_name));
   q=new RDSqlQuery(sql);
   delete q;
 }

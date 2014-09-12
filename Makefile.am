@@ -62,8 +62,13 @@ SUBDIRS = icons\
           utils\
           web
 
+ACLOCAL_AMFLAGS = -I m4
+
+maintainer-clean-local:	
+	rm -rf m4
+
 install-exec-local:	
-	./install-init.sh $(DESTDIR)$(prefix)
+	./install-init.sh $(DESTDIR)$(prefix) $(DESTDIR)
 
 install-debian:	
 	touch ./building-debian
@@ -71,17 +76,17 @@ install-debian:
 	rm -f ./building-debian
 
 uninstall-exec:
-	rm -f /etc/init.d/rdrepld
-	rm -f /etc/init.d/rivendell
-	rm -f /etc/sysconfig/rivendell
+	rm -f $(DESTDIR)/etc/init.d/rdrepld
+	rm -f $(DESTDIR)/etc/init.d/rivendell
+	rm -f $(DESTDIR)/etc/sysconfig/rivendell
 
 rpm:	dist
-	cp rivendell-$(VERSION).tar.gz $(RPM_ROOT)/SOURCES/
+	mkdir -p $(HOME)/rpmbuild/SOURCES
+	cp rivendell-$(VERSION).tar.gz $(HOME)/rpmbuild/SOURCES/
 	$(RPMBUILD) -ba --target $(ARCH)-$(VENDOR)-linux rivendell.spec
-	mv $(RPM_ROOT)/RPMS/$(ARCH)/rivendell-*.rpm $(top_srcdir)/
-	mv $(RPM_ROOT)/SRPMS/rivendell-*.src.rpm $(top_srcdir)/
-	rm $(RPM_ROOT)/SOURCES/rivendell-$(VERSION).tar.gz
-	rm -rf $(RPM_ROOT)/BUILD/rivendell-$(VERSION)
+	mv $(HOME)/rpmbuild/RPMS/$(ARCH)/rivendell-*.rpm $(top_srcdir)/
+	mv $(HOME)/rpmbuild/SRPMS/rivendell-*.src.rpm $(top_srcdir)/
+	rm $(HOME)/rpmbuild/SOURCES/rivendell-$(VERSION).tar.gz
 
 slack:	all
 	./make_slack

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: log_traffic.cpp,v 1.20.8.2.2.2 2014/05/20 22:39:36 cvs Exp $
+//      $Id: log_traffic.cpp,v 1.20.8.2.2.3 2014/06/24 18:27:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -46,9 +46,7 @@ void LogTraffic(const QString &svcname,const QString &logname,
   if((logline==NULL)||(svcname.isEmpty())) {
     return;
   }
-  QString svctablename=RDEscapeStringSQLColumn(svcname);
-  svctablename.replace(" ","_");
-  sql=QString("insert into `")+svctablename+"_SRT` set "+
+  sql=QString("insert into `")+svcname+"_SRT` set "+
     QString().sprintf("LENGTH=%d,",length)+
     "LOG_NAME=\""+RDEscapeString(logname.utf8())+"\","+
     QString().sprintf("LOG_ID=%d,",logline->id())+

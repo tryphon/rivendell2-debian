@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdevent_line.cpp,v 1.60.2.4.2.1 2014/05/20 23:22:10 cvs Exp $
+//      $Id: rdevent_line.cpp,v 1.60.2.4.2.2 2014/06/24 18:27:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -24,6 +24,7 @@
 
 #include <rdconf.h>
 #include <rdcart.h>
+#include <rdevent.h>
 #include <rdevent_line.h>
 #include <schedcartlist.h>
 #include <rddb.h>
@@ -47,14 +48,8 @@ QString RDEventLine::name() const
 void RDEventLine::setName(const QString &name)
 {
   event_name=name;
-  event_preimport_log->
-      setLogName(QString().sprintf("%s_PRE",(const char *)
-				   RDEscapeStringSQLColumn(event_name)).
-		 replace(' ',"_"));
-  event_postimport_log->
-    setLogName(QString().sprintf("%s_POST",(const char *)
-				 RDEscapeStringSQLColumn(event_name)).
-	       replace(' ',"_"));
+  event_preimport_log->setLogName(RDEvent::preimportTableName(event_name));
+  event_postimport_log->setLogName(RDEvent::postimportTableName(event_name));
 }
 
 
@@ -453,7 +448,6 @@ bool RDEventLine::generateLog(QString logname,const QString &svcname,
   RDSqlQuery *q;
   RDSqlQuery *q1;
   QTime time=event_start_time;
-  QTime end_time=event_start_time.addMSecs(event_length);
   QTime fill_start_time;
   int count=0;
   logname.replace(" ","_");
