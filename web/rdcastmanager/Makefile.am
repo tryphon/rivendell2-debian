@@ -21,8 +21,7 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
-INCLUDES = -I$(top_srcdir)/lib
+AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@ -I$(top_srcdir)/lib
 LIBS = @QT_LIBS@ -L$(top_srcdir)/lib
 MOC = @QT_MOC@
 
@@ -30,8 +29,16 @@ MOC = @QT_MOC@
 moc_%.cpp:	%.h
 	$(MOC) $< -o $@
 
+install-exec-am:	
+	mkdir -p $(DESTDIR)/$(libexecdir)
+	cp .libs/rdcastmanager.cgi $(DESTDIR)$(libexecdir)/
+	cat rdcastmanager.js | $(top_srcdir)/helpers/jsmin > $(DESTDIR)$(libexecdir)/rdcastmanager.js
+
+uninstall:	
+	rm -f $(DESTDIR)/$(libexecdir)/rdcastmanager.cgi
+	rm -f $(DESTDIR)/$(libexecdir)/rdcastmanager.js
+
 libexec_PROGRAMS = rdcastmanager.cgi
-libexec_SCRIPTS = rdcastmanager.js
 
 dist_rdcastmanager_cgi_SOURCES = rdcastmanager.cpp rdcastmanager.h
 

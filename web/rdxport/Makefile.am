@@ -21,16 +21,14 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
-INCLUDES = -I$(top_srcdir)/lib
+AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@ -I$(top_srcdir)/lib
 LIBS = @QT_LIBS@ -L$(top_srcdir)/lib
 MOC = @QT_MOC@
 
 libexec_PROGRAMS = rdxport.cgi
 
 install-exec-hook:	
-	chown root $(libexecdir)/rdxport.cgi
-	chmod 4755 $(libexecdir)/rdxport.cgi
+	if test -z $(DESTDIR) ; then chown root $(DESTDIR)$(libexecdir)/rdxport.cgi ; chmod 4755 $(DESTDIR)$(libexecdir)/rdxport.cgi ; fi
 
 dist_rdxport_cgi_SOURCES = audioinfo.cpp\
                            carts.cpp\

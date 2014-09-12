@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2012-2014 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcartslot.cpp,v 1.13.2.19.2.1 2014/05/20 22:39:35 cvs Exp $
+//      $Id: rdcartslot.cpp,v 1.13.2.19.2.2 2014/06/24 18:27:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -672,8 +672,7 @@ void RDCartSlot::LogPlayout(RDPlayDeck::State state)
   }
   QString svctablename=slot_svcname;
   svctablename.replace(" ","_");
-  sql=QString("insert into `")+
-    RDEscapeStringSQLColumn(svctablename)+"_SRT` set "+
+  sql=QString("insert into `")+svctablename+"_SRT` set "+
     QString().sprintf("LENGTH=%d,LOG_ID=%d,CART_NUMBER=%u,EVENT_TYPE=%d,\
                        EVENT_SOURCE=%d,EXT_LENGTH=%d,PLAY_SOURCE=%d,\
                        CUT_NUMBER=%d,USAGE_CODE=%d,START_SOURCE=%d,",

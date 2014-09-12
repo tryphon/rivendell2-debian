@@ -5,7 +5,7 @@
 //
 //   (C) Copyright 1996-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdconf.cpp,v 1.15.4.7 2013/12/05 19:31:30 cvs Exp $
+//    $Id: rdconf.cpp,v 1.15.4.7.2.1 2014/06/24 18:27:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -528,11 +528,8 @@ bool RDDoesRowExist(const QString &table,const QString &name,
   RDSqlQuery *q;
   QString sql;
 
-  sql=QString().sprintf("SELECT %s FROM %s WHERE %s=\"%s\"",
-			(const char *)RDEscapeStringSQLColumn(name),
-			(const char *)RDEscapeStringSQLColumn(table),
-			(const char *)RDEscapeStringSQLColumn(name),
-			(const char *)RDEscapeString(test));
+  sql="select `"+name+"` from `"+table+"` where `"+name+"`="+
+    "\""+RDEscapeString(test)+"\"";
   q=new RDSqlQuery(sql,db);
   if(q->first()) {
     delete q;
@@ -549,11 +546,8 @@ bool RDDoesRowExist(const QString &table,const QString &name,unsigned test,
   RDSqlQuery *q;
   QString sql;
 
-  sql=QString().sprintf("SELECT %s FROM %s WHERE %s=%d",
-			(const char *)RDEscapeStringSQLColumn(name),
-			(const char *)RDEscapeStringSQLColumn(table),
-			(const char *)RDEscapeStringSQLColumn(name),
-			test);
+  sql="select `"+name+"` from `"+table+"` where `"+name+"`="+
+    QString().sprintf("%d",test);
   q=new RDSqlQuery(sql,db);
   if(q->size()>0) {
     delete q;
@@ -572,11 +566,8 @@ QVariant RDGetSqlValue(const QString &table,const QString &name,
   QString sql;
   QVariant v;
 
-  sql=QString().sprintf("SELECT %s FROM %s WHERE %s=\"%s\"",
-			(const char *)RDEscapeStringSQLColumn(param),
-			(const char *)RDEscapeStringSQLColumn(table),
-			(const char *)RDEscapeStringSQLColumn(name),
-			(const char *)RDEscapeString(test));
+  sql="select `"+param+"` from `"+table+"` where `"+name+"`="+
+    "\""+RDEscapeString(test)+"\"";
   q=new RDSqlQuery(sql,db);
   if(q->isActive()) {
     q->first();
@@ -602,17 +593,10 @@ QVariant RDGetSqlValue(const QString &table,
   QString sql;
   QVariant v;
 
-  sql=QString().sprintf("SELECT %s FROM %s WHERE %s=\"%s\" AND \
-                         %s=\"%s\" AND \
-                         %s=\"%s\"",
-			(const char *)RDEscapeStringSQLColumn(param),
-			(const char *)RDEscapeStringSQLColumn(table),
-			(const char *)RDEscapeStringSQLColumn(name1),
-			(const char *)RDEscapeString(test1),
-			(const char *)RDEscapeStringSQLColumn(name2),
-			(const char *)RDEscapeString(test2),
-			(const char *)RDEscapeStringSQLColumn(name3),
-			(const char *)RDEscapeString(test3));
+  sql="select `"+param+"` from `"+table+"` where "+
+    "(`"+name1+"`=\""+RDEscapeString(test1)+"\")&&"+
+    "(`"+name2+"`=\""+RDEscapeString(test1)+"\")&&"+
+    "(`"+name3+"`=\""+RDEscapeString(test1)+"\")";
   q=new RDSqlQuery(sql,db);
   if(q->isActive()) {
     q->first();
@@ -634,11 +618,8 @@ bool RDIsSqlNull(const QString &table,const QString &name,const QString &test,
   RDSqlQuery *q;
   QString sql;
 
-  sql=QString().sprintf("SELECT %s FROM %s WHERE %s=\"%s\"",
-			(const char *)RDEscapeStringSQLColumn(param),
-			(const char *)RDEscapeStringSQLColumn(table),
-			(const char *)RDEscapeStringSQLColumn(name),
-			(const char *)RDEscapeString(test));
+  sql="select `"+param+"` from `"+table+"` where `"+name+"`="+
+    "\""+RDEscapeString(test)+"\"";
   q=new RDSqlQuery(sql,db);
   if(q->isActive()) {
     q->first();
@@ -662,11 +643,8 @@ bool RDIsSqlNull(const QString &table,const QString &name,unsigned test,
   RDSqlQuery *q;
   QString sql;
 
-  sql=QString().sprintf("SELECT %s FROM %s WHERE %s=%d",
-			(const char *)RDEscapeStringSQLColumn(param),
-			(const char *)RDEscapeStringSQLColumn(table),
-			(const char *)RDEscapeStringSQLColumn(name),
-			test);
+  sql="select `"+param+"` from `"+table+"` where `"+name+"`="+
+    QString().sprintf("%d",test);
   q=new RDSqlQuery(sql,db);
   if(q->isActive()) {
     q->first();
@@ -691,11 +669,8 @@ QVariant RDGetSqlValue(const QString &table,const QString &name,unsigned test,
   QString sql;
   QVariant v;
 
-  sql=QString().sprintf("SELECT %s FROM %s WHERE %s=%u",
-			(const char *)RDEscapeStringSQLColumn(param),
-			(const char *)RDEscapeStringSQLColumn(table),
-			(const char *)RDEscapeStringSQLColumn(name),
-			test);
+  sql="select `"+param+"` from `"+table+"` where `"+name+"`="+
+    QString().sprintf("%u",test);
   q=new RDSqlQuery(sql,db);
   if(q->first()) {
     v=q->value(0);
@@ -761,7 +736,6 @@ int RDSetTimeLength(const QString &str)
   int istate=2;
   QString field;
   int res=0;
-  bool decimalpt=false;
 
   if(str.isEmpty()) {
     return -1;
@@ -795,9 +769,6 @@ int RDSetTimeLength(const QString &str)
 	    case 2:
 	      res+=1000*field.toInt();
 	      break;
-	}
-	if(str.at(i)=='.') {
-	  decimalpt=true;
 	}
 	istate++;
 	field="";

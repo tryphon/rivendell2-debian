@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdescape_string.h,v 1.7 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdescape_string.h,v 1.7.10.1 2014/06/24 18:27:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -27,16 +27,5 @@
 
 QString RDEscapeString(const QString &str);
 
-/**
- * Escape a string so it is safe to be used as a SQL (MySQL) column.
- * For details see http://dev.mysql.com/doc/refman/4.1/en/identifiers.html
- * 
- * @param str The string to escape.
- *
- * Returns escaped string
- **/
-QString RDEscapeStringSQLColumn(const QString &str);
 
-
-
-#endif 
+#endif  // RDESCAPE_STRING_H

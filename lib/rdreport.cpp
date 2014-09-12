@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdreport.cpp,v 1.27.4.8.2.3 2014/05/22 01:21:35 cvs Exp $
+//      $Id: rdreport.cpp,v 1.27.4.8.2.4 2014/06/24 18:27:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -415,14 +415,13 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
   //
   // Generate Mixdown Table
   //
-  QString mixname=
-    QString().sprintf("MIXDOWN%s",(const char *)station->name());
-  mixname=RDEscapeStringSQLColumn(mixname);
-  sql=QString().sprintf("drop table `%s_SRT`",(const char *)mixname);
+  QString mixname="MIXDOWN"+station->name();
+  sql=QString("drop table `")+mixname+"_SRT`";
+  //  sql=QString().sprintf("drop table `%s_SRT`",(const char *)mixname);
   QSqlQuery *p;
   p=new QSqlQuery(sql);
   delete p;
-  sql=RDCreateReconciliationTableSql(mixname);
+  sql=RDCreateReconciliationTableSql(mixname+"_SRT");
   q=new RDSqlQuery(sql);
   delete q;
   sql=QString().sprintf("select SERVICE_NAME from REPORT_SERVICES \
@@ -503,7 +502,7 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
       //printf("SQL: %s\n",(const char *)sql);
       q1=new RDSqlQuery(sql);
       while(q1->next()) {
-	sql=QString("insert into ")+RDEscapeStringSQLColumn(mixname)+"_SRT "+
+	sql=QString("insert into `")+mixname+"_SRT` "+
 	  "set "+QString().sprintf("LENGTH=%d,LOG_ID=%u,CART_NUMBER=%u,",
 				   q1->value(0).toInt(),
 				   q1->value(1).toUInt(),
@@ -613,11 +612,10 @@ bool RDReport::generateReport(const QDate &startdate,const QDate &enddate,
 #else
   *out_path=RDDateDecode(exportPath(RDReport::Linux),startdate);
 #endif
-  //printf("MIXDOWN TABLE: %s_SRT\n",(const char *)mixname);
+  //  printf("MIXDOWN TABLE: %s_SRT\n",(const char *)mixname);
   sql=QString().sprintf("drop table `%s_SRT`",(const char *)mixname);
   q=new RDSqlQuery(sql);
   delete q;
-
   return ret;
 }
 

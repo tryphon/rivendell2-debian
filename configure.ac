@@ -1,12 +1,9 @@
-dnl configure.in
+dnl configure.ac
 dnl
 dnl Autoconf configuration for Rivendell.
 dnl Use autoconf to process this into a configure script
 dnl
-dnl   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
-dnl
-dnl      $Id: configure.in,v 1.247.6.14 2014/01/16 02:44:58 cvs Exp $
-dnl      $Date: 2014/01/16 02:44:58 $
+dnl   (C) Copyright 2002-2007,2014 Fred Gleason <fredg@paravelsystems.com>
 dnl
 dnl   This program is free software; you can redistribute it and/or modify
 dnl   it under the terms of the GNU General Public License version 2 as
@@ -22,10 +19,11 @@ dnl   License along with this program; if not, write to the Free Software
 dnl   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 dnl
 
-AC_INIT(rivendell,`cat PACKAGE_VERSION`,Fred Gleason <fredg@paravelsystems.com>)
-AM_INIT_AUTOMAKE(rivendell,`cat PACKAGE_VERSION`)
+AC_INIT([rivendell],m4_esyscmd(cat PACKAGE_VERSION))
+AM_INIT_AUTOMAKE
 AC_SUBST(RPM_RELEASE,1)
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
+AC_CONFIG_MACRO_DIR([m4])
 
 #
 # Some Fully Resolved Install Paths
@@ -121,13 +119,21 @@ else
   AC_SUBST(APACHE_CONFIG_DIR,"/etc/httpd/conf.d")
   AC_SUBST(CONSOLEHELPER_RDALSACONFIG,"/usr/bin/rdalsaconfig-root")
   AC_SUBST(USERMODE_PKG,"usermode")
-  AC_SUBST(QT3_MYSQL_PKG,"qt-MySQL")
-  if test $ar_distro_major -ge 6 ; then
+  if test $ar_distro_major -ge 7 ; then
+    AC_SUBST(QT3_MYSQL_PKG,"qt3-MySQL")
     AC_SUBST(QT3_DEVEL_PKG,"qt3-devel")
+    AC_SUBST(MYSQL_PKG,"mariadb")
   else
-    AC_SUBST(QT3_DEVEL_PKG,"qt-devel")
+    if test $ar_distro_major -ge 6 ; then
+      AC_SUBST(QT3_MYSQL_PKG,"qt-MySQL")
+      AC_SUBST(QT3_DEVEL_PKG,"qt3-devel")
+      AC_SUBST(MYSQL_PKG,"mysqld")
+    else
+      AC_SUBST(QT3_MYSQL_PKG,"qt-MySQL")
+      AC_SUBST(QT3_DEVEL_PKG,"qt-devel")
+      AC_SUBST(MYSQL_PKG,"mysqld")
+    fi
   fi
-  AC_SUBST(MYSQL_PKG,"mysqld")
 fi
 
 #
@@ -203,7 +209,7 @@ fi
 #
 # Set Hard Library Dependencies
 #
-AC_SUBST(LIB_RDLIBS,"-lqui -lrd -lcurl -lid3 $FLAC_LIBS -lsndfile -lsamplerate -lcdda_interface -lcdda_paranoia -lcrypt -ldl -lpam -lSoundTouch")
+AC_SUBST(LIB_RDLIBS,"-lm -lpthread -lqui -lrd -lcurl -lid3 $FLAC_LIBS -lsndfile -lsamplerate -lcdda_interface -lcdda_paranoia -lcrypt -ldl -lpam -lSoundTouch")
 
 #
 # Setup MPEG Dependencies
@@ -393,12 +399,13 @@ else
   AC_SUBST(RPMBUILD,rpmbuild)
 fi
 if test -d /usr/src/redhat ; then
-  AC_SUBST(RPM_ROOT,/usr/src/redhat)
+dnl  AC_SUBST(RPM_ROOT,/usr/src/redhat)
   AC_SUBST(VENDOR,redhat)
 else
-  AC_SUBST(RPM_ROOT,/usr/src/packages)
+dnl  AC_SUBST(RPM_ROOT,/usr/src/packages)
   AC_SUBST(VENDOR,suse)
 fi 
+AC_SUBST(RPM_DATESTAMP,`date +%a\ %b\ %d\ %Y`)
 
 AC_CONFIG_FILES([rivendell.spec \
     Makefile \

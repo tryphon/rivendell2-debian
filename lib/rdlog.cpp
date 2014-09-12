@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2003 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdlog.cpp,v 1.23.4.7.2.2 2014/05/21 20:29:01 cvs Exp $
+//      $Id: rdlog.cpp,v 1.23.4.7.2.3 2014/06/24 18:27:04 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -280,18 +280,19 @@ void RDLog::updateLinkQuantity(RDLog::Source src) const
 	sql=QString("select ID from `")+RDLog::tableName(log_name)+
 	  "` where "+QString().sprintf("TYPE=%d",RDLogLine::MusicLink);
 	q=new RDSqlQuery(sql);
-	sql=QString().sprintf("update LOGS set MUSIC_LINKS=%d where \
-                               NAME=\"%s\"",q->size(),
-			      (const char *)RDEscapeStringSQLColumn(log_name));
+	sql=QString("update LOGS set ")+
+	  QString().sprintf("MUSIC_LINKS=%d ",q->size())+
+	  "where NAME=\""+RDEscapeString(log_name)+"\"";
 	break;
 
       case RDLog::SourceTraffic:
 	sql=QString("select ID from `")+RDLog::tableName(log_name)+
 	  "` where "+QString().sprintf("TYPE=%d",RDLogLine::TrafficLink);
 	q=new RDSqlQuery(sql);
-	sql=QString().sprintf("update LOGS set TRAFFIC_LINKS=%d where \
-                               NAME=\"%s\"",q->size(),
-			      (const char *)RDEscapeStringSQLColumn(log_name));
+
+	sql=QString("update LOGS set ")+
+	  QString().sprintf("TRAFFIC_LINKS=%d ",q->size())+
+	  "where NAME=\""+RDEscapeString(log_name)+"\"";
 	break;
 
       default:

@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2012 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_matrix.cpp,v 1.36.6.5 2013/03/05 23:59:07 cvs Exp $
+//      $Id: edit_matrix.cpp,v 1.36.6.5.2.1 2014/06/24 18:27:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -1348,14 +1348,14 @@ void EditMatrix::WriteGpioTable(RDMatrix::GpioType type)
   if(!RDMatrix::controlActive(edit_matrix->type(),
 			      RDMatrix::DynamicGpioControl)) {
     for(int i=0;i<line_quan;i++) {
-      sql=QString("select ID from ")+RDEscapeStringSQLColumn(tablename)+
-	" where (STATION_NAME=\""+RDEscapeString(edit_stationname)+"\")&&"+
+      sql=QString("select ID from `")+tablename+
+	"` where (STATION_NAME=\""+RDEscapeString(edit_stationname)+"\")&&"+
 	QString().sprintf("(MATRIX=%d)&&(NUMBER=%d)",
 			  edit_matrix_number,i+1);
       q=new RDSqlQuery(sql);
       if(!q->first()) {
-	sql=QString("insert into ")+RDEscapeStringSQLColumn(tablename)+
-	  " set STATION_NAME=\""+RDEscapeString(edit_stationname)+"\","+
+	sql=QString("insert into `")+tablename+
+	  "` set STATION_NAME=\""+RDEscapeString(edit_stationname)+"\","+
 	  QString().sprintf("MATRIX=%d,NUMBER=%d,MACRO_CART=0",
 			    edit_matrix_number,i+1);
 	q1=new RDSqlQuery(sql);
@@ -1367,8 +1367,8 @@ void EditMatrix::WriteGpioTable(RDMatrix::GpioType type)
     //
     // Purge Stale Entries
     //
-    sql=QString("delete from ")+RDEscapeStringSQLColumn(tablename)+
-      " where	(STATION_NAME=\""+RDEscapeString(edit_stationname)+
+    sql=QString("delete from `")+tablename+
+      "` where	(STATION_NAME=\""+RDEscapeString(edit_stationname)+
       QString().sprintf("\")&&(MATRIX=%d)&&(NUMBER>%d)",
 			edit_matrix_number,line_quan);
     q=new RDSqlQuery(sql);

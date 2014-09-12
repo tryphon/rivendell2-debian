@@ -719,7 +719,6 @@ void RDCartDialog::RefreshCarts()
   QString sql;
   RDSqlQuery *q;
   RDListViewItem *l;
-  RDListViewItem *active_item=NULL;
 
   cart_cart_list->clear();
   QString group=cart_group_box->currentText();
@@ -796,9 +795,6 @@ void RDCartDialog::RefreshCarts()
     }
     else {
       l->setText(12,"TFN");
-    }
-    if(*cart_cartnum==q->value(0).toInt()) {
-      active_item=l;
     }
     if(count++>RDCART_DIALOG_STEP_SIZE) {
       cart_progress_dialog->setProgress(++step);
@@ -909,14 +905,29 @@ QString RDCartDialog::GetSearchFilter(const QString &filter,
   return search;
 }
 
+QString RDCartDialog::StateFile() {
+  bool home_found = false;
+  QString home = RDGetHomeDir(&home_found);
+  if (home_found) {
+    return QString().sprintf("%s/.rdcartdialog",(const char *)home);
+  } else {
+    return NULL;
+  }
+}
 
 void RDCartDialog::LoadState()
 {
-  if(getenv("HOME")==NULL) {
+  QString state_file = StateFile();
+  if (state_file == NULL) {
     return;
   }
+
   RDProfile *p=new RDProfile();
-  p->setSource(QString().sprintf("%s/.rdcartdialog",getenv("HOME")));
+  p->setSource(state_file);
+
+  bool value_read = false;
+  cart_limit_box->setChecked(p->boolValue("RDCartDialog", "LimitSearch", true, &value_read));
+
   delete p;
 }
 
@@ -925,11 +936,12 @@ void RDCartDialog::SaveState()
 {
   FILE *f=NULL;
 
-  if(getenv("HOME")==NULL) {
+  QString state_file = StateFile();
+  if (state_file == NULL) {
     return;
   }
-  if((f=fopen(QString().sprintf("%s/.rdcartdialog",getenv("HOME")),"w"))==
-    NULL) {
+
+  if((f=fopen(state_file,"w"))==NULL) {
     return;
   }
   fprintf(f,"[RDCartDialog]\n");

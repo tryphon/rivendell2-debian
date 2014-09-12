@@ -693,7 +693,7 @@ void MainWidget::addData()
   }
   EnableScroll(false);
   int n=AddRecord();
-  AddRecording *recording=new AddRecording(n,&catch_filter,this,"recording");
+  AddRecording *recording=new AddRecording(n,&catch_filter,this);
   switch((RDRecording::Type)recording->exec()) {
       case RDRecording::Recording:
       case RDRecording::Playout:
@@ -768,8 +768,7 @@ void MainWidget::editData()
   }
   switch((RDRecording::Type)item->text(29).toInt()) {
       case RDRecording::Recording:
-	recording=new EditRecording(id,&new_events,&catch_filter,
-				    this,"recording");
+	recording=new EditRecording(id,&new_events,&catch_filter,this);
 	if(recording->exec()>=0) {
 	  RefreshLine(item);
 	  new_conn=GetConnection(item->text(24));
@@ -2514,15 +2513,24 @@ int MainWidget::GetConnection(QString station,unsigned chan)
   return -1;
 }
 
+QString MainWidget::GeometryFile() {
+  bool home_found = false;
+  QString home = RDGetHomeDir(&home_found);
+  if (home_found) {
+    return home + "/" + RDCATCH_GEOMETRY_FILE;
+  } else {
+    return NULL;
+  }
+}
 
 void MainWidget::LoadGeometry()
 {
-  if(getenv("HOME")==NULL) {
+  QString geometry_file = GeometryFile();
+  if(geometry_file==NULL) {
     return;
   }
   RDProfile *profile=new RDProfile();
-  profile->
-    setSource(QString().sprintf("%s/%s",getenv("HOME"),RDCATCH_GEOMETRY_FILE));
+  profile->setSource(geometry_file);
   resize(profile->intValue("RDCatch","Width",sizeHint().width()),
 	 profile->intValue("RDCatch","Height",sizeHint().height()));
 
@@ -2532,12 +2540,11 @@ void MainWidget::LoadGeometry()
 
 void MainWidget::SaveGeometry()
 {
-  if(getenv("HOME")==NULL) {
+  QString geometry_file = GeometryFile();
+  if(geometry_file==NULL) {
     return;
   }
-  FILE *file=fopen((const char *)QString().
-		   sprintf("%s/%s",getenv("HOME"),RDCATCH_GEOMETRY_FILE),
-		   "w");
+  FILE *file=fopen(geometry_file,"w");
   if(file==NULL) {
     return;
   }

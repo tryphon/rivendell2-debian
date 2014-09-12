@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdcut.cpp,v 1.76.6.10.2.1 2014/05/22 14:30:45 cvs Exp $
+//      $Id: rdcut.cpp,v 1.76.6.10.2.2 2014/07/15 20:02:22 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -899,7 +899,8 @@ void RDCut::getMetadata(RDWaveData *data) const
   RDSqlQuery *q;
 
   sql=QString().sprintf("select DESCRIPTION,OUTCUE,ISRC,ISCI,ORIGIN_DATETIME,\
-                         START_DATETIME,END_DATETIME,SEGUE_START_POINT,\
+                         START_DATETIME,END_DATETIME,START_DAYPART,END_DAYPART,\
+                         SEGUE_START_POINT,\
                          SEGUE_END_POINT,TALK_START_POINT,TALK_END_POINT,\
                          START_POINT,END_POINT,HOOK_START_POINT,\
                          HOOK_END_POINT,FADEUP_POINT,FADEDOWN_POINT \
@@ -917,16 +918,18 @@ void RDCut::getMetadata(RDWaveData *data) const
     data->setStartTime(q->value(5).toTime());
     data->setEndDate(q->value(6).toDate());
     data->setEndTime(q->value(6).toTime());
-    data->setSegueStartPos(q->value(7).toInt());
-    data->setSegueEndPos(q->value(8).toInt());
-    data->setIntroStartPos(q->value(9).toInt());
-    data->setIntroEndPos(q->value(10).toInt());
-    data->setStartPos(q->value(11).toInt());
-    data->setEndPos(q->value(12).toInt());
-    data->setHookStartPos(q->value(13).toInt());
-    data->setHookEndPos(q->value(14).toInt());
-    data->setFadeUpPos(q->value(15).toInt());
-    data->setFadeDownPos(q->value(16).toInt());
+    data->setDaypartStartTime(q->value(7).toTime());
+    data->setDaypartEndTime(q->value(8).toTime());
+    data->setSegueStartPos(q->value(9).toInt());
+    data->setSegueEndPos(q->value(10).toInt());
+    data->setIntroStartPos(q->value(11).toInt());
+    data->setIntroEndPos(q->value(12).toInt());
+    data->setStartPos(q->value(13).toInt());
+    data->setEndPos(q->value(14).toInt());
+    data->setHookStartPos(q->value(15).toInt());
+    data->setHookEndPos(q->value(16).toInt());
+    data->setFadeUpPos(q->value(17).toInt());
+    data->setFadeDownPos(q->value(18).toInt());
     data->setMetadataFound(true);
   }
   delete q;
@@ -936,9 +939,10 @@ void RDCut::getMetadata(RDWaveData *data) const
 void RDCut::setMetadata(RDWaveData *data) const
 {
   QString sql="update CUTS set ";
-  if(!data->title().isEmpty()) {
+  if(!data->description().isEmpty()) {
     sql+=QString().sprintf("DESCRIPTION=\"%s\",",
-	      (const char *)RDTextValidator::stripString(data->title()).utf8());
+	      (const char *)RDTextValidator::stripString(data->description()).
+			   utf8());
   }
   if(!data->outCue().isEmpty()) {
     sql+=QString().sprintf("OUTCUE=\"%s\",",
@@ -1025,6 +1029,11 @@ void RDCut::setMetadata(RDWaveData *data) const
      (data->startTime().isNull())&&(data->endTime().isNull())) {
     data->setEndTime(QTime(23,59,59));
   }
+  if(data->daypartStartTime().isValid()&&data->daypartEndTime().isValid()&&
+     (data->daypartStartTime()<data->daypartEndTime())) {
+    sql+="START_DAYPART=\""+data->daypartStartTime().toString("hh:mm:ss")+"\","+
+      "END_DAYPART=\""+data->daypartEndTime().toString("hh:mm:ss")+"\",";
+  }
   if((data->hookStartPos()>=data->startPos())&&
      (data->hookStartPos()<=data->endPos())&&
      (data->hookEndPos()>=data->startPos())&&
@@ -1071,11 +1080,11 @@ void RDCut::setMetadata(RDWaveData *data) const
   }
   if(sql.right(1)==",") {
     sql=sql.left(sql.length()-1);
-    sql+=QString().
-      sprintf(" where CUT_NAME=\"%s\"",(const char *)cut_name.utf8());
-    RDSqlQuery *q=new RDSqlQuery(sql);
-    delete q;
   }
+  sql+=QString().
+    sprintf(" where CUT_NAME=\"%s\"",(const char *)cut_name.utf8());
+  RDSqlQuery *q=new RDSqlQuery(sql);
+  delete q;
 }
 
 

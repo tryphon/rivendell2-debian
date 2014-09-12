@@ -14269,3 +14269,187 @@
 2014-06-04 Fred Gleason <fredg@paravelsystems.com>
 	* Updated 'NEWS'.
 	* Incremented the package version to 2.9.0.
+2014-06-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdadmin/createdb.cpp' that caused logs with
+	'-' in their names to be incorrectly updated.
+2014-06-24 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdport.cpp' that caused reports with
+	'-' in their hostnames to be incorrectly generated.
+	* Fixed a bug in 'rdairplay/log_traffic.cpp' that caused ELR data
+	to be incorrect recorded on systems with '-' in their hostnames.
+	* Removed the 'RDEscapeStringSQLColumn()' function from
+	'lib/rdescape_string.cpp' and 'lib/rdescape_string.h'.
+2014-07-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--cart-number-offset=' switch to RDImport(1) in
+	'utils/rdimport/rdimport.cpp' and 'utils/rdimport/rdimport.h'.
+	* Extended Scott Studios import support to detect cart numbers
+	in the SCOT chunk in 'lib/rdwavefile.cpp'.
+2014-07-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '--set-daypart-times' switch to RDImport(1) in
+	'utils/rdimport/rdimport.cpp' and 'utils/rdimport/rdimport.h'.
+2014-07-15 Fred Gleason <fredg@paravelsystems.com>
+	* Extended Scott Studios import support to detect segue marker
+	data in the SCOT chunk in 'lib/rdwavefile.cpp'.
+2014-07-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'RDWaveData::daypartStartTime()',
+	'RDWaveData:setDaypartStartTime()', 'RDWaveData::daypartEndTime()'
+	and 'RDWaveData::setDaypartEndTime()' methods in 'lib/rdwavdata.cpp'
+	and 'lib/rdwavedata.h'.
+2014-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added '-lm' and '-lpthread' to @LIB_RDLIBS@ in 'configure.in'
+	to fix broken compilation on RHEL 7.
+	* Fixed a regression in 'lib/rdcreate_log.cpp' that broke creation
+	of new logs.
+2014-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Amalgamated INCLUDE Makefile entries into AM_CPPFLAGS.
+	* Added '-Wno-portability' to the invocation of 'automake' in
+	'autogen.sh'.
+2014-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'AC_CONFIG_MACRO_DIR' invocation in 'configure.ac'.
+	* Added a 'maintainer-clean-local' target in 'Makefile.am'.
+2014-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Refactored the AM_INIT() invocation in 'configure.ac'.
+2014-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed warnings in 'lib/rdaudioconvert.cpp'.
+	* Fixed warnings in 'lib/rdaudioexport.cpp'.
+	* Fixed warnings in 'lib/rdaudioimport.cpp'.
+	* Fixed warnings in 'lib/rdcart_dialog.cpp'.
+	* Fixed warnings in 'lib/rdconf.cpp'.
+	* Fixed warnings in 'lib/rdcopyaudio.cpp'.
+	* Fixed warnings in 'lib/rdescape_string.cpp'.
+	* Fixed warnings in 'lib/rdevent_line.cpp'.
+	* Fixed warnings in 'lib/rdfeed.cpp'.
+	* Refactored 'RDOneShot' to use int values in 'lib/rdoneshot.cpp'
+	and 'lib/rdoneshot.h'.
+	* Fixed warnings in 'lib/rdpeaksexport.cpp'.
+	* Fixed warnings in 'lib/rdtrimaudio.cpp'.
+	* Fixed warnings in 'lib/rdwavefile.cpp'.
+	* Fixed warnings in 'rdhpi/rdhpiplaystream.cpp'.
+	* Fixed warnings in 'rdhpi/rdhpirecordstream.cpp'.
+	* Fixed warnings in 'rdhpi/rdhpisoundcard.cpp'.
+	* Fixed warnings in 'pam_rd/pam_rd.cpp'.
+	* Fixed warnings in 'rdadmin/edit_rdairplay.cpp'.
+	* Fixed warnings in 'rdairplay/list_log.cpp'.
+	* Fixed warnings in 'rdairplay/log_play.cpp'.
+	* Fixed warnings in 'rdairplay/pie_counter.cpp'.
+	* Fixed warnings in 'rdairplay/rlm_host.cpp'.
+	* Fixed warnings in 'rdcatchd/rdcatchd.cpp'.
+	* Fixed warnings in 'rdlogedit/editlog.cpp'.
+	* Fixed warnings in 'rdlogmanager/rdlogmanager.cpp'.
+	* Fixed warnings in 'rdrepl/replfactory.h'.
+	* Fixed warnings in 'ripcd/acu1p.cpp' and 'ripcd/acu1p.h'.
+	* Fixed warnings in 'ripcd/bt16x2.cpp' and 'ripcd/bt16x2.h'.
+	* Fixed warnings in 'ripcd/btss164.cpp' and 'ripcd/btss164.h'.
+	* Fixed warnings in 'ripcd/btss42.cpp' and 'ripcd/btss42.h'.
+	* Fixed warnings in 'ripcd/btss44.cpp' and 'ripcd/btss44.h'.
+	* Fixed warnings in 'ripcd/btss82.cpp' and 'ripcd/btss82.h'.
+	* Fixed warnings in 'ripcd/btsrc16.cpp' and 'ripcd/btsrc16.h'.
+	* Fixed warnings in 'ripcd/btsrc8iii.cpp' and 'ripcd/btsrc8iii.h'.
+	* Fixed warnings in 'ripcd/livewire_mcastgpio.cpp'.
+	* Fixed warnings in 'ripcd/local_gpio.cpp' and 'ripcd/local_gpio.h'.
+	* Fixed warnings in 'ripcd/sas64000gpi.cpp' and 'ripcd/sas64000gpi.h'.
+	* Fixed warnings in 'ripcd/vguest.cpp' and 'ripcd/vguest.h'.
+	* Fixed warnings in 'utils/rdhpiinfo/rdhpiinfo.cpp'
+	* Fixed warnings in 'utils/rdgen/wavlib.cpp'
+	* Fixed warnings in 'utils/rdimport/rdimport.cpp'
+	* Fixed warnings in 'utils/rdsoftkeys/rdsoftkeys.cpp'
+	* Fixed warnings in 'web/rdxport/export.cpp'
+2014-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'Makefile.am' that broke the 'make install' rule
+	when using DESTDIR.
+	* Fixed a bug in 'icons/Makefile.am' that broke the 'make install'
+	rule when using DESTDIR.
+	* Fixed a bug in 'rlm/Makefile.am' that broke the 'make install'
+	rule when using DESTDIR.
+	* Fixed a bug in 'scripts/Makefile.am' that broke the 'make install'
+	rule when using DESTDIR.
+	* Fixed a bug in 'xdg/Makefile.am' that broke the 'make install'
+	rule when using DESTDIR.
+	* Fixed a bug in 'rdselect/Makefile.am' that broke the 'make install'
+	rule when using DESTDIR.
+	* Fixed a bug in 'web/rdxport/Makefile.am' that broke the
+	'make install' rule when using DESTDIR.
+	* Fixed a bug in 'configure.ac' that cause an incorrect VERSION
+	string to be generated.
+2014-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Modified the AC_INIT invocation in 'configure.ac' so as not
+	to break on RHEL 6.
+	* Added '--Wno-strict-aliasing' to 'AM_CPPFLAGS' in 'cae/Makefile.am'.
+	* Added '--Wno-strict-aliasing' to 'AM_CPPFLAGS' in 'lib/Makefile.am'.
+	* Added '--Wno-strict-aliasing' to 'AM_CPPFLAGS' in
+	'rdairplay/Makefile.am'.
+2014-08-15 Fred Gleason <fredg@paravelsystems.com>
+	* Modified the AC_INIT invocation in 'configure.ac' so as not
+	to break on RHEL 5.
+2014-08-15 Fred Gleason <fredg@paravelsystems.com>
+	* Reverted changes to AC_INIT invocation for RHEL 5 compatibility.
+2014-08-15 Fred Gleason <fredg@paravelsystems.com>
+	* Removed extraneous comments from 'configure.ac'.
+2014-08-15 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'conf/Makefile.am' to install 'rd-bin.conf' in
+	$(sysconfdir).
+	* Updated 'INSTALL' to include information about the '--sysconfdir'
+	flag.
+	* Updated 'get_distro.sh' to detect RHEL 7 correctly.
+	* Modified the installation script to work on RHEL 7 in
+	'rivendell.spec.in'.
+2014-08-17 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'web/rdcastmanager/Makefile.am' that caused
+	the incorrect executable to be installed for 'rdcastmanager.cgi'.
+	* Refactored SQL statements in 'lib/rdweb.cpp'.
+2014-08-21 Fred Gleason <fredg@paravelsystems.com>
+	* Removed code that disabled 'Delete cuts before importing' checkbox
+	when no 'To Cart' value was specified in the 'Dropbox Configuration'
+	dialog in 'rdadmin/edit_dropbox.cpp'.
+2014-08-27 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'lib/rdcreate_log.cpp' that caused auxiliary
+	table creation to fail.
+2014-08-27 Fred Gleason <fredg@paravelsystems.com>
+	* Added support for RIFF WAV files with WAVE_FORMAT_MPEGLAYER3
+	format in 'lib/rdwavefile.cpp' and 'lib/rdwavefile.h'.
+2014-09-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdlogedit/rdlogedit.cpp' that caused the
+	'Select Cart' dialog to use a non-default font. [GitHub Issue #1].
+2014-09-03 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDLiveWire::loadSettings()' method in 'lib/rdlivewire.cpp'
+	and 'lib/rdlivewire.h'.
+	* Fixed a bug in the 'Configure RDCatch' dialog that caused
+	the 'Switcher Matrix' and 'Switcher Output' dropdowns to fail to
+	be populated for a LiveWire LWRP Audio switcher device in
+	'rdadmin/edit_decks.cpp' and 'rdadmin/edit_decks.h'.
+2014-09-04 Fred Gleason <fredg@paravelsystems.com>
+	* Removed object names in 'rdairplay/log_play.cpp' and
+	'rdairplay/log_play.h'.
+2014-09-04 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'rdairplay/nownext.cpp' that caused PAD updates
+	to be sent for macro carts with the asyncronous attribute set.
+2014-09-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rdcut.cpp' that caused the 'Title' value
+	to be applied to the 'Description' field in the 'RDCut::setMetadata()'
+	method.
+	* Added 'docs/metadata_wildcards.txt'.
+	* Implemented support for the '%i' ['Cut Description'] wildcard in
+	rdimport(1)'s '--metadata-pattern' switch in
+	'utils/rdimport/rdimport.cpp' [Github Issue #6].
+	* Implemented support for the '%o' ['Outcue'] wildcard in
+	rdimport(1)'s '--metadata-pattern' switch in
+	'utils/rdimport/rdimport.cpp'.
+	* Implemented support for the '%y' ['Release Year'] wildcard in
+	rdimport(1)'s '--metadata-pattern' switch in
+	'utils/rdimport/rdimport.cpp'.
+2014-09-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'docs/Makefile.am' that broke the 'make dist' target.
+2014-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RDMatrix::BtGpi16' value to the 'RDMatrix::Type'
+	enumeration in 'lib/rdmatrix.cpp' and 'lib/rdmatrix.cpp'.
+	* Implemented a driver for the Broadcast Tools GPI-16 in
+	'ripcd/btgpi16.cpp' and 'ripcd/btgpi16.h'.
+2014-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.9.1.
+2014-09-11 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a regression in 'liob/rdreport.cpp' that broke report
+	generation.
+2014-09-11 Fred Gleason <fredg@paravelsystems.com>
+	* Updated 'NEWS'.
+	* Incremented the package version to 2.9.2.

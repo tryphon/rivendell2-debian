@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2004,2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdclock.cpp,v 1.23 2010/07/29 19:32:33 cvs Exp $
+//      $Id: rdclock.cpp,v 1.23.10.1 2014/06/24 18:27:03 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -325,4 +325,13 @@ bool RDClock::generateLog(int hour,const QString &logname,
   }
   delete q;
   return true;
+}
+
+
+QString RDClock::tableName(const QString &name)
+{
+  QString ret=name;
+  ret.replace(" ","_");
+
+  return ret+"_CLK";
 }

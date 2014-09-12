@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2005 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: edit_clock.cpp,v 1.27 2010/07/29 19:32:37 cvs Exp $
+//      $Id: edit_clock.cpp,v 1.27.10.1 2014/06/24 18:27:05 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -461,7 +461,7 @@ void EditClock::saveAsData()
   }
   delete q;
   edit_clock->setName(clockname);
-  sql=RDCreateClockTableSql(clockname);
+  sql=RDCreateClockTableSql(RDClock::tableName(clockname));
   q=new RDSqlQuery(sql);
   delete q;
 
@@ -733,9 +733,8 @@ void EditClock::AbandonClock(QString name)
 				(const char *)name);
   RDSqlQuery *q=new RDSqlQuery(sql);
   delete q;
-  name.replace(" ","_");
-  sql=QString().sprintf("drop table %s_CLK",
-			(const char *)RDEscapeStringSQLColumn(name));
+
+  sql=QString("drop table `")+RDClock::tableName(name)+"`";
   q=new RDSqlQuery(sql);
   delete q;
 }

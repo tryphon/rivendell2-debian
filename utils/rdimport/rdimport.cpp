@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
 //
-//      $Id: rdimport.cpp,v 1.34.4.9.2.1 2014/05/21 00:44:02 cvs Exp $
+//      $Id: rdimport.cpp,v 1.34.4.9.2.3 2014/07/15 00:45:16 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -33,6 +33,7 @@
 
 #include <qapplication.h>
 #include <qdir.h>
+#include <qstringlist.h>
 
 #include <rd.h>
 #include <rdcut.h>
@@ -71,6 +72,7 @@ MainObject::MainObject(QObject *parent,const char *name)
   import_log_mode=false;
   import_single_cart=false;
   import_use_cartchunk_cutid=false;
+  import_cart_number_offset=0;
   import_cart_number=0;
   import_title_from_cartchunk_cutid=false;
   import_delete_source=false;
@@ -128,6 +130,13 @@ MainObject::MainObject(QObject *parent,const char *name)
       }
       import_use_cartchunk_cutid=true;
     }
+    if(import_cmd->key(i)=="--cart-number-offset") {
+      import_cart_number_offset=import_cmd->value(i).toInt(&ok);
+      if(!ok) {
+	fprintf(stderr,"rdimport: invalid --cart-number-offset\n");
+	exit(256);
+      }
+    }
     if(import_cmd->key(i)=="--title-from-cartchunk-cutid") {
       import_title_from_cartchunk_cutid=true;
     }
@@ -150,6 +159,39 @@ MainObject::MainObject(QObject *parent,const char *name)
       if(!ok) {
 	fprintf(stderr,"rdimport: invalid enddate-offset\n");
 	delete import_cmd;
+	exit(256);
+      }
+    }
+    if(import_cmd->key(i)=="--set-daypart-times") {
+      QStringList f0=QStringList().split(",",import_cmd->value(i));
+      if(f0.size()!=2) {
+	fprintf(stderr,"rdimport: invalid argument to --set-daypart-times\n");
+	exit(256);
+      }
+      for(unsigned j=0;j<2;j++) {
+	if(f0[j].length()!=6) {
+	  fprintf(stderr,"rdimport: invalid argument to --set-daypart-times\n");
+	  exit(256);
+	}
+	unsigned hour=f0[j].left(2).toUInt(&ok);
+	if((!ok)||(hour>23)) {
+	  fprintf(stderr,"rdimport: invalid hour argument to --set-daypart-times\n");
+	  exit(256);
+	}
+	unsigned min=f0[j].mid(2,2).toUInt(&ok);
+	if((!ok)||(min>59)) {
+	  fprintf(stderr,"rdimport: invalid minute argument to --set-daypart-times\n");
+	  exit(256);
+	}
+	unsigned sec=f0[j].right(2).toUInt(&ok);
+	if((!ok)||(sec>59)) {
+	  fprintf(stderr,"rdimport: invalid seconds argument to --set-daypart-times\n");
+	  exit(256);
+	}
+	import_dayparts[j].setHMS(hour,min,sec);
+      }
+      if(import_dayparts[0]>=import_dayparts[1]) {
+	fprintf(stderr,"rdimport: daypart cannot end before it begins\n");
 	exit(256);
       }
     }
@@ -405,6 +447,9 @@ MainObject::MainObject(QObject *parent,const char *name)
     if(import_title_from_cartchunk_cutid) {
       printf(" Destination cart title is taken from CartChunk CutID\n");
     }
+    if(import_cart_number_offset!=0) {
+      printf(" Cart number offset is %d\n",import_cart_number_offset);
+    }
     if(import_delete_source) {
       printf(" Delete source mode is ON\n");
     }
@@ -440,6 +485,12 @@ MainObject::MainObject(QObject *parent,const char *name)
     }
     printf(" Start Date Offset = %d days\n",import_startdate_offset);
     printf(" End Date Offset = %d days\n",import_enddate_offset);
+    if((!import_dayparts[0].isNull())||(!import_dayparts[1].isNull())) {
+      printf(" Start Daypart = %s\n",
+	     (const char *)import_dayparts[0].toString("hh:mm:ss"));
+      printf(" End Daypart = %s\n",
+	     (const char *)import_dayparts[1].toString("hh:mm:ss"));
+    }
     if(import_fix_broken_formats) {
       printf(" Broken format workarounds are ENABLED\n");
     }
@@ -751,11 +802,15 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
 	effective_group=new RDGroup(import_group->name());
       }
     }
+    if(wavedata->metadataFound()&&wavedata->title().isEmpty()) {
+      wavedata->setTitle(effective_group->generateTitle(filename));
+    }
   }
 
   if(import_use_cartchunk_cutid||found_cart) {
     *cartnum=0;
     sscanf(wavedata->cutId(),"%u",cartnum);
+    (*cartnum)+=import_cart_number_offset;
     if((*cartnum==0)||(*cartnum>999999)||
        (effective_group->enforceCartRange()&&
 	(!effective_group->cartNumberValid(*cartnum)))) {
@@ -809,7 +864,7 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
     delete cart;
     return MainObject::NoCut;
   }
-  RDCut *cut=new RDCut(QString().sprintf("%06u_%03d",*cartnum,cutnum));
+  RDCut *cut=new RDCut(*cartnum,cutnum);
   RDAudioImport *conv=new RDAudioImport(import_station,import_config,this);
   conv->setCartNumber(cart->number());
   conv->setCutNumber(cutnum);
@@ -892,20 +947,19 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
   cut->autoSegue(import_segue_level,import_segue_length);
   if((wavedata->title().length()==0)||
      ((wavedata->title().length()>0)&&(wavedata->title()[0] == '\0'))) {
-    QString title=effective_group->defaultTitle();
-    QString basename=RDGetBasePart(filename);
-    int ptr=basename.findRev(".");
-    title.replace("%p",RDGetPathPart(filename));
-    title.replace("%f",basename.left(ptr));
-    title.replace("%e",basename.right(basename.length()-ptr-1));
-    cut->setDescription(title.utf8());
+    QString title=effective_group->generateTitle(filename);
+    if((!wavedata->metadataFound())&&(!wavedata->description().isEmpty())) {
+      cut->setDescription(title.utf8());
+    }
     if(cart_created) {
       cart->setTitle(title.utf8());
     }
   }
   if(import_title_from_cartchunk_cutid) {    
     if((wavedata->cutId().length()>0)&&(wavedata->cutId()[0]!='\0')) {
-      if(cut->description().isEmpty()) {
+      if(cut->description().isEmpty()&&
+	 (!wavedata->metadataFound())&&
+	 (!wavedata->description().isEmpty())) {
 	cut->setDescription(wavedata->cutId());
       }
       cart->setTitle(wavedata->cutId());
@@ -944,6 +998,10 @@ MainObject::Result MainObject::ImportFile(const QString &filename,
   }
   if(!import_set_user_defined.isEmpty()) {
     cart->setUserDefined(import_set_user_defined);
+  }
+  if((!import_dayparts[0].isNull())||(!import_dayparts[1].isNull())) {
+    cut->setStartDaypart(import_dayparts[0],true);
+    cut->setEndDaypart(import_dayparts[1],true);
   }
   delete settings;
   delete conv;
@@ -1140,10 +1198,9 @@ bool MainObject::FindChunk(int fd,const char *chunk_name,bool *fix_needed)
   int i;
   char name[5]={0,0,0,0,0};
   unsigned char buffer[4];
-  off_t offset;
   unsigned chunk_size;
 
-  offset=lseek(fd,12,SEEK_SET);
+  lseek(fd,12,SEEK_SET);
   i=read(fd,name,4);
   i=read(fd,buffer,4);
   chunk_size=buffer[0]+(256*buffer[1])+(65536*buffer[2])+(16777216*buffer[3]);
@@ -1178,7 +1235,6 @@ bool MainObject::FixChunkSizes(const QString &filename)
   int i;
   char name[5]={0,0,0,0,0};
   unsigned char buffer[4];
-  off_t offset;
   unsigned chunk_size;
   int fd;
 
@@ -1188,7 +1244,7 @@ bool MainObject::FixChunkSizes(const QString &filename)
   if((fd=open(filename,O_RDWR))<0) {
     return false;
   }
-  offset=lseek(fd,12,SEEK_SET);
+  lseek(fd,12,SEEK_SET);
   i=read(fd,name,4);
   i=read(fd,buffer,4);
   off_t last_offset=lseek(fd,0,SEEK_CUR);
@@ -1287,6 +1343,11 @@ bool MainObject::RunPattern(const QString &pattern,const QString &filename,
 	    *groupname=value;
 	    break;
 
+	  case 'i':
+	    wavedata->setDescription(value);
+	    wavedata->setMetadataFound(true);
+	    break;
+
 	  case 'l':
 	    wavedata->setAlbum(value);
 	    wavedata->setMetadataFound(true);
@@ -1301,6 +1362,11 @@ bool MainObject::RunPattern(const QString &pattern,const QString &filename,
 	    wavedata->setCutId(value);
 	    wavedata->setMetadataFound(true);
 	    found_cartnum=true;
+	    break;
+
+	  case 'o':
+	    wavedata->setOutCue(value);
+	    wavedata->setMetadataFound(true);
 	    break;
 
 	  case 'p':
@@ -1325,6 +1391,11 @@ bool MainObject::RunPattern(const QString &pattern,const QString &filename,
 
 	  case 'u':
 	    wavedata->setUserDefined(value);
+	    wavedata->setMetadataFound(true);
+	    break;
+
+	  case 'y':
+	    wavedata->setReleaseYear(value.toInt());
 	    wavedata->setMetadataFound(true);
 	    break;
 	}
@@ -1382,24 +1453,27 @@ bool MainObject::VerifyPattern(const QString &pattern)
       }
       macro_active=true;
       switch(pattern.at(++i)) {
-	case 'a':
-	case 'b':
-	case 'c':
-	case 'e':
-	case 'g':
-	case 'l':
-	case 'm':
-	case 'n':
-	case 'p':
-	case 'r':
-	case 's':
-	case 't':
-	case 'u':
-	case '%':
-	  break;
+      case 'a':
+      case 'b':
+      case 'c':
+      case 'e':
+      case 'g':
+      case 'i':
+      case 'l':
+      case 'm':
+      case 'n':
+      case 'o':
+      case 'p':
+      case 'r':
+      case 's':
+      case 't':
+      case 'u':
+      case 'y':
+      case '%':
+	break;
 
-	default:
-	  return false;
+      default:
+	return false;
       }
     }
     else {

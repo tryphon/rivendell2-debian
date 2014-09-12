@@ -4,7 +4,7 @@
 //
 //   (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
 //
-//    $Id: rdwavedata.h,v 1.5.8.3.2.1 2014/05/28 21:21:41 cvs Exp $
+//    $Id: rdwavedata.h,v 1.5.8.3.2.2 2014/07/15 20:02:23 cvs Exp $
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -129,6 +129,10 @@ class RDWaveData
   void setEndDate(const QDate &date);
   QTime endTime() const;
   void setEndTime(const QTime &time);
+  QTime daypartStartTime() const;
+  void setDaypartStartTime(const QTime &time);
+  QTime daypartEndTime() const;
+  void setDaypartEndTime(const QTime &time);
   void clear();
 
  private:
@@ -185,6 +189,8 @@ class RDWaveData
   QTime data_start_time;
   QDate data_end_date;
   QTime data_end_time;
+  QTime data_daypart_start_time;
+  QTime data_daypart_end_time;
 };
 
 

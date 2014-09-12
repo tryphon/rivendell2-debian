@@ -46,6 +46,7 @@
 #include <rd.h>
 #include <rdaudioconvert.h>
 #include <rdlibrary_conf.h>
+#include <rdconf.h>
 
 #define STAGE2_XFER_SIZE 2048
 #define STAGE2_BUFFER_SIZE 49152
@@ -152,10 +153,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::convert()
   //
   // Generate Temporary Filenames
   //
-  strcpy(tmpdir,"/tmp");
-  if(getenv("TEMP")!=NULL) {
-    strncpy(tmpdir,getenv("TEMP"),PATH_MAX-20);
-  }
+  strcpy(tmpdir,RDTempDir());
   strcat(tmpdir,"/rdaudioconvertXXXXXX");
   if(mkdtemp(tmpdir)==NULL) {
     return RDAudioConvert::ErrorInternal;
@@ -309,6 +307,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage1Convert(const QString &srcfile,
       delete wave;
       return err;
 
+    case RDWaveFile::Aiff:
     case RDWaveFile::Unknown:
       break;
     }
@@ -431,7 +430,7 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage1Vorbis(const QString &dstfile,
 	ogg_stream_init(&ogg_stream,serialno);
       }
       if(ogg_stream_pagein(&ogg_stream,&ogg_page)==0) {
-	if(ogg_stream_packetout(&ogg_stream,&ogg_packet)==1) {
+	while(ogg_stream_packetout(&ogg_stream,&ogg_packet)==1) {
 	  switch(ogg_packet.packetno) {
 	  case 0:  // Start Packet
 	  case 1:  // Comment Packet
@@ -1378,7 +1377,6 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Layer2Wav(SNDFILE *src_sf,
 							  const QString &dstfile)
 {
 #ifdef HAVE_TWOLAME
-  short *sf_buffer=NULL;
   sf_count_t n;
   ssize_t s;
   RDWaveFile *wave=NULL;
@@ -1432,7 +1430,6 @@ RDAudioConvert::ErrorCode RDAudioConvert::Stage3Layer2Wav(SNDFILE *src_sf,
   wave->setMextChunk(true);
   wave->setCartChunk(conv_dst_wavedata!=NULL);
   wave->setLevlChunk(true);
-  sf_buffer=new int16_t[2048*src_sf_info->channels];
   unlink(dstfile);
   if(!wave->createWave(conv_dst_wavedata)) {
     return RDAudioConvert::ErrorNoDestination;
