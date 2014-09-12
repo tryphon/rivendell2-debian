@@ -1,11 +1,8 @@
 0001-Remove-debian-directories-from-Makefile-list.patch
 0002-Fix-headerdir-in-rlm-makefile.patch
-0003-Fix-install-exec-hook-paths-in-rdxport-makefile.patch
 0004-Add-version-for-dlopened-libraries.patch
-0005-Fix-prefix-in-icons-makefile.patch
 0006-Default-QTDIR-in-RDHotKeyList.patch
 0007-Remove-debian-directory-from-Makefile.am.patch
-0008-Fix-prefix-in-xdg-makefile.patch
 0009-No-lib64-for-rd_lib_path.patch
 0010-Add-pthread-to-link-caed.patch
 0011-Replace-cdda2wav-by-icedax.patch
