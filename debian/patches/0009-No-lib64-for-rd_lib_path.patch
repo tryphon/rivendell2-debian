@@ -3,14 +3,14 @@ Date: Wed, 22 May 2013 19:57:40 +0200
 Subject: No lib64 for rd_lib_path
 
 ---
- configure.in | 10 +++-------
+ configure.ac | 10 +++-------
  1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/configure.in b/configure.in
-index de33d17..2a1037d 100644
---- a/configure.in
-+++ b/configure.in
-@@ -95,13 +95,9 @@ fi
+diff --git a/configure.ac b/configure.ac
+index bda3fa1..c21ed6d 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -93,13 +93,9 @@ fi
  AR_GCC_TARGET()
  AC_SUBST(VENDOR,$ar_gcc_distro)
  AC_SUBST(ARCH,$ar_gcc_arch)

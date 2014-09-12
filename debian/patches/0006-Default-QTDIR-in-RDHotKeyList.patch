@@ -3,22 +3,39 @@ Date: Sat, 23 Jun 2012 10:51:08 +0200
 Subject: Default QTDIR in RDHotKeyList
 
 ---
- lib/Makefile.am      | 2 +-
+ lib/Makefile.am      | 6 +++---
  lib/rdhotkeylist.cpp | 5 +++--
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ 2 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/lib/Makefile.am b/lib/Makefile.am
-index e1d8120..2468af2 100644
+index 250e8b2..9a54350 100644
 --- a/lib/Makefile.am
 +++ b/lib/Makefile.am
 @@ -22,7 +22,7 @@
  ##
  ## Use automake to process this into a Makefile.in
  
--AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" @QT_CXXFLAGS@
-+AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@
+-AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" @QT_CXXFLAGS@ -Wno-strict-aliasing
++AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@ -Wno-strict-aliasing
  MOC = @QT_MOC@
  CWRAP = ../helpers/cwrap
+ 
+@@ -37,14 +37,14 @@ html_%.cpp:	%.html
+ instdir = @LOCAL_PREFIX@/lib
+ 
+ # I18N Stuff
+-install-exec-local:	
++install-exec-local:
+ 	mkdir -p $(DESTDIR)$(prefix)/share/rivendell
+ 	cp librd_*.qm $(DESTDIR)$(prefix)/share/rivendell
+ 
+ uninstall:
+ 	rm -f $(DESTDIR)$(prefix)/share/rivendell/librd_*.qm
+ 
+-all:	
++all:
+ 	@QT_BIN@/lupdate lib.pro
+ 	@QT_BIN@/lrelease lib.pro
  
 diff --git a/lib/rdhotkeylist.cpp b/lib/rdhotkeylist.cpp
 index c755667..bfcee79 100644

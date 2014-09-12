@@ -3,14 +3,14 @@ Date: Sat, 27 Aug 2011 15:33:28 +0200
 Subject: Remove debian directories from Makefile list
 
 ---
- configure.in | 2 --
+ configure.ac | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/configure.in b/configure.in
-index d053c3e..de33d17 100644
---- a/configure.in
-+++ b/configure.in
-@@ -443,8 +443,6 @@ AC_CONFIG_FILES([rivendell.spec \
+diff --git a/configure.ac b/configure.ac
+index 04b3993..bda3fa1 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -450,8 +450,6 @@ AC_CONFIG_FILES([rivendell.spec \
      docs/Makefile \
      docs/tables/Makefile \
      docs/examples/Makefile \

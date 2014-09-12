@@ -7,7 +7,7 @@ Subject: Remove debian directory from Makefile.am
  1 file changed, 1 deletion(-)
 
 diff --git a/Makefile.am b/Makefile.am
-index d6b0500..738e1df 100644
+index 4fc4bf0..3bbad49 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -37,7 +37,6 @@ SUBDIRS = icons\
