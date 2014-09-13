@@ -2,7 +2,7 @@ Source: rivendell
 Section: sound
 Priority: optional
 Maintainer: Alban Peignier <alban@tryphon.eu>
-Build-Depends: debhelper (>= 8.0.0), autotools-dev, autoconf, automake1.9, libtool, libqt3-mt-dev, libsamplerate0-dev, libcdparanoia-dev, libsoundtouch-dev, libflac++-dev, libpam0g-dev, libasound2-dev, libjack-jackd2-dev | libjack-dev, libvorbis-dev, libsndfile1-dev, libid3-dev, libcurl4-openssl-dev, libhpi-dev, libmp3lame-dev, libmad0-dev, libtwolame-dev
+Build-Depends: debhelper (>= 8.0.0), autotools-dev, autoconf, automake1.9 | automake, libtool, libqt3-mt-dev, libsamplerate0-dev, libcdparanoia-dev, libsoundtouch-dev, libflac++-dev, libpam0g-dev, libasound2-dev, libjack-jackd2-dev | libjack-dev, libvorbis-dev, libsndfile1-dev, libid3-dev, libcurl4-openssl-dev, libhpi-dev, libmp3lame-dev, libmad0-dev, libtwolame-dev
 Standards-Version: 3.9.2
 Homepage: http://www.rivendellaudio.org
 Vcs-Git: git://projects.tryphon.eu/rivendell2-debian
@@ -27,7 +27,7 @@ Description: contains a set of functionality needed to operate a radio automatio
  .
  RDLogEdit: a basic air log creation and editing tool.
  .
- RDLogManager: a utility for the automatic generation of logs, based on 
+ RDLogManager: a utility for the automatic generation of logs, based on
  templates. It also supports importation of schedule information from a wide
  variety of third-party traffic and music scheduling systems.
  .
